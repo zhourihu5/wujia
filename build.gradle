@@ -1,0 +1,34 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    apply from: 'config.gradle'
+    addRepos(repositories)
+    dependencies {
+        classpath deps.android_gradle_plugin
+    }
+}
+
+allprojects {
+    addRepos(repositories)
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    libraries = [
+//            appcompat        : 'com.android.support:appcompat-v7:26.+',
+//            //constraint       : 'com.android.support.constraint:constraint-layout:1.0.2',
+//
+//            aliyun           : 'libs/aliyun-oss-sdk-android-2.3.0.jar',
+//            fastjson         : 'libs/fastjson-1.1.34.android.jar',
+//            httpclient       : "cz.msebera.android:httpclient:4.4.1.2",
+//            asynchttp        : 'com.loopj.android:android-async-http:1.4.9',
+//            androidlame      : 'androidlame-release-1.0',
+//            speech           : 'speech',
+//            fltv             : 'fltv-release',
+//            eventbus         : 'org.greenrobot:eventbus:3.0.0',
+//            Luban            : 'top.zibin:Luban:1.1.2',
+    ]
+}

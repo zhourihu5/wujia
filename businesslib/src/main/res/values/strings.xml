@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">businesscomponent</string>
+    <string name="networkunconnect">请检查网络连接</string>
+    <string name="hint_network_error">啊哦，网络开小差了...</string>
+</resources>

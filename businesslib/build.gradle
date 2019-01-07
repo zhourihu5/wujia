@@ -1,0 +1,56 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion build_versions.target_sdk
+    buildToolsVersion build_versions.build_tools
+
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode app_version.versionCode
+        versionName app_version.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "API_HOST", "${HOST_DEV}")
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+    buildTypes {
+        debug {
+            buildConfigField("String", "API_HOST", "${HOST_DEV}")
+            buildConfigField("String", "PARAM_SIGN_KEY", '"GriE93gIGp$5bDjQ4rc20FzxWGghTIau"')
+        }
+        release {
+            minifyEnabled false
+            buildConfigField("String", "API_HOST", "${HOST_RELEASE}")
+            buildConfigField("String", "PARAM_SIGN_KEY", '"hkf%t5SMv1HtrVS!Y%B!NPNS!!0cWgy"')
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    testApi 'junit:junit:4.12'
+    androidTestApi 'com.android.support.test:runner:1.0.2'
+    androidTestApi 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //防止创建Activity时默认添加，影响代码，此依赖无实际作用
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
+    api(name: "speech-1.1.6", ext: 'aar')
+    api project(':lib_uikit')
+    api project(':aoplib')
+    api project(':lib_imageloader')
+
+
+    debugImplementation deps.leakcanary
+    releaseImplementation deps.leakcanary_no_op
+
+    annotationProcessor deps.dagger.compiler
+    annotationProcessor deps.arouter.compiler
+
+}

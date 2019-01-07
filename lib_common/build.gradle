@@ -1,0 +1,84 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+
+
+android {
+    compileSdkVersion build_versions.target_sdk
+    buildToolsVersion build_versions.build_tools
+
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode app_version.versionCode
+        versionName app_version.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "PARAM_SIGN_KEY", '"GriE93gIGp$5bDjQ4rc20FzxWGghTIau"')
+    }
+    buildTypes {
+        debug {
+            buildConfigField("String", "PARAM_SIGN_KEY", '"GriE93gIGp$5bDjQ4rc20FzxWGghTIau"')
+        }
+        preRelease.initWith(buildTypes.debug)
+
+        release {
+            buildConfigField("String", "PARAM_SIGN_KEY", '"hkf%t5SMv1HtrVS!Y%B!NPNS!!0cWgy"')
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+
+}
+
+dependencies {
+    api deps.support.app_compat
+    api deps.support.v4
+    //api deps.support.design
+    api deps.support.cardview
+    api deps.support.recyclerview
+    api deps.support.multidex
+    api deps.support.annotations
+
+    api fileTree(dir: 'libs', include: ['*.jar'])
+
+    // butterknife
+    api deps.butterknife.runtime
+    //http
+    api deps.retrofit.runtime
+    api deps.retrofit.gson
+    api deps.retrofit.adapter_rxjava2
+    api deps.okhttp.okhttp3
+    api deps.okhttp.okhttp3_logging_interceptor
+
+    // RxJava
+    api deps.rxjava2
+    api deps.rx_android
+
+    //fragmentation
+    api deps.fragmentation
+
+    //di
+    api deps.dagger.runtime
+
+    //router
+    api deps.arouter.runtime
+
+    api deps.lottie
+    api deps.rxpermission
+    api deps.logger
+    api 'com.github.ForgetAll:LoadingDialog:v1.0.4'
+
+    annotationProcessor deps.dagger.compiler
+    // core
+    api 'com.liulishuo.okdownload:okdownload:1.0.6-SNAPSHOT'
+    // provide sqlite to store breakpoints
+    api 'com.liulishuo.okdownload:sqlite:1.0.6-SNAPSHOT'
+    // provide okhttp to connect to backend
+    api 'com.liulishuo.okdownload:okhttp:1.0.6-SNAPSHOT'
+    //EventBus
+    api 'org.greenrobot:eventbus:3.1.1'
+
+}

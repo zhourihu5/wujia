@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--圆形长按进度条-->
+    <declare-styleable name="CircleTouchProgressView">
+        <attr name="ctp_point_eventId" format="string" />
+    </declare-styleable>
+</resources>

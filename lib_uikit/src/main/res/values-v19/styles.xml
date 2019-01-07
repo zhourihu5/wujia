@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="FullscreenAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>//无标题
+        <item name="android:windowActionBar">false</item>//无ActionBar
+        <item name="android:windowFullscreen">true</item>//全屏即无通知栏
+        <item name="android:windowContentOverlay">@null</item>//是否有遮盖
+        <item name="android:windowTranslucentNavigation">true</item>//NavigationBar透明
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:screenOrientation">landscape</item>//全局默认横屏，解决
+        <item name="android:configChanges">orientation|screenSize</item>
+    </style>
+
+    <style name="dialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowTranslucentNavigation">true</item>//NavigationBar透明
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+</resources>

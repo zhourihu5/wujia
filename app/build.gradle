@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+//apply plugin: 'walle'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('../debug.keystore')
+            storePassword 'android'
+        }
+    }
+    compileSdkVersion build_versions.target_sdk
+    buildToolsVersion build_versions.build_tools
+    defaultConfig {
+        applicationId "com.wujia.intellect.terminal"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode app_version.versionCode
+        versionName app_version.versionName
+        versionName project.hasProperty('version_name') ? version_name : app_version.versionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+        multiDexEnabled true
+    }
+    buildTypes {
+
+        debug {
+            debuggable true
+            signingConfig signingConfigs.config
+        }
+
+        release {
+            debuggable false
+            signingConfig signingConfigs.config
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            //只重命名正式版本
+            if (variant.buildType.name.equalsIgnoreCase('release')) {
+                outputFileName = "abcreading-v${defaultConfig.versionName}-${defaultConfig.versionCode}-${getInnnerVersionName()}.apk"
+            }
+        }
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+}
+
+
+def getInnnerVersionName() {
+    new Date().format("yyyyMMdd")
+}
+
+dependencies {
+    implementation project(':businesslib')
+    annotationProcessor deps.butterknife.compiler
+    annotationProcessor deps.dagger.compiler
+    annotationProcessor deps.arouter.compiler
+}
+
+
