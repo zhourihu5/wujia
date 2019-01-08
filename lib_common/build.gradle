@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
 
 
 android {
@@ -13,13 +12,11 @@ android {
         versionName app_version.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "PARAM_SIGN_KEY", '"GriE93gIGp$5bDjQ4rc20FzxWGghTIau"')
     }
     buildTypes {
         debug {
             buildConfigField("String", "PARAM_SIGN_KEY", '"GriE93gIGp$5bDjQ4rc20FzxWGghTIau"')
         }
-        preRelease.initWith(buildTypes.debug)
 
         release {
             buildConfigField("String", "PARAM_SIGN_KEY", '"hkf%t5SMv1HtrVS!Y%B!NPNS!!0cWgy"')

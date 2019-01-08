@@ -13,15 +13,15 @@
         android:background="?attr/colorPrimary"
         app:titleTextAppearance="@style/Toolbar.TitleText"/>
 
-    <com.abctime.lib.widget.BaseContentLayout
+    <com.wujia.lib.widget.BaseContentLayout
         android:id="@+id/bcl_type_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.abctime.lib.widget.ProgressWebView
+        <com.wujia.lib.widget.ProgressWebView
             android:id="@+id/webview_progress"
             android:hardwareAccelerated="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    </com.abctime.lib.widget.BaseContentLayout>
+    </com.wujia.lib.widget.BaseContentLayout>
 </LinearLayout>

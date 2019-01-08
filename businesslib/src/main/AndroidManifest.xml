@@ -1,7 +1,7 @@
-<manifest package="com.abctime.businesslib"
+<manifest package="com.wujia.businesslib"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <application>
-        <activity android:name="com.abctime.businesslib.base.CommonWebViewActivity"
+        <activity android:name="com.wujia.businesslib.base.CommonWebViewActivity"
             android:screenOrientation="landscape"
             android:configChanges="keyboardHidden|orientation|screenSize"
             ></activity>

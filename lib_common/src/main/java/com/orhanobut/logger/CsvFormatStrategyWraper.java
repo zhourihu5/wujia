@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.abctime.lib_common.utils.Utils.checkNotNull;
+import static com.wujia.lib_common.utils.Utils.checkNotNull;
 
 
 /**

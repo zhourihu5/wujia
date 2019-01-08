@@ -2,6 +2,7 @@
     package="com.wujia.intellect.terminal">
 
     <application
+        android:name=".host.HostApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

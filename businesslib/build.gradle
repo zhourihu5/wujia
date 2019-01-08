@@ -10,7 +10,6 @@ android {
         versionCode app_version.versionCode
         versionName app_version.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_HOST", "${HOST_DEV}")
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [moduleName: project.getName()]
@@ -43,7 +42,6 @@ dependencies {
 
     api(name: "speech-1.1.6", ext: 'aar')
     api project(':lib_uikit')
-    api project(':aoplib')
     api project(':lib_imageloader')
 
 

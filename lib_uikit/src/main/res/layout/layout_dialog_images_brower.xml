@@ -40,7 +40,7 @@
             android:layout_marginRight="14dp"
             android:layout_marginEnd="14dp" />
     </RelativeLayout>
-        <com.abctime.lib.widget.photoview.PhotoViewDialogViewPager
+        <com.wujia.lib.widget.photoview.PhotoViewDialogViewPager
             android:id="@+id/vp_images"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

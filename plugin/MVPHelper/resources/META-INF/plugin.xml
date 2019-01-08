@@ -1,0 +1,37 @@
+<idea-plugin>
+    <id>com.wingsofts.plugin.MVPHelper</id>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="141.0"/>
+    <name>MVPHelper</name>
+    <version>2.3</version>
+    <vendor email="androidwing1992@gmail.com" url="https://github.com/githubwing/MVPHelper"/>
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+    <description>
+        A plugin that helps you to create classes and interfaces for MVP.
+        Click 'Generate' --> 'Mvp Helper' in Contract or Presenter class.
+        For more detail see the link below.
+    </description>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+
+        <action id="com.wingsofts.mvphelper.action.MvpHelperAction"
+                class="com.wingsofts.mvphelper.action.MvpHelperAction" text="Mvp Helper"
+                description="Help you to create contract of MVP">
+            <add-to-group group-id="GenerateGroup" anchor="first"/>
+        </action>
+    </actions>
+    <extensions defaultExtensionNs="com.intellij">
+        <projectConfigurable instance="com.wingsofts.mvphelper.gui.MvpHelperConfigPanel"
+                             id="com.wingsofts.mvphelper.gui.MvpHelperConfigPanel"/>
+    </extensions>
+</idea-plugin>

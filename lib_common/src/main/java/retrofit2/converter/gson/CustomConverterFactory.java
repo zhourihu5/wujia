@@ -1,18 +1,14 @@
 package retrofit2.converter.gson;
 
-import com.abctime.lib_common.data.network.exception.ApiJsonFormateException;
+import com.wujia.lib_common.data.network.exception.ApiJsonFormateException;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import java.util.Map;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;

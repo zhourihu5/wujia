@@ -10,7 +10,7 @@
         android:layout_centerInParent="true"
         android:background="@mipmap/bg_circle_progress">
 
-        <com.abctime.businesslib.view.progress.CircleTouchProgress
+        <com.wujia.businesslib.view.progress.CircleTouchProgress
             android:id="@+id/payment_main_process_2"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
