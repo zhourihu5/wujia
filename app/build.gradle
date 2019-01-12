@@ -65,9 +65,8 @@ def getInnnerVersionName() {
 
 dependencies {
     implementation project(':businesslib')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     annotationProcessor deps.butterknife.compiler
     annotationProcessor deps.dagger.compiler
     annotationProcessor deps.arouter.compiler
 }
-
-

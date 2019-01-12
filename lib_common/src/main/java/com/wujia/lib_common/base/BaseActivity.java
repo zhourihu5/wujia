@@ -8,28 +8,19 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.wujia.lib_common.base.plug.ITitlePlug;
-import com.wujia.lib_common.base.plug.PlugHelper;
-import com.wujia.lib_common.data.SPHelper;
-import com.wujia.lib_common.utils.NoDoubleClickUtils;
-import com.wujia.lib_common.utils.SoundPoolManager;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
-import static com.wujia.lib_common.utils.SoundPoolManager.SOUND_BACK_ID;
+import me.yokeyword.fragmentation.SupportActivity;
 
 /**
  * Created by xmren on 2017/7/31.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
-    private  String currentName ;
+public abstract class BaseActivity extends SupportActivity {
+    private String currentName;
     protected Activity mContext;
     protected Unbinder mUnBinder;
 
@@ -50,33 +41,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     public void setContentView() {
-        if (getLayout() != 0) {
-            if (this instanceof ITitlePlug) {
-                View content = LayoutInflater.from(this).inflate(getLayout(), null);
-                View view = PlugHelper.setupTitle((ITitlePlug) this, content, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (NoDoubleClickUtils.isDoubleClick())
-                            return;
-                        finish();
-                    }
-                });
-                setContentView(view);
-            } else {
-                setContentView(LayoutInflater.from(this).inflate(getLayout(), null));
-            }
-        }
+
+        setContentView(getLayout());
+
     }
 
-
-    @Override
-    public void finish() {
-        boolean slient = (boolean) SPHelper.get(this, "slient", false);
-        if (!slient) {
-            SoundPoolManager.getInstance().play(SOUND_BACK_ID);
-        }
-        super.finish();
-    }
 
     protected void onPrepareIntent(Intent intent) {
     }
@@ -172,10 +141,5 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (hasFocus) {
             hideNavigationBar();
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
     }
 }
