@@ -35,6 +35,5 @@ public abstract class LoadingActivity <T extends BasePresenter> extends MvpActiv
     @Override
     public void showErrorMsg(String msg) {
         super.showErrorMsg(msg);
-        ToastUtil.show(this, msg);
     }
 }

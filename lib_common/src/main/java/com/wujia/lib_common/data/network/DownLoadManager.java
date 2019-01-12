@@ -3,8 +3,6 @@ package com.wujia.lib_common.data.network;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.wujia.lib_common.utils.LogUtil;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,7 +41,6 @@ public class DownLoadManager {
 
         final String path = filePath;
 
-        LogUtil.d("path:>>>>" + path);
 
         try {
             File futureStudioIconFile = new File(path);
@@ -60,7 +57,6 @@ public class DownLoadManager {
 
                 final long fileSize = body.contentLength();
                 long fileSizeDownloaded = 0;
-                LogUtil.d("file length: " + fileSize);
                 inputStream = body.byteStream();
                 outputStream = new FileOutputStream(futureStudioIconFile);
 
@@ -75,7 +71,6 @@ public class DownLoadManager {
 
                     fileSizeDownloaded += read;
 
-                    LogUtil.d("file download: " + fileSizeDownloaded + " of " + fileSize);
                     if (callBack != null) {
                         handler = new Handler(Looper.getMainLooper());
                         final long finalFileSizeDownloaded = fileSizeDownloaded;
@@ -90,7 +85,6 @@ public class DownLoadManager {
                 }
 
                 outputStream.flush();
-                LogUtil.d("file downloaded: " + fileSizeDownloaded + " of " + fileSize);
                 if (callBack != null) {
                     handler = new Handler(Looper.getMainLooper());
                     handler.post(new Runnable() {
@@ -99,7 +93,6 @@ public class DownLoadManager {
                             callBack.onSucess(path, fileSize);
                         }
                     });
-                    LogUtil.d("file downloaded: " + fileSizeDownloaded + " of " + fileSize);
                 }
 
                 return true;

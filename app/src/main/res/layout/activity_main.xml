@@ -8,13 +8,14 @@
     tools:context=".mvp.MainActivity">
 
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="100dp"
+    <com.wujia.lib.widget.VerticalTabBar
+        android:id="@+id/main_tab_bar"
+        android:layout_width="@dimen/dp_80"
         android:layout_height="match_parent"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/navigation" />
+        android:background="@color/clr_3c3c3c"
 
+
+        />
 
     <FrameLayout
         android:id="@+id/container"

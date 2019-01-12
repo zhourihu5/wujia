@@ -11,12 +11,13 @@ import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * Created by xmren on 2017/8/1.
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends SupportFragment {
     protected Activity mActivity;
     protected Context mContext;
     private Unbinder mUnBinder;
@@ -66,13 +67,15 @@ public abstract class BaseFragment extends Fragment {
         super.onDetach();
     }
 
-    protected  void initDataWithSaveInstance(@Nullable Bundle saveInstanceState){
+    protected void initDataWithSaveInstance(@Nullable Bundle saveInstanceState){
             initEventAndData();
     }
 
     protected abstract int getLayoutId();
 
-    protected abstract void initEventAndData();
+    protected void initEventAndData() {
+
+    }
 
     protected <T extends View> T $(int resId) {
         return (T) mView.findViewById(resId);

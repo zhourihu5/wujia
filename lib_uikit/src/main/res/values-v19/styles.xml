@@ -7,7 +7,7 @@
         <item name="android:windowFullscreen">true</item>//全屏即无通知栏
         <item name="android:windowContentOverlay">@null</item>//是否有遮盖
         <item name="android:windowTranslucentNavigation">true</item>//NavigationBar透明
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/white</item>
         <item name="android:screenOrientation">landscape</item>//全局默认横屏，解决
         <item name="android:configChanges">orientation|screenSize</item>
     </style>

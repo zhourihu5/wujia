@@ -57,25 +57,9 @@ dependencies {
     //fragmentation
     api deps.fragmentation
 
-    //di
-    api deps.dagger.runtime
-
     //router
     api deps.arouter.runtime
 
-    api deps.lottie
     api deps.rxpermission
-    api deps.logger
     api 'com.github.ForgetAll:LoadingDialog:v1.0.4'
-
-    annotationProcessor deps.dagger.compiler
-    // core
-    api 'com.liulishuo.okdownload:okdownload:1.0.6-SNAPSHOT'
-    // provide sqlite to store breakpoints
-    api 'com.liulishuo.okdownload:sqlite:1.0.6-SNAPSHOT'
-    // provide okhttp to connect to backend
-    api 'com.liulishuo.okdownload:okhttp:1.0.6-SNAPSHOT'
-    //EventBus
-    api 'org.greenrobot:eventbus:3.1.1'
-
 }

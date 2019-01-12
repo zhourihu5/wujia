@@ -17,7 +17,6 @@ android {
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
         versionCode app_version.versionCode
-        versionName app_version.versionName
         versionName project.hasProperty('version_name') ? version_name : app_version.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -31,12 +30,10 @@ android {
     buildTypes {
 
         debug {
-            debuggable true
             signingConfig signingConfigs.config
         }
 
         release {
-            debuggable false
             signingConfig signingConfigs.config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -67,6 +64,7 @@ dependencies {
     implementation project(':businesslib')
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     annotationProcessor deps.butterknife.compiler
-    annotationProcessor deps.dagger.compiler
     annotationProcessor deps.arouter.compiler
+    implementation project(':family')
+    implementation project(':property')
 }

@@ -1,7 +1,6 @@
 package com.wujia.lib_common.data.network;
 
 
-import com.wujia.lib_common.utils.Encrypt;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -20,13 +19,13 @@ public class RequestParamsUtils {
 
     public static String getSignValue(String paramStr) {
         String signVal = "";
-        if (null != paramStr && !"".equals(paramStr)) {
-            try {
-                return URLEncoder.encode(Encrypt.SHA256(paramStr + NetConfig.signKey), "utf-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-        }
+//        if (null != paramStr && !"".equals(paramStr)) {
+//            try {
+//                return URLEncoder.encode(Encrypt.SHA256(paramStr + NetConfig.signKey), "utf-8");
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
+//        }
         return signVal;
     }
 

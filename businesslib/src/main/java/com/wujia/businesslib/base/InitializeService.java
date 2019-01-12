@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.JobIntentService;
 
-import com.wujia.lib_common.utils.SoundPoolManager;
-import com.wujia.lib_common.utils.mediaplayer.MediaPlayerHelper;
 import com.squareup.leakcanary.LeakCanary;
 
 
@@ -33,8 +31,6 @@ public class InitializeService extends JobIntentService {
 
     private void performInit() {
         Application applicationContext = getApplication();
-        MediaPlayerHelper.getInstance();
-        SoundPoolManager.getInstance().initSound(applicationContext);
 
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.

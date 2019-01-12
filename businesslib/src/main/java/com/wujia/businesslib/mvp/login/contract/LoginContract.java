@@ -14,11 +14,7 @@ import io.reactivex.Flowable;
 
 public interface LoginContract {
     interface Model extends IBaseModle {
-        public Flowable<ApiResponse<UserEntity>> guestLogin();
 
-        public Flowable<ApiResponse<UserEntity>> doLogin(String phone, String code);
-        public Flowable<ApiResponse<UserEntity>> doGuestRegister(String phone, String code);
-        public Flowable<ApiResponse<UserEntity>> getUserInfo(String member_id);
     }
 
     interface View extends CommonDataLoadView {
@@ -26,11 +22,5 @@ public interface LoginContract {
     }
 
     interface Presenter extends BasePresenter<LoginContract.View> {
-        public void doGuestLogin(boolean showLoading);
-        public void doAutoLogin(boolean showLoading);
-
-        public void doLogin(String phone, String code);
-
-
     }
 }

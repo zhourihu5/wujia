@@ -1,14 +1,9 @@
 package com.wujia.lib_common.data.network;
 
-import com.wujia.lib_common.utils.AppContext;
-import com.wujia.lib_common.utils.AppUtil;
-import com.wujia.lib_common.utils.ChannelUtils;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,11 +92,11 @@ public class ParamsInterceptor implements Interceptor {
 
     private Map<String, String> buildCommonParamsMap() {
         Map<String, String> queryParamsMap = new HashMap<>();
-        queryParamsMap.put(Constants.COMMON_REQUEST_SOURCE, Constants.ANDROID_CLIENT_TYPE);
-        queryParamsMap.put(Constants.COMMON_REQUEST_SOURCE_ID, ChannelUtils.getCurrentChannelId(AppContext.get()));
-        queryParamsMap.put(Constants.COMMON_REQUEST_CLIENT_VERSION, AppUtil.getVersionCode(AppContext.get()) + "");
-        queryParamsMap.put(Constants.COMMON_REQUEST_TIMESTAMP, RequestParamsUtils.getSecondTimestamp(new Date()) + "");
-        queryParamsMap.put(Constants.COMMON_REQUEST_UUID, AppUtil.getDeviceInfo(AppContext.get()));
+//        queryParamsMap.put(Constants.COMMON_REQUEST_SOURCE, Constants.ANDROID_CLIENT_TYPE);
+//        queryParamsMap.put(Constants.COMMON_REQUEST_SOURCE_ID, ChannelUtils.getCurrentChannelId(AppContext.get()));
+//        queryParamsMap.put(Constants.COMMON_REQUEST_CLIENT_VERSION, AppUtil.getVersionCode(AppContext.get()) + "");
+//        queryParamsMap.put(Constants.COMMON_REQUEST_TIMESTAMP, RequestParamsUtils.getSecondTimestamp(new Date()) + "");
+//        queryParamsMap.put(Constants.COMMON_REQUEST_UUID, AppUtil.getDeviceInfo(AppContext.get()));
         return queryParamsMap;
     }
 

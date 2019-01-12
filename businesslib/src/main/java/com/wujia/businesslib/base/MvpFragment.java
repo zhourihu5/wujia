@@ -3,15 +3,10 @@ package com.wujia.businesslib.base;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
-import com.wujia.businesslib.di.IDaggerListener;
-import com.wujia.businesslib.di.module.FragmentModule;
 import com.wujia.lib.widget.LoadingDialog;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.BaseView;
-import com.wujia.lib_common.base.BizDialog;
-
-import javax.inject.Inject;
 
 
 /**
@@ -19,21 +14,17 @@ import javax.inject.Inject;
  * <p>
  */
 
-public abstract class MvpFragment<T extends BasePresenter> extends BaseFragment implements BaseView, IDaggerListener {
+public abstract class MvpFragment<T extends BasePresenter> extends BaseFragment implements BaseView {
 
-    @Inject
     protected T mPresenter;
     private LoadingDialog mLoadingDialog;
 
 
-    protected FragmentModule getFragmentModule() {
-        return new FragmentModule(this);
-    }
-
+    protected abstract T createPresenter();
 
     @Override
     protected void interruptInject() {
-        initInject();
+        mPresenter = createPresenter();
         if (mPresenter != null)
             mPresenter.attachView(this);
     }
@@ -84,7 +75,6 @@ public abstract class MvpFragment<T extends BasePresenter> extends BaseFragment 
     public void onLoginStatusError() {
         if (isHidden() || isDetached() || isRemoving() || !isAdded())
             return;
-        BizDialog.showInstance("com.abctime.businesslib.dialog.LoginStatusErrorDialog", mContext);
     }
 
 }

@@ -36,4 +36,14 @@
     <string name="hint_loadMore">加载更多…</string>
 
 
+
+    <string name="home">首页</string>
+    <string name="visual_security">可视安防</string>
+    <string name="intelligent_home">智能家居</string>
+    <string name="property_service">务业服务</string>
+    <string name="market_service">服务市场</string>
+
+
+
+
 </resources>

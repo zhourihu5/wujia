@@ -1,9 +1,5 @@
 package com.wujia.lib_common.data.network;
 
-import com.wujia.lib_common.utils.AppContext;
-import com.wujia.lib_common.utils.AppUtil;
-import com.wujia.lib_common.utils.ChannelUtils;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -34,9 +30,6 @@ public class BaseRequestBean {
         this.source = source;
     }
 
-    public String getSource_id() {
-        return ChannelUtils.getCurrentChannelId(AppContext.get());
-    }
 
     public void setSource_id(String source_id) {
         this.source_id = source_id;
@@ -56,10 +49,6 @@ public class BaseRequestBean {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public String getUuid() {
-        return AppUtil.getDeviceInfo(AppContext.get());
     }
 
     public void setUuid(String uuid) {

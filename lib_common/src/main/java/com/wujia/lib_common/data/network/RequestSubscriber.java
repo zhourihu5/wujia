@@ -6,7 +6,7 @@ import com.wujia.lib_common.base.BaseView;
 import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.data.network.exception.ExceptionEngine;
 import com.wujia.lib_common.utils.AppContext;
-import com.wujia.lib_common.utils.sys.NetworkUtil;
+import com.wujia.lib_common.utils.NetworkUtil;
 
 import java.net.ConnectException;
 

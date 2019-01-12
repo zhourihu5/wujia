@@ -5,7 +5,6 @@ import android.text.TextUtils;
 
 import com.wujia.lib_common.data.network.retrofit_url.parser.DefaultUrlParser;
 import com.wujia.lib_common.data.network.retrofit_url.parser.UrlParser;
-import com.wujia.lib_common.utils.LogUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -107,7 +106,6 @@ public class RetrofitUrlManager {
 
         if (null != httpUrl) {
             HttpUrl newUrl = mUrlParser.parseUrl(httpUrl, request.url());
-            LogUtil.d("New Url is { " + newUrl.toString() + " } , Old Url is { " + request.url().toString() + " }");
 
             Object[] listeners = listenersToArray();
             if (listeners != null) {

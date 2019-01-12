@@ -3,36 +3,27 @@ package com.wujia.businesslib.base;
 import android.content.Context;
 import android.os.Build;
 
-import com.wujia.businesslib.di.IDaggerListener;
-import com.wujia.businesslib.di.module.ActivityModule;
 import com.wujia.lib.widget.LoadingDialog;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.BaseActivity;
 import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.BaseView;
-import com.wujia.lib_common.base.BizDialog;
-
-import javax.inject.Inject;
 
 /**
  * Created by xmren on 2017/7/31.
  */
 
-public abstract class MvpActivity<T extends BasePresenter> extends BaseActivity implements BaseView, IDaggerListener {
+public abstract class MvpActivity<T extends BasePresenter> extends BaseActivity implements BaseView {
 
-    @Inject
     protected T mPresenter;
     private LoadingDialog mLoadingDialog;
 
-    protected ActivityModule getActivityModule() {
-        return new ActivityModule(this);
-    }
-
+    protected abstract T createPresenter();
 
     @Override
     protected void onViewCreated() {
         super.onViewCreated();
-        initInject();
+        mPresenter = createPresenter();
         if (mPresenter != null) {
             mPresenter.attachView(this);
         }
@@ -64,7 +55,7 @@ public abstract class MvpActivity<T extends BasePresenter> extends BaseActivity 
         }
     }
 
-    public void showLoadingDialog(String text ,boolean canTouch) {
+    public void showLoadingDialog(String text, boolean canTouch) {
 
         getLoadingDialog();
         if (mLoadingDialog != null) {
@@ -92,7 +83,6 @@ public abstract class MvpActivity<T extends BasePresenter> extends BaseActivity 
             return;
         else if (isFinishing())
             return;
-        BizDialog.showInstance("com.abctime.businesslib.dialog.LoginStatusErrorDialog", this);
     }
 
     @Override
