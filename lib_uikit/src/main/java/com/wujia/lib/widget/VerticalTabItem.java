@@ -61,7 +61,8 @@ public class VerticalTabItem extends LinearLayout {
         mTxt.setGravity(Gravity.CENTER);
         mTxt.setText(txt);
         mTxt.setPadding(0, top, 0, 0);
-        mTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        mTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+        mTxt.setTextColor(ContextCompat.getColor(mContext, R.color.c9));
         addView(mTxt,txtParams);
     }
 
@@ -69,8 +70,8 @@ public class VerticalTabItem extends LinearLayout {
     public void setSelected(boolean selected) {
         super.setSelected(selected);
         if (selected) {
-            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimary));
-            mTxt.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
+            mTxt.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
 
         } else {
             mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.c9));

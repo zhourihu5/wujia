@@ -32,6 +32,7 @@ android {
 
 dependencies {
     api deps.support.app_compat
+    api deps.support.cardview
     api deps.support.v4
     api deps.support.design
     api deps.support.cardview

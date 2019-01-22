@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     tools:context=".FamilyFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/intelligent_home" />
 
-</FrameLayout>
+    <com.wujia.lib.widget.VerticalTabBar
+        android:id="@+id/family_main_tab_bar"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="match_parent"
+        android:background="@color/clr_eaeaea"
+
+        />
+
+    <FrameLayout
+        android:id="@+id/family_container"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+</LinearLayout>

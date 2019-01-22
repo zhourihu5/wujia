@@ -24,6 +24,7 @@ def deps = [:]
 def support = [:]
 support.annotations = "com.android.support:support-annotations:$versions.support"
 support.app_compat = "com.android.support:appcompat-v7:$versions.support"
+support.cardview = "com.android.support:cardview:$versions.support"
 support.recyclerview = "com.android.support:recyclerview-v7:$versions.support"
 support.cardview = "com.android.support:cardview-v7:$versions.support"
 support.v4 = "com.android.support:support-v4:$versions.support"
@@ -91,6 +92,7 @@ def addRepos(RepositoryHandler handler) {
     handler.maven { url 'https://jitpack.io' }
     handler.maven {url "https://oss.sonatype.org/content/repositories/snapshots/"}
     handler.mavenCentral()
+//    handler.maven { url "http://lib.gcssloop.com:8081/repository/gcssloop-central/" }
     handler.flatDir({dirs '../businesslib/libs'})
 
 }

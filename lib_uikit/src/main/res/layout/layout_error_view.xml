@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/retcode_default"
-        android:textColor="@color/clr_8a92a1"
+        android:textColor="@color/c9"
      />
     <TextView
         android:id="@+id/tv_refresh"
@@ -34,7 +34,7 @@
         android:layout_marginTop="@dimen/dp_10"
         android:layout_gravity="center"
         android:text="@string/kairu_lib_refresh"
-        android:textColor="@color/clr_ffffff"
+        android:textColor="@color/white"
         android:background="@drawable/bg_content_net_error_shape"
         android:textSize="@dimen/sp_16" />
     </LinearLayout>

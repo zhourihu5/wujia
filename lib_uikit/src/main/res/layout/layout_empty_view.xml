@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/tv_no_content"
-                android:textColor="@color/clr_99484b69"
+                android:textColor="@color/c9"
                 android:textSize="@dimen/sp_20"
                 />
 

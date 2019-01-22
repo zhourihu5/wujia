@@ -6,11 +6,19 @@
         <item name="android:windowActionBar">false</item>//无ActionBar
         <item name="android:windowFullscreen">true</item>//全屏即无通知栏
         <item name="android:windowContentOverlay">@null</item>//是否有遮盖
-        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowBackground">@color/bg</item>
         <item name="android:screenOrientation">landscape</item>//全局默认横屏，解决
         <item name="android:configChanges">orientation|screenSize</item>
         <item name="android:textViewStyle">@style/textStyle</item>
     </style>
+
+    <style name="AppTheme" parent="FullscreenAppTheme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
 
     <style name="transparentAppTheme" parent="FullscreenAppTheme">
         <item name="android:windowBackground">@color/clr_88000000</item>
@@ -37,6 +45,15 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowIsTranslucent">false</item>
+    </style>
+
+    <!-- 对话框样式 -->
+    <style name="dialog" parent="android:style/Theme.Dialog">
+        <!-- <item name="android:windowBackground">@null</item> -->
+        <item name="android:windowBackground">@color/clr_00000000</item>
+        <item name="android:windowNoTitle">true</item>
+        <!-- 屏幕背景变暗 -->
+        <item name="android:backgroundDimEnabled">false</item>
     </style>
 
 </resources>

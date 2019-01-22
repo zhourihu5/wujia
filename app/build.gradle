@@ -67,4 +67,8 @@ dependencies {
     annotationProcessor deps.arouter.compiler
     implementation project(':family')
     implementation project(':property')
+    implementation project(':safe')
+    implementation project(':market')
+    implementation project(':message')
+    implementation project(':neighbor')
 }

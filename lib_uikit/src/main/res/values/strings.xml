@@ -42,8 +42,22 @@
     <string name="intelligent_home">智能家居</string>
     <string name="property_service">务业服务</string>
     <string name="market_service">服务市场</string>
+    <string name="message_notify">消息通知</string>
+    <string name="neighbor">邻里</string>
+    <string name="setting">设置</string>
+
+    <!--智能家居-->
+    <string name="all">全部</string>
+    <string name="drawing_room">客厅</string>
+    <string name="master_room">主卧</string>
+    <string name="second_room">次卧</string>
+    <string name="kitchen">厨房</string>
+    <string name="washroom">洗手间</string>
 
 
-
+    <array name="arc_colors_default">
+        <item>@color/colorAccent</item>
+        <item>@color/colorAccent</item>
+    </array>
 
 </resources>
