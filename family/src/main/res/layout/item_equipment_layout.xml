@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/px320"
+    android:layout_height="@dimen/px160"
+    android:background="@drawable/bg_white_radius_card">
+
+    <ImageView
+        android:id="@+id/equipment_img"
+        android:layout_width="@dimen/px60"
+        android:layout_height="@dimen/px60"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/px30"
+        android:src="@mipmap/icon_curtain" />
+
+    <TextView
+        android:id="@+id/equipment_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/equipment_img"
+        android:layout_marginLeft="@dimen/px20"
+        android:layout_marginTop="-3dp"
+        android:layout_toRightOf="@id/equipment_img"
+        android:text="@string/curtain"
+        android:textColor="@color/c3"
+        android:textSize="@dimen/text30" />
+
+    <View
+        android:id="@+id/scene_in_mode_status"
+        android:layout_width="@dimen/px10"
+        android:layout_height="@dimen/px10"
+        android:layout_below="@id/equipment_name"
+        android:layout_alignLeft="@id/equipment_name"
+        android:layout_marginTop="@dimen/px10"
+        android:background="@drawable/bg_point_green" />
+
+    <TextView
+        android:id="@+id/scene_in_mode_status_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/equipment_name"
+        android:layout_marginLeft="@dimen/px10"
+        android:layout_toRightOf="@id/scene_in_mode_status"
+        android:text="@string/opened"
+        android:textColor="@color/c8"
+        android:textSize="@dimen/text20" />
+</RelativeLayout>

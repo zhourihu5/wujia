@@ -47,4 +47,9 @@
             <enum name="FILL_STROKE" value="2" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="VerticalTabBar">
+        <attr name="tab_height" format="integer"/>
+    </declare-styleable>
+
 </resources>

@@ -1,11 +1,15 @@
 package com.wujia.lib.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import com.wujia.lib.uikit.R;
+import com.wujia.lib_common.utils.ScreenUtil;
 
 /**
  * author ：shenbingkai@163.com
@@ -26,10 +30,15 @@ public class VerticalTabBar extends LinearLayout {
 
     private void init(Context context, @Nullable AttributeSet attrs) {
         setOrientation(VERTICAL);
-
-        mTabParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
-        mTabParams.weight = 1;
-
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.VerticalTabBar);
+        int style = typedArray.getInt(R.styleable.VerticalTabBar_tab_height, 0);
+        typedArray.recycle();
+        if (style == 0) {
+            mTabParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+            mTabParams.weight = 1;
+        } else {
+            mTabParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtil.dip2px(style));
+        }
     }
 
     public VerticalTabBar addItem(final VerticalTabItem item) {

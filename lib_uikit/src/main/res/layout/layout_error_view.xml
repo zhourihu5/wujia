@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     <TextView
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/px20"
         android:id="@+id/tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,17 +25,17 @@
      />
     <TextView
         android:id="@+id/tv_refresh"
-        android:paddingLeft="@dimen/dp_19"
-        android:paddingRight="@dimen/dp_19"
-        android:paddingBottom="@dimen/dp_4"
-        android:paddingTop="@dimen/dp_4"
+        android:paddingLeft="@dimen/px40"
+        android:paddingRight="@dimen/px40"
+        android:paddingBottom="@dimen/px8"
+        android:paddingTop="@dimen/px8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/px20"
         android:layout_gravity="center"
         android:text="@string/kairu_lib_refresh"
         android:textColor="@color/white"
         android:background="@drawable/bg_content_net_error_shape"
-        android:textSize="@dimen/sp_16" />
+        android:textSize="@dimen/text12" />
     </LinearLayout>
 </FrameLayout>

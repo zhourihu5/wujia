@@ -12,6 +12,8 @@ import com.wujia.intellect.terminal.safe.SafeFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib_common.base.BaseActivity;
+import com.wujia.lib_common.utils.LogUtil;
+import com.wujia.lib_common.utils.ScreenUtil;
 
 import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -29,6 +31,20 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initEventAndData(Bundle savedInstanceState) {
+
+//        LogUtil.i("ScreenUtil.getDialogWidth()  "+ScreenUtil.getDialogWidth());
+//        LogUtil.i("ScreenUtil.getLandscapeHeight()  "+ScreenUtil.getLandscapeHeight());
+//        LogUtil.i("ScreenUtil.getLandscapeWidth()  "+ScreenUtil.getLandscapeWidth());
+//        LogUtil.i("ScreenUtil.getDisplayHeight()  "+ScreenUtil.getDisplayHeight());
+//        LogUtil.i("ScreenUtil.getDialogWidth()  "+ScreenUtil.getDialogWidth());
+//        LogUtil.i("ScreenUtil.density()  "+ScreenUtil.density);
+//        LogUtil.i("ScreenUtil.densityDpi()  "+ScreenUtil.densityDpi);
+//        LogUtil.i("ScreenUtil.scaleDensity()  "+ScreenUtil.scaleDensity);
+
+        for (int i = 400; i <= 500; i++) {
+            LogUtil.i("<dimen name=\"px"+i+"\">"+Math.round(i/1.5)+"dp</dimen>");
+//            LogUtil.i("<dimen name=\"text"+i+"\">"+Math.round(i/1.5)+"sp</dimen>");
+        }
 
         SupportFragment firstFragment = findFragment(HomeFragment.class);
         if (firstFragment == null) {

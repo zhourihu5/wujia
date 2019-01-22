@@ -53,6 +53,13 @@
     <string name="second_room">次卧</string>
     <string name="kitchen">厨房</string>
     <string name="washroom">洗手间</string>
+    <string name="scene_choose">场景选择</string>
+    <string name="family_experience_mode">当前为智能体验模式</string>
+    <string name="mode_in_home">回家模式</string>
+    <string name="opened">已开启</string>
+    <string name="usually_equipment">常用设备</string>
+    <string name="curtain">窗帘</string>
+    <string name="all_equipment">全部设备</string>
 
 
     <array name="arc_colors_default">

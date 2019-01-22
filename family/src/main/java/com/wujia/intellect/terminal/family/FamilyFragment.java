@@ -8,7 +8,6 @@ import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
-import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
@@ -17,8 +16,7 @@ import me.yokeyword.fragmentation.SupportFragment;
  * description ：智能家居 home
  */
 public class FamilyFragment extends BaseFragment {
-    //        @BindView(R.id.family_main_tab_bar)
-    VerticalTabBar mTabBar;
+    private VerticalTabBar mTabBar;
     private SupportFragment[] mFragments = new SupportFragment[8];
 
     public FamilyFragment() {

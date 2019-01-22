@@ -16,10 +16,10 @@
 
         app:arc_open_angle="60"
         app:arc_thumb_mode="FILL_STROKE"
-        app:arc_thumb_width="@dimen/dp_1"
-        app:arc_width="@dimen/dp_6"
+        app:arc_thumb_width="@dimen/px2"
+        app:arc_width="@dimen/px12"
         app:arc_thumb_color="@color/white"
-        app:arc_thumb_radius="@dimen/dp_8"
+        app:arc_thumb_radius="@dimen/px12"
         app:arc_colors="@array/arc_colors_default"
         android:layout_width="80dp"
         android:layout_height="80dp" />

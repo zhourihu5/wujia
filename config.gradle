@@ -68,7 +68,7 @@ deps.glide_transformations="jp.wasabeef:glide-transformations:$versions.glide_tr
 ext.deps = deps
 
 def build_versions = [:]
-build_versions.min_sdk = 16
+build_versions.min_sdk = 23
 build_versions.target_sdk = 26
 build_versions.build_tools = "26.0.2"
 ext.build_versions = build_versions
