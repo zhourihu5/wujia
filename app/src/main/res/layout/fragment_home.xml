@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".mvp.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -12,15 +12,48 @@
         android:layout_height="wrap_content"
         android:text="@string/home" />
 
+    <!--<com.wujia.lib.widget.ArcSeekBar-->
+    <!--android:id="@+id/pop_arc_seekbar"-->
+    <!--android:layout_width="@dimen/px170"-->
+    <!--android:layout_height="@dimen/px170"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginTop="@dimen/px48"-->
+    <!--app:arc_colors="@array/arc_colors_default"-->
+    <!--android:padding="@dimen/px6"-->
+    <!--app:arc_open_angle="80"-->
+    <!--app:arc_thumb_color="@color/black"-->
+    <!--app:arc_thumb_mode="FILL_STROKE"-->
+    <!--app:arc_thumb_radius="@dimen/px20"-->
+    <!--app:arc_thumb_width="@dimen/px2"-->
+    <!--app:arc_max="100"-->
+    <!--app:arc_progress="80"-->
+    <!--app:arc_width="@dimen/px6" />-->
+
     <com.wujia.lib.widget.ArcSeekBar
 
-        app:arc_open_angle="60"
-        app:arc_thumb_mode="FILL_STROKE"
-        app:arc_thumb_width="@dimen/px2"
-        app:arc_width="@dimen/px12"
-        app:arc_thumb_color="@color/white"
-        app:arc_thumb_radius="@dimen/px12"
+        android:layout_width="@dimen/px170"
+        android:layout_height="@dimen/px170"
+        android:padding="@dimen/px6"
         app:arc_colors="@array/arc_colors_default"
-        android:layout_width="80dp"
-        android:layout_height="80dp" />
+        app:arc_max="100"
+        app:arc_open_angle="60"
+        app:arc_progress="80"
+        app:arc_thumb_color="@color/white"
+        app:arc_thumb_mode="FILL_STROKE"
+        app:arc_thumb_radius="@dimen/px20"
+        app:arc_thumb_width="@dimen/px2"
+        app:arc_width="@dimen/px12" />
+
+    <!--<com.wujia.lib.widget.ArcSeekBar-->
+
+    <!--app:arc_open_angle="60"-->
+    <!--app:arc_thumb_mode="FILL_STROKE"-->
+    <!--app:arc_thumb_width="@dimen/px2"-->
+    <!--app:arc_width="@dimen/px12"-->
+    <!--app:arc_thumb_color="@color/white"-->
+    <!--app:arc_thumb_radius="@dimen/px20"-->
+    <!--app:arc_colors="@array/arc_colors_default"-->
+    <!--android:layout_width="180dp"-->
+    <!--android:padding="@dimen/px40"-->
+    <!--android:layout_height="180dp" />-->
 </FrameLayout>

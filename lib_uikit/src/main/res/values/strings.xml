@@ -60,6 +60,7 @@
     <string name="usually_equipment">常用设备</string>
     <string name="curtain">窗帘</string>
     <string name="all_equipment">全部设备</string>
+    <string name="lighting_power">亮度</string>
 
 
     <array name="arc_colors_default">

@@ -17,7 +17,7 @@ import me.yokeyword.fragmentation.SupportFragment;
  */
 public class FamilyFragment extends BaseFragment {
     private VerticalTabBar mTabBar;
-    private SupportFragment[] mFragments = new SupportFragment[8];
+    private SupportFragment[] mFragments = new SupportFragment[6];
 
     public FamilyFragment() {
 
@@ -54,6 +54,7 @@ public class FamilyFragment extends BaseFragment {
         }
 
         mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_all_default, R.string.home))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_living_default, R.string.drawing_room))
                 .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_bed2_default, R.string.master_room))
                 .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_bed2_default, R.string.second_room))
                 .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_kitchen_default, R.string.kitchen))

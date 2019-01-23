@@ -1,20 +1,15 @@
 package com.wujia.intellect.terminal.family.mvp.data;
 
-import android.support.annotation.IdRes;
-
 /**
  * author ：shenbingkai@163.com
  * date ：2019-01-23
  * description ：
  */
-public class EquipmentBean {
+public class ModeBean {
     public String title;
-    @IdRes
-    public int icon;
 
-    public EquipmentBean(String title, int icon) {
+    public ModeBean(String title) {
         this.title = title;
-        this.icon = icon;
     }
 
 }

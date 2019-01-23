@@ -13,6 +13,7 @@ import android.graphics.Region;
 import android.graphics.SweepGradient;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.GestureDetector;
@@ -90,8 +91,10 @@ public class ArcSeekBar extends View {
     private float mThumbX;         // 圆弧 SeekBar 中心点 X
     private float mThumbY;         // 圆弧 SeekBar 中心点
 
+    private Path mSeekBgPath;
     private Path mSeekPath;
     private Path mBorderPath;
+    private Paint mArcBgPaint;
     private Paint mArcPaint;
     private Paint mThumbPaint;
     private Paint mBorderPaint;
@@ -106,6 +109,7 @@ public class ArcSeekBar extends View {
     private GestureDetector mDetector;
     private Matrix mInvertMatrix;               // 逆向 Matrix, 用于计算触摸坐标和绘制坐标的转换
     private Region mArcRegion;                  // ArcPath的实际区域大小,用于判定单击事件
+    private RectF content;//中心区域
 
 
     public ArcSeekBar(Context context) {
@@ -163,6 +167,8 @@ public class ArcSeekBar extends View {
     // 初始化数据
     private void initData() {
         mSeekPath = new Path();
+
+        mSeekBgPath = new Path();
         mBorderPath = new Path();
         mSeekPathMeasure = new PathMeasure();
         mTempPos = new float[2];
@@ -182,11 +188,19 @@ public class ArcSeekBar extends View {
 
     // 初始化圆弧画笔
     private void initArcPaint() {
+        //背景
         mArcPaint = new Paint();
         mArcPaint.setAntiAlias(true);
         mArcPaint.setStrokeWidth(mArcWidth);
         mArcPaint.setStyle(Paint.Style.STROKE);
         mArcPaint.setStrokeCap(Paint.Cap.ROUND);
+
+        mArcBgPaint = new Paint();
+        mArcBgPaint.setAntiAlias(true);
+        mArcBgPaint.setStrokeWidth(mArcWidth);
+        mArcBgPaint.setStyle(Paint.Style.STROKE);
+        mArcBgPaint.setStrokeCap(Paint.Cap.ROUND);
+        mArcBgPaint.setColor(ContextCompat.getColor(getContext(), R.color.clr_eaeaea));
     }
 
     // 初始化拖动按钮画笔
@@ -284,14 +298,14 @@ public class ArcSeekBar extends View {
         }
 
         // 得到显示区域和中心的
-        RectF content = new RectF(startX + fix, startY + fix, startX + edgeLength, startY + edgeLength);
+        content = new RectF(startX + fix, startY + fix, startX + edgeLength, startY + edgeLength);
         mCenterX = content.centerX();
         mCenterY = content.centerY();
 
         // 得到路径
-        mSeekPath.reset();
-        mSeekPath.addArc(content, mOpenAngle / 2, CIRCLE_ANGLE - mOpenAngle);
-        mSeekPathMeasure.setPath(mSeekPath, false);
+        mSeekBgPath.reset();
+        mSeekBgPath.addArc(content, mOpenAngle / 2, CIRCLE_ANGLE - mOpenAngle);
+        mSeekPathMeasure.setPath(mSeekBgPath, false);
         computeThumbPos(mProgressPresent);
 
         // 计算渐变数组
@@ -309,9 +323,14 @@ public class ArcSeekBar extends View {
         mInvertMatrix.reset();
         mInvertMatrix.preRotate(-mRotateAngle, mCenterX, mCenterY);
 
-        mArcPaint.getFillPath(mSeekPath, mBorderPath);
+        mArcBgPaint.getFillPath(mSeekBgPath, mBorderPath);
         mBorderPath.close();
         mArcRegion.setPath(mBorderPath, new Region(0, 0, w, h));
+
+        //背影轨迹
+        mSeekPath.reset();
+        mSeekPath.addArc(content, mOpenAngle / 2, (CIRCLE_ANGLE - mOpenAngle) * mProgressPresent);
+
     }
 
     // 具体绘制
@@ -319,6 +338,7 @@ public class ArcSeekBar extends View {
     protected void onDraw(Canvas canvas) {
         canvas.save();
         canvas.rotate(mRotateAngle, mCenterX, mCenterY);
+        canvas.drawPath(mSeekBgPath, mArcBgPaint);
         canvas.drawPath(mSeekPath, mArcPaint);
         if (mBorderWidth > 0) {
             canvas.drawPath(mBorderPath, mBorderPaint);
@@ -362,6 +382,11 @@ public class ArcSeekBar extends View {
                     mOnProgressChangeListener.onProgressChanged(this, getProgress(), true);
                     lastProgress = getProgress();
                 }
+
+                //背影轨迹
+                mSeekPath.reset();
+                mSeekPath.addArc(content, mOpenAngle / 2, (CIRCLE_ANGLE - mOpenAngle) * mProgressPresent);
+
                 moved = true;
                 break;
             case ACTION_UP:
@@ -380,7 +405,7 @@ public class ArcSeekBar extends View {
     private void judgeCanDrag(MotionEvent event) {
         float[] pos = {event.getX(), event.getY()};
         mInvertMatrix.mapPoints(pos);
-        if (getDistance(pos[0], pos[1]) <= mThumbRadius * 1.5) {
+        if (getDistance(pos[0], pos[1]) <= mThumbRadius * 3) {
             mCanDrag = true;
         } else {
             mCanDrag = false;
@@ -476,6 +501,7 @@ public class ArcSeekBar extends View {
         if (null != mOnProgressChangeListener) {
             mOnProgressChangeListener.onProgressChanged(this, progress, false);
         }
+
         postInvalidate();
     }
 

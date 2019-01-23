@@ -1,10 +1,10 @@
 package com.wujia.intellect.terminal.family.mvp.adapter;
 
 import android.content.Context;
-import android.widget.ImageView;
 
 import com.wujia.intellect.terminal.family.R;
 import com.wujia.intellect.terminal.family.mvp.data.EquipmentBean;
+import com.wujia.intellect.terminal.family.mvp.data.ModeBean;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 
@@ -15,16 +15,15 @@ import java.util.List;
  * Email:  shenbingkai@gamil.com
  * Description:
  */
-public class EquipmentAdapter extends CommonAdapter<EquipmentBean> {
-    public EquipmentAdapter(Context context, List<EquipmentBean> datas) {
-        super(context, R.layout.item_equipment_layout, datas);
+public class ModeAdapter extends CommonAdapter<ModeBean> {
+    public ModeAdapter(Context context, List<ModeBean> datas) {
+        super(context, R.layout.item_mode_layout, datas);
     }
 
     @Override
-    protected void convert(ViewHolder holder, EquipmentBean item, int pos) {
+    protected void convert(ViewHolder holder, ModeBean item, int pos) {
 
-        holder.setText(R.id.equipment_name, item.title);
-        holder.setImageResource(R.id.equipment_img, item.icon);
+        holder.setText(R.id.scene_in_mode_tv,item.title);
 
     }
 }

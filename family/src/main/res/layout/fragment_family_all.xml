@@ -7,162 +7,74 @@
     android:orientation="vertical"
     tools:context=".AllFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px124"
-        android:background="@color/clr_eaeaea"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/px64"
-        android:text="@string/family_experience_mode" />
+    <include layout="@layout/layout_seekbar_pop" />
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/px124"-->
+        <!--android:background="@color/clr_eaeaea"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:paddingLeft="@dimen/px64"-->
+        <!--android:text="@string/family_experience_mode" />-->
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/px40"
-        android:paddingLeft="@dimen/px64"
-        android:text="@string/scene_choose"
-        android:textColor="@color/c9"
-        android:textSize="@dimen/text32" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/px40"-->
+        <!--android:paddingLeft="@dimen/px64"-->
+        <!--android:text="@string/scene_choose"-->
+        <!--android:textColor="@color/c9"-->
+        <!--android:textSize="@dimen/text32" />-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/px10"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/px60"
-        tools:visibility="visible">
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/rv_mode"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/px448"-->
+        <!--android:layout_marginTop="@dimen/px10"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:paddingLeft="@dimen/px60"-->
+        <!--app:layoutManager="android.support.v7.widget.LinearLayoutManager"-->
+        <!--tools:listitem="@layout/item_mode_layout" />-->
 
-        <RelativeLayout
-            android:id="@+id/family_scene_in_home"
-            android:layout_width="@dimen/px320"
-            android:layout_height="@dimen/px448"
-            android:background="@drawable/bg_white_radius_card">
+    <!--&lt;!&ndash;常用设备&ndash;&gt;-->
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/px40"-->
+        <!--android:paddingLeft="@dimen/px64"-->
+        <!--android:text="@string/usually_equipment"-->
+        <!--android:textColor="@color/c9"-->
+        <!--android:textSize="@dimen/text32" />-->
 
-            <ImageView
-                android:id="@+id/scene_in_img"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/px300"
-                android:background="@mipmap/img_01" />
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/rv_usually"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/px160"-->
+        <!--android:layout_marginTop="@dimen/px10"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:paddingLeft="@dimen/px60"-->
+        <!--app:layoutManager="android.support.v7.widget.LinearLayoutManager"-->
+        <!--tools:listitem="@layout/item_equipment_layout" />-->
 
-            <ImageView
-                android:id="@+id/scene_in_mode_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_margin="@dimen/px14"
-                android:src="@mipmap/btn_more" />
+    <!--&lt;!&ndash;全部设备&ndash;&gt;-->
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/px40"-->
+        <!--android:paddingLeft="@dimen/px64"-->
+        <!--android:text="@string/all_equipment"-->
+        <!--android:textColor="@color/c9"-->
+        <!--android:textSize="@dimen/text32" />-->
 
-            <TextView
-                android:id="@+id/scene_in_mode_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/scene_in_img"
-                android:layout_marginLeft="@dimen/px30"
-                android:layout_marginTop="@dimen/px30"
-                android:text="@string/mode_in_home"
-                android:textColor="@color/c3"
-                android:textSize="@dimen/text32" />
-
-            <ImageView
-                android:id="@+id/scene_in_mode_switch"
-                android:layout_width="@dimen/px64"
-                android:layout_height="@dimen/px36"
-                android:layout_below="@id/scene_in_img"
-                android:layout_alignParentRight="true"
-                android:layout_margin="@dimen/px30"
-                android:src="@mipmap/btn_open" />
-
-            <View
-                android:id="@+id/scene_in_mode_status"
-                android:layout_width="@dimen/px10"
-                android:layout_height="@dimen/px10"
-                android:layout_below="@id/scene_in_mode_tv"
-                android:layout_marginLeft="@dimen/px30"
-                android:layout_marginTop="@dimen/px20"
-                android:background="@drawable/bg_point_green" />
-
-            <TextView
-                android:id="@+id/scene_in_mode_status_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/scene_in_mode_tv"
-                android:layout_marginLeft="@dimen/px10"
-                android:layout_marginTop="@dimen/px10"
-                android:layout_toRightOf="@id/scene_in_mode_status"
-                android:text="@string/opened"
-                android:textColor="@color/c8"
-                android:textSize="@dimen/text20" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/family_scene_out_home"
-            android:layout_width="@dimen/px320"
-            android:layout_height="@dimen/px408"
-            android:layout_marginLeft="@dimen/px25"
-            android:background="@drawable/bg_white_radius_card">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/img_01" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/family_scene_sleep"
-            android:layout_width="@dimen/px320"
-            android:layout_height="@dimen/px408"
-            android:layout_marginLeft="@dimen/px25"
-            android:background="@drawable/bg_white_radius_card">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/img_01" />
-
-
-        </RelativeLayout>
-    </LinearLayout>
-
-    <!--常用设备-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/px40"
-        android:paddingLeft="@dimen/px64"
-        android:text="@string/usually_equipment"
-        android:textColor="@color/c9"
-        android:textSize="@dimen/text32" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_usually"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px160"
-        android:layout_marginTop="@dimen/px10"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/px60"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_equipment_layout" />
-
-    <!--全部设备-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/px40"
-        android:paddingLeft="@dimen/px64"
-        android:text="@string/all_equipment"
-        android:textColor="@color/c9"
-        android:textSize="@dimen/text32" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_all"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px160"
-        android:layout_marginTop="@dimen/px10"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/px60"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_equipment_layout" />
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/rv_all"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/px160"-->
+        <!--android:layout_marginTop="@dimen/px10"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:paddingLeft="@dimen/px60"-->
+        <!--app:layoutManager="android.support.v7.widget.LinearLayoutManager"-->
+        <!--tools:listitem="@layout/item_equipment_layout" />-->
 
 </LinearLayout>

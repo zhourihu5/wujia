@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/px320"
     android:layout_height="@dimen/px160"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/bg_white_radius_card">
 
     <ImageView
@@ -10,7 +11,7 @@
         android:layout_height="@dimen/px60"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/px30"
-        android:src="@mipmap/icon_curtain" />
+        tools:src="@mipmap/icon_curtain" />
 
     <TextView
         android:id="@+id/equipment_name"
@@ -20,7 +21,7 @@
         android:layout_marginLeft="@dimen/px20"
         android:layout_marginTop="-3dp"
         android:layout_toRightOf="@id/equipment_img"
-        android:text="@string/curtain"
+        tools:text="@string/curtain"
         android:textColor="@color/c3"
         android:textSize="@dimen/text30" />
 

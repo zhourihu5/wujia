@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 
 import com.wujia.intellect.terminal.family.mvp.adapter.EquipmentAdapter;
+import com.wujia.intellect.terminal.family.mvp.adapter.ModeAdapter;
 import com.wujia.intellect.terminal.family.mvp.data.EquipmentBean;
+import com.wujia.intellect.terminal.family.mvp.data.ModeBean;
 import com.wujia.intellect.terminal.family.mvp.view.EquipmentDecoration;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.utils.ScreenUtil;
@@ -20,9 +22,11 @@ import java.util.List;
  */
 public class AllFragment extends BaseFragment {
 
-    private RecyclerView rvUsually,rvAll;
-    private EquipmentAdapter useAdapter,allAdapter;
+    private RecyclerView rvUsually, rvAll, rvMode;
+    private EquipmentAdapter useAdapter, allAdapter;
+    private ModeAdapter modeAdapter;
     private List<EquipmentBean> useList;
+    private List<ModeBean> modeList;
 
 
     public AllFragment() {
@@ -43,23 +47,35 @@ public class AllFragment extends BaseFragment {
 
     @Override
     protected void initEventAndData() {
-        rvUsually = $(R.id.rv_usually);
-        rvAll = $(R.id.rv_all);
-
-        useList = new ArrayList<>();
-        useList.add(new EquipmentBean());
-        useList.add(new EquipmentBean());
-        useList.add(new EquipmentBean());
-        useList.add(new EquipmentBean());
-
-        useAdapter = new EquipmentAdapter(mActivity, useList);
-        allAdapter = new EquipmentAdapter(mActivity, useList);
-
-        rvUsually.addItemDecoration(new EquipmentDecoration(25));
-        rvAll.addItemDecoration(new EquipmentDecoration(25));
-
-        rvUsually.setAdapter(useAdapter);
-        rvAll.setAdapter(allAdapter);
+//        rvMode = $(R.id.rv_mode);
+//        rvUsually = $(R.id.rv_usually);
+//        rvAll = $(R.id.rv_all);
+//
+//        //模式
+//        modeList = new ArrayList<>();
+//        modeList.add(new ModeBean("回家模式"));
+//        modeList.add(new ModeBean("离家模式"));
+//        modeList.add(new ModeBean("睡眠模式"));
+//
+//        modeAdapter = new ModeAdapter(mActivity, modeList);
+//        rvMode.addItemDecoration(new EquipmentDecoration(25));
+//        rvMode.setAdapter(modeAdapter);
+//
+//        //设备
+//        useList = new ArrayList<>();
+//        useList.add(new EquipmentBean("窗帘",R.mipmap.icon_curtain));
+//        useList.add(new EquipmentBean("红外线",R.mipmap.icon_infrared));
+//        useList.add(new EquipmentBean("烟雾感应",R.mipmap.icon_cloud));
+//        useList.add(new EquipmentBean("燃气报警",R.mipmap.icon_gas));
+//
+//        useAdapter = new EquipmentAdapter(mActivity, useList);
+//        rvUsually.addItemDecoration(new EquipmentDecoration(25));
+//        rvUsually.setAdapter(useAdapter);
+//
+//
+//        allAdapter = new EquipmentAdapter(mActivity, useList);
+//        rvAll.addItemDecoration(new EquipmentDecoration(25));
+//        rvAll.setAdapter(allAdapter);
     }
 
     @Override
