@@ -1,6 +1,8 @@
 package com.wujia.intellect.terminal.mvp;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.family.FamilyFragment;
@@ -15,13 +17,12 @@ import com.wujia.lib_common.base.BaseActivity;
 import com.wujia.lib_common.utils.LogUtil;
 import com.wujia.lib_common.utils.ScreenUtil;
 
-import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;
 
 public class MainActivity extends BaseActivity {
 
-    @BindView(R.id.main_tab_bar)
     VerticalTabBar mTabBar;
+    FrameLayout mainCover;
     private SupportFragment[] mFragments = new SupportFragment[8];
 
     @Override
@@ -41,10 +42,14 @@ public class MainActivity extends BaseActivity {
 //        LogUtil.i("ScreenUtil.densityDpi()  "+ScreenUtil.densityDpi);
 //        LogUtil.i("ScreenUtil.scaleDensity()  "+ScreenUtil.scaleDensity);
 
-        for (int i = 400; i <= 500; i++) {
-            LogUtil.i("<dimen name=\"px"+i+"\">"+Math.round(i/1.5)+"dp</dimen>");
-//            LogUtil.i("<dimen name=\"text"+i+"\">"+Math.round(i/1.5)+"sp</dimen>");
-        }
+//        for (int i = 400; i <= 500; i++) {
+//            LogUtil.i("<dimen name=\"px"+i+"\">"+Math.round(i/1.5)+"dp</dimen>");
+//           LogUtil.i("<dimen name=\"text"+i+"\">"+Math.round(i/1.5)+"sp</dimen>");
+//        }
+
+        mTabBar=findViewById(R.id.main_tab_bar);
+        mainCover=findViewById(R.id.main_cover);
+
 
         SupportFragment firstFragment = findFragment(HomeFragment.class);
         if (firstFragment == null) {
@@ -96,5 +101,13 @@ public class MainActivity extends BaseActivity {
                 showHideFragment(mFragments[position], mFragments[prePosition]);
             }
         });
+    }
+
+    public void showCover(){
+        mainCover.setVisibility(View.VISIBLE);
+    }
+
+    public void hideCover(){
+        mainCover.setVisibility(View.GONE);
     }
 }

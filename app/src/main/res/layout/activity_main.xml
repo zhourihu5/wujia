@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,19 +7,24 @@
     android:orientation="horizontal"
     tools:context=".mvp.MainActivity">
 
-
     <com.wujia.lib.widget.VerticalTabBar
         android:id="@+id/main_tab_bar"
         android:layout_width="@dimen/px176"
         android:layout_height="match_parent"
         android:background="@color/c3"
-        app:tab_height="0"
-        />
+        app:tab_height="0" />
 
     <FrameLayout
         android:id="@+id/container"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_marginLeft="@dimen/px176" />
 
-</LinearLayout>
+    <FrameLayout
+        android:id="@+id/main_cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/clr_88000000"
+        android:visibility="gone"
+        android:clickable="true" />
+</FrameLayout>

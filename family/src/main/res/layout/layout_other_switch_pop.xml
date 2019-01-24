@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/px320"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_expand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px10"
+        android:paddingLeft="@dimen/px60"
+        android:paddingRight="@dimen/px60"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/item_equipment_expand_layout" />
+
+    <ImageView
+        android:layout_width="@dimen/px40"
+        android:layout_height="@dimen/px40"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/px10"
+        android:scaleType="center"
+        android:src="@mipmap/icon_smartcard_close" />
+</RelativeLayout>

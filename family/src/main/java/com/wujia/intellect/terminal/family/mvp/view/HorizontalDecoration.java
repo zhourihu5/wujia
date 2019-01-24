@@ -9,11 +9,11 @@ import android.view.View;
  * Email:  shenbingkai@gamil.com
  * Description:
  */
-public class EquipmentDecoration extends RecyclerView.ItemDecoration {
+public class HorizontalDecoration extends RecyclerView.ItemDecoration {
 
     private int spaceHorizontal;
 
-    public EquipmentDecoration(int spaceHorizontal) {
+    public HorizontalDecoration(int spaceHorizontal) {
         this.spaceHorizontal = spaceHorizontal;
     }
 

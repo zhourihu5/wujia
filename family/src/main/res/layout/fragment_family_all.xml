@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,74 +8,85 @@
     android:orientation="vertical"
     tools:context=".AllFragment">
 
-    <include layout="@layout/layout_seekbar_pop" />
-
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/px124"-->
-        <!--android:background="@color/clr_eaeaea"-->
-        <!--android:gravity="center_vertical"-->
-        <!--android:paddingLeft="@dimen/px64"-->
-        <!--android:text="@string/family_experience_mode" />-->
+    <!--<include layout="@layout/layout_seekbar_pop" />-->
 
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="@dimen/px40"-->
-        <!--android:paddingLeft="@dimen/px64"-->
-        <!--android:text="@string/scene_choose"-->
-        <!--android:textColor="@color/c9"-->
-        <!--android:textSize="@dimen/text32" />-->
+    <TextView
+        android:id="@+id/family_home_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px124"
+        android:background="@color/clr_eaeaea"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/px64"
+        android:text="@string/family_experience_mode" />
 
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/rv_mode"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/px448"-->
-        <!--android:layout_marginTop="@dimen/px10"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:paddingLeft="@dimen/px60"-->
-        <!--app:layoutManager="android.support.v7.widget.LinearLayoutManager"-->
-        <!--tools:listitem="@layout/item_mode_layout" />-->
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <!--&lt;!&ndash;常用设备&ndash;&gt;-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="@dimen/px40"-->
-        <!--android:paddingLeft="@dimen/px64"-->
-        <!--android:text="@string/usually_equipment"-->
-        <!--android:textColor="@color/c9"-->
-        <!--android:textSize="@dimen/text32" />-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/rv_usually"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/px160"-->
-        <!--android:layout_marginTop="@dimen/px10"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:paddingLeft="@dimen/px60"-->
-        <!--app:layoutManager="android.support.v7.widget.LinearLayoutManager"-->
-        <!--tools:listitem="@layout/item_equipment_layout" />-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px40"
+                android:paddingLeft="@dimen/px64"
+                android:text="@string/scene_choose"
+                android:textColor="@color/c9"
+                android:textSize="@dimen/text32" />
 
-    <!--&lt;!&ndash;全部设备&ndash;&gt;-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="@dimen/px40"-->
-        <!--android:paddingLeft="@dimen/px64"-->
-        <!--android:text="@string/all_equipment"-->
-        <!--android:textColor="@color/c9"-->
-        <!--android:textSize="@dimen/text32" />-->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_mode"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px448"
+                android:layout_marginTop="@dimen/px10"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/px60"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_mode_layout" />
 
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/rv_all"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/px160"-->
-        <!--android:layout_marginTop="@dimen/px10"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:paddingLeft="@dimen/px60"-->
-        <!--app:layoutManager="android.support.v7.widget.LinearLayoutManager"-->
-        <!--tools:listitem="@layout/item_equipment_layout" />-->
+            <!--常用设备-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px40"
+                android:paddingLeft="@dimen/px64"
+                android:text="@string/usually_equipment"
+                android:textColor="@color/c9"
+                android:textSize="@dimen/text32" />
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_usually"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px160"
+                android:layout_marginTop="@dimen/px10"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/px60"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_equipment_layout" />
+
+            <!--全部设备-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px40"
+                android:paddingLeft="@dimen/px64"
+                android:text="@string/all_equipment"
+                android:textColor="@color/c9"
+                android:textSize="@dimen/text32" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_all"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/px10"
+                android:paddingLeft="@dimen/px60"
+                app:layoutManager="android.support.v7.widget.GridLayoutManager"
+                app:spanCount="4"
+                tools:listitem="@layout/item_equipment_layout" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
