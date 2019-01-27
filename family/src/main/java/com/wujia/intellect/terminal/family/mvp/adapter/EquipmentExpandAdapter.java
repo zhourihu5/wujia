@@ -14,13 +14,13 @@ import java.util.List;
  * Email:  shenbingkai@gamil.com
  * Description:
  */
-public class EquipmentExpandAdapter extends CommonAdapter<EquipmentBean> {
-    public EquipmentExpandAdapter(Context context, List<EquipmentBean> datas) {
+public class EquipmentExpandAdapter extends CommonAdapter<EquipmentBean.Menu> {
+    public EquipmentExpandAdapter(Context context, List<EquipmentBean.Menu> datas) {
         super(context, R.layout.item_equipment_expand_layout, datas);
     }
 
     @Override
-    protected void convert(ViewHolder holder, EquipmentBean item, int pos) {
+    protected void convert(ViewHolder holder, EquipmentBean.Menu item, int pos) {
 
         holder.setText(R.id.equipment_name, item.title);
         holder.setImageResource(R.id.equipment_img, item.icon);

@@ -1,65 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/px320"
-    android:layout_height="@dimen/px392"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white">
+    android:layout_width="@dimen/px320"
+    android:layout_height="@dimen/px392">
 
-    <!--android:background="@drawable/bg_white_radius_card"-->
-    <com.wujia.lib.widget.ArcSeekBar
-        android:id="@+id/pop_arc_seekbar"
-        android:layout_width="@dimen/px240"
-        android:layout_height="@dimen/px240"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/px48"
-        android:padding="@dimen/px15"
-        app:arc_colors="@array/arc_colors_default"
-        app:arc_max="100"
-        app:arc_open_angle="80"
-        app:arc_progress="80"
-        app:arc_thumb_color="@color/black"
-        app:arc_thumb_mode="FILL_STROKE"
-        app:arc_thumb_radius="@dimen/px12"
-        app:arc_thumb_width="@dimen/px2"
-        app:arc_width="@dimen/px6" />
+    <RelativeLayout
+        android:layout_width="@dimen/px320"
+        android:layout_height="@dimen/px392"
+        android:background="@color/white">
 
-    <TextView
-        android:id="@+id/pop_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/px130"
-        tools:text="88%"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/text32" />
+        <com.wujia.lib.widget.ArcSeekBar
+            android:id="@+id/pop_arc_seekbar"
+            android:layout_width="@dimen/px240"
+            android:layout_height="@dimen/px240"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/px48"
+            android:padding="@dimen/px15"
+            app:arc_colors="@array/arc_colors_default"
+            app:arc_max="100"
+            app:arc_open_angle="80"
+            app:arc_progress="80"
+            app:arc_thumb_color="@color/white"
+            app:arc_thumb_mode="FILL_STROKE"
+            app:arc_thumb_radius="@dimen/px12"
+            app:arc_thumb_width="@dimen/px2"
+            app:arc_width="@dimen/px6" />
+
+        <TextView
+            android:id="@+id/pop_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/px130"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text32"
+            tools:text="88%" />
 
 
-    <TextView
-        android:id="@+id/pop_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pop_progress"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/px10"
-        tools:text="@string/lighting_power"
-        android:textColor="@color/c8"
-        android:textSize="@dimen/text20" />
+        <TextView
+            android:id="@+id/pop_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pop_progress"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/px10"
+            android:textColor="@color/c8"
+            android:textSize="@dimen/text20"
+            tools:text="@string/lighting_power" />
 
-    <com.wujia.lib.widget.MySwitch
-        android:id="@+id/pop_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/scene_in_img"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/px48" />
+        <com.wujia.lib.widget.MySwitch
+            android:id="@+id/pop_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/scene_in_img"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/px48" />
 
-    <ImageView
-        android:layout_width="@dimen/px40"
-        android:layout_height="@dimen/px40"
-        android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/px10"
-        android:scaleType="center"
-        android:src="@mipmap/icon_smartcard_close" />
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/close_btn"
+            android:layout_width="@dimen/px40"
+            android:layout_height="@dimen/px40"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/px10"
+            android:scaleType="center"
+            android:src="@mipmap/icon_smartcard_close" />
+    </RelativeLayout>
+</FrameLayout>

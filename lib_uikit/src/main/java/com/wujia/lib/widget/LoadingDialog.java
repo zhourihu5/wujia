@@ -25,13 +25,13 @@ public class LoadingDialog extends Dialog {
     }
 
     private void init() {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.layout_loading_dialog);
 //        WindowManager.LayoutParams lp = getWindow().getAttributes();
 //        lp.dimAmount = 0.0f;
 //        getWindow().setAttributes(lp);
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        setCancelable(true);
+//        setCancelable(true);
         tvTitle = findViewById(R.id.tv_title);
         if (TextUtils.isEmpty(title)) {
             tvTitle.setVisibility(View.GONE);

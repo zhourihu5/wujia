@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    tools:context=".mvp.login.LoginActivity">
+
+    <!--时间、天气-->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/bg_login" />
+
+        <TextView
+            android:id="@+id/login_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/px200"
+            android:text="21:39"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text160" />
+
+        <TextView
+            android:id="@+id/login_time_date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_time_tv"
+            android:layout_alignLeft="@id/login_time_tv"
+            android:layout_marginTop="@dimen/px20"
+            android:fontFamily=""
+            android:text="12月19日 星期三"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text32" />
+
+
+        <TextView
+            android:id="@+id/login_temperature_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_time_date_tv"
+            android:layout_alignLeft="@id/login_time_date_tv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/px20"
+            android:gravity="bottom"
+            android:text="22"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text96" />
+
+        <ImageView
+            android:id="@+id/login_weather_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/login_temperature_tv"
+            android:layout_marginLeft="@dimen/px60"
+            android:layout_marginBottom="@dimen/px16"
+            android:layout_toRightOf="@id/login_temperature_tv"
+            android:src="@mipmap/icon_home_weather_cloudy_white" />
+
+        <TextView
+            android:id="@+id/login_weather_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/login_weather_icon"
+            android:layout_marginLeft="@dimen/px60"
+            android:layout_toRightOf="@id/login_weather_icon"
+            android:text="空气质量 优"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text24" />
+
+    </RelativeLayout>
+
+
+    <!--登录-->
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <!--登录前-->
+        <LinearLayout
+            android:id="@+id/login_layout_1"
+            android:layout_width="@dimen/px484"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/px200"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/px75"
+                android:drawableLeft="@mipmap/icon_signup_logo"
+                android:drawablePadding="@dimen/px20"
+                android:text="@string/welcom_login"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text54" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px20"
+                android:text="@string/login_hint_words_short"
+                android:textColor="@color/c8"
+                android:textSize="@dimen/text24" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px80"
+                android:layout_marginTop="@dimen/px94">
+
+                <EditText
+                    android:id="@+id/login_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:inputType="phone"
+                    android:maxLength="20"
+                    android:paddingLeft="@dimen/px150"
+                    android:singleLine="true"
+                    android:textColor="@color/c3"
+                    android:textColorHint="@color/c3"
+                    android:textSize="@dimen/text24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/phone"
+                    android:textColor="@color/c3"
+                    android:layout_marginLeft="@dimen/px6"
+                    android:textSize="@dimen/text24" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/login_phone_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/phone_error"
+                android:layout_marginTop="@dimen/px16"
+                android:layout_marginLeft="@dimen/px6"
+                android:textColor="@color/cdd6767"
+                android:visibility="invisible"
+                android:textSize="@dimen/text24" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px80"
+                android:layout_marginTop="@dimen/px10">
+
+                <EditText
+                    android:id="@+id/login_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:inputType="textPassword"
+                    android:maxLength="20"
+                    android:paddingLeft="@dimen/px150"
+                    android:singleLine="true"
+                    android:textColor="@color/c3"
+                    android:textColorHint="@color/c3"
+                    android:textSize="@dimen/text24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/password"
+                    android:textColor="@color/c3"
+                    android:layout_marginLeft="@dimen/px6"
+                    android:textSize="@dimen/text24" />
+
+                <ImageView
+                    android:id="@+id/login_password_visibility"
+                    android:layout_width="@dimen/px80"
+                    android:layout_height="@dimen/px80"
+                    android:layout_alignParentRight="true"
+                    android:scaleType="center"
+                    android:src="@mipmap/icon_input_display" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/login_btn"
+                android:layout_width="@dimen/px484"
+                android:layout_height="@dimen/px92"
+                android:layout_marginTop="@dimen/px32"
+                android:background="@drawable/btn_rect_accent_select"
+                android:gravity="center"
+                android:text="@string/login"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text32" />
+        </LinearLayout>
+
+        <!--登录后-->
+        <LinearLayout
+            android:id="@+id/login_layout_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/login_welcom_name"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/px75"
+                android:text="欢迎您，XX"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text54" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px10"
+                android:lineSpacingMultiplier="1.5"
+                android:text="@string/login_hint_words"
+                android:textColor="@color/c8"
+                android:textSize="@dimen/text28" />
+
+            <TextView
+                android:id="@+id/login_btn_confim"
+                android:layout_width="@dimen/px484"
+                android:layout_height="@dimen/px92"
+                android:layout_marginTop="@dimen/px80"
+                android:background="@drawable/btn_rect_accent_select"
+                android:gravity="center"
+                android:text="@string/sure"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text32" />
+        </LinearLayout>
+
+    </FrameLayout>
+</LinearLayout>

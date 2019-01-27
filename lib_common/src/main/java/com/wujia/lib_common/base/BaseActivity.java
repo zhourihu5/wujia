@@ -10,6 +10,7 @@ import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -142,4 +143,34 @@ public abstract class BaseActivity extends SupportActivity {
             hideNavigationBar();
         }
     }
+
+    public void showToast(String msg) {
+        Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    //    activity跳转 start
+    public void toActivity(Class targetActivity) {
+        toActivity(targetActivity, null);
+    }
+
+    public void toActivity(Class targetActivity, Bundle bundle) {
+        Intent intent = new Intent(this, targetActivity);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        toActivity(intent);
+    }
+
+    public void toActivityResultNormal(Class<?> toClsActivity, Bundle bundle, int requestCode) {
+        Intent intent = new Intent(this, toClsActivity);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivityForResult(intent, requestCode);
+    }
+
+    public void toActivity(Intent intent) {
+        startActivity(intent);
+    }
+    //    activity跳转 end
 }

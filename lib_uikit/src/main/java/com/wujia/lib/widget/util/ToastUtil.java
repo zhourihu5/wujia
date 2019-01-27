@@ -9,42 +9,29 @@ import android.widget.Toast;
 
 import com.wujia.lib.uikit.R;
 
-
+/**
+ * author ：shenbingkai@163.com
+ * date ：2019-01-27 00:21
+ * description ： toast 工具
+ */
 public class ToastUtil {
 
-    private static Toast mToast = null; // Toast对像
-    private static String oldMsg;
-    private static long oneTime = 0;
-    private static long twoTime = 0;
-
-
-    private ToastUtil() {
+    private static void show(Context context, String msg, int duration) {
+        Toast toast = new Toast(context);
+        View contentView = View.inflate(context, R.layout.layout_toast, null);
+        TextView title = contentView.findViewById(R.id.tv_title);
+        title.setText(msg);
+        toast.setView(contentView);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.setDuration(duration);
+        toast.show();
     }
 
-    public static void shortShow(Context context, String message) {
-        if (mToast == null) {
-            mToast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
-//            mToast.setGravity(Gravity.TOP, 0, 150);
-            mToast.show();
-            oneTime = System.currentTimeMillis();
-        } else {
-            twoTime = System.currentTimeMillis();
-            if (message.equals(oldMsg)) {
-                if (twoTime - oneTime > Toast.LENGTH_SHORT) {
-                    mToast.show();
-                }
-            } else {
-                oldMsg = message;
-                mToast.setText(message);
-                mToast.show();
-            }
-        }
-        oneTime = twoTime;
+    public static void showShort(Context context, String msg) {
+        show(context, msg, Toast.LENGTH_SHORT);
     }
 
-    public static void cancel() {
-        if (null != mToast) {
-            mToast.cancel();
-        }
+    public static void showLong(Context context, String msg) {
+        show(context, msg, Toast.LENGTH_LONG);
     }
 }

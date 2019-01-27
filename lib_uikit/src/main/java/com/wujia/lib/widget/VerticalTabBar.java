@@ -69,6 +69,15 @@ public class VerticalTabBar extends LinearLayout {
     }
 
 
+    public void setCurrentItem(final int position) {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                getChildAt(position).performClick();
+            }
+        });
+    }
+
     public void setOnTabSelectedListener(OnTabSelectedListener mOnTabSelectedListener) {
         this.mOnTabSelectedListener = mOnTabSelectedListener;
     }

@@ -3,11 +3,15 @@ package com.wujia.lib.widget;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.graphics.SweepGradient;
@@ -110,6 +114,9 @@ public class ArcSeekBar extends View {
     private Matrix mInvertMatrix;               // 逆向 Matrix, 用于计算触摸坐标和绘制坐标的转换
     private Region mArcRegion;                  // ArcPath的实际区域大小,用于判定单击事件
     private RectF content;//中心区域
+
+    private Bitmap mThumbBmp;
+    private Rect mThumbRect;
 
 
     public ArcSeekBar(Context context) {
@@ -218,6 +225,14 @@ public class ArcSeekBar extends View {
             mThumbPaint.setStyle(Paint.Style.STROKE);
         }
         mThumbPaint.setTextSize(56);
+
+        setLayerType(LAYER_TYPE_SOFTWARE, null);//对单独的View在运行时阶段禁用硬件加速
+        mThumbPaint.setShadowLayer(5,0,0,ContextCompat.getColor(getContext(),R.color.c75));
+
+
+
+        mThumbBmp=BitmapFactory.decodeResource(getResources(),R.drawable.bg_white_circle);
+        mThumbRect=new Rect(0,0,mThumbBmp.getWidth(),mThumbBmp.getHeight());
     }
 
     // 初始化拖动按钮画笔
@@ -344,6 +359,7 @@ public class ArcSeekBar extends View {
             canvas.drawPath(mBorderPath, mBorderPaint);
         }
         canvas.drawCircle(mThumbX, mThumbY, mThumbRadius, mThumbPaint);
+//        canvas.drawBitmap(mThumbBmp,mThumbX,mThumbY,mThumbPaint);
         canvas.restore();
     }
 

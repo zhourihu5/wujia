@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".mvp.SettingFragment">
+
+    <include layout="@layout/layout_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ceeeeef"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/px80"
+        android:paddingRight="@dimen/px80">
+
+
+        <RelativeLayout
+            android:id="@+id/item_set_member"
+            style="@style/ItemLayoutStyle">
+
+            <TextView
+                style="@style/ItemTexTTitleStyle"
+                android:drawableLeft="@mipmap/icon_setting_family"
+                android:text="@string/set_family_member" />
+
+            <TextView style="@style/ItemTexTDescWithArrowStyle" />
+        </RelativeLayout>
+
+        <View style="@style/ItemLineStyle" />
+
+        <RelativeLayout
+            android:id="@+id/item_manager_card"
+            style="@style/ItemLayoutStyle">
+
+            <TextView
+                style="@style/ItemTexTTitleStyle"
+                android:drawableLeft="@mipmap/icon_setting_manage"
+                android:text="@string/manager_home_card" />
+
+            <TextView style="@style/ItemTexTDescWithArrowStyle" />
+        </RelativeLayout>
+
+        <View style="@style/ItemLineStyle" />
+
+        <RelativeLayout
+            android:id="@+id/item_set_lock_pic"
+            style="@style/ItemLayoutStyle">
+
+            <TextView
+                style="@style/ItemTexTTitleStyle"
+                android:drawableLeft="@mipmap/icon_settingt_lockscreen"
+                android:text="@string/set_lock_pic" />
+
+            <TextView style="@style/ItemTexTDescWithArrowStyle" />
+        </RelativeLayout>
+
+        <View style="@style/ItemLineStyle" />
+
+        <RelativeLayout
+            android:id="@+id/item_wifi_connection"
+            style="@style/ItemLayoutStyle">
+
+            <TextView
+                style="@style/ItemTexTTitleStyle"
+                android:drawableLeft="@mipmap/icon_setting_wifi"
+                android:text="@string/wifi_connection" />
+
+            <TextView style="@style/ItemTexTDescWithArrowStyle" />
+        </RelativeLayout>
+
+        <View style="@style/ItemLineStyle" />
+
+        <LinearLayout
+            android:id="@+id/item_allow_look_door_num"
+            style="@style/ItemLayoutStyle"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/ItemTexTTitleStyle"
+                android:drawableLeft="@mipmap/icon_setting_door"
+                android:text="@string/allow_look_door_num" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px20"
+                android:layout_weight="1"
+                android:text="@string/allow_look_door_num_desc"
+                android:textColor="@color/c8"
+                android:textSize="@dimen/text20" />
+
+            <com.wujia.lib.widget.MySwitch
+                android:id="@+id/item_allow_look_door_num_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/px16"
+        android:background="#eeeeef"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/px80"
+        android:paddingRight="@dimen/px80">
+
+        <LinearLayout
+            android:id="@+id/item_clear_cache"
+            style="@style/ItemLayoutStyle"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/ItemTexTTitleStyle"
+                android:drawableLeft="@mipmap/icon_setting_cache"
+                android:text="@string/clear_cache" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px20"
+                android:layout_weight="1"
+                android:text="@string/clear_cache_desc"
+                android:textColor="@color/c8"
+                android:textSize="@dimen/text20" />
+
+            <TextView
+                style="@style/ItemTexTTitleStyle"
+                tools:text="200MB" />
+        </LinearLayout>
+
+        <View style="@style/ItemLineStyle" />
+
+        <RelativeLayout
+            android:id="@+id/item_check_update"
+            style="@style/ItemLayoutStyle">
+
+            <TextView
+                style="@style/ItemTexTTitleStyle"
+                android:drawableLeft="@mipmap/icon_setting_refresh"
+                android:text="@string/check_update" />
+
+            <TextView style="@style/ItemTexTDescWithArrowStyle" />
+        </RelativeLayout>
+
+        <View style="@style/ItemLineStyle" />
+
+    </LinearLayout>
+</LinearLayout>

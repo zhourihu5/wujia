@@ -1,6 +1,7 @@
 package com.wujia.intellect.terminal.mvp;
 
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -100,6 +101,7 @@ public class MainActivity extends BaseActivity {
             public void onTabSelected(int position, int prePosition) {
                 showHideFragment(mFragments[position], mFragments[prePosition]);
             }
+
         });
     }
 
@@ -110,4 +112,19 @@ public class MainActivity extends BaseActivity {
     public void hideCover(){
         mainCover.setVisibility(View.GONE);
     }
+
+    @Override
+    public void onBackPressedSupport() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            pop();
+        } else {
+            ActivityCompat.finishAfterTransition(this);
+        }
+    }
+//
+//    @Override
+//    public void onBackToFirstFragment() {
+//        mTabBar.setCurrentItem(0);
+//    }
+
 }

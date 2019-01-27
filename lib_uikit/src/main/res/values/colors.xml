@@ -5,6 +5,8 @@
     <color name="colorPrimary">#C8AB88</color>
     <color name="colorPrimaryDark">#BA9C77</color>
     <color name="colorAccent">#C8AB88</color>
+    <color name="colorAccentDark">#BA9C77</color>
+
     <color name="bg">#dfdfe0</color>
     <!--这些是系统使用的Color值-->
 
@@ -17,16 +19,21 @@
 
     <color name="clr_f0f0f0">#f0f0f0</color>
     <color name="divider">#f0f0f0</color>
+    <color name="line">#1A000000</color>
     <color name="transparent">@android:color/transparent</color>
 
 
-
-
-
+    <color name="ceeeeef">#eeeeef</color>
+    <color name="c8f333333">#8f333333</color>
+    <color name="cf7">#F7F7F7</color>
+    <color name="c75">#757575</color>
     <color name="c80">#80000000</color>
     <color name="c3">#333333</color>
     <color name="c6">#666666</color>
     <color name="c8">#888888</color>
     <color name="c9">#999999</color>
+    <color name="cd5">#D5D5D5</color>
+    <color name="c3a">#3a3a3a</color>
+    <color name="cdd6767">#DD6767</color>
 
 </resources>

@@ -61,7 +61,39 @@
     <string name="curtain">窗帘</string>
     <string name="all_equipment">全部设备</string>
     <string name="lighting_power">亮度</string>
+    <string name="back">返回</string>
 
+
+    <!--设置-->
+    <string name="set_family_member">设置家庭成员</string>
+    <string name="manager_home_card">管理首页卡片</string>
+    <string name="set_lock_pic">设置锁屏图片</string>
+    <string name="wifi_connection">wifi连接</string>
+    <string name="allow_look_door_num">允许查看门牌号</string>
+    <string name="check_update">检查更新</string>
+    <string name="allow_look_door_num_desc">仅限与您同社区的住户查看</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="clear_cache_desc">缓存中不包含自动录制的门禁回放录像</string>
+    <string name="add_family_member">添加家庭成员</string>
+    <string name="please_input_member_phone">请输入成员手机号</string>
+    <string name="invite">邀请</string>
+    <string name="check_update_ing">正在检查更新...</string>
+    <string name="find_new_version">发现新版本</string>
+    <string name="now_update">立即更新</string>
+    <string name="update_ing">正在更新</string>
+    <string name="cache_clear_ed">缓存已清除</string>
+    <string name="look_details">查看详情</string>
+    <string name="welcom_login">欢迎登录</string>
+    <string name="phone">手机号</string>
+    <string name="login_hint_words_short">欢迎加入吾家社区，开启智慧社区生活</string>
+    <string name="login">登录</string>
+    <string name="login_hint_words">您好，您已经成为被认证的吾家业主\n欢迎加入吾家社区，开启智慧社区生活</string>
+    <string name="phone_error">手机号填写错误</string>
+
+
+
+    <!--format-->
+    <string name="s_s">%1$s %2$s</string>
 
     <array name="arc_colors_default">
         <item>@color/colorAccent</item>

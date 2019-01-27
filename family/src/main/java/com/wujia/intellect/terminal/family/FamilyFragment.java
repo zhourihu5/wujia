@@ -3,6 +3,8 @@ package com.wujia.intellect.terminal.family;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.wujia.intellect.terminal.family.mvp.AllFragment;
+import com.wujia.intellect.terminal.family.mvp.FamilyHomeFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib_common.base.BaseFragment;
@@ -16,8 +18,6 @@ import me.yokeyword.fragmentation.SupportFragment;
  * description ：智能家居 home
  */
 public class FamilyFragment extends BaseFragment {
-    private VerticalTabBar mTabBar;
-    private SupportFragment[] mFragments = new SupportFragment[6];
 
     public FamilyFragment() {
 
@@ -39,43 +39,15 @@ public class FamilyFragment extends BaseFragment {
     }
 
     @Override
-    protected void initEventAndData() {
-        mTabBar = $(R.id.family_main_tab_bar);
-
-        SupportFragment firstFragment = findFragment(AllFragment.class);
-        if (firstFragment == null) {
-            mFragments[0] = AllFragment.newInstance();
-            loadRootFragment(R.id.family_container, mFragments[0]);
-        } else {
-            // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
-
-            // 这里我们需要拿到mFragments的引用
-            mFragments[0] = firstFragment;
-        }
-
-        mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_all_default, R.string.home))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_living_default, R.string.drawing_room))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_bed2_default, R.string.master_room))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_bed2_default, R.string.second_room))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_kitchen_default, R.string.kitchen))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_bath_default, R.string.washroom));
-
-
-        mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(int position, int prePosition) {
-                showHideFragment(mFragments[0], mFragments[prePosition]);
-            }
-        });
-    }
-
-    @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
         LogUtil.i("FamilyFragment onLazyInitView");
 
+        if (findChildFragment(FamilyHomeFragment.class) == null) {
+            loadRootFragment(R.id.fl_first_container, FamilyHomeFragment.newInstance());
+        }
     }
 
     @Override

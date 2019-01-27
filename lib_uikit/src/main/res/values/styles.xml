@@ -56,4 +56,58 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+
+    <!--默认item样式-->
+    <style name="ItemLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/px100</item>
+    </style>
+    <!--默认item 左侧文字样式-->
+    <style name="ItemTexTTitleStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/c3</item>
+        <item name="android:textSize">@dimen/text24</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:drawablePadding">@dimen/px20</item>
+
+    </style>
+    <!--默认item 右侧文字样式-->
+    <style name="ItemTexTDescStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textSize">@dimen/text24</item>
+        <item name="android:textColor">@color/c3</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+    <!--默认item 右侧文字样式 带箭头-->
+    <style name="ItemTexTDescWithArrowStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:drawablePadding">@dimen/px20</item>
+        <item name="android:textSize">@dimen/text24</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:drawableRight">@mipmap/icon_arrow_right</item>
+
+    </style>
+
+    <!--间隔线-->
+    <style name="ItemLineStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/px1</item>
+        <item name="android:background">@color/line</item>
+
+    </style>
+
+    <!-- 加载滚动条样式 -->
+    <style name="ProgressLoadingWhiteStyle">
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateDrawable">@drawable/progressloading_white</item>
+        <item name="android:indeterminateDuration">1000</item>
+        <item name="android:indeterminateOnly">true</item>
+    </style>
+
 </resources>

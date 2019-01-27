@@ -2,16 +2,19 @@ package com.wujia.intellect.terminal.mvp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
+import com.wujia.businesslib.TitleFragment;
 import com.wujia.intellect.terminal.R;
+import com.wujia.intellect.terminal.mvp.setting.view.SettingHomeFragment;
 import com.wujia.lib_common.base.BaseFragment;
 
 /**
-* author ：shenbingkai@163.com
-* date ：2019-01-12 20:06
-* description ：务业服务 home
-*/
+ * author ：shenbingkai@163.com
+ * date ：2019-01-12 20:06
+ * description ：务业服务 home
+ */
 public class SettingFragment extends BaseFragment {
+
+
 
     public SettingFragment() {
     }
@@ -26,19 +29,17 @@ public class SettingFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_home;
+        return R.layout.fragment_setting;
     }
 
-    @Override
-    protected void initEventAndData() {
-
-    }
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
-
+        if (findChildFragment(SettingHomeFragment.class) == null) {
+            loadRootFragment(R.id.fl_first_container, SettingHomeFragment.newInstance());
+        }
     }
 
     @Override

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">WuJia</string>
+    <string name="password">密码</string>
 
 </resources>
