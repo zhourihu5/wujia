@@ -94,6 +94,8 @@
 
     <!--format-->
     <string name="s_s">%1$s %2$s</string>
+    <string name="Welcome_home">Welcome home</string>
+    <string name="equipment_status">设备状态</string>
 
     <array name="arc_colors_default">
         <item>@color/colorAccent</item>
