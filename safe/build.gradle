@@ -18,6 +18,7 @@ android {
 
 }
 dependencies {
+    api fileTree(dir: 'libs')
     implementation project(':businesslib')
     annotationProcessor deps.butterknife.compiler
     annotationProcessor deps.arouter.compiler

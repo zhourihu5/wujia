@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * author ：shenbingkai@163.com
  * date ：2019-01-12 20:06
- * description ：服务市场 home
+ * description ：全部设备
  */
 public class AllFragment extends BaseFragment {
 

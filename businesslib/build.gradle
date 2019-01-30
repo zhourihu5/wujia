@@ -43,6 +43,7 @@ dependencies {
 
     api project(':lib_uikit')
     api project(':lib_imageloader')
+//    api 'me.jessyan:autosize:1.1.2'
 
 
     debugImplementation deps.leakcanary

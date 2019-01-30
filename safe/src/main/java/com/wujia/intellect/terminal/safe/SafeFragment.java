@@ -3,6 +3,8 @@ package com.wujia.intellect.terminal.safe;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.wujia.intellect.terminal.safe.mvp.SafeHomeFragment;
+import com.wujia.intellect.terminal.safe.mvp.SafeOutsideFragment;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
@@ -41,6 +43,9 @@ public class SafeFragment extends BaseFragment {
         // 同级Fragment场景、ViewPager场景均适用
         LogUtil.i("SafeFragment onLazyInitView");
 
+        if (findChildFragment(SafeHomeFragment.class) == null) {
+            loadRootFragment(R.id.fl_first_container, SafeHomeFragment.newInstance());
+        }
     }
 
     @Override

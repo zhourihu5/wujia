@@ -9,4 +9,9 @@ import com.wujia.businesslib.base.BaseApplication;
  * description ：
  */
 public class HostApp extends BaseApplication {
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
 }
