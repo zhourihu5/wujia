@@ -1,6 +1,7 @@
 package com.wujia.intellect.terminal.host;
 
 
+import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.wujia.businesslib.base.BaseApplication;
 
 /**
