@@ -33,7 +33,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_home_member"
-            android:layout_width="@dimen/px500"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/px72"
             android:layout_below="@id/home_room_tv"
             android:layout_marginLeft="@dimen/px80"
@@ -56,7 +56,6 @@
             android:textSize="@dimen/text32" />
 
         <TextView
-
             android:layout_width="@dimen/px200"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/home_arc_view"
@@ -66,14 +65,114 @@
             android:textColor="@color/c8"
             android:textSize="@dimen/text20" />
 
+        <LinearLayout
+            android:id="@+id/home_eq_status_layout"
+            android:layout_width="@dimen/px160"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_arc_view"
+            android:layout_alignLeft="@id/home_arc_view"
+            android:layout_marginLeft="@dimen/px20"
+            android:layout_marginTop="@dimen/px20"
+            android:orientation="horizontal">
 
-        <ImageView
+            <ImageView
+                android:id="@+id/home_home_img"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@mipmap/icon_home_home_normal" />
+
+            <ImageView
+                android:id="@+id/home_batter_img"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@mipmap/icon_home_battery_normal" />
+
+            <ImageView
+                android:id="@+id/home_wifi_img"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@mipmap/icon_home_wifi_normal" />
+
+            <ImageView
+                android:id="@+id/home_camera_img"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@mipmap/icon_home_camera_normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_status_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/home_arc_view"
-            android:layout_toLeftOf="@id/home_arc_view"
-            android:background="@mipmap/img_home_safe_normal" />
+            android:layout_alignBottom="@id/home_eq_status_layout"
+            android:layout_marginRight="@dimen/px80"
+            android:layout_toLeftOf="@id/home_eq_status_layout"
+            android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/home_time_date_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/px60"
+                android:drawableLeft="@mipmap/icon_home_calendar"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="12月19日 星期三"
+                android:textColor="@color/c3"
+                android:textSize="@dimen/text24" />
+
+            <TextView
+                android:id="@+id/home_car_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/px60"
+                android:drawableLeft="@mipmap/icon_home_car"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="今日限行：3、8"
+                android:textColor="@color/c3"
+                android:textSize="@dimen/text24" />
+
+            <TextView
+                android:id="@+id/home_air_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/icon_home_aqi"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="空气质量：优"
+                android:textColor="@color/c3"
+                android:textSize="@dimen/text24" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/home_status_layout"
+            android:layout_marginTop="@dimen/px140"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/icon_home_weather_sunny"
+                android:text="晴朗"
+                android:textColor="@color/c8"
+                android:textSize="@dimen/text20" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px10"
+                android:text="12°"
+                android:textColor="@color/c53"
+                android:textSize="@dimen/text80" />
+
+        </LinearLayout>
     </RelativeLayout>
 
     <LinearLayout

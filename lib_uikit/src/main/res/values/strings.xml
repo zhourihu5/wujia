@@ -91,6 +91,13 @@
     <string name="phone_error">手机号填写错误</string>
 
 
+    <!--可视安防-->
+    <string name="outside_machine">室外机</string>
+    <string name="backyard">后院</string>
+    <string name="ease_garth">东花院</string>
+    <string name="park">停车场</string>
+
+
 
     <!--format-->
     <string name="s_s">%1$s %2$s</string>

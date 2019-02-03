@@ -54,10 +54,10 @@ public class SafeHomeFragment extends BaseFragment {
             mFragments[0] = firstFragment;
         }
 
-        mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_head_default, R.string.home))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_head_default, R.string.drawing_room))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_head_default, R.string.master_room))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_head_default, R.string.second_room));
+        mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_safe_leftnav_call_default, R.string.outside_machine))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_safe_leftnav_camera_default, R.string.backyard))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_safe_leftnav_camera_default, R.string.ease_garth))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_safe_leftnav_camera_default, R.string.park));
 
 
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {
