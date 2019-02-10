@@ -27,6 +27,11 @@ public class LoginPresenter extends RxPresenter implements LoginContract.Present
 
     }
 
+    @Override
+    public void getTestNet() {
+
+    }
+
     public interface TimeChangeListener{
         void timeChange(String time);
     }

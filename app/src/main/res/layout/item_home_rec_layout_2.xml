@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/family_scene_in_home"
+    android:layout_width="@dimen/px320"
+    android:layout_height="@dimen/px448"
+    android:background="@drawable/bg_white_radius_card"
+
+    >
+
+    <ImageView
+        android:id="@+id/scene_in_img"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px300"
+        android:background="@mipmap/img_card_home_active" />
+
+    <TextView
+        android:id="@+id/btn_update_now"
+        android:layout_width="@dimen/px176"
+        android:layout_height="@dimen/px72"
+        android:background="@drawable/btn_rect_accent_select"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/px30"
+        android:text="@string/now_subscribe"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text24" />
+</RelativeLayout>
+

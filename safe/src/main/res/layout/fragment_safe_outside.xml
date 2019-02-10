@@ -1,6 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:id="@+id/fl_first_container"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fl_first_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-</FrameLayout>
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="@dimen/px64">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <SurfaceView
+                android:id="@+id/surface"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:layout_width="@dimen/px262"
+                android:layout_height="@dimen/px52"
+                android:background="@color/c3"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/safe_eq_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="室外机 Live 11.18 15:32"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text20" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/safe_rec_seek_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/px52"
+                android:visibility="gone"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="@dimen/px24"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_c3_raduis_shape"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/px30"
+                    android:paddingRight="@dimen/px30">
+
+
+                    <TextView
+                        android:id="@+id/safe_progress_time_current_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00:20"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text20" />
+
+                    <SeekBar
+                        android:id="@+id/safe_seekbar"
+                        android:layout_width="@dimen/px300"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/px20"
+                        android:layout_marginRight="@dimen/px20" />
+
+                    <TextView
+                        android:id="@+id/safe_progress_time_count_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="01:20"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text20" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/safe_swich_live_btn"
+                    android:layout_width="@dimen/px120"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/px32"
+                    android:background="@drawable/bg_c3_raduis_shape"
+                    android:gravity="center"
+                    android:text="@string/swich_live"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text20" />
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px384"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/px40"
+            android:paddingRight="@dimen/px40"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/safe_btn_play"
+                style="@style/SafeIconBtnStyle"
+                android:drawableTop="@mipmap/btn_safe_sosbig"
+                android:text="@string/play"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/safe_btn_pause"
+                style="@style/SafeIconBtnStyle"
+                android:drawableTop="@mipmap/btn_safe_sosbig"
+                android:text="@string/pause"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/safe_btn_save"
+                style="@style/SafeIconBtnStyle"
+                android:drawableTop="@mipmap/btn_safe_sosbig"
+                android:text="@string/save"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/safe_btn_sos"
+                style="@style/SafeIconBtnStyle"
+                android:drawableTop="@mipmap/btn_safe_sosbig"
+                android:text="@string/sos" />
+
+            <TextView
+                android:id="@+id/safe_btn_refresh"
+                style="@style/SafeIconBtnStyle"
+                android:drawableTop="@mipmap/btn_safe_refreshbig"
+                android:text="@string/refresh" />
+
+            <TextView
+                android:id="@+id/safe_btn_mute"
+                style="@style/SafeIconBtnStyle"
+                android:drawableTop="@mipmap/btn_safe_mutebig"
+                android:text="@string/mute" />
+
+            <TextView
+                android:id="@+id/safe_btn_full"
+                style="@style/SafeIconBtnStyle"
+                android:drawableTop="@mipmap/btn_safe_fullscreenbig"
+                android:text="@string/full_screen" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--回放记录-->
+    <LinearLayout
+        android:layout_width="@dimen/px460"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/px40"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px40"
+            android:layout_marginTop="@dimen/px48"
+            android:layout_marginRight="@dimen/px40"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/play_recond"
+                android:textColor="@color/c3"
+                android:textSize="@dimen/text32" />
+
+            <TextView
+                android:id="@+id/safe_play_rec_edit_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="@dimen/px10"
+                android:paddingRight="@dimen/px10"
+                android:text="@string/edit"
+                android:textColor="@color/colorAccentDark"
+                android:textSize="@dimen/text24" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_play_back"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/px35"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_safe_play_back" />
+
+        <View style="@style/ItemLineStyle" />
+
+        <LinearLayout
+            android:id="@+id/safe_rec_op_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px80"
+            android:orientation="horizontal"
+            android:translationY="@dimen/px80">
+
+            <TextView
+                android:id="@+id/safe_rec_del_btn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/delete"
+                android:textColor="@color/cdd6767"
+                android:textSize="@dimen/text24" />
+
+            <View
+                android:layout_width="@dimen/px1"
+                android:layout_height="match_parent"
+                android:background="@color/line" />
+
+            <TextView
+                android:id="@+id/safe_rec_all_choose_btn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/all_choose"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text24" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -96,6 +96,9 @@
     <string name="backyard">后院</string>
     <string name="ease_garth">东花院</string>
     <string name="park">停车场</string>
+    <string name="sos">SOS</string>
+    <string name="play">播放</string>
+    <string name="pause">暂停</string>
 
 
 
@@ -103,6 +106,18 @@
     <string name="s_s">%1$s %2$s</string>
     <string name="Welcome_home">Welcome home</string>
     <string name="equipment_status">设备状态</string>
+    <string name="mute">静音</string>
+    <string name="full_screen">全屏</string>
+    <string name="save">保存</string>
+    <string name="refresh">刷新</string>
+    <string name="play_recond">回放记录</string>
+    <string name="complete">完成</string>
+    <string name="edit">编辑</string>
+    <string name="swich_live">切回直播</string>
+    <string name="all_choose">全选</string>
+    <string name="delete">删除</string>
+    <string name="tenement_service">物业维修</string>
+    <string name="now_subscribe">立即预约</string>
 
     <array name="arc_colors_default">
         <item>@color/colorAccent</item>

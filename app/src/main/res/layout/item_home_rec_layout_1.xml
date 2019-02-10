@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/family_scene_in_home"
+    android:layout_width="@dimen/px320"
+    android:layout_height="@dimen/px448"
+    android:background="@drawable/bg_white_radius_card"
+
+    >
+
+    <ImageView
+        android:id="@+id/scene_in_img"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px274"
+        android:background="@mipmap/img_card_home_serve" />
+
+    <TextView
+        android:id="@+id/scene_in_mode_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scene_in_img"
+        android:layout_marginLeft="@dimen/px30"
+        android:layout_marginTop="@dimen/px30"
+        android:text="@string/tenement_service"
+        android:textColor="@color/c3"
+        android:textSize="@dimen/text32" />
+
+    <TextView
+        android:id="@+id/scene_in_mode_status_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scene_in_mode_tv"
+        android:layout_alignLeft="@id/scene_in_mode_tv"
+        android:layout_marginRight="@dimen/px40"
+        android:lineSpacingMultiplier="1.3"
+        android:maxLines="2"
+        android:text="水管维修，管道疏通 水管维修，管道疏通"
+        android:textColor="@color/c8"
+        android:textSize="@dimen/text20" />
+</RelativeLayout>
+

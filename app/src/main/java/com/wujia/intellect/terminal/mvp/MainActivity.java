@@ -9,14 +9,13 @@ import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.family.FamilyFragment;
 import com.wujia.intellect.terminal.market.MarketFragment;
 import com.wujia.intellect.terminal.message.MessageFragment;
+import com.wujia.intellect.terminal.mvp.home.HomeFragment;
 import com.wujia.intellect.terminal.neighbor.NeighborFragment;
 import com.wujia.intellect.terminal.property.ProperyFragment;
 import com.wujia.intellect.terminal.safe.SafeFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib_common.base.BaseActivity;
-import com.wujia.lib_common.utils.LogUtil;
-import com.wujia.lib_common.utils.ScreenUtil;
 
 import me.yokeyword.fragmentation.SupportFragment;
 

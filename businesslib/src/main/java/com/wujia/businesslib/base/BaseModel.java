@@ -22,7 +22,7 @@ public class BaseModel {
         mHttpHelper = new HttpHelper.Builder(
                 new NetConfig()
                         .configInterceptors(new Interceptor[]{new BusinessInterceptor()})
-                        .configBaseURL("http://dev.api.abctime.com"))
+                        .configBaseURL("http://www.baidu.com"))
                 .build();
     }
 }
