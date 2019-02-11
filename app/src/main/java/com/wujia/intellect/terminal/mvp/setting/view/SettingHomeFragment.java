@@ -1,5 +1,6 @@
 package com.wujia.intellect.terminal.mvp.setting.view;
 
+import android.app.WallpaperManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -9,10 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.wujia.businesslib.TitleFragment;
+import com.wujia.businesslib.listener.OnDialogListener;
+import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.wujia.intellect.terminal.R;
-import com.wujia.lib.widget.LoadingDialog;
+import com.wujia.businesslib.dialog.LoadingDialog;
 import com.wujia.lib.widget.MySwitch;
-import com.wujia.lib.widget.SimpleDialog;
+import com.wujia.businesslib.dialog.SimpleDialog;
 import com.wujia.lib.widget.util.ToastUtil;
 
 import butterknife.BindView;
@@ -102,7 +105,13 @@ public class SettingHomeFragment extends TitleFragment {
             case R.id.item_manager_card:
                 break;
             case R.id.item_set_lock_pic:
-                startActivity(new Intent(Settings.ACTION_DISPLAY_SETTINGS));
+//                startActivity(new Intent(Settings.ACTION_DISPLAY_SETTINGS));
+                WallpaperManager wallpaperManager = WallpaperManager.getInstance(getActivity());
+                try {
+                    wallpaperManager.setResource(R.raw.bg_lockscreen);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.item_wifi_connection:
                 startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
@@ -111,7 +120,7 @@ public class SettingHomeFragment extends TitleFragment {
                 itemAllowLookDoorNumSwitch.toggle();
                 break;
             case R.id.item_clear_cache:
-                new SimpleDialog.Builder().title(getString(R.string.clear_cache)).listener(new SimpleDialog.OnInputDialogListener() {
+                new SimpleDialog.Builder().title(getString(R.string.clear_cache)).listener(new OnDialogListener() {
                     @Override
                     public void dialogSureClick() {
                         ToastUtil.showShort(mContext, getString(R.string.cache_clear_ed));

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/px338"
+    android:layout_height="@dimen/px460"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/card_manager_cont"
+        android:layout_width="@dimen/px320"
+        android:layout_height="@dimen/px442"
+        android:layout_gravity="bottom" />
+
+    <ImageView
+        android:id="@+id/card_manager_btn"
+        android:layout_width="@dimen/px56"
+        android:layout_height="@dimen/px56"
+        android:layout_gravity="right"
+        android:background="@mipmap/icon_smart_manage_add" />
+</FrameLayout>
+

@@ -10,6 +10,7 @@ import com.wujia.intellect.terminal.family.FamilyFragment;
 import com.wujia.intellect.terminal.market.MarketFragment;
 import com.wujia.intellect.terminal.message.MessageFragment;
 import com.wujia.intellect.terminal.mvp.home.HomeFragment;
+import com.wujia.intellect.terminal.mvp.home.HomeHomeFragment;
 import com.wujia.intellect.terminal.neighbor.NeighborFragment;
 import com.wujia.intellect.terminal.property.ProperyFragment;
 import com.wujia.intellect.terminal.safe.SafeFragment;
@@ -51,7 +52,7 @@ public class MainActivity extends BaseActivity {
         mainCover=findViewById(R.id.main_cover);
 
 
-        SupportFragment firstFragment = findFragment(HomeFragment.class);
+        SupportFragment firstFragment = findFragment(HomeHomeFragment.class);
         if (firstFragment == null) {
             mFragments[0] = HomeFragment.newInstance();
             mFragments[1] = SafeFragment.newInstance();

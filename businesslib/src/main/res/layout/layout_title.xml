@@ -18,12 +18,25 @@
         android:id="@+id/layout_back_btn"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:drawableLeft="@mipmap/back_nav"
+        android:drawablePadding="@dimen/px10"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/px80"
         android:paddingRight="@dimen/px80"
-        android:drawableLeft="@mipmap/back_nav"
-        android:drawablePadding="@dimen/px10"
         android:text="@string/back"
+        android:textColor="@color/c8"
+        android:textSize="@dimen/text24"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/layout_right_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/px80"
+        android:paddingRight="@dimen/px80"
+        android:text="@string/done"
         android:textColor="@color/c8"
         android:textSize="@dimen/text24"
         android:visibility="gone" />

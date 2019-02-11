@@ -7,10 +7,11 @@ package com.wujia.intellect.terminal.mvp.home.data;
  */
 public class HomeRecBean {
 
-    public int type;
+
+    public int _viewType;
 
     public HomeRecBean(int type) {
-        this.type = type;
+        this._viewType = type;
     }
 
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/px320"
+    android:layout_height="@dimen/px442"
+    android:background="@drawable/bg_add_radius_shape"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="@dimen/px40"
+        android:layout_height="@dimen/px40"
+        android:background="@mipmap/icon_home_card_increase" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px70"
+        android:text="@string/add_shortcut_card"
+        android:textColor="@color/c8"
+        android:textSize="@dimen/text24" />
+</LinearLayout>
+

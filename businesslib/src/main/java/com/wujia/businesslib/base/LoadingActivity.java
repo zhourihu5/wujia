@@ -1,7 +1,6 @@
 package com.wujia.businesslib.base;
 
-import com.wujia.lib.widget.LoadingDialog;
-import com.wujia.lib.widget.util.ToastUtil;
+import com.wujia.businesslib.dialog.LoadingDialog;
 import com.wujia.lib_common.base.BasePresenter;
 
 /**

@@ -36,7 +36,7 @@
     <string name="hint_loadMore">加载更多…</string>
 
 
-
+    <!--main-->
     <string name="home">首页</string>
     <string name="visual_security">可视安防</string>
     <string name="intelligent_home">智能家居</string>
@@ -101,9 +101,7 @@
     <string name="pause">暂停</string>
 
 
-
-    <!--format-->
-    <string name="s_s">%1$s %2$s</string>
+    <!--首页-->
     <string name="Welcome_home">Welcome home</string>
     <string name="equipment_status">设备状态</string>
     <string name="mute">静音</string>
@@ -118,6 +116,20 @@
     <string name="delete">删除</string>
     <string name="tenement_service">物业维修</string>
     <string name="now_subscribe">立即预约</string>
+    <string name="input_phone_invite">输入成员手机号，一键邀请</string>
+    <string name="send_invite">发送邀请</string>
+    <string name="invite_manager">邀请管理</string>
+    <string name="exception_status_info">异常状态详情</string>
+    <string name="risk">风险</string>
+    <string name="password">密码</string>
+    <string name="warning">预警</string>
+
+    <!--format-->
+    <string name="s_s">%1$s %2$s</string>
+    <string name="add_shortcut_card">添加快捷卡片</string>
+    <string name="added">已添加</string>
+    <string name="unadd">未添加</string>
+
 
     <array name="arc_colors_default">
         <item>@color/colorAccent</item>

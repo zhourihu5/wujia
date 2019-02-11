@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/px64"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="@dimen/px64"
+        android:layout_height="@dimen/px64"
+        android:background="@mipmap/icon_head_default" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/px32"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="13978878720"
+            android:textColor="@color/c3"
+            android:textSize="@dimen/text24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="待接受邀请"
+            android:textColor="@color/c8"
+            android:textSize="@dimen/text20" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="成员"
+        android:textColor="@color/c8"
+        android:textSize="@dimen/text24" />
+</LinearLayout>

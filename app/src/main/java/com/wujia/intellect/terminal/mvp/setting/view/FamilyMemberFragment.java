@@ -3,34 +3,28 @@ package com.wujia.intellect.terminal.mvp.setting.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wujia.businesslib.TitleFragment;
+import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.setting.adapter.SetMemberAdapter;
 import com.wujia.intellect.terminal.mvp.setting.data.FamilyMeberBean;
-import com.wujia.lib.widget.InputDialog;
-import com.wujia.lib.widget.util.ToastUtil;
-import com.wujia.lib_common.base.view.GridDecoration;
+import com.wujia.businesslib.dialog.InputDialog;
 import com.wujia.lib_common.base.view.VerticallDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * author ：shenbingkai@163.com
  * date ：2019-01-12 20:06
  * description ：务业服务 home
  */
-public class FamilyMemberFragment extends TitleFragment implements InputDialog.OnInputDialogListener {
+public class FamilyMemberFragment extends TitleFragment implements OnInputDialogListener {
 
     @BindView(R.id.btn_add_member)
     TextView btnAddMember;
@@ -108,10 +102,5 @@ public class FamilyMemberFragment extends TitleFragment implements InputDialog.O
     @Override
     public void dialogSureClick(String input) {
         showToast(input);
-    }
-
-    @Override
-    public void dialogCancelClick() {
-
     }
 }

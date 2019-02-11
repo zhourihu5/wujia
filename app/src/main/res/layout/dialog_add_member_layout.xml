@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/px636"
+    android:background="@drawable/bg_white_radius_shape"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/px64"
+    android:paddingTop="@dimen/px64"
+    android:paddingRight="@dimen/px64">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_family_member"
+        android:textColor="@color/c3"
+        android:textSize="@dimen/text36" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px10"
+        android:text="@string/input_phone_invite"
+        android:textColor="@color/c8"
+        android:textSize="@dimen/text24" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/px80"
+        android:layout_marginTop="@dimen/px48"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/dialog_input"
+            android:layout_width="@dimen/px288"
+            android:layout_height="match_parent"
+            android:hint="@string/please_input_member_phone"
+            android:inputType="phone"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/c6"
+            android:textColorHint="@color/cd5"
+            android:textSize="@dimen/text24" />
+
+        <TextView
+            android:id="@+id/btn_send_invite"
+            android:layout_width="@dimen/px160"
+            android:layout_height="@dimen/px72"
+            android:layout_marginLeft="@dimen/px50"
+            android:background="@drawable/btn_rect_accent_select"
+            android:gravity="center"
+            android:text="@string/send_invite"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text24" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px60"
+        android:text="@string/invite_manager"
+        android:textColor="@color/c8"
+        android:textSize="@dimen/text24" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_dialog_invite"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px264"
+        android:layout_marginTop="@dimen/px10"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_home_invite_layout" />
+</LinearLayout>

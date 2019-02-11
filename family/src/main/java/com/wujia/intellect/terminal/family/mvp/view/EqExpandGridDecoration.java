@@ -1,6 +1,7 @@
 package com.wujia.intellect.terminal.family.mvp.view;
 
 import android.graphics.Rect;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -14,14 +15,21 @@ public class EqExpandGridDecoration extends RecyclerView.ItemDecoration {
     private int space;
 
     public EqExpandGridDecoration(int space) {
-        this.space=space;
+        this.space = space;
     }
 
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
 
-//        outRect.right = spaceHorizontal;
-//        outRect.bottom = spaceVertical;
+//        int position = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewAdapterPosition();
+
+        GridLayoutManager gridLayoutManager = (GridLayoutManager) parent.getLayoutManager();
+        int span = gridLayoutManager.getSpanCount();
+        if (span > 0) {
+            outRect.top = space;
+        }
+//        GridLayoutManager.SpanSizeLookup spanSizeLookup = gridLayoutManager.getSpanSizeLookup();
+//        spanSizeLookup.getSpanIndex(position, gridLayoutManager.getSpanCount()) == 0;
     }
 }

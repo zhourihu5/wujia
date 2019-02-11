@@ -21,6 +21,7 @@ import com.wujia.intellect.terminal.family.mvp.adapter.ModeAdapter;
 import com.wujia.intellect.terminal.family.mvp.data.EquipmentBean;
 import com.wujia.intellect.terminal.family.mvp.data.EquipmentType;
 import com.wujia.intellect.terminal.family.mvp.data.ModeBean;
+import com.wujia.intellect.terminal.family.mvp.view.EqExpandGridDecoration;
 import com.wujia.lib.widget.ArcSeekBar;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
@@ -238,7 +239,7 @@ public class AllFragment extends BaseFragment {
             }
         });
 
-//        rv.addItemDecoration(new EqExpandGridDecoration());
+        rv.addItemDecoration(new EqExpandGridDecoration(25));
         rv.setAdapter(new EquipmentExpandAdapter(mActivity, menus));
         dialog.setContentView(conv);
         Window dialogWindow = dialog.getWindow();

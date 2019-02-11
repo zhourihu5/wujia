@@ -3,9 +3,7 @@
     android:id="@+id/family_scene_in_home"
     android:layout_width="@dimen/px320"
     android:layout_height="@dimen/px448"
-    android:background="@drawable/bg_white_radius_card"
-
-    >
+    android:background="@drawable/bg_white_radius_card">
 
     <ImageView
         android:id="@+id/scene_in_img"
@@ -53,5 +51,6 @@
         android:text="@string/opened"
         android:textColor="@color/c8"
         android:textSize="@dimen/text20" />
+
 </RelativeLayout>
 

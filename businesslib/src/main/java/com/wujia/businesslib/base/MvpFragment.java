@@ -3,7 +3,7 @@ package com.wujia.businesslib.base;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
-import com.wujia.lib.widget.LoadingDialog;
+import com.wujia.businesslib.dialog.LoadingDialog;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.BaseView;

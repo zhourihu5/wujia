@@ -22,7 +22,6 @@ public abstract class TitleFragment extends BaseFragment {
         super.initEventAndData();
 
         mTitleTv = $(R.id.layout_title_tv);
-        mBackBtn = $(R.id.layout_back_btn);
         mTitleTv.setText(getTitle());
 
     }
@@ -31,11 +30,12 @@ public abstract class TitleFragment extends BaseFragment {
     public abstract @StringRes int getTitle();
 
     public void showBack() {
+        mBackBtn = $(R.id.layout_back_btn);
         mBackBtn.setVisibility(View.VISIBLE);
         mBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TitleFragment.super.pop();
+                TitleFragment.this.pop();
             }
         });
     }
