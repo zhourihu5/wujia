@@ -45,7 +45,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mvp.setting.view.CardManagerActivity"></activity>
+        <activity android:name=".mvp.setting.view.CardManagerActivity" />
     </application>
 
 </manifest>

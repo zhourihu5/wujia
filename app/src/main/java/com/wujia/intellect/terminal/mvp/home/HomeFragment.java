@@ -41,6 +41,8 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
+
+
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();

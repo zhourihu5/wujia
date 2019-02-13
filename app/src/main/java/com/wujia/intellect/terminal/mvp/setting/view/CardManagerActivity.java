@@ -72,9 +72,9 @@ public class CardManagerActivity extends BaseActivity {
 
             @Override
             public void removeCard(int pos) {
-                unaddList.add(0,addList.remove(pos));
+                unaddList.add(addList.remove(pos));
                 addedAdapter.notifyItemRemoved(pos);
-                unaddAdapter.notifyItemInserted(0);
+                unaddAdapter.notifyItemInserted(unaddAdapter.getItemCount());
 
                 addedAdapter.notifyItemRangeChanged(0,addList.size());
                 unaddAdapter.notifyItemRangeChanged(0,unaddList.size());
@@ -84,9 +84,9 @@ public class CardManagerActivity extends BaseActivity {
         unaddAdapter.setManagerCardListener(new HomeCardManagerAdapter.OnManagerCardListener() {
             @Override
             public void addCard(int pos) {
-                addList.add(0,unaddList.remove(pos));
+                addList.add(unaddList.remove(pos));
                 unaddAdapter.notifyItemRemoved(pos);
-                addedAdapter.notifyItemInserted(0);
+                addedAdapter.notifyItemInserted(addedAdapter.getItemCount());
 
                 addedAdapter.notifyItemRangeChanged(0,addList.size());
                 unaddAdapter.notifyItemRangeChanged(0,unaddList.size());

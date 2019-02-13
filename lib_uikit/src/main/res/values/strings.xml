@@ -123,6 +123,7 @@
     <string name="risk">风险</string>
     <string name="password">密码</string>
     <string name="warning">预警</string>
+    <string name="_empty"> </string>
 
     <!--format-->
     <string name="s_s">%1$s %2$s</string>

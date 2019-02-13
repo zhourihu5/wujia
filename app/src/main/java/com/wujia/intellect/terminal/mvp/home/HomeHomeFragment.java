@@ -119,9 +119,22 @@ public class HomeHomeFragment extends BaseFragment {
         homeCardAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
             @Override
             public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
-                if (cards.get(position)._viewType == 10) {
-                    Intent intent = new Intent(mActivity, CardManagerActivity.class);
-                    startActivity(intent);
+                switch (cards.get(position)._viewType) {
+                    case 0:
+                        break;
+
+                    case 1:
+                        break;
+
+                    case 2:
+                        start(WebViewFragment.newInstance(""));
+                        break;
+
+                    case 10:
+                        Intent intent = new Intent(mActivity, CardManagerActivity.class);
+                        startActivity(intent);
+                        break;
+
                 }
             }
         });
