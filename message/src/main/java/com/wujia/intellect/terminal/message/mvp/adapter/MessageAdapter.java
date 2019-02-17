@@ -31,7 +31,13 @@ public class MessageAdapter extends CommonAdapter<MsgBean> {
 
                 boolean visib = holder.getView(R.id.l2).getVisibility() == View.VISIBLE;
                 holder.setVisible(R.id.l2, !visib);
-//                holder.getView(R.id.img1).animate().ro
+                if (visib) {
+                    holder.setBackgroundRes(R.id.l1, R.drawable.bg_white_radius_left_yellow_shape);
+                    holder.getView(R.id.img1).animate().rotation(0);
+                } else {
+                    holder.setBackgroundRes(R.id.l1, R.drawable.bg_white_radius_left_yellow_shape_msg);
+                    holder.getView(R.id.img1).animate().rotation(180);
+                }
             }
         });
 

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.wujia.businesslib.Constants;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.home.data.HomeRecBean;
 import com.wujia.intellect.terminal.mvp.setting.adapter.HomeCardManagerAdapter;
@@ -20,6 +21,7 @@ import butterknife.OnClick;
 public class CardManagerFragment extends BaseFragment {
 
     public static final int REQUEST_CODE_CARD_MANAGER = 0X1001;
+    public static final int REQUEST_CODE_CARD_MANAGER_COMPLETE = 0X1002;
 
 
     @BindView(R.id.layout_title_tv)
@@ -42,7 +44,7 @@ public class CardManagerFragment extends BaseFragment {
         fragment.setArguments(args);
         return fragment;
     }
-    
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_card_manager;
@@ -120,6 +122,7 @@ public class CardManagerFragment extends BaseFragment {
                 pop();
                 break;
             case R.id.layout_right_btn:
+                setFragmentResult(REQUEST_CODE_CARD_MANAGER_COMPLETE, null);
                 pop();
                 break;
         }

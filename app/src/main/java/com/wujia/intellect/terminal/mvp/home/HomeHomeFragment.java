@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.wujia.businesslib.Constants;
+import com.wujia.businesslib.dialog.CallDialog;
 import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.home.adapter.HomeMemberAdapter;
@@ -77,6 +79,7 @@ public class HomeHomeFragment extends BaseFragment {
     RecyclerView rvHomeMsg;
     @BindView(R.id.home_call_service_btn)
     ImageView homeCallServiceBtn;
+    private HomeCardAdapter homeCardAdapter;
 
     public HomeHomeFragment() {
     }
@@ -104,7 +107,6 @@ public class HomeHomeFragment extends BaseFragment {
         mems.add(new HomeMeberBean());
         mems.add(new HomeMeberBean());
         mems.add(new HomeMeberBean());
-        mems.add(new HomeMeberBean());
 
         rvHomeMember.addItemDecoration(new HorizontalDecoration(20));
         rvHomeMember.setAdapter(new HomeMemberAdapter(mActivity, mems));
@@ -115,7 +117,7 @@ public class HomeHomeFragment extends BaseFragment {
         cards.add(new HomeRecBean(2));
         cards.add(new HomeRecBean(10));
 
-        HomeCardAdapter homeCardAdapter = new HomeCardAdapter(mActivity, cards);
+        homeCardAdapter = new HomeCardAdapter(mActivity, cards);
         rvHomeCard.addItemDecoration(new HorizontalDecoration(25));
         rvHomeCard.setAdapter(homeCardAdapter);
         homeCardAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
@@ -160,6 +162,16 @@ public class HomeHomeFragment extends BaseFragment {
     }
 
     @Override
+    public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
+        super.onFragmentResult(requestCode, resultCode, data);
+        if (requestCode == CardManagerFragment.REQUEST_CODE_CARD_MANAGER && resultCode == CardManagerFragment.REQUEST_CODE_CARD_MANAGER_COMPLETE) {
+            //TODO 刷新首页或卡片
+            homeCardAdapter.getDatas().add(homeCardAdapter.getDatas().size() - 2, new HomeRecBean(1));
+            homeCardAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         // 懒加载
@@ -182,10 +194,13 @@ public class HomeHomeFragment extends BaseFragment {
         // 不管是 父Fragment还是子Fragment 都有效！
     }
 
-    @OnClick({R.id.home_chat_btn, R.id.home_call_service_btn, R.id.home_arc_view})
+    @OnClick({R.id.home_chat_btn, R.id.home_call_service_btn, R.id.home_member_add_btn, R.id.home_arc_view})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.home_chat_btn:
+
+                break;
+            case R.id.home_member_add_btn:
                 new AddMemberDialog(mActivity).setListener(new OnInputDialogListener() {
                     @Override
                     public void dialogSureClick(String input) {
@@ -194,6 +209,7 @@ public class HomeHomeFragment extends BaseFragment {
                 }).show();
                 break;
             case R.id.home_call_service_btn:
+                new CallDialog(mContext).show();
                 break;
 
             case R.id.home_arc_view:

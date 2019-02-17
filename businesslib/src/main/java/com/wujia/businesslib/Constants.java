@@ -17,4 +17,5 @@ public class Constants {
 
     //    Intent key
     public static final String ARG_PARAM_1 = "ARG_PARAM_1";
+    public static final String INTENT_KEY_1 = "INTENT_KEY_1";
 }
