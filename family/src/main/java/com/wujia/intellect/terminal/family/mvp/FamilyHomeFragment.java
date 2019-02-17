@@ -40,7 +40,11 @@ public class FamilyHomeFragment extends BaseFragment {
     }
 
     @Override
-    protected void initEventAndData() {
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        // 懒加载
+        // 同级Fragment场景、ViewPager场景均适用
+        LogUtil.i("FamilyFragment onLazyInitView");
         mTabBar = $(R.id.family_main_tab_bar);
 
         SupportFragment firstFragment = findFragment(AllFragment.class);
@@ -68,15 +72,6 @@ public class FamilyHomeFragment extends BaseFragment {
                 showHideFragment(mFragments[0], mFragments[prePosition]);
             }
         });
-    }
-
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-        // 懒加载
-        // 同级Fragment场景、ViewPager场景均适用
-        LogUtil.i("FamilyFragment onLazyInitView");
-
     }
 
     @Override

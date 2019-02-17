@@ -103,6 +103,7 @@ public class SettingHomeFragment extends TitleFragment {
                 start(FamilyMemberFragment.newInstance());
                 break;
             case R.id.item_manager_card:
+                startForResult(CardManagerFragment.newInstance(), CardManagerFragment.REQUEST_CODE_CARD_MANAGER);
                 break;
             case R.id.item_set_lock_pic:
 //                startActivity(new Intent(Settings.ACTION_DISPLAY_SETTINGS));

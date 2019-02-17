@@ -163,6 +163,7 @@
     <item name="collapsing" type="id">false</item>
     <!--TabLayout-->
     <item name="tabLayout" type="id">false</item>
+    <item name="tab_layout" type="id">false</item>
     <!--FloatingActionMenu-->
     <item name="fab_m" type="id">false</item>
     <!--FloatingActionButton-->
@@ -188,5 +189,6 @@
     <!-- Dialog -->
     <item name="dialog" type="id">false</item>
 
+    <item name="search_view" type="id">false</item>
 
 </resources>

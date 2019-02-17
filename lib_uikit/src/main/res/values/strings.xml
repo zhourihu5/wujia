@@ -137,4 +137,16 @@
         <item>@color/colorAccent</item>
     </array>
 
+
+    <!--消息通知-->
+
+    <string name="all_msg">所有消息</string>
+    <string name="wuye_notify">物业通知</string>
+    <string name="connection_service">联系物业</string>
+    <string name="shequ_notify">社区公告</string>
+    <string name="app_notify">应用提醒</string>
+    <string name="readed">已读</string>
+    <string name="unread">未读</string>
+    <string name="i_know">我知道了</string>
+
 </resources>

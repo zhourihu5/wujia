@@ -31,11 +31,11 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_card_added"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/px462"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/px80"
-                android:orientation="horizontal"
                 android:overScrollMode="never"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:spanCount="4"
+                app:layoutManager="android.support.v7.widget.GridLayoutManager"
                 tools:listitem="@layout/item_home_rec_layout_0" />
 
             <TextView
@@ -50,11 +50,11 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_card_unadd"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/px462"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/px80"
-                android:orientation="horizontal"
                 android:overScrollMode="never"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:spanCount="4"
+                app:layoutManager="android.support.v7.widget.GridLayoutManager"
                 tools:listitem="@layout/item_home_rec_wrapper" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

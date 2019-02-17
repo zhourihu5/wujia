@@ -18,7 +18,9 @@ import com.wujia.intellect.terminal.mvp.home.data.HomeMeberBean;
 import com.wujia.intellect.terminal.mvp.home.data.HomeNotifyBean;
 import com.wujia.intellect.terminal.mvp.home.data.HomeRecBean;
 import com.wujia.intellect.terminal.mvp.home.view.AddMemberDialog;
+import com.wujia.intellect.terminal.mvp.home.view.MessageDialog;
 import com.wujia.intellect.terminal.mvp.setting.view.CardManagerActivity;
+import com.wujia.intellect.terminal.mvp.setting.view.CardManagerFragment;
 import com.wujia.lib.widget.HomeArcView;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
@@ -131,8 +133,8 @@ public class HomeHomeFragment extends BaseFragment {
                         break;
 
                     case 10:
-                        Intent intent = new Intent(mActivity, CardManagerActivity.class);
-                        startActivity(intent);
+                        startForResult(CardManagerFragment.newInstance(), CardManagerFragment.REQUEST_CODE_CARD_MANAGER);
+
                         break;
 
                 }
@@ -146,7 +148,15 @@ public class HomeHomeFragment extends BaseFragment {
         notifys.add(new HomeNotifyBean());
 
 //        rvHomeMsg.addItemDecoration(new HorizontalDecoration(25));
-        rvHomeMsg.setAdapter(new HomeNotifyAdapter(mActivity, notifys));
+        HomeNotifyAdapter notifyAdapter = new HomeNotifyAdapter(mActivity, notifys);
+        rvHomeMsg.setAdapter(notifyAdapter);
+        notifyAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
+            @Override
+            public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
+                new MessageDialog(mContext).show();
+            }
+        });
+
     }
 
     @Override

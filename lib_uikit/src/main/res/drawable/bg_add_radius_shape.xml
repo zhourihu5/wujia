@@ -8,4 +8,6 @@
         android:color="@color/ca1a983"
         android:dashWidth="@dimen/px8"
         android:dashGap="@dimen/px8" />
+
+    
 </shape>

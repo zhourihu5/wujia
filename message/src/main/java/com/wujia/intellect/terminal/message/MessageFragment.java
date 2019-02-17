@@ -3,6 +3,7 @@ package com.wujia.intellect.terminal.message;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.wujia.intellect.terminal.message.mvp.MessageHomeFragment;
 import com.wujia.lib_common.base.BaseFragment;
 
 /**
@@ -25,7 +26,7 @@ public class MessageFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_message;
+        return R.layout.fragment_frame_layout;
     }
 
     @Override
@@ -37,7 +38,9 @@ public class MessageFragment extends BaseFragment {
         super.onLazyInitView(savedInstanceState);
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
-
+        if (findChildFragment(MessageHomeFragment.class) == null) {
+            loadRootFragment(R.id.fl_first_container, MessageHomeFragment.newInstance());
+        }
     }
 
     @Override

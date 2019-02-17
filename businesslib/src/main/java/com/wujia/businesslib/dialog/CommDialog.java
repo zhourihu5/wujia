@@ -12,7 +12,11 @@ import android.widget.TextView;
 
 import com.wujia.lib.uikit.R;
 
-
+/**
+* author ：shenbingkai@163.com
+* date ：2019-02-17 21:30
+* description ：
+*/
 public abstract class CommDialog extends Dialog {
 
     public CommDialog(@NonNull Context context) {

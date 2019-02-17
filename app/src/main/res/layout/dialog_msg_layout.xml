@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white_radius_shape">
+
+    <LinearLayout
+        android:layout_width="956dp"
+        android:layout_height="628dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/cf5"
+            android:gravity="center_vertical"
+            android:paddingLeft="40dp"
+            android:text="@string/wuye_notify"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <View style="@style/ItemLineStyle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="42dp"
+            android:layout_marginTop="38dp"
+            android:text="关于小区灭鼠通知"
+            android:textColor="@color/colorAccent"
+            android:textSize="32sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="42dp"
+            android:layout_marginTop="10dp"
+            android:text="11.15 15:32"
+            android:textColor="@color/c8"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="170dp"
+            android:layout_marginLeft="42dp"
+            android:layout_marginTop="31dp"
+            android:layout_marginRight="42dp"
+            android:lineSpacingMultiplier="1.3"
+            android:text="尊敬的502业主： 即日起至10月20日起，开始清缴2018年7月至12月份水费，根据市物价局、财政局、建设局、环保局文件代收2018下半年生活垃圾清运费，请各位业主百忙之中抽点时间到物业服务中心缴纳所签费用，预期未能及时缴纳的业主将停止服务，并视为非常住户。为了您的财产安全，我们将于10月21日起给予停水处理及不充电卡服务。您所造成的后果由您自己承担，谢谢您的理解与合作！"
+            android:textColor="#ff313131"
+            android:textSize="20sp" />
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginRight="42dp"
+            android:layout_marginBottom="42dp"
+            android:clickable="false"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="117dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_rect_accent_border_empty"
+                android:gravity="center"
+                android:text="@string/connection_service"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="117dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/btn_rect_accent_select"
+                android:gravity="center"
+                android:text="@string/i_know"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

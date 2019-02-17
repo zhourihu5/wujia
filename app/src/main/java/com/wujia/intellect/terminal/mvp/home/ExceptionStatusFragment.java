@@ -11,6 +11,8 @@ import com.wujia.businesslib.TitleFragment;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.home.adapter.HomeExceptionAdapter;
 import com.wujia.intellect.terminal.mvp.home.data.HomeExceptionBean;
+import com.wujia.lib.widget.HorizontalTabBar;
+import com.wujia.lib.widget.HorizontalTabItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +27,11 @@ import butterknife.Unbinder;
  * Email:  shenbingkai@gamil.com
  * Description: 异常状态详情
  */
-public class ExceptionStatusFragment extends TitleFragment {
+public class ExceptionStatusFragment extends TitleFragment implements HorizontalTabBar.OnTabSelectedListener{
 
 
-    @BindView(R.id.exception_tab_rg)
-    RadioGroup rgException;
+    @BindView(R.id.tab_layout)
+    HorizontalTabBar tabBar;
     @BindView(R.id.rv_exception)
     RecyclerView rvException;
 
@@ -61,11 +63,22 @@ public class ExceptionStatusFragment extends TitleFragment {
 
         showBack();
 
+        tabBar.addItem(new HorizontalTabItem(mContext, com.wujia.intellect.terminal.message.R.string.all));
+        tabBar.addItem(new HorizontalTabItem(mContext, com.wujia.intellect.terminal.message.R.string.readed));
+        tabBar.addItem(new HorizontalTabItem(mContext, com.wujia.intellect.terminal.message.R.string.unread));
+
+        tabBar.setOnTabSelectedListener(this);
+
         List<HomeExceptionBean> datas=new ArrayList<>();
         datas.add(new HomeExceptionBean());
         datas.add(new HomeExceptionBean());
         datas.add(new HomeExceptionBean());
         datas.add(new HomeExceptionBean());
         rvException.setAdapter(new HomeExceptionAdapter(mActivity,datas));
+    }
+
+    @Override
+    public void onTabSelected(int position, int prePosition) {
+
     }
 }
