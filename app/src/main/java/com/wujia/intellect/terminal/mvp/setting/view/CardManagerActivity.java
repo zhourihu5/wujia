@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+@Deprecated
 public class CardManagerActivity extends BaseActivity {
 
     @BindView(R.id.layout_title_tv)

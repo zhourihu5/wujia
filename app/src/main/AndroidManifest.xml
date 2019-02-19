@@ -37,13 +37,16 @@
         </activity>
         <activity
             android:name=".mvp.login.LoginActivity"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
-        <activity android:name=".mvp.login.LockActivity">
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".mvp.login.LockActivity">
+
         </activity>
         <activity android:name=".mvp.setting.view.CardManagerActivity" />
     </application>

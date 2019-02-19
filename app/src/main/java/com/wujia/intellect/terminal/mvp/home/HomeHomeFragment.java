@@ -24,6 +24,7 @@ import com.wujia.intellect.terminal.mvp.home.view.MessageDialog;
 import com.wujia.intellect.terminal.mvp.setting.view.CardManagerActivity;
 import com.wujia.intellect.terminal.mvp.setting.view.CardManagerFragment;
 import com.wujia.lib.widget.HomeArcView;
+import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.base.view.HorizontalDecoration;
@@ -198,6 +199,7 @@ public class HomeHomeFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.home_chat_btn:
+                ToastUtil.showShort(mContext, getString(R.string.chat_is_developing));
 
                 break;
             case R.id.home_member_add_btn:

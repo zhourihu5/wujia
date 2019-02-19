@@ -17,7 +17,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
+/**
+* author ：shenbingkai@163.com
+* date ：2019-02-19 23:56
+* description ：卡片管理
+*/
 public class CardManagerFragment extends BaseFragment {
 
     public static final int REQUEST_CODE_CARD_MANAGER = 0X1001;
@@ -61,8 +65,6 @@ public class CardManagerFragment extends BaseFragment {
         final List<HomeRecBean> addList = new ArrayList<>();
         addList.add(new HomeRecBean(0));
         addList.add(new HomeRecBean(0));
-        addList.add(new HomeRecBean(0));
-        addList.add(new HomeRecBean(0));
 
 
         final HomeCardManagerAdapter addedAdapter = new HomeCardManagerAdapter(mContext, addList, HomeCardManagerAdapter.FORM_ADDED);
@@ -70,8 +72,6 @@ public class CardManagerFragment extends BaseFragment {
 
         //未添加
         final List<HomeRecBean> unaddList = new ArrayList<>();
-        unaddList.add(new HomeRecBean(1));
-        unaddList.add(new HomeRecBean(1));
         unaddList.add(new HomeRecBean(1));
         unaddList.add(new HomeRecBean(1));
 

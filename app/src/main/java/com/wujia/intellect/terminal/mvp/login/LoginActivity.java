@@ -104,11 +104,12 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     }
 
     private void login() {
-        String phone = loginAccount.getText().toString();
-        if (!VerifyUtil.isPhone(phone)) {
-            loginPhoneError.setVisibility(View.VISIBLE);
-            return;
-        }
+        //TODO 验证手机号
+//        String phone = loginAccount.getText().toString();
+//        if (!VerifyUtil.isPhone(phone)) {
+//            loginPhoneError.setVisibility(View.VISIBLE);
+//            return;
+//        }
 
         loginLayout1.setVisibility(View.GONE);
         loginLayout2.setVisibility(View.VISIBLE);

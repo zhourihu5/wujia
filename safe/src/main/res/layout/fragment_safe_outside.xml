@@ -210,8 +210,8 @@
             android:id="@+id/safe_rec_op_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/px80"
-            android:orientation="horizontal"
-            android:translationY="@dimen/px80">
+            android:visibility="gone"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/safe_rec_del_btn"

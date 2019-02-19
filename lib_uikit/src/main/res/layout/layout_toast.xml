@@ -6,6 +6,8 @@
     android:gravity="center"
     android:minWidth="@dimen/px200"
     android:minHeight="@dimen/px120"
+    android:paddingLeft="@dimen/px52"
+    android:paddingRight="@dimen/px52"
     android:orientation="horizontal">
 
     <TextView

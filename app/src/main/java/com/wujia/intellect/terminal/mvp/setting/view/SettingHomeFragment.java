@@ -140,7 +140,7 @@ public class SettingHomeFragment extends TitleFragment {
                         loadingDialog.dismiss();
                         start(UpdateFragment.newInstance());
                     }
-                }, 2000);
+                }, 1000);
 
 
                 break;

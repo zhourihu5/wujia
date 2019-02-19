@@ -208,11 +208,13 @@ public class SafeOutsideFragment extends BaseFragment implements
         if (v.getId() == R.id.safe_play_rec_edit_btn) {
             if (isEdit) {   //编辑状态
                 btnEdit.setText(getString(R.string.complete));
+                layoutBottomOp.setVisibility(View.VISIBLE);
             } else {
                 btnEdit.setText(getString(R.string.edit));
+                layoutBottomOp.setVisibility(View.GONE);
             }
 
-            layoutBottomOp.animate().translationY(isEdit ? 0 : ScreenUtil.dip2px(80)).setDuration(300).start();
+//            layoutBottomOp.animate().translationY(isEdit ? 0 : ScreenUtil.dip2px(80)).setDuration(300).start();
             recAdapter.setEdit(isEdit);
             recAdapter.notifyDataSetChanged();
 
