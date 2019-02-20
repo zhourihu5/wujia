@@ -14,6 +14,14 @@
         android:background="@color/c3"
         app:tab_height="0" />
 
+    <ImageView
+        android:id="@+id/main_tab_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/px50"
+        android:layout_alignRight="@id/main_tab_bar"
+        android:scaleType="center"
+        android:src="@mipmap/img_leftnav_selected" />
+
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"

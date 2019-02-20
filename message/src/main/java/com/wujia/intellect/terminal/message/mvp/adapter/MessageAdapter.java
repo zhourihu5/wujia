@@ -3,6 +3,7 @@ package com.wujia.intellect.terminal.message.mvp.adapter;
 import android.content.Context;
 import android.view.View;
 
+import com.wujia.businesslib.dialog.CallDialog;
 import com.wujia.intellect.terminal.message.R;
 import com.wujia.intellect.terminal.message.mvp.data.MsgBean;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
@@ -38,6 +39,12 @@ public class MessageAdapter extends CommonAdapter<MsgBean> {
                     holder.setBackgroundRes(R.id.l1, R.drawable.bg_white_radius_left_yellow_shape_msg);
                     holder.getView(R.id.img1).animate().rotation(180);
                 }
+                holder.setOnClickListener(R.id.btn1, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new CallDialog(mContext).show();
+                    }
+                });
             }
         });
 

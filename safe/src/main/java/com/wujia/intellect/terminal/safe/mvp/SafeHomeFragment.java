@@ -53,6 +53,15 @@ public class SafeHomeFragment extends BaseFragment implements
 
     @Override
     protected void initEventAndData() {
+
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        // 懒加载
+        // 同级Fragment场景、ViewPager场景均适用
+
         mTabBar = $(R.id.family_main_tab_bar);
 
         SupportFragment firstFragment = findFragment(SafeOutsideFragment.class);
@@ -79,21 +88,13 @@ public class SafeHomeFragment extends BaseFragment implements
             }
         });
 
-        JXPadSdk.init(mActivity.getApplication());
-        JXPadSdk.initDoorAccess("001901109CDB0000", "01");
-        manager = JXPadSdk.getDoorAccessManager();
-        manager.setListUIListener(this);
-        manager.setDoorAccessListener(this);
-
-        setData();
-    }
-
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-        // 懒加载
-        // 同级Fragment场景、ViewPager场景均适用
-        LogUtil.i("SafeHomeFragment onLazyInitView");
+//        JXPadSdk.init(mActivity.getApplication());
+//        JXPadSdk.initDoorAccess("001901109CDB0000", "01");
+//        manager = JXPadSdk.getDoorAccessManager();
+//        manager.setListUIListener(this);
+//        manager.setDoorAccessListener(this);
+//
+//        setData();
 
     }
 

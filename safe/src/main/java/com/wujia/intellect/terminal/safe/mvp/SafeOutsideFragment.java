@@ -43,7 +43,7 @@ public class SafeOutsideFragment extends BaseFragment implements
         SurfaceHolder.Callback, DoorAccessConversationUI, View.OnClickListener, MultiItemTypeAdapter.OnRVItemClickListener, SeekBar.OnSeekBarChangeListener, IntercomObserver.OnPlaybackListener {
 
     private SurfaceView surfaceView;
-    private DoorAccessManager mDoorAccessManager;
+//    private DoorAccessManager mDoorAccessManager;
     private String sessionId;
 
     private RecyclerView rvPlayBack;
@@ -115,8 +115,8 @@ public class SafeOutsideFragment extends BaseFragment implements
         btnSos.setOnClickListener(this);
 
 
-        mDoorAccessManager = JXPadSdk.getDoorAccessManager();
-        mDoorAccessManager.setConversationUIListener(this);
+//        mDoorAccessManager = JXPadSdk.getDoorAccessManager();
+//        mDoorAccessManager.setConversationUIListener(this);
 
         btnEdit.setOnClickListener(this);
 
@@ -174,7 +174,7 @@ public class SafeOutsideFragment extends BaseFragment implements
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        mDoorAccessManager.updateCallWindow(sessionId, surfaceView);
+//        mDoorAccessManager.updateCallWindow(sessionId, surfaceView);
     }
 
     @Override
@@ -184,12 +184,12 @@ public class SafeOutsideFragment extends BaseFragment implements
 
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-        mDoorAccessManager.updateCallWindow(sessionId, null);
+//        mDoorAccessManager.updateCallWindow(sessionId, null);
     }
 
 
     public void updateSurface(View v) {
-        mDoorAccessManager.updateCallWindow(sessionId, surfaceView);
+//        mDoorAccessManager.updateCallWindow(sessionId, surfaceView);
     }
 
     @Override
@@ -265,7 +265,7 @@ public class SafeOutsideFragment extends BaseFragment implements
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         isTouchSeek = false;
-        mDoorAccessManager.seekPlayBack(sessionId, seek * 100 / max);
+//        mDoorAccessManager.seekPlayBack(sessionId, seek * 100 / max);
     }
 
     @Override
@@ -286,14 +286,14 @@ public class SafeOutsideFragment extends BaseFragment implements
             seekBar.setOnSeekBarChangeListener(null);
             seekBar.setProgress(max);
             seekBar.setOnSeekBarChangeListener(this);
-            mDoorAccessManager.pausePlayBack(sessionId);
+//            mDoorAccessManager.pausePlayBack(sessionId);
         }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mDoorAccessManager.removePlayBackListener(this);
+//        mDoorAccessManager.removePlayBackListener(this);
     }
 
     private void startLive() {

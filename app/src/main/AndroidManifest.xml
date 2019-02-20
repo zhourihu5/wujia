@@ -19,25 +19,11 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".mvp.MainActivity"
-            android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".mvp.login.AdvertActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".mvp.login.AdvertActivity"></activity>
         <activity
             android:name=".mvp.login.LoginActivity"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+            android:windowSoftInputMode="stateHidden|stateUnchanged">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

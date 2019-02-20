@@ -1,9 +1,12 @@
 package com.wujia.intellect.terminal.mvp;
 
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.family.FamilyFragment;
@@ -17,6 +20,7 @@ import com.wujia.intellect.terminal.safe.SafeFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib_common.base.BaseActivity;
+import com.wujia.lib_common.utils.ScreenUtil;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -24,7 +28,10 @@ public class MainActivity extends BaseActivity {
 
     VerticalTabBar mTabBar;
     FrameLayout mainCover;
+    ImageView mArrow;
     private SupportFragment[] mFragments = new SupportFragment[8];
+    private int tbHeight, itemHeight, arrowHeight, lastTop;
+    private RelativeLayout.LayoutParams arrowLayoutParams;
 
     @Override
     protected int getLayout() {
@@ -48,8 +55,9 @@ public class MainActivity extends BaseActivity {
 //           LogUtil.i("<dimen name=\"text"+i+"\">"+Math.round(i/1.5)+"sp</dimen>");
 //        }
 
-        mTabBar=findViewById(R.id.main_tab_bar);
-        mainCover=findViewById(R.id.main_cover);
+        mTabBar = findViewById(R.id.main_tab_bar);
+        mainCover = findViewById(R.id.main_cover);
+        mArrow = findViewById(R.id.main_tab_arrow);
 
 
         SupportFragment firstFragment = findFragment(HomeHomeFragment.class);
@@ -100,16 +108,46 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onTabSelected(int position, int prePosition) {
                 showHideFragment(mFragments[position], mFragments[prePosition]);
+                moveArrow(position);
             }
 
         });
+
+        mTabBar.post(new Runnable() {
+            @Override
+            public void run() {
+
+                tbHeight = mTabBar.getHeight();
+                itemHeight = tbHeight / mTabBar.getChildCount();
+                arrowHeight = ScreenUtil.dip2px(46);
+                arrowLayoutParams = (RelativeLayout.LayoutParams) mArrow.getLayoutParams();
+                lastTop = (itemHeight - arrowHeight) / 2;
+                arrowLayoutParams.topMargin = lastTop;
+                mArrow.setLayoutParams(arrowLayoutParams);
+            }
+        });
     }
 
-    public void showCover(){
+    private void moveArrow(int pos) {
+
+        int newTop = (itemHeight - arrowHeight) / 2 + itemHeight * pos;
+        ValueAnimator animator = ValueAnimator.ofInt(lastTop, newTop).setDuration(300);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                arrowLayoutParams.topMargin = (int) animation.getAnimatedValue();
+                mArrow.setLayoutParams(arrowLayoutParams);
+            }
+        });
+        animator.start();
+        lastTop = newTop;
+    }
+
+    public void showCover() {
         mainCover.setVisibility(View.VISIBLE);
     }
 
-    public void hideCover(){
+    public void hideCover() {
         mainCover.setVisibility(View.GONE);
     }
 

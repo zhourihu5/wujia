@@ -111,21 +111,21 @@
             <TextView
                 android:id="@+id/safe_btn_play"
                 style="@style/SafeIconBtnStyle"
-                android:drawableTop="@mipmap/btn_safe_sosbig"
+                android:drawableTop="@mipmap/btn_safe_playbig"
                 android:text="@string/play"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/safe_btn_pause"
                 style="@style/SafeIconBtnStyle"
-                android:drawableTop="@mipmap/btn_safe_sosbig"
+                android:drawableTop="@mipmap/btn_safe_pausebig"
                 android:text="@string/pause"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/safe_btn_save"
                 style="@style/SafeIconBtnStyle"
-                android:drawableTop="@mipmap/btn_safe_sosbig"
+                android:drawableTop="@mipmap/btn_safe_markbig"
                 android:text="@string/save"
                 android:visibility="gone" />
 

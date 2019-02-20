@@ -71,6 +71,9 @@
             <TextView
                 android:id="@id/btn1"
                 android:layout_width="117dp"
+                android:paddingLeft="@dimen/px20"
+                android:paddingRight="@dimen/px20"
+                android:drawableLeft="@mipmap/icon_btn_contact_small"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_rect_accent_border_empty"
                 android:gravity="center"

@@ -55,5 +55,5 @@
         android:layout_height="68dp"
         android:layout_marginTop="42dp"
         android:layout_marginBottom="27dp"
-        android:src="@drawable/bg_point_red" />
+        android:src="@mipmap/btn_safe_hangup" />
 </LinearLayout>
