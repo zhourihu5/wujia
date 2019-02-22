@@ -19,22 +19,29 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".mvp.MainActivity"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".mvp.login.AdvertActivity"></activity>
-        <activity
-            android:name=".mvp.login.LoginActivity"
-            android:windowSoftInputMode="stateHidden|stateUnchanged">
-
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mvp.login.LockActivity">
+        <activity
+            android:name=".mvp.login.AdvertActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".mvp.login.LoginActivity"
+            android:windowSoftInputMode="stateHidden|stateUnchanged">
+
 
         </activity>
-        <activity android:name=".mvp.setting.view.CardManagerActivity" />
+        <activity
+            android:name=".mvp.login.LockActivity"
+            android:screenOrientation="landscape" />
+
+        <activity
+            android:name=".mvp.setting.view.CardManagerActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

@@ -28,6 +28,18 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="WJButton">
+        <attr name="button_press" format="reference" />
+        <attr name="button_normal" format="reference" />
+        <attr name="button_mode" format="integer">
+            <enum name="BACKGROUND" value="0" />
+            <enum name="TOP" value="1" />
+            <enum name="RIGHT" value="2" />
+            <enum name="BOTTOM" value="3" />
+            <enum name="LEFT" value="4" />
+        </attr>
+    </declare-styleable>
+
     <!--arc seekbar-->
     <declare-styleable name="ArcSeekBar">
         <attr name="arc_width" format="dimension|reference" />
@@ -49,7 +61,7 @@
     </declare-styleable>
 
     <declare-styleable name="VerticalTabBar">
-        <attr name="tab_height" format="integer"/>
+        <attr name="tab_height" format="integer" />
     </declare-styleable>
 
 </resources>

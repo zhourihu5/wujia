@@ -47,10 +47,10 @@
                 android:id="@+id/safe_rec_seek_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/px52"
-                android:visibility="gone"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="@dimen/px24"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -104,9 +104,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/px384"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:paddingLeft="@dimen/px40"
-            android:paddingRight="@dimen/px40"
-            android:orientation="horizontal">
+            android:paddingRight="@dimen/px40">
 
             <TextView
                 android:id="@+id/safe_btn_play"
@@ -122,10 +122,12 @@
                 android:text="@string/pause"
                 android:visibility="gone" />
 
-            <TextView
+            <com.wujia.lib.widget.WJButton
                 android:id="@+id/safe_btn_save"
                 style="@style/SafeIconBtnStyle"
-                android:drawableTop="@mipmap/btn_safe_markbig"
+                app:button_mode="TOP"
+                app:button_normal="@mipmap/btn_safe_sos"
+                app:button_press="@mipmap/btn_safe_markbig_pressed"
                 android:text="@string/save"
                 android:visibility="gone" />
 
@@ -133,18 +135,20 @@
                 android:id="@+id/safe_btn_sos"
                 style="@style/SafeIconBtnStyle"
                 android:drawableTop="@mipmap/btn_safe_sosbig"
-                android:text="@string/sos" />
-
+                android:text="@string/sos"
+                />
             <TextView
                 android:id="@+id/safe_btn_refresh"
                 style="@style/SafeIconBtnStyle"
                 android:drawableTop="@mipmap/btn_safe_refreshbig"
                 android:text="@string/refresh" />
 
-            <TextView
+            <com.wujia.lib.widget.WJButton
                 android:id="@+id/safe_btn_mute"
                 style="@style/SafeIconBtnStyle"
-                android:drawableTop="@mipmap/btn_safe_mutebig"
+                app:button_mode="TOP"
+                app:button_normal="@mipmap/btn_safe_mutebig"
+                app:button_press="@mipmap/btn_safe_mutebig_pressed"
                 android:text="@string/mute" />
 
             <TextView
@@ -163,7 +167,8 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/px40"
         android:background="@color/white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -210,8 +215,8 @@
             android:id="@+id/safe_rec_op_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/px80"
-            android:visibility="gone"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/safe_rec_del_btn"
