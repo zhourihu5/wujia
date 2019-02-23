@@ -36,7 +36,7 @@ public class FamilyHomeFragment extends BaseFragment {
     protected int getLayoutId() {
         LogUtil.i("FamilyFragment getLayoutId");
 
-        return R.layout.fragment_family_home;
+        return R.layout.fragment_tab_home;
     }
 
     @Override
@@ -45,12 +45,12 @@ public class FamilyHomeFragment extends BaseFragment {
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
         LogUtil.i("FamilyFragment onLazyInitView");
-        mTabBar = $(R.id.family_main_tab_bar);
+        mTabBar = $(R.id.tab_home_tab_bar);
 
         SupportFragment firstFragment = findFragment(AllFragment.class);
         if (firstFragment == null) {
             mFragments[0] = AllFragment.newInstance();
-            loadRootFragment(R.id.family_container, mFragments[0]);
+            loadRootFragment(R.id.tab_content_container, mFragments[0]);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 

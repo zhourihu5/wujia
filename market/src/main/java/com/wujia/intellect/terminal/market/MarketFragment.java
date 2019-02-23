@@ -3,6 +3,7 @@ package com.wujia.intellect.terminal.market;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.wujia.intellect.terminal.market.mvp.MarketHomeFragment;
 import com.wujia.lib_common.base.BaseFragment;
 
 /**
@@ -25,7 +26,7 @@ public class MarketFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_market;
+        return R.layout.fragment_frame_layout;
     }
 
     @Override
@@ -37,7 +38,9 @@ public class MarketFragment extends BaseFragment {
         super.onLazyInitView(savedInstanceState);
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
-
+        if (findChildFragment(MarketHomeFragment.class) == null) {
+            loadRootFragment(R.id.fl_first_container, MarketHomeFragment.newInstance());
+        }
     }
 
     @Override
@@ -53,6 +56,5 @@ public class MarketFragment extends BaseFragment {
         super.onSupportInvisible();
         // 当对用户不可见时 回调
         // 不管是 父Fragment还是子Fragment 都有效！
-
     }
 }

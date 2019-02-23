@@ -108,14 +108,14 @@
             android:paddingLeft="@dimen/px40"
             android:paddingRight="@dimen/px40">
 
-            <TextView
+            <com.wujia.lib.widget.WJButton
                 android:id="@+id/safe_btn_play"
                 style="@style/SafeIconBtnStyle"
                 android:drawableTop="@mipmap/btn_safe_playbig"
                 android:text="@string/play"
                 android:visibility="gone" />
 
-            <TextView
+            <com.wujia.lib.widget.WJButton
                 android:id="@+id/safe_btn_pause"
                 style="@style/SafeIconBtnStyle"
                 android:drawableTop="@mipmap/btn_safe_pausebig"
@@ -125,37 +125,45 @@
             <com.wujia.lib.widget.WJButton
                 android:id="@+id/safe_btn_save"
                 style="@style/SafeIconBtnStyle"
+                android:text="@string/save"
+                android:visibility="gone"
                 app:button_mode="TOP"
                 app:button_normal="@mipmap/btn_safe_sos"
-                app:button_press="@mipmap/btn_safe_markbig_pressed"
-                android:text="@string/save"
-                android:visibility="gone" />
+                app:button_press="@mipmap/btn_safe_markbig_pressed" />
 
-            <TextView
+            <com.wujia.lib.widget.WJButton
                 android:id="@+id/safe_btn_sos"
                 style="@style/SafeIconBtnStyle"
-                android:drawableTop="@mipmap/btn_safe_sosbig"
                 android:text="@string/sos"
-                />
-            <TextView
+                app:button_mode="TOP"
+                app:button_normal="@mipmap/btn_safe_sosbig"
+                app:button_press="@mipmap/btn_safe_sosbig_pressed" />
+
+            <com.wujia.lib.widget.WJButton
+
                 android:id="@+id/safe_btn_refresh"
                 style="@style/SafeIconBtnStyle"
                 android:drawableTop="@mipmap/btn_safe_refreshbig"
-                android:text="@string/refresh" />
+                android:text="@string/refresh"
+                app:button_mode="TOP"
+                app:button_normal="@mipmap/btn_safe_mutebig"
+                app:button_press="@mipmap/btn_safe_mutebig_pressed" />
 
             <com.wujia.lib.widget.WJButton
                 android:id="@+id/safe_btn_mute"
                 style="@style/SafeIconBtnStyle"
+                android:text="@string/mute"
                 app:button_mode="TOP"
                 app:button_normal="@mipmap/btn_safe_mutebig"
-                app:button_press="@mipmap/btn_safe_mutebig_pressed"
-                android:text="@string/mute" />
+                app:button_press="@mipmap/btn_safe_mutebig_pressed" />
 
-            <TextView
+            <com.wujia.lib.widget.WJButton
                 android:id="@+id/safe_btn_full"
                 style="@style/SafeIconBtnStyle"
-                android:drawableTop="@mipmap/btn_safe_fullscreenbig"
-                android:text="@string/full_screen" />
+                android:text="@string/full_screen"
+                app:button_mode="TOP"
+                app:button_normal="@mipmap/btn_safe_mutebig"
+                app:button_press="@mipmap/btn_safe_mutebig_pressed" />
 
         </LinearLayout>
 
@@ -167,8 +175,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/px40"
         android:background="@color/white"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"

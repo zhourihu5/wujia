@@ -38,21 +38,13 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@id/rv1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:orientation="vertical"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_msg" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="物业运维部值班，010-321232323"
-        android:textColor="#ff999999"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="60dp"
-        android:textSize="15sp"
-        />
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="43dp"
+        android:overScrollMode="never"
+        app:spanCount="4"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        tools:listitem="@layout/item_service" />
+
 </LinearLayout>

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
@@ -56,6 +57,11 @@ public abstract class BaseFragment extends SupportFragment {
     protected void interruptInject() {
     }
 
+    public void parentStart(ISupportFragment fragment) {
+        BaseFragment parentFragment = (BaseFragment) getParentFragment();
+        parentFragment.start(fragment);
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -68,8 +74,8 @@ public abstract class BaseFragment extends SupportFragment {
         super.onDetach();
     }
 
-    protected void initDataWithSaveInstance(@Nullable Bundle saveInstanceState){
-            initEventAndData();
+    protected void initDataWithSaveInstance(@Nullable Bundle saveInstanceState) {
+        initEventAndData();
     }
 
     protected abstract int getLayoutId();
@@ -83,8 +89,8 @@ public abstract class BaseFragment extends SupportFragment {
     }
 
 
-    public void showToast(String msg){
-        Toast.makeText(mContext,msg,Toast.LENGTH_SHORT).show();
+    public void showToast(String msg) {
+        Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
     }
 
 }

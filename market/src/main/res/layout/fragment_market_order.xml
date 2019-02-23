@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/layout_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px48"
+        android:layout_marginLeft="262dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="@dimen/px80"
+        android:orientation="horizontal">
+
+        <com.wujia.lib.widget.HorizontalTabBar
+            android:id="@id/tab_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/px48" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <!--<ImageView-->
+        <!--android:layout_width="@dimen/px48"-->
+        <!--android:layout_height="@dimen/px48"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:src="@mipmap/icon_search" />-->
+
+        <android.support.v7.widget.SearchView
+            android:id="@id/search_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:defaultQueryHint="@string/done"
+            app:queryHint="@string/done" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="19dp"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:id="@id/rg"
+            android:layout_width="262dp"
+            android:layout_height="match_parent"
+            android:checkedButton="@id/rb1"
+            android:orientation="vertical"
+            android:paddingLeft="53dp">
+
+            <RadioButton
+                android:id="@id/rb1"
+                android:layout_width="152dp"
+                android:layout_height="52dp"
+                android:background="@drawable/bg_tab_accent_white_check_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/business_order"
+                android:textColor="@color/tab_text_wheite_black_check"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@id/rb2"
+                android:layout_width="152dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="27dp"
+                android:background="@drawable/bg_tab_accent_white_check_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/team_order"
+                android:textColor="@color/tab_text_wheite_black_check"
+                android:textSize="16sp" />
+
+
+        </RadioGroup>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@id/rv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            app:layoutManager="android.support.v7.widget.GridLayoutManager"
+            app:spanCount="3"
+            tools:listitem="@layout/item_order" />
+
+    </LinearLayout>
+</LinearLayout>

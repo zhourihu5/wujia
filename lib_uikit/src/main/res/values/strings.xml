@@ -151,4 +151,23 @@
     <string name="unread">未读</string>
     <string name="i_know">我知道了</string>
 
+
+    <!--服务-->
+    <string name="my_service">我的服务</string>
+    <string name="find">我的服务</string>
+    <string name="gov_service">政务服务</string>
+    <string name="all_service">我的服务</string>
+    <string name="feature_service">特色服务</string>
+    <string name="around_service">周围服务</string>
+    <string name="back_my_service">返回我的服务</string>
+    <string name="add_buy_car">加入购物车</string>
+    <string name="all_order">全部订单</string>
+    <string name="wait_pay">待付款</string>
+    <string name="wait_send">待发货</string>
+    <string name="wait_receive">待收货</string>
+    <string name="wait_evaluate">待评价</string>
+    <string name="business_order">商务订单</string>
+    <string name="team_order">团购订单</string>
+    <string name="family_order">家庭订单</string>
+
 </resources>

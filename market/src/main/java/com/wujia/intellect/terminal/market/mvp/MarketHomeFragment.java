@@ -1,10 +1,10 @@
-package com.wujia.intellect.terminal.message.mvp;
+package com.wujia.intellect.terminal.market.mvp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.wujia.intellect.terminal.message.R;
-import com.wujia.intellect.terminal.message.mvp.view.AllMsgFragment;
+import com.wujia.intellect.terminal.market.R;
+import com.wujia.intellect.terminal.market.mvp.view.AllMarketFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib_common.base.BaseFragment;
@@ -17,18 +17,18 @@ import me.yokeyword.fragmentation.SupportFragment;
  * date ：2019-02-17
  * description ：
  */
-public class MessageHomeFragment extends BaseFragment {
+public class MarketHomeFragment extends BaseFragment {
 
 
     private VerticalTabBar mTabBar;
     private SupportFragment[] mFragments = new SupportFragment[6];
 
-    public MessageHomeFragment() {
+    public MarketHomeFragment() {
 
     }
 
-    public static MessageHomeFragment newInstance() {
-        MessageHomeFragment fragment = new MessageHomeFragment();
+    public static MarketHomeFragment newInstance() {
+        MarketHomeFragment fragment = new MarketHomeFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -50,9 +50,9 @@ public class MessageHomeFragment extends BaseFragment {
         LogUtil.i("FamilyFragment onLazyInitView");
         mTabBar = $(R.id.tab_home_tab_bar);
 
-        SupportFragment firstFragment = findFragment(AllMsgFragment.class);
+        SupportFragment firstFragment = findFragment(AllMarketFragment.class);
         if (firstFragment == null) {
-            mFragments[0] = AllMsgFragment.newInstance();
+            mFragments[0] = AllMarketFragment.newInstance();
             loadRootFragment(R.id.tab_content_container, mFragments[0]);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
@@ -61,10 +61,10 @@ public class MessageHomeFragment extends BaseFragment {
             mFragments[0] = firstFragment;
         }
 
-        mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_msg_all, R.string.all_msg))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_msg_wuye, R.string.wuye_notify))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_msg_shequ, R.string.shequ_notify))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_msg_tixing, R.string.app_notify));
+        mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.btn_safe_hangup, R.string.my_service))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.btn_safe_hangup, R.string.find))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.btn_safe_hangup, R.string.gov_service))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.btn_safe_hangup, R.string.all_service));
 
 
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {
@@ -74,5 +74,6 @@ public class MessageHomeFragment extends BaseFragment {
             }
         });
     }
+
 
 }

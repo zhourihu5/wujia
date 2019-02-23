@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white_radius_shape">
+
+    <ImageView
+        android:id="@id/img1"
+        android:layout_width="378dp"
+        android:layout_height="283dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="30dp"
+        android:src="@color/colorAccent" />
+
+    <TextView
+        android:id="@id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/img1"
+        android:layout_toRightOf="@id/img1"
+        android:text="羊肉片儿"
+        android:textColor="@color/c3"
+        android:textSize="27sp" />
+
+    <TextView
+        android:id="@id/tv6"
+        android:layout_width="38dp"
+        android:layout_height="20dp"
+        android:layout_alignBaseline="@id/tv1"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@id/tv1"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="招牌"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@id/tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv1"
+        android:layout_marginTop="11dp"
+        android:layout_toRightOf="@id/img1"
+        android:text="月售 520  赞 520"
+        android:textColor="@color/c8"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@id/tv3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv2"
+        android:layout_marginTop="7dp"
+        android:layout_toRightOf="@id/img1"
+        android:text="¥38/200g"
+        android:textColor="#ffcbaf8f"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@id/tv4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv3"
+        android:layout_marginTop="17dp"
+        android:layout_toRightOf="@id/img1"
+        android:text="商品描述"
+        android:textColor="@color/c3"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@id/tv5"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv4"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="53dp"
+        android:layout_toRightOf="@id/img1"
+        android:maxLines="5"
+        android:text="每天凌晨闪送到店，5点到货，卖完就没，当天牛街闪送的羊后腿儿，爆款！每天凌晨闪送"
+        android:textColor="@color/c8"
+        android:textSize="17sp" />
+
+    <TextView
+        android:layout_width="148dp"
+        android:layout_height="32dp"
+        android:layout_alignRight="@id/tv5"
+        android:layout_alignBottom="@id/img1"
+        android:background="@drawable/bg_accent_raduis_24_shape"
+        android:gravity="center"
+        android:text="@string/add_buy_car"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+</RelativeLayout>

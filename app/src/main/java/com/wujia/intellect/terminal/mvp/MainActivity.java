@@ -124,6 +124,8 @@ public class MainActivity extends BaseActivity {
                 lastTop = (itemHeight - arrowHeight) / 2;
                 arrowLayoutParams.topMargin = lastTop;
                 mArrow.setLayoutParams(arrowLayoutParams);
+
+                mTabBar.getChildAt(5).performClick();
             }
         });
     }

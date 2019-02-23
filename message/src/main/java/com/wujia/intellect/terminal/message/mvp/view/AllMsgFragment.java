@@ -45,7 +45,7 @@ public class AllMsgFragment extends BaseFragment implements HorizontalTabBar.OnT
         super.initEventAndData();
 
         tabBar = $(R.id.tab_layout);
-        recyclerView = $(R.id.rv_exception);
+        recyclerView = $(R.id.rv1);
 
         tabBar.addItem(new HorizontalTabItem(mContext, R.string.all));
         tabBar.addItem(new HorizontalTabItem(mContext, R.string.readed));

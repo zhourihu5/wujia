@@ -10,14 +10,17 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.wujia.lib.imageloader.DensityUtil;
 import com.wujia.lib.uikit.R;
 
 /**
-* author ：shenbingkai@163.com
-* date ：2019-02-17 21:30
-* description ：
-*/
+ * author ：shenbingkai@163.com
+ * date ：2019-02-17 21:30
+ * description ：
+ */
 public abstract class CommDialog extends Dialog {
+
+    protected Context mContext;
 
     public CommDialog(@NonNull Context context) {
         super(context);
@@ -30,6 +33,7 @@ public abstract class CommDialog extends Dialog {
     }
 
     private void set(Context context) {
+        mContext=context;
         setContentView(R.layout.layout_comm_dialog);
         FrameLayout cont = findViewById(R.id.dialog_comm_container);
         cont.addView(LayoutInflater.from(context).inflate(getLayoutId(), null));
@@ -43,6 +47,9 @@ public abstract class CommDialog extends Dialog {
         init(context);
     }
 
+    public int getBaseWidthPx() {
+        return  60;
+    }
 
     protected abstract void init(Context context);
 
