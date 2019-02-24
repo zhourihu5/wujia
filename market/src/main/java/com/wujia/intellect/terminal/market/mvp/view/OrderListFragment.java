@@ -13,6 +13,7 @@ import com.wujia.lib.widget.HorizontalTabBar;
 import com.wujia.lib.widget.HorizontalTabItem;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
+import com.wujia.lib_common.base.baseadapter.wrapper.EmptyWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class OrderListFragment extends TitleFragment implements View.OnClickList
 
     HorizontalTabBar tabBar;
     RecyclerView recyclerView;
-    OrderAdapter mAdapter;
+    EmptyWrapper mAdapter;
 
     public static OrderListFragment newInstance() {
         OrderListFragment fragment = new OrderListFragment();
@@ -62,9 +63,11 @@ public class OrderListFragment extends TitleFragment implements View.OnClickList
         datas.add(new OrderBean());
         datas.add(new OrderBean());
 
-        mAdapter = new OrderAdapter(mActivity, datas);
+        OrderAdapter adapter = new OrderAdapter(mActivity, datas);
+        mAdapter=new EmptyWrapper(adapter);
+        mAdapter.setEmptyView(R.layout.layout_empty);
         recyclerView.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
+        adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
             @Override
             public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
                 start(OrderDetailsFragment.newInstance("id"));
