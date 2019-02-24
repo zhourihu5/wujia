@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class OrderAdapter extends CommonAdapter<OrderBean> {
     public OrderAdapter(Context context, List<OrderBean> datas) {
-        super(context, R.layout.item_order, datas);
+        super(context, R.layout.item_order_card, datas);
     }
 
     @Override

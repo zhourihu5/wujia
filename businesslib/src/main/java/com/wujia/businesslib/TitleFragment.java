@@ -1,6 +1,5 @@
 package com.wujia.businesslib;
 
-import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
 import android.view.View;
 import android.widget.TextView;
@@ -15,6 +14,7 @@ import com.wujia.lib_common.base.BaseFragment;
 public abstract class TitleFragment extends BaseFragment {
     protected TextView mTitleTv;
     protected TextView mBackBtn;
+    protected boolean showBack = true;
 
 
     @Override
@@ -24,10 +24,15 @@ public abstract class TitleFragment extends BaseFragment {
         mTitleTv = $(R.id.layout_title_tv);
         mTitleTv.setText(getTitle());
 
+        if (showBack) {
+            showBack();
+        }
+
     }
 
 
-    public abstract @StringRes int getTitle();
+    public abstract @StringRes
+    int getTitle();
 
     public void showBack() {
         mBackBtn = $(R.id.layout_back_btn);
@@ -38,5 +43,14 @@ public abstract class TitleFragment extends BaseFragment {
                 TitleFragment.this.pop();
             }
         });
+    }
+
+    public void hideBack() {
+
+    }
+
+    @Override
+    public boolean onBackPressedSupport() {
+        return super.onBackPressedSupport();
     }
 }

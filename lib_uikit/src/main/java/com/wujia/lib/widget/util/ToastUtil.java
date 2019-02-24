@@ -31,6 +31,10 @@ public class ToastUtil {
         show(context, msg, Toast.LENGTH_SHORT);
     }
 
+    public static void showShort(Context context, int strId) {
+        show(context, context.getString(strId), Toast.LENGTH_SHORT);
+    }
+
     public static void showLong(Context context, String msg) {
         show(context, msg, Toast.LENGTH_LONG);
     }

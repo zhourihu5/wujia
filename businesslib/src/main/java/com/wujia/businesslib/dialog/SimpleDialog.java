@@ -18,7 +18,7 @@ import com.wujia.lib.uikit.R;
 public class SimpleDialog extends Dialog implements View.OnClickListener {
     private OnDialogListener listener;
 
-    public SimpleDialog(Context context, String title, String confim) {
+    public SimpleDialog(Context context, String title, String message, String confim) {
 //        super(context, R.style.NormalDialogBottomStyle);
         super(context);
         //初始化布局
@@ -29,11 +29,17 @@ public class SimpleDialog extends Dialog implements View.OnClickListener {
 //        setCanceledOnTouchOutside(true);
 //        setCancelable(false);
 
-        TextView titleTv = findViewById(R.id.dialog_input_title);
-        TextView confimBtn = findViewById(R.id.dialog_sure);
+        TextView titleTv = findViewById(R.id.tv1);
+        TextView confimBtn = findViewById(R.id.btn2);
+
+        if (!TextUtils.isEmpty(message)) {
+            TextView messageTv = findViewById(R.id.tv2);
+            messageTv.setText(message);
+            messageTv.setVisibility(View.VISIBLE);
+        }
 
         confimBtn.setOnClickListener(this);
-        findViewById(R.id.dialog_cancel).setOnClickListener(this);
+        findViewById(R.id.btn1).setOnClickListener(this);
 
         if (!TextUtils.isEmpty(title)) {
             titleTv.setText(title);
@@ -46,7 +52,7 @@ public class SimpleDialog extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        if (R.id.dialog_sure == v.getId()) {
+        if (R.id.btn2 == v.getId()) {
             if (null != listener) {
                 listener.dialogSureClick();
             }
@@ -62,11 +68,17 @@ public class SimpleDialog extends Dialog implements View.OnClickListener {
 
     public static class Builder {
         private String title;
+        private String message;
         private String confirm;
         private OnDialogListener listener;
 
         public Builder title(String title) {
             this.title = title;
+            return this;
+        }
+
+        public Builder message(String message) {
+            this.message = message;
             return this;
         }
 
@@ -81,7 +93,7 @@ public class SimpleDialog extends Dialog implements View.OnClickListener {
         }
 
         public SimpleDialog build(Context context) {
-            SimpleDialog dialog = new SimpleDialog(context, title, confirm);
+            SimpleDialog dialog = new SimpleDialog(context, title, message, confirm);
             dialog.setListener(listener);
 
             return dialog;

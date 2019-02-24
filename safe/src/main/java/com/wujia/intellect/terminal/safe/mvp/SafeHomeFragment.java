@@ -88,13 +88,13 @@ public class SafeHomeFragment extends BaseFragment implements
             }
         });
 
-//        JXPadSdk.init(mActivity.getApplication());
-//        JXPadSdk.initDoorAccess("001901109CDB0000", "01");
-//        manager = JXPadSdk.getDoorAccessManager();
-//        manager.setListUIListener(this);
-//        manager.setDoorAccessListener(this);
-//
-//        setData();
+        JXPadSdk.init(mActivity.getApplication());
+        JXPadSdk.initDoorAccess("001901109CDB0000", "01");
+        manager = JXPadSdk.getDoorAccessManager();
+        manager.setListUIListener(this);
+        manager.setDoorAccessListener(this);
+
+        setData();
 
     }
 

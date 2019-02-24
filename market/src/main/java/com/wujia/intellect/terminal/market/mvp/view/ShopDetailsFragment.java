@@ -1,22 +1,15 @@
 package com.wujia.intellect.terminal.market.mvp.view;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.wujia.intellect.terminal.market.R;
-import com.wujia.intellect.terminal.market.mvp.adapter.MarketAdapter;
 import com.wujia.intellect.terminal.market.mvp.adapter.MarketGoodsAdapter;
 import com.wujia.intellect.terminal.market.mvp.adapter.TagAdapter;
 import com.wujia.intellect.terminal.market.mvp.data.GoodsBean;
-import com.wujia.intellect.terminal.market.mvp.data.MarketBean;
 import com.wujia.intellect.terminal.market.mvp.data.TagBean;
-import com.wujia.lib.imageloader.DensityUtil;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.base.view.HorizontalDecoration;
@@ -95,6 +88,7 @@ public class ShopDetailsFragment extends BaseFragment implements View.OnClickLis
             //搜索
         } else if (id == R.id.btn2) {
             //购物车
+            start(CarFragment.newInstance());
         } else if (id == R.id.btn3) {
             //订单
             start(OrderListFragment.newInstance());

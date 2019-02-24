@@ -61,8 +61,6 @@ public class ExceptionStatusFragment extends TitleFragment implements Horizontal
     protected void initEventAndData() {
         super.initEventAndData();
 
-        showBack();
-
         tabBar.addItem(new HorizontalTabItem(mContext, com.wujia.intellect.terminal.message.R.string.all));
         tabBar.addItem(new HorizontalTabItem(mContext, com.wujia.intellect.terminal.message.R.string.readed));
         tabBar.addItem(new HorizontalTabItem(mContext, com.wujia.intellect.terminal.message.R.string.unread));

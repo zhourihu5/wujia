@@ -45,6 +45,7 @@
     <string name="message_notify">消息通知</string>
     <string name="neighbor">邻里</string>
     <string name="setting">设置</string>
+    <string name="press_again_exit">再按一次退出应用</string>
 
     <!--智能家居-->
     <string name="all">全部</string>
@@ -169,5 +170,16 @@
     <string name="business_order">商务订单</string>
     <string name="team_order">团购订单</string>
     <string name="family_order">家庭订单</string>
+    <string name="order_details">订单信息</string>
+    <string name="now_pay">立即付款</string>
+    <string name="order_delete_desc">订单删除后将无法找回，确认\n删除吗？</string>
+    <string name="order_delete_ed">订单已删除</string>
+    <string name="delete_order">删除订单</string>
+    <string name="change_pay_type_please">请选择支付方式</string>
+    <string name="cmb_pay">招行一网通支付</string>
+    <string name="wechat_pay">微信支付</string>
+    <string name="alipay_pay">支付宝支付</string>
+    <string name="buy_car">支付宝支付</string>
+    <string name="receive_address">收货地址</string>
 
 </resources>

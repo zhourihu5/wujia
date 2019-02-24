@@ -44,8 +44,6 @@ public class OrderListFragment extends TitleFragment implements View.OnClickList
     protected void initEventAndData() {
         super.initEventAndData();
 
-        showBack();
-
         tabBar = $(R.id.tab_layout);
         recyclerView = $(R.id.rv1);
 

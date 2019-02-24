@@ -50,7 +50,6 @@ public class UpdateFragment extends TitleFragment {
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        showBack();
     }
 
     @Override

@@ -57,7 +57,6 @@ public class WebViewFragment extends TitleFragment {
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        showBack();
 
         webView.loadUrl(url);
 

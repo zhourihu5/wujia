@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="333dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white_radius_shape"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/change_pay_type_please"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单金额："
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥150.00"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <!--招行-->
+    <LinearLayout
+        android:id="@id/btn1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_tab_base_white_press_selector"
+        android:paddingLeft="33dp"
+        android:layout_marginTop="21dp"
+        android:paddingTop="10dp"
+        android:paddingRight="29dp"
+        android:paddingBottom="10dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_accent_circle_shape" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:text="@string/cmb_pay"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+
+        <TextView
+            android:layout_width="45dp"
+            android:layout_height="14dp"
+            android:layout_marginLeft="11dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="随机立减"
+            android:textColor="@color/white"
+            android:textSize="9sp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/arrow_right" />
+    </LinearLayout>
+
+
+    <!--wechat-->
+    <LinearLayout
+        android:id="@id/btn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="33dp"
+        android:background="@drawable/bg_tab_base_white_press_selector"
+        android:paddingTop="10dp"
+        android:paddingRight="29dp"
+        android:paddingBottom="10dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_accent_circle_shape" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:text="@string/wechat_pay"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="45dp"
+            android:layout_height="14dp"
+            android:layout_marginLeft="11dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="随机立减"
+            android:textColor="@color/white"
+            android:textSize="9sp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/arrow_right" />
+    </LinearLayout>
+
+    <!--alipay-->
+    <LinearLayout
+        android:id="@id/btn3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_tab_base_white_press_selector"
+        android:paddingLeft="33dp"
+        android:paddingTop="10dp"
+        android:paddingRight="29dp"
+        android:paddingBottom="10dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_accent_circle_shape" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:text="@string/alipay_pay"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+
+        <TextView
+            android:layout_width="46dp"
+            android:layout_height="14dp"
+            android:layout_marginLeft="11dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="随机立减"
+            android:textColor="@color/white"
+            android:textSize="9sp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/arrow_right" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px1"
+        android:layout_marginTop="20dp"
+        android:background="@color/line" />
+
+    <TextView
+        android:id="@id/btn9"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:gravity="center"
+        android:background="@drawable/bg_tab_base_white_press_selector"
+        android:text="@string/cancel"
+        android:textColor="@color/c32"
+        android:textSize="16sp" />
+</LinearLayout>

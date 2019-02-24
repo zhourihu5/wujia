@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.family.FamilyFragment;
@@ -19,12 +20,17 @@ import com.wujia.intellect.terminal.property.ProperyFragment;
 import com.wujia.intellect.terminal.safe.SafeFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
+import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.BaseActivity;
 import com.wujia.lib_common.utils.ScreenUtil;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
 public class MainActivity extends BaseActivity {
+
+    // 再点一次退出程序时间设置
+    private static final long WAIT_TIME = 2000L;
+    private long TOUCH_TIME = 0;  //点击返回键时间
 
     VerticalTabBar mTabBar;
     FrameLayout mainCover;
@@ -158,7 +164,12 @@ public class MainActivity extends BaseActivity {
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             pop();
         } else {
-            ActivityCompat.finishAfterTransition(this);
+            if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
+                ActivityCompat.finishAfterTransition(this);
+            } else {
+                TOUCH_TIME = System.currentTimeMillis();
+                ToastUtil.showShort(MainActivity.this,getString(R.string.press_again_exit));
+            }
         }
     }
 //

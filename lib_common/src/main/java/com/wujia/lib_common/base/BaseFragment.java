@@ -20,7 +20,7 @@ import me.yokeyword.fragmentation.SupportFragment;
  */
 
 public abstract class BaseFragment extends SupportFragment {
-    protected Activity mActivity;
+    protected BaseActivity mActivity;
     protected Context mContext;
     private Unbinder mUnBinder;
     protected View mView;
@@ -29,7 +29,7 @@ public abstract class BaseFragment extends SupportFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mActivity = (Activity) context;
+        mActivity = (BaseActivity) context;
         mContext = context;
     }
 
@@ -93,4 +93,11 @@ public abstract class BaseFragment extends SupportFragment {
         Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
     }
 
+//    @Override
+//    public boolean onBackPressedSupport() {
+//        if (mActivity.getSupportFragmentManager().getBackStackEntryCount() > 1) {
+//            pop();
+//        }
+//        return super.onBackPressedSupport();
+//    }
 }

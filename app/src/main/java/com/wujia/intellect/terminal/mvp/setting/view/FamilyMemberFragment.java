@@ -50,7 +50,6 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        showBack();
     }
 
     @Override

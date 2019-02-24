@@ -63,6 +63,7 @@ public class SettingHomeFragment extends TitleFragment {
 
     @Override
     protected void initEventAndData() {
+        showBack=false;
         super.initEventAndData();
     }
 
