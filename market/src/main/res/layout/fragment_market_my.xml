@@ -45,6 +45,6 @@
         android:overScrollMode="never"
         app:spanCount="4"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
-        tools:listitem="@layout/item_service" />
+        tools:listitem="@layout/item_service_my" />
 
 </LinearLayout>

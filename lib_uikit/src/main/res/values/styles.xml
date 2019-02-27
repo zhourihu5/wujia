@@ -68,6 +68,8 @@
     <style name="ItemLayoutStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/px100</item>
+        <item name="android:paddingLeft">@dimen/px80</item>
+        <item name="android:paddingRight">@dimen/px80</item>
     </style>
     <!--默认item 左侧文字样式-->
     <style name="ItemTexTTitleStyle">

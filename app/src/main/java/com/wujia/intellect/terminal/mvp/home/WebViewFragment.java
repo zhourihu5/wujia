@@ -132,6 +132,8 @@ public class WebViewFragment extends TitleFragment {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
             super.onProgressChanged(view, newProgress);
+            if (null == progressBar)
+                return;
             progressBar.setProgress(newProgress);
             if (newProgress == 100) {
                 hideProgress();

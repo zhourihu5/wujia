@@ -9,7 +9,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/px124"
-        android:background="@color/cf7"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -23,7 +22,7 @@
             android:paddingLeft="@dimen/px80"
             android:paddingRight="@dimen/px80"
             android:text="@string/back_my_service"
-            android:textColor="@color/c8"
+            android:textColor="@color/c53"
             android:textSize="@dimen/text24" />
 
         <Space
@@ -36,14 +35,14 @@
             android:layout_width="@dimen/px124"
             android:layout_height="match_parent"
             android:scaleType="center"
-            android:src="@mipmap/ic_download" />
+            android:src="@mipmap/find_icon_search" />
 
         <ImageView
             android:id="@id/btn2"
             android:layout_width="@dimen/px124"
             android:layout_height="match_parent"
             android:scaleType="center"
-            android:src="@mipmap/ic_download" />
+            android:src="@mipmap/icon_market_nav_order" />
 
         <ImageView
             android:id="@id/btn3"
@@ -51,7 +50,7 @@
             android:layout_height="match_parent"
             android:layout_marginRight="54dp"
             android:scaleType="center"
-            android:src="@mipmap/ic_download" />
+            android:src="@mipmap/icon_market_nav_weibiaoti" />
 
     </LinearLayout>
 
@@ -68,7 +67,7 @@
                 android:id="@id/img1"
                 android:layout_width="match_parent"
                 android:layout_height="305dp"
-                android:background="@color/c9" />
+                android:background="@mipmap/img_details_banner" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -85,7 +84,7 @@
                     android:layout_width="170dp"
                     android:layout_height="145dp"
                     android:layout_marginRight="27dp"
-                    android:background="@color/colorAccent" />
+                    android:background="@mipmap/img_details_shop" />
 
                 <TextView
                     android:id="@id/tv2"
@@ -144,7 +143,8 @@
                     android:layout_alignBottom="@id/img2"
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/img2"
-                    android:drawableLeft="@mipmap/arrow_right"
+                    android:drawableLeft="@mipmap/icon_market_details_position"
+                    android:drawablePadding="9dp"
                     android:gravity="center"
                     android:text="草场地艺术区114号村委会西\n据您步行300米，需要5分钟"
                     android:textColor="@color/c53"
@@ -155,6 +155,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:drawableLeft="@mipmap/icon_market_details_shop"
+                    android:drawablePadding="8dp"
                     android:text="营业时间"
                     android:textColor="@color/colorAccent"
                     android:textSize="17sp" />
@@ -175,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/img2"
                     android:layout_alignParentRight="true"
-                    android:src="@mipmap/icon_head_default" />
+                    android:src="@mipmap/icon_chat_call" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@id/rv1"

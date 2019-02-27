@@ -11,11 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/ceeeeef"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/px80"
-        android:paddingRight="@dimen/px80">
-
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/item_set_member"
@@ -101,14 +97,15 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px16"
+        android:background="#1FA1A9B3" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/px16"
-        android:background="#eeeeef"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/px80"
-        android:paddingRight="@dimen/px80">
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/item_clear_cache"

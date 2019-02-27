@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/px360"
-        android:background="@color/white">
+        android:background="@color/cf7">
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,9 +35,8 @@
             android:id="@+id/rv_home_member"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/px72"
-            android:layout_below="@id/home_room_tv"
             android:layout_marginLeft="@dimen/px80"
-            android:layout_marginTop="@dimen/px18"
+            android:layout_alignBottom="@id/home_status_layout"
             android:orientation="horizontal"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             tools:listitem="@layout/item_home_head" />
@@ -140,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/px34"
                 android:drawableLeft="@mipmap/icon_home_calendar"
-                android:drawablePadding="5dp"
+                android:drawablePadding="@dimen/px8"
                 android:gravity="center"
                 android:text="12月19日 星期三"
                 android:textColor="@color/c3"
@@ -152,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/px34"
                 android:drawableLeft="@mipmap/icon_home_car"
-                android:drawablePadding="5dp"
+                android:drawablePadding="@dimen/px8"
                 android:gravity="center"
                 android:text="今日限行：3、8"
                 android:textColor="@color/c3"
@@ -163,7 +162,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@mipmap/icon_home_aqi"
-                android:drawablePadding="5dp"
+                android:drawablePadding="@dimen/px8"
                 android:gravity="center"
                 android:text="空气质量：优"
                 android:textColor="@color/c3"

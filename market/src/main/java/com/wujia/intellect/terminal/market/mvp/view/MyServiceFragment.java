@@ -5,8 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 
 import com.wujia.intellect.terminal.market.R;
-import com.wujia.intellect.terminal.market.mvp.MarketHomeFragment;
-import com.wujia.intellect.terminal.market.mvp.adapter.MarketAdapter;
+import com.wujia.intellect.terminal.market.mvp.adapter.MyServiceAdapter;
 import com.wujia.intellect.terminal.market.mvp.data.MarketBean;
 import com.wujia.lib.widget.HorizontalTabBar;
 import com.wujia.lib.widget.HorizontalTabItem;
@@ -21,18 +20,18 @@ import java.util.List;
  * date ：2019-02-17
  * description ：
  */
-public class AllMarketFragment extends BaseFragment implements HorizontalTabBar.OnTabSelectedListener {
+public class MyServiceFragment extends BaseFragment implements HorizontalTabBar.OnTabSelectedListener {
 
     HorizontalTabBar tabBar;
     RecyclerView recyclerView;
-    MarketAdapter mAdapter;
+    MyServiceAdapter mAdapter;
 
-    public AllMarketFragment() {
+    public MyServiceFragment() {
 
     }
 
-    public static AllMarketFragment newInstance() {
-        AllMarketFragment fragment = new AllMarketFragment();
+    public static MyServiceFragment newInstance() {
+        MyServiceFragment fragment = new MyServiceFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -40,7 +39,7 @@ public class AllMarketFragment extends BaseFragment implements HorizontalTabBar.
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_market_all;
+        return R.layout.fragment_market_my;
     }
 
     @Override
@@ -62,7 +61,7 @@ public class AllMarketFragment extends BaseFragment implements HorizontalTabBar.
         datas.add(new MarketBean());
         datas.add(new MarketBean());
 
-        mAdapter = new MarketAdapter(mActivity, datas);
+        mAdapter = new MyServiceAdapter(mActivity, datas);
         recyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
             @Override

@@ -66,14 +66,14 @@
                     android:id="@id/btn1"
                     android:layout_width="57dp"
                     android:layout_height="57dp"
-                    android:src="@drawable/bg_accent_circle_shape" />
+                    android:src="@mipmap/icon_chat_call" />
 
                 <ImageView
                     android:id="@id/btn2"
                     android:layout_width="57dp"
                     android:layout_height="57dp"
                     android:layout_marginLeft="17dp"
-                    android:src="@drawable/bg_accent_circle_shape" />
+                    android:src="@mipmap/icon_family_order_news" />
 
             </LinearLayout>
 

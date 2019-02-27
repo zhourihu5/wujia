@@ -9,7 +9,8 @@
         android:id="@id/img1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px270"
-        android:background="@color/colorAccent" />
+        android:scaleType="centerCrop"
+        android:src="@mipmap/img_food" />
 
     <TextView
         android:id="@id/tv1"
@@ -40,7 +41,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="20dp"
-        android:background="@drawable/bg_accent_circle_shape"
+        android:background="@mipmap/btn_increase"
         android:gravity="center"
         android:text="+"
         android:textColor="@color/white"

@@ -29,6 +29,8 @@
             android:layout_marginLeft="42dp"
             android:layout_marginTop="38dp"
             android:text="关于小区灭鼠通知"
+            android:drawablePadding="14dp"
+            android:drawableLeft="@mipmap/icon_pop_property"
             android:textColor="@color/colorAccent"
             android:textSize="32sp" />
 

@@ -55,7 +55,7 @@ public class VerticalTabItem extends LinearLayout {
 
 
         mTxt = new TextView(context);
-        int top = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, getResources().getDisplayMetrics());
+        int top = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, getResources().getDisplayMetrics());
 
         LayoutParams txtParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         mTxt.setGravity(Gravity.CENTER);

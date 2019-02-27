@@ -11,7 +11,8 @@
         android:id="@id/img1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px270"
-        android:background="@color/colorAccent" />
+        android:scaleType="centerCrop"
+        android:src="@mipmap/img_food" />
 
     <LinearLayout
         android:layout_width="match_parent"

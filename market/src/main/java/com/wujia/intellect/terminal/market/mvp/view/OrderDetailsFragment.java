@@ -83,7 +83,7 @@ public class OrderDetailsFragment extends TitleFragment implements PayTypeDialog
 
     @Override
     public int getTitle() {
-        return R.string.add_buy_car;
+        return R.string.family_order;
     }
 
     @Override

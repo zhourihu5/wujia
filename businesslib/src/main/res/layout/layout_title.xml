@@ -24,7 +24,7 @@
         android:paddingLeft="@dimen/px80"
         android:paddingRight="@dimen/px80"
         android:text="@string/back"
-        android:textColor="@color/c8"
+        android:textColor="@color/c53"
         android:textSize="@dimen/text24"
         android:visibility="gone" />
 
@@ -37,7 +37,7 @@
         android:paddingLeft="@dimen/px80"
         android:paddingRight="@dimen/px80"
         android:text="@string/done"
-        android:textColor="@color/c8"
+        android:textColor="@color/c53"
         android:textSize="@dimen/text24"
         android:visibility="gone" />
 </FrameLayout>

@@ -14,9 +14,9 @@ import java.util.List;
  * Email:  shenbingkai@gamil.com
  * Description:
  */
-public class MarketAdapter extends CommonAdapter<MarketBean> {
-    public MarketAdapter(Context context, List<MarketBean> datas) {
-        super(context, R.layout.item_service, datas);
+public class NoMyServiceAdapter extends CommonAdapter<MarketBean> {
+    public NoMyServiceAdapter(Context context, List<MarketBean> datas) {
+        super(context, R.layout.item_service_no_mime, datas);
     }
 
     @Override

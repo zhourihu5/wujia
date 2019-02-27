@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.wujia.intellect.terminal.market.R;
-import com.wujia.intellect.terminal.market.mvp.view.AllMarketFragment;
+import com.wujia.intellect.terminal.market.mvp.view.FindServiceFragment;
+import com.wujia.intellect.terminal.market.mvp.view.MyServiceFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib_common.base.BaseFragment;
@@ -50,27 +51,31 @@ public class MarketHomeFragment extends BaseFragment {
         LogUtil.i("FamilyFragment onLazyInitView");
         mTabBar = $(R.id.tab_home_tab_bar);
 
-        SupportFragment firstFragment = findFragment(AllMarketFragment.class);
+        SupportFragment firstFragment = findFragment(MyServiceFragment.class);
         if (firstFragment == null) {
-            mFragments[0] = AllMarketFragment.newInstance();
-            loadRootFragment(R.id.tab_content_container, mFragments[0]);
+            mFragments[0] = MyServiceFragment.newInstance();
+            mFragments[1] = FindServiceFragment.newInstance();
+
+            loadMultipleRootFragment(R.id.tab_content_container, 0, mFragments[0], mFragments[1]);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
             // 这里我们需要拿到mFragments的引用
             mFragments[0] = firstFragment;
+            mFragments[1] = FindServiceFragment.newInstance();
+
         }
 
-        mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.btn_safe_hangup, R.string.my_service))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.btn_safe_hangup, R.string.find))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.btn_safe_hangup, R.string.gov_service))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.btn_safe_hangup, R.string.all_service));
+        mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_my_default, R.string.my_service))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_find_default, R.string.find_service))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_government_default, R.string.gov_service))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_all_default, R.string.all_service));
 
 
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
-                showHideFragment(mFragments[0], mFragments[prePosition]);
+                showHideFragment(mFragments[position % 2], mFragments[prePosition]);
             }
         });
     }

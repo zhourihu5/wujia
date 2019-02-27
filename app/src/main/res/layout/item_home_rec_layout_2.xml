@@ -3,7 +3,7 @@
     android:id="@+id/family_scene_in_home"
     android:layout_width="@dimen/px320"
     android:layout_height="@dimen/px448"
-    android:background="@drawable/bg_white_radius_card"
+    android:background="@drawable/bg_white_radius_shape"
     android:descendantFocusability="blocksDescendants">
 
     <ImageView

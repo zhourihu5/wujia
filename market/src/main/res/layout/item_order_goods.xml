@@ -16,7 +16,8 @@
         android:layout_width="112dp"
         android:layout_height="112dp"
         android:layout_marginTop="13dp"
-        android:background="@color/colorAccent" />
+        android:scaleType="centerCrop"
+        android:src="@mipmap/img_food" />
 
     <TextView
         android:id="@id/tv1"

@@ -7,7 +7,7 @@
     <color name="colorAccent">#C8AB88</color>
     <color name="colorAccentDark">#BA9C77</color>
 
-    <color name="bg">#dfdfe0</color>
+    <color name="bg">#eeeeef</color>
     <!--这些是系统使用的Color值-->
 
     <color name="clr_dddfe0">#dddfe0</color>

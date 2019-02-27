@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="213dp"
-    android:layout_height="272dp"
-    android:layout_marginBottom="16dp"
+    android:layout_height="299dp"
     android:layout_marginRight="16dp"
+    android:layout_marginBottom="16dp"
     android:background="@drawable/bg_white_radius_shape"
     android:gravity="center_horizontal"
     android:orientation="vertical">
@@ -11,8 +11,8 @@
     <ImageView
         android:layout_width="87dp"
         android:layout_height="87dp"
-        android:layout_marginTop="43dp"
-        android:src="@color/bg" />
+        android:layout_marginTop="33dp"
+        android:src="@mipmap/img_sucai" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,11 +24,23 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="5dp"
         android:gravity="center"
         android:lineSpacingMultiplier="1.3"
         android:text="中介机构\n将府公园店"
         android:textColor="@color/c8"
         android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/btn1"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/btn_rect_accent_select"
+        android:gravity="center"
+        android:text="@string/subscribe"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text25" />
+
 </LinearLayout>
