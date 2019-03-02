@@ -37,7 +37,7 @@ public class FixGroupAdapter extends CommonAdapter<WyFixBean> {
         datas.add(new WyFixBean());
         datas.add(new WyFixBean());
 
-        rv.addItemDecoration(new GridDecoration(0, 24));
+        rv.addItemDecoration(new GridDecoration(0, 12));
         rv.setAdapter(new FixChildAdapter(mContext, datas));
     }
 }
