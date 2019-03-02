@@ -1,6 +1,7 @@
 package com.wujia.intellect.terminal.safe.mvp.view;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import com.wujia.intellect.terminal.safe.R;
 import com.wujia.lib_common.base.BaseFragment;
@@ -25,5 +26,10 @@ public class SafeOtherFragment extends BaseFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_safe_other;
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
     }
 }

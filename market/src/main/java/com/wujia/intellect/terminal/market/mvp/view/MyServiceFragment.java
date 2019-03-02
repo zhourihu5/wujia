@@ -43,8 +43,8 @@ public class MyServiceFragment extends BaseFragment implements HorizontalTabBar.
     }
 
     @Override
-    protected void initEventAndData() {
-        super.initEventAndData();
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
 
         tabBar = $(R.id.tab_layout);
         recyclerView = $(R.id.rv1);

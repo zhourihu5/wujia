@@ -7,23 +7,36 @@
     android:paddingRight="@dimen/px40">
 
 
-    <TextView
-        android:id="@+id/play_back_time_tv"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="12:00:08"
-        android:textColor="@color/c8"
-        android:textSize="@dimen/text20" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/px16"
+            android:layout_height="@dimen/px16"
+            android:background="@drawable/bg_point_red" />
+
+        <TextView
+            android:id="@+id/play_back_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px16"
+            android:text="12:00:08"
+            android:textColor="@color/c8"
+            android:textSize="@dimen/text20" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/px16"
         android:layout_marginBottom="@dimen/px35"
+        android:layout_marginLeft="@dimen/px32"
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:orientation="horizontal">
-
 
         <TextView
             android:layout_width="wrap_content"

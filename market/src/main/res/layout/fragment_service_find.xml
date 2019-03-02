@@ -10,21 +10,38 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
+        <FrameLayout
+            android:id="@id/l1"
             android:layout_width="match_parent"
-            android:layout_height="293dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/img_banner" />
+            android:layout_height="293dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/img_banner" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="41dp"
+                android:layout_marginBottom="18dp"
+                android:text="中粮品牌专区"
+                android:textColor="@color/c3"
+                android:textSize="43sp" />
+        </FrameLayout>
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@id/rv1"
-            android:layout_width="wrap_content"
+            android:paddingTop="12dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="42dp"
+            android:orientation="vertical"
             android:overScrollMode="never"
-            app:layoutManager="android.support.v7.widget.GridLayoutManager"
-            app:spanCount="4"
-            tools:listitem="@layout/item_service_no_mime" />
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_service_find_group" />
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

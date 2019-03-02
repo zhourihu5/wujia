@@ -20,5 +20,13 @@
         android:id="@+id/tab_content_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_weight="1">
+
+        <!--<ProgressBar-->
+            <!--style="@style/ProgressLoadingWhiteStyle"-->
+            <!--android:layout_width="@dimen/px50"-->
+            <!--android:layout_height="@dimen/px50"-->
+            <!--android:layout_gravity="center" />-->
+    </FrameLayout>
+
 </LinearLayout>

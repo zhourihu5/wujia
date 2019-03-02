@@ -19,32 +19,17 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/px48" />
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
-
-        <!--<ImageView-->
-        <!--android:layout_width="@dimen/px48"-->
-        <!--android:layout_height="@dimen/px48"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:src="@mipmap/icon_search" />-->
-
-        <android.support.v7.widget.SearchView
-            android:id="@id/search_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@id/rv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
         android:layout_marginLeft="43dp"
+        android:layout_marginTop="21dp"
         android:overScrollMode="never"
-        app:spanCount="4"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:spanCount="4"
         tools:listitem="@layout/item_service_my" />
 
 </LinearLayout>

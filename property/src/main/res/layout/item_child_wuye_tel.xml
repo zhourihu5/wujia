@@ -8,8 +8,6 @@
     android:orientation="horizontal"
     android:paddingLeft="@dimen/px32"
     android:layout_marginLeft="@dimen/px24"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     android:paddingRight="@dimen/px32">
 
     <ImageView

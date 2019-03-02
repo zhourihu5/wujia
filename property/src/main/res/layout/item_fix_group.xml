@@ -21,7 +21,7 @@
         android:id="@id/rv1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/px40"
+        android:layout_marginTop="@dimen/px16"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
         app:spanCount="4"
         tools:listitem="@layout/item_home_rec_layout_1" />

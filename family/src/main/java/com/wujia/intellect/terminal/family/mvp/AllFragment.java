@@ -63,7 +63,8 @@ public class AllFragment extends BaseFragment {
     }
 
     @Override
-    protected void initEventAndData() {
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
         rvMode = $(R.id.rv_mode);
         rvUsually = $(R.id.rv_usually);
         rvAll = $(R.id.rv_all);
@@ -246,30 +247,6 @@ public class AllFragment extends BaseFragment {
         dialogWindow.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogWindow.setGravity(Gravity.CENTER);
         dialog.show();
-    }
-
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-        // 懒加载
-        // 同级Fragment场景、ViewPager场景均适用
-
-    }
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        // 当对用户可见时 回调
-        // 不管是 父Fragment还是子Fragment 都有效！
-
-    }
-
-    @Override
-    public void onSupportInvisible() {
-        super.onSupportInvisible();
-        // 当对用户不可见时 回调
-        // 不管是 父Fragment还是子Fragment 都有效！
-
     }
 
     private void testData() {

@@ -1,6 +1,7 @@
 package com.wujia.intellect.terminal.message.mvp.view;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.widget.RadioGroup;
 
@@ -41,8 +42,8 @@ public class AllMsgFragment extends BaseFragment implements HorizontalTabBar.OnT
     }
 
     @Override
-    protected void initEventAndData() {
-        super.initEventAndData();
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
 
         tabBar = $(R.id.tab_layout);
         recyclerView = $(R.id.rv1);

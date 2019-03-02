@@ -18,7 +18,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,7 +54,7 @@
                 android:overScrollMode="never"
                 app:spanCount="4"
                 app:layoutManager="android.support.v7.widget.GridLayoutManager"
-                tools:listitem="@layout/item_home_rec_wrapper" />
+                tools:listitem="@layout/item_home_rec_layout_0" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

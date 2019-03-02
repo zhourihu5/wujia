@@ -134,7 +134,7 @@ public class MainActivity extends BaseActivity {
                 arrowLayoutParams.topMargin = lastTop;
                 mArrow.setLayoutParams(arrowLayoutParams);
 
-                mTabBar.getChildAt(3).performClick();
+//                mTabBar.getChildAt(5).performClick();
             }
         });
     }

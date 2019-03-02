@@ -209,7 +209,7 @@ public class HomeHomeFragment extends BaseFragment {
                 new AddMemberDialog(mActivity).setListener(new OnInputDialogListener() {
                     @Override
                     public void dialogSureClick(String input) {
-                        showToast(input);
+                        //TODO 邀请回调
                     }
                 }).show();
                 break;

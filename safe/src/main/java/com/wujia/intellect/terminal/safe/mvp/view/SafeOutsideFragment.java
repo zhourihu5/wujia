@@ -19,6 +19,7 @@ import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessConversationUI;
 import com.wujia.businesslib.Constants;
 import com.wujia.intellect.terminal.safe.R;
 import com.wujia.intellect.terminal.safe.mvp.adapter.PlayBackAdapter;
+import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.utils.LogUtil;
@@ -78,6 +79,15 @@ public class SafeOutsideFragment extends BaseFragment implements
 
     @Override
     protected void initEventAndData() {
+
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        // 懒加载
+        // 同级Fragment场景、ViewPager场景均适用
+        LogUtil.i("SafeOutsideFragment onLazyInitView");
         sessionId = getArguments().getString(Constants.ARG_PARAM_1);
 
         surfaceView = $(R.id.surface);
@@ -135,15 +145,6 @@ public class SafeOutsideFragment extends BaseFragment implements
         rvPlayBack.setAdapter(recAdapter);
 
         recAdapter.setOnItemClickListener(this);
-
-    }
-
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-        // 懒加载
-        // 同级Fragment场景、ViewPager场景均适用
-        LogUtil.i("SafeOutsideFragment onLazyInitView");
 
     }
 
@@ -237,7 +238,7 @@ public class SafeOutsideFragment extends BaseFragment implements
     @Override
     public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
         if (isEdit) {
-            showToast("开始回放");
+            ToastUtil.showShort(mContext,"开始回放");
             startPlayRec(position);
         } else {
             recAdapter.itemClick(position);

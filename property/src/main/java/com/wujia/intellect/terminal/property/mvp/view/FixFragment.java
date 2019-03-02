@@ -1,6 +1,7 @@
 package com.wujia.intellect.terminal.property.mvp.view;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 
 import com.wujia.intellect.terminal.message.mvp.adapter.WySectionAdapter;
@@ -41,8 +42,8 @@ public class FixFragment extends BaseFragment {
     }
 
     @Override
-    protected void initEventAndData() {
-        super.initEventAndData();
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
 
         rv1 = $(R.id.rv1);
 

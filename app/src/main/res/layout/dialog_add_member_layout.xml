@@ -12,7 +12,6 @@
     android:paddingTop="@dimen/px64"
     android:paddingRight="@dimen/px64">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,7 +29,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/px80"
+        android:layout_height="@dimen/px73"
         android:layout_marginTop="@dimen/px48"
         android:orientation="horizontal">
 
@@ -38,9 +37,10 @@
             android:id="@+id/dialog_input"
             android:layout_width="@dimen/px288"
             android:layout_height="match_parent"
+            android:background="@drawable/bg_input_shape"
             android:hint="@string/please_input_member_phone"
-            android:inputType="phone"
             android:imeOptions="actionDone"
+            android:inputType="phone"
             android:maxLines="1"
             android:singleLine="true"
             android:textColor="@color/c6"
@@ -52,7 +52,7 @@
             android:layout_width="@dimen/px160"
             android:layout_height="@dimen/px72"
             android:layout_marginLeft="@dimen/px50"
-            android:background="@drawable/btn_rect_accent_select"
+            android:background="@drawable/btn_rect_accent_radius_4_select"
             android:gravity="center"
             android:text="@string/send_invite"
             android:textColor="@color/white"
@@ -68,13 +68,24 @@
         android:textColor="@color/c8"
         android:textSize="@dimen/text24" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_dialog_invite"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px264"
-        android:layout_marginTop="@dimen/px10"
-        android:orientation="vertical"
-        android:overScrollMode="never"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_home_invite_layout" />
+        android:layout_height="@dimen/px264">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_dialog_invite"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px264"
+            android:layout_marginTop="@dimen/px10"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_home_invite_layout" />
+
+        <ImageView
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/img_pop_family_mask" />
+    </FrameLayout>
 </LinearLayout>

@@ -14,15 +14,13 @@ import java.util.List;
  * Email:  shenbingkai@gamil.com
  * Description:
  */
-public class NoMyServiceAdapter extends CommonAdapter<MarketBean> {
-    public NoMyServiceAdapter(Context context, List<MarketBean> datas) {
-        super(context, R.layout.item_service_no_mime, datas);
+public class FindServiceChildAdapter extends CommonAdapter<MarketBean> {
+    public FindServiceChildAdapter(Context context, List<MarketBean> datas) {
+        super(context, R.layout.item_service_find_child, datas);
     }
 
     @Override
     protected void convert(final ViewHolder holder, MarketBean item, int pos) {
-
-//        holder.setText(R.id.scene_in_mode_tv,item.title);
 
     }
 }

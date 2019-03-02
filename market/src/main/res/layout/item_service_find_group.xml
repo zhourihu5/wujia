@@ -2,10 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_white_radius_shape"
-    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <LinearLayout
@@ -13,16 +11,17 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="43dp"
-        android:paddingTop="42dp"
-        android:paddingRight="41dp">
+        android:layout_marginTop="29dp">
 
         <TextView
+            android:id="@id/tv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="43dp"
             android:text="本周精选"
             android:textColor="@color/c29"
-            android:textSize="19sp" />
+            android:textSize="19sp"
+            android:textStyle="bold" />
 
         <Space
             android:layout_width="0dp"
@@ -30,8 +29,10 @@
             android:layout_weight="1" />
 
         <TextView
+            android:id="@id/tv2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="41dp"
             android:text="查看全部"
             android:textColor="@color/c29"
             android:textSize="13sp" />
@@ -41,10 +42,10 @@
         android:id="@id/rv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="35dp"
         android:layout_marginTop="13dp"
         android:overScrollMode="never"
+        android:paddingLeft="35dp"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
         app:spanCount="4"
-        tools:listitem="@layout/item_service_my" />
+        tools:listitem="@layout/item_service_find_child" />
 </LinearLayout>

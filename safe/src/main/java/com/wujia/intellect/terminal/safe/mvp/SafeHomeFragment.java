@@ -55,11 +55,6 @@ public class SafeHomeFragment extends BaseFragment implements
     }
 
     @Override
-    protected void initEventAndData() {
-
-    }
-
-    @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         // 懒加载
