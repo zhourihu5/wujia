@@ -1,35 +1,27 @@
-package com.wujia.intellect.terminal.safe.mvp;
+package com.wujia.intellect.terminal.safe.mvp.view;
 
-import android.app.MediaRouteButton;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.intercom.sdk.IntercomConstants;
 import com.intercom.sdk.IntercomObserver;
 import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.jingxi.smartlife.pad.sdk.doorAccess.DoorAccessManager;
-import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorDevice;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorEvent;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorRecordBean;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessConversationUI;
-import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListUI;
-import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListener;
 import com.wujia.businesslib.Constants;
 import com.wujia.intellect.terminal.safe.R;
 import com.wujia.intellect.terminal.safe.mvp.adapter.PlayBackAdapter;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
-import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 import com.wujia.lib_common.utils.LogUtil;
-import com.wujia.lib_common.utils.ScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;

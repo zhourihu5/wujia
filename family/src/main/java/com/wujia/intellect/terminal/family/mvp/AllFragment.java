@@ -72,15 +72,15 @@ public class AllFragment extends BaseFragment {
         testData();
 
         modeAdapter = new ModeAdapter(mActivity, modeList);
-        rvMode.addItemDecoration(new HorizontalDecoration(25));
+        rvMode.addItemDecoration(new HorizontalDecoration(13));
         rvMode.setAdapter(modeAdapter);
 
         useAdapter = new EquipmentAdapter(mActivity, useList);
-        rvUsually.addItemDecoration(new HorizontalDecoration(25));
+        rvUsually.addItemDecoration(new HorizontalDecoration(13));
         rvUsually.setAdapter(useAdapter);
 
         allAdapter = new EquipmentAdapter(mActivity, allList);
-        rvAll.addItemDecoration(new GridDecoration(25, 25));
+        rvAll.addItemDecoration(new GridDecoration(13, 13));
         rvAll.setAdapter(allAdapter);
 
 

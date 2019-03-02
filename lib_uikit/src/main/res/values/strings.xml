@@ -46,6 +46,7 @@
     <string name="neighbor">邻里</string>
     <string name="setting">设置</string>
     <string name="press_again_exit">再按一次退出应用</string>
+    <string name="font_s">font/%s.ttf</string>
 
     <!--智能家居-->
     <string name="all">全部</string>
@@ -182,5 +183,10 @@
     <string name="buy_car">购物车</string>
     <string name="receive_address">收货地址</string>
     <string name="subscribe">订阅</string>
+
+
+    <!--物业-->
+    <string name="propery_report_fix">报事报修</string>
+    <string name="tel_select">电话查询</string>
 
 </resources>

@@ -58,12 +58,12 @@ public class FamilyHomeFragment extends BaseFragment {
             mFragments[0] = firstFragment;
         }
 
-        mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_all_default, R.string.home))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_living_default, R.string.drawing_room))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_bed2_default, R.string.master_room))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_bed2_default, R.string.second_room))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_kitchen_default, R.string.kitchen))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_bath_default, R.string.washroom));
+        mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_all_default, R.mipmap.icon_smart_leftnav_all_selected, R.string.home))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_living_default, R.mipmap.icon_smart_leftnav_living_selected, R.string.drawing_room))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_bed2_default, R.mipmap.icon_smart_leftnav_bed2_selected, R.string.master_room))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_bed2_default, R.mipmap.icon_smart_leftnav_bed2_selected, R.string.second_room))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_kitchen_default, R.mipmap.icon_smart_leftnav_kitchen_selected, R.string.kitchen))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_smart_leftnav_bath_default, R.mipmap.icon_smart_leftnav_bath_selected, R.string.washroom));
 
 
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {

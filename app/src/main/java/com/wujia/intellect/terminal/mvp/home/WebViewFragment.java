@@ -60,8 +60,8 @@ public class WebViewFragment extends TitleFragment {
 
         webView.loadUrl(url);
 
-        webView.setBackgroundColor(0);
-        webView.getBackground().setAlpha(0);
+//        webView.setBackgroundColor(0);
+//        webView.getBackground().setAlpha(0);
 
 //        if (!NetWorkUtil.hasNet) {
 //            ToastUtils.showToast("网络未连接");

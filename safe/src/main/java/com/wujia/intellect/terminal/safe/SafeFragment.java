@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.wujia.intellect.terminal.safe.mvp.SafeHomeFragment;
-import com.wujia.intellect.terminal.safe.mvp.SafeOutsideFragment;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.utils.LogUtil;
 

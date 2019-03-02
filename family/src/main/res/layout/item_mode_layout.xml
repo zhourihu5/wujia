@@ -1,65 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/family_scene_in_home"
-    android:layout_width="@dimen/px320"
-    android:layout_height="@dimen/px408"
-    android:background="@drawable/bg_white_radius_card"
+<com.wujia.lib.widget.ShadowContainer xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center">
 
-    >
+    <RelativeLayout
+        android:layout_width="@dimen/px320"
+        android:layout_height="@dimen/px408"
+        android:background="@drawable/bg_white_radius_shape">
 
-    <ImageView
-        android:id="@+id/scene_in_img"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px274"
-        android:background="@mipmap/img_01" />
+        <com.wujia.lib.widget.RadiusImageView
+            android:id="@+id/scene_in_img"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px274"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_card_backhome"
+            app:left_top_radius="@dimen/px8"
+            app:right_top_radius="@dimen/px8" />
 
-    <ImageView
-        android:id="@+id/scene_in_mode_more"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/px14"
-        android:src="@mipmap/btn_more" />
+        <ImageView
+            android:id="@+id/scene_in_mode_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/px14"
+            android:src="@mipmap/btn_more" />
 
-    <TextView
-        android:id="@+id/scene_in_mode_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/scene_in_img"
-        android:layout_marginLeft="@dimen/px30"
-        android:layout_marginTop="@dimen/px30"
-        android:text="@string/mode_in_home"
-        android:textColor="@color/c3"
-        android:textSize="@dimen/text32" />
+        <TextView
+            android:id="@+id/scene_in_mode_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/scene_in_img"
+            android:layout_marginLeft="@dimen/px30"
+            android:layout_marginTop="@dimen/px30"
+            android:text="@string/mode_in_home"
+            android:textColor="@color/c3"
+            android:textSize="@dimen/text32" />
 
-    <com.wujia.lib.widget.MySwitch
-        android:id="@+id/scene_in_mode_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/scene_in_img"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/px30"
-        android:layout_marginRight="@dimen/px30" />
+        <com.wujia.lib.widget.MySwitch
+            android:id="@+id/scene_in_mode_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/scene_in_img"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/px30"
+            android:layout_marginRight="@dimen/px30" />
 
-    <View
-        android:id="@+id/scene_in_mode_status"
-        android:layout_width="@dimen/px10"
-        android:layout_height="@dimen/px10"
-        android:layout_below="@id/scene_in_mode_tv"
-        android:layout_marginLeft="@dimen/px30"
-        android:layout_marginTop="@dimen/px20"
-        android:background="@drawable/bg_point_green" />
+        <View
+            android:id="@+id/scene_in_mode_status"
+            android:layout_width="@dimen/px10"
+            android:layout_height="@dimen/px10"
+            android:layout_below="@id/scene_in_mode_tv"
+            android:layout_marginLeft="@dimen/px30"
+            android:layout_marginTop="@dimen/px20"
+            android:background="@drawable/bg_point_green" />
 
-    <TextView
-        android:id="@+id/scene_in_mode_status_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/scene_in_mode_tv"
-        android:layout_marginLeft="@dimen/px10"
-        android:layout_marginTop="@dimen/px10"
-        android:layout_toRightOf="@id/scene_in_mode_status"
-        android:text="@string/opened"
-        android:textColor="@color/c8"
-        android:textSize="@dimen/text20" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/scene_in_mode_status_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/scene_in_mode_tv"
+            android:layout_marginLeft="@dimen/px10"
+            android:layout_marginTop="@dimen/px10"
+            android:layout_toRightOf="@id/scene_in_mode_status"
+            android:text="@string/opened"
+            android:textColor="@color/c8"
+            android:textSize="@dimen/text20" />
+    </RelativeLayout>
 
+</com.wujia.lib.widget.ShadowContainer>

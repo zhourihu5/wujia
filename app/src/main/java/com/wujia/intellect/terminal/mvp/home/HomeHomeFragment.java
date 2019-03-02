@@ -29,6 +29,7 @@ import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.base.view.HorizontalDecoration;
 import com.wujia.lib_common.utils.DateUtil;
+import com.wujia.lib_common.utils.FontUtils;
 import com.wujia.lib_common.utils.StringUtil;
 
 import java.util.ArrayList;
@@ -101,6 +102,8 @@ public class HomeHomeFragment extends BaseFragment {
     @Override
     protected void initEventAndData() {
 
+        FontUtils.changeFontTypeface(homeWeatherNumTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
+
         homeDateTv.setText(StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay()));
 
 
@@ -119,7 +122,7 @@ public class HomeHomeFragment extends BaseFragment {
         cards.add(new HomeRecBean(10));
 
         homeCardAdapter = new HomeCardAdapter(mActivity, cards);
-        rvHomeCard.addItemDecoration(new HorizontalDecoration(25));
+        rvHomeCard.addItemDecoration(new HorizontalDecoration(13));
         rvHomeCard.setAdapter(homeCardAdapter);
         homeCardAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
             @Override

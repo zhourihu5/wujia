@@ -61,10 +61,10 @@ public class MessageHomeFragment extends BaseFragment {
             mFragments[0] = firstFragment;
         }
 
-        mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_msg_all, R.string.all_msg))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_msg_wuye, R.string.wuye_notify))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_msg_shequ, R.string.shequ_notify))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_msg_tixing, R.string.app_notify));
+        mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_all_default,R.mipmap.icon_news_leftnav_all_highlight, R.string.all_msg))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_property_default,R.mipmap.icon_news_leftnav_property_highlight, R.string.wuye_notify))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_community_default,R.mipmap.icon_news_leftnav_community_highlight, R.string.shequ_notify))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_property_default, R.mipmap.icon_news_leftnav_property_highlight,R.string.app_notify));
 
 
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {

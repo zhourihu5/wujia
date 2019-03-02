@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@id/l1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px88"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/px12"
+            android:layout_height="@dimen/px12"
+            android:layout_marginLeft="@dimen/px38"
+            android:background="@drawable/bg_point_5ccbab88" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px62"
+            android:text="安保部"
+            android:textColor="@color/c3"
+            android:textSize="@dimen/text24" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@id/img9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/btn_more_normal" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@id/rv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/px86"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:spanCount="2"
+        android:visibility="gone"
+        tools:listitem="@layout/item_child_wuye_tel" />
+
+    <View
+        style="@style/ItemLineStyle"
+        android:id="@id/line1"
+        android:visibility="invisible"
+        android:layout_marginLeft="@dimen/px110" />
+</LinearLayout>

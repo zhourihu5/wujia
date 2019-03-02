@@ -30,11 +30,11 @@
         <!--android:layout_gravity="center"-->
         <!--android:src="@mipmap/icon_search" />-->
 
-        <android.support.v7.widget.SearchView
+        <ImageView
             android:id="@id/search_view"
             android:background="@mipmap/find_icon_search"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

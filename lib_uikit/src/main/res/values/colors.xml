@@ -8,6 +8,7 @@
     <color name="colorAccentDark">#BA9C77</color>
 
     <color name="bg">#eeeeef</color>
+    <!--<color name="bg">#dfdfe0</color>-->
     <!--这些是系统使用的Color值-->
 
     <color name="clr_dddfe0">#dddfe0</color>
@@ -45,4 +46,7 @@
     <color name="cca">#cacaca</color>
     <color name="c5f">#5f5f5f</color>
     <color name="c32">#323232</color>
+    <color name="container_shadow_color">#0d000000</color>
+
+
 </resources>

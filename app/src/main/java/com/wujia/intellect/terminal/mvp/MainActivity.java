@@ -50,14 +50,14 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initEventAndData(Bundle savedInstanceState) {
 
-        LogUtil.i("ScreenUtil.getDialogWidth()  "+ScreenUtil.getDialogWidth());
-        LogUtil.i("ScreenUtil.getLandscapeHeight()  "+ScreenUtil.getLandscapeHeight());
-        LogUtil.i("ScreenUtil.getLandscapeWidth()  "+ScreenUtil.getLandscapeWidth());
-        LogUtil.i("ScreenUtil.getDisplayHeight()  "+ScreenUtil.getDisplayHeight());
-        LogUtil.i("ScreenUtil.getDialogWidth()  "+ScreenUtil.getDialogWidth());
-        LogUtil.i("ScreenUtil.density()  "+ScreenUtil.density);
-        LogUtil.i("ScreenUtil.densityDpi()  "+ScreenUtil.densityDpi);
-        LogUtil.i("ScreenUtil.scaleDensity()  "+ScreenUtil.scaleDensity);
+        LogUtil.i("ScreenUtil.getDialogWidth()  " + ScreenUtil.getDialogWidth());
+        LogUtil.i("ScreenUtil.getLandscapeHeight()  " + ScreenUtil.getLandscapeHeight());
+        LogUtil.i("ScreenUtil.getLandscapeWidth()  " + ScreenUtil.getLandscapeWidth());
+        LogUtil.i("ScreenUtil.getDisplayHeight()  " + ScreenUtil.getDisplayHeight());
+        LogUtil.i("ScreenUtil.getDialogWidth()  " + ScreenUtil.getDialogWidth());
+        LogUtil.i("ScreenUtil.density()  " + ScreenUtil.density);
+        LogUtil.i("ScreenUtil.densityDpi()  " + ScreenUtil.densityDpi);
+        LogUtil.i("ScreenUtil.scaleDensity()  " + ScreenUtil.scaleDensity);
 
 //        for (int i = 400; i <= 500; i++) {
 //            LogUtil.i("<dimen name=\"px"+i+"\">"+Math.round(i/1.5)+"dp</dimen>");
@@ -103,14 +103,14 @@ public class MainActivity extends BaseActivity {
             mFragments[7] = findFragment(SettingFragment.class);
         }
 
-        mTabBar.addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_home_default, R.string.home))
-                .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_safe_default, R.string.visual_security))
-                .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_smart_default, R.string.intelligent_home))
-                .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_serve_default, R.string.property_service))
-                .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_news_deafult, R.string.message_notify))
-                .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_market_default, R.string.market_service))
-                .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_neighbor_default, R.string.neighbor))
-                .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_set_default, R.string.setting));
+        mTabBar.addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_home_default, R.mipmap.icon_leftnav_home_selected, R.string.home))
+                .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_safe_default, R.mipmap.icon_leftnav_safe_selected, R.string.visual_security))
+                .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_smart_default, R.mipmap.icon_leftnav_smart_selected, R.string.intelligent_home))
+                .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_serve_default, R.mipmap.icon_leftnav_serve_selected, R.string.property_service))
+                .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_news_deafult, R.mipmap.icon_leftnav_news_selected, R.string.message_notify))
+                .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_market_default, R.mipmap.icon_leftnav_market_selected, R.string.market_service))
+                .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_neighbor_default, R.mipmap.icon_leftnav_neighbor_selected, R.string.neighbor))
+                .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_set_default, R.mipmap.icon_leftnav_set_selected, R.string.setting));
 
 
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {
@@ -134,7 +134,7 @@ public class MainActivity extends BaseActivity {
                 arrowLayoutParams.topMargin = lastTop;
                 mArrow.setLayoutParams(arrowLayoutParams);
 
-//                mTabBar.getChildAt(5).performClick();
+                mTabBar.getChildAt(3).performClick();
             }
         });
     }

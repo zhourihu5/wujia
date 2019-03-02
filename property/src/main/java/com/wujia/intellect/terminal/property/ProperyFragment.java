@@ -3,6 +3,7 @@ package com.wujia.intellect.terminal.property;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.wujia.intellect.terminal.property.mvp.ProperyHomeFragment;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
@@ -27,7 +28,7 @@ public class ProperyFragment extends BaseFragment {
     @Override
     protected int getLayoutId() {
         LogUtil.i("ProperyFragment getLayoutId");
-        return R.layout.fragment_propery;
+        return R.layout.fragment_frame_layout;
     }
 
     @Override
@@ -37,9 +38,9 @@ public class ProperyFragment extends BaseFragment {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        // 懒加载
-        // 同级Fragment场景、ViewPager场景均适用
-        LogUtil.i("ProperyFragment onLazyInitView");
+        if (findChildFragment(ProperyHomeFragment.class) == null) {
+            loadRootFragment(R.id.fl_first_container, ProperyHomeFragment.newInstance());
+        }
 
     }
 

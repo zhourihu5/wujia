@@ -29,13 +29,16 @@ public class VerticalTabItem extends LinearLayout {
     private Context mContext;
     private ImageView mIcon;
     private TextView mTxt;
+    private int mIconDefault, mIconSelected;
 
-    public VerticalTabItem(Context context, @DrawableRes int icon, @StringRes int txt) {
+    public VerticalTabItem(Context context, @DrawableRes int iconDefault, @DrawableRes int iconSelected, @StringRes int txt) {
         super(context);
-        init(context, icon, txt);
+        this.mIconDefault = iconDefault;
+        this.mIconSelected = iconSelected;
+        init(context, txt);
     }
 
-    private void init(Context context, int icon, int txt) {
+    private void init(Context context, int txt) {
         setOrientation(VERTICAL);
         setGravity(Gravity.CENTER);
         mContext = context;
@@ -46,12 +49,12 @@ public class VerticalTabItem extends LinearLayout {
         typedArray.recycle();
 
         mIcon = new ImageView(context);
-        int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
-        LayoutParams iconParams = new LayoutParams(size, size);
+//        int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
+        LayoutParams iconParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         iconParams.gravity = Gravity.CENTER;
-        mIcon.setImageResource(icon);
-        mIcon.setColorFilter(ContextCompat.getColor(context, R.color.c9));
-        addView(mIcon,iconParams);
+        mIcon.setImageResource(mIconDefault);
+//        mIcon.setColorFilter(ContextCompat.getColor(context, R.color.c9));
+        addView(mIcon, iconParams);
 
 
         mTxt = new TextView(context);
@@ -63,18 +66,20 @@ public class VerticalTabItem extends LinearLayout {
         mTxt.setPadding(0, top, 0, 0);
         mTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
         mTxt.setTextColor(ContextCompat.getColor(mContext, R.color.c9));
-        addView(mTxt,txtParams);
+        addView(mTxt, txtParams);
     }
 
     @Override
     public void setSelected(boolean selected) {
         super.setSelected(selected);
         if (selected) {
-            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
+//            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
+            mIcon.setImageResource(mIconSelected);
             mTxt.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
 
         } else {
-            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.c9));
+            mIcon.setImageResource(mIconDefault);
+//            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.c9));
             mTxt.setTextColor(ContextCompat.getColor(mContext, R.color.c9));
         }
     }

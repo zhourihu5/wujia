@@ -15,7 +15,7 @@
         android:id="@+id/family_home_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px124"
-        android:background="@color/clr_eaeaea"
+        android:background="@color/cf7"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/px64"
         android:text="@string/family_experience_mode" />
@@ -41,10 +41,10 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_mode"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/px448"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/px10"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/px60"
+                android:paddingLeft="@dimen/px52"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_mode_layout" />
 
@@ -61,10 +61,10 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_usually"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/px160"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/px10"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/px60"
+                android:paddingLeft="@dimen/px52"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_equipment_layout" />
 
@@ -83,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/px10"
-                android:paddingLeft="@dimen/px60"
+                android:paddingLeft="@dimen/px52"
                 app:layoutManager="android.support.v7.widget.GridLayoutManager"
                 app:spanCount="4"
                 tools:listitem="@layout/item_equipment_layout" />

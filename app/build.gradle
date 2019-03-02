@@ -4,10 +4,10 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         config {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file('../debug.keystore')
-            storePassword 'android'
+            keyAlias 'wallet'
+            keyPassword 'wallet!@#'
+            storeFile file('../GYWallet.keystore')
+            storePassword 'guiyi!@#'
         }
     }
     compileSdkVersion build_versions.target_sdk
@@ -45,7 +45,7 @@ android {
         variant.outputs.all {
             //只重命名正式版本
             if (variant.buildType.name.equalsIgnoreCase('release')) {
-                outputFileName = "abcreading-v${defaultConfig.versionName}-${defaultConfig.versionCode}-${getInnnerVersionName()}.apk"
+                outputFileName = "wujia-v${defaultConfig.versionName}-${defaultConfig.versionCode}-${getInnnerVersionName()}.apk"
             }
         }
     }

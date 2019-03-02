@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/px168">
+
+    <ImageView
+        android:id="@id/img1"
+        android:layout_width="@dimen/px88"
+        android:layout_height="@dimen/px88"
+        android:layout_marginTop="@dimen/px40"
+        android:background="@mipmap/avatar_serve" />
+
+    <TextView
+        android:id="@id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/img1"
+        android:layout_marginLeft="@dimen/px24"
+        android:layout_marginTop="@dimen/px5"
+        android:layout_toRightOf="@id/img1"
+        android:text="风机电厂"
+        android:textColor="@color/c3"
+        android:textSize="@dimen/text32" />
+
+    <TextView
+        android:id="@id/tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv1"
+        android:layout_alignBottom="@id/img1"
+        android:layout_marginBottom="@dimen/px2"
+        android:layout_toRightOf="@id/img1"
+        android:text="北京东菱制造有限公司"
+        android:textColor="@color/c9"
+        android:textSize="@dimen/text20" />
+
+    <TextView
+        android:id="@id/tv3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="010-38495873"
+        android:textColor="@color/c3"
+        android:textSize="@dimen/px24" />
+
+    <View
+        android:id="@id/line1"
+        style="@style/ItemLineStyle"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/px24"
+        android:layout_toRightOf="@id/img1"
+        android:visibility="invisible" />
+</RelativeLayout>

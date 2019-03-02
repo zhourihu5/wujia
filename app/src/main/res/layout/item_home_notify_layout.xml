@@ -1,56 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/family_scene_in_home"
-    android:layout_width="@dimen/px434"
-    android:layout_height="@dimen/px168"
-    android:elevation="@dimen/px6"
-    android:layout_marginRight="@dimen/px25"
-    android:layout_marginLeft="@dimen/px6"
-    android:background="@drawable/bg_white_radius_left_yellow_shape">
+<com.wujia.lib.widget.ShadowContainer xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
 
-    <TextView
-        android:id="@+id/home_notify_item_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/px40"
-        android:layout_marginTop="@dimen/px32"
-        android:text="欢迎加入维港社区"
-        android:textColor="@color/c3"
-        android:textSize="@dimen/text32" />
+    <RelativeLayout
+        android:layout_width="@dimen/px434"
+        android:layout_height="@dimen/px168"
+        android:layout_marginRight="@dimen/px24"
+        android:background="@drawable/bg_white_radius_left_yellow_shape">
 
-    <TextView
-        android:id="@+id/home_notify_item_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/home_notify_item_title"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/px5"
-        android:layout_marginRight="@dimen/px20"
-        android:text="11.18 15:32"
-        android:textColor="@color/c8"
-        android:textSize="@dimen/text18" />
+        <TextView
+            android:id="@+id/home_notify_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px40"
+            android:layout_marginTop="@dimen/px32"
+            android:text="欢迎加入维港社区"
+            android:textColor="@color/c3"
+            android:textSize="@dimen/text32" />
 
-    <TextView
-        android:id="@+id/home_notify_item_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/home_notify_item_title"
-        android:layout_alignLeft="@id/home_notify_item_title"
-        android:layout_marginTop="@dimen/px5"
-        android:lineSpacingMultiplier="1.3"
-        android:layout_marginRight="@dimen/px50"
-        android:text="尊敬的业主，欢迎您加入维港社区，共同缔造温馨家园。"
-        android:textColor="@color/c8"
-        android:textSize="@dimen/text20" />
+        <TextView
+            android:id="@+id/home_notify_item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/home_notify_item_title"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/px5"
+            android:layout_marginRight="@dimen/px20"
+            android:text="11.18 15:32"
+            android:textColor="@color/c8"
+            android:textSize="@dimen/text18" />
 
-    <ImageView
-        android:id="@+id/home_notify_item_point"
-        android:layout_width="@dimen/px16"
-        android:layout_height="@dimen/px16"
-        android:layout_alignTop="@id/home_notify_item_info"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/px5"
-        android:layout_marginRight="@dimen/px20"
-        android:background="@drawable/bg_point_red" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/home_notify_item_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_notify_item_title"
+            android:layout_alignLeft="@id/home_notify_item_title"
+            android:layout_marginTop="@dimen/px5"
+            android:layout_marginRight="@dimen/px60"
+            android:lineSpacingMultiplier="1.3"
+            android:text="尊敬的业主，欢迎您加入维港社区，共同缔造温馨家园。"
+            android:textColor="@color/c8"
+            android:textSize="@dimen/text20" />
 
+        <ImageView
+            android:id="@+id/home_notify_item_point"
+            android:layout_width="@dimen/px16"
+            android:layout_height="@dimen/px16"
+            android:layout_alignTop="@id/home_notify_item_info"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/px10"
+            android:layout_marginRight="@dimen/px20"
+            android:background="@drawable/bg_point_red" />
+    </RelativeLayout>
+
+</com.wujia.lib.widget.ShadowContainer>

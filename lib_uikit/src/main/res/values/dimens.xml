@@ -1149,4 +1149,11 @@
     <!--<dimen name="text98">65sp</dimen>-->
     <!--<dimen name="text99">66sp</dimen>-->
     <!--<dimen name="text100">67sp</dimen>-->
+
+
+    <dimen name="container_corner_radius">@dimen/px8</dimen>
+    <dimen name="container_delta_length">@dimen/px12</dimen>
+    <dimen name="container_shadow_radius">@dimen/px10</dimen>
+    <dimen name="delta_y">@dimen/px6</dimen>
+
 </resources>

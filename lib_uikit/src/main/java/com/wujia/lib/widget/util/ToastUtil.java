@@ -1,9 +1,10 @@
 package com.wujia.lib.widget.util;
 
 import android.content.Context;
-import android.text.TextUtils;
+import android.support.annotation.DrawableRes;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,11 +17,17 @@ import com.wujia.lib.uikit.R;
  */
 public class ToastUtil {
 
-    private static void show(Context context, String msg, int duration) {
+    private static void show(Context context, String msg, @DrawableRes int iconId, int duration) {
         Toast toast = new Toast(context);
         View contentView = View.inflate(context, R.layout.layout_toast, null);
-        TextView title = contentView.findViewById(R.id.tv_title);
+        TextView title = contentView.findViewById(R.id.toast_msg);
         title.setText(msg);
+
+        if (iconId != 0) {
+            ImageView icon = contentView.findViewById(R.id.toast_icon);
+            icon.setImageResource(iconId);
+            icon.setVisibility(View.VISIBLE);
+        }
         toast.setView(contentView);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.setDuration(duration);
@@ -28,14 +35,18 @@ public class ToastUtil {
     }
 
     public static void showShort(Context context, String msg) {
-        show(context, msg, Toast.LENGTH_SHORT);
+        show(context, msg, 0, Toast.LENGTH_SHORT);
     }
 
     public static void showShort(Context context, int strId) {
-        show(context, context.getString(strId), Toast.LENGTH_SHORT);
+        show(context, context.getString(strId), 0, Toast.LENGTH_SHORT);
     }
 
     public static void showLong(Context context, String msg) {
-        show(context, msg, Toast.LENGTH_LONG);
+        show(context, msg, 0, Toast.LENGTH_LONG);
+    }
+
+    public static void showShortWithIcon(Context context, String msg, int iconId) {
+        show(context, msg, iconId, Toast.LENGTH_LONG);
     }
 }

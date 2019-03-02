@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/family_scene_in_home"
-    android:layout_width="@dimen/px320"
-    android:layout_height="@dimen/px448"
-    android:background="@drawable/bg_white_radius_shape"
-    android:descendantFocusability="blocksDescendants">
+<com.wujia.lib.widget.ShadowContainer xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
 
-    <ImageView
-        android:id="@+id/scene_in_img"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px300"
-        android:background="@mipmap/img_card_home_active" />
+    <RelativeLayout
+        android:layout_width="@dimen/px320"
+        android:layout_height="@dimen/px448"
+        android:background="@drawable/bg_white_radius_shape"
+        android:descendantFocusability="blocksDescendants">
 
-    <TextView
-        android:id="@+id/btn_update_now"
-        android:layout_width="@dimen/px176"
-        android:layout_height="@dimen/px72"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/px30"
-        android:background="@drawable/btn_rect_accent_select"
-        android:gravity="center"
-        android:text="@string/now_subscribe"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text24" />
-</RelativeLayout>
+        <com.wujia.lib.widget.RadiusImageView
+            android:id="@+id/scene_in_img"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px274"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_card_home_active"
+            app:left_top_radius="@dimen/px8"
+            app:right_top_radius="@dimen/px8" />
 
+        <TextView
+            android:id="@+id/btn_update_now"
+            android:layout_width="@dimen/px240"
+            android:layout_height="@dimen/px72"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/px30"
+            android:background="@drawable/btn_rect_accent_radius_4_select"
+            android:gravity="center"
+            android:text="@string/now_subscribe"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text24" />
+    </RelativeLayout>
+
+</com.wujia.lib.widget.ShadowContainer>

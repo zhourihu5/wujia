@@ -66,16 +66,16 @@ public class MarketHomeFragment extends BaseFragment {
 
         }
 
-        mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_my_default, R.string.my_service))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_find_default, R.string.find_service))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_government_default, R.string.gov_service))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_all_default, R.string.all_service));
+        mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_my_default,R.mipmap.icon_market_leftnav_my_highlight, R.string.my_service))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_find_default, R.mipmap.icon_market_leftnav_my_highlight,R.string.find_service))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_government_default, R.mipmap.icon_market_leftnav_my_highlight,R.string.gov_service))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_all_default,R.mipmap.icon_market_leftnav_my_highlight, R.string.all_service));
 
 
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
-                showHideFragment(mFragments[position % 2], mFragments[prePosition]);
+//                showHideFragment(mFragments[0], mFragments[prePosition]);
             }
         });
     }
