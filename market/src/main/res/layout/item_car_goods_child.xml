@@ -71,7 +71,8 @@
 
         <TextView
             android:id="@id/tv3"
-            android:layout_width="wrap_content"
+            android:layout_width="53dp"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:text=" 1"
             android:textColor="@color/c3"
@@ -81,7 +82,6 @@
             android:id="@id/btn2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:background="@mipmap/btn_order_increase" />
     </LinearLayout>
 </RelativeLayout>
