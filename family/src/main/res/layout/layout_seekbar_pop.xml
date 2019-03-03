@@ -49,7 +49,7 @@
             android:textSize="@dimen/text20"
             tools:text="@string/lighting_power" />
 
-        <com.wujia.lib.widget.MySwitch
+        <com.wujia.lib.widget.WjSwitch
             android:id="@+id/pop_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,55 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/px360"
-    android:layout_height="@dimen/px426"
-    android:layout_marginBottom="30dp"
-    android:background="@drawable/bg_white_radius_shape">
+<com.wujia.lib.widget.ShadowContainer xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@id/img1"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px270"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/img_food" />
+    <RelativeLayout
+        android:layout_width="@dimen/px360"
+        android:layout_height="@dimen/px426"
+        android:background="@drawable/bg_white_radius_shape">
 
-    <TextView
-        android:id="@id/tv1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/img1"
-        android:layout_marginLeft="26dp"
-        android:layout_marginTop="30dp"
-        android:text="午餐肉"
-        android:textColor="@color/c3"
-        android:textSize="17sp" />
+        <com.wujia.lib.widget.RadiusImageView
+            android:id="@id/img1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px270"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_food"
+            app:left_top_radius="@dimen/px8"
+            app:right_top_radius="@dimen/px8" />
 
-    <TextView
-        android:id="@id/tv2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv1"
-        android:layout_alignLeft="@id/tv1"
-        android:layout_marginTop="10dp"
-        android:text="¥19.99"
-        android:textColor="@color/colorAccent"
-        android:textSize="17sp" />
+        <TextView
+            android:id="@id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img1"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="30dp"
+            android:text="午餐肉"
+            android:textColor="@color/c3"
+            android:textSize="17sp" />
 
-    <TextView
-        android:id="@id/img2"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
-        android:background="@mipmap/btn_increase"
-        android:gravity="center"
-        android:text="+"
-        android:textColor="@color/white"
-        android:textSize="22sp" />
-    <View
-        android:layout_width="@dimen/px1"
-        android:layout_height="match_parent"
-        android:background="@color/line" />
+        <TextView
+            android:id="@id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv1"
+            android:layout_alignLeft="@id/tv1"
+            android:layout_marginTop="10dp"
+            android:text="¥19.99"
+            android:textColor="@color/colorAccent"
+            android:textSize="17sp" />
 
+        <ImageView
+            android:id="@id/img2"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="20dp"
+            android:background="@mipmap/btn_increase"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
 
-</RelativeLayout>
+    </RelativeLayout>
+</com.wujia.lib.widget.ShadowContainer>
+

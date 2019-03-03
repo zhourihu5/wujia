@@ -11,10 +11,9 @@ import android.widget.RelativeLayout;
 
 import com.wujia.businesslib.TitleFragment;
 import com.wujia.businesslib.listener.OnDialogListener;
-import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.wujia.intellect.terminal.R;
 import com.wujia.businesslib.dialog.LoadingDialog;
-import com.wujia.lib.widget.MySwitch;
+import com.wujia.lib.widget.WjSwitch;
 import com.wujia.businesslib.dialog.SimpleDialog;
 import com.wujia.lib.widget.util.ToastUtil;
 
@@ -37,7 +36,7 @@ public class SettingHomeFragment extends TitleFragment {
     @BindView(R.id.item_wifi_connection)
     RelativeLayout itemWifiConnection;
     @BindView(R.id.item_allow_look_door_num_switch)
-    MySwitch itemAllowLookDoorNumSwitch;
+    WjSwitch itemAllowLookDoorNumSwitch;
     @BindView(R.id.item_allow_look_door_num)
     LinearLayout itemAllowLookDoorNum;
     @BindView(R.id.item_clear_cache)

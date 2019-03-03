@@ -23,7 +23,7 @@ public class HomeCardAdapter extends MultiItemTypeAdapter<HomeRecBean> {
         addItemViewDelegate(0, new ItemViewDelegate<HomeRecBean>() {
             @Override
             public int getItemViewLayoutId() {
-                return R.layout.item_home_rec_layout_0;
+                return R.layout.item_home_rec_layout_0_shadow;
             }
 
             @Override
@@ -39,7 +39,7 @@ public class HomeCardAdapter extends MultiItemTypeAdapter<HomeRecBean> {
         addItemViewDelegate(1, new ItemViewDelegate<HomeRecBean>() {
             @Override
             public int getItemViewLayoutId() {
-                return R.layout.item_home_rec_layout_1;
+                return R.layout.item_home_rec_layout_1_shadow;
             }
 
             @Override
@@ -56,7 +56,7 @@ public class HomeCardAdapter extends MultiItemTypeAdapter<HomeRecBean> {
         addItemViewDelegate(2, new ItemViewDelegate<HomeRecBean>() {
             @Override
             public int getItemViewLayoutId() {
-                return R.layout.item_home_rec_layout_2;
+                return R.layout.item_home_rec_layout_2_shadow;
             }
 
             @Override

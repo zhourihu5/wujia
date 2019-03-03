@@ -8,8 +8,6 @@ import android.widget.FrameLayout;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.home.data.HomeRecBean;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
-import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
-import com.wujia.lib_common.base.baseadapter.base.ItemViewDelegate;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 
 import java.util.List;

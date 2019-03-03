@@ -38,7 +38,7 @@
             android:textColor="@color/c3"
             android:textSize="@dimen/text32" />
 
-        <com.wujia.lib.widget.MySwitch
+        <com.wujia.lib.widget.WjSwitch
             android:id="@+id/scene_in_mode_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

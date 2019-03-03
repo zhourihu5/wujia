@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 
-import com.wujia.intellect.terminal.message.mvp.adapter.WySectionAdapter;
+import com.wujia.intellect.terminal.message.mvp.adapter.WyTelGroupAdapter;
 import com.wujia.intellect.terminal.property.R;
 import com.wujia.intellect.terminal.property.mvp.adapter.WyOtherTelAdapter;
 import com.wujia.intellect.terminal.property.mvp.data.WyChildBean;
@@ -60,7 +60,7 @@ public class TelFragment extends BaseFragment {
         datas.add(new WySectionBean());
         datas.add(new WySectionBean());
 
-        rv1.setAdapter(new WySectionAdapter(mActivity, datas));
+        rv1.setAdapter(new WyTelGroupAdapter(mActivity, datas));
 
 
         List<WyChildBean> others = new ArrayList<>();

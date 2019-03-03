@@ -32,8 +32,4 @@ public class WyOtherTelAdapter extends CommonAdapter<WyChildBean> {
         }
     }
 
-
-    private boolean isLast(int pos) {
-        return pos == mDatas.size() - 1;
-    }
 }

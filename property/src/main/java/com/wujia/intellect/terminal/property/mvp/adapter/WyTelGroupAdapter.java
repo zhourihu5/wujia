@@ -4,9 +4,8 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.wujia.businesslib.dialog.CallDialog;
 import com.wujia.intellect.terminal.property.R;
-import com.wujia.intellect.terminal.property.mvp.adapter.WyChildAdapter;
+import com.wujia.intellect.terminal.property.mvp.adapter.WyTelChildAdapter;
 import com.wujia.intellect.terminal.property.mvp.data.WyChildBean;
 import com.wujia.intellect.terminal.property.mvp.data.WySectionBean;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
@@ -21,8 +20,8 @@ import java.util.List;
  * Email:  shenbingkai@gamil.com
  * Description:
  */
-public class WySectionAdapter extends CommonAdapter<WySectionBean> {
-    public WySectionAdapter(Context context, List<WySectionBean> datas) {
+public class WyTelGroupAdapter extends CommonAdapter<WySectionBean> {
+    public WyTelGroupAdapter(Context context, List<WySectionBean> datas) {
         super(context, R.layout.item_group_wuye_tel, datas);
     }
 
@@ -40,7 +39,7 @@ public class WySectionAdapter extends CommonAdapter<WySectionBean> {
         datas.add(new WyChildBean());
 
         rv.addItemDecoration(new GridDecoration(0, 24));
-        rv.setAdapter(new WyChildAdapter(mContext, datas));
+        rv.setAdapter(new WyTelChildAdapter(mContext, datas));
         if (!isLast(pos)){
             holder.getView(R.id.line1).setVisibility(View.VISIBLE);
         }else{
@@ -67,7 +66,4 @@ public class WySectionAdapter extends CommonAdapter<WySectionBean> {
 
     }
 
-    private boolean isLast(int pos) {
-        return pos == mDatas.size() - 1;
-    }
 }

@@ -150,6 +150,18 @@
     <item name="rb6" type="id">false</item>
     <item name="rb7" type="id">false</item>
 
+    <!--icon-->
+    <item name="ic1" type="id">false</item>
+    <item name="ic2" type="id">false</item>
+    <item name="ic3" type="id">false</item>
+    <item name="ic4" type="id">false</item>
+
+    <!--ImageButton-->
+    <item name="ib1" type="id">false</item>
+    <item name="ib2" type="id">false</item>
+    <item name="ib3" type="id">false</item>
+    <item name="ib4" type="id">false</item>
+
 
     <!--NestedScrollView-->
     <item name="nested_scrolview" type="id">false</item>

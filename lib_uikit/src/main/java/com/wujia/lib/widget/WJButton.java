@@ -10,15 +10,15 @@ import com.wujia.lib.uikit.R;
 /**
  * author ：shenbingkai@163.com
  * date ：2019-02-21
- * description ：
+ * description ： 带pressed效果，四周drawable
  */
 public class WJButton extends android.support.v7.widget.AppCompatTextView {
 
-    private static final int BACKGROUND=0;
-    private static final int TOP=1;
-    private static final int RIGHT=2;
-    private static final int BOTTOM=3;
-    private static final int LEFT=4;
+    private static final int BACKGROUND = 0;
+    private static final int TOP = 1;
+    private static final int RIGHT = 2;
+    private static final int BOTTOM = 3;
+    private static final int LEFT = 4;
 
     public WJButton(Context context, AttributeSet attrs) {
         super(context, attrs);

@@ -16,8 +16,8 @@ import java.util.List;
  * Email:  shenbingkai@gamil.com
  * Description:
  */
-public class WyChildAdapter extends CommonAdapter<WyChildBean> {
-    public WyChildAdapter(Context context, List<WyChildBean> datas) {
+public class WyTelChildAdapter extends CommonAdapter<WyChildBean> {
+    public WyTelChildAdapter(Context context, List<WyChildBean> datas) {
         super(context, R.layout.item_child_wuye_tel, datas);
     }
 

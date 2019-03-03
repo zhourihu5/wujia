@@ -75,9 +75,9 @@
                 android:layout_marginLeft="53dp"
                 android:layout_marginTop="-230dp"
                 android:layout_marginRight="53dp"
+                android:elevation="1dp"
                 android:background="@drawable/bg_white_radius_shape"
                 android:padding="31dp">
-
 
                 <ImageView
                     android:id="@id/img2"
@@ -140,20 +140,20 @@
                     android:id="@id/img3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
                     android:layout_below="@id/tv4"
+                    android:layout_marginTop="12dp"
                     android:layout_toRightOf="@id/img2"
-                    android:src="@mipmap/icon_market_details_position"/>
+                    android:src="@mipmap/icon_market_details_position" />
 
                 <TextView
                     android:id="@id/tv7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv4"
+                    android:layout_marginLeft="12dp"
                     android:layout_marginTop="6dp"
                     android:layout_toRightOf="@id/img3"
                     android:gravity="center"
-                    android:layout_marginLeft="12dp"
                     android:text="草场地艺术区114号村委会西"
                     android:textColor="@color/c53"
                     android:textSize="17sp" />
@@ -162,10 +162,11 @@
                     android:id="@id/tv8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/c8"
-                    android:layout_alignBottom="@id/img2"
                     android:layout_alignLeft="@id/tv7"
-                    android:text="据您步行300米，需要5分钟"/>
+                    android:layout_alignBottom="@id/img2"
+                    android:text="据您步行300米，需要5分钟"
+                    android:textColor="@color/c8" />
+
                 <TextView
                     android:id="@id/tv5"
                     android:layout_width="wrap_content"
@@ -200,11 +201,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="26dp"
                     android:layout_below="@id/img2"
-                    android:layout_marginTop="19dp"
+                    android:layout_marginTop="11dp"
                     android:orientation="horizontal"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_tag" />
-
 
             </RelativeLayout>
 
@@ -212,9 +212,9 @@
                 android:id="@id/rv2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="53dp"
-                android:paddingTop="30dp"
-                android:paddingRight="20dp"
+                android:paddingLeft="45dp"
+                android:paddingTop="22dp"
+                android:paddingRight="30dp"
                 app:layoutManager="android.support.v7.widget.GridLayoutManager"
                 app:spanCount="4"
                 tools:listitem="@layout/item_goods_card" />

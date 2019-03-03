@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="139dp"
+    android:orientation="vertical">
+
+    <View
+        android:id="@id/line1"
+        style="@style/ItemLineStyle" />
+
+    <CheckBox
+        android:id="@id/cb1"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/bg_checkbox_checkor"
+        android:button="@null" />
+
+    <ImageView
+        android:id="@id/img1"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="13dp"
+        android:layout_toRightOf="@id/cb1"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/img_food" />
+
+    <TextView
+        android:id="@id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@id/img1"
+        android:text="猫山王榴莲"
+        android:textColor="@color/c3"
+        android:textSize="19sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tv1"
+        android:layout_alignLeft="@id/tv1"
+        android:layout_alignBottom="@id/img1"
+        android:layout_toRightOf="@id/img1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@id/tv2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="¥ 10"
+            android:textColor="@color/colorAccent"
+            android:textSize="19sp" />
+
+        <ImageView
+            android:id="@id/ic1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_family_order_delete" />
+
+        <TextView
+            android:id="@id/btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:background="@mipmap/btn_order_reduce" />
+
+        <TextView
+            android:id="@id/tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 1"
+            android:textColor="@color/c3"
+            android:textSize="19sp" />
+
+        <TextView
+            android:id="@id/btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@mipmap/btn_order_increase" />
+    </LinearLayout>
+</RelativeLayout>

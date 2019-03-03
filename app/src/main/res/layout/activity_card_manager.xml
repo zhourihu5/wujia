@@ -35,7 +35,7 @@
                 android:overScrollMode="never"
                 app:spanCount="4"
                 app:layoutManager="android.support.v7.widget.GridLayoutManager"
-                tools:listitem="@layout/item_home_rec_layout_0" />
+                tools:listitem="@layout/item_home_rec_layout_0_shadow" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
                 android:overScrollMode="never"
                 app:spanCount="4"
                 app:layoutManager="android.support.v7.widget.GridLayoutManager"
-                tools:listitem="@layout/item_home_rec_layout_0" />
+                tools:listitem="@layout/item_home_rec_layout_0_shadow" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

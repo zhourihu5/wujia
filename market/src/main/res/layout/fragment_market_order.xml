@@ -49,7 +49,7 @@
 
         <RadioGroup
             android:id="@id/rg"
-            android:layout_width="262dp"
+            android:layout_width="254dp"
             android:layout_height="match_parent"
             android:checkedButton="@id/rb1"
             android:orientation="vertical"
@@ -78,7 +78,6 @@
                 android:textColor="@color/tab_text_wheite_black_check"
                 android:textSize="16sp" />
 
-
         </RadioGroup>
 
         <android.support.v7.widget.RecyclerView
@@ -88,6 +87,7 @@
             android:overScrollMode="never"
             app:layoutManager="android.support.v7.widget.GridLayoutManager"
             app:spanCount="3"
+            android:layout_marginRight="@dimen/px80"
             tools:listitem="@layout/item_order_card" />
 
     </LinearLayout>

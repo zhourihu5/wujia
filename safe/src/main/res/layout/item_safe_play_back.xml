@@ -14,8 +14,8 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="@dimen/px16"
-            android:layout_height="@dimen/px16"
+            android:layout_width="@dimen/px15"
+            android:layout_height="@dimen/px15"
             android:background="@drawable/bg_point_red" />
 
         <TextView
@@ -26,6 +26,12 @@
             android:text="12:00:08"
             android:textColor="@color/c8"
             android:textSize="@dimen/text20" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px16"
+            android:src="@mipmap/icon_save_marksmall" />
     </LinearLayout>
 
     <LinearLayout

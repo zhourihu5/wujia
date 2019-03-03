@@ -165,4 +165,7 @@ public class MultiItemTypeAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
         this.mOnRVItemLongClickListener = listener;
     }
 
+    public boolean isLast(int pos) {
+        return pos == mDatas.size() - 1;
+    }
 }

@@ -4,13 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 
-import com.wujia.intellect.terminal.message.mvp.adapter.WySectionAdapter;
 import com.wujia.intellect.terminal.property.R;
 import com.wujia.intellect.terminal.property.mvp.adapter.FixGroupAdapter;
-import com.wujia.intellect.terminal.property.mvp.adapter.WyOtherTelAdapter;
-import com.wujia.intellect.terminal.property.mvp.data.WyChildBean;
 import com.wujia.intellect.terminal.property.mvp.data.WyFixBean;
-import com.wujia.intellect.terminal.property.mvp.data.WySectionBean;
 import com.wujia.lib_common.base.BaseFragment;
 
 import java.util.ArrayList;

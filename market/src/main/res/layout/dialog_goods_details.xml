@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_white_radius_shape">
 
-    <ImageView
+    <com.wujia.lib.widget.RadiusImageView
         android:id="@id/img1"
         android:layout_width="378dp"
         android:layout_height="283dp"
-        android:layout_marginTop="30dp"
         android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="30dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/img_food" />
+        android:src="@mipmap/img_food"
+        app:radius="@dimen/px8"/>
 
     <TextView
         android:id="@id/tv1"
@@ -29,8 +31,9 @@
         android:id="@id/tv6"
         android:layout_width="38dp"
         android:layout_height="20dp"
-        android:layout_alignBaseline="@id/tv1"
+        android:layout_alignTop="@id/tv1"
         android:layout_marginLeft="12dp"
+        android:layout_marginTop="6dp"
         android:layout_toRightOf="@id/tv1"
         android:background="@color/colorAccent"
         android:gravity="center"
@@ -56,8 +59,19 @@
         android:layout_below="@id/tv2"
         android:layout_marginTop="7dp"
         android:layout_toRightOf="@id/img1"
-        android:text="¥38/200g"
-        android:textColor="#ffcbaf8f"
+        android:text="¥38"
+        android:textColor="#CBAF8F"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@id/tv11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv2"
+        android:layout_marginTop="7dp"
+        android:layout_toRightOf="@id/tv3"
+        android:text="/200g"
+        android:layout_alignBaseline="@id/tv3"
+        android:textColor="@color/c8"
         android:textSize="15sp" />
 
     <TextView

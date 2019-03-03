@@ -89,7 +89,7 @@
                 android:textColor="@color/c8"
                 android:textSize="@dimen/text20" />
 
-            <com.wujia.lib.widget.MySwitch
+            <com.wujia.lib.widget.WjSwitch
                 android:id="@+id/item_allow_look_door_num_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
