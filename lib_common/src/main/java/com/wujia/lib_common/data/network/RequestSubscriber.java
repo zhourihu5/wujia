@@ -23,7 +23,7 @@ public abstract class RequestSubscriber<T> extends ResourceSubscriber<T> {
 
     @Override
     protected void onStart() {
-        if (!NetworkUtil.isNetAvailable(AppContext.get())) {//在无网络的时候直接抛出Error add by xmren
+        if (!NetworkUtil.isNetAvailable(AppContext.get())) {//在无网络的时候直接抛出Error
             onError(new ConnectException("网络连接失败，请检查网络"));
             onComplete();
             dispose();

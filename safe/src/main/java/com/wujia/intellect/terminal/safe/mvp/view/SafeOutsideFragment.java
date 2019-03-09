@@ -1,5 +1,6 @@
 package com.wujia.intellect.terminal.safe.mvp.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -107,6 +108,9 @@ public class SafeOutsideFragment extends BaseFragment implements
         $(R.id.safe_swich_live_btn).setOnClickListener(this);
         $(R.id.safe_rec_all_choose_btn).setOnClickListener(this);
         $(R.id.safe_rec_del_btn).setOnClickListener(this);
+        $(R.id.safe_btn_full).setOnClickListener(this);
+
+
         btnSos.setOnClickListener(this);
         btnPlay.setOnClickListener(this);
         btnPause.setOnClickListener(this);
@@ -225,6 +229,7 @@ public class SafeOutsideFragment extends BaseFragment implements
         } else if (v.getId() == R.id.safe_btn_mute) {
 
         } else if (v.getId() == R.id.safe_btn_full) {
+            startActivity(new Intent(mActivity,SafeFullScreenActivity.class));
 
         } else if (v.getId() == R.id.safe_swich_live_btn) {
             startLive();

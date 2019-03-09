@@ -1,2 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wujia.intellect.terminal.safe" />
+    package="com.wujia.intellect.terminal.safe" >
+
+
+    <application>
+        <activity android:name=".mvp.view.SafeFullScreenActivity"></activity>
+    </application>
+
+</manifest>
