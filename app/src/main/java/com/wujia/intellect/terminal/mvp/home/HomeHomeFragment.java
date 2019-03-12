@@ -218,7 +218,7 @@ public class HomeHomeFragment extends BaseFragment {
                 break;
 
             case R.id.home_arc_view:
-                start(ExceptionStatusFragment.newInstance());
+//                start(ExceptionStatusFragment.newInstance());
                 break;
         }
     }

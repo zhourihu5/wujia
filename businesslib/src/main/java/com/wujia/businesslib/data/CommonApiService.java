@@ -7,7 +7,7 @@ package com.wujia.businesslib.data;
 public interface CommonApiService {
 //    @FormUrlEncoded
 //    @POST("/v2/member/passport/login")
-//    Flowable<ApiResponse<UserEntity>> doLogin(@Field("phone") String phone, @Field("code") String code);
+//    Flowable<ApiResponse<UserEntity>> doLogin(@Field("phone") String phone, @Field("errcode") String errcode);
 //
 //    @GET("/v2/member/member/info")
 //    Flowable<ApiResponse<UserEntity>> requestUserInfo(@Query("member_id") String memberId);

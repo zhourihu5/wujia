@@ -24,12 +24,6 @@
             android:layout_height="1dp"
             android:layout_weight="1" />
 
-        <!--<ImageView-->
-        <!--android:layout_width="@dimen/px48"-->
-        <!--android:layout_height="@dimen/px48"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:src="@mipmap/icon_search" />-->
-
         <ImageView
             android:id="@id/search_view"
             android:layout_width="wrap_content"

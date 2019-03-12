@@ -243,7 +243,7 @@ public class SafeOutsideFragment extends BaseFragment implements
     @Override
     public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
         if (isEdit) {
-            ToastUtil.showShort(mContext,"开始回放");
+//            ToastUtil.showShort(mContext,"开始回放");
             startPlayRec(position);
         } else {
             recAdapter.itemClick(position);

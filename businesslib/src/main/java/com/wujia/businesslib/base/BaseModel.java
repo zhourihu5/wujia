@@ -1,5 +1,6 @@
 package com.wujia.businesslib.base;
 
+import com.wujia.businesslib.Constants;
 import com.wujia.lib_common.data.network.HttpHelper;
 import com.wujia.lib_common.data.network.NetConfig;
 
@@ -19,10 +20,7 @@ public class BaseModel {
     }
 
     private void createHttp() {
-        mHttpHelper = new HttpHelper.Builder(
-                new NetConfig()
-                        .configInterceptors(new Interceptor[]{new BusinessInterceptor()})
-                        .configBaseURL("http://www.baidu.com"))
+        mHttpHelper = new HttpHelper.Builder(NetConfigWrapper.create())
                 .build();
     }
 }

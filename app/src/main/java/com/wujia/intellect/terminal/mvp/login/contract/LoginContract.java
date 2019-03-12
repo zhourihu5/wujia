@@ -1,8 +1,10 @@
 package com.wujia.intellect.terminal.mvp.login.contract;
 
 import com.wujia.businesslib.data.ApiResponse;
+import com.wujia.intellect.terminal.mvp.login.data.TokenBean;
 import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.BaseView;
+import com.wujia.lib_common.base.CommonDataLoadView;
 import com.wujia.lib_common.base.IBaseModle;
 
 import io.reactivex.Flowable;
@@ -15,14 +17,17 @@ import io.reactivex.Flowable;
 public interface LoginContract {
     interface Model extends IBaseModle {
 
-        Flowable<ApiResponse<String>> doGetTestNet();
+        Flowable<TokenBean> getAccessToken();
+
 
     }
 
-    interface View extends BaseView {
+    interface View extends CommonDataLoadView {
+        void timeChange(String time);
     }
 
-    interface Presenter extends BasePresenter {
-        void getTestNet();
+    interface Presenter extends BasePresenter<View> {
+        void doGetAccessToken();
+        void doTimeChange();
     }
 }

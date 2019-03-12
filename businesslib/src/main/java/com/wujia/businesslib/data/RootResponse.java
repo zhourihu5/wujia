@@ -3,23 +3,22 @@ package com.wujia.businesslib.data;
 import com.wujia.businesslib.Constants;
 import com.wujia.lib_common.data.network.BaseResponse;
 
-public class ApiResponse<T> extends BaseResponse {
-    public T data;
-    public int code;
-    public String msg;
+public class RootResponse extends BaseResponse {
+    public int errcode;
+    public String errmsg;
 
     @Override
     public boolean isSuccess() {
-        return code == Constants.HTTP_SUCESS;
+        return errcode == Constants.HTTP_SUCESS;
     }
 
     @Override
     public int getResponseCode() {
-        return code;
+        return errcode;
     }
 
     @Override
     public String getErrorMsg() {
-        return msg;
+        return errmsg;
     }
 }

@@ -49,11 +49,10 @@
                 android:layout_height="@dimen/px52"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="@dimen/px24"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/px548"
                     android:layout_height="match_parent"
                     android:background="@drawable/bg_c3_raduis_shape"
                     android:gravity="center"
@@ -72,10 +71,16 @@
 
                     <SeekBar
                         android:id="@+id/safe_seekbar"
-                        android:layout_width="@dimen/px300"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/px20"
-                        android:layout_marginRight="@dimen/px20" />
+                        android:secondaryProgress="70"
+                        android:max="100"
+                        android:progress="40"
+                        android:maxHeight="@dimen/px6"
+                        android:minHeight="@dimen/px6"
+                        android:thumb="@drawable/seekbar_thumb"
+                        android:progressDrawable="@drawable/seekbar_style" />
 
                     <TextView
                         android:id="@+id/safe_progress_time_count_tv"

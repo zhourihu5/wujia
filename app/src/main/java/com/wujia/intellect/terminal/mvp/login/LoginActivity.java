@@ -13,8 +13,11 @@ import com.wujia.businesslib.base.MvpActivity;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.MainActivity;
 import com.wujia.intellect.terminal.mvp.login.contract.LoginContract;
+import com.wujia.intellect.terminal.mvp.login.data.TokenBean;
 import com.wujia.intellect.terminal.mvp.login.presenter.LoginPresenter;
+import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.DateUtil;
+import com.wujia.lib_common.utils.LogUtil;
 import com.wujia.lib_common.utils.StringUtil;
 import com.wujia.lib_common.utils.VerifyUtil;
 
@@ -27,7 +30,7 @@ import butterknife.OnClick;
  * date ：2019-01-27 21:23
  * description ： 登录
  */
-public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginContract.View,LoginPresenter.TimeChangeListener {
+public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginContract.View {
 
 
     @BindView(R.id.login_time_tv)
@@ -69,9 +72,9 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     @Override
     protected void initEventAndData(Bundle savedInstanceState) {
 
-        mPresenter.setTimeChangeListener(this);
-        mPresenter.currentTime();
         loginTimeDateTv.setText(StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay()));
+        mPresenter.doTimeChange();
+
     }
 
     @OnClick({R.id.login_btn, R.id.login_btn_confim, R.id.login_password_visibility})
@@ -81,6 +84,8 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
                 loginPhoneError.setVisibility(View.INVISIBLE);
 
                 login();
+//                mPresenter.doGetAccessToken();
+
 
                 break;
             case R.id.login_btn_confim:
@@ -125,5 +130,17 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     @Override
     public void timeChange(String time) {
         loginTimeTv.setText(time);
+    }
+
+    @Override
+    public void onDataLoadSucc(int requestCode, Object object) {
+
+        TokenBean bean = (TokenBean) object;
+        LogUtil.i(bean.toString());
+    }
+
+    @Override
+    public void onDataLoadFailed(int requestCode, ApiException apiException) {
+
     }
 }

@@ -64,7 +64,7 @@ public class AllServiceFragment extends BaseFragment implements HorizontalTabBar
         mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
             @Override
             public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
-                parentStart(ShopDetailsFragment.newInstance("id"));
+//                parentStart(ShopDetailsFragment.newInstance("id"));
             }
         });
     }

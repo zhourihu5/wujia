@@ -63,12 +63,12 @@ public class MyServiceFragment extends BaseFragment implements HorizontalTabBar.
 
         mAdapter = new MyServiceAdapter(mActivity, datas);
         recyclerView.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
-            @Override
-            public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
-                parentStart(ShopDetailsFragment.newInstance("id"));
-            }
-        });
+//        mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
+//            @Override
+//            public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
+//                parentStart(ShopDetailsFragment.newInstance("id"));
+//            }
+//        });
     }
 
     @Override

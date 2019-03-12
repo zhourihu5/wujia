@@ -34,10 +34,10 @@ public class MessageAdapter extends CommonAdapter<MsgBean> {
                 holder.setVisible(R.id.l2, !visib);
                 if (visib) {
                     holder.setBackgroundRes(R.id.l1, R.drawable.bg_white_radius_left_yellow_shape);
-                    holder.getView(R.id.img1).animate().rotation(0);
+                    holder.setImageResource(R.id.img1,R.mipmap.btn_more_pressed);
                 } else {
                     holder.setBackgroundRes(R.id.l1, R.drawable.bg_white_radius_left_yellow_shape_msg);
-                    holder.getView(R.id.img1).animate().rotation(180);
+                    holder.setImageResource(R.id.img1,R.mipmap.btn_more_normal);
                 }
                 holder.setOnClickListener(R.id.btn1, new View.OnClickListener() {
                     @Override

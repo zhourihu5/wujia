@@ -1,8 +1,7 @@
 package com.wujia.intellect.terminal.host;
 
-
-import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.wujia.businesslib.base.BaseApplication;
+import com.wujia.lib_common.utils.NetworkUtil;
 
 /**
  * author ：shenbingkai
@@ -14,7 +13,7 @@ public class HostApp extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        NetworkUtil.getNetWork(instance);
 
     }
 }
