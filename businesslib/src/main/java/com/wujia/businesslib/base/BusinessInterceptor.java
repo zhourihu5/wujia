@@ -10,12 +10,6 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/**
- * description:
- * author: KisenHuang
- * email: KisenHuang@163.com
- * time: 2018/7/2 下午5:16
- */
 
 public class BusinessInterceptor implements Interceptor {
 

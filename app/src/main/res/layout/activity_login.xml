@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/px200"
+            android:layout_marginTop="@dimen/px220"
             android:text="21:39"
             android:textColor="@color/white"
             android:textSize="@dimen/text160" />
@@ -49,9 +49,9 @@
             android:layout_below="@id/login_time_date_tv"
             android:layout_alignLeft="@id/login_time_date_tv"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/px20"
+            android:layout_marginTop="@dimen/px90"
             android:gravity="bottom"
-            android:text="22"
+            android:text="22°"
             android:textColor="@color/white"
             android:textSize="@dimen/text96" />
 
@@ -125,6 +125,7 @@
                     android:layout_centerVertical="true"
                     android:inputType="phone"
                     android:maxLength="20"
+                    android:text="17712239874"
                     android:paddingLeft="@dimen/px150"
                     android:singleLine="true"
                     android:textColor="@color/c3"
@@ -165,6 +166,7 @@
                     android:layout_centerVertical="true"
                     android:inputType="textPassword"
                     android:maxLength="20"
+                    android:text="jingxikeji"
                     android:paddingLeft="@dimen/px150"
                     android:singleLine="true"
                     android:textColor="@color/c3"
@@ -197,6 +199,7 @@
                 android:background="@drawable/btn_rect_accent_select"
                 android:gravity="center"
                 android:text="@string/login"
+                android:elevation="@dimen/px5"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text32" />
         </LinearLayout>
@@ -204,15 +207,15 @@
         <!--登录后-->
         <LinearLayout
             android:id="@+id/login_layout_2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="vertical"
             android:visibility="gone">
 
             <TextView
                 android:id="@+id/login_welcom_name"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/px484"
                 android:layout_height="@dimen/px75"
                 android:text="欢迎您，XX"
                 android:textColor="@color/colorAccent"

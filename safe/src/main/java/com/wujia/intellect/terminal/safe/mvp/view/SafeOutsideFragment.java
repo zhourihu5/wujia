@@ -23,6 +23,7 @@ import com.wujia.intellect.terminal.safe.mvp.adapter.PlayBackAdapter;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
+import com.wujia.lib_common.utils.AudioMngHelper;
 import com.wujia.lib_common.utils.LogUtil;
 
 import java.util.ArrayList;
@@ -35,6 +36,10 @@ import java.util.List;
  */
 public class SafeOutsideFragment extends BaseFragment implements
         SurfaceHolder.Callback, DoorAccessConversationUI, View.OnClickListener, MultiItemTypeAdapter.OnRVItemClickListener, SeekBar.OnSeekBarChangeListener, IntercomObserver.OnPlaybackListener {
+
+    private AudioMngHelper audioHelper;
+    private boolean isMute;
+    private int audioValue;
 
     private SurfaceView surfaceView;
     private DoorAccessManager mDoorAccessManager;
@@ -89,6 +94,10 @@ public class SafeOutsideFragment extends BaseFragment implements
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
         LogUtil.i("SafeOutsideFragment onLazyInitView");
+
+        audioHelper = new AudioMngHelper(mContext);
+        audioValue = audioHelper.get100CurrentVolume();
+
         sessionId = getArguments().getString(Constants.ARG_PARAM_1);
 
         surfaceView = $(R.id.surface);
@@ -189,9 +198,14 @@ public class SafeOutsideFragment extends BaseFragment implements
         mDoorAccessManager.updateCallWindow(sessionId, surfaceView);
     }
 
+//    @Override
+//    public void startTransPort(String sessionID) {
+//        showToast("开始传输视频");
+//    }
+
     @Override
     public void startTransPort() {
-        showToast("开始传输视频");
+
     }
 
     @Override
@@ -217,7 +231,7 @@ public class SafeOutsideFragment extends BaseFragment implements
 
             isEdit = !isEdit;
         } else if (v.getId() == R.id.safe_btn_sos) {
-
+            startActivity(new Intent(mActivity, VideoCallActivity.class));
         } else if (v.getId() == R.id.safe_btn_play) {
 
         } else if (v.getId() == R.id.safe_btn_pause) {
@@ -227,9 +241,14 @@ public class SafeOutsideFragment extends BaseFragment implements
         } else if (v.getId() == R.id.safe_btn_refresh) {
 
         } else if (v.getId() == R.id.safe_btn_mute) {
-
+            isMute = !isMute;
+            if (isMute) {
+                audioHelper.setVoice100(0);
+            } else {
+                audioHelper.setVoice100(audioValue);
+            }
         } else if (v.getId() == R.id.safe_btn_full) {
-            startActivity(new Intent(mActivity,SafeFullScreenActivity.class));
+            startActivity(new Intent(mActivity, SafeFullScreenActivity.class));
 
         } else if (v.getId() == R.id.safe_swich_live_btn) {
             startLive();
@@ -292,6 +311,7 @@ public class SafeOutsideFragment extends BaseFragment implements
     public void onDestroyView() {
         super.onDestroyView();
         mDoorAccessManager.removePlayBackListener(this);
+        LogUtil.i("SafeOutsideFragment onDestroyView");
     }
 
     private void startLive() {
@@ -310,4 +330,5 @@ public class SafeOutsideFragment extends BaseFragment implements
         btnSos.setVisibility(View.GONE);
         btnRefrsh.setVisibility(View.GONE);
     }
+
 }

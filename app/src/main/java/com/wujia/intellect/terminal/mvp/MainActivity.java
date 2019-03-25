@@ -1,8 +1,11 @@
 package com.wujia.intellect.terminal.mvp;
 
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -69,6 +72,7 @@ public class MainActivity extends BaseActivity {
         mArrow = findViewById(R.id.main_tab_arrow);
 
 
+        FragmentManager fm=getSupportFragmentManager();
         SupportFragment firstFragment = findFragment(HomeHomeFragment.class);
         if (firstFragment == null) {
             mFragments[0] = HomeFragment.newInstance();
@@ -137,6 +141,17 @@ public class MainActivity extends BaseActivity {
 //                mTabBar.getChildAt(5).performClick();
             }
         });
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+//        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+
     }
 
     private void moveArrow(int pos) {

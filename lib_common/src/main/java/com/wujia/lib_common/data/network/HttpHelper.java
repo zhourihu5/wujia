@@ -85,9 +85,7 @@ public class HttpHelper {
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             builder.sslSocketFactory(SslContextFactory.createSSLSocketFactory());
 
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            loggingInterceptor.setLevel(NetConfig.debug?HttpLoggingInterceptor.Level.BODY: HttpLoggingInterceptor.Level.NONE);
-            builder.addInterceptor(loggingInterceptor);
+
 
             List<Interceptor> interceptors = retrofitBuilder.interceptors();
             if (interceptors != null && interceptors.size() > 0) {
@@ -102,6 +100,11 @@ public class HttpHelper {
                 }
             }
             builder.addInterceptor(new ParamsInterceptor());
+
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            loggingInterceptor.setLevel(NetConfig.debug?HttpLoggingInterceptor.Level.BODY: HttpLoggingInterceptor.Level.NONE);
+            builder.addInterceptor(loggingInterceptor);
+
             //设置超时
             builder.connectTimeout(retrofitBuilder.connectTimeout, TimeUnit.SECONDS);
             builder.readTimeout(retrofitBuilder.readTimeout, TimeUnit.SECONDS);

@@ -1,6 +1,4 @@
-package com.wujia.intellect.terminal.mvp.login.data;
-
-import com.wujia.businesslib.data.RootResponse;
+package com.wujia.businesslib.data;
 
 /**
  * author ：shenbingkai@163.com

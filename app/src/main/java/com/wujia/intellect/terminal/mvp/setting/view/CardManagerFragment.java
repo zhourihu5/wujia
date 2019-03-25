@@ -1,6 +1,7 @@
 package com.wujia.intellect.terminal.mvp.setting.view;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -55,7 +56,11 @@ public class CardManagerFragment extends BaseFragment {
     }
 
     @Override
-    protected void initEventAndData() {
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        // 懒加载
+        // 同级Fragment场景、ViewPager场景均适用
+
         layoutBackBtn.setVisibility(View.VISIBLE);
         layoutRightBtn.setVisibility(View.VISIBLE);
 

@@ -1,9 +1,8 @@
 package com.wujia.intellect.terminal.mvp.login.contract;
 
-import com.wujia.businesslib.data.ApiResponse;
-import com.wujia.intellect.terminal.mvp.login.data.TokenBean;
+import com.wujia.businesslib.data.TokenBean;
+import com.wujia.businesslib.data.UserBean;
 import com.wujia.lib_common.base.BasePresenter;
-import com.wujia.lib_common.base.BaseView;
 import com.wujia.lib_common.base.CommonDataLoadView;
 import com.wujia.lib_common.base.IBaseModle;
 
@@ -19,6 +18,8 @@ public interface LoginContract {
 
         Flowable<TokenBean> getAccessToken();
 
+        Flowable<UserBean> login(String mobile, String captcha, String padSn);
+
 
     }
 
@@ -28,6 +29,9 @@ public interface LoginContract {
 
     interface Presenter extends BasePresenter<View> {
         void doGetAccessToken();
+
         void doTimeChange();
+
+        void doLogin(String mobile, String captcha, String padSn);
     }
 }

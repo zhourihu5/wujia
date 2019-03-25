@@ -4,13 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.wujia.lib_common.base.BaseFragment;
+import com.wujia.lib_common.base.BaseMainFragment;
 
 /**
 * author ：shenbingkai@163.com
 * date ：2019-01-12 20:06
 * description ：邻里 home
 */
-public class NeighborFragment extends BaseFragment {
+public class NeighborFragment extends BaseMainFragment {
 
     public NeighborFragment() {
     }

@@ -3,7 +3,9 @@ package com.wujia.businesslib.data;
 import com.wujia.businesslib.Constants;
 import com.wujia.lib_common.data.network.BaseResponse;
 
-public class RootResponse extends BaseResponse {
+import java.io.Serializable;
+
+public class RootResponse extends BaseResponse implements Serializable {
     public int errcode;
     public String errmsg;
 

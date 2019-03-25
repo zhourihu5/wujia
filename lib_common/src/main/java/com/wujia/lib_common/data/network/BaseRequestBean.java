@@ -75,11 +75,6 @@ public class BaseRequestBean {
         return infoMap.get(Constants.COMMON_REQUEST_SIGN);
     }
 
-    public String getClient_type() {
-        return Constants.ANDROID_CLIENT_TYPE;
-    }
-
-
     /**
      * 根据属性名获取属性值
      */

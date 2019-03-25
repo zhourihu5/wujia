@@ -6,13 +6,14 @@ import android.support.annotation.Nullable;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.setting.view.SettingHomeFragment;
 import com.wujia.lib_common.base.BaseFragment;
+import com.wujia.lib_common.base.BaseMainFragment;
 
 /**
  * author ：shenbingkai@163.com
  * date ：2019-01-12 20:06
  * description ： home
  */
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseMainFragment {
 
 
     public HomeFragment() {
@@ -36,7 +37,7 @@ public class HomeFragment extends BaseFragment {
         super.onLazyInitView(savedInstanceState);
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
-        if (findChildFragment(SettingHomeFragment.class) == null) {
+        if (findChildFragment(HomeHomeFragment.class) == null) {
             loadRootFragment(R.id.fl_first_container, HomeHomeFragment.newInstance());
         }
     }

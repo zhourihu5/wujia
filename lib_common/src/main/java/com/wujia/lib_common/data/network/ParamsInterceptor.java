@@ -25,10 +25,10 @@ public class ParamsInterceptor implements Interceptor {
         Map<String, String> params = buildCommonParamsMap();
         if (request.method().equals("GET")) {
             request = RequestParamsUtils.addGetParams(request, params);
-            request = addGetSignParam(request);
+//            request = addGetSignParam(request);
         } else if (request.method().equals("POST")) {
             request = RequestParamsUtils.addPostParams(request, params);
-            request = addPostSignParam(request);
+//            request = addPostSignParam(request);
         }
 
         return chain.proceed(request);
@@ -49,9 +49,9 @@ public class ParamsInterceptor implements Interceptor {
         for (int i = 0; i < nameList.size(); i++) {
             buffer.append(nameList.get(i)).append(httpUrl.queryParameterValues(nameList.get(i)).get(0));
         }
-        httpUrl = httpUrl.newBuilder()
-                .addQueryParameter(Constants.COMMON_REQUEST_SIGN, RequestParamsUtils.getSignValue(buffer.toString()))
-                .build();
+//        httpUrl = httpUrl.newBuilder()
+//                .addQueryParameter(Constants.COMMON_REQUEST_SIGN, RequestParamsUtils.getSignValue(buffer.toString()))
+//                .build();
         request = request.newBuilder().url(httpUrl).build();
         return request;
     }
@@ -83,17 +83,18 @@ public class ParamsInterceptor implements Interceptor {
                     .append(bodyMap.get(nameList.get(i)));
         }
 
-        formBody = bodyBuilder.
-                add(Constants.COMMON_REQUEST_SIGN, RequestParamsUtils.getSignValue(builder.toString()))
-                .build();
+//        formBody = bodyBuilder.
+//                add(Constants.COMMON_REQUEST_SIGN, RequestParamsUtils.getSignValue(builder.toString()))
+//                .build();
         request = requestBuilder.post(formBody).build();
         return request;
     }
 
     private Map<String, String> buildCommonParamsMap() {
         Map<String, String> queryParamsMap = new HashMap<>();
-//        queryParamsMap.put(Constants.COMMON_REQUEST_SOURCE, Constants.ANDROID_CLIENT_TYPE);
-//        queryParamsMap.put(Constants.COMMON_REQUEST_SOURCE_ID, ChannelUtils.getCurrentChannelId(AppContext.get()));
+
+        queryParamsMap.put(Constants.COMMON_REQUEST_APP_ID, Constants.APP_ID);
+        queryParamsMap.put(Constants.COMMON_REQUEST_TOKEN, Constants.TOKEN);
 //        queryParamsMap.put(Constants.COMMON_REQUEST_CLIENT_VERSION, AppUtil.getVersionCode(AppContext.get()) + "");
 //        queryParamsMap.put(Constants.COMMON_REQUEST_TIMESTAMP, RequestParamsUtils.getSecondTimestamp(new Date()) + "");
 //        queryParamsMap.put(Constants.COMMON_REQUEST_UUID, AppUtil.getDeviceInfo(AppContext.get()));

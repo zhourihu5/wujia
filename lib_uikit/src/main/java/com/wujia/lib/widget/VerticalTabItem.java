@@ -58,13 +58,13 @@ public class VerticalTabItem extends LinearLayout {
 
 
         mTxt = new TextView(context);
-        int top = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, getResources().getDisplayMetrics());
+//        int top = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, getResources().getDisplayMetrics());
 
         LayoutParams txtParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         mTxt.setGravity(Gravity.CENTER);
         mTxt.setText(txt);
-        mTxt.setPadding(0, top, 0, 0);
-        mTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+//        mTxt.setPadding(0, top, 0, 0);
+        mTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
         mTxt.setTextColor(ContextCompat.getColor(mContext, R.color.c9));
         addView(mTxt, txtParams);
     }

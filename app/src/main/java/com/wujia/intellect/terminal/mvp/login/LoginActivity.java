@@ -1,6 +1,7 @@
 package com.wujia.intellect.terminal.mvp.login;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -9,20 +10,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.wujia.businesslib.Constants;
+import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpActivity;
+import com.wujia.businesslib.data.TokenBean;
+import com.wujia.businesslib.data.UserBean;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.MainActivity;
 import com.wujia.intellect.terminal.mvp.login.contract.LoginContract;
-import com.wujia.intellect.terminal.mvp.login.data.TokenBean;
 import com.wujia.intellect.terminal.mvp.login.presenter.LoginPresenter;
 import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.DateUtil;
+import com.wujia.lib_common.utils.FontUtils;
 import com.wujia.lib_common.utils.LogUtil;
+import com.wujia.lib_common.utils.SPHelper;
 import com.wujia.lib_common.utils.StringUtil;
 import com.wujia.lib_common.utils.VerifyUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -72,17 +77,23 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     @Override
     protected void initEventAndData(Bundle savedInstanceState) {
 
+
+        FontUtils.changeFontTypeface(loginTimeTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
+        FontUtils.changeFontTypeface(loginTemperatureTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
+
         loginTimeDateTv.setText(StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay()));
         mPresenter.doTimeChange();
 
+        if (!TextUtils.isEmpty(DataManager.getFamilyId())) {
+//            toActivity(MainActivity.class);
+//            finish();
+        }
     }
 
     @OnClick({R.id.login_btn, R.id.login_btn_confim, R.id.login_password_visibility})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_btn:
-                loginPhoneError.setVisibility(View.INVISIBLE);
-
                 login();
 //                mPresenter.doGetAccessToken();
 
@@ -110,14 +121,21 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
     private void login() {
         //TODO 验证手机号
-//        String phone = loginAccount.getText().toString();
-//        if (!VerifyUtil.isPhone(phone)) {
-//            loginPhoneError.setVisibility(View.VISIBLE);
-//            return;
-//        }
+        String phone = loginAccount.getText().toString();
+        if (!VerifyUtil.isPhone(phone)) {
+            loginPhoneError.setVisibility(View.VISIBLE);
+            return;
+        }
+        String pwd = loginPassword.getText().toString();
+        if (TextUtils.isEmpty(pwd)) {
+            return;
+        }
 
         loginLayout1.setVisibility(View.GONE);
         loginLayout2.setVisibility(View.VISIBLE);
+
+//        http://openapi.house-keeper.cn/openapi/v1/user/padLogin?appid=test&accessToken=4c239ad0-59b1-4306-b437-c8a8e79baea7&padSn=HS1JXY6M12D2900034&mobile=17712239874&captcha=jingxikeji
+        mPresenter.doLogin(phone, pwd, "HS1JXY6M12D2900034");
 
     }
 
@@ -135,8 +153,15 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     @Override
     public void onDataLoadSucc(int requestCode, Object object) {
 
-        TokenBean bean = (TokenBean) object;
-        LogUtil.i(bean.toString());
+        if (requestCode == 1) {
+
+            TokenBean bean = (TokenBean) object;
+            LogUtil.i(bean.toString());
+        } else if (requestCode == 2) {
+            UserBean userBean = (UserBean) object;
+            SPHelper.saveObject(LoginActivity.this, Constants.SP_KEY_USER, userBean.content);
+            loginPhoneError.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

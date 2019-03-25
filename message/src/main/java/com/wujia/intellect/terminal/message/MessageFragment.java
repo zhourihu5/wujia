@@ -5,13 +5,14 @@ import android.support.annotation.Nullable;
 
 import com.wujia.intellect.terminal.message.mvp.MessageHomeFragment;
 import com.wujia.lib_common.base.BaseFragment;
+import com.wujia.lib_common.base.BaseMainFragment;
 
 /**
 * author ：shenbingkai@163.com
 * date ：2019-01-12 20:06
 * description ：消息通知 home
 */
-public class MessageFragment extends BaseFragment {
+public class MessageFragment extends BaseMainFragment {
 
     public MessageFragment() {
     }

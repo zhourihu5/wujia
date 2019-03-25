@@ -5,13 +5,14 @@ import android.support.annotation.Nullable;
 
 import com.wujia.intellect.terminal.market.mvp.MarketHomeFragment;
 import com.wujia.lib_common.base.BaseFragment;
+import com.wujia.lib_common.base.BaseMainFragment;
 
 /**
 * author ：shenbingkai@163.com
 * date ：2019-01-12 20:06
 * description ：服务市场 home
 */
-public class MarketFragment extends BaseFragment {
+public class MarketFragment extends BaseMainFragment {
 
     public MarketFragment() {
     }

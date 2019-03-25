@@ -100,7 +100,10 @@ public class HomeHomeFragment extends BaseFragment {
     }
 
     @Override
-    protected void initEventAndData() {
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        // 懒加载
+        // 同级Fragment场景、ViewPager场景均适用
 
         FontUtils.changeFontTypeface(homeWeatherNumTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
 
@@ -173,14 +176,6 @@ public class HomeHomeFragment extends BaseFragment {
             homeCardAdapter.getDatas().add(homeCardAdapter.getDatas().size() - 2, new HomeRecBean(1));
             homeCardAdapter.notifyDataSetChanged();
         }
-    }
-
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-        // 懒加载
-        // 同级Fragment场景、ViewPager场景均适用
-
     }
 
     @Override

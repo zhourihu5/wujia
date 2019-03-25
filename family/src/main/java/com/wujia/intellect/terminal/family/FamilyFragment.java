@@ -8,6 +8,7 @@ import com.wujia.intellect.terminal.family.mvp.FamilyHomeFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib_common.base.BaseFragment;
+import com.wujia.lib_common.base.BaseMainFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
 import me.yokeyword.fragmentation.SupportFragment;
@@ -17,7 +18,7 @@ import me.yokeyword.fragmentation.SupportFragment;
  * date ：2019-01-12 20:06
  * description ：智能家居 home
  */
-public class FamilyFragment extends BaseFragment {
+public class FamilyFragment extends BaseMainFragment {
 
     public FamilyFragment() {
 

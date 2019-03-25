@@ -5,12 +5,12 @@ package com.wujia.lib_common.data.network;
  */
 
 public interface Constants {
-    String COMMON_REQUEST_SIGN="sign";
-    String COMMON_REQUEST_SOURCE="source";
-    String ANDROID_CLIENT_TYPE="3";
+    String COMMON_REQUEST_SIGN = "sign";
+    String COMMON_REQUEST_APP_ID = "appid";
     String COMMON_REQUEST_CLIENT_VERSION = "version";
     String COMMON_REQUEST_TIMESTAMP = "timestamp";
-    String COMMON_REQUEST_UUID = "uuid";
-    String COMMON_REQUEST_SOURCE_ID = "source_id";
-    String COMMON_REQUEST_RESOURCE_ID = "0";
+    String COMMON_REQUEST_TOKEN = "accessToken";
+
+    String APP_ID = "test";
+    String TOKEN = "4c239ad0-59b1-4306-b437-c8a8e79baea7&";
 }

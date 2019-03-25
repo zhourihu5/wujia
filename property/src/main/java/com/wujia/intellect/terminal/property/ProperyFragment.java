@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.wujia.intellect.terminal.property.mvp.ProperyHomeFragment;
 import com.wujia.lib_common.base.BaseFragment;
+import com.wujia.lib_common.base.BaseMainFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
 /**
@@ -12,7 +13,7 @@ import com.wujia.lib_common.utils.LogUtil;
 * date ：2019-01-12 20:06
 * description ：务业服务 home
 */
-public class ProperyFragment extends BaseFragment {
+public class ProperyFragment extends BaseMainFragment {
 
     public ProperyFragment() {
     }

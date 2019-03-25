@@ -6,13 +6,14 @@ import com.wujia.businesslib.TitleFragment;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.setting.view.SettingHomeFragment;
 import com.wujia.lib_common.base.BaseFragment;
+import com.wujia.lib_common.base.BaseMainFragment;
 
 /**
  * author ：shenbingkai@163.com
  * date ：2019-01-12 20:06
  * description ：务业服务 home
  */
-public class SettingFragment extends BaseFragment {
+public class SettingFragment extends BaseMainFragment {
 
 
 
