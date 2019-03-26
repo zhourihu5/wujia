@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.jingxi.smartlife.pad.sdk.JXPadSdk;
+import com.jingxi.smartlife.pad.sdk.neighbor.ui.fragments.NeighborMainFragment;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.family.FamilyFragment;
 import com.wujia.intellect.terminal.market.MarketFragment;
@@ -82,7 +83,7 @@ public class MainActivity extends BaseActivity {
             mFragments[3] = ProperyFragment.newInstance();
             mFragments[4] = MessageFragment.newInstance();
             mFragments[5] = MarketFragment.newInstance();
-            mFragments[6] = NeighborFragment.newInstance();
+            mFragments[6] = new NeighborMainFragment();
             mFragments[7] = SettingFragment.newInstance();
 
             loadMultipleRootFragment(R.id.container, 0,
@@ -104,7 +105,7 @@ public class MainActivity extends BaseActivity {
             mFragments[3] = findFragment(ProperyFragment.class);
             mFragments[4] = findFragment(MessageFragment.class);
             mFragments[5] = findFragment(MarketFragment.class);
-            mFragments[6] = findFragment(NeighborFragment.class);
+            mFragments[6] = findFragment(NeighborMainFragment.class);
             mFragments[7] = findFragment(SettingFragment.class);
         }
 
