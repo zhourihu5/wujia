@@ -100,7 +100,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@mipmap/icon_home_home_normal" />
+                android:src="@mipmap/icon_home_home_highlight" />
 
             <ImageView
                 android:id="@+id/home_batter_img"
@@ -114,14 +114,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@mipmap/icon_home_wifi_normal" />
+                android:src="@drawable/img_homt_wifi_level" />
 
             <ImageView
                 android:id="@+id/home_camera_img"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@mipmap/icon_home_camera_normal" />
+                android:src="@mipmap/icon_home_camera_highlight" />
         </LinearLayout>
 
         <LinearLayout

@@ -36,20 +36,15 @@ dependencies {
     androidTestApi 'com.android.support.test.espresso:espresso-core:3.0.2'
     //防止创建Activity时默认添加，影响代码，此依赖无实际作用
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-//    implementation 'com.gcssloop.widget:arc-seekbar:1.1.0'
-
+    //    implementation 'com.gcssloop.widget:arc-seekbar:1.1.0'
     api fileTree(dir: 'libs')
     api 'com.jingxi.smartlife.pad.sdk:doorAccess:1.1.6.2'
     api 'com.jingxi.smartlife.pad.sdk:sdk:1.0.2'
     api 'com.jingxi.smartlife.pad.sdk:utils:1.0.2'
     api project(':lib_uikit')
     api project(':lib_imageloader')
-//    api 'me.jessyan:autosize:1.1.2'
-
-
+    //    api 'me.jessyan:autosize:1.1.2'
     debugImplementation deps.leakcanary
     releaseImplementation deps.leakcanary_no_op
-
     annotationProcessor deps.arouter.compiler
-
 }

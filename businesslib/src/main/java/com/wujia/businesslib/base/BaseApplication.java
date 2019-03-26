@@ -7,6 +7,7 @@ import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.wujia.businesslib.BuildConfig;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.wujia.lib_common.utils.AppContext;
+import com.wujia.lib_common.utils.SystemUtil;
 
 public class BaseApplication extends Application {
 
@@ -21,6 +22,7 @@ public class BaseApplication extends Application {
         initArouter();
         initSDKManager();
 
+        SystemUtil.init();
     }
 
     private void initSDKManager() {

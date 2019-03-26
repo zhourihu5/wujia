@@ -3,7 +3,7 @@ package com.wujia.intellect.terminal.mvp.setting.adapter;
 import android.content.Context;
 
 import com.wujia.intellect.terminal.R;
-import com.wujia.intellect.terminal.mvp.setting.data.FamilyMeberBean;
+import com.wujia.intellect.terminal.mvp.home.data.HomeMeberBean;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 
@@ -14,15 +14,15 @@ import java.util.List;
  * Email:  shenbingkai@gamil.com
  * Description:
  */
-public class SetMemberAdapter extends CommonAdapter<FamilyMeberBean> {
-    public SetMemberAdapter(Context context, List<FamilyMeberBean> datas) {
+public class SetMemberAdapter extends CommonAdapter<HomeMeberBean> {
+    public SetMemberAdapter(Context context, List<HomeMeberBean> datas) {
         super(context, R.layout.item_family_member_layout, datas);
     }
 
     @Override
-    protected void convert(ViewHolder holder, FamilyMeberBean item, int pos) {
+    protected void convert(ViewHolder holder, HomeMeberBean item, int pos) {
 
-//        holder.setText(R.id.scene_in_mode_tv,item.title);
+        holder.setText(R.id.name_member_set_item, item.phone);
 
     }
 }

@@ -22,7 +22,7 @@ public class HomeInviteAdapter extends CommonAdapter<HomeMeberBean> {
     @Override
     protected void convert(ViewHolder holder, HomeMeberBean item, int pos) {
 
-//        holder.setText(R.id.scene_in_mode_tv,item.title);
+        holder.setText(R.id.tv1,item.phone);
 
     }
 }

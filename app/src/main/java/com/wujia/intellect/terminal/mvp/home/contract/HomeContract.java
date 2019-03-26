@@ -1,4 +1,4 @@
-package com.wujia.intellect.terminal.mvp.login.contract;
+package com.wujia.intellect.terminal.mvp.home.contract;
 
 import com.wujia.businesslib.data.RootResponse;
 import com.wujia.businesslib.data.TokenBean;
@@ -14,29 +14,18 @@ import io.reactivex.Flowable;
  * date ：2019-01-27
  * description ：
  */
-public interface LoginContract {
+public interface HomeContract {
     interface Model extends IBaseModle {
 
-        Flowable<TokenBean> getAccessToken();
 
-        Flowable<UserBean> login(String mobile, String captcha, String padSn);
-
-        Flowable<RootResponse> login(String mobile);
 
 
     }
 
     interface View extends CommonDataLoadView {
-        void timeChange(String time);
     }
 
     interface Presenter extends BasePresenter<View> {
-        void doGetAccessToken();
 
-        void doTimeChange();
-
-        void doLogin(String mobile, String captcha, String padSn);
-
-        void doGetCode(String mobile);
     }
 }

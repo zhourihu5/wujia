@@ -7,11 +7,12 @@ import java.io.Serializable;
 
 public class RootResponse extends BaseResponse implements Serializable {
     public int errcode;
+    public int code;
     public String errmsg;
 
     @Override
     public boolean isSuccess() {
-        return errcode == Constants.HTTP_SUCESS;
+        return errcode == Constants.HTTP_SUCESS || code == Constants.HTTP_SUCESS;
     }
 
     @Override

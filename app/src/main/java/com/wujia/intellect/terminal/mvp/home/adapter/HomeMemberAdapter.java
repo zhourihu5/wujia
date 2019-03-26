@@ -26,4 +26,11 @@ public class HomeMemberAdapter extends CommonAdapter<HomeMeberBean> {
 //        holder.setText(R.id.scene_in_mode_tv,item.title);
 
     }
+
+    @Override
+    public int getItemCount() {
+
+        return mDatas == null ? 0 : Math.min(4, mDatas.size());
+    }
+
 }

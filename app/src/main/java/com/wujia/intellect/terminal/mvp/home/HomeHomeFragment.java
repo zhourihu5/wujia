@@ -4,8 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -14,23 +12,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.wujia.businesslib.Constants;
+import com.wujia.businesslib.DataBaseUtil;
+import com.wujia.businesslib.base.DataManager;
+import com.wujia.businesslib.base.MvpFragment;
 import com.wujia.businesslib.dialog.CallDialog;
 import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.home.adapter.HomeMemberAdapter;
 import com.wujia.intellect.terminal.mvp.home.adapter.HomeNotifyAdapter;
 import com.wujia.intellect.terminal.mvp.home.adapter.HomeCardAdapter;
+import com.wujia.intellect.terminal.mvp.home.contract.HomePresenter;
 import com.wujia.intellect.terminal.mvp.home.data.HomeMeberBean;
 import com.wujia.intellect.terminal.mvp.home.data.HomeNotifyBean;
 import com.wujia.intellect.terminal.mvp.home.data.HomeRecBean;
 import com.wujia.intellect.terminal.mvp.home.view.AddMemberDialog;
 import com.wujia.intellect.terminal.mvp.home.view.MessageDialog;
-import com.wujia.intellect.terminal.mvp.setting.view.CardManagerActivity;
 import com.wujia.intellect.terminal.mvp.setting.view.CardManagerFragment;
 import com.wujia.lib.widget.HomeArcView;
 import com.wujia.lib.widget.util.ToastUtil;
-import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.base.view.HorizontalDecoration;
 import com.wujia.lib_common.utils.DateUtil;
@@ -50,7 +49,7 @@ import butterknife.OnClick;
  * date ：2019-01-12 20:06
  * description ： home
  */
-public class HomeHomeFragment extends BaseFragment {
+public class HomeHomeFragment extends MvpFragment<HomePresenter> {
 
     @BindView(R.id.home_room_tv)
     TextView homeRoomTv;
@@ -89,7 +88,8 @@ public class HomeHomeFragment extends BaseFragment {
     @BindView(R.id.home_call_service_btn)
     ImageView homeCallServiceBtn;
     private HomeCardAdapter homeCardAdapter;
-    private BatteryReceiver receiver;
+    private BatteryReceiver batterReceiver;
+    private NetworkChangeReceiver networkReceiver;
 
     public HomeHomeFragment() {
     }
@@ -113,13 +113,11 @@ public class HomeHomeFragment extends BaseFragment {
 
         FontUtils.changeFontTypeface(homeWeatherNumTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
 
+        homeRoomTv.setText(DataManager.getUser().nickName);
         homeDateTv.setText(StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay()));
 
 
-        List<HomeMeberBean> mems = new ArrayList<>();
-        mems.add(new HomeMeberBean());
-        mems.add(new HomeMeberBean());
-        mems.add(new HomeMeberBean());
+        List<HomeMeberBean> mems = DataBaseUtil.getMemberList(HomeMeberBean.class);
 
         rvHomeMember.addItemDecoration(new HorizontalDecoration(20));
         rvHomeMember.setAdapter(new HomeMemberAdapter(mActivity, mems));
@@ -174,8 +172,11 @@ public class HomeHomeFragment extends BaseFragment {
 
 
         IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        receiver = new BatteryReceiver(homeBatterImg);
-        mActivity.registerReceiver(receiver, filter);
+        batterReceiver = new BatteryReceiver(homeBatterImg);
+        networkReceiver = new NetworkChangeReceiver(homeWifiImg);
+
+        mActivity.registerReceiver(batterReceiver, filter);
+        mActivity.registerReceiver(networkReceiver, filter);
     }
 
     @Override
@@ -231,9 +232,13 @@ public class HomeHomeFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         //销毁广播
-        if (null != receiver) {
-            mActivity.unregisterReceiver(receiver);
-            receiver = null;
+        if (null != batterReceiver) {
+            mActivity.unregisterReceiver(batterReceiver);
+            batterReceiver = null;
+        }
+        if (null != networkReceiver) {
+            mActivity.unregisterReceiver(networkReceiver);
+            networkReceiver = null;
         }
         super.onDestroyView();
     }
@@ -272,6 +277,7 @@ public class HomeHomeFragment extends BaseFragment {
         public NetworkChangeReceiver(ImageView icon) {
             this.icon = icon;
         }
+
         @Override
         public void onReceive(Context context, Intent intent) {
             if (NetworkUtil.getNetWork(context)) {
@@ -280,5 +286,11 @@ public class HomeHomeFragment extends BaseFragment {
                 icon.getDrawable().setLevel(0);
             }
         }
+    }
+
+
+    @Override
+    protected HomePresenter createPresenter() {
+        return new HomePresenter();
     }
 }

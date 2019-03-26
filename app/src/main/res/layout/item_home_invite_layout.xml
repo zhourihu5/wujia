@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/px64"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="horizontal">
 
@@ -19,9 +20,10 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@id/tv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="13978878720"
+            tools:text="13978878720"
             android:textColor="@color/c3"
             android:textSize="@dimen/text24" />
 

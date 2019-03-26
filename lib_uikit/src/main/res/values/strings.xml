@@ -126,6 +126,7 @@
     <string name="exception_status_info">异常状态详情</string>
     <string name="risk">风险</string>
     <string name="password">密码</string>
+    <string name="verification_code">验证码</string>
     <string name="warning">预警</string>
     <string name="_empty"> </string>
 
@@ -188,5 +189,6 @@
     <!--物业-->
     <string name="propery_report_fix">报事报修</string>
     <string name="tel_select">电话查询</string>
+    <string name="send_verify_code">发送验证码</string>
 
 </resources>

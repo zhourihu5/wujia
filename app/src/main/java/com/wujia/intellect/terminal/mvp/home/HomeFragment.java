@@ -3,7 +3,9 @@ package com.wujia.intellect.terminal.mvp.home;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.wujia.businesslib.base.MvpFragment;
 import com.wujia.intellect.terminal.R;
+import com.wujia.intellect.terminal.mvp.home.contract.HomePresenter;
 import com.wujia.intellect.terminal.mvp.setting.view.SettingHomeFragment;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.BaseMainFragment;
@@ -59,4 +61,5 @@ public class HomeFragment extends BaseMainFragment {
         // 不管是 父Fragment还是子Fragment 都有效！
 
     }
+
 }

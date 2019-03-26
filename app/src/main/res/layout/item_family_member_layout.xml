@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/px100"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -22,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px24"
-            android:text="13888888888"
+            tools:text="13888888888"
             android:textColor="@color/c3"
             android:textSize="@dimen/text24" />
 
@@ -33,6 +34,7 @@
             android:layout_marginLeft="@dimen/px30"
             android:layout_weight="1"
             android:text="待接受邀请"
+            android:visibility="gone"
             android:textColor="@color/c8"
             android:textSize="@dimen/text20" />
 
@@ -43,12 +45,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px24"
             android:text="V1权限"
+            android:visibility="gone"
             android:textSize="@dimen/text24" />
 
         <ImageView
             android:id="@+id/arrow_member_set_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:src="@mipmap/arrow_right" />
 
 

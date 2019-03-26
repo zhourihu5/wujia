@@ -3,10 +3,13 @@ package com.wujia.intellect.terminal.mvp.home.view;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.litesuits.orm.db.DataBase;
+import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.home.adapter.HomeInviteAdapter;
@@ -38,12 +41,7 @@ public class AddMemberDialog extends CommDialog {
         inputEt = findViewById(R.id.dialog_input);
         rv = findViewById(R.id.rv_dialog_invite);
 
-        List<HomeMeberBean> mems = new ArrayList<>();
-        mems.add(new HomeMeberBean());
-        mems.add(new HomeMeberBean());
-        mems.add(new HomeMeberBean());
-        mems.add(new HomeMeberBean());
-
+        List<HomeMeberBean> mems = DataBaseUtil.getMemberList(HomeMeberBean.class);
         rv.addItemDecoration(new VerticallDecoration(24));
         rv.setAdapter(new HomeInviteAdapter(context, mems));
 
@@ -51,7 +49,11 @@ public class AddMemberDialog extends CommDialog {
             @Override
             public void onClick(View v) {
                 if (null != listener) {
+                    String phone = inputEt.getText().toString();
+                    if (TextUtils.isEmpty(phone))
+                        return;
                     dismiss();
+                    DataBaseUtil.getLiteOrm().insert(new HomeMeberBean(phone));
                     listener.dialogSureClick(inputEt.getText().toString());
                 }
             }

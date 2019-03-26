@@ -140,6 +140,17 @@
                     android:textColor="@color/c3"
                     android:layout_marginLeft="@dimen/px6"
                     android:textSize="@dimen/text24" />
+
+                <TextView
+                    android:id="@+id/login_verify_code_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/send_verify_code"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/text24"
+                    />
             </RelativeLayout>
 
             <TextView
@@ -164,7 +175,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
-                    android:inputType="textPassword"
+                    android:inputType="number"
                     android:maxLength="20"
                     android:text="jingxikeji"
                     android:paddingLeft="@dimen/px150"
@@ -177,7 +188,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="@string/password"
+                    android:text="@string/verification_code"
                     android:textColor="@color/c3"
                     android:layout_marginLeft="@dimen/px6"
                     android:textSize="@dimen/text24" />
@@ -188,6 +199,7 @@
                     android:layout_height="@dimen/px80"
                     android:layout_alignParentRight="true"
                     android:scaleType="center"
+                    android:visibility="gone"
                     android:src="@mipmap/icon_input_display" />
             </RelativeLayout>
 

@@ -40,7 +40,8 @@
             android:background="@drawable/bg_input_shape"
             android:hint="@string/please_input_member_phone"
             android:imeOptions="actionDone"
-            android:inputType="phone"
+            android:inputType="number"
+            android:maxLength="11"
             android:maxLines="1"
             android:singleLine="true"
             android:textColor="@color/c6"
@@ -83,9 +84,9 @@
             tools:listitem="@layout/item_home_invite_layout" />
 
         <ImageView
-            android:layout_gravity="bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:background="@mipmap/img_pop_family_mask" />
     </FrameLayout>
 </LinearLayout>

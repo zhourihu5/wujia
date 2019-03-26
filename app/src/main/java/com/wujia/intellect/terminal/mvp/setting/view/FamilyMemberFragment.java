@@ -5,9 +5,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.TitleFragment;
 import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.wujia.intellect.terminal.R;
+import com.wujia.intellect.terminal.mvp.home.data.HomeMeberBean;
 import com.wujia.intellect.terminal.mvp.setting.adapter.SetMemberAdapter;
 import com.wujia.intellect.terminal.mvp.setting.data.FamilyMeberBean;
 import com.wujia.businesslib.dialog.InputDialog;
@@ -30,6 +32,8 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
     TextView btnAddMember;
     @BindView(R.id.rv_member)
     RecyclerView rvMember;
+    List<HomeMeberBean> mems;
+    SetMemberAdapter mAdapter;
 
     public FamilyMemberFragment() {
     }
@@ -63,12 +67,10 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
 
+        mems = DataBaseUtil.getMemberList(HomeMeberBean.class);
         rvMember.addItemDecoration(new VerticallDecoration(1));
-        List<FamilyMeberBean> datas = new ArrayList<>();
-        datas.add(new FamilyMeberBean());
-        datas.add(new FamilyMeberBean());
-        datas.add(new FamilyMeberBean());
-        rvMember.setAdapter(new SetMemberAdapter(mContext, datas));
+        mAdapter = new SetMemberAdapter(mContext, mems);
+        rvMember.setAdapter(mAdapter);
     }
 
     @Override
@@ -100,6 +102,9 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
 
     @Override
     public void dialogSureClick(String input) {
-        showToast(input);
+        DataBaseUtil.getLiteOrm().insert(new HomeMeberBean(input));
+        mems.clear();
+        mems.addAll(DataBaseUtil.getMemberList(HomeMeberBean.class));
+        mAdapter.notifyDataSetChanged();
     }
 }

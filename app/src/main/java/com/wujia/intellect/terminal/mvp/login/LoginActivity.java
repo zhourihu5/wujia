@@ -1,6 +1,7 @@
 package com.wujia.intellect.terminal.mvp.login;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -64,8 +65,13 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     LinearLayout loginLayout2;
     @BindView(R.id.login_phone_error)
     TextView loginPhoneError;
+    @BindView(R.id.login_verify_code_btn)
+    TextView loginGetCode;
     @BindView(R.id.login_password_visibility)
     ImageView loginPasswordVisibility;
+
+
+    private CountDownTimer codeCountDownTimer;
 
     private boolean isShowPassword;
 
@@ -90,7 +96,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         }
     }
 
-    @OnClick({R.id.login_btn, R.id.login_btn_confim, R.id.login_password_visibility})
+    @OnClick({R.id.login_btn, R.id.login_btn_confim, R.id.login_password_visibility, R.id.login_verify_code_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_btn:
@@ -116,6 +122,43 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
                     loginPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
                 break;
+            case R.id.login_verify_code_btn:
+                //TODO 验证手机号
+                String phone = loginAccount.getText().toString();
+                if (!VerifyUtil.isPhone(phone)) {
+                    loginPhoneError.setVisibility(View.VISIBLE);
+                    return;
+                }
+//                mPresenter.doGetCode(phone);
+                startTimer();
+                break;
+        }
+    }
+
+    protected void startTimer() {
+        loginGetCode.setEnabled(false);
+        /** 倒计时60秒，一次1秒 */
+        final String text = getString(R.string.send_verify_code);
+        codeCountDownTimer = new CountDownTimer(60 * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                loginGetCode.setText(" (" + millisUntilFinished / 1000 + "s)");
+            }
+
+            @Override
+            public void onFinish() {
+                loginGetCode.setEnabled(true);
+                loginGetCode.setText(text);
+            }
+        }.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (codeCountDownTimer != null) {
+            codeCountDownTimer.cancel();
         }
     }
 
@@ -153,14 +196,16 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     @Override
     public void onDataLoadSucc(int requestCode, Object object) {
 
-        if (requestCode == 1) {
+        if (requestCode == LoginPresenter.REQUEST_CDOE_GET_CODE) {
+            startTimer();
 
-            TokenBean bean = (TokenBean) object;
-            LogUtil.i(bean.toString());
-        } else if (requestCode == 2) {
+        } else if (requestCode == LoginPresenter.REQUEST_CDOE_LOGIN) {
             UserBean userBean = (UserBean) object;
             SPHelper.saveObject(LoginActivity.this, Constants.SP_KEY_USER, userBean.content);
             loginPhoneError.setVisibility(View.INVISIBLE);
+        } else {
+//            TokenBean bean = (TokenBean) object;
+//            LogUtil.i(bean.toString());
         }
     }
 

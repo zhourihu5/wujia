@@ -1,6 +1,7 @@
 package com.wujia.intellect.terminal.mvp.login.presenter;
 
 import com.wujia.businesslib.base.RxPresenter;
+import com.wujia.businesslib.data.RootResponse;
 import com.wujia.businesslib.data.TokenBean;
 import com.wujia.businesslib.data.UserBean;
 import com.wujia.intellect.terminal.mvp.login.contract.LoginContract;
@@ -16,6 +17,9 @@ import com.wujia.lib_common.utils.DateUtil;
  * description ：
  */
 public class LoginPresenter extends RxPresenter<LoginContract.View> implements LoginContract.Presenter {
+    public static final int REQUEST_CDOE_LOGIN=1;
+    public static final int REQUEST_CDOE_GET_CODE=2;
+    public static final int REQUEST_CDOE_TIMER=3;
     private LoginModel mModel;
 
     public LoginPresenter() {
@@ -54,14 +58,34 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
             public void onResponse(UserBean response) {
                 super.onResponse(response);
                 if (response.isSuccess()) {
-                    mView.onDataLoadSucc(2, response);
+                    mView.onDataLoadSucc(REQUEST_CDOE_LOGIN, response);
                 }
             }
 
             @Override
             public void onFailed(ApiException apiException) {
                 super.onFailed(apiException);
-                mView.onDataLoadFailed(2, apiException);
+                mView.onDataLoadFailed(REQUEST_CDOE_LOGIN, apiException);
+            }
+        }));
+
+    }
+
+    @Override
+    public void doGetCode(String mobile) {
+        addSubscribe(mModel.login(mobile).subscribeWith(new SimpleRequestSubscriber<RootResponse>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+            @Override
+            public void onResponse(RootResponse response) {
+                super.onResponse(response);
+                if (response.isSuccess()) {
+                    mView.onDataLoadSucc(REQUEST_CDOE_GET_CODE, response);
+                }
+            }
+
+            @Override
+            public void onFailed(ApiException apiException) {
+                super.onFailed(apiException);
+                mView.onDataLoadFailed(REQUEST_CDOE_GET_CODE, apiException);
             }
         }));
 

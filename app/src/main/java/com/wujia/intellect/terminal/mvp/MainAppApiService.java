@@ -2,6 +2,7 @@ package com.wujia.intellect.terminal.mvp;
 
 
 import com.wujia.businesslib.data.ApiResponse;
+import com.wujia.businesslib.data.RootResponse;
 import com.wujia.businesslib.data.TokenBean;
 import com.wujia.businesslib.data.UserBean;
 
@@ -24,5 +25,13 @@ public interface MainAppApiService {
     @FormUrlEncoded
     @POST("/openapi/v1/user/padLogin")
     Flowable<UserBean> login(@Field("mobile") String mobile, @Field("captcha") String captcha, @Field("padSn") String padSn);
+
+    @FormUrlEncoded
+    @POST("/openapi/v1/user/sendCaptcha")
+    Flowable<RootResponse> getCode(@Field("mobile") String mobile);
+
+    @GET("/openapi/v1/wj/getQuickCard")
+    Flowable<TokenBean> getQuickCard(@Query("communityId") String communityId);
+
 
 }
