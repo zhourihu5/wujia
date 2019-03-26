@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.family.FamilyFragment;
 import com.wujia.intellect.terminal.market.MarketFragment;
@@ -72,7 +73,7 @@ public class MainActivity extends BaseActivity {
         mArrow = findViewById(R.id.main_tab_arrow);
 
 
-        FragmentManager fm=getSupportFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         SupportFragment firstFragment = findFragment(HomeHomeFragment.class);
         if (firstFragment == null) {
             mFragments[0] = HomeFragment.newInstance();
@@ -141,7 +142,16 @@ public class MainActivity extends BaseActivity {
 //                mTabBar.getChildAt(5).performClick();
             }
         });
+
+        initSDKManager();
     }
+
+    private void initSDKManager() {
+        JXPadSdk.getDoorAccessManager().startFamily("001901109CDB0000", "01");
+//        manager.setListUIListener(this);
+//        manager.setDoorAccessListener(this);
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
 //        super.onSaveInstanceState(outState, outPersistentState);

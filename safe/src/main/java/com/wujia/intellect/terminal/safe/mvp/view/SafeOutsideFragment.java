@@ -131,7 +131,7 @@ public class SafeOutsideFragment extends BaseFragment implements
 
 
         mDoorAccessManager = JXPadSdk.getDoorAccessManager();
-        mDoorAccessManager.setConversationUIListener(this);
+        mDoorAccessManager.addConversationUIListener(this);
 
         btnEdit.setOnClickListener(this);
 
@@ -204,7 +204,7 @@ public class SafeOutsideFragment extends BaseFragment implements
 //    }
 
     @Override
-    public void startTransPort() {
+    public void startTransPort(String sessionId) {
 
     }
 

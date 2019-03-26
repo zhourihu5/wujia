@@ -18,13 +18,10 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField("String", "API_HOST", "${HOST_DEV}")
-            buildConfigField("String", "PARAM_SIGN_KEY", '"GriE93gIGp$5bDjQ4rc20FzxWGghTIau"')
+            minifyEnabled false
         }
         release {
             minifyEnabled false
-            buildConfigField("String", "API_HOST", "${HOST_RELEASE}")
-            buildConfigField("String", "PARAM_SIGN_KEY", '"hkf%t5SMv1HtrVS!Y%B!NPNS!!0cWgy"')
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -41,6 +38,10 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 //    implementation 'com.gcssloop.widget:arc-seekbar:1.1.0'
 
+    api fileTree(dir: 'libs')
+    api 'com.jingxi.smartlife.pad.sdk:doorAccess:1.1.6.2'
+    api 'com.jingxi.smartlife.pad.sdk:sdk:1.0.2'
+    api 'com.jingxi.smartlife.pad.sdk:utils:1.0.2'
     api project(':lib_uikit')
     api project(':lib_imageloader')
 //    api 'me.jessyan:autosize:1.1.2'

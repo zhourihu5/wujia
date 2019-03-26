@@ -35,8 +35,8 @@
             android:id="@+id/rv_home_member"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/px72"
-            android:layout_marginLeft="@dimen/px80"
             android:layout_alignBottom="@id/home_status_layout"
+            android:layout_marginLeft="@dimen/px80"
             android:orientation="horizontal"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             tools:listitem="@layout/item_home_head" />
@@ -46,9 +46,9 @@
             android:layout_width="@dimen/px72"
             android:layout_height="@dimen/px72"
             android:layout_alignTop="@id/rv_home_member"
+            android:layout_marginRight="@dimen/px20"
             android:layout_toRightOf="@id/rv_home_member"
             android:scaleType="centerCrop"
-            android:layout_marginRight="@dimen/px20"
             android:src="@mipmap/btn_home_add" />
 
         <ImageView
@@ -86,14 +86,14 @@
         <LinearLayout
             android:id="@+id/home_eq_status_layout"
             android:layout_width="@dimen/px200"
-            android:paddingLeft="@dimen/px10"
-            android:paddingRight="10dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/home_arc_view"
             android:layout_alignLeft="@id/home_arc_view"
             android:layout_marginTop="@dimen/px4"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/px10"
+            android:paddingRight="10dp">
 
             <ImageView
                 android:id="@+id/home_home_img"
@@ -107,7 +107,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@mipmap/icon_home_battery_normal" />
+                android:src="@drawable/img_homt_batter_level" />
 
             <ImageView
                 android:id="@+id/home_wifi_img"
@@ -218,8 +218,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/px192"
-            android:layout_marginTop="@dimen/px52"
             android:layout_marginLeft="@dimen/px68"
+            android:layout_marginTop="@dimen/px52"
             android:orientation="horizontal">
 
             <android.support.v7.widget.RecyclerView
@@ -235,8 +235,8 @@
                 android:id="@+id/home_call_service_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px46"
                 android:layout_gravity="bottom"
+                android:layout_marginLeft="@dimen/px46"
                 android:layout_marginRight="@dimen/px72"
                 android:src="@mipmap/btn_home_cotact" />
         </LinearLayout>

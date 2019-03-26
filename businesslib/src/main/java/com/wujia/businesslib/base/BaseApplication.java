@@ -3,6 +3,7 @@ package com.wujia.businesslib.base;
 
 import android.app.Application;
 
+import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.wujia.businesslib.BuildConfig;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.wujia.lib_common.utils.AppContext;
@@ -18,6 +19,14 @@ public class BaseApplication extends Application {
         instance = this;
         AppContext.init(instance);
         initArouter();
+        initSDKManager();
+
+    }
+
+    private void initSDKManager() {
+        JXPadSdk.init(instance);
+        JXPadSdk.initDoorAccess();
+
     }
 
     private void initArouter() {

@@ -85,8 +85,8 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         mPresenter.doTimeChange();
 
         if (!TextUtils.isEmpty(DataManager.getFamilyId())) {
-//            toActivity(MainActivity.class);
-//            finish();
+            toActivity(MainActivity.class);
+            finish();
         }
     }
 

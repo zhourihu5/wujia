@@ -3,11 +3,8 @@ package com.wujia.intellect.terminal.safe.mvp;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.jingxi.smartlife.pad.sdk.doorAccess.DoorAccessManager;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorDevice;
-import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListUI;
-import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListener;
 import com.wujia.intellect.terminal.safe.R;
 import com.wujia.intellect.terminal.safe.mvp.view.SafeOtherFragment;
 import com.wujia.intellect.terminal.safe.mvp.view.SafeOutsideFragment;
@@ -27,13 +24,9 @@ import me.yokeyword.fragmentation.SupportFragment;
  * date ：2019-01-12 20:06
  * description ：智能家居 home
  */
-public class SafeHomeFragment extends BaseFragment implements
-        DoorAccessListUI, DoorAccessListener {
+public class SafeHomeFragment extends BaseFragment {
     private VerticalTabBar mTabBar;
     private SupportFragment[] mFragments = new SupportFragment[4];
-
-    private DoorAccessManager manager;
-    private List<DoorDevice> mDevices = new ArrayList<>();
 
     public SafeHomeFragment() {
 
@@ -91,25 +84,6 @@ public class SafeHomeFragment extends BaseFragment implements
                 showHideFragment(mFragments[position], mFragments[prePosition]);
             }
         });
-
-        JXPadSdk.init(mActivity.getApplication());
-        JXPadSdk.initDoorAccess("001901109CDB0000", "01");
-        manager = JXPadSdk.getDoorAccessManager();
-        manager.setListUIListener(this);
-        manager.setDoorAccessListener(this);
-
-        setData();
-
-    }
-
-
-    private void setData() {
-        mDevices.clear();
-        List<DoorDevice> devices = manager.getDevices();
-        if (devices != null) {
-            mDevices.addAll(devices);
-        }
-        LogUtil.i("devices size = " + mDevices.size());
     }
 
     @Override
@@ -127,31 +101,6 @@ public class SafeHomeFragment extends BaseFragment implements
         // 当对用户不可见时 回调
         // 不管是 父Fragment还是子Fragment 都有效！
         LogUtil.i("SafeHomeFragment onSupportInvisible");
-
-    }
-
-    @Override
-    public void refreshList() {
-
-    }
-
-    @Override
-    public void onRinging(String s) {
-
-    }
-
-    @Override
-    public void onUnLock() {
-
-    }
-
-    @Override
-    public void onDeviceChanged(boolean b, boolean b1, boolean b2) {
-
-    }
-
-    @Override
-    public void onBaseButtonClick(String s) {
 
     }
 }

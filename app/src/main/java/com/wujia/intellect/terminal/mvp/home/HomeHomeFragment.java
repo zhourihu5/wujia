@@ -1,6 +1,11 @@
 package com.wujia.intellect.terminal.mvp.home;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +35,8 @@ import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.base.view.HorizontalDecoration;
 import com.wujia.lib_common.utils.DateUtil;
 import com.wujia.lib_common.utils.FontUtils;
+import com.wujia.lib_common.utils.LogUtil;
+import com.wujia.lib_common.utils.NetworkUtil;
 import com.wujia.lib_common.utils.StringUtil;
 
 import java.util.ArrayList;
@@ -82,6 +89,7 @@ public class HomeHomeFragment extends BaseFragment {
     @BindView(R.id.home_call_service_btn)
     ImageView homeCallServiceBtn;
     private HomeCardAdapter homeCardAdapter;
+    private BatteryReceiver receiver;
 
     public HomeHomeFragment() {
     }
@@ -102,8 +110,6 @@ public class HomeHomeFragment extends BaseFragment {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        // 懒加载
-        // 同级Fragment场景、ViewPager场景均适用
 
         FontUtils.changeFontTypeface(homeWeatherNumTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
 
@@ -166,6 +172,10 @@ public class HomeHomeFragment extends BaseFragment {
             }
         });
 
+
+        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        receiver = new BatteryReceiver(homeBatterImg);
+        mActivity.registerReceiver(receiver, filter);
     }
 
     @Override
@@ -215,6 +225,60 @@ public class HomeHomeFragment extends BaseFragment {
             case R.id.home_arc_view:
 //                start(ExceptionStatusFragment.newInstance());
                 break;
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        //销毁广播
+        if (null != receiver) {
+            mActivity.unregisterReceiver(receiver);
+            receiver = null;
+        }
+        super.onDestroyView();
+    }
+
+    /**
+     * 监听获取手机系统剩余电量
+     */
+    class BatteryReceiver extends BroadcastReceiver {
+        private ImageView icon;
+
+        public BatteryReceiver(ImageView icon) {
+            this.icon = icon;
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int current = intent.getExtras().getInt("level");// 获得当前电量
+            int total = intent.getExtras().getInt("scale");// 获得总电量
+            int percent = current * 100 / total;
+
+            if (percent < 20) {
+                icon.getDrawable().setLevel(1);
+            } else {
+                icon.getDrawable().setLevel(0);
+            }
+
+            LogUtil.i(" == level == " + current);
+            LogUtil.i(" == scale == " + total);
+        }
+    }
+
+    class NetworkChangeReceiver extends BroadcastReceiver {
+
+        private ImageView icon;
+
+        public NetworkChangeReceiver(ImageView icon) {
+            this.icon = icon;
+        }
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (NetworkUtil.getNetWork(context)) {
+                icon.getDrawable().setLevel(1);
+            } else {
+                icon.getDrawable().setLevel(0);
+            }
         }
     }
 }

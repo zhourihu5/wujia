@@ -1,208 +1,208 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item type="id" name="hierarchy"></item>
-    <item type="id" name="isexpand"></item>
+    <item type="id" name="hierarchy"/>
+    <item type="id" name="isexpand"/>
 
 
-    <item name="enter" type="id">false</item>
-    <item name="fragment_1" type="id">false</item>
-    <item name="fragment_2" type="id">false</item>
-    <item name="fragment_container" type="id">false</item>
+    <item name="enter" type="id"/>
+    <item name="fragment_1" type="id"/>
+    <item name="fragment_2" type="id"/>
+    <item name="fragment_container" type="id"/>
 
     <!-- view -->
-    <item name="view1" type="id">false</item>
+    <item name="view1" type="id"/>
     <!-- button -->
-    <item name="btn1" type="id">false</item>
-    <item name="btn2" type="id">false</item>
-    <item name="btn3" type="id">false</item>
-    <item name="btn4" type="id">false</item>
-    <item name="btn5" type="id">false</item>
-    <item name="btn6" type="id">false</item>
-    <item name="btn7" type="id">false</item>
-    <item name="btn8" type="id">false</item>
-    <item name="btn9" type="id">false</item>
+    <item name="btn1" type="id"/>
+    <item name="btn2" type="id"/>
+    <item name="btn3" type="id"/>
+    <item name="btn4" type="id"/>
+    <item name="btn5" type="id"/>
+    <item name="btn6" type="id"/>
+    <item name="btn7" type="id"/>
+    <item name="btn8" type="id"/>
+    <item name="btn9" type="id"/>
     <!-- EditText -->
-    <item name="et1" type="id">false</item>
-    <item name="et2" type="id">false</item>
-    <item name="et3" type="id">false</item>
-    <item name="et4" type="id">false</item>
-    <item name="et5" type="id">false</item>
-    <item name="et6" type="id">false</item>
-    <item name="et7" type="id">false</item>
-    <item name="et8" type="id">false</item>
-    <item name="et9" type="id">false</item>
-    <item name="et10" type="id">false</item>
-    <item name="et11" type="id">false</item>
-    <item name="et12" type="id">false</item>
-    <item name="et13" type="id">false</item>
-    <item name="et14" type="id">false</item>
-    <item name="et15" type="id">false</item>
-    <item name="et16" type="id">false</item>
+    <item name="et1" type="id"/>
+    <item name="et2" type="id"/>
+    <item name="et3" type="id"/>
+    <item name="et4" type="id"/>
+    <item name="et5" type="id"/>
+    <item name="et6" type="id"/>
+    <item name="et7" type="id"/>
+    <item name="et8" type="id"/>
+    <item name="et9" type="id"/>
+    <item name="et10" type="id"/>
+    <item name="et11" type="id"/>
+    <item name="et12" type="id"/>
+    <item name="et13" type="id"/>
+    <item name="et14" type="id"/>
+    <item name="et15" type="id"/>
+    <item name="et16" type="id"/>
     <!-- TextView -->
-    <item name="tv1" type="id">false</item>
-    <item name="tv2" type="id">false</item>
-    <item name="tv3" type="id">false</item>
-    <item name="tv4" type="id">false</item>
-    <item name="tv5" type="id">false</item>
-    <item name="tv6" type="id">false</item>
-    <item name="tv7" type="id">false</item>
-    <item name="tv8" type="id">false</item>
-    <item name="tv9" type="id">false</item>
-    <item name="tv10" type="id">false</item>
-    <item name="tv11" type="id">false</item>
-    <item name="tv12" type="id">false</item>
-    <item name="tv13" type="id">false</item>
-    <item name="tv14" type="id">false</item>
-    <item name="tv15" type="id">false</item>
-    <item name="tv16" type="id">false</item>
-    <item name="tv17" type="id">false</item>
-    <item name="tv18" type="id">false</item>
-    <item name="tv19" type="id">false</item>
-    <item name="tv20" type="id">false</item>
-    <item name="tv21" type="id">false</item>
-    <item name="tv22" type="id">false</item>
-    <item name="tv23" type="id">false</item>
-    <item name="tv24" type="id">false</item>
-    <item name="tv25" type="id">false</item>
-    <item name="tv_loadmore" type="id">false</item>
+    <item name="tv1" type="id"/>
+    <item name="tv2" type="id"/>
+    <item name="tv3" type="id"/>
+    <item name="tv4" type="id"/>
+    <item name="tv5" type="id"/>
+    <item name="tv6" type="id"/>
+    <item name="tv7" type="id"/>
+    <item name="tv8" type="id"/>
+    <item name="tv9" type="id"/>
+    <item name="tv10" type="id"/>
+    <item name="tv11" type="id"/>
+    <item name="tv12" type="id"/>
+    <item name="tv13" type="id"/>
+    <item name="tv14" type="id"/>
+    <item name="tv15" type="id"/>
+    <item name="tv16" type="id"/>
+    <item name="tv17" type="id"/>
+    <item name="tv18" type="id"/>
+    <item name="tv19" type="id"/>
+    <item name="tv20" type="id"/>
+    <item name="tv21" type="id"/>
+    <item name="tv22" type="id"/>
+    <item name="tv23" type="id"/>
+    <item name="tv24" type="id"/>
+    <item name="tv25" type="id"/>
+    <item name="tv_loadmore" type="id"/>
 
-    <item name="tv_sw" type="id">false</item>
+    <item name="tv_sw" type="id"/>
 
     <!-- ListView -->
-    <item name="lv1" type="id">false</item>
-    <item name="lv2" type="id">false</item>
+    <item name="lv1" type="id"/>
+    <item name="lv2" type="id"/>
     <!-- RecyclerView -->
-    <item name="rv1" type="id">false</item>
-    <item name="rv2" type="id">false</item>
-    <item name="rv3" type="id">false</item>
+    <item name="rv1" type="id"/>
+    <item name="rv2" type="id"/>
+    <item name="rv3" type="id"/>
     <!-- Image -->
-    <item name="img1" type="id">false</item>
-    <item name="img2" type="id">false</item>
-    <item name="img3" type="id">false</item>
-    <item name="img4" type="id">false</item>
-    <item name="img5" type="id">false</item>
-    <item name="img6" type="id">false</item>
-    <item name="img7" type="id">false</item>
-    <item name="img8" type="id">false</item>
-    <item name="img9" type="id">false</item>
-    <item name="img10" type="id">false</item>
+    <item name="img1" type="id"/>
+    <item name="img2" type="id"/>
+    <item name="img3" type="id"/>
+    <item name="img4" type="id"/>
+    <item name="img5" type="id"/>
+    <item name="img6" type="id"/>
+    <item name="img7" type="id"/>
+    <item name="img8" type="id"/>
+    <item name="img9" type="id"/>
+    <item name="img10" type="id"/>
     <!-- ImageButton -->
-    <item name="imgBtn1" type="id">false</item>
-    <item name="imgBtn2" type="id">false</item>
+    <item name="imgBtn1" type="id"/>
+    <item name="imgBtn2" type="id"/>
     <!-- Progress -->
-    <item name="progress1" type="id">false</item>
-    <item name="progress2" type="id">false</item>
+    <item name="progress1" type="id"/>
+    <item name="progress2" type="id"/>
     <!--FrameLayout-->
-    <item name="fl_1" type="id">false</item>
-    <item name="fl_2" type="id">false</item>
-    <item name="fl_3" type="id">false</item>
-    <item name="fl_4" type="id">false</item>
+    <item name="fl_1" type="id"/>
+    <item name="fl_2" type="id"/>
+    <item name="fl_3" type="id"/>
+    <item name="fl_4" type="id"/>
     <!-- RelativeLayout -->
-    <item name="rely1" type="id">false</item>
-    <item name="rely2" type="id">false</item>
-    <item name="rely3" type="id">false</item>
-    <item name="rely4" type="id">false</item>
+    <item name="rely1" type="id"/>
+    <item name="rely2" type="id"/>
+    <item name="rely3" type="id"/>
+    <item name="rely4" type="id"/>
     <!-- Linearlayout -->
-    <item name="l1" type="id">false</item>
-    <item name="l2" type="id">false</item>
-    <item name="l3" type="id">false</item>
-    <item name="l4" type="id">false</item>
-    <item name="l5" type="id">false</item>
-    <item name="l6" type="id">false</item>
-    <item name="l7" type="id">false</item>
-    <item name="l8" type="id">false</item>
-    <item name="l9" type="id">false</item>
-    <item name="l10" type="id">false</item>
-    <item name="l11" type="id">false</item>
-    <item name="l12" type="id">false</item>
-    <item name="l13" type="id">false</item>
-    <item name="l14" type="id">false</item>
-    <item name="l15" type="id">false</item>
+    <item name="l1" type="id"/>
+    <item name="l2" type="id"/>
+    <item name="l3" type="id"/>
+    <item name="l4" type="id"/>
+    <item name="l5" type="id"/>
+    <item name="l6" type="id"/>
+    <item name="l7" type="id"/>
+    <item name="l8" type="id"/>
+    <item name="l9" type="id"/>
+    <item name="l10" type="id"/>
+    <item name="l11" type="id"/>
+    <item name="l12" type="id"/>
+    <item name="l13" type="id"/>
+    <item name="l14" type="id"/>
+    <item name="l15" type="id"/>
     <!--Tab-->
-    <item name="tab1" type="id">false</item>
-    <item name="tab2" type="id">false</item>
-    <item name="tab3" type="id">false</item>
-    <item name="tab4" type="id">false</item>
-    <item name="tab5" type="id">false</item>
+    <item name="tab1" type="id"/>
+    <item name="tab2" type="id"/>
+    <item name="tab3" type="id"/>
+    <item name="tab4" type="id"/>
+    <item name="tab5" type="id"/>
     <!-- Switch -->
-    <item name="switch1" type="id">false</item>
-    <item name="switch2" type="id">false</item>
-    <item name="switch3" type="id">false</item>
-    <item name="switch4" type="id">false</item>
+    <item name="switch1" type="id"/>
+    <item name="switch2" type="id"/>
+    <item name="switch3" type="id"/>
+    <item name="switch4" type="id"/>
     <!-- CheckBox -->
-    <item name="cb1" type="id">false</item>
-    <item name="cb2" type="id">false</item>
-    <item name="cb3" type="id">false</item>
-    <item name="cb4" type="id">false</item>
+    <item name="cb1" type="id"/>
+    <item name="cb2" type="id"/>
+    <item name="cb3" type="id"/>
+    <item name="cb4" type="id"/>
     <!-- Line -->
-    <item name="line1" type="id">false</item>
-    <item name="line2" type="id">false</item>
-    <item name="line3" type="id">false</item>
-    <item name="line4" type="id">false</item>
+    <item name="line1" type="id"/>
+    <item name="line2" type="id"/>
+    <item name="line3" type="id"/>
+    <item name="line4" type="id"/>
     <!-- RadioGroup -->
-    <item name="rg" type="id">false</item>
-    <item name="rg1" type="id">false</item>
-    <item name="rb1" type="id">false</item>
-    <item name="rb2" type="id">false</item>
-    <item name="rb3" type="id">false</item>
-    <item name="rb4" type="id">false</item>
-    <item name="rb5" type="id">false</item>
-    <item name="rb6" type="id">false</item>
-    <item name="rb7" type="id">false</item>
+    <item name="rg" type="id"/>
+    <item name="rg1" type="id"/>
+    <item name="rb1" type="id"/>
+    <item name="rb2" type="id"/>
+    <item name="rb3" type="id"/>
+    <item name="rb4" type="id"/>
+    <item name="rb5" type="id"/>
+    <item name="rb6" type="id"/>
+    <item name="rb7" type="id"/>
 
     <!--icon-->
-    <item name="ic1" type="id">false</item>
-    <item name="ic2" type="id">false</item>
-    <item name="ic3" type="id">false</item>
-    <item name="ic4" type="id">false</item>
+    <item name="ic1" type="id"/>
+    <item name="ic2" type="id"/>
+    <item name="ic3" type="id"/>
+    <item name="ic4" type="id"/>
 
     <!--ImageButton-->
-    <item name="ib1" type="id">false</item>
-    <item name="ib2" type="id">false</item>
-    <item name="ib3" type="id">false</item>
-    <item name="ib4" type="id">false</item>
+    <item name="ib1" type="id"/>
+    <item name="ib2" type="id"/>
+    <item name="ib3" type="id"/>
+    <item name="ib4" type="id"/>
 
 
     <!--NestedScrollView-->
-    <item name="nested_scrolview" type="id">false</item>
+    <item name="nested_scrolview" type="id"/>
     <!--SwipeRefreshLayout-->
-    <item name="swipe_container" type="id">false</item>
+    <item name="swipe_container" type="id"/>
     <!--CoordinatorLayout-->
-    <item name="main_content" type="id">false</item>
+    <item name="main_content" type="id"/>
     <!--AppBarLayout-->
-    <item name="appbar" type="id">false</item>
+    <item name="appbar" type="id"/>
     <!--CollapsingToolbarLayout-->
-    <item name="collapsing" type="id">false</item>
+    <item name="collapsing" type="id"/>
     <!--TabLayout-->
-    <item name="tabLayout" type="id">false</item>
-    <item name="tab_layout" type="id">false</item>
+    <item name="tabLayout" type="id"/>
+    <item name="tab_layout" type="id"/>
     <!--FloatingActionMenu-->
-    <item name="fab_m" type="id">false</item>
+    <item name="fab_m" type="id"/>
     <!--FloatingActionButton-->
-    <item name="fab" type="id">false</item>
-    <item name="fab2" type="id">false</item>
-    <item name="fab3" type="id">false</item>
+    <item name="fab" type="id"/>
+    <item name="fab2" type="id"/>
+    <item name="fab3" type="id"/>
 
-    <item name="mapFab" type="id">false</item>
+    <item name="mapFab" type="id"/>
 
     <!--Toolbar-->
-    <item name="toolbar" type="id">false</item>
+    <item name="toolbar" type="id"/>
     <!-- WebView -->
-    <item name="webview" type="id">false</item>
+    <item name="webview" type="id"/>
     <!-- GridView -->
-    <item name="gv" type="id">false</item>
-    <item name="gv1" type="id">false</item>
+    <item name="gv" type="id"/>
+    <item name="gv1" type="id"/>
     <!-- SlideScrollView -->
-    <item name="sv" type="id">false</item>
+    <item name="sv" type="id"/>
     <!-- Gallery -->
-    <item name="gallery" type="id">false</item>
+    <item name="gallery" type="id"/>
     <!-- ViewPager -->
-    <item name="vp" type="id">false</item>
+    <item name="vp" type="id"/>
     <!-- Dialog -->
-    <item name="dialog" type="id">false</item>
+    <item name="dialog" type="id"/>
 
-    <item name="search_view" type="id">false</item>
+    <item name="search_view" type="id"/>
 
-    <item name="rating_bar" type="id">false</item>
+    <item name="rating_bar" type="id"/>
 
 </resources>
