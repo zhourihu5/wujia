@@ -3,6 +3,8 @@ package com.wujia.intellect.terminal.mvp.home.contract;
 import com.wujia.businesslib.data.RootResponse;
 import com.wujia.businesslib.data.TokenBean;
 import com.wujia.businesslib.data.UserBean;
+import com.wujia.intellect.terminal.mvp.home.data.HomeRecBean;
+import com.wujia.intellect.terminal.mvp.home.data.WeatherBean;
 import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.CommonDataLoadView;
 import com.wujia.lib_common.base.IBaseModle;
@@ -17,8 +19,15 @@ import io.reactivex.Flowable;
 public interface HomeContract {
     interface Model extends IBaseModle {
 
+        Flowable<HomeRecBean> getQuickCard(String communityId);
 
+        Flowable<HomeRecBean> getUserQuickCard(String openid);
 
+        Flowable<RootResponse> addUserQuickCard(String openid, String quickCardId);
+
+        Flowable<RootResponse> removeUserQuickCard(String openid, String quickCardId);
+
+        Flowable<WeatherBean> getWeather(String communityId);
 
     }
 
@@ -27,5 +36,14 @@ public interface HomeContract {
 
     interface Presenter extends BasePresenter<View> {
 
+        void getQuickCard(String communityId);
+
+        void getWeather(String communityId);
+
+        void getUserQuickCard(String openid);
+
+        void addUserQuickCard(String openid, String quickCardId);
+
+        void removeUserQuickCard(String openid, String quickCardId);
     }
 }

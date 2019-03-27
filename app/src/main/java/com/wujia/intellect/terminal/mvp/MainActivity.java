@@ -2,6 +2,7 @@ package com.wujia.intellect.terminal.mvp;
 
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.app.ActivityCompat;
@@ -12,8 +13,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.intercom.sdk.SecurityMessage;
+import com.intercom.sdk.SmartHomeManager;
 import com.jingxi.smartlife.pad.sdk.JXPadSdk;
+import com.jingxi.smartlife.pad.sdk.doorAccess.DoorAccessManager;
+import com.jingxi.smartlife.pad.sdk.doorAccess.base.DoorSecurityUtil;
+import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListUI;
+import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListener;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.fragments.NeighborMainFragment;
+import com.wujia.businesslib.base.DataManager;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.family.FamilyFragment;
 import com.wujia.intellect.terminal.market.MarketFragment;
@@ -23,6 +31,7 @@ import com.wujia.intellect.terminal.mvp.home.HomeHomeFragment;
 import com.wujia.intellect.terminal.neighbor.NeighborFragment;
 import com.wujia.intellect.terminal.property.ProperyFragment;
 import com.wujia.intellect.terminal.safe.SafeFragment;
+import com.wujia.intellect.terminal.safe.mvp.view.VideoCallActivity;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib.widget.util.ToastUtil;
@@ -30,11 +39,13 @@ import com.wujia.lib_common.base.BaseActivity;
 import com.wujia.lib_common.utils.LogUtil;
 import com.wujia.lib_common.utils.ScreenUtil;
 
+import java.util.List;
+
 import me.yokeyword.fragmentation.SupportFragment;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements DoorAccessListener, DoorAccessListUI,DoorSecurityUtil.OnSecurityChangedListener {
 
     // 再点一次退出程序时间设置
     private static final long WAIT_TIME = 2000L;
@@ -46,6 +57,9 @@ public class MainActivity extends BaseActivity {
     private SupportFragment[] mFragments = new SupportFragment[8];
     private int tbHeight, itemHeight, arrowHeight, lastTop;
     private RelativeLayout.LayoutParams arrowLayoutParams;
+
+    private DoorAccessManager manager;
+
 
     @Override
     protected int getLayout() {
@@ -148,9 +162,17 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initSDKManager() {
-        JXPadSdk.getDoorAccessManager().startFamily("001901109CDB0000", "01");
+        manager = JXPadSdk.getDoorAccessManager();
+//        manager.startFamily("A000000000050000", "02");
+//        manager.startFamily("001901109CDB0000", "01");
+//        manager.startFamily(DataManager.getFamilyId(), "01");
+        manager.setListUIListener(this);
+        manager.setDoorAccessListener(this);
 //        manager.setListUIListener(this);
 //        manager.setDoorAccessListener(this);
+        manager.addSecurityListener(this);
+//        manager.querySecurityStatus(DataManager.getFamilyId());
+        manager.querySecurityStatus("A000000000050000");
     }
 
     @Override
@@ -216,5 +238,75 @@ public class MainActivity extends BaseActivity {
         return new DefaultHorizontalAnimator();
         // 设置自定义动画
         //        return new FragmentAnimator(enter,exit,popEnter,popExit);
+    }
+
+    @Override
+    public void onRinging(String sessionId) {
+        Intent intent = new Intent(this, VideoCallActivity.class);
+        intent.putExtra("sessionId", sessionId);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onUnLock(String sessionID) {
+
+    }
+
+    @Override
+    public void onDeviceChanged(String familyID, boolean isDoorDeviceOnLine, boolean isUnitDeviceOnline, boolean isPropertyDeviceOnLine) {
+
+        LogUtil.i("doorOnline " + isDoorDeviceOnLine + " unitOnline = " + isUnitDeviceOnline + " isPropertyDeviceOnLine = " + isPropertyDeviceOnLine);
+    }
+
+    @Override
+    public void onBaseButtonClick(String buttonKey, String cmd, String time) {
+
+    }
+
+    @Override
+    public void onProxyOnlineStateChanged(String familyID, String proxyId, int router, boolean online) {
+
+    }
+
+    @Override
+    public void onSnapshotReady(String familyID, String sessionID, String filePath) {
+
+    }
+
+    @Override
+    public void refreshList() {
+        LogUtil.i("refreshList");
+    }
+    /**
+     * 安防状态变更
+     * @param familyDockSn
+     * @param state
+     * @param isFromQuery
+     */
+    @Override
+    public void onStateChanged(String familyDockSn, int state, boolean isFromQuery) {
+        LogUtil.i("安防状态变更： " + familyDockSn + " 状态 ： " + state + " isFromQuery = " + isFromQuery);
+    }
+
+    /**
+     * 安防设备报警
+     * @param familyDockSn
+     * @param stateBeans
+     * @param device
+     */
+    @Override
+    public void onAlarm(String familyDockSn, List<SecurityMessage.StateBean> stateBeans, SmartHomeManager.SecurityDevice device) {
+        LogUtil.i("安防设备报警 ： " + familyDockSn + " 设备 " + stateBeans.get(0).getAlias());
+
+    }
+
+    /**
+     * 安防取消报警回调
+     * @param familyDockSn
+     * @param device
+     */
+    @Override
+    public void onCancelAlarm(String familyDockSn, SmartHomeManager.SecurityDevice device) {
+        LogUtil.i("防区解除报警 ： " + familyDockSn);
     }
 }

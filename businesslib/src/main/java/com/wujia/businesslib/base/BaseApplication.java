@@ -28,12 +28,6 @@ public class BaseApplication extends Application {
     private void initSDKManager() {
         JXPadSdk.init(instance);
         JXPadSdk.initDoorAccess();
-        JXPadSdk.init(instance);
-        JXPadSdk.setAccid("");
-        JXPadSdk.setAppKey("","");
-        JXPadSdk.setCommunityId("");
-        JXPadSdk.setFamilyInfoId("");
-        JXPadSdk.initNeighbor();
     }
 
     private void initArouter() {

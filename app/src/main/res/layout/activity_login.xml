@@ -177,7 +177,7 @@
                     android:layout_centerVertical="true"
                     android:inputType="number"
                     android:maxLength="20"
-                    android:text="jingxikeji"
+                    android:text="1234"
                     android:paddingLeft="@dimen/px150"
                     android:singleLine="true"
                     android:textColor="@color/c3"

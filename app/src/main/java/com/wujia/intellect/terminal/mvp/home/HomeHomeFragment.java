@@ -21,10 +21,12 @@ import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.home.adapter.HomeMemberAdapter;
 import com.wujia.intellect.terminal.mvp.home.adapter.HomeNotifyAdapter;
 import com.wujia.intellect.terminal.mvp.home.adapter.HomeCardAdapter;
+import com.wujia.intellect.terminal.mvp.home.contract.HomeContract;
 import com.wujia.intellect.terminal.mvp.home.contract.HomePresenter;
 import com.wujia.intellect.terminal.mvp.home.data.HomeMeberBean;
 import com.wujia.intellect.terminal.mvp.home.data.HomeNotifyBean;
 import com.wujia.intellect.terminal.mvp.home.data.HomeRecBean;
+import com.wujia.intellect.terminal.mvp.home.data.WeatherBean;
 import com.wujia.intellect.terminal.mvp.home.view.AddMemberDialog;
 import com.wujia.intellect.terminal.mvp.home.view.MessageDialog;
 import com.wujia.intellect.terminal.mvp.setting.view.CardManagerFragment;
@@ -32,6 +34,7 @@ import com.wujia.lib.widget.HomeArcView;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.base.view.HorizontalDecoration;
+import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.DateUtil;
 import com.wujia.lib_common.utils.FontUtils;
 import com.wujia.lib_common.utils.LogUtil;
@@ -49,7 +52,7 @@ import butterknife.OnClick;
  * date ：2019-01-12 20:06
  * description ： home
  */
-public class HomeHomeFragment extends MvpFragment<HomePresenter> {
+public class HomeHomeFragment extends MvpFragment<HomePresenter> implements HomeContract.View {
 
     @BindView(R.id.home_room_tv)
     TextView homeRoomTv;
@@ -91,6 +94,9 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> {
     private BatteryReceiver batterReceiver;
     private NetworkChangeReceiver networkReceiver;
 
+    private List<HomeMeberBean> mems;
+    private HomeMemberAdapter memAdapter;
+
     public HomeHomeFragment() {
     }
 
@@ -110,6 +116,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
+        LogUtil.i("HomeHomeFragment  onLazyInitView");
 
         FontUtils.changeFontTypeface(homeWeatherNumTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
 
@@ -117,10 +124,11 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> {
         homeDateTv.setText(StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay()));
 
 
-        List<HomeMeberBean> mems = DataBaseUtil.getMemberList(HomeMeberBean.class);
+        mems = DataBaseUtil.getMemberList(HomeMeberBean.class);
 
-        rvHomeMember.addItemDecoration(new HorizontalDecoration(20));
-        rvHomeMember.setAdapter(new HomeMemberAdapter(mActivity, mems));
+//        rvHomeMember.addItemDecoration(new HorizontalDecoration(10));
+        memAdapter = new HomeMemberAdapter(mActivity, mems);
+        rvHomeMember.setAdapter(memAdapter);
 
         final List<HomeRecBean> cards = new ArrayList<>();
         cards.add(new HomeRecBean(0));
@@ -177,6 +185,10 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> {
 
         mActivity.registerReceiver(batterReceiver, filter);
         mActivity.registerReceiver(networkReceiver, filter);
+
+        mPresenter.getUserQuickCard(DataManager.getOpenid());
+        mPresenter.getWeather(DataManager.getCommunityId());
+
     }
 
     @Override
@@ -194,12 +206,15 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> {
         super.onSupportVisible();
         // 当对用户可见时 回调
         // 不管是 父Fragment还是子Fragment 都有效！
+        LogUtil.i("HomeHomeFragment  可见");
 
     }
 
     @Override
     public void onSupportInvisible() {
         super.onSupportInvisible();
+        LogUtil.i("HomeHomeFragment  不可见");
+
         // 当对用户不可见时 回调
         // 不管是 父Fragment还是子Fragment 都有效！
     }
@@ -215,7 +230,8 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> {
                 new AddMemberDialog(mActivity).setListener(new OnInputDialogListener() {
                     @Override
                     public void dialogSureClick(String input) {
-                        //TODO 邀请回调
+                        mems.add(new HomeMeberBean());
+                        memAdapter.notifyDataSetChanged();
                     }
                 }).show();
                 break;
@@ -228,6 +244,31 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> {
                 break;
         }
     }
+
+    @Override
+    public void onDataLoadSucc(int requestCode, Object object) {
+        switch (requestCode) {
+            case HomePresenter.REQUEST_CDOE_GET_CARD_MY:
+
+                HomeRecBean cards = (HomeRecBean) object;
+                break;
+
+            case HomePresenter.REQUEST_CDOE_WEATHER:
+                WeatherBean weatherBean = (WeatherBean) object;
+                if (null != weatherBean.content && weatherBean.content.size() > 0) {
+                    WeatherBean.Weather weather = weatherBean.content.get(weatherBean.content.size() / 2);
+                    homeWeatherNumTv.setText(weather.temperature + "°");
+                    homeWeatherDescTv.setText(weather.weather);
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onDataLoadFailed(int requestCode, ApiException apiException) {
+
+    }
+
 
     @Override
     public void onDestroyView() {
@@ -281,9 +322,9 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (NetworkUtil.getNetWork(context)) {
-                icon.getDrawable().setLevel(1);
-            } else {
                 icon.getDrawable().setLevel(0);
+            } else {
+                icon.getDrawable().setLevel(1);
             }
         }
     }

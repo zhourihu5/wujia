@@ -49,6 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/px48"
+                    android:visibility="gone"
                     android:background="@mipmap/btn_safe_mark" />
 
                 <Space
@@ -67,7 +68,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/px48"
-                    android:background="@mipmap/btn_safe_fullscreen" />
+                    android:background="@mipmap/btn_safe_fullscreen"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

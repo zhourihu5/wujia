@@ -9,11 +9,11 @@ android {
         versionCode app_version.versionCode
         versionName app_version.versionName
 
-//        javaCompileOptions {
-//            annotationProcessorOptions {
-//                arguments = [moduleName: project.getName()]
-//            }
-//        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
     }
 
 }
@@ -36,6 +36,6 @@ dependencies {
 //    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
 //    implementation 'com.google.code.gson:gson:2.8.5'
 //    implementation 'com.aliyun.ams:alicloud-android-push:3.1.1'
-    //    annotationProcessor deps.butterknife.compiler
-    //    annotationProcessor deps.arouter.compiler
+        annotationProcessor deps.butterknife.compiler
+        annotationProcessor deps.arouter.compiler
 }

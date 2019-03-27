@@ -26,7 +26,23 @@ public class DataManager {
     public static String getFamilyId() {
         UserBean.User user = getUser();
         if (null != user) {
-            return user.familyId;
+            return user.openId;
+        }
+        return "";
+    }
+
+    public static String getCommunityId() {
+        UserBean.User user = getUser();
+        if (null != user) {
+            return user.communityId;
+        }
+        return "";
+    }
+
+    public static String getOpenid() {
+        UserBean.User user = getUser();
+        if (null != user) {
+            return user.openId;
         }
         return "";
     }

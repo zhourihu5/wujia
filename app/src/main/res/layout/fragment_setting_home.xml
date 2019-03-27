@@ -43,6 +43,7 @@
 
         <RelativeLayout
             android:id="@+id/item_set_lock_pic"
+            android:visibility="gone"
             style="@style/ItemLayoutStyle">
 
             <TextView

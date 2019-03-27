@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpActivity;
@@ -26,6 +27,7 @@ import com.wujia.lib_common.utils.FontUtils;
 import com.wujia.lib_common.utils.LogUtil;
 import com.wujia.lib_common.utils.SPHelper;
 import com.wujia.lib_common.utils.StringUtil;
+import com.wujia.lib_common.utils.SystemUtil;
 import com.wujia.lib_common.utils.VerifyUtil;
 
 import butterknife.BindView;
@@ -91,6 +93,17 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         mPresenter.doTimeChange();
 
         if (!TextUtils.isEmpty(DataManager.getFamilyId())) {
+
+            UserBean.User user = DataManager.getUser();
+//            JXPadSdk.setAccid("");
+//            JXPadSdk.setAppKey(com.wujia.lib_common.data.network.Constants.APP_ID, com.wujia.lib_common.data.network.Constants.TOKEN);
+//            JXPadSdk.setCommunityId(user.communityId);
+//            JXPadSdk.setFamilyInfoId(user.familyId);
+            JXPadSdk.setAccid("y_p_1241_18021651812");
+            JXPadSdk.setAppKey("userKey:d38bf3b32e09484b83673c90772442cc","6a591fc521f347bfad171fd2932e60d6");
+            JXPadSdk.setCommunityId("1");
+            JXPadSdk.getDoorAccessManager().startFamily("A000000000050000", "02");
+            JXPadSdk.initNeighbor();
             toActivity(MainActivity.class);
             finish();
         }
@@ -174,10 +187,9 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
             return;
         }
 
-        loginLayout1.setVisibility(View.GONE);
-        loginLayout2.setVisibility(View.VISIBLE);
-
 //        http://openapi.house-keeper.cn/openapi/v1/user/padLogin?appid=test&accessToken=4c239ad0-59b1-4306-b437-c8a8e79baea7&padSn=HS1JXY6M12D2900034&mobile=17712239874&captcha=jingxikeji
+        String sn = SystemUtil.getSerialNum();
+//        mPresenter.doLogin(phone, pwd, sn);
         mPresenter.doLogin(phone, pwd, "HS1JXY6M12D2900034");
 
     }
@@ -203,6 +215,16 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
             UserBean userBean = (UserBean) object;
             SPHelper.saveObject(LoginActivity.this, Constants.SP_KEY_USER, userBean.content);
             loginPhoneError.setVisibility(View.INVISIBLE);
+
+            loginLayout1.setVisibility(View.GONE);
+            loginLayout2.setVisibility(View.VISIBLE);
+
+            JXPadSdk.setAccid("");
+            JXPadSdk.setAppKey("", "");
+            JXPadSdk.setCommunityId(userBean.content.communityId);
+            JXPadSdk.setFamilyInfoId(userBean.content.familyId);
+            JXPadSdk.initNeighbor();
+
         } else {
 //            TokenBean bean = (TokenBean) object;
 //            LogUtil.i(bean.toString());

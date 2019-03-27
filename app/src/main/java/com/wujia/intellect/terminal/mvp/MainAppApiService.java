@@ -5,6 +5,8 @@ import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.RootResponse;
 import com.wujia.businesslib.data.TokenBean;
 import com.wujia.businesslib.data.UserBean;
+import com.wujia.intellect.terminal.mvp.home.data.HomeRecBean;
+import com.wujia.intellect.terminal.mvp.home.data.WeatherBean;
 
 import io.reactivex.Flowable;
 import retrofit2.http.Field;
@@ -31,7 +33,20 @@ public interface MainAppApiService {
     Flowable<RootResponse> getCode(@Field("mobile") String mobile);
 
     @GET("/openapi/v1/wj/getQuickCard")
-    Flowable<TokenBean> getQuickCard(@Query("communityId") String communityId);
+    Flowable<HomeRecBean> getQuickCard(@Query("communityId") String communityId);
 
+    @GET("/openapi/v1/wj/getUserQuickCard")
+    Flowable<HomeRecBean> getUserQuickCard(@Query("openid") String openid);
+
+    @FormUrlEncoded
+    @POST("/openapi/v1/wj/userQuickCardSubscription")
+    Flowable<RootResponse> addUserQuickCard(@Field("openid") String openid, @Field("quickCardId") String quickCardId);
+
+    @FormUrlEncoded
+    @POST("/openapi/v1/wj/userQuickCardRemove")
+    Flowable<RootResponse> removeUserQuickCard(@Field("openid") String openid, @Field("quickCardId") String quickCardId);
+
+    @GET("/openapi/v1/community/getWeather")
+    Flowable<WeatherBean> getWeather(@Query("communityId") String communityId);
 
 }
