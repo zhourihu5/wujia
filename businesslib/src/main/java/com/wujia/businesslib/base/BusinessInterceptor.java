@@ -1,5 +1,6 @@
 package com.wujia.businesslib.base;
 
+import com.wujia.businesslib.Constants;
 import com.wujia.lib_common.data.network.RequestParamsUtils;
 
 import java.io.IOException;
@@ -28,8 +29,7 @@ public class BusinessInterceptor implements Interceptor {
 
     private Map<String, String> getTokenMap() {
         Map<String, String> map = new HashMap<>();
-        //TODO test
-        map.put("token", "");
+        map.put(Constants.COMMON_REQUEST_TOKEN, DataManager.getToken());
         return map;
     }
 }

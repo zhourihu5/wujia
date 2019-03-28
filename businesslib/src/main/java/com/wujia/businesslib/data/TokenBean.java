@@ -6,6 +6,5 @@ package com.wujia.businesslib.data;
  * description ：
  */
 public class TokenBean extends RootResponse {
-    public String accessToken;
-    public int expiresIn;
+    public String content;
 }

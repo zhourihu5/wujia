@@ -46,4 +46,8 @@ public class DataManager {
         }
         return "";
     }
+
+    public static String getToken() {
+        return (String) SPHelper.get(AppContext.get(), com.wujia.lib_common.data.network.Constants.TOKEN, "");
+    }
 }

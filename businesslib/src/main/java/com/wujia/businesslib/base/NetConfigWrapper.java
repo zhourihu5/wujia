@@ -13,7 +13,7 @@ public class NetConfigWrapper {
         NetConfig.debug = BuildConfig.DEBUG;
 //        NetConfig.signKey = BuildConfig.PARAM_SIGN_KEY;
         NetConfig config = new NetConfig();
-//        config.configInterceptors(new Interceptor[]{new BusinessInterceptor()});
+        config.configInterceptors(new Interceptor[]{new BusinessInterceptor()});
         config.baseURL = Constants.BASE_URL;
         return config;
     }

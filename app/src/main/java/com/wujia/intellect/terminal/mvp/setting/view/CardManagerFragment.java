@@ -7,11 +7,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.wujia.businesslib.Constants;
+import com.wujia.businesslib.base.DataManager;
+import com.wujia.businesslib.base.MvpFragment;
 import com.wujia.intellect.terminal.R;
+import com.wujia.intellect.terminal.mvp.home.contract.HomeContract;
+import com.wujia.intellect.terminal.mvp.home.contract.HomePresenter;
 import com.wujia.intellect.terminal.mvp.home.data.HomeRecBean;
 import com.wujia.intellect.terminal.mvp.setting.adapter.HomeCardManagerAdapter;
 import com.wujia.lib_common.base.BaseActivity;
 import com.wujia.lib_common.base.BaseFragment;
+import com.wujia.lib_common.data.network.exception.ApiException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +28,7 @@ import butterknife.OnClick;
 * date ：2019-02-19 23:56
 * description ：卡片管理
 */
-public class CardManagerFragment extends BaseFragment {
+public class CardManagerFragment extends MvpFragment<HomePresenter> implements HomeContract.View {
 
     public static final int REQUEST_CODE_CARD_MANAGER = 0X1001;
     public static final int REQUEST_CODE_CARD_MANAGER_COMPLETE = 0X1002;
@@ -118,6 +123,8 @@ public class CardManagerFragment extends BaseFragment {
 
             }
         });
+
+        mPresenter.getQuickCard(DataManager.getCommunityId());
     }
 
     @OnClick({R.id.layout_back_btn, R.id.layout_right_btn})
@@ -131,5 +138,24 @@ public class CardManagerFragment extends BaseFragment {
                 pop();
                 break;
         }
+    }
+
+    @Override
+    protected HomePresenter createPresenter() {
+        return new HomePresenter();
+    }
+
+    @Override
+    public void onDataLoadSucc(int requestCode, Object object) {
+        switch (requestCode){
+            case HomePresenter.REQUEST_CDOE_GET_CARD_OTHER:
+                HomeRecBean cards = (HomeRecBean) object;
+                break;
+        }
+    }
+
+    @Override
+    public void onDataLoadFailed(int requestCode, ApiException apiException) {
+
     }
 }
