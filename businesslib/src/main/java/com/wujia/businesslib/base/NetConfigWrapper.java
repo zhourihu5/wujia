@@ -10,11 +10,16 @@ import okhttp3.Interceptor;
 public class NetConfigWrapper {
 
     public static NetConfig create() {
+
+        return create(Constants.BASE_URL);
+    }
+
+    public static NetConfig create(String baseUrl) {
         NetConfig.debug = BuildConfig.DEBUG;
 //        NetConfig.signKey = BuildConfig.PARAM_SIGN_KEY;
         NetConfig config = new NetConfig();
-        config.configInterceptors(new Interceptor[]{new BusinessInterceptor()});
-        config.baseURL = Constants.BASE_URL;
+        config.configInterceptors(new Interceptor[]{new BusinessInterceptor(), new TokenInterceptor()});
+        config.baseURL = baseUrl;
         return config;
     }
 

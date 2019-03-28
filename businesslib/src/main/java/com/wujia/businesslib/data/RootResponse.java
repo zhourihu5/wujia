@@ -6,17 +6,17 @@ import com.wujia.lib_common.data.network.BaseResponse;
 import java.io.Serializable;
 
 public class RootResponse extends BaseResponse implements Serializable {
-    public int errcode;
-    public int code;
+    public String errcode;
+    public String code;
     public String errmsg;
 
     @Override
     public boolean isSuccess() {
-        return errcode == Constants.HTTP_SUCESS || code == Constants.HTTP_SUCESS;
+        return Constants.HTTP_SUCESS.equals(errcode) || Constants.HTTP_SUCESS.equals(code);
     }
 
     @Override
-    public int getResponseCode() {
+    public String getResponseCode() {
         return errcode;
     }
 

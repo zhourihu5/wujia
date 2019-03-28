@@ -2,14 +2,17 @@ package com.wujia.intellect.terminal.mvp.home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.wujia.businesslib.TitleFragment;
 import com.wujia.intellect.terminal.R;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
 /**
@@ -20,11 +23,15 @@ import butterknife.BindView;
 public class WebViewFragment extends TitleFragment {
 
     public static final String URL = "KEY_URL";
-    private String url = "https://www.baidu.com";
+    private String url = "https://www.jianshu.com/p/dd99a10ef792";
     @BindView(R.id.webview)
     WebView webView;
     @BindView(R.id.web_progress)
     ProgressBar progressBar;
+    @BindView(R.id.layout_back_btn)
+    TextView layoutBackBtn;
+    @BindView(R.id.layout_right_btn)
+    TextView layoutRightBtn;
 
     public WebViewFragment() {
 
@@ -36,12 +43,6 @@ public class WebViewFragment extends TitleFragment {
         args.putString(URL, url);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        url = savedInstanceState.getString(URL);
     }
 
     @Override
@@ -58,6 +59,11 @@ public class WebViewFragment extends TitleFragment {
     protected void initEventAndData() {
         super.initEventAndData();
 
+        url = getArguments().getString(URL);
+
+
+        layoutRightBtn.setText("关闭");
+        layoutRightBtn.setVisibility(View.VISIBLE);
         webView.loadUrl(url);
 
 //        webView.setBackgroundColor(0);
@@ -85,18 +91,39 @@ public class WebViewFragment extends TitleFragment {
 
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient());
+
+
+        layoutBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (webView.canGoBack()) {
+                    webView.goBack();
+                } else {
+                    pop();
+                }
+            }
+        });
     }
 
 
-    @Override
-    public boolean onBackPressedSupport() {
+//    @Override
+//    public boolean onBackPressedSupport() {
+//
+//        if (webView.canGoBack()) {
+//            webView.goBack();
+//        } else {
+//            pop();
+//        }
+//        return true;
+//    }
 
-        if (webView.canGoBack()) {
-            webView.goBack();
-        } else {
-            pop();
+    @OnClick(R.id.layout_right_btn)
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.layout_right_btn:
+                pop();
+                break;
         }
-        return true;
     }
 
     @Override

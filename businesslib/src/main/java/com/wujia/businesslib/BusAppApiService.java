@@ -16,6 +16,6 @@ public interface BusAppApiService {
 
 
     @GET("/token/checkToken")
-    Call<TokenBean> getAccessTokenCall(@Query("appid") String appid, @Query("secret") String secret);
+    Call<TokenBean> getAccessTokenCall(@Query("secret") String secret);
 
 }

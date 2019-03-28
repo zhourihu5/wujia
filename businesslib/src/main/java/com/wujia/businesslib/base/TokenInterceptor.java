@@ -2,9 +2,11 @@ package com.wujia.businesslib.base;
 
 import com.wujia.businesslib.BusAppApiService;
 import com.wujia.businesslib.Constants;
+import com.wujia.businesslib.data.RootResponse;
 import com.wujia.businesslib.data.TokenBean;
 import com.wujia.lib_common.data.network.HttpHelper;
 import com.wujia.lib_common.data.network.RxUtil;
+import com.wujia.lib_common.utils.GsonUtil;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -48,13 +50,14 @@ public class TokenInterceptor implements Interceptor {
         if (isTokenExpired(bodyString)) {//根据和服务端的约定判断token过期
             //同步请求方式，获取最新的Token
             TokenBean tokenBean = getNewToken();
+            DataManager.saveToken(tokenBean.content);
             //使用新的Token，创建新的请求
             if (request.body() instanceof FormBody) {
                 FormBody.Builder newFormBody = new FormBody.Builder();
                 FormBody oidFormBody = (FormBody) request.body();
                 for (int i = 0; i < oidFormBody.size(); i++) {
                     //根据需求修改参数
-                    if ("需要更新的token参数字段".equals(oidFormBody.encodedName(i))) {
+                    if (Constants.COMMON_REQUEST_TOKEN.equals(oidFormBody.encodedName(i))) {
                         newFormBody.addEncoded(oidFormBody.encodedName(i), tokenBean.content);
                     } else {
                         newFormBody.addEncoded(oidFormBody.encodedName(i), oidFormBody.encodedValue(i));
@@ -78,15 +81,15 @@ public class TokenInterceptor implements Interceptor {
      * @param response
      */
     private boolean isTokenExpired(String response) {
-//        JSONObject obj = null;
-//        try {
-//            obj = new JSONObject(response);
-//            if ("Token过期的判断条件") {
-//                return true;
-//            }
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            RootResponse token = GsonUtil.GsonToBean(response, RootResponse.class);
+
+            if (Constants.HTTP_TOKEN_FAILD.equals(token.code)) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
@@ -98,8 +101,8 @@ public class TokenInterceptor implements Interceptor {
 //        Call<TokenBean> loginCall = RetrofitHelper.getInstance().getRetrofit(Api.class)
 //                .getToken("参数");
 
-        Call<TokenBean> call = new HttpHelper.Builder(NetConfigWrapper.create())
-                .build().create(BusAppApiService.class).getAccessTokenCall(Constants.APPID, Constants.SECRET);
+        Call<TokenBean> call = new HttpHelper.Builder(NetConfigWrapper.create(Constants.BASE_URL_TOKEN))
+                .build().create(BusAppApiService.class).getAccessTokenCall(Constants.SECRET);
 
         return call.execute().body();
     }

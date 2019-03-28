@@ -2,6 +2,7 @@ package com.wujia.intellect.terminal.mvp.home.data;
 
 import com.wujia.businesslib.data.RootResponse;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -11,15 +12,30 @@ import java.util.ArrayList;
  */
 public class HomeRecBean extends RootResponse {
 
-    public int _viewType;
 
-    public HomeRecBean(int type) {
-        this._viewType = type;
+    public static final String TYPE_LINK = "link";
+    public static final String TYPE_FUN = "function";
+    public static final String TYPE_IMAGE = "image";
+    public static final String TYPE_ADD = "add";
+
+
+    public static final String TYPE_LINK_EXTERNAL = "external";//外链
+    public static final String TYPE_LINK_INTERNALL = "internal";//内链
+
+    public HomeRecBean() {
     }
 
     public ArrayList<Card> content;
 
-    public class Card {
+    public static class Card implements Serializable {
+
+        public Card(String type) {
+            this.type = type;
+        }
+
+        public Card() {
+        }
+
 
         public String id;
         public String title;
@@ -32,14 +48,27 @@ public class HomeRecBean extends RootResponse {
         public String explain;
         public ArrayList<Subscriptions> subscriptions;
 
+
+        //重写equals方法
+        @Override
+        public boolean equals(Object o) {
+            return o instanceof Card
+                    && this.id.equals(((Card) o).id);
+        }
+
     }
 
-    public class Subscriptions {
+    public static class Subscriptions implements Serializable {
         public String id;
         public String quickCardId;
         public String serviceId;
+        public String serviceImage;
+        public String serviceTitle;
         public String propertyCategoryId;
         public String propertyProductId;
+        public String serviceUrl;
+        public String serviceDesc;
+        public String type;
     }
 
 

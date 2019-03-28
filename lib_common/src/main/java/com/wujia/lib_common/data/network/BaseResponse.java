@@ -7,7 +7,7 @@ package com.wujia.lib_common.data.network;
 public abstract class BaseResponse {
     public abstract boolean isSuccess();
 
-    public abstract int getResponseCode();
+    public abstract String getResponseCode();
 
     public abstract String getErrorMsg();
 

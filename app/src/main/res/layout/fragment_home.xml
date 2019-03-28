@@ -206,7 +206,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_home_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/px500"
             android:layout_marginLeft="@dimen/px68"
             android:layout_marginTop="@dimen/px68"
             android:orientation="horizontal"
@@ -219,7 +219,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/px192"
             android:layout_marginLeft="@dimen/px68"
-            android:layout_marginTop="@dimen/px52"
+            android:layout_marginTop="@dimen/px16"
             android:orientation="horizontal">
 
             <android.support.v7.widget.RecyclerView

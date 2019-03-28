@@ -5,16 +5,16 @@ import com.wujia.lib_common.data.network.BaseResponse;
 
 public class ApiResponse<T> extends BaseResponse {
     public T data;
-    public int code;
+    public String code;
     public String msg;
 
     @Override
     public boolean isSuccess() {
-        return code == Constants.HTTP_SUCESS;
+        return Constants.HTTP_SUCESS.equals(code);
     }
 
     @Override
-    public int getResponseCode() {
+    public String getResponseCode() {
         return code;
     }
 

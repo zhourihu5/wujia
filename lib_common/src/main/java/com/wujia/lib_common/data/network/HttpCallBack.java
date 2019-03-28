@@ -7,7 +7,7 @@ package com.wujia.lib_common.data.network;
 public interface HttpCallBack<T extends BaseResponse> {
     public void onStart();
 
-    public abstract void onFailed(int code, String message);
+    public abstract void onFailed(String code, String message);
 
     public abstract void onResponse(T response);
 }

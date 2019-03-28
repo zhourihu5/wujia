@@ -16,6 +16,7 @@ import com.wujia.intellect.terminal.mvp.home.data.HomeRecBean;
 import com.wujia.intellect.terminal.mvp.setting.adapter.HomeCardManagerAdapter;
 import com.wujia.lib_common.base.BaseActivity;
 import com.wujia.lib_common.base.BaseFragment;
+import com.wujia.lib_common.base.view.VerticallDecoration;
 import com.wujia.lib_common.data.network.exception.ApiException;
 
 import java.util.ArrayList;
@@ -23,11 +24,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
 /**
-* author ：shenbingkai@163.com
-* date ：2019-02-19 23:56
-* description ：卡片管理
-*/
+ * author ：shenbingkai@163.com
+ * date ：2019-02-19 23:56
+ * description ：卡片管理
+ */
 public class CardManagerFragment extends MvpFragment<HomePresenter> implements HomeContract.View {
 
     public static final int REQUEST_CODE_CARD_MANAGER = 0X1001;
@@ -44,6 +46,9 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
     RecyclerView rvCardAdded;
     @BindView(R.id.rv_card_unadd)
     RecyclerView rvCardUnadd;
+
+    private List<HomeRecBean.Card> addList, unaddList;
+    private HomeCardManagerAdapter addedAdapter, unaddAdapter;
 
     public CardManagerFragment() {
     }
@@ -66,28 +71,24 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
 
-        layoutBackBtn.setVisibility(View.VISIBLE);
         layoutRightBtn.setVisibility(View.VISIBLE);
+        layoutBackBtn.setVisibility(View.VISIBLE);
 
         layoutTitleTv.setText(R.string.manager_home_card);
 
+        mPresenter.getUserQuickCard(DataManager.getOpenid());
+
+    }
+
+    private void setUserCard(ArrayList<HomeRecBean.Card> list) {
+
+        addList = list;
+
         //已添加
-        final List<HomeRecBean> addList = new ArrayList<>();
-        addList.add(new HomeRecBean(0));
-        addList.add(new HomeRecBean(0));
+        addedAdapter = new HomeCardManagerAdapter(mContext, addList, HomeCardManagerAdapter.FORM_ADDED);
+        rvCardAdded.addItemDecoration(new VerticallDecoration(24));
 
-
-        final HomeCardManagerAdapter addedAdapter = new HomeCardManagerAdapter(mContext, addList, HomeCardManagerAdapter.FORM_ADDED);
         rvCardAdded.setAdapter(addedAdapter);
-
-        //未添加
-        final List<HomeRecBean> unaddList = new ArrayList<>();
-        unaddList.add(new HomeRecBean(1));
-        unaddList.add(new HomeRecBean(1));
-
-        final HomeCardManagerAdapter unaddAdapter = new HomeCardManagerAdapter(mContext, unaddList, HomeCardManagerAdapter.FORM_UNADD);
-        rvCardUnadd.setAdapter(unaddAdapter);
-
 
         addedAdapter.setManagerCardListener(new HomeCardManagerAdapter.OnManagerCardListener() {
             @Override
@@ -97,6 +98,8 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
 
             @Override
             public void removeCard(int pos) {
+                mPresenter.removeUserQuickCard(DataManager.getOpenid(), addList.get(pos).id);
+
                 unaddList.add(addList.remove(pos));
                 addedAdapter.notifyItemRemoved(pos);
                 unaddAdapter.notifyItemInserted(unaddAdapter.getItemCount());
@@ -105,10 +108,25 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
                 unaddAdapter.notifyItemRangeChanged(0, unaddList.size());
             }
         });
+    }
+
+    private void setOtherCard(ArrayList<HomeRecBean.Card> list) {
+
+        unaddList = list;
+
+        unaddList.removeAll(addList);
+
+        //未添加
+        unaddAdapter = new HomeCardManagerAdapter(mContext, unaddList, HomeCardManagerAdapter.FORM_UNADD);
+        rvCardUnadd.addItemDecoration(new VerticallDecoration(24));
+
+        rvCardUnadd.setAdapter(unaddAdapter);
 
         unaddAdapter.setManagerCardListener(new HomeCardManagerAdapter.OnManagerCardListener() {
             @Override
             public void addCard(int pos) {
+                mPresenter.addUserQuickCard(DataManager.getOpenid(), unaddList.get(pos).id);
+
                 addList.add(unaddList.remove(pos));
                 unaddAdapter.notifyItemRemoved(pos);
                 addedAdapter.notifyItemInserted(addedAdapter.getItemCount());
@@ -123,14 +141,13 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
 
             }
         });
-
-        mPresenter.getQuickCard(DataManager.getCommunityId());
     }
 
     @OnClick({R.id.layout_back_btn, R.id.layout_right_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.layout_back_btn:
+                setFragmentResult(REQUEST_CODE_CARD_MANAGER_COMPLETE, null);
                 pop();
                 break;
             case R.id.layout_right_btn:
@@ -147,9 +164,16 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
 
     @Override
     public void onDataLoadSucc(int requestCode, Object object) {
-        switch (requestCode){
+        switch (requestCode) {
             case HomePresenter.REQUEST_CDOE_GET_CARD_OTHER:
                 HomeRecBean cards = (HomeRecBean) object;
+                setOtherCard(cards.content);
+                break;
+
+            case HomePresenter.REQUEST_CDOE_GET_CARD_MY:
+                HomeRecBean userCards = (HomeRecBean) object;
+                setUserCard(userCards.content);
+                mPresenter.getQuickCard(DataManager.getCommunityId());
                 break;
         }
     }

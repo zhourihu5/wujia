@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/px320"
     android:layout_height="@dimen/px448"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/bg_white_radius_shape"
     android:descendantFocusability="blocksDescendants">
 
@@ -11,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/px274"
         android:scaleType="centerCrop"
-        android:src="@mipmap/img_card_home_active"
+        tools:src="@mipmap/img_card_home_active"
         app:left_top_radius="@dimen/px8"
         app:right_top_radius="@dimen/px8" />
 

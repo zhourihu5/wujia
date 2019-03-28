@@ -48,6 +48,10 @@ public class DataManager {
     }
 
     public static String getToken() {
-        return (String) SPHelper.get(AppContext.get(), com.wujia.lib_common.data.network.Constants.TOKEN, "");
+        return (String) SPHelper.get(AppContext.get(), Constants.COMMON_REQUEST_TOKEN, "");
+    }
+
+    public static void saveToken(String token) {
+        SPHelper.put(AppContext.get(), Constants.COMMON_REQUEST_TOKEN, token);
     }
 }

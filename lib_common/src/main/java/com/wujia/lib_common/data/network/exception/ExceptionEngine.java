@@ -55,7 +55,7 @@ public class ExceptionEngine {
             String originData = apiJsonFormateException.originData;
             try {
                 JSONObject jsonObject = new JSONObject(originData);
-                int code = jsonObject.optInt("code");
+                String code = jsonObject.optString("code");
                 String msg = jsonObject.optString("msg");
                 ex = new ApiException(e, code, msg);
             } catch (JSONException e1) {

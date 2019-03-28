@@ -62,17 +62,15 @@ public class SimpleRequestSubscriber<T> extends RequestSubscriber<T> {
     @Override
     public void onFailed(ApiException apiException) {
         if (actionConfig.errorAction == SHOWERRORMESSAGE) {
-            if (apiException.code != 900 && apiException.code != 2004 && apiException.code != 308) {
-                view.showErrorMsg(apiException.getMessage());
-            }
+//            if (apiException.code != 900 && apiException.code != 2004 && apiException.code != 308) {
+//                view.showErrorMsg(apiException.getMessage());
+//            }
+            view.showErrorMsg(apiException.getMessage());
         } else if (actionConfig.errorAction == SHOWERRORVIEW) {
-            if (apiException.code == ERROR.NETWORK_CONNECT_ERROR) {
-            }
+//            if (apiException.code .equals( ERROR.NETWORK_CONNECT_ERROR)) {
+//            }
         } else {
 
-        }
-        if (apiException.code == 900 || apiException.code == 2004 || apiException.code == 308) {
-            view.onLoginStatusError();
         }
     }
 

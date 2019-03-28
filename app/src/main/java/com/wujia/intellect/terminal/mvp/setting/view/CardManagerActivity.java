@@ -38,67 +38,67 @@ public class CardManagerActivity extends BaseActivity {
 
     @Override
     protected void initEventAndData(Bundle savedInstanceState) {
-        layoutBackBtn.setVisibility(View.VISIBLE);
-        layoutRightBtn.setVisibility(View.VISIBLE);
-
-        layoutTitleTv.setText(R.string.manager_home_card);
-
-        //已添加
-        final List<HomeRecBean> addList = new ArrayList<>();
-        addList.add(new HomeRecBean(0));
-        addList.add(new HomeRecBean(0));
-        addList.add(new HomeRecBean(0));
-        addList.add(new HomeRecBean(0));
-
-
-        final HomeCardManagerAdapter addedAdapter = new HomeCardManagerAdapter(mContext, addList, HomeCardManagerAdapter.FORM_ADDED);
-        rvCardAdded.setAdapter(addedAdapter);
-
-        //未添加
-        final List<HomeRecBean> unaddList = new ArrayList<>();
-        unaddList.add(new HomeRecBean(1));
-        unaddList.add(new HomeRecBean(1));
-        unaddList.add(new HomeRecBean(1));
-        unaddList.add(new HomeRecBean(1));
-
-        final HomeCardManagerAdapter unaddAdapter = new HomeCardManagerAdapter(mContext, unaddList, HomeCardManagerAdapter.FORM_UNADD);
-        rvCardUnadd.setAdapter(unaddAdapter);
-
-
-        addedAdapter.setManagerCardListener(new HomeCardManagerAdapter.OnManagerCardListener() {
-            @Override
-            public void addCard(int pos) {
-
-            }
-
-            @Override
-            public void removeCard(int pos) {
-                unaddList.add(addList.remove(pos));
-                addedAdapter.notifyItemRemoved(pos);
-                unaddAdapter.notifyItemInserted(unaddAdapter.getItemCount());
-
-                addedAdapter.notifyItemRangeChanged(0,addList.size());
-                unaddAdapter.notifyItemRangeChanged(0,unaddList.size());
-            }
-        });
-
-        unaddAdapter.setManagerCardListener(new HomeCardManagerAdapter.OnManagerCardListener() {
-            @Override
-            public void addCard(int pos) {
-                addList.add(unaddList.remove(pos));
-                unaddAdapter.notifyItemRemoved(pos);
-                addedAdapter.notifyItemInserted(addedAdapter.getItemCount());
-
-                addedAdapter.notifyItemRangeChanged(0,addList.size());
-                unaddAdapter.notifyItemRangeChanged(0,unaddList.size());
-
-            }
-
-            @Override
-            public void removeCard(int pos) {
-
-            }
-        });
+//        layoutBackBtn.setVisibility(View.VISIBLE);
+//        layoutRightBtn.setVisibility(View.VISIBLE);
+//
+//        layoutTitleTv.setText(R.string.manager_home_card);
+//
+//        //已添加
+//        final List<HomeRecBean> addList = new ArrayList<>();
+//        addList.add(new HomeRecBean(0));
+//        addList.add(new HomeRecBean(0));
+//        addList.add(new HomeRecBean(0));
+//        addList.add(new HomeRecBean(0));
+//
+//
+//        final HomeCardManagerAdapter addedAdapter = new HomeCardManagerAdapter(mContext, addList, HomeCardManagerAdapter.FORM_ADDED);
+//        rvCardAdded.setAdapter(addedAdapter);
+//
+//        //未添加
+//        final List<HomeRecBean> unaddList = new ArrayList<>();
+//        unaddList.add(new HomeRecBean(1));
+//        unaddList.add(new HomeRecBean(1));
+//        unaddList.add(new HomeRecBean(1));
+//        unaddList.add(new HomeRecBean(1));
+//
+//        final HomeCardManagerAdapter unaddAdapter = new HomeCardManagerAdapter(mContext, unaddList, HomeCardManagerAdapter.FORM_UNADD);
+//        rvCardUnadd.setAdapter(unaddAdapter);
+//
+//
+//        addedAdapter.setManagerCardListener(new HomeCardManagerAdapter.OnManagerCardListener() {
+//            @Override
+//            public void addCard(int pos) {
+//
+//            }
+//
+//            @Override
+//            public void removeCard(int pos) {
+//                unaddList.add(addList.remove(pos));
+//                addedAdapter.notifyItemRemoved(pos);
+//                unaddAdapter.notifyItemInserted(unaddAdapter.getItemCount());
+//
+//                addedAdapter.notifyItemRangeChanged(0,addList.size());
+//                unaddAdapter.notifyItemRangeChanged(0,unaddList.size());
+//            }
+//        });
+//
+//        unaddAdapter.setManagerCardListener(new HomeCardManagerAdapter.OnManagerCardListener() {
+//            @Override
+//            public void addCard(int pos) {
+//                addList.add(unaddList.remove(pos));
+//                unaddAdapter.notifyItemRemoved(pos);
+//                addedAdapter.notifyItemInserted(addedAdapter.getItemCount());
+//
+//                addedAdapter.notifyItemRangeChanged(0,addList.size());
+//                unaddAdapter.notifyItemRangeChanged(0,unaddList.size());
+//
+//            }
+//
+//            @Override
+//            public void removeCard(int pos) {
+//
+//            }
+//        });
     }
 
     @OnClick({R.id.layout_back_btn, R.id.layout_right_btn})

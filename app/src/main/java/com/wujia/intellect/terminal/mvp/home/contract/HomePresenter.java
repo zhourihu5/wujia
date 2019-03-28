@@ -1,6 +1,7 @@
 package com.wujia.intellect.terminal.mvp.home.contract;
 
 import com.wujia.businesslib.base.RxPresenter;
+import com.wujia.businesslib.data.RootResponse;
 import com.wujia.businesslib.data.TokenBean;
 import com.wujia.intellect.terminal.mvp.home.data.HomeRecBean;
 import com.wujia.intellect.terminal.mvp.home.data.WeatherBean;
@@ -35,14 +36,14 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
             public void onResponse(HomeRecBean response) {
                 super.onResponse(response);
                 if (response.isSuccess()) {
-                    mView.onDataLoadSucc(REQUEST_CDOE_GET_CARD_MY, response);
+                    mView.onDataLoadSucc(REQUEST_CDOE_GET_CARD_OTHER, response);
                 }
             }
 
             @Override
             public void onFailed(ApiException apiException) {
                 super.onFailed(apiException);
-                mView.onDataLoadFailed(REQUEST_CDOE_GET_CARD_MY, apiException);
+                mView.onDataLoadFailed(REQUEST_CDOE_GET_CARD_OTHER, apiException);
             }
         }));
 
@@ -89,11 +90,39 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
 
     @Override
     public void addUserQuickCard(String openid, String quickCardId) {
+        addSubscribe(mModel.addUserQuickCard(openid,quickCardId).subscribeWith(new SimpleRequestSubscriber<RootResponse>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+            @Override
+            public void onResponse(RootResponse response) {
+                super.onResponse(response);
+                if (response.isSuccess()) {
+                    mView.onDataLoadSucc(REQUEST_CDOE_ADD_CARD, response);
+                }
+            }
 
+            @Override
+            public void onFailed(ApiException apiException) {
+                super.onFailed(apiException);
+                mView.onDataLoadFailed(REQUEST_CDOE_ADD_CARD, apiException);
+            }
+        }));
     }
 
     @Override
     public void removeUserQuickCard(String openid, String quickCardId) {
+        addSubscribe(mModel.removeUserQuickCard(openid,quickCardId).subscribeWith(new SimpleRequestSubscriber<RootResponse>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+            @Override
+            public void onResponse(RootResponse response) {
+                super.onResponse(response);
+                if (response.isSuccess()) {
+                    mView.onDataLoadSucc(REQUEST_CDOE_REMOVE_CARD, response);
+                }
+            }
 
+            @Override
+            public void onFailed(ApiException apiException) {
+                super.onFailed(apiException);
+                mView.onDataLoadFailed(REQUEST_CDOE_REMOVE_CARD, apiException);
+            }
+        }));
     }
 }

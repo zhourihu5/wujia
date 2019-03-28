@@ -1,5 +1,7 @@
 package com.wujia.businesslib.base;
 
+import android.text.TextUtils;
+
 import com.wujia.businesslib.Constants;
 import com.wujia.lib_common.data.network.RequestParamsUtils;
 
@@ -28,8 +30,11 @@ public class BusinessInterceptor implements Interceptor {
     }
 
     private Map<String, String> getTokenMap() {
+        String token = DataManager.getToken();
         Map<String, String> map = new HashMap<>();
-        map.put(Constants.COMMON_REQUEST_TOKEN, DataManager.getToken());
+        if (!TextUtils.isEmpty(token)) {
+            map.put(Constants.COMMON_REQUEST_TOKEN, token);
+        }
         return map;
     }
 }

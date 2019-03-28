@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpFragment;
+import com.wujia.businesslib.data.LinkUrlBean;
 import com.wujia.businesslib.dialog.CallDialog;
 import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.wujia.intellect.terminal.R;
@@ -37,6 +38,7 @@ import com.wujia.lib_common.base.view.HorizontalDecoration;
 import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.DateUtil;
 import com.wujia.lib_common.utils.FontUtils;
+import com.wujia.lib_common.utils.GsonUtil;
 import com.wujia.lib_common.utils.LogUtil;
 import com.wujia.lib_common.utils.NetworkUtil;
 import com.wujia.lib_common.utils.StringUtil;
@@ -96,6 +98,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
     private List<HomeMeberBean> mems;
     private HomeMemberAdapter memAdapter;
+    private ArrayList<HomeRecBean.Card> cards;
 
     public HomeHomeFragment() {
     }
@@ -116,44 +119,64 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        LogUtil.i("HomeHomeFragment  onLazyInitView");
 
         FontUtils.changeFontTypeface(homeWeatherNumTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
 
         homeRoomTv.setText(DataManager.getUser().nickName);
         homeDateTv.setText(StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay()));
 
+        setCardView();
 
+        setMemberView();
+
+        setNotify();
+
+        setState();
+
+
+        mPresenter.getUserQuickCard(DataManager.getOpenid());
+//        mPresenter.getWeather(DataManager.getCommunityId());
+
+    }
+
+
+    private void setMemberView() {
         mems = DataBaseUtil.getMemberList(HomeMeberBean.class);
 
-//        rvHomeMember.addItemDecoration(new HorizontalDecoration(10));
+        rvHomeMember.addItemDecoration(new HorizontalDecoration(10));
         memAdapter = new HomeMemberAdapter(mActivity, mems);
         rvHomeMember.setAdapter(memAdapter);
 
-        final List<HomeRecBean> cards = new ArrayList<>();
-        cards.add(new HomeRecBean(0));
-        cards.add(new HomeRecBean(1));
-        cards.add(new HomeRecBean(2));
-        cards.add(new HomeRecBean(10));
+    }
 
+    private void setCardView() {
+
+        cards = new ArrayList<>();
         homeCardAdapter = new HomeCardAdapter(mActivity, cards);
-        rvHomeCard.addItemDecoration(new HorizontalDecoration(13));
+//        rvHomeCard.addItemDecoration(new HorizontalDecoration(13));
         rvHomeCard.setAdapter(homeCardAdapter);
         homeCardAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
             @Override
             public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
-                switch (cards.get(position)._viewType) {
-                    case 0:
+
+                HomeRecBean.Card card = cards.get(position);
+                switch (card.type) {
+                    case HomeRecBean.TYPE_LINK:
+                        if (HomeRecBean.TYPE_LINK_EXTERNAL.equals(card.linkType)) {//外链
+                            start(WebViewFragment.newInstance(card.linkUrl));
+                        } else if (HomeRecBean.TYPE_LINK_INTERNALL.equals(card.linkType)) {//内链
+                            parseLinkUrl(card.linkUrl);
+                        }
                         break;
 
-                    case 1:
+                    case HomeRecBean.TYPE_FUN:
                         break;
 
-                    case 2:
-                        start(WebViewFragment.newInstance(""));
+                    case HomeRecBean.TYPE_IMAGE:
+                        start(ImageTxtFragment.newInstance(card.explain, card.subscriptions));
                         break;
 
-                    case 10:
+                    case HomeRecBean.TYPE_ADD:
                         startForResult(CardManagerFragment.newInstance(), CardManagerFragment.REQUEST_CODE_CARD_MANAGER);
 
                         break;
@@ -161,8 +184,22 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                 }
             }
         });
+    }
 
+    private void parseLinkUrl(String json) {
+        LinkUrlBean linkUrl = GsonUtil.GsonToBean(json, LinkUrlBean.class);
+        switch (linkUrl.code) {
+            case LinkUrlBean.CODE_TYPE_MARKET://服务市场
 
+                break;
+
+            case LinkUrlBean.CODE_TYPE_PROPERTY://务业服务
+
+                break;
+        }
+    }
+
+    private void setNotify() {
         List<HomeNotifyBean> notifys = new ArrayList<>();
         notifys.add(new HomeNotifyBean());
         notifys.add(new HomeNotifyBean());
@@ -177,27 +214,23 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                 new MessageDialog(mContext).show();
             }
         });
+    }
 
-
+    private void setState() {
         IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         batterReceiver = new BatteryReceiver(homeBatterImg);
         networkReceiver = new NetworkChangeReceiver(homeWifiImg);
 
         mActivity.registerReceiver(batterReceiver, filter);
         mActivity.registerReceiver(networkReceiver, filter);
-
-        mPresenter.getUserQuickCard(DataManager.getOpenid());
-        mPresenter.getWeather(DataManager.getCommunityId());
-
     }
 
     @Override
     public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
         super.onFragmentResult(requestCode, resultCode, data);
         if (requestCode == CardManagerFragment.REQUEST_CODE_CARD_MANAGER && resultCode == CardManagerFragment.REQUEST_CODE_CARD_MANAGER_COMPLETE) {
-            //TODO 刷新首页或卡片
-            homeCardAdapter.getDatas().add(homeCardAdapter.getDatas().size() - 2, new HomeRecBean(1));
-            homeCardAdapter.notifyDataSetChanged();
+            //刷新首页或卡片
+            mPresenter.getUserQuickCard(DataManager.getOpenid());
         }
     }
 
@@ -250,7 +283,11 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
         switch (requestCode) {
             case HomePresenter.REQUEST_CDOE_GET_CARD_MY:
 
-                HomeRecBean cards = (HomeRecBean) object;
+                HomeRecBean homeRecBean = (HomeRecBean) object;
+                cards.clear();
+                cards.addAll(homeRecBean.content);
+                cards.add(new HomeRecBean.Card(HomeRecBean.TYPE_ADD));
+                homeCardAdapter.notifyDataSetChanged();
                 break;
 
             case HomePresenter.REQUEST_CDOE_WEATHER:
