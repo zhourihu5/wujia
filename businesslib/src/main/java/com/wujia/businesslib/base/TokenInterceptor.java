@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 import okhttp3.FormBody;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -52,22 +53,36 @@ public class TokenInterceptor implements Interceptor {
             TokenBean tokenBean = getNewToken();
             DataManager.saveToken(tokenBean.content);
             //使用新的Token，创建新的请求
-            if (request.body() instanceof FormBody) {
-                FormBody.Builder newFormBody = new FormBody.Builder();
-                FormBody oidFormBody = (FormBody) request.body();
-                for (int i = 0; i < oidFormBody.size(); i++) {
-                    //根据需求修改参数
-                    if (Constants.COMMON_REQUEST_TOKEN.equals(oidFormBody.encodedName(i))) {
-                        newFormBody.addEncoded(oidFormBody.encodedName(i), tokenBean.content);
-                    } else {
-                        newFormBody.addEncoded(oidFormBody.encodedName(i), oidFormBody.encodedValue(i));
-                    }
-                }
+            if (request.method().equals("GET")) {
+
+                HttpUrl.Builder requestBuilder = request.url()
+                        .newBuilder();
+                requestBuilder.removeAllQueryParameters(Constants.COMMON_REQUEST_TOKEN);
+                requestBuilder.addQueryParameter(Constants.COMMON_REQUEST_TOKEN,tokenBean.content);
+
                 Request.Builder builder = request.newBuilder();
-                builder.url(url);
-                builder.method(request.method(), newFormBody.build());
+                builder.url(requestBuilder.build());
                 request = builder.build();
+
+            } else if (request.method().equals("POST")) {
+                if (request.body() instanceof FormBody) {
+                    FormBody.Builder newFormBody = new FormBody.Builder();
+                    FormBody oidFormBody = (FormBody) request.body();
+                    for (int i = 0; i < oidFormBody.size(); i++) {
+                        //根据需求修改参数
+                        if (Constants.COMMON_REQUEST_TOKEN.equals(oidFormBody.encodedName(i))) {
+                            newFormBody.addEncoded(oidFormBody.encodedName(i), tokenBean.content);
+                        } else {
+                            newFormBody.addEncoded(oidFormBody.encodedName(i), oidFormBody.encodedValue(i));
+                        }
+                    }
+                    Request.Builder builder = request.newBuilder();
+                    builder.url(url);
+                    builder.method(request.method(), newFormBody.build());
+                    request = builder.build();
+                }
             }
+
             originalResponse.body().close();
             //重新请求
             return chain.proceed(request);

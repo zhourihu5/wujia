@@ -47,6 +47,7 @@
                 android:id="@+id/safe_rec_seek_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/px52"
+                android:visibility="gone"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="@dimen/px24"
                 android:orientation="horizontal">

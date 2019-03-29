@@ -135,7 +135,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
 
         mPresenter.getUserQuickCard(DataManager.getOpenid());
-//        mPresenter.getWeather(DataManager.getCommunityId());
+        mPresenter.getWeather(DataManager.getCommunityId());
 
     }
 

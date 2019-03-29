@@ -15,11 +15,17 @@ import okhttp3.Response;
 
 
 public class BusinessInterceptor implements Interceptor {
-
+    private static final String[] IGONE_REQUEST = {"/token/checkToken"};
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
 
+        //接口过滤
+        for (String igone : IGONE_REQUEST) {
+            if (request.url().toString().contains(igone)) {
+                return chain.proceed(request);
+            }
+        }
         Map<String, String> tokenMap = getTokenMap();
         if (request.method().equals("GET")) {
             request = RequestParamsUtils.addGetParams(request, tokenMap);

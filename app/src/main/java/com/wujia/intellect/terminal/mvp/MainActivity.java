@@ -45,7 +45,7 @@ import me.yokeyword.fragmentation.SupportFragment;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
-public class MainActivity extends BaseActivity implements DoorAccessListener, DoorAccessListUI,DoorSecurityUtil.OnSecurityChangedListener {
+public class MainActivity extends BaseActivity implements DoorAccessListener, DoorSecurityUtil.OnSecurityChangedListener {
 
     // 再点一次退出程序时间设置
     private static final long WAIT_TIME = 2000L;
@@ -166,7 +166,6 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
 //        manager.startFamily("A000000000050000", "02");
 //        manager.startFamily("001901109CDB0000", "01");
 //        manager.startFamily(DataManager.getFamilyId(), "01");
-        manager.setListUIListener(this);
         manager.setDoorAccessListener(this);
 //        manager.setListUIListener(this);
 //        manager.setDoorAccessListener(this);
@@ -273,10 +272,6 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
 
     }
 
-    @Override
-    public void refreshList() {
-        LogUtil.i("refreshList");
-    }
     /**
      * 安防状态变更
      * @param familyDockSn

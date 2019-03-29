@@ -4,19 +4,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.intercom.sdk.IntercomConstants;
 import com.intercom.sdk.IntercomObserver;
 import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.jingxi.smartlife.pad.sdk.doorAccess.DoorAccessManager;
+import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorDevice;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorEvent;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorRecordBean;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessConversationUI;
+import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListUI;
 import com.wujia.businesslib.Constants;
 import com.wujia.intellect.terminal.safe.R;
 import com.wujia.intellect.terminal.safe.mvp.adapter.PlayBackAdapter;
@@ -35,7 +39,7 @@ import java.util.List;
  * description ：可视安防 外机
  */
 public class SafeOutsideFragment extends BaseFragment implements
-        SurfaceHolder.Callback, DoorAccessConversationUI, View.OnClickListener, MultiItemTypeAdapter.OnRVItemClickListener, SeekBar.OnSeekBarChangeListener, IntercomObserver.OnPlaybackListener {
+        SurfaceHolder.Callback, DoorAccessConversationUI, DoorAccessListUI, View.OnClickListener, MultiItemTypeAdapter.OnRVItemClickListener, SeekBar.OnSeekBarChangeListener, IntercomObserver.OnPlaybackListener {
 
     private AudioMngHelper audioHelper;
     private boolean isMute;
@@ -65,6 +69,7 @@ public class SafeOutsideFragment extends BaseFragment implements
      */
     private boolean isTouchSeek = false;
     private View layoutBottomOp;
+    private String familyID = "001901181CD10000";
 
     public SafeOutsideFragment() {
     }
@@ -95,10 +100,12 @@ public class SafeOutsideFragment extends BaseFragment implements
         // 同级Fragment场景、ViewPager场景均适用
         LogUtil.i("SafeOutsideFragment onLazyInitView");
 
+        mDoorAccessManager = JXPadSdk.getDoorAccessManager();
+        mDoorAccessManager.setListUIListener(this);
+        mDoorAccessManager.addConversationUIListener(this);
+
         audioHelper = new AudioMngHelper(mContext);
         audioValue = audioHelper.get100CurrentVolume();
-
-        sessionId = getArguments().getString(Constants.ARG_PARAM_1);
 
         surfaceView = $(R.id.surface);
         rvPlayBack = $(R.id.rv_play_back);
@@ -119,7 +126,6 @@ public class SafeOutsideFragment extends BaseFragment implements
         $(R.id.safe_rec_del_btn).setOnClickListener(this);
         $(R.id.safe_btn_full).setOnClickListener(this);
 
-
         btnSos.setOnClickListener(this);
         btnPlay.setOnClickListener(this);
         btnPause.setOnClickListener(this);
@@ -128,12 +134,34 @@ public class SafeOutsideFragment extends BaseFragment implements
         btnRefrsh.setOnClickListener(this);
         btnFull.setOnClickListener(this);
         btnSos.setOnClickListener(this);
-
-
-        mDoorAccessManager = JXPadSdk.getDoorAccessManager();
-        mDoorAccessManager.addConversationUIListener(this);
-
         btnEdit.setOnClickListener(this);
+
+
+        setVideo();
+
+        setHistoryList();
+
+    }
+
+    private void setVideo() {
+
+        List<DoorDevice> list = mDoorAccessManager.getDevices(familyID);
+
+        for (DoorDevice device : list) {
+            if (DoorDevice.TYPE_UNIT == device.getMyDeviceType()) {
+                sessionId = mDoorAccessManager.monitor(familyID, device);
+                LogUtil.i("SafeOutsideFragment sessionId " + sessionId);
+
+                mDoorAccessManager.updateCallWindow(sessionId, surfaceView);
+                return;
+            }
+        }
+    }
+
+    private void setHistoryList() {
+
+        List<DoorRecordBean> recordBeans = mDoorAccessManager.getHistoryListByType(familyID, DoorRecordBean.RECORD_TYPE_EXT, 0, 20);
+
 
         List<DoorRecordBean> datas = new ArrayList<>();
         datas.add(null);
@@ -156,9 +184,7 @@ public class SafeOutsideFragment extends BaseFragment implements
 
         recAdapter = new PlayBackAdapter(mContext, datas);
         rvPlayBack.setAdapter(recAdapter);
-
         recAdapter.setOnItemClickListener(this);
-
     }
 
     @Override
@@ -193,24 +219,25 @@ public class SafeOutsideFragment extends BaseFragment implements
         mDoorAccessManager.updateCallWindow(sessionId, null);
     }
 
-
-    public void updateSurface(View v) {
-        mDoorAccessManager.updateCallWindow(sessionId, surfaceView);
-    }
-
-//    @Override
-//    public void startTransPort(String sessionID) {
-//        showToast("开始传输视频");
-//    }
-
     @Override
     public void startTransPort(String sessionId) {
-
+        showToast("开始传输视频");
     }
 
     @Override
-    public void refreshEvent(DoorEvent doorEvent) {
+    public void refreshEvent(DoorEvent event) {
 
+        LogUtil.i("SafeOutsideFragment refreshEvent " + event.cmd);
+        if (TextUtils.equals(event.getCmd(), IntercomConstants.kIntercomCommandHangup)) {
+//            mDoorAccessManager.hangupCall(sessionId);
+
+        } else if (TextUtils.equals(event.getCmd(), IntercomConstants.kIntercomCommandSessionTimeout)) {
+            showToast("超时");
+//            mDoorAccessManager.hangupCall(sessionId);
+        } else if (TextUtils.equals(event.getCmd(), IntercomConstants.kIntercomCommandPickupByOther)) {
+            showToast("其他用户接听");
+//            mDoorAccessManager.hangupCall(sessionId);
+        }
     }
 
     @Override
@@ -239,7 +266,8 @@ public class SafeOutsideFragment extends BaseFragment implements
         } else if (v.getId() == R.id.safe_btn_save) {
 
         } else if (v.getId() == R.id.safe_btn_refresh) {
-
+//            mDoorAccessManager.updateCallWindow(sessionId, surfaceView);
+            setVideo();
         } else if (v.getId() == R.id.safe_btn_mute) {
             isMute = !isMute;
             if (isMute) {
@@ -331,4 +359,9 @@ public class SafeOutsideFragment extends BaseFragment implements
         btnRefrsh.setVisibility(View.GONE);
     }
 
+    @Override
+    public void refreshList() {
+        LogUtil.i("refreshList");
+        setVideo();
+    }
 }
