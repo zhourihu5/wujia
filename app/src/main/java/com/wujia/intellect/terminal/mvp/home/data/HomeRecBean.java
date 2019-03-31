@@ -64,11 +64,15 @@ public class HomeRecBean extends RootResponse {
         public String serviceId;
         public String serviceImage;
         public String serviceTitle;
+        public String servicePackage;
         public String propertyCategoryId;
         public String propertyProductId;
         public String serviceUrl;
         public String serviceDesc;
         public String type;
+
+        public boolean _installed;
+
     }
 
 

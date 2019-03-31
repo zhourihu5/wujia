@@ -11,11 +11,9 @@ import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.home.data.HomeMeberBean;
 import com.wujia.intellect.terminal.mvp.setting.adapter.SetMemberAdapter;
-import com.wujia.intellect.terminal.mvp.setting.data.FamilyMeberBean;
 import com.wujia.businesslib.dialog.InputDialog;
 import com.wujia.lib_common.base.view.VerticallDecoration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,7 +22,7 @@ import butterknife.OnClick;
 /**
  * author ：shenbingkai@163.com
  * date ：2019-01-12 20:06
- * description ：务业服务 home
+ * description ：
  */
 public class FamilyMemberFragment extends TitleFragment implements OnInputDialogListener {
 
@@ -67,7 +65,7 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
 
-        mems = DataBaseUtil.getMemberList(HomeMeberBean.class);
+        mems = DataBaseUtil.query(HomeMeberBean.class);
         rvMember.addItemDecoration(new VerticallDecoration(1));
         mAdapter = new SetMemberAdapter(mContext, mems);
         rvMember.setAdapter(mAdapter);
@@ -102,9 +100,9 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
 
     @Override
     public void dialogSureClick(String input) {
-        DataBaseUtil.getLiteOrm().insert(new HomeMeberBean(input));
+        DataBaseUtil.insert(new HomeMeberBean(input));
         mems.clear();
-        mems.addAll(DataBaseUtil.getMemberList(HomeMeberBean.class));
+        mems.addAll(DataBaseUtil.query(HomeMeberBean.class));
         mAdapter.notifyDataSetChanged();
     }
 }

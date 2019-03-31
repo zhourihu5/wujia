@@ -19,7 +19,7 @@ public class BaseModel {
         createHttp();
     }
 
-    private void createHttp() {
+    protected void createHttp() {
         mHttpHelper = new HttpHelper.Builder(NetConfigWrapper.create())
                 .build();
     }

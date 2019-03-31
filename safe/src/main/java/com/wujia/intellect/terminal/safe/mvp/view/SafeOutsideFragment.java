@@ -70,6 +70,7 @@ public class SafeOutsideFragment extends BaseFragment implements
     private boolean isTouchSeek = false;
     private View layoutBottomOp;
     private String familyID = "001901181CD10000";
+    private List<DoorRecordBean> datas;
 
     public SafeOutsideFragment() {
     }
@@ -99,10 +100,6 @@ public class SafeOutsideFragment extends BaseFragment implements
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
         LogUtil.i("SafeOutsideFragment onLazyInitView");
-
-        mDoorAccessManager = JXPadSdk.getDoorAccessManager();
-        mDoorAccessManager.setListUIListener(this);
-        mDoorAccessManager.addConversationUIListener(this);
 
         audioHelper = new AudioMngHelper(mContext);
         audioValue = audioHelper.get100CurrentVolume();
@@ -159,32 +156,13 @@ public class SafeOutsideFragment extends BaseFragment implements
     }
 
     private void setHistoryList() {
-
-        List<DoorRecordBean> recordBeans = mDoorAccessManager.getHistoryListByType(familyID, DoorRecordBean.RECORD_TYPE_EXT, 0, 20);
-
-
-        List<DoorRecordBean> datas = new ArrayList<>();
-        datas.add(null);
-        datas.add(null);
-        datas.add(null);
-        datas.add(null);
-        datas.add(null);
-        datas.add(null);
-        datas.add(null);
-        datas.add(null);
-        datas.add(null);
-        datas.add(null);
-        datas.add(null);
-        datas.add(null);
-        datas.add(null);
-        datas.add(null);
-        datas.add(null);
-        datas.add(null);
-        datas.add(null);
-
+        if (null == datas) {
+            datas = new ArrayList<>();
+        }
         recAdapter = new PlayBackAdapter(mContext, datas);
         rvPlayBack.setAdapter(recAdapter);
         recAdapter.setOnItemClickListener(this);
+
     }
 
     @Override
@@ -194,6 +172,23 @@ public class SafeOutsideFragment extends BaseFragment implements
         // 不管是 父Fragment还是子Fragment 都有效！
         LogUtil.i("SafeOutsideFragment onSupportVisible");
 
+        mDoorAccessManager = JXPadSdk.getDoorAccessManager();
+        mDoorAccessManager.setListUIListener(this);
+        mDoorAccessManager.addConversationUIListener(this);
+
+        if (null == datas) {
+            datas = new ArrayList<>();
+        }
+
+        List<DoorRecordBean> recordBeans = mDoorAccessManager.getHistoryListByType(familyID, DoorRecordBean.RECORD_TYPE_EXT, 0, 50);
+        if (null != recordBeans && recordBeans.size() > 0) {
+            datas.clear();
+            datas.addAll(recordBeans);
+        }
+        if (null != recAdapter) {
+            recAdapter.notifyDataSetChanged();
+        }
+
     }
 
     @Override
@@ -202,6 +197,10 @@ public class SafeOutsideFragment extends BaseFragment implements
         // 当对用户不可见时 回调
         // 不管是 父Fragment还是子Fragment 都有效！
         LogUtil.i("SafeOutsideFragment onSupportInvisible");
+
+        mDoorAccessManager.removeConversationUIListener(this);
+        mDoorAccessManager.setListUIListener(null);
+
     }
 
     @Override
@@ -276,7 +275,7 @@ public class SafeOutsideFragment extends BaseFragment implements
                 audioHelper.setVoice100(audioValue);
             }
         } else if (v.getId() == R.id.safe_btn_full) {
-            startActivity(new Intent(mActivity, SafeFullScreenActivity.class));
+//            startActivity(new Intent(mActivity, SafeFullScreenActivity.class));
 
         } else if (v.getId() == R.id.safe_swich_live_btn) {
             startLive();

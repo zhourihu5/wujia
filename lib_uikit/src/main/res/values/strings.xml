@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Library</string>
+    <string name="app_name">setting</string>
 
     <string name="txt_loading">数据加载中...</string>
     <string name="txt_no_data">真的是什么都没有</string>

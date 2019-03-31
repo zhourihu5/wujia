@@ -229,7 +229,7 @@
                 android:id="@+id/login_welcom_name"
                 android:layout_width="@dimen/px484"
                 android:layout_height="@dimen/px75"
-                android:text="欢迎您，XX"
+                android:text="欢迎您,"
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/text54" />
 

@@ -1,9 +1,8 @@
 package com.wujia.intellect.terminal.mvp.home.contract;
 
 import com.wujia.businesslib.data.RootResponse;
-import com.wujia.businesslib.data.TokenBean;
-import com.wujia.businesslib.data.UserBean;
 import com.wujia.intellect.terminal.mvp.home.data.HomeRecBean;
+import com.wujia.businesslib.data.MessageBean;
 import com.wujia.intellect.terminal.mvp.home.data.WeatherBean;
 import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.CommonDataLoadView;
@@ -29,6 +28,11 @@ public interface HomeContract {
 
         Flowable<WeatherBean> getWeather(String communityId);
 
+        Flowable<MessageBean> getPropertyMessageById(String id);
+
+        Flowable<MessageBean> getManagerMessageById(String id);
+
+
     }
 
     interface View extends CommonDataLoadView {
@@ -45,5 +49,9 @@ public interface HomeContract {
         void addUserQuickCard(String openid, String quickCardId);
 
         void removeUserQuickCard(String openid, String quickCardId);
+
+        void getPropertyMessageById(String id);
+
+        void getManagerMessageById(String id);
     }
 }

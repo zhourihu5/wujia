@@ -211,7 +211,7 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
     }
 
     /**
-     * insert  a item associated with the specified position of adapter
+     * query  a item associated with the specified position of adapter
      *
      * @param position
      * @param item

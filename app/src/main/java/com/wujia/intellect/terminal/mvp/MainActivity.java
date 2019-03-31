@@ -1,5 +1,6 @@
 package com.wujia.intellect.terminal.mvp;
 
+import android.Manifest;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -21,7 +22,11 @@ import com.jingxi.smartlife.pad.sdk.doorAccess.base.DoorSecurityUtil;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListUI;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListener;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.fragments.NeighborMainFragment;
+import com.jingxi.smartlife.pad.sdk.push.OnPushedListener;
+import com.jingxi.smartlife.pad.sdk.push.PushManager;
 import com.wujia.businesslib.base.DataManager;
+import com.wujia.businesslib.event.EventBusUtil;
+import com.wujia.businesslib.event.EventDoorDevice;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.family.FamilyFragment;
 import com.wujia.intellect.terminal.market.MarketFragment;
@@ -38,6 +43,8 @@ import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.BaseActivity;
 import com.wujia.lib_common.utils.LogUtil;
 import com.wujia.lib_common.utils.ScreenUtil;
+import com.wujia.lib_common.utils.grant.PermissionsManager;
+import com.wujia.lib_common.utils.grant.PermissionsResultAction;
 
 import java.util.List;
 
@@ -159,6 +166,27 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
         });
 
         initSDKManager();
+
+        initGrant();
+    }
+
+    private void initGrant() {
+        PermissionsManager.getInstance().requestPermissionsIfNecessaryForResult(MainActivity.this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.CAMERA},
+                new PermissionsResultAction() {
+                    @Override
+                    public void onGranted() {
+
+                    }
+
+                    @Override
+                    public void onDenied(String permission) {
+                        showToast("未获得相应权限");
+                    }
+                });
     }
 
     private void initSDKManager() {
@@ -274,6 +302,7 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
 
     /**
      * 安防状态变更
+     *
      * @param familyDockSn
      * @param state
      * @param isFromQuery
@@ -281,10 +310,12 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
     @Override
     public void onStateChanged(String familyDockSn, int state, boolean isFromQuery) {
         LogUtil.i("安防状态变更： " + familyDockSn + " 状态 ： " + state + " isFromQuery = " + isFromQuery);
+        EventBusUtil.post(new EventDoorDevice());
     }
 
     /**
      * 安防设备报警
+     *
      * @param familyDockSn
      * @param stateBeans
      * @param device
@@ -297,6 +328,7 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
 
     /**
      * 安防取消报警回调
+     *
      * @param familyDockSn
      * @param device
      */
@@ -304,4 +336,5 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
     public void onCancelAlarm(String familyDockSn, SmartHomeManager.SecurityDevice device) {
         LogUtil.i("防区解除报警 ： " + familyDockSn);
     }
+
 }

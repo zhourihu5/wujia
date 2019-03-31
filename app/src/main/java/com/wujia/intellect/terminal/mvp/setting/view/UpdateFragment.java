@@ -1,6 +1,7 @@
 package com.wujia.intellect.terminal.mvp.setting.view;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.wujia.businesslib.TitleFragment;
 import com.wujia.intellect.terminal.R;
+import com.wujia.intellect.terminal.mvp.setting.data.VersionBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,9 +42,13 @@ public class UpdateFragment extends TitleFragment {
     @BindView(R.id.update_ing_layout)
     LinearLayout updateIngLayout;
 
-    public static UpdateFragment newInstance() {
+    private VersionBean.Version mVersion;
+
+    public static UpdateFragment newInstance(VersionBean.Version version, String remark) {
         UpdateFragment fragment = new UpdateFragment();
         Bundle args = new Bundle();
+        args.putSerializable("version", version);
+        args.putSerializable("remark", remark);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,6 +56,17 @@ public class UpdateFragment extends TitleFragment {
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+
+        mVersion = (VersionBean.Version) getArguments().getSerializable("version");
+        String remark = getArguments().getString("remark");
+        tvVersionDesc.setText(remark);
+        tvVersion.setText(mVersion.version);
+
     }
 
     @Override

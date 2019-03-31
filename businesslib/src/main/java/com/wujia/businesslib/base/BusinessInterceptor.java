@@ -15,7 +15,8 @@ import okhttp3.Response;
 
 
 public class BusinessInterceptor implements Interceptor {
-    private static final String[] IGONE_REQUEST = {"/token/checkToken"};
+    private static final String[] IGONE_REQUEST = {"/token/checkToken", "/checkVersion"};
+
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();

@@ -4,6 +4,8 @@ import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.BaseView;
 import com.wujia.lib_common.base.IBaseModle;
 
+import io.reactivex.Flowable;
+
 /**
  * author ：shenbingkai@163.com
  * date ：2019-01-26
@@ -11,6 +13,7 @@ import com.wujia.lib_common.base.IBaseModle;
  */
 public interface FamilyMemberContract {
     interface Model extends IBaseModle {
+
     }
 
     interface View extends BaseView {

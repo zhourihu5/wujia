@@ -1,5 +1,7 @@
 package com.wujia.businesslib.data;
 
+import android.text.TextUtils;
+
 import com.wujia.businesslib.Constants;
 import com.wujia.lib_common.data.network.BaseResponse;
 
@@ -12,7 +14,7 @@ public class RootResponse extends BaseResponse implements Serializable {
 
     @Override
     public boolean isSuccess() {
-        return Constants.HTTP_SUCESS.equals(errcode) || Constants.HTTP_SUCESS.equals(code);
+        return Constants.HTTP_SUCESS.equals(errcode) || Constants.HTTP_SUCESS.equals(code) || TextUtils.isEmpty(code);
     }
 
     @Override

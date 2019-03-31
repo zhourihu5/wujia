@@ -1,5 +1,7 @@
 package com.wujia.lib_common.utils;
 
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,6 +13,22 @@ import java.util.Locale;
  * description ：
  */
 public class DateUtil {
+
+
+    public static String formatMsgDate(String m) {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM.dd HH:mm", Locale.ENGLISH);
+        Date date = new Date(Long.parseLong(m));
+        String curDate = formatter.format(date);
+        return curDate;
+    }
+
+    //获取系统当前日期时间
+    public static String getCurrentyyyymmddhh() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHH");
+        Date date = new Date(System.currentTimeMillis());
+        String curDate = formatter.format(date);
+        return curDate;
+    }
 
     //获取系统当前日期时间
     public static String getCurrentDateTime() {

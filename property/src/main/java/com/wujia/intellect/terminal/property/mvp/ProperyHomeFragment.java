@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.wujia.intellect.terminal.property.R;
 import com.wujia.intellect.terminal.property.mvp.view.FixFragment;
+import com.wujia.intellect.terminal.property.mvp.view.SimpleFixFragment;
 import com.wujia.intellect.terminal.property.mvp.view.TelFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
@@ -46,9 +47,9 @@ public class ProperyHomeFragment extends BaseFragment {
         super.onLazyInitView(savedInstanceState);
         mTabBar = $(R.id.tab_home_tab_bar);
 
-        SupportFragment firstFragment = findFragment(FixFragment.class);
+        SupportFragment firstFragment = findFragment(SimpleFixFragment.class);
         if (firstFragment == null) {
-            mFragments[0] = FixFragment.newInstance();
+            mFragments[0] = SimpleFixFragment.newInstance();
             mFragments[1] = TelFragment.newInstance();
             loadMultipleRootFragment(R.id.tab_content_container, 0, mFragments[0], mFragments[1]);
         } else {

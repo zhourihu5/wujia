@@ -95,6 +95,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         loginTimeDateTv.setText(StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay()));
         mPresenter.doTimeChange();
 
+
         if (!TextUtils.isEmpty(DataManager.getFamilyId())) {
 
             UserBean.User user = DataManager.getUser();
@@ -103,7 +104,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 //            JXPadSdk.setCommunityId(user.communityId);
 //            JXPadSdk.setFamilyInfoId(user.familyId);
             JXPadSdk.setAccid("y_p_1241_18021651812");
-            JXPadSdk.setAppKey("userKey:d38bf3b32e09484b83673c90772442cc","6a591fc521f347bfad171fd2932e60d6");
+            JXPadSdk.setAppKey("userKey:d38bf3b32e09484b83673c90772442cc", "6a591fc521f347bfad171fd2932e60d6");
             JXPadSdk.setCommunityId("1");
             JXPadSdk.getDoorAccessManager().startFamily("001901181CD10000", "01");
             JXPadSdk.initNeighbor();
@@ -193,6 +194,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
 //        http://openapi.house-keeper.cn/openapi/v1/user/padLogin?appid=test&accessToken=4c239ad0-59b1-4306-b437-c8a8e79baea7&padSn=HS1JXY6M12D2900034&mobile=17712239874&captcha=jingxikeji
         String sn = SystemUtil.getSerialNum();
+        LogUtil.i("sn " + sn);
 //        mPresenter.doLogin(phone, pwd, sn);
         mPresenter.doLogin(phone, pwd, "HS1JXY6M12D2900034");
 
@@ -220,6 +222,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
             SPHelper.saveObject(LoginActivity.this, Constants.SP_KEY_USER, userBean.content);
             loginPhoneError.setVisibility(View.INVISIBLE);
 
+            loginWelcomName.append(userBean.content.nickName);
             loginLayout1.setVisibility(View.GONE);
             loginLayout2.setVisibility(View.VISIBLE);
 

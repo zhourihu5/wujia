@@ -26,8 +26,8 @@ import retrofit2.converter.gson.CustomConverterFactory;
  */
 
 public class HttpHelper {
-    private static String mBaseUrl;
-    private static Retrofit mRetrofit;
+    private String mBaseUrl;
+    private Retrofit mRetrofit;
     private ConcurrentHashMap mServiceMap;
 
     private OkHttpClient mOkHttpClient;

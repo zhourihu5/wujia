@@ -3,17 +3,22 @@ package com.wujia.intellect.terminal.message.mvp.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.widget.RadioGroup;
 
+import com.wujia.businesslib.DataBaseUtil;
+import com.wujia.businesslib.data.DBMessage;
+import com.wujia.businesslib.event.EventMsg;
+import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.intellect.terminal.message.R;
 import com.wujia.intellect.terminal.message.mvp.adapter.MessageAdapter;
-import com.wujia.intellect.terminal.message.mvp.data.MsgBean;
 import com.wujia.lib.widget.HorizontalTabBar;
 import com.wujia.lib.widget.HorizontalTabItem;
 import com.wujia.lib_common.base.BaseFragment;
+import com.wujia.lib_common.utils.LogUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * author ：shenbingkai@163.com
@@ -24,6 +29,16 @@ public class AllMsgFragment extends BaseFragment implements HorizontalTabBar.OnT
 
     HorizontalTabBar tabBar;
     RecyclerView recyclerView;
+    private ArrayList<DBMessage> msgList;
+    private MessageAdapter mAdapter;
+    private int currentState = 0;
+
+    private EventMsg eventMsg = new EventMsg(new IMiessageInvoke<EventMsg>() {
+        @Override
+        public void eventBus(EventMsg event) {
+
+        }
+    });
 
     public AllMsgFragment() {
 
@@ -54,17 +69,53 @@ public class AllMsgFragment extends BaseFragment implements HorizontalTabBar.OnT
 
         tabBar.setOnTabSelectedListener(this);
 
-        List<MsgBean> datas = new ArrayList<>();
-        datas.add(new MsgBean());
-        datas.add(new MsgBean());
-        datas.add(new MsgBean());
-        datas.add(new MsgBean());
-        datas.add(new MsgBean());
-        recyclerView.setAdapter(new MessageAdapter(mActivity, datas));
+        mAdapter = new MessageAdapter(mActivity, msgList);
+        recyclerView.setAdapter(mAdapter);
+
     }
 
     @Override
     public void onTabSelected(int position, int prePosition) {
+        currentState = position;
 
+        getData();
+
+    }
+
+    private void getData() {
+        ArrayList<DBMessage> temp = null;
+        switch (currentState) {
+            case 0://全部
+                temp = DataBaseUtil.query(DBMessage.class);
+                break;
+            case 1://已读
+                temp = DataBaseUtil.queryNotEquals(getMap(), DBMessage.class);
+                break;
+            case 2://未读
+                temp = DataBaseUtil.queryEquals(getMap(), DBMessage.class);
+                break;
+        }
+
+        msgList.clear();
+        msgList.addAll(temp);
+        if (null != mAdapter) {
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private Map<String, Object> getMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("_read_state", 0);
+        return map;
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+
+        if (null == msgList) {
+            msgList = new ArrayList<>();
+        }
+        getData();
     }
 }

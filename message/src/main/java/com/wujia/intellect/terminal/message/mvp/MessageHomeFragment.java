@@ -3,12 +3,16 @@ package com.wujia.intellect.terminal.message.mvp;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.wujia.businesslib.DataBaseUtil;
+import com.wujia.businesslib.data.MessageBean;
 import com.wujia.intellect.terminal.message.R;
 import com.wujia.intellect.terminal.message.mvp.view.AllMsgFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.utils.LogUtil;
+
+import java.util.ArrayList;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -61,18 +65,21 @@ public class MessageHomeFragment extends BaseFragment {
             mFragments[0] = firstFragment;
         }
 
-        mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_all_default,R.mipmap.icon_news_leftnav_all_highlight, R.string.all_msg))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_property_default,R.mipmap.icon_news_leftnav_property_highlight, R.string.wuye_notify))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_community_default,R.mipmap.icon_news_leftnav_community_highlight, R.string.shequ_notify))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_property_default, R.mipmap.icon_news_leftnav_property_highlight,R.string.app_notify));
+        mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_all_default, R.mipmap.icon_news_leftnav_all_highlight, R.string.all_msg))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_property_default, R.mipmap.icon_news_leftnav_property_highlight, R.string.wuye_notify))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_community_default, R.mipmap.icon_news_leftnav_community_highlight, R.string.shequ_notify));
+//                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_property_default, R.mipmap.icon_news_leftnav_property_highlight,R.string.app_notify));
 
 
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
-                showHideFragment(mFragments[0], mFragments[prePosition]);
+
+
             }
         });
+
+
     }
 
 }

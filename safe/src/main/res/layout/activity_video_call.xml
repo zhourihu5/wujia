@@ -9,73 +9,108 @@
         android:layout_marginRight="@dimen/px72"
         android:orientation="horizontal">
 
-        <!--视频-->
-        <RelativeLayout
-            android:layout_width="@dimen/px1038"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/black">
+            android:orientation="vertical">
+            <!--视频-->
+            <RelativeLayout
+                android:layout_width="@dimen/px1038"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/black">
+
+                <SurfaceView
+                    android:id="@+id/surface"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/px48"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/px48"
+                    android:paddingRight="@dimen/px48">
+
+                    <ImageButton
+                        android:id="@id/btn2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/btn_safe_sos" />
+
+                    <ImageButton
+                        android:id="@id/btn3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/px48"
+                        android:background="@mipmap/btn_safe_call" />
+
+                    <ImageButton
+                        android:id="@id/btn4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/px48"
+                        android:background="@mipmap/btn_safe_open" />
+
+                    <ImageButton
+                        android:id="@id/btn5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/px48"
+                        android:background="@mipmap/btn_safe_mark"
+                        android:visibility="gone" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/px1"
+                        android:layout_weight="1" />
+
+                    <ImageButton
+                        android:id="@id/btn6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/btn_safe_volume" />
+
+                    <ImageButton
+                        android:id="@id/btn7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/px48"
+                        android:background="@mipmap/btn_safe_fullscreen"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/px132"
+                android:layout_height="@dimen/px84"
+                android:background="@color/cf7"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/px48"
                 android:paddingRight="@dimen/px48">
 
-                <ImageButton
-                    android:id="@id/btn2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@mipmap/btn_safe_sos" />
-
-                <ImageButton
-                    android:id="@id/btn3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/px48"
-                    android:background="@mipmap/btn_safe_call" />
-
-                <ImageButton
-                    android:id="@id/btn4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/px48"
-                    android:background="@mipmap/btn_safe_open" />
-
-                <ImageButton
-                    android:id="@id/btn5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/px48"
-                    android:visibility="gone"
-                    android:background="@mipmap/btn_safe_mark" />
-
-                <Space
+                <TextView
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/px1"
-                    android:layout_weight="1" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/c3"
+                    android:textSize="@dimen/text20" />
 
-                <ImageButton
-                    android:id="@id/btn6"
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@mipmap/btn_safe_volume" />
-
-                <ImageButton
-                    android:id="@id/btn7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/px48"
-                    android:background="@mipmap/btn_safe_fullscreen"
-                    android:visibility="gone" />
-
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="单向视频中"
+                    android:textColor="@color/c3"
+                    android:textSize="@dimen/text20" />
             </LinearLayout>
-
-
-        </RelativeLayout>
-
+        </LinearLayout>
         <!--right-->
         <LinearLayout
             android:layout_width="@dimen/px380"
@@ -111,7 +146,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/px92"
-                android:text="语音呼叫中..."
+                android:text="呼叫中..."
                 android:textColor="@color/c3"
                 android:textSize="21sp" />
 
@@ -133,6 +168,7 @@
                 android:background="@drawable/btn_rect_accent_r4_border_empty"
                 android:gravity="center"
                 android:text="切换通话"
+                android:visibility="invisible"
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/text20" />
 

@@ -97,6 +97,7 @@ public class ViewHolder extends RecyclerView.ViewHolder
         tv.setText(spannableString);
         return this;
     }
+
     public ViewHolder setImageResource(int viewId, int resId)
     {
         ImageView view = getView(viewId);

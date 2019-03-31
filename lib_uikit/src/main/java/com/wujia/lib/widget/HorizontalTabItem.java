@@ -44,7 +44,7 @@ public class HorizontalTabItem extends android.support.v7.widget.AppCompatTextVi
 
         setTextSize(TypedValue.COMPLEX_UNIT_SP, 15.0f);
         setTextColor(textColorDefault);
-        setPadding(20, 5, 20, 5);
+        setPadding(25, 10, 25, 10);
         setText(txt);
     }
 

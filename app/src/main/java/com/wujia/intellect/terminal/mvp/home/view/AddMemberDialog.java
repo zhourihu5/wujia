@@ -6,9 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.litesuits.orm.db.DataBase;
 import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.wujia.intellect.terminal.R;
@@ -17,7 +15,6 @@ import com.wujia.intellect.terminal.mvp.home.data.HomeMeberBean;
 import com.wujia.businesslib.dialog.CommDialog;
 import com.wujia.lib_common.base.view.VerticallDecoration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +38,7 @@ public class AddMemberDialog extends CommDialog {
         inputEt = findViewById(R.id.dialog_input);
         rv = findViewById(R.id.rv_dialog_invite);
 
-        List<HomeMeberBean> mems = DataBaseUtil.getMemberList(HomeMeberBean.class);
+        List<HomeMeberBean> mems = DataBaseUtil.query(HomeMeberBean.class);
         rv.addItemDecoration(new VerticallDecoration(24));
         rv.setAdapter(new HomeInviteAdapter(context, mems));
 
@@ -53,7 +50,7 @@ public class AddMemberDialog extends CommDialog {
                     if (TextUtils.isEmpty(phone))
                         return;
                     dismiss();
-                    DataBaseUtil.getLiteOrm().insert(new HomeMeberBean(phone));
+                    DataBaseUtil.insert(new HomeMeberBean(phone));
                     listener.dialogSureClick(inputEt.getText().toString());
                 }
             }

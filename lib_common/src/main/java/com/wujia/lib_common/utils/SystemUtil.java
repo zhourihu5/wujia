@@ -12,6 +12,7 @@ public class SystemUtil {
 
     public static void init() {
         serialNum = android.os.Build.SERIAL;
+
     }
 
     public static String getSerialNum() {

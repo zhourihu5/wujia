@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpFragment;
+import com.wujia.businesslib.event.EventBusUtil;
+import com.wujia.businesslib.event.EventCardChange;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.home.contract.HomeContract;
 import com.wujia.intellect.terminal.mvp.home.contract.HomePresenter;
@@ -147,14 +149,20 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.layout_back_btn:
-                setFragmentResult(REQUEST_CODE_CARD_MANAGER_COMPLETE, null);
+//                setFragmentResult(REQUEST_CODE_CARD_MANAGER_COMPLETE, null);
                 pop();
                 break;
             case R.id.layout_right_btn:
-                setFragmentResult(REQUEST_CODE_CARD_MANAGER_COMPLETE, null);
+//                setFragmentResult(REQUEST_CODE_CARD_MANAGER_COMPLETE, null);
                 pop();
                 break;
         }
+    }
+
+    @Override
+    public void pop() {
+        EventBusUtil.post(new EventCardChange());
+        super.pop();
     }
 
     @Override

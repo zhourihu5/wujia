@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/bg_property_fix_top"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px68"
+                android:layout_marginTop="@dimen/px110"
+                android:text="卓越物业  更好的上门服务体验"
+                android:textColor="#FFFFFFFF"
+                android:textSize="@dimen/text50" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/px74"
+                android:layout_marginLeft="@dimen/px105"
+                android:layout_marginTop="@dimen/px77"
+                android:background="@drawable/bg_property_fix_fadius_shape"
+                android:gravity="center"
+                android:paddingLeft="@dimen/px30"
+                android:paddingRight="@dimen/px30"
+                android:text="值得信赖的贴身维修专员"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text32" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/px66"
+            android:paddingTop="@dimen/px20"
+            android:paddingRight="@dimen/px66">
+
+            <TextView
+                android:id="@+id/fix_electricity_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/ic_fix_electricity"
+                android:drawablePadding="@dimen/px36"
+                android:gravity="center"
+                android:text="电路维修"
+                android:textColor="@color/c3"
+                android:textSize="@dimen/text32" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/fix_water_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/ic_fix_water"
+                android:drawablePadding="@dimen/px36"
+                android:gravity="center"
+                android:text="水路维修"
+                android:textColor="@color/c3"
+                android:textSize="@dimen/text32" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/fix_public_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/ic_fix_public"
+                android:drawablePadding="@dimen/px36"
+                android:gravity="center"
+                android:text="公共设施报修"
+                android:textColor="@color/c3"
+                android:textSize="@dimen/text32" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/bg_property_fix_bottom" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="@dimen/px20"
+        android:layout_marginRight="@dimen/px200"
+        android:background="@mipmap/ic_cloud_city" />
+
+    <ImageView
+        android:id="@+id/fix_call_service_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="@dimen/px92"
+        android:layout_marginBottom="@dimen/px52"
+        android:src="@mipmap/btn_home_cotact" />
+</FrameLayout>

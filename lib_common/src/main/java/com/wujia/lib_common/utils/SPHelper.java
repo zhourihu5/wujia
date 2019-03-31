@@ -18,8 +18,7 @@ public class SPHelper {
     /**
      * 保存在手机里面的文件名
      */
-    public static final String FILE_NAME = "share_data";
-    public static final String VERSION_FILE_NAME = "version_file_name";
+    public static final String FILE_NAME = "wj_user_data";
 
 
     /**

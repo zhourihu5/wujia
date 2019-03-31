@@ -8,14 +8,27 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.wujia.businesslib.TitleFragment;
+import com.wujia.businesslib.base.MvpFragment;
 import com.wujia.businesslib.listener.OnDialogListener;
 import com.wujia.intellect.terminal.R;
 import com.wujia.businesslib.dialog.LoadingDialog;
+import com.wujia.intellect.terminal.mvp.setting.contract.SettingContract;
+import com.wujia.intellect.terminal.mvp.setting.data.VersionBean;
+import com.wujia.intellect.terminal.mvp.setting.presenter.SettingPresenter;
 import com.wujia.lib.widget.WjSwitch;
 import com.wujia.businesslib.dialog.SimpleDialog;
 import com.wujia.lib.widget.util.ToastUtil;
+import com.wujia.lib_common.data.network.exception.ApiException;
+import com.wujia.lib_common.utils.AppContext;
+import com.wujia.lib_common.utils.AppUtil;
+import com.wujia.lib_common.utils.LogUtil;
+import com.wujia.lib_common.utils.SystemUtil;
+import com.wujia.lib_common.utils.VersionUtil;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -25,8 +38,12 @@ import butterknife.OnClick;
  * date ：2019-01-12 20:06
  * description ：务业服务 home
  */
-public class SettingHomeFragment extends TitleFragment {
+public class SettingHomeFragment extends MvpFragment<SettingPresenter> implements SettingContract.View {
 
+    @BindView(R.id.layout_title_tv)
+    TextView layoutTitleTv;
+    @BindView(R.id.layout_back_btn)
+    TextView layoutBackBtn;
     @BindView(R.id.item_set_member)
     RelativeLayout itemSetMember;
     @BindView(R.id.item_manager_card)
@@ -43,6 +60,7 @@ public class SettingHomeFragment extends TitleFragment {
     LinearLayout itemClearCache;
     @BindView(R.id.item_check_update)
     RelativeLayout itemCheckUpdate;
+    private LoadingDialog loadingDialog;
 
     public SettingHomeFragment() {
     }
@@ -62,13 +80,7 @@ public class SettingHomeFragment extends TitleFragment {
 
     @Override
     protected void initEventAndData() {
-        showBack=false;
         super.initEventAndData();
-    }
-
-    @Override
-    public int getTitle() {
-        return R.string.setting;
     }
 
     @Override
@@ -76,6 +88,8 @@ public class SettingHomeFragment extends TitleFragment {
         super.onLazyInitView(savedInstanceState);
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
+
+        layoutTitleTv.setText(R.string.setting);
 
     }
 
@@ -130,20 +144,52 @@ public class SettingHomeFragment extends TitleFragment {
                 break;
             case R.id.item_check_update:
 
-                final LoadingDialog loadingDialog = new LoadingDialog(mContext);
+                loadingDialog = new LoadingDialog(mContext);
                 loadingDialog.setTitle(getString(R.string.check_update_ing));
                 loadingDialog.show();
 
-                itemCheckUpdate.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadingDialog.dismiss();
-                        start(UpdateFragment.newInstance());
-                    }
-                }, 1000);
-
-
+                mPresenter.checkVersion();
                 break;
+        }
+    }
+
+    @Override
+    protected SettingPresenter createPresenter() {
+        return new SettingPresenter();
+    }
+
+    @Override
+    public void onDataLoadSucc(int requestCode, Object object) {
+
+        VersionBean bean = (VersionBean) object;
+        ArrayList<VersionBean.Version> list = bean.infoList;
+
+//        String pname = AppContext.get().getPackageName();
+        String pname = "com.jingxi.smartlife.pad";
+        int versionId = VersionUtil.getVersionCode();
+
+        for (VersionBean.Version v : list) {
+            if (pname.equals(v.packageName)) {
+                if (v.versionId > versionId) {
+
+                    start(UpdateFragment.newInstance(v, bean.remark));
+
+                    break;
+                }
+            }
+        }
+
+        if (null != loadingDialog) {
+            loadingDialog.dismiss();
+            loadingDialog = null;
+        }
+    }
+
+    @Override
+    public void onDataLoadFailed(int requestCode, ApiException apiException) {
+        if (null != loadingDialog) {
+            loadingDialog.dismiss();
+            loadingDialog = null;
         }
     }
 }

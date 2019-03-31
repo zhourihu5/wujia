@@ -27,6 +27,7 @@ public class LoadingDialog extends Dialog {
     private void init() {
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.layout_loading_dialog);
+        setCanceledOnTouchOutside(false);
 //        WindowManager.LayoutParams lp = getWindow().getAttributes();
 //        lp.dimAmount = 0.0f;
 //        getWindow().setAttributes(lp);
@@ -50,5 +51,4 @@ public class LoadingDialog extends Dialog {
             tvTitle.setVisibility(View.VISIBLE);
         }
     }
-
 }

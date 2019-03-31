@@ -6,6 +6,7 @@ import com.wujia.businesslib.data.RootResponse;
 import com.wujia.businesslib.data.TokenBean;
 import com.wujia.businesslib.data.UserBean;
 import com.wujia.intellect.terminal.mvp.home.data.HomeRecBean;
+import com.wujia.businesslib.data.MessageBean;
 import com.wujia.intellect.terminal.mvp.home.data.WeatherBean;
 
 import io.reactivex.Flowable;
@@ -49,4 +50,10 @@ public interface MainAppApiService {
     @GET("/openapi/v1/community/getWeather")
     Flowable<WeatherBean> getWeather(@Query("communityId") String communityId);
 
+
+    @GET("/openapi/v1/message/getPropertyMessageById")
+    Flowable<MessageBean> getPropertyMessageById(@Query("id") String id);
+
+    @GET("/openapi/v1/message/getManagerMessageById")
+    Flowable<MessageBean> getManagerMessageById(@Query("id") String id);
 }

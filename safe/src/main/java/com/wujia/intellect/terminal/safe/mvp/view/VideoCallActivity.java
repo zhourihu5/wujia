@@ -52,15 +52,21 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v.getId() == R.id.btn1) {
             finish();
-        }else if(v.getId() == R.id.btn3){//接听
-
-        }else if(v.getId() == R.id.btn4){//开门
-
-        }else if(v.getId() == R.id.btn6){//音量
-
-        }else if(v.getId() == R.id.btn9){//挂断
-
+        } else if (v.getId() == R.id.btn3) {//接听
+            manager.acceptCall(sessionId);
+        } else if (v.getId() == R.id.btn4) {//开门
+            manager.openDoor(sessionId);
+        } else if (v.getId() == R.id.btn6) {//音量
+            updateSurface();
+        } else if (v.getId() == R.id.btn9) {//挂断
+            finish();
         }
+    }
+
+    @Override
+    public void finish() {
+        manager.hangupCall(sessionId);
+        super.finish();
     }
 
     @Override
@@ -84,36 +90,32 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
         manager.updateCallWindow(sessionId, null);
     }
 
-    public void accept(View v) {
-        manager.acceptCall(sessionId);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateSurface();
     }
 
-    public void hangup(View v) {
-        manager.hangupCall(sessionId);
-        finish();
-    }
-
-    public void updateSurface(View v) {
+    public void updateSurface() {
+        surfaceView.setVisibility(View.VISIBLE);
         manager.updateCallWindow(sessionId, surfaceView);
     }
 
     @Override
     public void startTransPort(String sessionID) {
         Toast.makeText(this, "开始传输视频", Toast.LENGTH_SHORT).show();
+        updateSurface();
     }
 
     @Override
     public void refreshEvent(DoorEvent event) {
         if (TextUtils.equals(event.getCmd(), IntercomConstants.kIntercomCommandHangup)) {
-            manager.hangupCall(sessionId);
             finish();
         } else if (TextUtils.equals(event.getCmd(), IntercomConstants.kIntercomCommandSessionTimeout)) {
             Toast.makeText(this, "超时", Toast.LENGTH_SHORT).show();
-            manager.hangupCall(sessionId);
             finish();
         } else if (TextUtils.equals(event.getCmd(), IntercomConstants.kIntercomCommandPickupByOther)) {
             Toast.makeText(this, "其他用户接听", Toast.LENGTH_SHORT).show();
-            manager.hangupCall(sessionId);
             finish();
         }
 
