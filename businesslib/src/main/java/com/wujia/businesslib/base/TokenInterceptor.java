@@ -58,7 +58,7 @@ public class TokenInterceptor implements Interceptor {
                 HttpUrl.Builder requestBuilder = request.url()
                         .newBuilder();
                 requestBuilder.removeAllQueryParameters(Constants.COMMON_REQUEST_TOKEN);
-                requestBuilder.addQueryParameter(Constants.COMMON_REQUEST_TOKEN,tokenBean.content);
+                requestBuilder.addQueryParameter(Constants.COMMON_REQUEST_TOKEN, tokenBean.content);
 
                 Request.Builder builder = request.newBuilder();
                 builder.url(requestBuilder.build());
@@ -99,7 +99,7 @@ public class TokenInterceptor implements Interceptor {
         try {
             RootResponse token = GsonUtil.GsonToBean(response, RootResponse.class);
 
-            if (Constants.HTTP_TOKEN_FAILD.equals(token.code)) {
+            if (Constants.HTTP_TOKEN_FAILD.equals(token.code) || Constants.HTTP_TOKEN_FAILD.equals(token.code)) {
                 return true;
             }
         } catch (Exception e) {

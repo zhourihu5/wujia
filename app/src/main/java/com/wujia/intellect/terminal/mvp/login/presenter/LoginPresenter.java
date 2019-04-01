@@ -17,9 +17,10 @@ import com.wujia.lib_common.utils.DateUtil;
  * description ：
  */
 public class LoginPresenter extends RxPresenter<LoginContract.View> implements LoginContract.Presenter {
-    public static final int REQUEST_CDOE_LOGIN=1;
-    public static final int REQUEST_CDOE_GET_CODE=2;
-    public static final int REQUEST_CDOE_TIMER=3;
+    public static final int REQUEST_CDOE_LOGIN = 1;
+    public static final int REQUEST_CDOE_GET_CODE = 2;
+    public static final int REQUEST_CDOE_TIMER = 3;
+    public static final int REQUEST_CDOE_TOKEN = 4;
     private LoginModel mModel;
 
     public LoginPresenter() {
@@ -33,14 +34,14 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
             public void onResponse(TokenBean response) {
                 super.onResponse(response);
                 if (response.isSuccess()) {
-                    mView.onDataLoadSucc(1, response);
+                    mView.onDataLoadSucc(REQUEST_CDOE_TOKEN, response);
                 }
             }
 
             @Override
             public void onFailed(ApiException apiException) {
                 super.onFailed(apiException);
-                mView.onDataLoadFailed(1, apiException);
+                mView.onDataLoadFailed(REQUEST_CDOE_TOKEN, apiException);
             }
         }));
 

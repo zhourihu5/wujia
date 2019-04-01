@@ -1,5 +1,6 @@
 package com.wujia.intellect.terminal.mvp.login.model;
 
+import com.wujia.businesslib.BusAppApiService;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.base.BaseModel;
 import com.wujia.businesslib.data.RootResponse;
@@ -22,7 +23,7 @@ public class LoginModel extends BaseModel implements LoginContract.Model {
 
     @Override
     public Flowable<TokenBean> getAccessToken() {
-        return mHttpHelper.create(MainAppApiService.class).getAccessToken("client_credential", Constants.APPID, Constants.SECRET).compose(RxUtil.<TokenBean>rxSchedulerHelper());
+        return mHttpHelper.create(BusAppApiService.class).getAccessToken(Constants.APPID, Constants.SECRET).compose(RxUtil.<TokenBean>rxSchedulerHelper());
     }
 
     @Override
