@@ -24,5 +24,6 @@ public class UserBean extends RootResponse {
         public String openId;
         public String headImage;
         public String communityId;
+        public String accid;
     }
 }

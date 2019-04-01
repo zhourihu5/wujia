@@ -4,8 +4,6 @@ import android.content.Context;
 
 import com.wujia.businesslib.data.DBMessage;
 import com.wujia.intellect.terminal.R;
-import com.wujia.intellect.terminal.mvp.home.data.HomeMeberBean;
-import com.wujia.intellect.terminal.mvp.home.data.HomeNotifyBean;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 import com.wujia.lib_common.utils.DateUtil;

@@ -3,11 +3,13 @@ package com.wujia.intellect.terminal.mvp.login.model;
 import com.wujia.businesslib.BusAppApiService;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.base.BaseModel;
+import com.wujia.businesslib.base.NetConfigWrapper;
 import com.wujia.businesslib.data.RootResponse;
 import com.wujia.businesslib.data.TokenBean;
 import com.wujia.businesslib.data.UserBean;
 import com.wujia.intellect.terminal.mvp.MainAppApiService;
 import com.wujia.intellect.terminal.mvp.login.contract.LoginContract;
+import com.wujia.lib_common.data.network.HttpHelper;
 import com.wujia.lib_common.data.network.RxUtil;
 
 import io.reactivex.Flowable;
@@ -23,7 +25,8 @@ public class LoginModel extends BaseModel implements LoginContract.Model {
 
     @Override
     public Flowable<TokenBean> getAccessToken() {
-        return mHttpHelper.create(BusAppApiService.class).getAccessToken(Constants.APPID, Constants.SECRET).compose(RxUtil.<TokenBean>rxSchedulerHelper());
+        return new HttpHelper.Builder(NetConfigWrapper.create(Constants.BASE_URL_TOKEN))
+                .build().create(BusAppApiService.class).getAccessToken(Constants.SECRET).compose(RxUtil.<TokenBean>rxSchedulerHelper());
     }
 
     @Override

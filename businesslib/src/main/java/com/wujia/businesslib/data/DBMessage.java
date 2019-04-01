@@ -19,7 +19,7 @@ public class DBMessage {
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int _id;
 
-    private int _type;
+    public String _type;
 
     public String title;
     public String pureText;

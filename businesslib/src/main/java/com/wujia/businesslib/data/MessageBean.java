@@ -13,6 +13,7 @@ import com.wujia.businesslib.data.RootResponse;
 public class MessageBean extends RootResponse {
 
     public Message content;
+    public String _type="";
 
     public static class Message {
 

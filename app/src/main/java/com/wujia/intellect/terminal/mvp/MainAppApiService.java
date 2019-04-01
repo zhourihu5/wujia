@@ -22,9 +22,6 @@ public interface MainAppApiService {
     @GET("")
     Flowable<ApiResponse<String>> getTestNet();
 
-    @GET("/openapi/v1/token")
-    Flowable<TokenBean> getAccessToken(@Query("type") String type, @Query("appid") String appid, @Query("secret") String secret);
-
     @FormUrlEncoded
     @POST("/openapi/v1/user/padLogin")
     Flowable<UserBean> login(@Field("mobile") String mobile, @Field("captcha") String captcha, @Field("padSn") String padSn);

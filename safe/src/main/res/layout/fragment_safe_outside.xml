@@ -47,7 +47,7 @@
                 android:id="@+id/safe_rec_seek_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/px52"
-                android:visibility="gone"
+                android:visibility="invisible"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="@dimen/px24"
                 android:orientation="horizontal">
@@ -66,7 +66,7 @@
                         android:id="@+id/safe_progress_time_current_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="00:20"
+                        android:text="00:00"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text20" />
 
@@ -77,7 +77,7 @@
                         android:layout_height="match_parent"
                         android:secondaryProgress="70"
                         android:max="100"
-                        android:progress="40"
+                        android:progress="0"
                         android:maxHeight="@dimen/px6"
                         android:minHeight="@dimen/px6"
                         android:thumb="@drawable/seekbar_thumb"
@@ -87,7 +87,7 @@
                         android:id="@+id/safe_progress_time_count_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="01:20"
+                        android:text="00:00"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text20" />
                 </LinearLayout>

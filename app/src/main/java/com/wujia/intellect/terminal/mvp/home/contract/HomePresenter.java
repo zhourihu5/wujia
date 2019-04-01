@@ -59,7 +59,7 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
 
     @Override
     public void getWeather(final String communityId) {
-        addSubscribe(Flowable.interval(10, 60*60, TimeUnit.SECONDS)
+        addSubscribe(Flowable.interval(10, 60 * 60, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Long>() {
@@ -143,12 +143,13 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
     }
 
     @Override
-    public void getPropertyMessageById(String id) {
+    public void getPropertyMessageById(final String type, String id) {
         addSubscribe(mModel.getPropertyMessageById(id).subscribeWith(new SimpleRequestSubscriber<MessageBean>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(MessageBean response) {
                 super.onResponse(response);
                 if (response.isSuccess()) {
+                    response._type=type;
                     mView.onDataLoadSucc(REQUEST_CDOE_MESSAGE, response);
                 }
             }
@@ -162,12 +163,13 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
     }
 
     @Override
-    public void getManagerMessageById(String id) {
+    public void getManagerMessageById(final String type, String id) {
         addSubscribe(mModel.getManagerMessageById(id).subscribeWith(new SimpleRequestSubscriber<MessageBean>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(MessageBean response) {
                 super.onResponse(response);
                 if (response.isSuccess()) {
+                    response._type=type;
                     mView.onDataLoadSucc(REQUEST_CDOE_MESSAGE, response);
                 }
             }

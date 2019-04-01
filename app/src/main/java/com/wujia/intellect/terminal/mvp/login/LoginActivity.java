@@ -94,24 +94,8 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
         loginTimeDateTv.setText(StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay()));
         mPresenter.doTimeChange();
+        mPresenter.doGetAccessToken();
 
-
-        if (!TextUtils.isEmpty(DataManager.getFamilyId())) {
-
-            UserBean.User user = DataManager.getUser();
-//            JXPadSdk.setAccid("");
-//            JXPadSdk.setAppKey(com.wujia.lib_common.data.network.Constants.APP_ID, com.wujia.lib_common.data.network.Constants.TOKEN);
-//            JXPadSdk.setCommunityId(user.communityId);
-//            JXPadSdk.setFamilyInfoId(user.familyId);
-            JXPadSdk.setAccid("y_p_1241_18021651812");
-            JXPadSdk.setAppKey("userKey:d38bf3b32e09484b83673c90772442cc", "6a591fc521f347bfad171fd2932e60d6");
-            JXPadSdk.setCommunityId("1");
-            JXPadSdk.getDoorAccessManager().startFamily("001901181CD10000", "01");
-            JXPadSdk.initNeighbor();
-
-            toActivity(MainActivity.class);
-            finish();
-        }
     }
 
     @OnClick({R.id.login_btn, R.id.login_btn_confim, R.id.login_password_visibility, R.id.login_verify_code_btn})
@@ -181,6 +165,9 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     }
 
     private void login() {
+        if (TextUtils.isEmpty(DataManager.getToken()))
+            mPresenter.doGetAccessToken();
+
         //TODO 验证手机号
         String phone = loginAccount.getText().toString();
         if (!VerifyUtil.isPhone(phone)) {
@@ -226,16 +213,39 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
             loginLayout1.setVisibility(View.GONE);
             loginLayout2.setVisibility(View.VISIBLE);
 
-            JXPadSdk.setAccid("");
-            JXPadSdk.setAppKey("", "");
-            JXPadSdk.setCommunityId(userBean.content.communityId);
-            JXPadSdk.setFamilyInfoId(userBean.content.familyId);
-            JXPadSdk.initNeighbor();
+            initSdkData(userBean.content);
 
-        } else {
-//            TokenBean bean = (TokenBean) object;
-//            LogUtil.i(bean.toString());
+        } else if (requestCode == LoginPresenter.REQUEST_CDOE_TOKEN) {
+            TokenBean bean = (TokenBean) object;
+            LogUtil.i(bean.toString());
+            DataManager.saveToken(bean.content);
+
+            if (!TextUtils.isEmpty(DataManager.getFamilyId())) {
+
+                UserBean.User user = DataManager.getUser();
+
+                initSdkData(user);
+
+                toActivity(MainActivity.class);
+                finish();
+            }
         }
+    }
+
+    private void initSdkData(UserBean.User user) {
+
+//        JXPadSdk.setAccid(user.accid);
+//        JXPadSdk.setAppKey(Constants.APPID, DataManager.getToken());
+//        JXPadSdk.setCommunityId(user.communityId);
+//        JXPadSdk.setFamilyInfoId(user.familyId);
+//        JXPadSdk.initNeighbor();
+
+
+        JXPadSdk.setAccid("y_p_1241_18021651812");
+        JXPadSdk.setAppKey("userKey:d38bf3b32e09484b83673c90772442cc", "6a591fc521f347bfad171fd2932e60d6");
+        JXPadSdk.setCommunityId("1");
+        JXPadSdk.getDoorAccessManager().startFamily("001901181CD10000", "01");
+        JXPadSdk.initNeighbor();
     }
 
     @Override

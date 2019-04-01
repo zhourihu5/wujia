@@ -22,6 +22,13 @@ public class DateUtil {
         return curDate;
     }
 
+    public static String formathhMMdd(long m) {
+        SimpleDateFormat formatter = new SimpleDateFormat("hh:MM:dd");
+        Date date = new Date(m);
+        String curDate = formatter.format(date);
+        return curDate;
+    }
+
     //获取系统当前日期时间
     public static String getCurrentyyyymmddhh() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHH");

@@ -50,8 +50,8 @@ public interface HomeContract {
 
         void removeUserQuickCard(String openid, String quickCardId);
 
-        void getPropertyMessageById(String id);
+        void getPropertyMessageById(String type, String id);
 
-        void getManagerMessageById(String id);
+        void getManagerMessageById(String type, String id);
     }
 }

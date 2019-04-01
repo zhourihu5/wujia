@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -296,6 +297,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
             case R.id.home_chat_btn:
                 ToastUtil.showShort(mContext, getString(R.string.chat_is_developing));
 //                EventBusUtil.post(new EventMsg());
+                mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, "1");
                 break;
             case R.id.home_member_add_btn:
                 new AddMemberDialog(mActivity).setListener(new OnInputDialogListener() {
@@ -312,7 +314,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
             case R.id.home_arc_view:
 //                start(ExceptionStatusFragment.newInstance());
-                mPresenter.getPropertyMessageById("1");
+                mPresenter.getPropertyMessageById(HomeNotifyBean.TYPE_PROPERTY, "1");
 //                mPresenter.getManagerMessageById("1");
                 break;
         }
@@ -351,6 +353,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
                 DBMessage m = new DBMessage();
 
+                m._type = temp._type;
                 m.title = bean.propertyMessage.title;
                 m.communityId = bean.propertyMessage.communityId;
                 m.createDate = bean.propertyMessage.createDate;
@@ -400,7 +403,12 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     public void onReceiverMessage(String content) {
 
         LogUtil.i("onReceiverMessage " + content);
-        setNotify();
+        HomeNotifyBean notify = GsonUtil.GsonToBean(content, HomeNotifyBean.class);
+        if (TextUtils.equals(notify.type, HomeNotifyBean.TYPE_PROPERTY)) {
+            mPresenter.getPropertyMessageById(HomeNotifyBean.TYPE_PROPERTY, notify.propertyMessage);
+        } else if (TextUtils.equals(notify.type, HomeNotifyBean.TYPE_NOTIFY)) {
+            mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, notify.propertyMessage);
+        }
     }
 
     /**

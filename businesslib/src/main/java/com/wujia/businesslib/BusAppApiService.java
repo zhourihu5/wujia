@@ -12,7 +12,7 @@ import retrofit2.http.Query;
 public interface BusAppApiService {
 
     @GET("/token/checkToken")
-    Flowable<TokenBean> getAccessToken(@Query("appid") String appid, @Query("secret") String secret);
+    Flowable<TokenBean> getAccessToken(@Query("secret") String secret);
 
 
     @GET("/token/checkToken")

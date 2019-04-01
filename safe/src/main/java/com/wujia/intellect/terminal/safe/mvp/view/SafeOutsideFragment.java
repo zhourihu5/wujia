@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.SparseBooleanArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -21,7 +22,6 @@ import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorEvent;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorRecordBean;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessConversationUI;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListUI;
-import com.wujia.businesslib.Constants;
 import com.wujia.intellect.terminal.safe.R;
 import com.wujia.intellect.terminal.safe.mvp.adapter.PlayBackAdapter;
 import com.wujia.lib.widget.util.ToastUtil;
@@ -30,6 +30,7 @@ import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.utils.AudioMngHelper;
 import com.wujia.lib_common.utils.LogUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,13 +48,13 @@ public class SafeOutsideFragment extends BaseFragment implements
 
     private SurfaceView surfaceView;
     private DoorAccessManager mDoorAccessManager;
-    private String sessionId;
+    private String sessionId, playBackSessionId;
 
     private RecyclerView rvPlayBack;
     private TextView btnEdit;
     private SeekBar seekBar;
     private TextView btnPlay, btnPause, btnRefrsh, btnSave, btnMute, btnFull, btnSos;
-
+    private TextView tvPlaybackCurrentTime, tvPlaybackCountTime;
 
     private boolean isEdit = true;
     private PlayBackAdapter recAdapter;
@@ -70,7 +71,8 @@ public class SafeOutsideFragment extends BaseFragment implements
     private boolean isTouchSeek = false;
     private View layoutBottomOp;
     private String familyID = "001901181CD10000";
-    private List<DoorRecordBean> datas;
+    private List<DoorRecordBean> recordList;
+    private DoorRecordBean recordBean;
 
     public SafeOutsideFragment() {
     }
@@ -117,6 +119,8 @@ public class SafeOutsideFragment extends BaseFragment implements
         btnRefrsh = $(R.id.safe_btn_refresh);
         btnFull = $(R.id.safe_btn_full);
 
+        tvPlaybackCurrentTime = $(R.id.safe_progress_time_current_tv);
+        tvPlaybackCountTime = $(R.id.safe_progress_time_count_tv);
 
         $(R.id.safe_swich_live_btn).setOnClickListener(this);
         $(R.id.safe_rec_all_choose_btn).setOnClickListener(this);
@@ -132,7 +136,6 @@ public class SafeOutsideFragment extends BaseFragment implements
         btnFull.setOnClickListener(this);
         btnSos.setOnClickListener(this);
         btnEdit.setOnClickListener(this);
-
 
         setVideo();
 
@@ -156,10 +159,10 @@ public class SafeOutsideFragment extends BaseFragment implements
     }
 
     private void setHistoryList() {
-        if (null == datas) {
-            datas = new ArrayList<>();
+        if (null == recordList) {
+            recordList = new ArrayList<>();
         }
-        recAdapter = new PlayBackAdapter(mContext, datas);
+        recAdapter = new PlayBackAdapter(mContext, recordList);
         rvPlayBack.setAdapter(recAdapter);
         recAdapter.setOnItemClickListener(this);
 
@@ -176,14 +179,14 @@ public class SafeOutsideFragment extends BaseFragment implements
         mDoorAccessManager.setListUIListener(this);
         mDoorAccessManager.addConversationUIListener(this);
 
-        if (null == datas) {
-            datas = new ArrayList<>();
+        if (null == recordList) {
+            recordList = new ArrayList<>();
         }
 
-        List<DoorRecordBean> recordBeans = mDoorAccessManager.getHistoryListByType(familyID, DoorRecordBean.RECORD_TYPE_EXT, 0, 50);
+        List<DoorRecordBean> recordBeans = mDoorAccessManager.getHistoryListByType(familyID, DoorRecordBean.RECORD_TYPE_DOOR, 0, 50);
         if (null != recordBeans && recordBeans.size() > 0) {
-            datas.clear();
-            datas.addAll(recordBeans);
+            recordList.clear();
+            recordList.addAll(recordBeans);
         }
         if (null != recAdapter) {
             recAdapter.notifyDataSetChanged();
@@ -201,6 +204,8 @@ public class SafeOutsideFragment extends BaseFragment implements
         mDoorAccessManager.removeConversationUIListener(this);
         mDoorAccessManager.setListUIListener(null);
 
+        //不可见时暂停回放
+        startLive();
     }
 
     @Override
@@ -242,7 +247,7 @@ public class SafeOutsideFragment extends BaseFragment implements
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == R.id.safe_play_rec_edit_btn) {
+        if (v.getId() == R.id.safe_play_rec_edit_btn) {//编辑
             if (isEdit) {   //编辑状态
                 btnEdit.setText(getString(R.string.complete));
                 layoutBottomOp.setVisibility(View.VISIBLE);
@@ -256,41 +261,77 @@ public class SafeOutsideFragment extends BaseFragment implements
             recAdapter.notifyDataSetChanged();
 
             isEdit = !isEdit;
-        } else if (v.getId() == R.id.safe_btn_sos) {
+        } else if (v.getId() == R.id.safe_btn_sos) {    // SOS
             startActivity(new Intent(mActivity, VideoCallActivity.class));
-        } else if (v.getId() == R.id.safe_btn_play) {
+        } else if (v.getId() == R.id.safe_btn_play) {   // 播放
+            btnPause.setVisibility(View.VISIBLE);
+            btnPlay.setVisibility(View.GONE);
+            int tempSeek = seek;
 
-        } else if (v.getId() == R.id.safe_btn_pause) {
+//            seekBar.setOnSeekBarChangeListener(this);
+            mDoorAccessManager.startPlayBack(playBackSessionId);
+            mDoorAccessManager.seekPlayBack(playBackSessionId, tempSeek * 100 / max);
+            mDoorAccessManager.updatePlayBackWindow(playBackSessionId, surfaceView);
 
-        } else if (v.getId() == R.id.safe_btn_save) {
-
-        } else if (v.getId() == R.id.safe_btn_refresh) {
+        } else if (v.getId() == R.id.safe_btn_pause) { //暂停
+            btnPause.setVisibility(View.GONE);
+            btnPlay.setVisibility(View.VISIBLE);
+            mDoorAccessManager.pausePlayBack(playBackSessionId);
+//            mDoorAccessManager.removePlayBackListener(this);
+//            seekBar.setOnSeekBarChangeListener(null);
+        } else if (v.getId() == R.id.safe_btn_save) {   //保存
+            //sdk自动保存
+        } else if (v.getId() == R.id.safe_btn_refresh) {    //刷新
 //            mDoorAccessManager.updateCallWindow(sessionId, surfaceView);
+            mDoorAccessManager.pausePlayBack(playBackSessionId);
             setVideo();
-        } else if (v.getId() == R.id.safe_btn_mute) {
+        } else if (v.getId() == R.id.safe_btn_mute) {   //静音
             isMute = !isMute;
             if (isMute) {
                 audioHelper.setVoice100(0);
             } else {
                 audioHelper.setVoice100(audioValue);
             }
-        } else if (v.getId() == R.id.safe_btn_full) {
+        } else if (v.getId() == R.id.safe_btn_full) {   //全屏
 //            startActivity(new Intent(mActivity, SafeFullScreenActivity.class));
 
-        } else if (v.getId() == R.id.safe_swich_live_btn) {
+        } else if (v.getId() == R.id.safe_swich_live_btn) { //切回直播
             startLive();
-        } else if (v.getId() == R.id.safe_rec_all_choose_btn) {
-            recAdapter.chooseAll();
-        } else if (v.getId() == R.id.safe_rec_del_btn) {
+            setVideo();
 
+        } else if (v.getId() == R.id.safe_rec_all_choose_btn) { //全选
+            recAdapter.chooseAll();
+        } else if (v.getId() == R.id.safe_rec_del_btn) {    //删除
+
+            if (null == recordList || recordList.size() < 1)
+                return;
+            SparseBooleanArray map = recAdapter.getCheckMap();
+            if (null == map || map.size() < 1)
+                return;
+            List<DoorRecordBean> temp = new ArrayList<>();
+            for (int i = 0; i < recordList.size(); i++) {
+                if (map.get(i)) {
+                    temp.add(recordList.get(i));
+                }
+            }
+            mDoorAccessManager.deleteListRecord(temp);
+            recordList.removeAll(temp);
+            recAdapter.clearCheck();
+            btnEdit.performClick();
         }
     }
 
     @Override
     public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
         if (isEdit) {
-//            ToastUtil.showShort(mContext,"开始回放");
-            startPlayRec(position);
+            recordBean = recordList.get(position);
+            if (!new File(recordBean.videoPath).exists()) {
+                ToastUtil.showShort(mContext, "该记录没有录制视频");
+                return;
+            }
+
+            ToastUtil.showShort(mContext, "开始回放");
+            startPlayRec(recordList.get(position));
         } else {
             recAdapter.itemClick(position);
         }
@@ -325,6 +366,10 @@ public class SafeOutsideFragment extends BaseFragment implements
             seekBar.setOnSeekBarChangeListener(null);
             seekBar.setProgress(seek);
             seekBar.setOnSeekBarChangeListener(this);
+
+//            recordBean.chat_time
+            tvPlaybackCurrentTime.setText(String.valueOf(format(seek)));
+            tvPlaybackCountTime.setText(String.valueOf(format(max)));
         } else if (event == IntercomConstants.MediaPlayEvent.MediaPlayEventCompleted) {
             seek = max;
             seekBar.setOnSeekBarChangeListener(null);
@@ -332,13 +377,8 @@ public class SafeOutsideFragment extends BaseFragment implements
             seekBar.setOnSeekBarChangeListener(this);
             mDoorAccessManager.pausePlayBack(sessionId);
         }
-    }
+        LogUtil.i("onMediaPlayEvent event = " + event + "  value = " + value + "  seek = " + seek + "  max = " + max);
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mDoorAccessManager.removePlayBackListener(this);
-        LogUtil.i("SafeOutsideFragment onDestroyView");
     }
 
     private void startLive() {
@@ -348,19 +388,62 @@ public class SafeOutsideFragment extends BaseFragment implements
         btnSave.setVisibility(View.GONE);
         btnSos.setVisibility(View.VISIBLE);
         btnRefrsh.setVisibility(View.VISIBLE);
+
+        mDoorAccessManager.pausePlayBack(playBackSessionId);
+        mDoorAccessManager.removePlayBackListener(this);
+        seekBar.setOnSeekBarChangeListener(null);
     }
 
-    private void startPlayRec(int pos) {
+    private void startPlayRec(DoorRecordBean record) {
         $(R.id.safe_rec_seek_layout).setVisibility(View.VISIBLE);
         btnPause.setVisibility(View.VISIBLE);
+        btnPlay.setVisibility(View.GONE);
         btnSave.setVisibility(View.VISIBLE);
         btnSos.setVisibility(View.GONE);
         btnRefrsh.setVisibility(View.GONE);
+
+        seekBar.setOnSeekBarChangeListener(this);
+        mDoorAccessManager.addPlayBackListener(this);
+
+        playBackSessionId = record.session_id;
+        mDoorAccessManager.startPlayBack(playBackSessionId);
+
+        mDoorAccessManager.updatePlayBackWindow(playBackSessionId, surfaceView);
+
     }
 
     @Override
     public void refreshList() {
         LogUtil.i("refreshList");
         setVideo();
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mDoorAccessManager.removePlayBackListener(this);
+        LogUtil.i("SafeOutsideFragment onDestroyView");
+    }
+
+    private String format(int time) {
+
+        int m = time / 60;
+        int s = time % 60;
+
+        String mstr ;
+        String sstr ;
+        if (m < 10) {
+            mstr = "0" + m;
+        }else{
+            mstr=String.valueOf(m);
+        }
+        if (s < 10) {
+            sstr = "0" + s;
+        }else{
+            sstr=String.valueOf(s);
+        }
+
+        return mstr + ":" + sstr;
     }
 }

@@ -99,7 +99,7 @@ public class TokenInterceptor implements Interceptor {
         try {
             RootResponse token = GsonUtil.GsonToBean(response, RootResponse.class);
 
-            if (Constants.HTTP_TOKEN_FAILD.equals(token.code) || Constants.HTTP_TOKEN_FAILD.equals(token.code)) {
+            if (Constants.HTTP_TOKEN_FAILD.equals(token.code) || Constants.HTTP_TOKEN_NO.equals(token.code)) {
                 return true;
             }
         } catch (Exception e) {

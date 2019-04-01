@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.home.data.HomeExceptionBean;
-import com.wujia.intellect.terminal.mvp.home.data.HomeNotifyBean;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 

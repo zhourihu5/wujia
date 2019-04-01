@@ -1,12 +1,14 @@
 package com.wujia.intellect.terminal.safe.mvp.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorRecordBean;
 import com.wujia.intellect.terminal.safe.R;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
+import com.wujia.lib_common.utils.DateUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,9 +21,9 @@ import java.util.List;
  */
 public class PlayBackAdapter extends CommonAdapter<DoorRecordBean> {
 
+
     private boolean isEdit;
     private SparseBooleanArray checkMap;
-
 
     public void setEdit(boolean edit) {
         isEdit = edit;
@@ -48,6 +50,16 @@ public class PlayBackAdapter extends CommonAdapter<DoorRecordBean> {
         checkMap = new SparseBooleanArray();
     }
 
+    public SparseBooleanArray getCheckMap() {
+        return checkMap;
+    }
+
+    public void clearCheck() {
+        if (null != checkMap) {
+            checkMap.clear();
+        }
+    }
+
     @Override
     protected void convert(ViewHolder holder, DoorRecordBean item, int pos) {
 
@@ -65,5 +77,10 @@ public class PlayBackAdapter extends CommonAdapter<DoorRecordBean> {
             holder.setVisible(R.id.play_back_video_btn, true);
             holder.setVisible(R.id.play_back_checkbox, false);
         }
+
+        holder.setText(R.id.play_back_title, item.show_name);
+        holder.setText(R.id.play_back_time_tv, DateUtil.formathhMMdd(item.startTime));
+
+        holder.setVisible(R.id.play_back_save_state, !TextUtils.isEmpty(item.thumbPath));
     }
 }
