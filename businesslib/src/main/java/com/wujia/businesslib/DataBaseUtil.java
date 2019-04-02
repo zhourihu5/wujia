@@ -42,6 +42,7 @@ public class DataBaseUtil {
     public static <T> ArrayList<T> queryEquals(Map<String, Object> map, Class<T> cls) {
         QueryBuilder builder = new QueryBuilder<T>(cls);
         for (String key : map.keySet()) {
+            builder.whereAppendAnd();
             builder.whereEquals(key, map.get(key));
         }
         return getLiteOrm().query(builder);
@@ -54,6 +55,7 @@ public class DataBaseUtil {
     public static <T> ArrayList<T> queryNotEquals(Map<String, Object> map, Class<T> cls) {
         QueryBuilder builder = new QueryBuilder<T>(cls);
         for (String key : map.keySet()) {
+            builder.whereAppendAnd();
             builder.whereNoEquals(key, map.get(key));
         }
         return getLiteOrm().query(builder);

@@ -7,7 +7,8 @@ import com.wujia.lib_common.base.BasePresenter;
  * Created by yseerd on 2018/5/26.
  */
 
-public abstract class LoadingActivity <T extends BasePresenter> extends MvpActivity<T>{
+public abstract class
+LoadingActivity <T extends BasePresenter> extends MvpActivity<T>{
 
     private LoadingDialog loadingDialog;
 

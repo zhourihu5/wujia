@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.wujia.businesslib.DataBaseUtil;
+import com.wujia.businesslib.data.DBMessage;
 import com.wujia.businesslib.data.MessageBean;
 import com.wujia.intellect.terminal.message.R;
 import com.wujia.intellect.terminal.message.mvp.view.AllMsgFragment;
@@ -25,7 +26,8 @@ public class MessageHomeFragment extends BaseFragment {
 
 
     private VerticalTabBar mTabBar;
-    private SupportFragment[] mFragments = new SupportFragment[6];
+    private AllMsgFragment msgFragment;
+
 
     public MessageHomeFragment() {
 
@@ -56,13 +58,13 @@ public class MessageHomeFragment extends BaseFragment {
 
         SupportFragment firstFragment = findFragment(AllMsgFragment.class);
         if (firstFragment == null) {
-            mFragments[0] = AllMsgFragment.newInstance();
-            loadRootFragment(R.id.tab_content_container, mFragments[0]);
+            msgFragment = AllMsgFragment.newInstance();
+            loadRootFragment(R.id.tab_content_container, msgFragment);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
             // 这里我们需要拿到mFragments的引用
-            mFragments[0] = firstFragment;
+            msgFragment = (AllMsgFragment) firstFragment;
         }
 
         mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_all_default, R.mipmap.icon_news_leftnav_all_highlight, R.string.all_msg))
@@ -74,8 +76,16 @@ public class MessageHomeFragment extends BaseFragment {
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
-
-
+                String type = "";
+                switch (position) {
+                    case 1:
+                        type = DBMessage.TYPE_PROPERTY;
+                        break;
+                    case 2:
+                        type = DBMessage.TYPE_NOTIFY;
+                        break;
+                }
+                msgFragment.setType(type);
             }
         });
 

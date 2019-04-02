@@ -13,11 +13,11 @@ import com.litesuits.orm.db.enums.AssignType;
 @Table("table_message")
 public class DBMessage {
 
-    public static final int TYPE_PROPERTY = 0;
-    public static final int TYPE_COMMUITY = 1;
+    public static final String TYPE_PROPERTY="propertyMessage";
+    public static final String TYPE_NOTIFY="noticeMessage";
 
     @PrimaryKey(AssignType.AUTO_INCREMENT)
-    private int _id;
+    public int _id;
 
     public String _type;
 

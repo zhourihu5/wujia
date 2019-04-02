@@ -26,7 +26,7 @@ public class MessageAdapter extends CommonAdapter<DBMessage> {
     @Override
     protected void convert(final ViewHolder holder, final DBMessage item, final int pos) {
 
-        holder.setText(R.id.tv1, item.title);
+        holder.setText(R.id.tv1, item.title + item._id);
         holder.setText(R.id.tv2, DateUtil.formatMsgDate(item.createDate));
         holder.setText(R.id.tv3, item.title);
         holder.setText(R.id.tv4, DateUtil.formatMsgDate(item.createDate));

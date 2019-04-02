@@ -297,7 +297,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
             case R.id.home_chat_btn:
                 ToastUtil.showShort(mContext, getString(R.string.chat_is_developing));
 //                EventBusUtil.post(new EventMsg());
-                mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, "1");
+                mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, "200");
                 break;
             case R.id.home_member_add_btn:
                 new AddMemberDialog(mActivity).setListener(new OnInputDialogListener() {
@@ -364,6 +364,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                 m.senderAccId = bean.propertyMessage.senderAccId;
 
                 DataBaseUtil.insert(m);
+                EventBusUtil.post(new EventMsg());
                 break;
         }
     }

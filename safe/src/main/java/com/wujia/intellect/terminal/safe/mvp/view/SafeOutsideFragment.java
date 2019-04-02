@@ -339,6 +339,7 @@ public class SafeOutsideFragment extends BaseFragment implements
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+        LogUtil.i("onProgressChanged seek = " + i);
         seek = i;
     }
 
