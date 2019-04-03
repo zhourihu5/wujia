@@ -1,43 +1,27 @@
 package com.wujia.intellect.terminal.mvp.home;
 
-import android.database.DatabaseUtils;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import com.jingxi.smartlife.pad.sdk.doorAccess.base.orm.LiteOrmUtil;
-import com.liulishuo.okdownload.DownloadContext;
-import com.liulishuo.okdownload.DownloadContextListener;
 import com.liulishuo.okdownload.DownloadTask;
-import com.liulishuo.okdownload.core.cause.EndCause;
-import com.liulishuo.okdownload.core.cause.ResumeFailedCause;
-import com.liulishuo.okdownload.core.listener.DownloadListener1;
-import com.liulishuo.okdownload.core.listener.assist.Listener1Assist;
 import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.DownloadUtil;
 import com.wujia.businesslib.TitleFragment;
 import com.wujia.businesslib.data.AppPackageBean;
-import com.wujia.businesslib.dialog.LoadingDialog;
 import com.wujia.businesslib.dialog.LoadingProgressDialog;
 import com.wujia.businesslib.listener.DownloadListener;
 import com.wujia.businesslib.listener.ItemClickListener;
 import com.wujia.intellect.terminal.R;
-import com.wujia.intellect.terminal.market.mvp.adapter.FindServiceChildAdapter;
-import com.wujia.intellect.terminal.market.mvp.data.MarketBean;
 import com.wujia.intellect.terminal.mvp.home.adapter.HomeSubscibeAdapter;
 import com.wujia.intellect.terminal.mvp.home.data.HomeRecBean;
-import com.wujia.lib_common.base.BaseMainFragment;
-import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.utils.AppUtil;
 import com.wujia.lib_common.utils.FileUtil;
 import com.wujia.lib_common.utils.LogUtil;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * author ：shenbingkai@163.com

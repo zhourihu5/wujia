@@ -113,7 +113,6 @@ public class AllMsgFragment extends BaseFragment implements HorizontalTabBar.OnT
     private void getData() {
         ArrayList<DBMessage> temp = null;
         QueryBuilder builder = new QueryBuilder<DBMessage>(DBMessage.class);
-        QueryBuilder builderAll = new QueryBuilder<DBMessage>(DBMessage.class);
         switch (currentState) {
             case 0://全部
                 allList = DataBaseUtil.queryEquals(getMapAll(), DBMessage.class);

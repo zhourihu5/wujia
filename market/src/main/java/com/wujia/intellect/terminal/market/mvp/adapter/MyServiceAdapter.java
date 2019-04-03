@@ -3,7 +3,7 @@ package com.wujia.intellect.terminal.market.mvp.adapter;
 import android.content.Context;
 
 import com.wujia.intellect.terminal.market.R;
-import com.wujia.intellect.terminal.market.mvp.data.MarketBean;
+import com.wujia.intellect.terminal.market.mvp.data.ServiceBean;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 
@@ -14,13 +14,13 @@ import java.util.List;
  * Email:  shenbingkai@gamil.com
  * Description:
  */
-public class MyServiceAdapter extends CommonAdapter<MarketBean> {
-    public MyServiceAdapter(Context context, List<MarketBean> datas) {
+public class MyServiceAdapter extends CommonAdapter<ServiceBean> {
+    public MyServiceAdapter(Context context, List<ServiceBean> datas) {
         super(context, R.layout.item_service_my, datas);
     }
 
     @Override
-    protected void convert(final ViewHolder holder, MarketBean item, int pos) {
+    protected void convert(final ViewHolder holder, ServiceBean item, int pos) {
 
 //        holder.setText(R.id.scene_in_mode_tv,item.title);
 

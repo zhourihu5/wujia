@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.wujia.intellect.terminal.market.R;
 import com.wujia.intellect.terminal.market.mvp.data.GoodsBean;
-import com.wujia.intellect.terminal.market.mvp.data.MarketBean;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 

@@ -4,13 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 
+import com.wujia.businesslib.base.MvpFragment;
 import com.wujia.intellect.terminal.market.R;
 import com.wujia.intellect.terminal.market.mvp.adapter.MyServiceAdapter;
-import com.wujia.intellect.terminal.market.mvp.data.MarketBean;
+import com.wujia.intellect.terminal.market.mvp.contract.MarketPresenter;
+import com.wujia.intellect.terminal.market.mvp.data.ServiceBean;
 import com.wujia.lib.widget.HorizontalTabBar;
 import com.wujia.lib.widget.HorizontalTabItem;
 import com.wujia.lib_common.base.BaseFragment;
-import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +21,11 @@ import java.util.List;
  * date ：2019-02-17
  * description ：
  */
-public class MyServiceFragment extends BaseFragment implements HorizontalTabBar.OnTabSelectedListener {
+public class MyServiceFragment extends MvpFragment<MarketPresenter> implements HorizontalTabBar.OnTabSelectedListener {
 
-    HorizontalTabBar tabBar;
-    RecyclerView recyclerView;
-    MyServiceAdapter mAdapter;
+    private HorizontalTabBar tabBar;
+    private RecyclerView recyclerView;
+    private MyServiceAdapter mAdapter;
 
     public MyServiceFragment() {
 
@@ -54,12 +55,12 @@ public class MyServiceFragment extends BaseFragment implements HorizontalTabBar.
 
         tabBar.setOnTabSelectedListener(this);
 
-        List<MarketBean> datas = new ArrayList<>();
-        datas.add(new MarketBean());
-        datas.add(new MarketBean());
-        datas.add(new MarketBean());
-        datas.add(new MarketBean());
-        datas.add(new MarketBean());
+        List<ServiceBean> datas = new ArrayList<>();
+        datas.add(new ServiceBean());
+        datas.add(new ServiceBean());
+        datas.add(new ServiceBean());
+        datas.add(new ServiceBean());
+        datas.add(new ServiceBean());
 
         mAdapter = new MyServiceAdapter(mActivity, datas);
         recyclerView.setAdapter(mAdapter);
@@ -74,5 +75,10 @@ public class MyServiceFragment extends BaseFragment implements HorizontalTabBar.
     @Override
     public void onTabSelected(int position, int prePosition) {
 
+    }
+
+    @Override
+    protected MarketPresenter createPresenter() {
+        return new MarketPresenter();
     }
 }

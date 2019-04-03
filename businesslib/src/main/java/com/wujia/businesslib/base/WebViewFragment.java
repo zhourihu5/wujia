@@ -1,18 +1,14 @@
-package com.wujia.intellect.terminal.mvp.home;
+package com.wujia.businesslib.base;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.wujia.businesslib.R;
 import com.wujia.businesslib.TitleFragment;
-import com.wujia.intellect.terminal.R;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 
 
 /**
@@ -20,18 +16,13 @@ import butterknife.OnClick;
  * Email:  shenbingkai@gamil.com
  * Description: webview
  */
-public class WebViewFragment extends TitleFragment {
+public class WebViewFragment extends TitleFragment implements View.OnClickListener {
+
+    private WebView webView;
+    private ProgressBar progressBar;
 
     public static final String URL = "KEY_URL";
     private String url = "https://www.jianshu.com/p/dd99a10ef792";
-    @BindView(R.id.webview)
-    WebView webView;
-    @BindView(R.id.web_progress)
-    ProgressBar progressBar;
-    @BindView(R.id.layout_back_btn)
-    TextView layoutBackBtn;
-    @BindView(R.id.layout_right_btn)
-    TextView layoutRightBtn;
 
     public WebViewFragment() {
 
@@ -58,6 +49,12 @@ public class WebViewFragment extends TitleFragment {
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
+
+        webView = $(R.id.webview);
+        progressBar = $(R.id.web_progress);
+        TextView layoutBackBtn = $(R.id.layout_back_btn);
+        TextView layoutRightBtn = $(R.id.layout_right_btn);
+
 
         url = getArguments().getString(URL);
 
@@ -93,16 +90,8 @@ public class WebViewFragment extends TitleFragment {
         webView.setWebViewClient(new WebViewClient());
 
 
-        layoutBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (webView.canGoBack()) {
-                    webView.goBack();
-                } else {
-                    pop();
-                }
-            }
-        });
+        layoutBackBtn.setOnClickListener(this);
+        layoutRightBtn.setOnClickListener(this);
     }
 
 
@@ -117,14 +106,6 @@ public class WebViewFragment extends TitleFragment {
 //        return true;
 //    }
 
-    @OnClick(R.id.layout_right_btn)
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.layout_right_btn:
-                pop();
-                break;
-        }
-    }
 
     @Override
     public void onPause() {
@@ -143,6 +124,20 @@ public class WebViewFragment extends TitleFragment {
         if (null != webView)
             webView.destroy();
         super.onDestroyView();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.layout_right_btn) {
+            pop();
+        } else if (v.getId() == R.id.layout_back_btn) {
+
+            if (webView.canGoBack()) {
+                webView.goBack();
+            } else {
+                pop();
+            }
+        }
     }
 
     public class WebViewClient extends android.webkit.WebViewClient {

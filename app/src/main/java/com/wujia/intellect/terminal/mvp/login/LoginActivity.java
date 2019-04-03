@@ -94,7 +94,16 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
         loginTimeDateTv.setText(StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay()));
         mPresenter.doTimeChange();
-        mPresenter.doGetAccessToken();
+
+        if (TextUtils.isEmpty(DataManager.getToken())) {
+            mPresenter.doGetAccessToken();
+        } else {
+            initSdkData(null);
+
+            toActivity(MainActivity.class);
+            finish();
+        }
+
 
     }
 

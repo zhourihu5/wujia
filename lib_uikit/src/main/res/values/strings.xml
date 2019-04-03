@@ -191,4 +191,40 @@
     <string name="tel_select">电话查询</string>
     <string name="send_verify_code">发送验证码</string>
 
+
+    <!--政务服务-->
+    <string-array name="gov_service_data_title">
+
+        <item>广东政务服务网－深圳市</item>
+        <item>深圳政府在线</item>
+        <item>深圳市南山区人民政府网站</item>
+        <item>深圳市南山区政府机构</item>
+        <item>南山区政务要闻</item>
+        <item>南山区政务服务</item>
+        <item>南山区民生实事</item>
+        <item>南山区办事大厅</item>
+        <item>南山区热点专题</item>
+        <item>南山区政务服务</item>
+        <item>南山区政府－互动交流</item>
+        <item>魅力南山</item>
+
+    </string-array>
+
+    <string-array name="gov_service_data_url">
+
+        <item>http://www.gdzwfw.gov.cn/portal/index?region=440300</item>
+        <item>http://www.sz.gov.cn/cn/</item>
+        <item>http://www.szns.gov.cn/</item>
+        <item>http://www.szns.gov.cn/xxgk/qzfxxgkml/zfjg/</item>
+        <item>http://www.szns.gov.cn/zwyw/</item>
+        <item>http://www.szns.gov.cn/bsfw/</item>
+        <item>http://apps.szns.gov.cn/main/mssspt/2018msss/index.html</item>
+        <item>http://www.gdzwfw.gov.cn/portal/index?region=440305</item>
+        <item>http://www.szns.gov.cn/ztzl/nsrdzt/index.htm</item>
+        <item>http://www.szns.gov.cn/bsfw/</item>
+        <item>http://apps.szns.gov.cn/eportal/ui?pageId=362498</item>
+        <item>http://www.szns.gov.cn/mlns</item>
+
+    </string-array>
+
 </resources>

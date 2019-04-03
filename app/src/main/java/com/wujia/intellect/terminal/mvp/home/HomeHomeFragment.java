@@ -13,16 +13,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONObject;
 import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.jingxi.smartlife.pad.sdk.push.OnPushedListener;
 import com.jingxi.smartlife.pad.sdk.push.PushManager;
 import com.litesuits.orm.db.assit.QueryBuilder;
-import com.taobao.accs.ACCSManager;
-import com.taobao.accs.IACCSManager;
 import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpFragment;
+import com.wujia.businesslib.base.WebViewFragment;
 import com.wujia.businesslib.data.DBMessage;
 import com.wujia.businesslib.data.LinkUrlBean;
 import com.wujia.businesslib.dialog.CallDialog;
@@ -60,7 +58,6 @@ import com.wujia.lib_common.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.OnClick;

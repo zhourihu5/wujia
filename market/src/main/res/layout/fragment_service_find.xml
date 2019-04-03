@@ -35,13 +35,15 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@id/rv1"
-            android:paddingTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:overScrollMode="never"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_service_find_group" />
+            android:paddingLeft="35dp"
+            android:paddingTop="12dp"
+            app:layoutManager="android.support.v7.widget.GridLayoutManager"
+            app:spanCount="4"
+            tools:listitem="@layout/item_service_find_child" />
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

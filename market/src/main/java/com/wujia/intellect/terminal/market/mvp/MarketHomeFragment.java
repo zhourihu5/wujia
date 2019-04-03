@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.wujia.intellect.terminal.market.R;
 import com.wujia.intellect.terminal.market.mvp.view.AllServiceFragment;
 import com.wujia.intellect.terminal.market.mvp.view.FindServiceFragment;
+import com.wujia.intellect.terminal.market.mvp.view.GovServiceFragment;
 import com.wujia.intellect.terminal.market.mvp.view.MyServiceFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
@@ -39,7 +40,7 @@ public class MarketHomeFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        LogUtil.i("FamilyFragment getLayoutId");
+        LogUtil.i("MarketHomeFragment getLayoutId");
 
         return R.layout.fragment_tab_home;
     }
@@ -49,15 +50,15 @@ public class MarketHomeFragment extends BaseFragment {
         super.onLazyInitView(savedInstanceState);
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
-        LogUtil.i("FamilyFragment onLazyInitView");
+        LogUtil.i("MarketHomeFragment onLazyInitView");
         mTabBar = $(R.id.tab_home_tab_bar);
 
         SupportFragment firstFragment = findFragment(MyServiceFragment.class);
         if (firstFragment == null) {
             mFragments[0] = MyServiceFragment.newInstance();
-            mFragments[1] = FindServiceFragment.newInstance("1");
-            mFragments[2] = FindServiceFragment.newInstance("2");
-            mFragments[3] = AllServiceFragment.newInstance("3");
+            mFragments[1] = FindServiceFragment.newInstance();
+            mFragments[2] = GovServiceFragment.newInstance();
+            mFragments[3] = AllServiceFragment.newInstance();
 
             loadMultipleRootFragment(R.id.tab_content_container, 0, mFragments[0], mFragments[1], mFragments[2], mFragments[3]);
         } else {
@@ -66,7 +67,7 @@ public class MarketHomeFragment extends BaseFragment {
             // 这里我们需要拿到mFragments的引用
             mFragments[0] = firstFragment;
             mFragments[1] = findChildFragment(FindServiceFragment.class);
-            mFragments[2] = findChildFragment(FindServiceFragment.class);
+            mFragments[2] = findChildFragment(GovServiceFragment.class);
             mFragments[3] = findChildFragment(AllServiceFragment.class);
 
         }

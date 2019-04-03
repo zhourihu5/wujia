@@ -42,23 +42,23 @@ public class MessageDialog extends Dialog {
 
         if (message._read_state == 0) {//未读
             btnKnow.setBackgroundResource(R.drawable.btn_rect_accent_select);
-
-            btnKnow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        } else {
+            btnKnow.setBackgroundResource(R.drawable.btn_rect_no_can);
+        }
+        btnKnow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (message._read_state == 0) {//未读
                     message._read_state = 1;
                     v.setBackgroundResource(R.drawable.btn_rect_no_can);
                     DataBaseUtil.update(message);
                     if (null != listener) {
                         listener.dialogSureClick();
                     }
-                    dismiss();
                 }
-            });
-
-        } else {
-            btnKnow.setBackgroundResource(R.drawable.btn_rect_no_can);
-        }
+                dismiss();
+            }
+        });
 
     }
 
