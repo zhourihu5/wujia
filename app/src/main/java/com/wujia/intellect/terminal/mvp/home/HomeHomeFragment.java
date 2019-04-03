@@ -159,7 +159,8 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
         setState();
 
-        JXPadSdk.getPushManager().addCallback(this);
+        pushManager = JXPadSdk.getPushManager();
+        pushManager.addCallback(this);
 
         mPresenter.getUserQuickCard(DataManager.getOpenid());
         mPresenter.getWeather(DataManager.getCommunityId());
@@ -299,8 +300,8 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
         switch (view.getId()) {
             case R.id.home_chat_btn:
                 ToastUtil.showShort(mContext, getString(R.string.chat_is_developing));
-                mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, "200");
-
+//                EventBusUtil.post(new EventMsg());
+                mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, "300");
                 break;
             case R.id.home_member_add_btn:
                 new AddMemberDialog(mActivity).setListener(new OnInputDialogListener() {
@@ -367,6 +368,8 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                 m.senderAccId = bean.propertyMessage.senderAccId;
 
                 DataBaseUtil.insert(m);
+
+                setNotify();
                 EventBusUtil.post(new EventMsg());
                 break;
         }
@@ -470,5 +473,4 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     protected HomePresenter createPresenter() {
         return new HomePresenter();
     }
-
 }
