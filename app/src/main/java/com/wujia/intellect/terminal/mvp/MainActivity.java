@@ -104,7 +104,7 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
             mFragments[3] = ProperyFragment.newInstance();
             mFragments[4] = MessageFragment.newInstance();
             mFragments[5] = MarketFragment.newInstance();
-            mFragments[6] = new NeighborMainFragment();
+            mFragments[6] = NeighborFragment.newInstance();
             mFragments[7] = SettingFragment.newInstance();
 
             loadMultipleRootFragment(R.id.container, 0,
@@ -126,7 +126,7 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
             mFragments[3] = findFragment(ProperyFragment.class);
             mFragments[4] = findFragment(MessageFragment.class);
             mFragments[5] = findFragment(MarketFragment.class);
-            mFragments[6] = findFragment(NeighborMainFragment.class);
+            mFragments[6] = findFragment(NeighborFragment.class);
             mFragments[7] = findFragment(SettingFragment.class);
         }
 
@@ -165,7 +165,7 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
             }
         });
 
-        initSDKManager();
+//        initSDKManager();
 
         initGrant();
     }

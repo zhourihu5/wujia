@@ -13,10 +13,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.jingxi.smartlife.pad.sdk.push.OnPushedListener;
 import com.jingxi.smartlife.pad.sdk.push.PushManager;
 import com.litesuits.orm.db.assit.QueryBuilder;
+import com.taobao.accs.ACCSManager;
+import com.taobao.accs.IACCSManager;
 import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpFragment;
@@ -57,6 +60,7 @@ import com.wujia.lib_common.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -155,8 +159,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
         setState();
 
-        pushManager = JXPadSdk.getPushManager();
-        pushManager.addCallback(this);
+        JXPadSdk.getPushManager().addCallback(this);
 
         mPresenter.getUserQuickCard(DataManager.getOpenid());
         mPresenter.getWeather(DataManager.getCommunityId());
@@ -296,8 +299,8 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
         switch (view.getId()) {
             case R.id.home_chat_btn:
                 ToastUtil.showShort(mContext, getString(R.string.chat_is_developing));
-//                EventBusUtil.post(new EventMsg());
                 mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, "200");
+
                 break;
             case R.id.home_member_add_btn:
                 new AddMemberDialog(mActivity).setListener(new OnInputDialogListener() {
@@ -467,4 +470,5 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     protected HomePresenter createPresenter() {
         return new HomePresenter();
     }
+
 }

@@ -253,8 +253,11 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         JXPadSdk.setAccid("y_p_1241_18021651812");
         JXPadSdk.setAppKey("userKey:d38bf3b32e09484b83673c90772442cc", "6a591fc521f347bfad171fd2932e60d6");
         JXPadSdk.setCommunityId("1");
-        JXPadSdk.getDoorAccessManager().startFamily("001901181CD10000", "01");
+//        JXPadSdk.getDoorAccessManager().startFamily("001901181CD10000", "01");
         JXPadSdk.initNeighbor();
+
+        JXPadSdk.getPushManager().bindAccount("accid_111");
+        JXPadSdk.getPushManager().bindTags("accid_111", "prod_homePad_" + 1);
     }
 
     @Override

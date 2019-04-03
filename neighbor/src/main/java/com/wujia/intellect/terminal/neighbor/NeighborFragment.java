@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.os.Bundle;
 
 import com.jingxi.smartlife.pad.sdk.utils.JXContextWrapper;
+
+import me.yokeyword.fragmentation.SupportFragment;
 //import android.support.annotation.Nullable;
 //import android.widget.FrameLayout;
 //
@@ -15,10 +17,9 @@ import com.jingxi.smartlife.pad.sdk.utils.JXContextWrapper;
 * date ：2019-01-12 20:06
 * description ：邻里 home
 */
-public class NeighborFragment extends Fragment {
+public class NeighborFragment extends SupportFragment {
 
     public NeighborFragment() {
-        JXContextWrapper jxContextWrapper;
     }
 
     public static NeighborFragment newInstance() {

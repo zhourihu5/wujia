@@ -27,7 +27,7 @@ public class BaseApplication extends Application {
 
     private void initSDKManager() {
         JXPadSdk.init(instance);
-        JXPadSdk.initDoorAccess();
+//        JXPadSdk.initDoorAccess();
         JXPadSdk.initPushManager();
     }
 

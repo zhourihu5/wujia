@@ -40,7 +40,7 @@ dependencies {
     api 'com.jingxi.smartlife.pad.sdk:sdk:1.0.2'
     api 'com.jingxi.smartlife.pad.sdk:utils:1.0.2'
     api 'com.aliyun.ams:alicloud-android-push:3.1.1'
-    api group: 'com.liulishuo.okdownload', name: 'okdownload', version: '1.0.5'
+    api 'com.liulishuo.okdownload:okdownload:1.0.5'
     api 'org.greenrobot:eventbus:3.1.1'
     api project(':lib_uikit')
     api project(':lib_imageloader')
