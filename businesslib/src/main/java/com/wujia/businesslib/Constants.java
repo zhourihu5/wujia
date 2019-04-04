@@ -9,7 +9,7 @@ public class Constants {
     public static final String BASE_URL_TOKEN = "http://tokenct.house-keeper.cn";
     public static final String BASE_URL_UPDATE = "http://api.house-keeper.cn";
     public static final String HTTP_SUCESS = "0";
-    public static final String HTTP_TOKEN_FAILD = "9012";
+    public static final String HTTP_TOKEN_FAILD = "40011";
     public static final String HTTP_TOKEN_NO = "41001";
 
     public static final int LOGIN_STATUS_ERROR = 900;

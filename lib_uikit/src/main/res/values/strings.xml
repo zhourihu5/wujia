@@ -193,19 +193,28 @@
 
 
     <!--政务服务-->
-    <string-array name="gov_service_data_title">
+    <string-array name="gov_service_data_explain">
 
-        <item>广东政务服务网－深圳市</item>
-        <item>深圳政府在线</item>
-        <item>深圳市南山区人民政府网站</item>
-        <item>深圳市南山区政府机构</item>
+        <item>人民政府办公厅主办网站</item>
+        <item>政务服务一网通办</item>
+        <item>国家行政机关</item>
+        <item>迈进创新型中心城区</item>
+        <item>多角度全方位阐释政策</item>
+        <item>互联网+政务服务</item>
+        <item>政府工作解读</item>
+        <item>文化,创新,生态,和谐南山</item>
+
+    </string-array>
+
+    <string-array name="gov_service_data_name">
+
+        <item>广东政务服务网</item>
+        <item>南山区办事大厅</item>
+        <item>深圳市政府</item>
+        <item>南山区人民政府</item>
         <item>南山区政务要闻</item>
         <item>南山区政务服务</item>
-        <item>南山区民生实事</item>
-        <item>南山区办事大厅</item>
         <item>南山区热点专题</item>
-        <item>南山区政务服务</item>
-        <item>南山区政府－互动交流</item>
         <item>魅力南山</item>
 
     </string-array>
@@ -213,18 +222,26 @@
     <string-array name="gov_service_data_url">
 
         <item>http://www.gdzwfw.gov.cn/portal/index?region=440300</item>
+        <item>http://www.gdzwfw.gov.cn/portal/index?region=440305</item>
         <item>http://www.sz.gov.cn/cn/</item>
         <item>http://www.szns.gov.cn/</item>
-        <item>http://www.szns.gov.cn/xxgk/qzfxxgkml/zfjg/</item>
         <item>http://www.szns.gov.cn/zwyw/</item>
         <item>http://www.szns.gov.cn/bsfw/</item>
-        <item>http://apps.szns.gov.cn/main/mssspt/2018msss/index.html</item>
-        <item>http://www.gdzwfw.gov.cn/portal/index?region=440305</item>
         <item>http://www.szns.gov.cn/ztzl/nsrdzt/index.htm</item>
-        <item>http://www.szns.gov.cn/bsfw/</item>
-        <item>http://apps.szns.gov.cn/eportal/ui?pageId=362498</item>
         <item>http://www.szns.gov.cn/mlns</item>
 
     </string-array>
 
+    <string-array name="gov_service_data_image">
+
+        <item>file:///android_asset/icon_guangdong.png</item>
+        <item>file:///android_asset/icon_nanshan.png</item>
+        <item>file:///android_asset/icon_shenzhen.png</item>
+        <item>file:///android_asset/icon_nanshanrenmin.png</item>
+        <item>file:///android_asset/icon_nashanzhangwu.png</item>
+        <item>file:///android_asset/icon_nanshanfuwu.png</item>
+        <item>file:///android_asset/icon_nanshanredian.png</item>
+        <item>file:///android_asset/icon_meilinanshan.png</item>
+
+    </string-array>
 </resources>

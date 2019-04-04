@@ -11,7 +11,6 @@ import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpFragment;
 import com.wujia.intellect.terminal.market.R;
 import com.wujia.intellect.terminal.market.mvp.adapter.FindServiceChildAdapter;
-import com.wujia.intellect.terminal.market.mvp.adapter.FindServiceGroupAdapter;
 import com.wujia.intellect.terminal.market.mvp.contract.MarketContract;
 import com.wujia.intellect.terminal.market.mvp.contract.MarketPresenter;
 import com.wujia.intellect.terminal.market.mvp.data.ServiceBean;
@@ -69,7 +68,7 @@ public class FindServiceFragment extends ServiceBaseFragment<MarketPresenter> im
 
         datas = new ArrayList<>();
 
-        FindServiceChildAdapter mAdapter = new FindServiceChildAdapter(mActivity, datas);
+        FindServiceChildAdapter mAdapter = new FindServiceChildAdapter(mActivity, datas,FindServiceChildAdapter.TYPE_FIND);
         mLoadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(mLoadMoreWrapper);
         mLoadMoreWrapper.setOnLoadMoreListener(this);

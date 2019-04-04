@@ -12,7 +12,6 @@ import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Author: created by shenbingkai on 2018/12/11 11 24
@@ -20,8 +19,17 @@ import java.util.List;
  * Description:
  */
 public class FindServiceChildAdapter extends CommonAdapter<ServiceBean.Service> {
-    public FindServiceChildAdapter(Context context, ArrayList<ServiceBean.Service> datas) {
+
+    public static final int TYPE_MY = 0;
+    public static final int TYPE_FIND = 1;
+    public static final int TYPE_GOV = 2;
+    public static final int TYPE_ALL = 3;
+
+    private int mType;
+
+    public FindServiceChildAdapter(Context context, ArrayList<ServiceBean.Service> datas, int type) {
         super(context, R.layout.item_service_find_child, datas);
+        this.mType = type;
     }
 
     @Override
@@ -29,15 +37,28 @@ public class FindServiceChildAdapter extends CommonAdapter<ServiceBean.Service> 
 
         ImageView img = holder.getView(R.id.img1);
         ImageLoaderManager.getInstance().loadImage(item.image, img);
-
         holder.setText(R.id.tv1, item.name);
         holder.setText(R.id.tv2, item.explain);
 
-        holder.setOnClickListener(R.id.btn1, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtil.showShort(mContext,"订阅");
-            }
-        });
+        switch (mType) {
+
+            case TYPE_MY:
+                break;
+
+            case TYPE_GOV:
+                holder.setText(R.id.btn1, "进入");
+                break;
+
+            case TYPE_FIND:
+            case TYPE_ALL:
+                break;
+        }
+//        holder.setOnClickListener(R.id.btn1, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ToastUtil.showShort(mContext, "订阅");
+//            }
+//        });
+
     }
 }

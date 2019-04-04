@@ -165,7 +165,7 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
             }
         });
 
-//        initSDKManager();
+        initSDKManager();
 
         initGrant();
     }
@@ -191,15 +191,9 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
 
     private void initSDKManager() {
         manager = JXPadSdk.getDoorAccessManager();
-//        manager.startFamily("A000000000050000", "02");
-//        manager.startFamily("001901109CDB0000", "01");
-//        manager.startFamily(DataManager.getFamilyId(), "01");
         manager.setDoorAccessListener(this);
-//        manager.setListUIListener(this);
-//        manager.setDoorAccessListener(this);
         manager.addSecurityListener(this);
-//        manager.querySecurityStatus(DataManager.getFamilyId());
-        manager.querySecurityStatus("A000000000050000");
+        manager.querySecurityStatus("001901181CD10000");
     }
 
     @Override

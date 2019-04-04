@@ -97,11 +97,13 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
         if (TextUtils.isEmpty(DataManager.getToken())) {
             mPresenter.doGetAccessToken();
-        } else {
-            initSdkData(null);
+        }
+        if (!TextUtils.isEmpty(DataManager.getFamilyId())) {
+            initSdkData(DataManager.getUser());
 
             toActivity(MainActivity.class);
             finish();
+
         }
 
 
@@ -255,9 +257,6 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         JXPadSdk.setCommunityId("1");
         JXPadSdk.getDoorAccessManager().startFamily("001901181CD10000", "01");
         JXPadSdk.initNeighbor();
-
-        JXPadSdk.getPushManager().bindAccount("accid_111");
-        JXPadSdk.getPushManager().bindTags("accid_111", "prod_homePad_" + 1);
     }
 
     @Override

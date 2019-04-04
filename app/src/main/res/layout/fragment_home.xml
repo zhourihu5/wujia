@@ -207,7 +207,6 @@
             android:id="@+id/rv_home_card"
             android:layout_width="match_parent"
             android:layout_height="@dimen/px500"
-            android:layout_marginLeft="@dimen/px68"
             android:layout_marginTop="@dimen/px68"
             android:orientation="horizontal"
             android:overScrollMode="never"

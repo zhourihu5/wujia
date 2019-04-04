@@ -47,6 +47,7 @@ import com.wujia.intellect.terminal.mvp.setting.view.CardManagerFragment;
 import com.wujia.lib.widget.HomeArcView;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
+import com.wujia.lib_common.base.view.HomeCardDecoration;
 import com.wujia.lib_common.base.view.HorizontalDecoration;
 import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.DateUtil;
@@ -158,6 +159,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
         pushManager = JXPadSdk.getPushManager();
         pushManager.addCallback(this);
+        pushManager.bindTags(DataManager.getAccid(), "prod_homePad_" + DataManager.getCommunityId());
 
         mPresenter.getUserQuickCard(DataManager.getOpenid());
         mPresenter.getWeather(DataManager.getCommunityId());
@@ -179,7 +181,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
         cards = new ArrayList<>();
         homeCardAdapter = new HomeCardAdapter(mActivity, cards);
-//        rvHomeCard.addItemDecoration(new HorizontalDecoration(13));
+        rvHomeCard.addItemDecoration(new HomeCardDecoration(68));
         rvHomeCard.setAdapter(homeCardAdapter);
         homeCardAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
             @Override
@@ -231,7 +233,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 //        notifys.add(new HomeNotifyBean());
 //        notifys.add(new HomeNotifyBean());
 
-        QueryBuilder builder = new QueryBuilder<DBMessage>(DBMessage.class);
+        QueryBuilder builder = new QueryBuilder<>(DBMessage.class);
         builder.limit(0, 3).appendOrderDescBy("_id");
 
         final ArrayList<DBMessage> notifys = DataBaseUtil.query(builder);
@@ -298,7 +300,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
             case R.id.home_chat_btn:
                 ToastUtil.showShort(mContext, getString(R.string.chat_is_developing));
 //                EventBusUtil.post(new EventMsg());
-                mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, "300");
+                mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, "200");
                 break;
             case R.id.home_member_add_btn:
                 new AddMemberDialog(mActivity).setListener(new OnInputDialogListener() {
@@ -310,7 +312,8 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                 }).show();
                 break;
             case R.id.home_call_service_btn:
-                new CallDialog(mContext).show();
+//                new CallDialog(mContext).show();
+                //TODO 物业联系方式弹框
                 break;
 
             case R.id.home_arc_view:

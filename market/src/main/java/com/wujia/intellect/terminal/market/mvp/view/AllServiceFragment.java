@@ -65,7 +65,7 @@ public class AllServiceFragment extends ServiceBaseFragment<MarketPresenter> imp
 
         datas = new ArrayList<>();
 
-        FindServiceChildAdapter mAdapter = new FindServiceChildAdapter(mActivity, datas);
+        FindServiceChildAdapter mAdapter = new FindServiceChildAdapter(mActivity, datas,FindServiceChildAdapter.TYPE_ALL);
         mLoadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(mLoadMoreWrapper);
         mLoadMoreWrapper.setOnLoadMoreListener(this);

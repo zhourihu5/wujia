@@ -33,7 +33,7 @@ public class FindServiceGroupAdapter extends CommonAdapter<ServiceBean> {
         datas = new ArrayList<>();
 
 //        rv.addItemDecoration(new GridDecoration(0, 12));
-        FindServiceChildAdapter adapter = new FindServiceChildAdapter(mContext, datas);
+        FindServiceChildAdapter adapter = new FindServiceChildAdapter(mContext, datas,FindServiceChildAdapter.TYPE_ALL);
         rv.setAdapter(adapter);
 
         holder.setOnClickListener(R.id.tv2, new View.OnClickListener() {

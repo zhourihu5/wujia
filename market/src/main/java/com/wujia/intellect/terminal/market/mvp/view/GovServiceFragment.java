@@ -68,19 +68,32 @@ public class GovServiceFragment extends ServiceBaseFragment<MarketPresenter> {
     private void getList() {
 
         final ArrayList<ServiceBean.Service> datas = new ArrayList<>();
-        String[] titleList = mActivity.getResources().getStringArray(R.array.gov_service_data_title);
+        String[] nameList = mActivity.getResources().getStringArray(R.array.gov_service_data_name);
+        String[] explainList = mActivity.getResources().getStringArray(R.array.gov_service_data_explain);
         String[] urlList = mActivity.getResources().getStringArray(R.array.gov_service_data_url);
+        String[] imgList = mActivity.getResources().getStringArray(R.array.gov_service_data_image);
 
-        for (int i = 0; i < titleList.length; i++) {
+//        int id = -100;
+//        ServiceBean.Service s1 = new ServiceBean.Service();
+//        s1.explain = "人民政府办公厅主办网站";
+//        s1.name = "广东政务服务网";
+//        s1.app_url = "http://www.gdzwfw.gov.cn/portal/index?region=440300";
+//        s1.app_type = ServiceBean.TYPE_WEB;
+//        s1.image = "file:///android_asset/icon_guangdong";
+//        s1.service_id = String.valueOf(id--);
+//        datas.add(s1);
+
+        for (int i = 0; i < nameList.length; i++) {
             ServiceBean.Service service = new ServiceBean.Service();
-            service.explain = titleList[i];
+            service.name = nameList[i];
+            service.explain = explainList[i];
             service.app_url = urlList[i];
+            service.image = imgList[i];
             service.app_type = ServiceBean.TYPE_WEB;
-            service.service_id = String.valueOf(-i);
             datas.add(service);
         }
 
-        FindServiceChildAdapter mAdapter = new FindServiceChildAdapter(mActivity, datas);
+        FindServiceChildAdapter mAdapter = new FindServiceChildAdapter(mActivity, datas, FindServiceChildAdapter.TYPE_GOV);
         recyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
             @Override

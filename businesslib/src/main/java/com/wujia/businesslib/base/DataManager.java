@@ -47,6 +47,14 @@ public class DataManager {
         return "";
     }
 
+    public static String getAccid() {
+        UserBean.User user = getUser();
+        if (null != user) {
+            return user.accid;
+        }
+        return "";
+    }
+
     public static String getToken() {
         return (String) SPHelper.get(AppContext.get(), Constants.COMMON_REQUEST_TOKEN, "");
     }
