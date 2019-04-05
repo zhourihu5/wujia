@@ -16,10 +16,10 @@ import retrofit2.Converter;
 import retrofit2.Retrofit;
 
 /**
- * author:Created by xmren on 2018/7/20.
- * email :renxiaomin@100tal.com
+ * Author: shenbingkai
+ * CreateDate: 2019-04-06 00:51
+ * Description:
  */
-
 public final class CustomConverterFactory extends Converter.Factory {
 
     private final Gson gson;

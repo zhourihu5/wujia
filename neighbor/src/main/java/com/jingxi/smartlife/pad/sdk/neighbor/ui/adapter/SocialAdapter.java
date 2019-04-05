@@ -61,19 +61,19 @@ public class SocialAdapter extends RecyclerView.Adapter<SocialAdapter.ViewHolder
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SocialAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
         if (viewType == TYPE_ITEM) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_adapter_neighbor_item, parent, false);
-            return new SearchViewHolder(view);
+            return new SocialAdapter.SearchViewHolder(view);
         } else {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bottom_progressbar, parent, false);
-            return new FooterViewHolder(view);
+            return new SocialAdapter.FooterViewHolder(view);
         }
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(SocialAdapter.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof SearchViewHolder) {
             SearchViewHolder holder = (SearchViewHolder) viewHolder;
             NeighborInfoBean infoBean = infoBeen.get(position);
@@ -280,7 +280,7 @@ public class SocialAdapter extends RecyclerView.Adapter<SocialAdapter.ViewHolder
         }
     }
 
-    private class FooterViewHolder extends ViewHolder {
+    private class FooterViewHolder extends SocialAdapter.ViewHolder {
 
         FooterViewHolder(View view) {
             super(view);
@@ -288,7 +288,7 @@ public class SocialAdapter extends RecyclerView.Adapter<SocialAdapter.ViewHolder
 
     }
 
-    class SearchViewHolder extends ViewHolder {
+    class SearchViewHolder extends SocialAdapter.ViewHolder {
         TextView neighbor_tv_name, statu_tv_time, statu_tv_content, status_tag, comment_tv, praise_tv, deleteItem, originalPrice, price;
         /**
          * 点赞,分享,留言

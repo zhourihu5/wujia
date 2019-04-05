@@ -5,22 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
-import com.wujia.businesslib.base.DataManager;
-import com.wujia.businesslib.base.MvpFragment;
-import com.wujia.businesslib.base.WebViewFragment;
+import com.wujia.businesslib.data.DBService;
 import com.wujia.intellect.terminal.market.R;
 import com.wujia.intellect.terminal.market.mvp.adapter.FindServiceChildAdapter;
-import com.wujia.intellect.terminal.market.mvp.contract.MarketContract;
 import com.wujia.intellect.terminal.market.mvp.contract.MarketPresenter;
 import com.wujia.intellect.terminal.market.mvp.data.ServiceBean;
-import com.wujia.lib.widget.HorizontalTabBar;
-import com.wujia.lib_common.base.BaseFragment;
-import com.wujia.lib_common.base.BaseMainFragment;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
-import com.wujia.lib_common.base.baseadapter.wrapper.LoadMoreWrapper;
 import com.wujia.lib_common.base.view.ServiceCardDecoration;
-import com.wujia.lib_common.base.view.VerticallDecoration;
-import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.ScreenUtil;
 
 import java.util.ArrayList;
@@ -30,7 +21,7 @@ import java.util.ArrayList;
  * date ：2019-02-17
  * description ：
  */
-public class GovServiceFragment extends ServiceBaseFragment<MarketPresenter> {
+public class GovServiceFragment extends ServiceBaseFragment {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;

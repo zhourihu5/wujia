@@ -1,12 +1,14 @@
 package com.wujia.businesslib.base;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.R;
 import com.wujia.businesslib.TitleFragment;
 
@@ -34,6 +36,11 @@ public class WebViewFragment extends TitleFragment implements View.OnClickListen
         args.putString(URL, url);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -82,9 +89,8 @@ public class WebViewFragment extends TitleFragment implements View.OnClickListen
         settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
         settings.setAllowFileAccess(true);
-
-
-        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+//        settings.setBlockNetworkImage(true);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient());

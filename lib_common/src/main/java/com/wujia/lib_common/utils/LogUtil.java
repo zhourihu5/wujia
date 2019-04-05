@@ -8,7 +8,8 @@ public class LogUtil {
 
 
     private static final String TAG = "--NoTAG--";
-    private static boolean logSwitch = BuildConfig.DEBUG;
+//    private static boolean logSwitch = BuildConfig.DEBUG;
+    private static boolean logSwitch = true;
 
 
     public static void i(Object message) {

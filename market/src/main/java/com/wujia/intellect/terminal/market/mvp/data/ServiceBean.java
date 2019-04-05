@@ -1,6 +1,8 @@
 package com.wujia.intellect.terminal.market.mvp.data;
 
+import com.litesuits.orm.db.annotation.Ignore;
 import com.litesuits.orm.db.annotation.PrimaryKey;
+import com.litesuits.orm.db.annotation.Table;
 import com.litesuits.orm.db.enums.AssignType;
 import com.wujia.businesslib.data.RootResponse;
 
@@ -40,10 +42,12 @@ public class ServiceBean extends RootResponse {
     public ArrayList<Service> content;
 
 
+    @Table("table_service")
     public static class Service {
 
-//        @PrimaryKey(AssignType.AUTO_INCREMENT)
-//        public int _id;
+        @PrimaryKey(AssignType.AUTO_INCREMENT)
+        public int _id;
+
         public String explain;
         public String image;
         public int app_type;
@@ -51,6 +55,10 @@ public class ServiceBean extends RootResponse {
         public String service_id;
         public String name;
         public String packageName;
+
+        @Ignore
+        public boolean _installed;
+
 
     }
 

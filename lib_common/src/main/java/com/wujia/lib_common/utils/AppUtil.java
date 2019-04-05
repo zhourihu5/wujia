@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -68,15 +69,18 @@ public class AppUtil {
         LogUtil.i("install " + apkPath);
         InputStream sderr = null;
         Process proc = null;
-
+        InputStreamReader isr = null;
+        BufferedReader br = null;
         try {
             Runtime rt = Runtime.getRuntime();
             String command = "pm install -r " + apkPath + "\n";
             proc = rt.exec(command);
             sderr = proc.getErrorStream();
-            InputStreamReader isr = new InputStreamReader(sderr);
-            BufferedReader br = new BufferedReader(isr);
+            isr = new InputStreamReader(sderr);
+            br = new BufferedReader(isr);
             String line = null;
+            br.close();
+            isr.close();
             while ((line = br.readLine()) != null) {
                 LogUtil.i("install line " + line);
             }
@@ -89,9 +93,56 @@ public class AppUtil {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-
+            try {
+                br.close();
+                isr.close();
+                sderr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return false;
     }
+
+    public static boolean uninstall(String packName) {
+        LogUtil.i("uninstall " + packName);
+        InputStream sderr = null;
+        Process proc = null;
+        InputStreamReader isr = null;
+        BufferedReader br = null;
+        try {
+            Runtime rt = Runtime.getRuntime();
+            String command = "pm uninstall " + packName + "\n";
+            proc = rt.exec(command);
+            sderr = proc.getErrorStream();
+            isr = new InputStreamReader(sderr);
+            br = new BufferedReader(isr);
+            String line = null;
+            br.close();
+            isr.close();
+            while ((line = br.readLine()) != null) {
+                LogUtil.i("uninstall line " + line);
+            }
+            int exitVal = proc.waitFor();
+            if (exitVal == 0) {
+                return true;
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+                isr.close();
+                sderr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return false;
+    }
+
 }

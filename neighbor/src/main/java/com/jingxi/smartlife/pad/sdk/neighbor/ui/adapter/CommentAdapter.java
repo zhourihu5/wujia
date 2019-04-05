@@ -60,7 +60,7 @@ public class CommentAdapter extends RecyclerView.Adapter {
         if (viewType == TYPE_ITEM) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_comment, null);
             view.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            return new CommentViewHoler(view);
+            return new CommentAdapter.CommentViewHoler(view);
         } else if (viewType == TYPE_FOOTER) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.def_load_more_failed, null);
             view.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));

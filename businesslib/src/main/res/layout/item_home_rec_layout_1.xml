@@ -33,6 +33,7 @@
         android:layout_below="@id/scene_in_mode_tv"
         android:layout_alignLeft="@id/scene_in_mode_tv"
         android:layout_marginRight="@dimen/px40"
+        android:layout_marginTop="@dimen/px20"
         android:lineSpacingMultiplier="1.3"
         android:maxLines="2"
         tools:text="水管维修，管道疏通 水管维修，管道疏通"

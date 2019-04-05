@@ -1,10 +1,8 @@
 package com.wujia.businesslib.arouter;
-
 /**
- * description:
- * author: KisenHuang
- * email: KisenHuang@163.com
- * time: 2018/7/11 下午5:53
+ * Author: shenbingkai
+ * CreateDate: 2019-04-06 00:51
+ * Description:
  */
 
 public class ARouterURI {

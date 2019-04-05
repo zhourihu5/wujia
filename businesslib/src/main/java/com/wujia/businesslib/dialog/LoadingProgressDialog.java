@@ -25,7 +25,6 @@ public class LoadingProgressDialog extends Dialog {
 
     private void init() {
         setContentView(R.layout.layout_loading_dialog);
-        setCancelable(false);
         setCanceledOnTouchOutside(false);
         tvTitle = findViewById(R.id.tv_title);
         tvTitle.setText(title);

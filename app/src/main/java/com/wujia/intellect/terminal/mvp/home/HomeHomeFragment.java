@@ -23,7 +23,6 @@ import com.wujia.businesslib.base.MvpFragment;
 import com.wujia.businesslib.base.WebViewFragment;
 import com.wujia.businesslib.data.DBMessage;
 import com.wujia.businesslib.data.LinkUrlBean;
-import com.wujia.businesslib.dialog.CallDialog;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventCardChange;
 import com.wujia.businesslib.event.EventMsg;
@@ -31,6 +30,7 @@ import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.businesslib.listener.OnDialogListener;
 import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.wujia.intellect.terminal.R;
+import com.wujia.intellect.terminal.mvp.MainActivity;
 import com.wujia.intellect.terminal.mvp.home.adapter.HomeMemberAdapter;
 import com.wujia.intellect.terminal.mvp.home.adapter.HomeNotifyAdapter;
 import com.wujia.intellect.terminal.mvp.home.adapter.HomeCardAdapter;
@@ -115,12 +115,21 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     private ArrayList<HomeRecBean.Card> cards;
 
     private PushManager pushManager;
-    private boolean isRefresh = false;
+    private boolean isRefreshCard = false;
 
     private EventCardChange eventCardChange = new EventCardChange(new IMiessageInvoke<EventCardChange>() {
         @Override
         public void eventBus(EventCardChange event) {
-            isRefresh = true;
+            isRefreshCard = true;
+        }
+    });
+    private EventCardChange eventMemberChange = new EventCardChange(new IMiessageInvoke<EventCardChange>() {
+        @Override
+        public void eventBus(EventCardChange event) {
+            ArrayList<HomeMeberBean> temp = DataBaseUtil.query(HomeMeberBean.class);
+            mems.clear();
+            mems.addAll(temp);
+            memAdapter.notifyDataSetChanged();
         }
     });
 
@@ -159,18 +168,20 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
         pushManager = JXPadSdk.getPushManager();
         pushManager.addCallback(this);
-        pushManager.bindTags(DataManager.getAccid(), "prod_homePad_" + DataManager.getCommunityId());
+//        pushManager.bindTags(DataManager.getAccid(), "prod_homePad_" + DataManager.getCommunityId());
 
         mPresenter.getUserQuickCard(DataManager.getOpenid());
         mPresenter.getWeather(DataManager.getCommunityId());
 
         EventBusUtil.register(eventCardChange);
+        EventBusUtil.register(eventMemberChange);
     }
 
 
     private void setMemberView() {
-        mems = DataBaseUtil.query(HomeMeberBean.class);
-
+        ArrayList<HomeMeberBean> temp = DataBaseUtil.query(HomeMeberBean.class);
+        mems.clear();
+        mems.addAll(temp);
         rvHomeMember.addItemDecoration(new HorizontalDecoration(10));
         memAdapter = new HomeMemberAdapter(mActivity, mems);
         rvHomeMember.setAdapter(memAdapter);
@@ -218,11 +229,31 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
         LinkUrlBean linkUrl = GsonUtil.GsonToBean(json, LinkUrlBean.class);
         switch (linkUrl.code) {
             case LinkUrlBean.CODE_TYPE_MARKET://服务市场
+                switch (linkUrl.children.code) {
+                    case LinkUrlBean.Children1.CODE_TYPE_FIND:
+                        ((MainActivity) mActivity).switchHomeTab(MainActivity.POSITION_MARKET, 1);
+                        break;
 
+                    case LinkUrlBean.Children1.CODE_TYPE_GOV:
+                        ((MainActivity) mActivity).switchHomeTab(MainActivity.POSITION_MARKET, 2);
+                        break;
+
+                    case LinkUrlBean.Children1.CODE_TYPE_ALL:
+                        ((MainActivity) mActivity).switchHomeTab(MainActivity.POSITION_MARKET, 3);
+                        break;
+                }
                 break;
 
             case LinkUrlBean.CODE_TYPE_PROPERTY://务业服务
+                switch (linkUrl.children.code) {
+                    case LinkUrlBean.Children1.CODE_TYPE_REPORT:
+                        ((MainActivity) mActivity).switchHomeTab(MainActivity.POSITION_PROPERTY, 0);
+                        break;
 
+                    case LinkUrlBean.Children1.CODE_TYPE_PHONE:
+                        ((MainActivity) mActivity).switchHomeTab(MainActivity.POSITION_PROPERTY, 1);
+                        break;
+                }
                 break;
         }
     }
@@ -279,10 +310,9 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
         // 当对用户可见时 回调
         // 不管是 父Fragment还是子Fragment 都有效！
         LogUtil.i("HomeHomeFragment  可见");
-        if (isRefresh) {
+        if (isRefreshCard) {
             mPresenter.getUserQuickCard(DataManager.getOpenid());
         }
-
     }
 
     @Override
@@ -328,7 +358,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     public void onDataLoadSucc(int requestCode, Object object) {
         switch (requestCode) {
             case HomePresenter.REQUEST_CDOE_GET_CARD_MY:
-                isRefresh = false;
+                isRefreshCard = false;
                 HomeRecBean homeRecBean = (HomeRecBean) object;
                 cards.clear();
                 cards.addAll(homeRecBean.content);
@@ -467,6 +497,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     public void onDestroy() {
         super.onDestroy();
         EventBusUtil.unregister(eventCardChange);
+        EventBusUtil.unregister(eventMemberChange);
     }
 
     @Override

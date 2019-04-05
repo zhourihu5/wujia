@@ -168,7 +168,6 @@ public class AllMsgFragment extends BaseFragment implements HorizontalTabBar.OnT
     public void onDestroyView() {
         super.onDestroyView();
         EventBusUtil.unregister(eventMsg);
-
     }
 
     @Override

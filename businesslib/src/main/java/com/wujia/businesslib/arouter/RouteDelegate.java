@@ -13,10 +13,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * description: 路由跳转工具方法
- * author: KisenHuang
- * email: KisenHuang@163.com
- * time: 2018/7/11 下午5:39
+ * Author: shenbingkai
+ * CreateDate: 2019-04-06 00:51
+ * Description:
  */
 
 public class RouteDelegate {

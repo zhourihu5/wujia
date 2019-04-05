@@ -3,6 +3,7 @@ package com.wujia.intellect.terminal.market.mvp;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.wujia.businesslib.Constants;
 import com.wujia.intellect.terminal.market.R;
 import com.wujia.intellect.terminal.market.mvp.view.AllServiceFragment;
 import com.wujia.intellect.terminal.market.mvp.view.FindServiceFragment;
@@ -11,6 +12,7 @@ import com.wujia.intellect.terminal.market.mvp.view.MyServiceFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib_common.base.BaseFragment;
+import com.wujia.lib_common.base.TabFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
 import me.yokeyword.fragmentation.SupportFragment;
@@ -20,7 +22,7 @@ import me.yokeyword.fragmentation.SupportFragment;
  * date ：2019-02-17
  * description ：
  */
-public class MarketHomeFragment extends BaseFragment {
+public class MarketHomeFragment extends TabFragment {
 
 
     private VerticalTabBar mTabBar;
@@ -30,9 +32,10 @@ public class MarketHomeFragment extends BaseFragment {
 
     }
 
-    public static MarketHomeFragment newInstance() {
+    public static MarketHomeFragment newInstance(int pos) {
         MarketHomeFragment fragment = new MarketHomeFragment();
         Bundle args = new Bundle();
+        args.putInt(Constants.ARG_PARAM_1, pos);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,6 +56,12 @@ public class MarketHomeFragment extends BaseFragment {
         LogUtil.i("MarketHomeFragment onLazyInitView");
         mTabBar = $(R.id.tab_home_tab_bar);
 
+        currentTab = getArguments().getInt(Constants.ARG_PARAM_1);
+
+        if (currentTab >= mFragments.length) {
+            currentTab = 0;
+        }
+
         SupportFragment firstFragment = findFragment(MyServiceFragment.class);
         if (firstFragment == null) {
             mFragments[0] = MyServiceFragment.newInstance();
@@ -60,7 +69,7 @@ public class MarketHomeFragment extends BaseFragment {
             mFragments[2] = GovServiceFragment.newInstance();
             mFragments[3] = AllServiceFragment.newInstance();
 
-            loadMultipleRootFragment(R.id.tab_content_container, 0, mFragments[0], mFragments[1], mFragments[2], mFragments[3]);
+            loadMultipleRootFragment(R.id.tab_content_container, currentTab, mFragments[0], mFragments[1], mFragments[2], mFragments[3]);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
@@ -77,6 +86,7 @@ public class MarketHomeFragment extends BaseFragment {
                 .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_government_default, R.mipmap.icon_market_leftnav_my_highlight, R.string.gov_service))
                 .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_all_default, R.mipmap.icon_market_leftnav_my_highlight, R.string.all_service));
 
+        mTabBar.setCurrentItem(currentTab);
 
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {
             @Override
@@ -84,7 +94,19 @@ public class MarketHomeFragment extends BaseFragment {
                 showHideFragment(mFragments[position], mFragments[prePosition]);
             }
         });
+
     }
 
+//    @Override
+//    public void onSupportVisible() {
+//        super.onSupportVisible();
+//        if (currentTab > 0) {
+//            mTabBar.getChildAt(currentTab).performClick();
+//        }
+//    }
 
+    @Override
+    public void switchTab(int pos) {
+        mTabBar.getChildAt(pos).performClick();
+    }
 }

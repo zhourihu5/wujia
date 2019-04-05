@@ -54,7 +54,7 @@ public class HomeCardAdapter extends MultiItemTypeAdapter<HomeRecBean.Card> {
             @Override
             public void convert(ViewHolder holder, HomeRecBean.Card item, int pos) {
                 ImageView img = holder.getView(R.id.scene_in_img);
-                ImageLoaderManager.getInstance().loadImage(item.image, img);
+                ImageLoaderManager.getInstance().loadImage(item.image,R.mipmap.default_loading, img);
                 holder.setText(R.id.scene_in_mode_tv, item.title);
                 holder.setText(R.id.scene_in_mode_status_tv, item.explain);
 
@@ -75,7 +75,8 @@ public class HomeCardAdapter extends MultiItemTypeAdapter<HomeRecBean.Card> {
             @Override
             public void convert(ViewHolder holder, HomeRecBean.Card item, int pos) {
                 ImageView img = holder.getView(R.id.scene_in_img);
-                ImageLoaderManager.getInstance().loadImage(item.headImage, img);
+                ImageLoaderManager.getInstance().loadImage(item.headImage,R.mipmap.default_loading, img);
+                holder.setText(R.id.scene_in_mode_tv, item.title);
             }
         });
         addItemViewDelegate(10, new ItemViewDelegate<HomeRecBean.Card>() {

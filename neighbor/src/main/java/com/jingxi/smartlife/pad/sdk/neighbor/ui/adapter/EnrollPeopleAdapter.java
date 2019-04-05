@@ -30,7 +30,7 @@ public class EnrollPeopleAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_enrollpeople, null);
         view.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        return new EnrollPeopleViewHolder(view);
+        return new EnrollPeopleAdapter.EnrollPeopleViewHolder(view);
     }
 
     @Override

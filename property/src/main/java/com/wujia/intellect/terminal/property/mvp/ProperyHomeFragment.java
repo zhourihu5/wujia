@@ -3,6 +3,7 @@ package com.wujia.intellect.terminal.property.mvp;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.wujia.businesslib.Constants;
 import com.wujia.intellect.terminal.property.R;
 import com.wujia.intellect.terminal.property.mvp.view.FixFragment;
 import com.wujia.intellect.terminal.property.mvp.view.SimpleFixFragment;
@@ -10,6 +11,7 @@ import com.wujia.intellect.terminal.property.mvp.view.TelFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib_common.base.BaseFragment;
+import com.wujia.lib_common.base.TabFragment;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -18,7 +20,7 @@ import me.yokeyword.fragmentation.SupportFragment;
  * date ：2019-02-17
  * description ：
  */
-public class ProperyHomeFragment extends BaseFragment {
+public class ProperyHomeFragment extends TabFragment {
 
 
     private VerticalTabBar mTabBar;
@@ -47,11 +49,17 @@ public class ProperyHomeFragment extends BaseFragment {
         super.onLazyInitView(savedInstanceState);
         mTabBar = $(R.id.tab_home_tab_bar);
 
+        currentTab = getArguments().getInt(Constants.ARG_PARAM_1);
+
+        if (currentTab >= mFragments.length) {
+            currentTab = 0;
+        }
+
         SupportFragment firstFragment = findFragment(SimpleFixFragment.class);
         if (firstFragment == null) {
             mFragments[0] = SimpleFixFragment.newInstance();
             mFragments[1] = TelFragment.newInstance();
-            loadMultipleRootFragment(R.id.tab_content_container, 0, mFragments[0], mFragments[1]);
+            loadMultipleRootFragment(R.id.tab_content_container, currentTab, mFragments[0], mFragments[1]);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
@@ -63,6 +71,7 @@ public class ProperyHomeFragment extends BaseFragment {
         mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_serve_leftnav_service_default, R.mipmap.icon_serve_leftnav_service_selected, R.string.propery_report_fix))
                 .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_serve_leftnav_phone_default, R.mipmap.icon_serve_leftnav_phone_highlight, R.string.tel_select));
 
+        mTabBar.setCurrentItem(currentTab);
 
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {
             @Override
@@ -72,4 +81,16 @@ public class ProperyHomeFragment extends BaseFragment {
         });
     }
 
+//    @Override
+//    public void onSupportVisible() {
+//        super.onSupportVisible();
+//        if (currentTab > 0) {
+//            mTabBar.getChildAt(currentTab).performClick();
+//        }
+//    }
+
+    @Override
+    public void switchTab(int pos) {
+        mTabBar.getChildAt(pos).performClick();
+    }
 }

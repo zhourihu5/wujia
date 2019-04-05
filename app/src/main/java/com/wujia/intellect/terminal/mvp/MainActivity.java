@@ -24,23 +24,28 @@ import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListener;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.fragments.NeighborMainFragment;
 import com.jingxi.smartlife.pad.sdk.push.OnPushedListener;
 import com.jingxi.smartlife.pad.sdk.push.PushManager;
+import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventDoorDevice;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.family.FamilyFragment;
 import com.wujia.intellect.terminal.market.MarketFragment;
+import com.wujia.intellect.terminal.market.mvp.MarketHomeFragment;
 import com.wujia.intellect.terminal.message.MessageFragment;
 import com.wujia.intellect.terminal.mvp.home.HomeFragment;
 import com.wujia.intellect.terminal.mvp.home.HomeHomeFragment;
 import com.wujia.intellect.terminal.neighbor.NeighborFragment;
 import com.wujia.intellect.terminal.property.ProperyFragment;
+import com.wujia.intellect.terminal.property.mvp.ProperyHomeFragment;
 import com.wujia.intellect.terminal.safe.SafeFragment;
 import com.wujia.intellect.terminal.safe.mvp.view.VideoCallActivity;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.BaseActivity;
+import com.wujia.lib_common.base.BaseMainFragment;
+import com.wujia.lib_common.base.TabFragment;
 import com.wujia.lib_common.utils.LogUtil;
 import com.wujia.lib_common.utils.ScreenUtil;
 import com.wujia.lib_common.utils.grant.PermissionsManager;
@@ -53,6 +58,15 @@ import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 public class MainActivity extends BaseActivity implements DoorAccessListener, DoorSecurityUtil.OnSecurityChangedListener {
+
+    public static final int POSITION_HOME = 0;
+    public static final int POSITION_SAFE = 1;
+    public static final int POSITION_FAMILY = 2;
+    public static final int POSITION_PROPERTY = 3;
+    public static final int POSITION_MESSAGE = 4;
+    public static final int POSITION_MARKET = 5;
+    public static final int POSITION_NEIGHBOR = 6;
+    public static final int POSITION_SETTING = 7;
 
     // 再点一次退出程序时间设置
     private static final long WAIT_TIME = 2000L;
@@ -165,12 +179,16 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
             }
         });
 
+
         initSDKManager();
 
         initGrant();
     }
 
     private void initGrant() {
+
+        HookUtil.hookWebView();
+
         PermissionsManager.getInstance().requestPermissionsIfNecessaryForResult(MainActivity.this,
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_PHONE_STATE,
@@ -331,4 +349,25 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
         LogUtil.i("防区解除报警 ： " + familyDockSn);
     }
 
+
+    public void switchHomeTab(int pos, int childPos) {
+        mTabBar.getChildAt(pos).performClick();
+        TabFragment tabFragment = null;
+        switch (pos) {
+            case POSITION_MARKET:
+                tabFragment = mFragments[pos].findChildFragment(MarketHomeFragment.class);
+                break;
+            case POSITION_PROPERTY:
+                tabFragment = mFragments[pos].findChildFragment(ProperyHomeFragment.class);
+                break;
+        }
+        if (null != tabFragment)
+            tabFragment.switchTab(childPos);
+        else {
+            BaseMainFragment fragment = (BaseMainFragment) mFragments[pos];
+            if (null != fragment) {
+                fragment.switchTab(childPos);
+            }
+        }
+    }
 }

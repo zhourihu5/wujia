@@ -7,6 +7,9 @@ import android.content.Context;
  * Created by YoKeyword on 16/6/5.
  */
 public abstract class BaseMainFragment extends BaseFragment {
+
+    protected int currentTab = 0;
+
     protected OnBackToFirstListener _mBackToFirstListener;
 
     @Override
@@ -24,17 +27,22 @@ public abstract class BaseMainFragment extends BaseFragment {
      *
      * @return
      */
-    @Override
-    public boolean onBackPressedSupport() {
-        if (getChildFragmentManager().getBackStackEntryCount() > 1) {
-            popChild();
-        } else {
-            _mActivity.finish();
-        }
-        return true;
-    }
+//    @Override
+//    public boolean onBackPressedSupport() {
+//        if (getChildFragmentManager().getBackStackEntryCount() > 1) {
+//            popChild();
+//        } else {
+//            _mActivity.finish();
+//        }
+//        return true;
+//    }
 
     public interface OnBackToFirstListener {
         void onBackToFirstFragment();
+    }
+
+
+    public void switchTab(int pos) {
+        currentTab = pos;
     }
 }

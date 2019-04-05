@@ -1,8 +1,9 @@
 package com.wujia.lib_common.data.network.exception;
 
 /**
- * author:Created by xmren on 2018/7/20.
- * email :renxiaomin@100tal.com
+ * Author: shenbingkai
+ * CreateDate: 2019-04-06 00:51
+ * Description:
  */
 
 public class ApiJsonFormateException extends RuntimeException {

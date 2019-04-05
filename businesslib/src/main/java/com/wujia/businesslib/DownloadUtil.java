@@ -8,10 +8,8 @@ import com.liulishuo.okdownload.core.cause.EndCause;
 import com.liulishuo.okdownload.core.cause.ResumeFailedCause;
 import com.liulishuo.okdownload.core.listener.DownloadListener1;
 import com.liulishuo.okdownload.core.listener.assist.Listener1Assist;
-import com.wujia.businesslib.data.AppPackageBean;
 import com.wujia.businesslib.listener.DownloadListener;
 import com.wujia.lib_common.utils.AppContext;
-import com.wujia.lib_common.utils.AppUtil;
 import com.wujia.lib_common.utils.FileUtil;
 import com.wujia.lib_common.utils.LogUtil;
 
@@ -23,6 +21,10 @@ import java.io.File;
  * description ：
  */
 public class DownloadUtil {
+
+    public static final int STATE_COMPLETE = 0;
+    public static final int STATE_CANCELED = 10;
+    public static final int STATE_OTHER = 20;
 
     public static DownloadTask download(String url, final DownloadListener listener) {
 
@@ -58,16 +60,16 @@ public class DownloadUtil {
 
                 LogUtil.i("taskEnd");
                 if (EndCause.COMPLETED == cause) {
-                    listener.onTaskComplete(0, task.getFile().getAbsolutePath());
+                    listener.onTaskComplete(STATE_COMPLETE, task.getFile().getAbsolutePath());
 
 //                    DataBaseUtil.insert(new AppPackageBean(subscriptions.get(position).servicePackage));
                     //TODO 安装需要系统签名
 //                            AppUtil.install(task.getFile().getPath());
                 } else if (EndCause.CANCELED == cause) {
-                    listener.onTaskComplete(10, "");
+                    listener.onTaskComplete(STATE_CANCELED, "");
 
                 } else {
-                    listener.onTaskComplete(20, "");
+                    listener.onTaskComplete(STATE_OTHER, "");
 
                 }
             }

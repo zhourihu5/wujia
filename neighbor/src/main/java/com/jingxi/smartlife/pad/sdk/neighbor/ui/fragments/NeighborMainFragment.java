@@ -18,7 +18,6 @@ import com.jingxi.smartlife.pad.sdk.neighbor.ui.utils.StringUtils;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.widget.NeighborTitleHolder;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.xbus.Bus;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.xbus.annotation.BusReceiver;
-import com.wujia.lib_common.base.BaseMainFragment;
 
 import me.yokeyword.fragmentation.SupportFragment;
 

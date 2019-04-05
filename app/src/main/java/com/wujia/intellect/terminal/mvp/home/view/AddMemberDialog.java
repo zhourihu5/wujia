@@ -13,6 +13,7 @@ import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.home.adapter.HomeInviteAdapter;
 import com.wujia.intellect.terminal.mvp.home.data.HomeMeberBean;
 import com.wujia.businesslib.dialog.CommDialog;
+import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.view.VerticallDecoration;
 
 import java.util.List;
@@ -46,9 +47,13 @@ public class AddMemberDialog extends CommDialog {
             @Override
             public void onClick(View v) {
                 if (null != listener) {
-                    String phone = inputEt.getText().toString();
+                    String phone = inputEt.getText().toString().trim();
                     if (TextUtils.isEmpty(phone))
                         return;
+                    if (phone.length() != 11) {
+                        ToastUtil.showShort(mContext, R.string.please_input_right_phone);
+                        return;
+                    }
                     dismiss();
                     DataBaseUtil.insert(new HomeMeberBean(phone));
                     listener.dialogSureClick(inputEt.getText().toString());

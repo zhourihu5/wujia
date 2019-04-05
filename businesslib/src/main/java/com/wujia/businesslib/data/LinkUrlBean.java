@@ -20,8 +20,9 @@ public class LinkUrlBean {
 
     public static class Children1 {
         public static final String CODE_TYPE_FIND = "discover";//发现
-        public static final String CODE_TYPE_GOV = "discover";//政务
+        public static final String CODE_TYPE_GOV = "goverment";//政务
         public static final String CODE_TYPE_ALL = "all";//全部
+
         public static final String CODE_TYPE_REPORT = "report";//报事报修
         public static final String CODE_TYPE_MONEY = "money";//物业缴费
         public static final String CODE_TYPE_ORDER = "order";//订单管理

@@ -7,14 +7,11 @@ import android.util.AttributeSet;
 
 import com.wujia.lib.uikit.R;
 
-
 /**
- * description: 正方形ImageView
- * author: KisenHuang
- * email: KisenHuang@163.com
- * time: 2018/6/20 下午1:57
+ * Author: shenbingkai
+ * CreateDate: 2019-04-06 00:51
+ * Description:
  */
-
 public class SquareImageView extends AppCompatImageView {
 
     private static int BASIC_WIDTH = 0;

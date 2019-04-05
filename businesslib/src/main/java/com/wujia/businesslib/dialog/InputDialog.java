@@ -2,12 +2,14 @@ package com.wujia.businesslib.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.wujia.lib.uikit.R;
+import com.wujia.lib.widget.util.ToastUtil;
 
 
 /**
@@ -18,10 +20,12 @@ import com.wujia.lib.uikit.R;
 public class InputDialog extends Dialog implements View.OnClickListener {
     private final EditText inputEt;
     private OnInputDialogListener listener;
+    private Context mContext;
 
     public InputDialog(Context context, String title, String hint, String confim) {
 //        super(context, R.style.NormalDialogBottomStyle);
         super(context);
+        this.mContext = context;
         //初始化布局
         setContentView(R.layout.layout_dialog_input);
 //        Window dialogWindow = getWindow();
@@ -45,9 +49,16 @@ public class InputDialog extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+        String phone = inputEt.getText().toString().trim();
         if (R.id.dialog_sure == v.getId()) {
             if (null != listener) {
-                listener.dialogSureClick(inputEt.getText().toString());
+                if (TextUtils.isEmpty(phone))
+                    return;
+                if (phone.length() != 11) {
+                    ToastUtil.showShort(mContext, R.string.please_input_right_phone);
+                    return;
+                }
+                listener.dialogSureClick(phone);
             }
         }
 

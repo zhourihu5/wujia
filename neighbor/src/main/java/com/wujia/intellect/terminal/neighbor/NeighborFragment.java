@@ -4,13 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.R;
+import com.jingxi.smartlife.pad.sdk.neighbor.ui.fragments.NeighborMainFragment;
 import com.wujia.lib_common.base.BaseMainFragment;
 
 /**
-* author ：shenbingkai@163.com
-* date ：2019-01-12 20:06
-* description ：邻里 home
-*/
+ * author ：shenbingkai@163.com
+ * date ：2019-01-12 20:06
+ * description ：邻里 home
+ */
 public class NeighborFragment extends BaseMainFragment {
 
     public NeighborFragment() {
@@ -33,15 +34,16 @@ public class NeighborFragment extends BaseMainFragment {
     protected void initEventAndData() {
 
     }
+
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
 
-//        if (findChildFragment(HomeHomeFragment.class) == null) {
-//            loadRootFragment(R.id.fl_first_container, HomeHomeFragment.newInstance());
-//        }
+        if (findChildFragment(NeighborMainFragment.class) == null) {
+            loadRootFragment(R.id.fl_first_container, new NeighborMainFragment());
+        }
 
     }
 

@@ -1,6 +1,7 @@
 package com.wujia.intellect.terminal.safe.mvp.view;
 
 import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -210,6 +211,9 @@ public class SafeOutsideFragment extends BaseFragment implements
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
+//        surfaceView.setZOrderOnTop(true);
+//        surfaceView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
+
         mDoorAccessManager.updateCallWindow(sessionId, surfaceView);
     }
 

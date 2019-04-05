@@ -79,4 +79,8 @@ public class DataBaseUtil {
         DataBaseUtil.getLiteOrm().update(obj);
     }
 
+    public static void delete(Object obj) {
+        DataBaseUtil.getLiteOrm().delete(obj);
+    }
+
 }

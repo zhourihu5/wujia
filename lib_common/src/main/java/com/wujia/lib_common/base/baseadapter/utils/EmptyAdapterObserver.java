@@ -3,12 +3,10 @@ package com.wujia.lib_common.base.baseadapter.utils;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 /**
- * description: RecyclerView空试图观察者
- * author: KisenHuang
- * email: KisenHuang@163.com
- * time: 2018/9/3 上午11:46
+ * Author: shenbingkai
+ * CreateDate: 2019-04-06 00:51
+ * Description:
  */
 
 public class EmptyAdapterObserver extends RecyclerView.AdapterDataObserver {

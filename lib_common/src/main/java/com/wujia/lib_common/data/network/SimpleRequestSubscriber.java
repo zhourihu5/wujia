@@ -5,9 +5,9 @@ import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.data.network.exception.ERROR;
 
 /**
- * @author：xmren on 2017/11/10.
- * @email：renxiaomin@100tal.com
- * @Description： currentPackage()
+ * Author: shenbingkai
+ * CreateDate: 2019-04-06 00:51
+ * Description:
  */
 
 public class SimpleRequestSubscriber<T> extends RequestSubscriber<T> {

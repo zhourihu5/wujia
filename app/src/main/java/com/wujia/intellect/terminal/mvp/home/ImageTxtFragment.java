@@ -3,43 +3,37 @@ package com.wujia.intellect.terminal.mvp.home;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.TextView;
 
-import com.liulishuo.okdownload.DownloadTask;
-import com.wujia.businesslib.DataBaseUtil;
-import com.wujia.businesslib.DownloadUtil;
-import com.wujia.businesslib.TitleFragment;
-import com.wujia.businesslib.data.AppPackageBean;
-import com.wujia.businesslib.dialog.LoadingProgressDialog;
-import com.wujia.businesslib.listener.DownloadListener;
-import com.wujia.businesslib.listener.ItemClickListener;
 import com.wujia.intellect.terminal.R;
-import com.wujia.intellect.terminal.mvp.home.adapter.HomeSubscibeAdapter;
+import com.wujia.intellect.terminal.market.mvp.adapter.FindServiceChildAdapter;
+import com.wujia.intellect.terminal.market.mvp.adapter.ServiceBaseAdapter;
+import com.wujia.intellect.terminal.market.mvp.data.ServiceBean;
+import com.wujia.intellect.terminal.market.mvp.view.ServiceBaseFragment;
 import com.wujia.intellect.terminal.mvp.home.data.HomeRecBean;
-import com.wujia.lib_common.utils.AppUtil;
-import com.wujia.lib_common.utils.FileUtil;
-import com.wujia.lib_common.utils.LogUtil;
+import com.wujia.lib_common.base.BasePresenter;
+import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
+
 
 /**
  * author ：shenbingkai@163.com
  * date ：2019-03-29
  * description ：
  */
-public class ImageTxtFragment extends TitleFragment implements ItemClickListener {
+public class ImageTxtFragment extends ServiceBaseFragment {
 
     public static final String KEY_TXT = "txt";
     public static final String KEY_SUBCRIPTION = "subscriptions";
 
-    private String txt = "";
-    private ArrayList<HomeRecBean.Subscriptions> subscriptions;
-    private ArrayList<AppPackageBean> applist;
+    private ArrayList<ServiceBean.Service> datas;
     private WebView webView;
-    private DownloadTask mTask;
-    private LoadingProgressDialog loadDialog;
-    private HomeSubscibeAdapter mAdapter;
+    private FindServiceChildAdapter mAdapter;
+    private ArrayList<HomeRecBean.Subscriptions> subscriptions;
 
     public ImageTxtFragment() {
     }
@@ -63,11 +57,22 @@ public class ImageTxtFragment extends TitleFragment implements ItemClickListener
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
 
-        txt = getArguments().getString(KEY_TXT);
+        String txt = getArguments().getString(KEY_TXT);
         subscriptions = (ArrayList<HomeRecBean.Subscriptions>) getArguments().getSerializable(KEY_SUBCRIPTION);
 
         webView = $(R.id.webview);
         RecyclerView rv = $(R.id.rv1);
+        TextView tvTitle = $(R.id.layout_title_tv);
+        TextView btnBack = $(R.id.layout_back_btn);
+
+        btnBack.setVisibility(View.VISIBLE);
+        tvTitle.setText("详情");
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pop();
+            }
+        });
 
         webView.setBackgroundColor(0);
         webView.getBackground().setAlpha(0);
@@ -84,22 +89,66 @@ public class ImageTxtFragment extends TitleFragment implements ItemClickListener
         settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
         settings.setAllowFileAccess(true);
-
-        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+//        settings.setBlockNetworkImage(true);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient());
 
-//        webView.loadData(txt, "text/html", "UTF-8");
         webView.loadData(txt, "text/html; charset=UTF-8", null);
 
-        applist = DataBaseUtil.query(AppPackageBean.class);
+        datas = new ArrayList<>();
 
-//        rv.addItemDecoration(new GridDecoration(0, 12));
-        mAdapter = new HomeSubscibeAdapter(mContext, subscriptions, applist);
+        getData();
+
+
+        mAdapter = new FindServiceChildAdapter(mContext, datas, FindServiceChildAdapter.TYPE_RECOMMEND);
+        mAdapter.setAdapterCallback(new ServiceBaseAdapter.AdatperCallback() {
+            @Override
+            public void notifydatachange() {
+                getData();
+                mAdapter.notifyDataSetChanged();
+            }
+        });
+        mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
+            @Override
+            public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
+                toTarget(datas.get(position));
+            }
+        });
         rv.setAdapter(mAdapter);
 
-        mAdapter.setItemClickListener(this);
+    }
+
+    private void getData() {
+        datas.clear();
+        for (HomeRecBean.Subscriptions sub : subscriptions) {
+            ServiceBean.Service service = new ServiceBean.Service();
+            service.name = sub.serviceTitle;
+            service.image = sub.serviceImage;
+            service.app_url = sub.serviceUrl;
+            service.explain = sub.serviceDesc;
+            service.packageName = sub.servicePackage;
+            service.service_id = sub.serviceId;
+
+            if (sub.type.equals("app")) {
+                service.app_type = ServiceBean.TYPE_NATIVE;
+                //TODO 临时处理，需要后台修改html的type
+                if (sub.serviceUrl.endsWith(".html")) {
+                    service.app_type = ServiceBean.TYPE_WEB;
+                }
+            }
+
+            //匹配已订阅数据
+//            for (int i = 0; i < mySub.size(); i++) {
+//                if (service.service_id.equals(mySub.get(i).service_id)) {
+//                    service._installed = true;
+//                    break;
+//                }
+//            }
+
+            datas.add(service);
+        }
     }
 
     @Override
@@ -107,71 +156,6 @@ public class ImageTxtFragment extends TitleFragment implements ItemClickListener
         if (null != webView)
             webView.destroy();
         super.onDestroyView();
-    }
-
-    @Override
-    public void onItemClick(final int pos) {
-        final HomeRecBean.Subscriptions item = subscriptions.get(pos);
-
-        //判断本地是否存在
-        if (item._installed) {
-
-            showToast("打开" + item.servicePackage);
-            AppUtil.startAPPByPackageName(item.servicePackage);
-
-            return;
-        }
-
-        final String apkPath = FileUtil.getDowndloadApkPath(mContext);
-        LogUtil.i("apk path = " + apkPath);
-
-        mTask = DownloadUtil.download(item.serviceUrl, new DownloadListener() {
-            @Override
-            public void onTaskStart() {
-
-                loadDialog = new LoadingProgressDialog(mActivity);
-                loadDialog.show();
-            }
-
-            @Override
-            public void onTaskProgress(int percent) {
-                if (null != loadDialog) {
-                    loadDialog.updateProgress(percent);
-                }
-            }
-
-            @Override
-            public void onTaskComplete(int state, String filePath) {
-
-                if (state == 0) {
-                    LogUtil.i("下载完成 " + filePath);
-                    if (null != loadDialog) {
-                        loadDialog.setTvTitle("正在安装");
-                    }
-                    //TODO 安装需要系统签名
-//                            boolean install = AppUtil.install(filePath);
-                    boolean install = true;
-                    if (install) {
-                        showToast("安装完成");
-
-                        //假设安装成功，本地记录
-                        DataBaseUtil.insert(new AppPackageBean(item.servicePackage));
-                        if (null != mAdapter) {
-                            mAdapter.updateAppList(DataBaseUtil.query(AppPackageBean.class));
-                            mAdapter.notifyItemChanged(pos);
-                        }
-                    } else {
-                        showToast("安装失败");
-                    }
-
-                } else {
-
-                }
-                if (null != loadDialog) {
-                    loadDialog.dismiss();
-                }
-            }
-        });
     }
 
     public class WebViewClient extends android.webkit.WebViewClient {
@@ -192,7 +176,7 @@ public class ImageTxtFragment extends TitleFragment implements ItemClickListener
     }
 
     @Override
-    public int getTitle() {
-        return R.string._empty;
+    protected BasePresenter createPresenter() {
+        return null;
     }
 }

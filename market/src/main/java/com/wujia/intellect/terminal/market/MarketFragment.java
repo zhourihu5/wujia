@@ -40,7 +40,7 @@ public class MarketFragment extends BaseMainFragment {
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
         if (findChildFragment(MarketHomeFragment.class) == null) {
-            loadRootFragment(R.id.fl_first_container, MarketHomeFragment.newInstance());
+            loadRootFragment(R.id.fl_first_container, MarketHomeFragment.newInstance(currentTab));
         }
     }
 
