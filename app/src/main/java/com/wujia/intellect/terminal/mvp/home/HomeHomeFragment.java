@@ -25,6 +25,7 @@ import com.wujia.businesslib.data.DBMessage;
 import com.wujia.businesslib.data.LinkUrlBean;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventCardChange;
+import com.wujia.businesslib.event.EventMemberChange;
 import com.wujia.businesslib.event.EventMsg;
 import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.businesslib.listener.OnDialogListener;
@@ -123,13 +124,15 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
             isRefreshCard = true;
         }
     });
-    private EventCardChange eventMemberChange = new EventCardChange(new IMiessageInvoke<EventCardChange>() {
+    private EventMemberChange eventMemberChange = new EventMemberChange(new IMiessageInvoke<EventMemberChange>() {
         @Override
-        public void eventBus(EventCardChange event) {
-            ArrayList<HomeMeberBean> temp = DataBaseUtil.query(HomeMeberBean.class);
-            mems.clear();
-            mems.addAll(temp);
-            memAdapter.notifyDataSetChanged();
+        public void eventBus(EventMemberChange event) {
+            if (null != mems && null != memAdapter) {
+                ArrayList<HomeMeberBean> temp = DataBaseUtil.query(HomeMeberBean.class);
+                mems.clear();
+                mems.addAll(temp);
+                memAdapter.notifyDataSetChanged();
+            }
         }
     });
 
@@ -179,6 +182,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
 
     private void setMemberView() {
+        mems = new ArrayList<>();
         ArrayList<HomeMeberBean> temp = DataBaseUtil.query(HomeMeberBean.class);
         mems.clear();
         mems.addAll(temp);

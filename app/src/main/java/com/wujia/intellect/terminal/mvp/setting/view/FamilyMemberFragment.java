@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.TitleFragment;
+import com.wujia.businesslib.event.EventBusUtil;
+import com.wujia.businesslib.event.EventMemberChange;
 import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.home.data.HomeMeberBean;
@@ -104,5 +106,6 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
         mems.clear();
         mems.addAll(DataBaseUtil.query(HomeMeberBean.class));
         mAdapter.notifyDataSetChanged();
+        EventBusUtil.post(new EventMemberChange());
     }
 }
