@@ -101,6 +101,7 @@ public class ThirdPermissionUtil {
                     }
                 } catch (Exception e) {
                     LogUtil.i("Permission err : [ " + e.getMessage() + " ]" );
+                    e.printStackTrace();
                 }
             }
 

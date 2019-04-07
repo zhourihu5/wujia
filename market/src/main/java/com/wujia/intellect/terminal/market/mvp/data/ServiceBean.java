@@ -55,12 +55,5 @@ public class ServiceBean extends RootResponse {
         public String service_id;
         public String name;
         public String packageName;
-
-        @Ignore
-        public boolean _installed;
-
-
     }
-
-
 }

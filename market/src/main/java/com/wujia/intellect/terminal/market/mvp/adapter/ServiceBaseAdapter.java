@@ -6,6 +6,7 @@ import android.content.Context;
 import com.liulishuo.okdownload.DownloadTask;
 import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.DownloadUtil;
+import com.wujia.businesslib.ThirdPermissionUtil;
 import com.wujia.businesslib.dialog.LoadingDialog;
 import com.wujia.businesslib.dialog.LoadingProgressDialog;
 import com.wujia.businesslib.event.EventBusUtil;
@@ -96,14 +97,6 @@ public abstract class ServiceBaseAdapter<T> extends CommonAdapter<T> {
         LogUtil.i("downloadAndInstall");
 
         if (item.app_type == ServiceBean.TYPE_NATIVE) {
-            //判断本地是否存在
-            if (item._installed) {
-
-                ToastUtil.showShort(mContext, "打开" + item.packageName);
-                AppUtil.startAPPByPackageName(item.packageName);
-
-                return;
-            }
 
             final String apkPath = FileUtil.getDowndloadApkPath(mContext);
             LogUtil.i("apk path = " + apkPath);
@@ -137,8 +130,8 @@ public abstract class ServiceBaseAdapter<T> extends CommonAdapter<T> {
                                 @Override
                                 public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
                                     LogUtil.i("install " + item.packageName);
-//                                    boolean install = AppUtil.install(filePath);
-                                    boolean install = true;
+                                    boolean install = AppUtil.install(filePath);
+//                                    boolean install = true;
                                     emitter.onNext(install);
                                 }
                             }).subscribeOn(Schedulers.io())
@@ -149,8 +142,8 @@ public abstract class ServiceBaseAdapter<T> extends CommonAdapter<T> {
                                             if (install) {
                                                 ToastUtil.showShort(mContext, "安装完成");
                                                 //安装成功，本地记录
+                                                ThirdPermissionUtil.requestDefaultPermissions(item.packageName);
                                                 DataBaseUtil.insert(item);
-//                                                ThirdPermissionUtil.requestDefaultPermissions(item.packageName);
                                                 if (null != adapterCallback) {
                                                     adapterCallback.notifydatachange();
                                                 } else {
@@ -181,15 +174,15 @@ public abstract class ServiceBaseAdapter<T> extends CommonAdapter<T> {
 
     @SuppressLint("CheckResult")
     protected void uninstall(final ServiceBean.Service item, final int pos) {
-        LogUtil.i("install " + item.packageName);
+        LogUtil.i("uninstall " + item.packageName);
 
         final LoadingDialog loadDialog = new LoadingDialog(mContext);
         loadDialog.setTitle("正在卸载");
         Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
-//                boolean uninstall = AppUtil.uninstall(item.packageName);
-                boolean uninstall = true;
+                boolean uninstall = AppUtil.uninstall(item.packageName);
+//                boolean uninstall = true;
                 emitter.onNext(uninstall);
             }
         }).subscribeOn(Schedulers.io())

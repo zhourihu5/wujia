@@ -1,8 +1,10 @@
 package com.wujia.lib_common.utils;
 
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageInstaller;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 
@@ -79,8 +81,6 @@ public class AppUtil {
             isr = new InputStreamReader(sderr);
             br = new BufferedReader(isr);
             String line = null;
-            br.close();
-            isr.close();
             while ((line = br.readLine()) != null) {
                 LogUtil.i("install line " + line);
             }
@@ -94,9 +94,12 @@ public class AppUtil {
             e.printStackTrace();
         } finally {
             try {
-                br.close();
-                isr.close();
-                sderr.close();
+                if (null != br)
+                    br.close();
+                if (null != isr)
+                    isr.close();
+                if (null != sderr)
+                    sderr.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -107,42 +110,46 @@ public class AppUtil {
 
     public static boolean uninstall(String packName) {
         LogUtil.i("uninstall " + packName);
-        InputStream sderr = null;
-        Process proc = null;
-        InputStreamReader isr = null;
-        BufferedReader br = null;
-        try {
-            Runtime rt = Runtime.getRuntime();
-            String command = "pm uninstall " + packName + "\n";
-            proc = rt.exec(command);
-            sderr = proc.getErrorStream();
-            isr = new InputStreamReader(sderr);
-            br = new BufferedReader(isr);
-            String line = null;
-            br.close();
-            isr.close();
-            while ((line = br.readLine()) != null) {
-                LogUtil.i("uninstall line " + line);
-            }
-            int exitVal = proc.waitFor();
-            if (exitVal == 0) {
-                return true;
-            }
+//        InputStream sderr = null;
+//        Process proc = null;
+//        InputStreamReader isr = null;
+//        BufferedReader br = null;
+//        try {
+//            Runtime rt = Runtime.getRuntime();
+//            String command = "pm uninstall " + packName + "\n";
+//            proc = rt.exec(command);
+//            sderr = proc.getErrorStream();
+//            isr = new InputStreamReader(sderr);
+//            br = new BufferedReader(isr);
+//            String line = null;
+//            while ((line = br.readLine()) != null) {
+//                LogUtil.i("uninstall line " + line);
+//            }
+//            int exitVal = proc.waitFor();
+//            if (exitVal == 0) {
+//                return true;
+//            }
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                br.close();
+//                isr.close();
+//                sderr.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        return false;
 
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                br.close();
-                isr.close();
-                sderr.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return false;
+        Intent intent = new Intent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent sender = PendingIntent.getActivity(AppContext.get(), 0, intent, 0);
+        PackageInstaller mPackageInstaller = AppContext.get().getPackageManager().getPackageInstaller();
+        mPackageInstaller.uninstall(packName, sender.getIntentSender());
+        return true;
     }
-
 }

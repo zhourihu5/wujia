@@ -73,6 +73,7 @@
         <LinearLayout
             android:id="@+id/item_allow_look_door_num"
             style="@style/ItemLayoutStyle"
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 

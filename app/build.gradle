@@ -40,14 +40,14 @@ android {
 
     }
 
-    applicationVariants.all { variant ->
-        variant.outputs.all {
-            //只重命名正式版本
-            if (variant.buildType.name.equalsIgnoreCase('release')) {
-                outputFileName = "wujia-v${defaultConfig.versionName}-${defaultConfig.versionCode}-${getInnnerVersionName()}.apk"
-            }
-        }
-    }
+//    applicationVariants.all { variant ->
+//        variant.outputs.all {
+//            //只重命名正式版本
+//            if (variant.buildType.name.equalsIgnoreCase('release')) {
+//                outputFileName = "wujia-v${defaultConfig.versionName}-${defaultConfig.versionCode}-${getInnnerVersionName()}.apk"
+//            }
+//        }
+//    }
 
     dexOptions {
         javaMaxHeapSize "4g"

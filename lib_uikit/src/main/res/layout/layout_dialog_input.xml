@@ -20,8 +20,10 @@
         tools:text="添加家庭成员" />
 
     <EditText
+        android:layout_marginLeft="@dimen/px80"
+        android:layout_marginRight="@dimen/px80"
         android:id="@+id/dialog_input"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/px48"
         android:background="@null"
@@ -31,6 +33,8 @@
         android:lines="1"
         android:maxLength="11"
         android:maxLines="1"
+        android:paddingTop="@dimen/px20"
+        android:paddingBottom="@dimen/px20"
         android:singleLine="true"
         android:textColor="@color/c6"
         android:textColorHint="@color/cd5"
@@ -40,7 +44,6 @@
     <View
         style="@style/ItemLineStyle"
         android:layout_marginLeft="@dimen/px80"
-        android:layout_marginTop="@dimen/px20"
         android:layout_marginRight="@dimen/px80" />
 
 
