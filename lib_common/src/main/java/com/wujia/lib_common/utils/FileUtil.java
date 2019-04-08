@@ -66,4 +66,20 @@ public class FileUtil {
     public static String getNameForUrl(String url) {
         return url.substring(url.lastIndexOf('/') + 1);
     }
+
+    public static void deleteFile(String path) {
+        File file = new File(path);
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            for (int i = 0; i < files.length; i++) {
+                File f = files[i];
+//                deleteFile(f);
+                if (f.exists())
+                    f.delete();
+            }
+//            file.delete();//如要保留文件夹，只删除文件，请注释这行
+        } else if (file.exists()) {
+            file.delete();
+        }
+    }
 }

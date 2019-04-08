@@ -40,7 +40,7 @@
     <string name="home">首页</string>
     <string name="visual_security">可视安防</string>
     <string name="intelligent_home">智能家居</string>
-    <string name="property_service">务业服务</string>
+    <string name="property_service">物业服务</string>
     <string name="market_service">服务市场</string>
     <string name="message_notify">消息通知</string>
     <string name="neighbor">邻里</string>
@@ -90,9 +90,9 @@
     <string name="welcom_login">欢迎登录</string>
     <string name="phone">手机号</string>
     <string name="please_input_right_phone">请输入正确的手机号</string>
-    <string name="login_hint_words_short">欢迎加入吾家社区，开启智慧社区生活</string>
+    <string name="login_hint_words_short">欢迎加入本社区，以家庭为单位开启智慧生活</string>
     <string name="login">登录</string>
-    <string name="login_hint_words">您好，您已经成为被认证的吾家业主\n欢迎加入吾家社区，开启智慧社区生活</string>
+    <string name="login_hint_words">欢迎加入本社区，以家庭为单位开启智慧生活</string>
     <string name="phone_error">手机号填写错误</string>
 
 

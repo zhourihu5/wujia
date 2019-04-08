@@ -5,8 +5,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.wujia.businesslib.DataBaseUtil;
+import com.wujia.businesslib.dialog.SimpleDialog;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventSubscription;
+import com.wujia.businesslib.listener.OnDialogListener;
 import com.wujia.intellect.terminal.market.R;
 import com.wujia.intellect.terminal.market.mvp.data.ServiceBean;
 import com.wujia.lib.imageloader.ImageLoaderManager;
@@ -23,12 +25,6 @@ import java.util.ArrayList;
  * Description:
  */
 public class FindServiceChildAdapter extends ServiceBaseAdapter<ServiceBean.Service> {
-
-    public static final int TYPE_MY = 0;
-    public static final int TYPE_FIND = 1;
-    public static final int TYPE_GOV = 2;
-    public static final int TYPE_ALL = 3;
-    public static final int TYPE_RECOMMEND = 4;//首页的软文推荐，包含已订阅和未订阅的数据
 
     private int mType;
 
@@ -48,19 +44,27 @@ public class FindServiceChildAdapter extends ServiceBaseAdapter<ServiceBean.Serv
         switch (mType) {
 
             case TYPE_MY:
-                holder.setText(R.id.btn1, "取消订阅");
 
-                holder.setOnClickListener(R.id.btn1, new View.OnClickListener() {
+                holder.setVisible(R.id.btn1, false);
+                holder.setVisible(R.id.btn2, true);
+                holder.setText(R.id.btn2, "取消订阅");
+
+                holder.setOnClickListener(R.id.btn2, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        unsubscibe(item,pos);
+//                        mContext,"确定取消该订阅？","确定"
+                        new SimpleDialog.Builder().title("温馨提示").confirm("确定").message("确定取消该订阅？").listener(new OnDialogListener() {
+                            @Override
+                            public void dialogSureClick() {
+                                unsubscibe(item, pos);
+                            }
+                        }).build(mContext).show();
                     }
                 });
                 break;
 
             case TYPE_GOV:
-                holder.setText(R.id.btn1, "进入");
-                holder.setOnClickListener(R.id.btn1, null);
+                holder.setVisible(R.id.btn1, false);
                 break;
 
             case TYPE_FIND:

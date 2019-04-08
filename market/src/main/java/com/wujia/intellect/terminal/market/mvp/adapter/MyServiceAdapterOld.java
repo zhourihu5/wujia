@@ -14,8 +14,8 @@ import java.util.List;
  * Email:  shenbingkai@gamil.com
  * Description:
  */
-public class MyServiceAdapter extends CommonAdapter<ServiceBean> {
-    public MyServiceAdapter(Context context, List<ServiceBean> datas) {
+public class MyServiceAdapterOld extends CommonAdapter<ServiceBean> {
+    public MyServiceAdapterOld(Context context, List<ServiceBean> datas) {
         super(context, R.layout.item_service_my, datas);
     }
 

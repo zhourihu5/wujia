@@ -52,7 +52,7 @@ public class DownloadUtil {
                 if (totalLength != 0) {
                     int percent = (int) (currentOffset * 1.0f / totalLength * 100);
                     LogUtil.i("正在下载：" + percent + " %");
-                    listener.onTaskProgress(percent);
+                    listener.onTaskProgress(percent, currentOffset,  totalLength);
                 }
             }
 

@@ -84,7 +84,7 @@
             android:layout_height="@dimen/px4"
             android:layout_marginTop="@dimen/px28"
             android:max="100"
-            android:progress="50" />
+            android:progress="0" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -96,7 +96,7 @@
                 android:id="@+id/tv_update_downloaded"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4.8MB"
+                tools:text="4.8MB"
                 android:textColor="@color/c3"
                 android:textSize="@dimen/text24" />
 
@@ -104,7 +104,8 @@
                 android:id="@+id/tv_update_apik_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="/14MB"
+                tools:text="/14MB"
+                android:visibility="gone"
                 android:textColor="@color/c3a"
                 android:textSize="@dimen/text24" />
 

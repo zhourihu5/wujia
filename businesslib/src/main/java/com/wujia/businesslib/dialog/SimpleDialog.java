@@ -61,8 +61,9 @@ public class SimpleDialog extends Dialog implements View.OnClickListener {
         dismiss();
     }
 
-    private void setListener(OnDialogListener listener) {
+    private SimpleDialog setListener(OnDialogListener listener) {
         this.listener = listener;
+        return this;
     }
 
 

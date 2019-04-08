@@ -248,7 +248,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                 }
                 break;
 
-            case LinkUrlBean.CODE_TYPE_PROPERTY://务业服务
+            case LinkUrlBean.CODE_TYPE_PROPERTY://物业服务
                 switch (linkUrl.children.code) {
                     case LinkUrlBean.Children1.CODE_TYPE_REPORT:
                         ((MainActivity) mActivity).switchHomeTab(MainActivity.POSITION_PROPERTY, 0);
@@ -313,7 +313,10 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
         super.onSupportVisible();
         // 当对用户可见时 回调
         // 不管是 父Fragment还是子Fragment 都有效！
-        LogUtil.i("HomeHomeFragment  可见");
+        LogUtil.i("HomeHomeFragment  可见 " + DataManager.getFamilyId());
+        if (null != homeCardAdapter && homeCardAdapter.getDatas().size() == 0) {
+            isRefreshCard = true;
+        }
         if (isRefreshCard) {
             mPresenter.getUserQuickCard(DataManager.getOpenid());
         }
@@ -443,7 +446,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     @Override
     public void onReceiverMessage(String content) {
 
-        LogUtil.i("onReceiverMessage " + content);
+        LogUtil.i("收到新消息 " + content);
         HomeNotifyBean notify = GsonUtil.GsonToBean(content, HomeNotifyBean.class);
         if (TextUtils.equals(notify.type, HomeNotifyBean.TYPE_PROPERTY)) {
             mPresenter.getPropertyMessageById(HomeNotifyBean.TYPE_PROPERTY, notify.propertyMessage);

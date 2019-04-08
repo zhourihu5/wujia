@@ -2,8 +2,6 @@
 
 SIGN_PATH="/Users/shenbingkai/Documents/signApk";
 
-				adb uninstall com.wujia.intellect.terminal
-
 	    ./gradlew clean assembleRelease
 
 		cur_date="`date +%Y%m%d`"
@@ -21,6 +19,8 @@ SIGN_PATH="/Users/shenbingkai/Documents/signApk";
 				java -jar signapk.jar platform.x509.pem platform.pk8 $APKNAME build/app_signed.apk
 
 				echo "签名完成"
+
+				adb uninstall com.wujia.intellect.terminal
 
 				adb install build/app_signed.apk
 		        break

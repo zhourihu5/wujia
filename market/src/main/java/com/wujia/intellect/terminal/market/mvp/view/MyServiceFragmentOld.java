@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.wujia.businesslib.base.MvpFragment;
 import com.wujia.intellect.terminal.market.R;
-import com.wujia.intellect.terminal.market.mvp.adapter.MyServiceAdapter;
+import com.wujia.intellect.terminal.market.mvp.adapter.MyServiceAdapterOld;
 import com.wujia.intellect.terminal.market.mvp.contract.MarketPresenter;
 import com.wujia.intellect.terminal.market.mvp.data.ServiceBean;
 import com.wujia.lib.widget.HorizontalTabBar;
@@ -25,7 +25,7 @@ public class MyServiceFragmentOld extends MvpFragment<MarketPresenter> implement
 
     private HorizontalTabBar tabBar;
     private RecyclerView recyclerView;
-    private MyServiceAdapter mAdapter;
+    private MyServiceAdapterOld mAdapter;
 
     public MyServiceFragmentOld() {
 
@@ -62,7 +62,7 @@ public class MyServiceFragmentOld extends MvpFragment<MarketPresenter> implement
         datas.add(new ServiceBean());
         datas.add(new ServiceBean());
 
-        mAdapter = new MyServiceAdapter(mActivity, datas);
+        mAdapter = new MyServiceAdapterOld(mActivity, datas);
         recyclerView.setAdapter(mAdapter);
 //        mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
 //            @Override

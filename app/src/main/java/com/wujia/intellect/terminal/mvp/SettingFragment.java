@@ -11,7 +11,7 @@ import com.wujia.lib_common.base.BaseMainFragment;
 /**
  * author ：shenbingkai@163.com
  * date ：2019-01-12 20:06
- * description ：务业服务 home
+ * description ：物业服务 home
  */
 public class SettingFragment extends BaseMainFragment {
 

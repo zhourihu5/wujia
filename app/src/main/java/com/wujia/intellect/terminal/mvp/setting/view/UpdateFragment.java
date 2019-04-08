@@ -9,14 +9,28 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.liulishuo.okdownload.DownloadTask;
+import com.wujia.businesslib.DownloadUtil;
 import com.wujia.businesslib.TitleFragment;
+import com.wujia.businesslib.listener.DownloadListener;
 import com.wujia.intellect.terminal.R;
 import com.wujia.intellect.terminal.mvp.setting.data.VersionBean;
+import com.wujia.lib.widget.util.ToastUtil;
+import com.wujia.lib_common.utils.AppUtil;
+import com.wujia.lib_common.utils.LogUtil;
+
+import java.math.BigDecimal;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * author ：shenbingkai@163.com
@@ -43,12 +57,13 @@ public class UpdateFragment extends TitleFragment {
     LinearLayout updateIngLayout;
 
     private VersionBean.Version mVersion;
+    private DownloadTask mTask;
 
     public static UpdateFragment newInstance(VersionBean.Version version, String remark) {
         UpdateFragment fragment = new UpdateFragment();
         Bundle args = new Bundle();
         args.putSerializable("version", version);
-        args.putSerializable("remark", remark);
+        args.putString("remark", remark);
         fragment.setArguments(args);
         return fragment;
     }
@@ -83,5 +98,133 @@ public class UpdateFragment extends TitleFragment {
     public void onViewClicked() {
         updateCheckLayout.setVisibility(View.GONE);
         updateIngLayout.setVisibility(View.VISIBLE);
+
+//        download();
+
+        install();
+    }
+
+    private void download() {
+        mTask = DownloadUtil.download(mVersion.imageurl, new DownloadListener() {
+            @Override
+            public void onTaskStart() {
+
+            }
+
+            @Override
+            public void onTaskProgress(int percent, long currentOffset, long totalLength) {
+                if (null != progressUpdate) {
+                    progressUpdate.setProgress(percent);
+                }
+                if (null != tvUpdateDownloaded) {
+                    tvUpdateDownloaded.setText(getFormatSize(currentOffset) + "/" + getFormatSize(totalLength));
+                }
+            }
+
+            @Override
+            public void onTaskComplete(int state, final String filePath) {
+                switch (state) {
+
+                    case DownloadUtil.STATE_COMPLETE:
+                        LogUtil.i("tvUpdateDownloaded " + filePath);
+                        if (null != tvUpdateDownloaded) {
+                            tvUpdateDownloaded.setText("正在安装");
+                        }
+                        Observable.create(new ObservableOnSubscribe<Boolean>() {
+                            @Override
+                            public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
+                                LogUtil.i("install " + mVersion.packageName);
+                                boolean install = AppUtil.install(filePath);
+//                                    boolean install = true;
+                                emitter.onNext(install);
+                            }
+                        }).subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Consumer<Boolean>() {
+                                    @Override
+                                    public void accept(Boolean install) throws Exception {
+                                        if (install) {
+                                            ToastUtil.showShort(mContext, "安装完成");
+                                            //安装成功，本地记录
+//                                            ThirdPermissionUtil.requestDefaultPermissions(mVersion.packageName);
+
+                                        } else {
+                                            ToastUtil.showShort(mContext, "安装失败");
+                                        }
+                                    }
+                                });
+                        break;
+                    case DownloadUtil.STATE_CANCELED:
+                    case DownloadUtil.STATE_OTHER:
+                        break;
+                }
+            }
+        });
+    }
+    private void install (){
+        Observable.create(new ObservableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
+                LogUtil.i("install " + mVersion.packageName);
+                boolean install = AppUtil.install("/sdcard/download/app_signed.apk");
+//                                    boolean install = true;
+                emitter.onNext(install);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean install) throws Exception {
+                        if (install) {
+                            ToastUtil.showShort(mContext, "安装完成");
+                            //安装成功，本地记录
+//                                            ThirdPermissionUtil.requestDefaultPermissions(mVersion.packageName);
+
+                        } else {
+                            ToastUtil.showShort(mContext, "安装失败");
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 格式化单位
+     *
+     * @param size
+     * @return
+     */
+    public static String getFormatSize(double size) {
+        double kiloByte = size / 1024;
+        if (kiloByte < 1) {
+            return size + "B";
+        }
+
+        double megaByte = kiloByte / 1024;
+        if (megaByte < 1) {
+            BigDecimal result1 = new BigDecimal(Double.toString(kiloByte));
+            return result1.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "KB";
+        }
+
+        double gigaByte = megaByte / 1024;
+        if (gigaByte < 1) {
+            BigDecimal result2 = new BigDecimal(Double.toString(megaByte));
+            return result2.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "MB";
+        }
+
+        double teraBytes = gigaByte / 1024;
+        if (teraBytes < 1) {
+            BigDecimal result3 = new BigDecimal(Double.toString(gigaByte));
+            return result3.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "GB";
+        }
+        BigDecimal result4 = new BigDecimal(teraBytes);
+        return result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "TB";
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (null != mTask) {
+            mTask.cancel();
+        }
     }
 }

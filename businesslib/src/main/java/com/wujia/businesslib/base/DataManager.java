@@ -26,7 +26,14 @@ public class DataManager {
     public static String getFamilyId() {
         UserBean.User user = getUser();
         if (null != user) {
-            return user.openId;
+            int count = user.familyId.length();
+            StringBuilder newFamilyId = new StringBuilder();
+            if (count < 16) {
+                for (int i = 0; i < 16 - count; i++) {
+                    newFamilyId.append("0");
+                }
+            }
+            return user.familyId + newFamilyId.toString();
         }
         return "";
     }

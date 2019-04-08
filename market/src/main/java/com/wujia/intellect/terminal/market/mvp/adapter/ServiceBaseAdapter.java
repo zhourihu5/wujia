@@ -36,6 +36,12 @@ import io.reactivex.schedulers.Schedulers;
  */
 public abstract class ServiceBaseAdapter<T> extends CommonAdapter<T> {
 
+    public static final int TYPE_MY = 0;
+    public static final int TYPE_FIND = 1;
+    public static final int TYPE_GOV = 2;
+    public static final int TYPE_ALL = 3;
+    public static final int TYPE_RECOMMEND = 4;//首页的软文推荐，包含已订阅和未订阅的数据
+
     private DownloadTask mTask;
     private AdatperCallback adapterCallback;
 
@@ -110,7 +116,7 @@ public abstract class ServiceBaseAdapter<T> extends CommonAdapter<T> {
                 }
 
                 @Override
-                public void onTaskProgress(int percent) {
+                public void onTaskProgress(int percent,long currentOffset, long totalLength) {
                     if (null != loadDialog) {
                         loadDialog.updateProgress(percent);
                     }

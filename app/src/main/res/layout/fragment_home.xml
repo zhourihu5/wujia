@@ -9,14 +9,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px360"
+        android:layout_height="@dimen/px345"
         android:background="@color/cf7">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px80"
-            android:layout_marginTop="@dimen/px80"
+            android:layout_marginTop="@dimen/px64"
             android:text="@string/Welcome_home"
             android:textColor="@color/c8"
             android:textSize="@dimen/text24" />
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px80"
-            android:layout_marginTop="@dimen/px138"
+            android:layout_marginTop="@dimen/px122"
             android:text="倚澜观邸 01 室"
             android:textColor="@color/c3"
             android:textSize="@dimen/text48" />
@@ -65,7 +65,7 @@
             android:layout_width="@dimen/px200"
             android:layout_height="@dimen/px200"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/px80"
+            android:layout_marginTop="@dimen/px64"
             android:layout_marginRight="@dimen/px80"
             android:gravity="center"
             android:lineSpacingMultiplier="0.6"
@@ -207,7 +207,7 @@
             android:id="@+id/rv_home_card"
             android:layout_width="match_parent"
             android:layout_height="@dimen/px500"
-            android:layout_marginTop="@dimen/px68"
+            android:layout_marginTop="@dimen/px60"
             android:orientation="horizontal"
             android:overScrollMode="never"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
@@ -218,7 +218,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/px192"
             android:layout_marginLeft="@dimen/px68"
-            android:layout_marginTop="@dimen/px16"
+            android:layout_marginTop="@dimen/px50"
             android:orientation="horizontal">
 
             <android.support.v7.widget.RecyclerView

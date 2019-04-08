@@ -24,6 +24,7 @@ import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.AppContext;
 import com.wujia.lib_common.utils.AppUtil;
+import com.wujia.lib_common.utils.FileUtil;
 import com.wujia.lib_common.utils.LogUtil;
 import com.wujia.lib_common.utils.SystemUtil;
 import com.wujia.lib_common.utils.VersionUtil;
@@ -36,7 +37,7 @@ import butterknife.OnClick;
 /**
  * author ：shenbingkai@163.com
  * date ：2019-01-12 20:06
- * description ：务业服务 home
+ * description ：物业服务 home
  */
 public class SettingHomeFragment extends MvpFragment<SettingPresenter> implements SettingContract.View {
 
@@ -139,6 +140,7 @@ public class SettingHomeFragment extends MvpFragment<SettingPresenter> implement
                     @Override
                     public void dialogSureClick() {
                         ToastUtil.showShort(mContext, getString(R.string.cache_clear_ed));
+                        FileUtil.deleteFile(FileUtil.getDowndloadApkPath(mContext));
                     }
                 }).build(mContext).show();
                 break;

@@ -95,16 +95,17 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         loginTimeDateTv.setText(StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay()));
         mPresenter.doTimeChange();
 
+        //TODO 每次请求token
         if (TextUtils.isEmpty(DataManager.getToken())) {
             mPresenter.doGetAccessToken();
         }
-        if (!TextUtils.isEmpty(DataManager.getFamilyId())) {
-            initSdkData(DataManager.getUser());
-
-            toActivity(MainActivity.class);
-            finish();
-
-        }
+//        if (!TextUtils.isEmpty(DataManager.getFamilyId())) {
+//            initSdkData(DataManager.getUser());
+//
+//            toActivity(MainActivity.class);
+//            finish();
+//
+//        }
 
 
     }
@@ -114,9 +115,6 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         switch (view.getId()) {
             case R.id.login_btn:
                 login();
-//                mPresenter.doGetAccessToken();
-
-
                 break;
             case R.id.login_btn_confim:
                 toActivity(MainActivity.class);

@@ -6,25 +6,18 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
 import com.wujia.businesslib.DataBaseUtil;
-import com.wujia.businesslib.base.MvpFragment;
-import com.wujia.businesslib.data.DBService;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventSubscription;
 import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.intellect.terminal.market.R;
 import com.wujia.intellect.terminal.market.mvp.adapter.FindServiceChildAdapter;
-import com.wujia.intellect.terminal.market.mvp.adapter.MyServiceAdapter;
 import com.wujia.intellect.terminal.market.mvp.contract.MarketPresenter;
 import com.wujia.intellect.terminal.market.mvp.data.ServiceBean;
-import com.wujia.lib.widget.HorizontalTabBar;
-import com.wujia.lib.widget.HorizontalTabItem;
-import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.base.view.ServiceCardDecoration;
 import com.wujia.lib_common.utils.ScreenUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * author ：shenbingkai@163.com
