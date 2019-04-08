@@ -23,6 +23,7 @@ import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorEvent;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorRecordBean;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessConversationUI;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListUI;
+import com.wujia.businesslib.base.DataManager;
 import com.wujia.intellect.terminal.safe.R;
 import com.wujia.intellect.terminal.safe.mvp.adapter.PlayBackAdapter;
 import com.wujia.lib.widget.util.ToastUtil;
@@ -71,7 +72,8 @@ public class SafeOutsideFragment extends BaseFragment implements
      */
     private boolean isTouchSeek = false;
     private View layoutBottomOp;
-    private String familyID = "001901181CD10000";
+//    private String familyID = "001901181CD10000";
+    private String familyID = DataManager.getFamilyId();
     private List<DoorRecordBean> recordList;
     private DoorRecordBean recordBean;
 

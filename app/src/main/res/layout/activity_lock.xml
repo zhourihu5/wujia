@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/px200"
         android:layout_marginLeft="@dimen/px284"
-        android:text="21:39"
+        android:text="21:39 自定义屏保"
         android:textColor="@color/white"
         android:textSize="@dimen/text160" />
 

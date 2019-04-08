@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wujia.intellect.terminal"
-    >
-    <!--android:sharedUserId="android.uid.system"-->
+    android:sharedUserId="android.uid.system">
 
 
     <application
@@ -40,6 +39,19 @@
         <activity
             android:name=".mvp.setting.view.CardManagerActivity"
             android:screenOrientation="landscape" />
+
+        <service
+            android:name=".mvp.LockService"
+            android:exported="true"
+            android:permission="android.permission.BIND_DREAM_SERVICE">
+
+            <intent-filter>
+                <action android:name="android.service.dreams.DreamService" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="com.jingxi.smartlife.deskClock" />
+            </intent-filter>
+
+        </service>
     </application>
 
 </manifest>

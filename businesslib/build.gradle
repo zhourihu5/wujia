@@ -48,4 +48,5 @@ dependencies {
     debugImplementation deps.leakcanary
     releaseImplementation deps.leakcanary_no_op
     annotationProcessor deps.arouter.compiler
+    implementation files('libs/framework1.jar')
 }

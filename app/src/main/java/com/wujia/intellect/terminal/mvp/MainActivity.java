@@ -3,9 +3,13 @@ package com.wujia.intellect.terminal.mvp;
 import android.Manifest;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.os.RemoteException;
+import android.os.ServiceManager;
+import android.service.dreams.IDreamManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
@@ -104,6 +108,16 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
 //           LogUtil.i("<dimen name=\"text"+i+"\">"+Math.round(i/1.5)+"sp</dimen>");
 //        }
 
+        initTab();
+
+        initLockService();
+
+        initSDKManager();
+
+        initGrant();
+    }
+
+    private void initTab() {
         mTabBar = findViewById(R.id.main_tab_bar);
         mainCover = findViewById(R.id.main_cover);
         mArrow = findViewById(R.id.main_tab_arrow);
@@ -178,11 +192,18 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
 //                mTabBar.getChildAt(5).performClick();
             }
         });
+    }
 
-
-        initSDKManager();
-
-        initGrant();
+    private void initLockService() {
+        IDreamManager mDreamManager = IDreamManager.Stub.asInterface(
+                ServiceManager.getService("dreams"));
+        ComponentName componentName = new ComponentName(getPackageName(), LockService.class.getName());
+        ComponentName[] componentNames = {componentName};
+        try {
+            mDreamManager.setDreamComponents(componentNames);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initGrant() {
@@ -211,7 +232,7 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
         manager = JXPadSdk.getDoorAccessManager();
         manager.setDoorAccessListener(this);
         manager.addSecurityListener(this);
-        manager.querySecurityStatus("001901181CD10000");
+        manager.querySecurityStatus(DataManager.getFamilyId());
     }
 
     @Override

@@ -96,9 +96,9 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         mPresenter.doTimeChange();
 
         //TODO 每次请求token
-        if (TextUtils.isEmpty(DataManager.getToken())) {
+//        if (TextUtils.isEmpty(DataManager.getToken())) {
             mPresenter.doGetAccessToken();
-        }
+//        }
 //        if (!TextUtils.isEmpty(DataManager.getFamilyId())) {
 //            initSdkData(DataManager.getUser());
 //
@@ -229,32 +229,34 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
             LogUtil.i(bean.toString());
             DataManager.saveToken(bean.content);
 
-            if (!TextUtils.isEmpty(DataManager.getFamilyId())) {
-
-                UserBean.User user = DataManager.getUser();
-
-                initSdkData(user);
-
-                toActivity(MainActivity.class);
-                finish();
-            }
+//            if (!TextUtils.isEmpty(DataManager.getFamilyId())) {
+//
+//                UserBean.User user = DataManager.getUser();
+//
+//                initSdkData(user);
+//
+//                toActivity(MainActivity.class);
+//                finish();
+//            }
         }
     }
 
     private void initSdkData(UserBean.User user) {
 
-//        JXPadSdk.setAccid(user.accid);
-//        JXPadSdk.setAppKey(Constants.APPID, DataManager.getToken());
-//        JXPadSdk.setCommunityId(user.communityId);
-//        JXPadSdk.setFamilyInfoId(user.familyId);
-//        JXPadSdk.initNeighbor();
+        JXPadSdk.setAccid(user.accid);
+        JXPadSdk.setAppKey(Constants.APPID, DataManager.getToken());
+        JXPadSdk.setCommunityId(user.communityId);
+        JXPadSdk.setFamilyInfoId(DataManager.getFamilyId());
+        JXPadSdk.getDoorAccessManager().startFamily(DataManager.getFamilyId(), "01");
 
 
-        JXPadSdk.setAccid("y_p_1241_18021651812");
+//        JXPadSdk.setAccid("y_p_1241_18021651812");
         //TODO token变更后应重新设置
-        JXPadSdk.setAppKey("userKey:d38bf3b32e09484b83673c90772442cc", "6a591fc521f347bfad171fd2932e60d6");
-        JXPadSdk.setCommunityId("1");
-        JXPadSdk.getDoorAccessManager().startFamily("001901181CD10000", "01");
+//        JXPadSdk.setAppKey("userKey:d38bf3b32e09484b83673c90772442cc", "6a591fc521f347bfad171fd2932e60d6");
+//        JXPadSdk.setCommunityId("1");
+//        JXPadSdk.getDoorAccessManager().startFamily("001901181CD10000", "01");
+
+
         JXPadSdk.initNeighbor();
     }
 
