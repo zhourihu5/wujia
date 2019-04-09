@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mvp.FamilyCameraActivity">
+    tools:context="com.jingxi.smartlife.pad.family.mvp.FamilyCameraActivity">
 
     <ImageView
         android:layout_width="match_parent"

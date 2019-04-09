@@ -20,7 +20,7 @@ SIGN_PATH="/Users/shenbingkai/Documents/signApk";
 
 				echo "签名完成"
 
-				adb uninstall com.wujia.intellect.terminal
+				adb uninstall com.jingxi.smartlife.pad
 
 				adb install build/app_signed.apk
 		        break

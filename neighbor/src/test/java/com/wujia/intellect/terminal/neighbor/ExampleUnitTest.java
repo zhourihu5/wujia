@@ -1,4 +1,4 @@
-package com.wujia.intellect.terminal.neighbor;
+package com.jingxi.smartlife.pad.neighbor;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.wujia.intellect.terminal.market;
+package com.jingxi.smartlife.pad.market;
 
 import org.junit.Test;
 

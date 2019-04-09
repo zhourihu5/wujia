@@ -1,4 +1,4 @@
-package com.wujia.intellect.terminal.family;
+package com.jingxi.smartlife.pad.family;
 
 import org.junit.Test;
 

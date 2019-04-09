@@ -1,5 +1,6 @@
 package com.wujia.businesslib.base;
 
+import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.wujia.businesslib.BusAppApiService;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.data.RootResponse;
@@ -52,6 +53,7 @@ public class TokenInterceptor implements Interceptor {
             //同步请求方式，获取最新的Token
             TokenBean tokenBean = getNewToken();
             DataManager.saveToken(tokenBean.content);
+            JXPadSdk.setAppKey(Constants.APPID, DataManager.getToken());
             //使用新的Token，创建新的请求
             if (request.method().equals("GET")) {
 

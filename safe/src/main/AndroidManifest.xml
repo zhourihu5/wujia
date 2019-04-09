@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wujia.intellect.terminal.safe">
+    package="com.jingxi.smartlife.pad.safe">
 
 
     <application>
-        <activity android:name=".mvp.view.SafeFullScreenActivity"></activity>
+        <activity android:name="com.jingxi.smartlife.pad.safe.mvp.view.SafeFullScreenActivity"></activity>
         <activity
-            android:name=".mvp.view.VideoCallActivity"
+            android:name="com.jingxi.smartlife.pad.safe.mvp.view.VideoCallActivity"
             android:theme="@style/Theme.ActivityDialogStyle"></activity>
     </application>
 

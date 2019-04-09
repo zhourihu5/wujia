@@ -1,4 +1,4 @@
-package com.wujia.intellect.terminal;
+package com.jingxi.smartlife.pad;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.wujia.intellect.terminal", appContext.getPackageName());
+        assertEquals("com.jingxi.smartlife.pad", appContext.getPackageName());
     }
 }

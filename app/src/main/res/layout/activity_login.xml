@@ -214,6 +214,8 @@
                 android:elevation="@dimen/px5"
                 android:gravity="center"
                 android:text="@string/login"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text32" />
         </LinearLayout>
@@ -252,6 +254,8 @@
                 android:background="@drawable/btn_rect_accent_select"
                 android:gravity="center"
                 android:text="@string/sure"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text32" />
         </LinearLayout>

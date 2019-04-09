@@ -12,7 +12,7 @@ android {
     compileSdkVersion build_versions.target_sdk
     buildToolsVersion build_versions.build_tools
     defaultConfig {
-        applicationId "com.wujia.intellect.terminal"
+        applicationId "com.jingxi.smartlife.pad"
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
         versionCode app_version.versionCode
