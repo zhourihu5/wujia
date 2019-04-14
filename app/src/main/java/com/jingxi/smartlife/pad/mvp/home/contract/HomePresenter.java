@@ -1,5 +1,6 @@
 package com.jingxi.smartlife.pad.mvp.home.contract;
 
+import com.jingxi.smartlife.pad.mvp.home.data.LockADBean;
 import com.wujia.businesslib.base.RxPresenter;
 import com.wujia.businesslib.data.RootResponse;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
@@ -28,6 +29,7 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
     public static final int REQUEST_CDOE_REMOVE_CARD = 4;
     public static final int REQUEST_CDOE_WEATHER = 5;
     public static final int REQUEST_CDOE_MESSAGE = 6;
+    public static final int REQUEST_CDOE_SCREEN_AD = 7;
 
 
     private HomeModel mModel;
@@ -178,6 +180,25 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
             public void onFailed(ApiException apiException) {
                 super.onFailed(apiException);
                 mView.onDataLoadFailed(REQUEST_CDOE_MESSAGE, apiException);
+            }
+        }));
+    }
+
+    @Override
+    public void getScreenSaverByCommunityId(String communityId) {
+        addSubscribe(mModel.getScreenSaverByCommunityId(communityId).subscribeWith(new SimpleRequestSubscriber<LockADBean>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+            @Override
+            public void onResponse(LockADBean response) {
+                super.onResponse(response);
+                if (response.isSuccess()) {
+                    mView.onDataLoadSucc(REQUEST_CDOE_SCREEN_AD, response);
+                }
+            }
+
+            @Override
+            public void onFailed(ApiException apiException) {
+                super.onFailed(apiException);
+                mView.onDataLoadFailed(REQUEST_CDOE_SCREEN_AD, apiException);
             }
         }));
     }

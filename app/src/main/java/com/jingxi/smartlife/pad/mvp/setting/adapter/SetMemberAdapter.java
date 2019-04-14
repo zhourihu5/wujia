@@ -1,10 +1,12 @@
 package com.jingxi.smartlife.pad.mvp.setting.adapter;
 
 import android.content.Context;
+import android.widget.ImageView;
 
 import com.jingxi.smartlife.pad.mvp.home.data.HomeMeberBean;
 import com.jingxi.smartlife.pad.R;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeMeberBean;
+import com.wujia.lib.imageloader.ImageLoaderManager;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 
@@ -24,6 +26,10 @@ public class SetMemberAdapter extends CommonAdapter<HomeMeberBean> {
     protected void convert(ViewHolder holder, HomeMeberBean item, int pos) {
 
         holder.setText(R.id.name_member_set_item, item.phone);
+
+        ImageView img = holder.getView(R.id.icon_member_set_item);
+        ImageLoaderManager.getInstance().loadImage(item.head_res, img);
+
 
     }
 }

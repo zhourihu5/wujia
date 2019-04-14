@@ -1,5 +1,6 @@
 package com.jingxi.smartlife.pad.mvp.home.contract;
 
+import com.jingxi.smartlife.pad.mvp.home.data.LockADBean;
 import com.wujia.businesslib.data.RootResponse;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.wujia.businesslib.data.MessageBean;
@@ -32,6 +33,7 @@ public interface HomeContract {
 
         Flowable<MessageBean> getManagerMessageById(String id);
 
+        Flowable<LockADBean> getScreenSaverByCommunityId(String communityId);
 
     }
 
@@ -53,5 +55,7 @@ public interface HomeContract {
         void getPropertyMessageById(String type, String id);
 
         void getManagerMessageById(String type, String id);
+
+        void getScreenSaverByCommunityId(String communityId);
     }
 }

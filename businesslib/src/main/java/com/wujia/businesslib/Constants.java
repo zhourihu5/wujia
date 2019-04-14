@@ -5,9 +5,9 @@ package com.wujia.businesslib;
  */
 
 public class Constants {
-    public static final String BASE_URL = "http://openapi.house-keeper.cn";
+    public static final String BASE_URL = "https://openapi.house-keeper.cn";
     public static final String BASE_URL_TOKEN = "http://tokenct.house-keeper.cn";
-    public static final String BASE_URL_UPDATE = "http://api.house-keeper.cn";
+    public static final String BASE_URL_UPDATE = "https://api.house-keeper.cn";
     public static final String HTTP_SUCESS = "0";
     public static final String HTTP_TOKEN_FAILD = "40011";
     public static final String HTTP_TOKEN_NO = "41001";
@@ -21,5 +21,9 @@ public class Constants {
     //    Intent key
     public static final String ARG_PARAM_1 = "ARG_PARAM_1";
     public static final String INTENT_KEY_1 = "INTENT_KEY_1";
+    public static final String INTENT_KEY_2 = "INTENT_KEY_2";
+    public static final String INTENT_KEY_3 = "INTENT_KEY_3";
+    public static final String INTENT_KEY_4 = "INTENT_KEY_4";
+    public static final String INTENT_KEY_5 = "INTENT_KEY_5";
     public static final String SP_KEY_USER = "SP_KEY_USER";
 }

@@ -34,6 +34,7 @@ public class DataManager {
                 }
             }
             return user.familyId + newFamilyId.toString();
+//            return "001901181CD10000";
         }
         return "";
     }

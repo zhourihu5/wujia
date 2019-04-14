@@ -13,13 +13,17 @@ import com.wujia.lib.uikit.R;
 
 public class LoadingDialog extends Dialog {
     private TextView tvTitle;
-    String title = "加载中...";
+    private String title = "加载中...";
+    private boolean cancelOnTouchOutside = true;
+
+    public void setCancelOnTouchOutside(boolean cancelOnTouchOutside) {
+        this.cancelOnTouchOutside = cancelOnTouchOutside;
+    }
 
     public LoadingDialog(@NonNull Context context) {
         super(context, R.style.dialog);
         init();
     }
-
     public LoadingDialog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
     }
@@ -27,7 +31,7 @@ public class LoadingDialog extends Dialog {
     private void init() {
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.layout_loading_dialog);
-        setCanceledOnTouchOutside(false);
+        setCanceledOnTouchOutside(cancelOnTouchOutside);
 //        WindowManager.LayoutParams lp = getWindow().getAttributes();
 //        lp.dimAmount = 0.0f;
 //        getWindow().setAttributes(lp);

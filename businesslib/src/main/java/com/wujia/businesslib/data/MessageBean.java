@@ -39,6 +39,7 @@ public class MessageBean extends RootResponse {
         public String id;
         public String communityId;
         public String createDate;
+        public String typeName;
         public String typeMsg;
         public String senderAccId;
     }

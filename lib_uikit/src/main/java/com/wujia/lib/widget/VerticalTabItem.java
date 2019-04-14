@@ -23,11 +23,12 @@ import com.wujia.lib.uikit.R;
  * date ：2019-01-12
  * description ：
  */
-public class VerticalTabItem extends LinearLayout {
+public class VerticalTabItem extends FrameLayout {
 
     private int mTabPosition;
     private Context mContext;
     private ImageView mIcon;
+    private ImageView mPoint;
     private TextView mTxt;
     private int mIconDefault, mIconSelected;
 
@@ -39,9 +40,11 @@ public class VerticalTabItem extends LinearLayout {
     }
 
     private void init(Context context, int txt) {
-        setOrientation(VERTICAL);
-        setGravity(Gravity.CENTER);
         mContext = context;
+        LinearLayout layout = new LinearLayout(context);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setGravity(Gravity.CENTER);
+
         //水波纹
         TypedArray typedArray = context.obtainStyledAttributes(new int[]{R.attr.selectableItemBackgroundBorderless});
         Drawable drawable = typedArray.getDrawable(0);
@@ -54,7 +57,7 @@ public class VerticalTabItem extends LinearLayout {
         iconParams.gravity = Gravity.CENTER;
         mIcon.setImageResource(mIconDefault);
 //        mIcon.setColorFilter(ContextCompat.getColor(context, R.color.c9));
-        addView(mIcon, iconParams);
+        layout.addView(mIcon, iconParams);
 
 
         mTxt = new TextView(context);
@@ -66,7 +69,23 @@ public class VerticalTabItem extends LinearLayout {
 //        mTxt.setPadding(0, top, 0, 0);
         mTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
         mTxt.setTextColor(ContextCompat.getColor(mContext, R.color.c9));
-        addView(mTxt, txtParams);
+        layout.addView(mTxt, txtParams);
+
+        mPoint = new ImageView(context);
+//        int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
+        LayoutParams poingParams = new LayoutParams(16, 16);
+        poingParams.gravity = Gravity.RIGHT;
+        poingParams.topMargin = 30;
+        poingParams.rightMargin = 30;
+        mPoint.setImageResource(R.drawable.bg_point_red);
+        mPoint.setVisibility(INVISIBLE);
+
+        addView(layout);
+        addView(mPoint, poingParams);
+    }
+
+    public void setPoint(boolean state) {
+        mPoint.setVisibility(state ? VISIBLE : INVISIBLE);
     }
 
     @Override

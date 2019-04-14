@@ -96,14 +96,12 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
         //TODO 每次请求token
 //        if (TextUtils.isEmpty(DataManager.getToken())) {
-            mPresenter.doGetAccessToken();
+        mPresenter.doGetAccessToken();
 //        }
 //        if (!TextUtils.isEmpty(DataManager.getFamilyId())) {
 //            initSdkData(DataManager.getUser());
-//
 //            toActivity(MainActivity.class);
 //            finish();
-//
 //        }
 
 
@@ -173,8 +171,10 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     }
 
     private void login() {
-        if (TextUtils.isEmpty(DataManager.getToken()))
+        if (TextUtils.isEmpty(DataManager.getToken())) {
             mPresenter.doGetAccessToken();
+            return;
+        }
 
         //TODO 验证手机号
         String phone = loginAccount.getText().toString();
@@ -187,11 +187,9 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
             return;
         }
 
-//        http://openapi.house-keeper.cn/openapi/v1/user/padLogin?appid=test&accessToken=4c239ad0-59b1-4306-b437-c8a8e79baea7&padSn=HS1JXY6M12D2900034&mobile=17712239874&captcha=jingxikeji
         String sn = SystemUtil.getSerialNum();
         LogUtil.i("sn " + sn);
-//        mPresenter.doLogin(phone, pwd, sn);
-        mPresenter.doLogin(phone, pwd, "HS1JXY6M12D2900034");
+        mPresenter.doLogin(phone, pwd, sn);
 
     }
 
@@ -246,7 +244,6 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         JXPadSdk.setAppKey(Constants.APPID, DataManager.getToken());
         JXPadSdk.setCommunityId(user.communityId);
         JXPadSdk.setFamilyInfoId(DataManager.getFamilyId());
-        JXPadSdk.getDoorAccessManager().startFamily(DataManager.getFamilyId(), "01");
 
 
 //        JXPadSdk.setAccid("y_p_1241_18021651812");

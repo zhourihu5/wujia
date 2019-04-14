@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class RootResponse extends BaseResponse implements Serializable {
     public String errcode;
     public String code;
-    public String errmsg;
+    public String msg;
 
     @Override
     public boolean isSuccess() {
@@ -24,6 +24,6 @@ public class RootResponse extends BaseResponse implements Serializable {
 
     @Override
     public String getErrorMsg() {
-        return errmsg;
+        return msg;
     }
 }

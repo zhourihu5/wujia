@@ -96,9 +96,9 @@ public class UpdateFragment extends TitleFragment {
         updateCheckLayout.setVisibility(View.GONE);
         updateIngLayout.setVisibility(View.VISIBLE);
 
-//        download();
+        download();
 
-        install();
+//        install();
     }
 
     private void download() {
@@ -146,6 +146,9 @@ public class UpdateFragment extends TitleFragment {
 //                                            ThirdPermissionUtil.requestDefaultPermissions(mVersion.packageName);
 
                                         } else {
+                                            if (null != tvUpdateDownloaded) {
+                                                tvUpdateDownloaded.setText("安装失败");
+                                            }
                                             ToastUtil.showShort(mContext, "安装失败");
                                         }
                                     }
@@ -159,6 +162,7 @@ public class UpdateFragment extends TitleFragment {
         });
     }
 
+    //测试安装
     private void install() {
         Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
@@ -174,7 +178,7 @@ public class UpdateFragment extends TitleFragment {
                     @Override
                     public void accept(Boolean install) throws Exception {
                         if (install) {
-                            LogUtil.i("install 安装成功" );
+                            LogUtil.i("install 安装成功");
 
                             ToastUtil.showShort(mContext, "安装完成");
                             //安装成功，本地记录
@@ -182,7 +186,7 @@ public class UpdateFragment extends TitleFragment {
 
                         } else {
                             ToastUtil.showShort(mContext, "安装失败");
-                            LogUtil.i("install 安装失败" );
+                            LogUtil.i("install 安装失败");
                         }
                     }
                 });

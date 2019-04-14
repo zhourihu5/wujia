@@ -6,6 +6,8 @@ import android.view.View;
 import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.data.DBMessage;
 import com.jingxi.smartlife.pad.message.R;
+import com.wujia.businesslib.event.EventBusUtil;
+import com.wujia.businesslib.event.EventMsg;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 import com.wujia.lib_common.utils.DateUtil;
@@ -30,6 +32,14 @@ public class MessageAdapter extends CommonAdapter<DBMessage> {
         holder.setText(R.id.tv3, item.title);
         holder.setText(R.id.tv4, DateUtil.formatMsgDate(item.createDate));
         holder.setText(R.id.tv5, item.pureText);
+
+        int res = 0;
+        if (item._type.equals(DBMessage.TYPE_NOTIFY)) {
+            res = R.mipmap.ic_msg_label_neighbour;
+        } else if (item._type.equals(DBMessage.TYPE_PROPERTY)) {
+            res = R.mipmap.ic_msg_label_serve;
+        }
+        holder.setImageResource(R.id.img2, res);
 
         holder.setVisible(R.id.img3, item._read_state == 0);
 
@@ -79,6 +89,7 @@ public class MessageAdapter extends CommonAdapter<DBMessage> {
                         holder.setBackgroundRes(R.id.btn2, R.drawable.btn_rect_no_can);
                         holder.setVisible(R.id.img3, false);
                         DataBaseUtil.update(item);
+                        EventBusUtil.post(new EventMsg(EventMsg.TYPE_READ));
                     }
                 });
             }

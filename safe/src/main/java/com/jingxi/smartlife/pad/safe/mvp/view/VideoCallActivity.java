@@ -13,7 +13,9 @@ import com.jingxi.smartlife.pad.sdk.doorAccess.DoorAccessManager;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorEvent;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessConversationUI;
 import com.jingxi.smartlife.pad.safe.R;
+import com.wujia.businesslib.dialog.LoadingDialog;
 import com.wujia.lib_common.base.BaseActivity;
+import com.wujia.lib_common.utils.LogUtil;
 
 /**
  * author ：shenbingkai@163.com
@@ -25,6 +27,10 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
     private String sessionId;
     private SurfaceView surfaceView;
     private DoorAccessManager manager;
+    private LoadingDialog loadingDialog;
+    private View frore;
+    private Runnable runnable;
+
 
     @Override
     protected int getLayout() {
@@ -36,6 +42,7 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.btn1).setOnClickListener(this);
 
         surfaceView = findViewById(R.id.surface);
+        frore = findViewById(R.id.surface_foreground);
 
         manager = JXPadSdk.getDoorAccessManager();
         manager.addConversationUIListener(this);
@@ -46,6 +53,23 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.btn9).setOnClickListener(this);
 
         sessionId = getIntent().getStringExtra("sessionId");
+        if (null == loadingDialog) {
+            loadingDialog = new LoadingDialog(mContext);
+        }
+        loadingDialog.setCancelOnTouchOutside(true);
+        loadingDialog.setTitle("正在连接中...");
+        loadingDialog.show();
+
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                updateSurface();
+                frore.setVisibility(View.GONE);
+                if (loadingDialog != null) {
+                    loadingDialog.dismiss();
+                }
+            }
+        };
     }
 
     @Override
@@ -72,6 +96,9 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (null != runnable && null != surfaceView) {
+            surfaceView.removeCallbacks(runnable);
+        }
         DoorAccessManager.getInstance().removeConversationUIListener(this);
     }
 
@@ -94,21 +121,31 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         updateSurface();
+        surfaceView.postDelayed(runnable, 1000);
     }
 
     public void updateSurface() {
-        surfaceView.setVisibility(View.VISIBLE);
         manager.updateCallWindow(sessionId, surfaceView);
     }
 
     @Override
     public void startTransPort(String sessionID) {
+        if (!TextUtils.equals(sessionId, sessionID)) {
+            return;
+        }
+        LogUtil.i("VideoCallActivity 开始传输视频 sessionId " + sessionId);
         Toast.makeText(this, "开始传输视频", Toast.LENGTH_SHORT).show();
         updateSurface();
     }
 
     @Override
     public void refreshEvent(DoorEvent event) {
+
+        if (!TextUtils.equals(sessionId, event.sessionId)) {
+            return;
+        }
+        LogUtil.i("VideoCallActivity refreshEvent " + event.cmd + "  sessionid = " + event.sessionId);
+
         if (TextUtils.equals(event.getCmd(), IntercomConstants.kIntercomCommandHangup)) {
             finish();
         } else if (TextUtils.equals(event.getCmd(), IntercomConstants.kIntercomCommandSessionTimeout)) {
@@ -118,6 +155,5 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
             Toast.makeText(this, "其他用户接听", Toast.LENGTH_SHORT).show();
             finish();
         }
-
     }
 }

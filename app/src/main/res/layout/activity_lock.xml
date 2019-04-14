@@ -7,10 +7,11 @@
     tools:context=".mvp.login.LockActivity">
 
     <ImageView
+        android:id="@+id/lock_img_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@mipmap/bg_lockscreen" />
+        tools:src="@mipmap/bg_lockscreen" />
 
     <TextView
         android:id="@+id/login_time_tv"

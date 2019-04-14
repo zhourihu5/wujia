@@ -4,9 +4,11 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.wujia.businesslib.dialog.LoadingDialog;
+import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.BaseView;
+import com.wujia.lib_common.utils.AppContext;
 
 
 /**
@@ -41,7 +43,7 @@ public abstract class MvpFragment<T extends BasePresenter> extends BaseFragment 
 
     @Override
     public void showErrorMsg(String msg) {
-
+        ToastUtil.showShort(AppContext.get(), msg);
     }
 
     @Override

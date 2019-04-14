@@ -45,7 +45,7 @@ public class NetworkUtil {
      * @description 判断WIFI还是流量
      * @date 2015-3-4 上午11:24:22
      */
-    public static int getNetWorkInfoType(Context context) {
+    private static int getNetWorkInfoType(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netinfo = cm.getActiveNetworkInfo();
         if (null == netinfo) {
@@ -101,6 +101,7 @@ public class NetworkUtil {
     }
 
     public static boolean isNetAvailable(Context context) {
-        return hasNet;
+//        return hasNet;
+        return getNetWork(context);
     }
 }

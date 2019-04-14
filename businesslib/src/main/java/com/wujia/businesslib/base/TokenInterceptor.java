@@ -53,7 +53,7 @@ public class TokenInterceptor implements Interceptor {
             //同步请求方式，获取最新的Token
             TokenBean tokenBean = getNewToken();
             DataManager.saveToken(tokenBean.content);
-            JXPadSdk.setAppKey(Constants.APPID, DataManager.getToken());
+            JXPadSdk.setAppKey(Constants.APPID, tokenBean.content);
             //使用新的Token，创建新的请求
             if (request.method().equals("GET")) {
 

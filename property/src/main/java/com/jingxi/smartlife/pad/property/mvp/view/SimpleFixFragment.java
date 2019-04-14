@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.jingxi.smartlife.pad.property.R;
+import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.BaseFragment;
 
 /**
@@ -38,6 +39,7 @@ public class SimpleFixFragment extends BaseFragment implements View.OnClickListe
         $(R.id.fix_electricity_btn).setOnClickListener(this);
         $(R.id.fix_water_btn).setOnClickListener(this);
         $(R.id.fix_public_btn).setOnClickListener(this);
+        $(R.id.fix_call_service_btn).setOnClickListener(this);
 
     }
 
@@ -49,6 +51,8 @@ public class SimpleFixFragment extends BaseFragment implements View.OnClickListe
 
         } else if (v.getId() == R.id.fix_public_btn) {
 
+        } else if (v.getId() == R.id.fix_call_service_btn) {
+            ToastUtil.showShort(mContext, getString(R.string.not_join));
         }
     }
 }

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wujia.businesslib.DataBaseUtil;
@@ -32,8 +33,15 @@ public class MessageDialog extends Dialog {
         TextView tvTitle = findViewById(R.id.tv2);
         TextView tvTime = findViewById(R.id.tv3);
         TextView tvDesc = findViewById(R.id.tv4);
+        ImageView icon = findViewById(R.id.img1);
 
-        tvType.setText(message.typeMsg);
+        if (message._type.equals(DBMessage.TYPE_NOTIFY)) {
+            icon.setImageResource(R.mipmap.ic_msg_label_neighbour);
+        } else if (message._type.equals(DBMessage.TYPE_PROPERTY)) {
+            icon.setImageResource(R.mipmap.ic_msg_label_serve);
+        }
+
+        tvType.setText(message.typeText);
         tvTitle.setText(message.title);
         tvTime.setText(DateUtil.formatMsgDate(message.createDate));
         tvDesc.setText(message.pureText);

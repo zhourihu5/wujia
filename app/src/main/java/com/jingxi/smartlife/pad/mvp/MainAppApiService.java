@@ -2,6 +2,7 @@ package com.jingxi.smartlife.pad.mvp;
 
 
 import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
+import com.jingxi.smartlife.pad.mvp.home.data.LockADBean;
 import com.jingxi.smartlife.pad.mvp.home.data.WeatherBean;
 import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.RootResponse;
@@ -54,4 +55,7 @@ public interface MainAppApiService {
 
     @GET("/openapi/v1/message/getManagerMessageById")
     Flowable<MessageBean> getManagerMessageById(@Query("id") String id);
+
+    @GET("/openapi/v1/wj/getScreenSaverByCommunityId")
+    Flowable<LockADBean> getScreenSaverByCommunityId(@Query("communityId") String communityId);
 }

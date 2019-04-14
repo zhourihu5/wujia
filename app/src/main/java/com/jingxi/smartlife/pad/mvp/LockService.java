@@ -4,12 +4,14 @@ import android.content.Context;
 import android.service.dreams.DreamService;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jingxi.smartlife.pad.R;
 import com.jingxi.smartlife.pad.mvp.home.adapter.HomeNotifyAdapter;
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeContract;
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeModel;
+import com.jingxi.smartlife.pad.mvp.home.data.LockADBean;
 import com.jingxi.smartlife.pad.mvp.home.data.WeatherBean;
 import com.jingxi.smartlife.pad.mvp.home.view.MessageDialog;
 import com.litesuits.orm.db.assit.QueryBuilder;
@@ -20,6 +22,7 @@ import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventMsg;
 import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.businesslib.listener.OnDialogListener;
+import com.wujia.lib.imageloader.ImageLoaderManager;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
 import com.wujia.lib_common.data.network.exception.ApiException;
@@ -51,13 +54,18 @@ public class LockService extends DreamService implements HomeContract.View {
     private TextView loginTemperatureTv;
     private TextView loginTemperatureDesc;
     private RecyclerView rvHomeMsg;
+    private ImageView bgImg;
+    private HomeModel model;
+
 
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     private EventMsg eventMsg = new EventMsg(new IMiessageInvoke<EventMsg>() {
         @Override
         public void eventBus(EventMsg event) {
-            setNotify();
+            if (event.type == EventMsg.TYPE_NEW_MSG) {
+                setNotify();
+            }
         }
     });
 
@@ -80,9 +88,16 @@ public class LockService extends DreamService implements HomeContract.View {
         loginTemperatureTv = findViewById(R.id.login_temperature_tv);
         loginTemperatureDesc = findViewById(R.id.login_temperature_desc);
         rvHomeMsg = findViewById(R.id.rv_home_msg);
+        bgImg = findViewById(R.id.lock_img_bg);
 
         FontUtils.changeFontTypeface(loginTimeTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
         FontUtils.changeFontTypeface(loginTemperatureTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
+
+        if (model == null) {
+            model = new HomeModel();
+        }
+
+        setScreenBg();
 
         setWeather();
 
@@ -90,6 +105,33 @@ public class LockService extends DreamService implements HomeContract.View {
 
         setNotify();
 
+    }
+
+    private void setScreenBg() {
+        mCompositeDisposable.add(model.getScreenSaverByCommunityId(DataManager.getCommunityId()).subscribeWith(new SimpleRequestSubscriber<LockADBean>(LockService.this, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+            @Override
+            public void onResponse(LockADBean bean) {
+                super.onResponse(bean);
+                if (bean.isSuccess()) {
+                    if (bean.content != null && bean.content.size() > 0) {
+                        for (LockADBean.AD ad : bean.content) {
+                            if (ad.imageType == 1) {
+                                if (bgImg != null) {
+                                    ImageLoaderManager.getInstance().loadImage(ad.image, bgImg);
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(ApiException apiException) {
+                super.onFailed(apiException);
+                onDataLoadFailed(0, apiException);
+            }
+        }));
     }
 
     //时间
@@ -113,8 +155,7 @@ public class LockService extends DreamService implements HomeContract.View {
 
     //天气
     private void setWeather() {
-        final HomeModel model = new HomeModel();
-        mCompositeDisposable.add(Observable.interval(0, 60 * 60, TimeUnit.SECONDS)
+        mCompositeDisposable.add(Observable.interval(3, 60 * 60, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Long>() {
@@ -154,7 +195,7 @@ public class LockService extends DreamService implements HomeContract.View {
     private void setNotify() {
 
         QueryBuilder builder = new QueryBuilder<>(DBMessage.class);
-        builder.limit(0, 3).appendOrderDescBy("_id");
+        builder.limit(0, 3).whereEquals("_read_state", 0).appendOrderDescBy("_id");
 
         final ArrayList<DBMessage> notifys = DataBaseUtil.query(builder);
 

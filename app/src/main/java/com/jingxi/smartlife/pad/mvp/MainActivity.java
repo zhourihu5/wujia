@@ -24,8 +24,10 @@ import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.jingxi.smartlife.pad.sdk.doorAccess.DoorAccessManager;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.DoorSecurityUtil;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListener;
+import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.base.DataManager;
+import com.wujia.businesslib.data.DBMessage;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventDoorDevice;
 import com.jingxi.smartlife.pad.R;
@@ -40,6 +42,9 @@ import com.jingxi.smartlife.pad.property.ProperyFragment;
 import com.jingxi.smartlife.pad.property.mvp.ProperyHomeFragment;
 import com.jingxi.smartlife.pad.safe.SafeFragment;
 import com.jingxi.smartlife.pad.safe.mvp.view.VideoCallActivity;
+import com.wujia.businesslib.event.EventMsg;
+import com.wujia.businesslib.event.EventSafeState;
+import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib.widget.util.ToastUtil;
@@ -51,6 +56,7 @@ import com.wujia.lib_common.utils.ScreenUtil;
 import com.wujia.lib_common.utils.grant.PermissionsManager;
 import com.wujia.lib_common.utils.grant.PermissionsResultAction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.yokeyword.fragmentation.SupportFragment;
@@ -80,7 +86,19 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
     private RelativeLayout.LayoutParams arrowLayoutParams;
 
     private DoorAccessManager manager;
+    private EventMsg eventMsg = new EventMsg(new IMiessageInvoke<EventMsg>() {
+        @Override
+        public void eventBus(EventMsg event) {
+            setMessagePoint();
+        }
+    });
 
+    private void setMessagePoint() {
+
+        ArrayList<DBMessage> list = DataBaseUtil.queryEquals("_read_state", 0, DBMessage.class);
+        VerticalTabItem tab = (VerticalTabItem) mTabBar.getChildAt(4);
+        tab.setPoint(list != null && list.size() > 0);
+    }
 
     @Override
     protected int getLayout() {
@@ -111,6 +129,10 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
         initSDKManager();
 
         initGrant();
+
+        setMessagePoint();
+
+        EventBusUtil.register(eventMsg);
     }
 
     private void initTab() {
@@ -228,8 +250,10 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
     private void initSDKManager() {
         manager = JXPadSdk.getDoorAccessManager();
         manager.setDoorAccessListener(this);
-        manager.addSecurityListener(this);
-        manager.querySecurityStatus(DataManager.getFamilyId());
+        manager.startFamily(DataManager.getFamilyId(), "01");
+
+//        manager.addSecurityListener(this);
+//        manager.querySecurityStatus(DataManager.getFamilyId());
     }
 
     @Override
@@ -322,6 +346,8 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
 
     @Override
     public void onProxyOnlineStateChanged(String familyID, String proxyId, int router, boolean online) {
+        LogUtil.i("onProxyOnlineStateChanged  familyID " + familyID + " proxyId = " + proxyId + " router = " + router + " online = " + online);
+        EventBusUtil.post(new EventSafeState(online));
 
     }
 
@@ -387,5 +413,11 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
                 fragment.switchTab(childPos);
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBusUtil.unregister(eventMsg);
     }
 }

@@ -74,8 +74,8 @@ build_versions.build_tools = "28.0.3"
 ext.build_versions = build_versions
 
 def app_version = [:]
-app_version.versionCode = 1
-app_version.versionName = "1.0"
+app_version.versionCode = 0
+app_version.versionName = "1.0.0"
 ext.app_version = app_version
 
 

@@ -14,10 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeContract;
+import com.jingxi.smartlife.pad.mvp.home.data.Advert;
+import com.jingxi.smartlife.pad.mvp.login.AdvertActivity;
+import com.jingxi.smartlife.pad.safe.mvp.view.VideoCallActivity;
 import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.jingxi.smartlife.pad.sdk.push.OnPushedListener;
 import com.jingxi.smartlife.pad.sdk.push.PushManager;
 import com.litesuits.orm.db.assit.QueryBuilder;
+import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpFragment;
@@ -28,6 +32,7 @@ import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventCardChange;
 import com.wujia.businesslib.event.EventMemberChange;
 import com.wujia.businesslib.event.EventMsg;
+import com.wujia.businesslib.event.EventSafeState;
 import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.businesslib.listener.OnDialogListener;
 import com.wujia.businesslib.listener.OnInputDialogListener;
@@ -36,7 +41,6 @@ import com.jingxi.smartlife.pad.mvp.MainActivity;
 import com.jingxi.smartlife.pad.mvp.home.adapter.HomeMemberAdapter;
 import com.jingxi.smartlife.pad.mvp.home.adapter.HomeNotifyAdapter;
 import com.jingxi.smartlife.pad.mvp.home.adapter.HomeCardAdapter;
-import com.jingxi.smartlife.pad.mvp.home.contract.HomeContract;
 import com.jingxi.smartlife.pad.mvp.home.contract.HomePresenter;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeMeberBean;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeNotifyBean;
@@ -119,6 +123,21 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     private PushManager pushManager;
     private boolean isRefreshCard = false;
 
+    private EventSafeState eventSafeState = new EventSafeState(new IMiessageInvoke<EventSafeState>() {
+        @Override
+        public void eventBus(EventSafeState event) {
+
+            homeArcView.setText(event.online ? "正常\n" : "异常\n");
+        }
+    });
+    private EventMsg eventMsg = new EventMsg(new IMiessageInvoke<EventMsg>() {
+        @Override
+        public void eventBus(EventMsg event) {
+            if (event.type == EventMsg.TYPE_READ) {
+                setNotify();
+            }
+        }
+    });
     private EventCardChange eventCardChange = new EventCardChange(new IMiessageInvoke<EventCardChange>() {
         @Override
         public void eventBus(EventCardChange event) {
@@ -172,13 +191,15 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
         pushManager = JXPadSdk.getPushManager();
         pushManager.addCallback(this);
-        LogUtil.i("bindTags  accid ="+DataManager.getAccid() + "  prod_homePad_" + DataManager.getCommunityId());
+        LogUtil.i("bindTags  accid =" + DataManager.getAccid() + "  prod_homePad_" + DataManager.getCommunityId());
         pushManager.bindAccount(DataManager.getAccid());
         pushManager.bindTags(DataManager.getAccid(), "prod_homePad_" + DataManager.getCommunityId());
 
         mPresenter.getUserQuickCard(DataManager.getOpenid());
         mPresenter.getWeather(DataManager.getCommunityId());
 
+        EventBusUtil.register(eventSafeState);
+        EventBusUtil.register(eventMsg);
         EventBusUtil.register(eventCardChange);
         EventBusUtil.register(eventMemberChange);
     }
@@ -272,7 +293,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 //        notifys.add(new HomeNotifyBean());
 
         QueryBuilder builder = new QueryBuilder<>(DBMessage.class);
-        builder.limit(0, 3).appendOrderDescBy("_id");
+        builder.limit(0, 3).whereEquals("_read_state", 0).appendOrderDescBy("_id");
 
         final ArrayList<DBMessage> notifys = DataBaseUtil.query(builder);
 
@@ -287,6 +308,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                             @Override
                             public void dialogSureClick() {
                                 setNotify();
+                                EventBusUtil.post(new EventMsg(EventMsg.TYPE_READ));
                             }
                         }).show();
             }
@@ -300,6 +322,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
         mActivity.registerReceiver(batterReceiver, filter);
         mActivity.registerReceiver(networkReceiver, filter);
+
     }
 
 //    @Override
@@ -339,27 +362,35 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
         switch (view.getId()) {
             case R.id.home_chat_btn:
                 ToastUtil.showShort(mContext, getString(R.string.chat_is_developing));
-//                EventBusUtil.post(new EventMsg());
-                mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, "200");
+//                mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, "200");
                 break;
             case R.id.home_member_add_btn:
                 new AddMemberDialog(mActivity).setListener(new OnInputDialogListener() {
                     @Override
                     public void dialogSureClick(String input) {
-                        mems.add(new HomeMeberBean());
+                        ArrayList<HomeMeberBean> temp = DataBaseUtil.query(HomeMeberBean.class);
+                        mems.clear();
+                        mems.addAll(temp);
                         memAdapter.notifyDataSetChanged();
                     }
                 }).show();
                 break;
             case R.id.home_call_service_btn:
 //                new CallDialog(mContext).show();
+                ToastUtil.showShort(mContext, getString(R.string.not_join));
                 //TODO 物业联系方式弹框
                 break;
 
             case R.id.home_arc_view:
 //                start(ExceptionStatusFragment.newInstance());
-                mPresenter.getPropertyMessageById(HomeNotifyBean.TYPE_PROPERTY, "1");
-//                mPresenter.getManagerMessageById("1");
+//                mPresenter.getPropertyMessageById(HomeNotifyBean.TYPE_PROPERTY, "1");
+
+//                Advert advert = new Advert();
+//                advert.href = "http://politics.cntv.cn/leaders/person/xijinping/index.shtml";
+//                advert.url = "http://image.house-keeper.cn/groupBuy/decoration/2019-02-01/0f2ca07a-48b2-42a1-b59f-3a581a087565.jpg";
+//                Intent intent = new Intent(mActivity, AdvertActivity.class);
+//                intent.putExtra(Constants.INTENT_KEY_1, advert);
+//                startActivity(intent);
                 break;
         }
     }
@@ -403,14 +434,18 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                 m.createDate = bean.propertyMessage.createDate;
                 m.id = bean.propertyMessage.id;
                 m.pureText = bean.propertyMessage.pureText;
-                m.type = bean.propertyMessage.type;
-                m.typeMsg = bean.propertyMessage.typeMsg;
                 m.senderAccId = bean.propertyMessage.senderAccId;
+                m.type = bean.propertyMessage.type;
+                if (TextUtils.equals(m._type, DBMessage.TYPE_NOTIFY)) {
+                    m.typeText = bean.propertyMessage.typeName;
+                } else if (TextUtils.equals(m._type, DBMessage.TYPE_PROPERTY)) {
+                    m.typeText = bean.propertyMessage.typeMsg;
+                }
 
                 DataBaseUtil.insert(m);
 
                 setNotify();
-                EventBusUtil.post(new EventMsg());
+                EventBusUtil.post(new EventMsg(EventMsg.TYPE_NEW_MSG));
                 break;
         }
     }
@@ -449,13 +484,28 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     @Override
     public void onReceiverMessage(String content) {
 
-        LogUtil.i("收到新消息 " + content);
-        HomeNotifyBean notify = GsonUtil.GsonToBean(content, HomeNotifyBean.class);
-        if (TextUtils.equals(notify.type, HomeNotifyBean.TYPE_PROPERTY)) {
-            mPresenter.getPropertyMessageById(HomeNotifyBean.TYPE_PROPERTY, notify.propertyMessage);
-        } else if (TextUtils.equals(notify.type, HomeNotifyBean.TYPE_NOTIFY)) {
-            mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, notify.propertyMessage);
+        if (TextUtils.isEmpty(content))
+            return;
+        try {
+            LogUtil.i("收到新消息 " + content);
+            HomeNotifyBean notify = GsonUtil.GsonToBean(content, HomeNotifyBean.class);
+            if (TextUtils.equals(notify.type, HomeNotifyBean.TYPE_PROPERTY)) {
+                mPresenter.getPropertyMessageById(HomeNotifyBean.TYPE_PROPERTY, notify.propertyMessage);
+            } else if (TextUtils.equals(notify.type, HomeNotifyBean.TYPE_NOTIFY)) {
+                mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, notify.propertyMessage);
+            } else if (TextUtils.equals(notify.type, HomeNotifyBean.TYPE_HOME_CARD)) {
+                mPresenter.getUserQuickCard(DataManager.getOpenid());
+            } else if (TextUtils.equals(notify.type, HomeNotifyBean.TYPE_HOME_AD)) {
+                Advert advert = notify.adLeapInfo;
+                Intent intent = new Intent(mActivity, AdvertActivity.class);
+                intent.putExtra(Constants.INTENT_KEY_1, advert);
+                startActivity(intent);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogUtil.i("消息数据 json解析异常" + content);
         }
+
     }
 
     /**
@@ -506,6 +556,8 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBusUtil.unregister(eventSafeState);
+        EventBusUtil.unregister(eventMsg);
         EventBusUtil.unregister(eventCardChange);
         EventBusUtil.unregister(eventMemberChange);
     }

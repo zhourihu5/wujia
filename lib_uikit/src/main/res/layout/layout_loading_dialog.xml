@@ -1,7 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/px300"
+    android:layout_width="wrap_content"
+    android:minWidth="@dimen/px300"
     android:layout_height="@dimen/px120"
+    android:paddingLeft="@dimen/px20"
+    android:paddingRight="@dimen/px20"
     android:background="@drawable/bg_darkgray_raduis"
     android:gravity="center"
     android:orientation="horizontal">

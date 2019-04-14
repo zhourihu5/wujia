@@ -127,10 +127,10 @@
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
                     android:inputType="phone"
-                    android:maxLength="20"
+                    android:maxLength="11"
                     android:paddingLeft="@dimen/px150"
                     android:singleLine="true"
-                    android:text="17712239874"
+                    tools:text="17712239874"
                     android:textColor="@color/c3"
                     android:textColorHint="@color/c3"
                     android:textSize="@dimen/text24" />
@@ -177,11 +177,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
-                    android:inputType="number"
                     android:maxLength="20"
                     android:paddingLeft="@dimen/px150"
                     android:singleLine="true"
-                    android:text="jingxikeji"
+                    tools:text="jingxikeji"
                     android:textColor="@color/c3"
                     android:textColorHint="@color/c3"
                     android:textSize="@dimen/text24" />
@@ -214,8 +213,6 @@
                 android:elevation="@dimen/px5"
                 android:gravity="center"
                 android:text="@string/login"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text32" />
         </LinearLayout>
@@ -254,8 +251,6 @@
                 android:background="@drawable/btn_rect_accent_select"
                 android:gravity="center"
                 android:text="@string/sure"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text32" />
         </LinearLayout>

@@ -23,7 +23,7 @@ public class DateUtil {
     }
 
     public static String formathhMMdd(long m) {
-        SimpleDateFormat formatter = new SimpleDateFormat("hh:MM:dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:dd");
         Date date = new Date(m);
         String curDate = formatter.format(date);
         return curDate;

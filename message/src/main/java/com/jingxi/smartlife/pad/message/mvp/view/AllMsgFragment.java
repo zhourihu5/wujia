@@ -38,6 +38,7 @@ public class AllMsgFragment extends BaseFragment implements HorizontalTabBar.OnT
     private int page = 0, pageSize = 15;
     private ArrayList<DBMessage> allList;//所有数据
     private String type = "";//默认所有
+    private boolean isVisible;
 
     public void setType(String type) {
         this.type = type;
@@ -49,8 +50,15 @@ public class AllMsgFragment extends BaseFragment implements HorizontalTabBar.OnT
     private EventMsg eventMsg = new EventMsg(new IMiessageInvoke<EventMsg>() {
         @Override
         public void eventBus(EventMsg event) {
-            reset();
-            getData();
+            if (event.type == EventMsg.TYPE_NEW_MSG) {
+                reset();
+                getData();
+            } else if (event.type == EventMsg.TYPE_READ) {
+                if (!isVisible) {//本页也会发送TYPE_READ,adapter已处理，所以页面显示时不处理
+                    reset();
+                    getData();
+                }
+            }
         }
     });
 
@@ -171,13 +179,19 @@ public class AllMsgFragment extends BaseFragment implements HorizontalTabBar.OnT
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-
+        isVisible = true;
 //        if (null == msgList) {
 //            msgList = new ArrayList<>();
 //        }
 //        if (null != mLoadMoreWrapper) {
 //            getData();
 //        }
+    }
+
+    @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+        isVisible = false;
     }
 
     @Override

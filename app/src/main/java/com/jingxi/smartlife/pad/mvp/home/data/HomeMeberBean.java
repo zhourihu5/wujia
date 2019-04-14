@@ -15,7 +15,12 @@ public class HomeMeberBean {
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int id;
     public String phone;
+    public String head_res;
 
+    public HomeMeberBean(String phone, String head_res) {
+        this.phone = phone;
+        this.head_res = head_res;
+    }
 
 
     public HomeMeberBean(String phone) {

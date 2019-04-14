@@ -1,6 +1,11 @@
-<manifest package="com.wujia.businesslib"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wujia.businesslib">
+
     <application>
+
+        <activity
+            android:name=".base.WebViewActivity"
+            android:screenOrientation="landscape" />
 
     </application>
 </manifest>

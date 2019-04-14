@@ -103,10 +103,16 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
 
     @Override
     public void dialogSureClick(String input) {
-        DataBaseUtil.insert(new HomeMeberBean(input));
+        DataBaseUtil.insert(new HomeMeberBean(input, getHeadUrl()));
         mems.clear();
         mems.addAll(DataBaseUtil.query(HomeMeberBean.class));
         mAdapter.notifyDataSetChanged();
         EventBusUtil.post(new EventMemberChange());
+    }
+
+    public String getHeadUrl() {
+        int num = (int) (Math.random() * 6 + 1);
+        String head = String.format("file:///android_asset/img_default_head_%d.png", num);
+        return head;
     }
 }

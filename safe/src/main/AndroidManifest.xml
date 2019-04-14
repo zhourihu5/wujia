@@ -3,10 +3,16 @@
 
 
     <application>
-        <activity android:name="com.jingxi.smartlife.pad.safe.mvp.view.SafeFullScreenActivity"></activity>
+        <!--<activity-->
+            <!--android:name="com.jingxi.smartlife.pad.safe.mvp.view.FullScreenLiveActivity"-->
+            <!--android:screenOrientation="landscape" />-->
+        <activity
+            android:name="com.jingxi.smartlife.pad.safe.mvp.view.FullScreenActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.jingxi.smartlife.pad.safe.mvp.view.VideoCallActivity"
-            android:theme="@style/Theme.ActivityDialogStyle"></activity>
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.ActivityDialogStyle"/>
     </application>
 
 </manifest>

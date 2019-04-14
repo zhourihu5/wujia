@@ -130,6 +130,7 @@
     <string name="verification_code">验证码</string>
     <string name="warning">预警</string>
     <string name="_empty"> </string>
+    <string name="not_join">暂未接入</string>
 
     <!--format-->
     <string name="s_s">%1$s %2$s</string>

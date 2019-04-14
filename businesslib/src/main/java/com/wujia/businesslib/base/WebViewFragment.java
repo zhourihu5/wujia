@@ -2,12 +2,14 @@ package com.wujia.businesslib.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.R;
 import com.wujia.businesslib.TitleFragment;
@@ -23,9 +25,6 @@ public class WebViewFragment extends TitleFragment implements View.OnClickListen
     private WebView webView;
     private ProgressBar progressBar;
 
-    public static final String URL = "KEY_URL";
-    private String url = "https://www.jianshu.com/p/dd99a10ef792";
-
     public WebViewFragment() {
 
     }
@@ -33,7 +32,7 @@ public class WebViewFragment extends TitleFragment implements View.OnClickListen
     public static WebViewFragment newInstance(String url) {
         WebViewFragment fragment = new WebViewFragment();
         Bundle args = new Bundle();
-        args.putString(URL, url);
+        args.putString(Constants.ARG_PARAM_1, url);
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,9 +61,9 @@ public class WebViewFragment extends TitleFragment implements View.OnClickListen
         TextView layoutBackBtn = $(R.id.layout_back_btn);
         TextView layoutRightBtn = $(R.id.layout_right_btn);
 
-
-        url = getArguments().getString(URL);
-
+        String url = getArguments().getString(Constants.ARG_PARAM_1);
+        if (TextUtils.isEmpty(url))
+            return;
 
         layoutRightBtn.setText("关闭");
         layoutRightBtn.setVisibility(View.VISIBLE);

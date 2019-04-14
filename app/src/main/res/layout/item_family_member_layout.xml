@@ -16,6 +16,7 @@
             android:id="@+id/icon_member_set_item"
             android:layout_width="@dimen/px64"
             android:layout_height="@dimen/px64"
+            android:scaleType="centerCrop"
             android:src="@mipmap/icon_head_default" />
 
         <TextView

@@ -9,7 +9,8 @@
     <ImageView
         android:layout_width="@dimen/px64"
         android:layout_height="@dimen/px64"
-        android:background="@mipmap/icon_head_default" />
+        android:id="@id/img1"
+        tools:src="@mipmap/icon_head_default" />
 
     <LinearLayout
         android:layout_width="0dp"

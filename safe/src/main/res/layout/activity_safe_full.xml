@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jingxi.smartlife.pad.safe.mvp.view.SafeFullScreenActivity">
+    tools:context="com.jingxi.smartlife.pad.safe.mvp.view.FullScreenLiveActivity">
 
-    <ImageView
+    <SurfaceView
+        android:id="@id/sv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@mipmap/test_cramera" />
+        android:layout_height="match_parent" />
 
     <ImageView
-        android:id="@id/img1"
+        android:id="@id/btn1"
         android:layout_width="@dimen/px100"
         android:layout_height="@dimen/px100"
         android:layout_alignParentRight="true"
@@ -34,15 +34,18 @@
         android:visibility="gone">
 
         <ImageView
+            android:id="@id/btn3"
             android:layout_width="@dimen/px100"
             android:layout_height="@dimen/px100"
             android:background="@mipmap/btn_safe_pause" />
 
         <ImageView
+            android:id="@id/btn4"
             android:layout_width="@dimen/px100"
             android:layout_height="@dimen/px100"
             android:layout_marginLeft="@dimen/px56"
-            android:background="@mipmap/btn_safe_mark" />
+            android:background="@mipmap/btn_safe_mark"
+            android:visibility="gone" />
 
         <Space
             android:layout_width="0dp"
@@ -50,7 +53,7 @@
             android:layout_weight="1" />
 
         <LinearLayout
-            android:layout_width="@dimen/px588"
+            android:layout_width="@dimen/px688"
             android:layout_height="@dimen/px62"
             android:background="@drawable/bg_c3_raduis_shape"
             android:gravity="center"
@@ -62,22 +65,30 @@
                 android:id="@+id/safe_progress_time_current_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="00:20"
+                android:text="00:00"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text20" />
 
             <SeekBar
                 android:id="@+id/safe_seekbar"
-                android:layout_width="@dimen/px300"
+                android:layout_width="@dimen/px400"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/px20"
-                android:layout_marginRight="@dimen/px20" />
+                android:layout_marginRight="@dimen/px20"
+                android:max="100"
+                android:maxHeight="@dimen/px6"
+                android:minHeight="@dimen/px6"
+                android:progress="0"
+                android:progressDrawable="@drawable/seekbar_style"
+                android:secondaryProgress="70"
+                android:thumb="@drawable/seekbar_thumb" />
+
 
             <TextView
                 android:id="@+id/safe_progress_time_count_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="01:20"
+                android:text="00:00"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text20" />
         </LinearLayout>
@@ -89,6 +100,7 @@
             android:layout_marginLeft="@dimen/px56"
             android:background="@drawable/bg_c3_raduis_shape"
             android:gravity="center"
+            android:visibility="gone"
             android:text="@string/swich_live"
             android:textColor="@color/white"
             android:textSize="@dimen/text20" />
@@ -115,14 +127,18 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="48dp"
-        android:paddingRight="@dimen/px48">
+        android:paddingRight="@dimen/px48"
+        android:visibility="gone">
 
         <ImageView
+            android:id="@id/btn8"
             android:layout_width="@dimen/px100"
             android:layout_height="@dimen/px100"
-            android:background="@mipmap/btn_safe_sos" />
+            android:background="@mipmap/btn_safe_sos"
+            android:visibility="gone" />
 
         <ImageView
+            android:id="@id/btn9"
             android:layout_width="@dimen/px100"
             android:layout_height="@dimen/px100"
             android:layout_marginLeft="@dimen/px56"
@@ -131,12 +147,14 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@id/btn2"
         android:layout_width="@dimen/px100"
         android:layout_height="@dimen/px100"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="@dimen/px48"
         android:layout_marginBottom="@dimen/px48"
+        android:visibility="invisible"
         android:background="@mipmap/btn_safe_volume" />
 
 </RelativeLayout>

@@ -27,7 +27,7 @@ public class DBMessage {
     public String id;
     public String communityId;
     public String createDate;
-    public String typeMsg;
+    public String typeText;
     public String senderAccId;
 
 

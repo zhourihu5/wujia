@@ -10,8 +10,17 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public class EventMsg extends AbsEventEntiry<EventMsg> {
 
+    public static final int TYPE_NEW_MSG = 1;
+    public static final int TYPE_READ = 2;
+
+    public int type = 0;
+
     public EventMsg() {
 
+    }
+
+    public EventMsg(int type) {
+        this.type = type;
     }
 
     public EventMsg(IMiessageInvoke<EventMsg> invoke) {

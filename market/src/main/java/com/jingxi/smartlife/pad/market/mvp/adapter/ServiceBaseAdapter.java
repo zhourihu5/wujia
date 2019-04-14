@@ -130,7 +130,7 @@ public abstract class ServiceBaseAdapter<T> extends CommonAdapter<T> {
                         case DownloadUtil.STATE_COMPLETE:
                             LogUtil.i("下载完成 " + filePath);
                             if (null != loadDialog) {
-                                loadDialog.setTvTitle("正在安装");
+                                loadDialog.setTvTitle("正在安装,请勿离开...");
                             }
                             Observable.create(new ObservableOnSubscribe<Boolean>() {
                                 @Override

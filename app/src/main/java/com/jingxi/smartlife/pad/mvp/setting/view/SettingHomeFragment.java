@@ -89,6 +89,16 @@ public class SettingHomeFragment extends MvpFragment<SettingPresenter> implement
         // 同级Fragment场景、ViewPager场景均适用
 
         layoutTitleTv.setText(R.string.setting);
+        layoutTitleTv.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                int versionCode = VersionUtil.getVersionCode();
+                String versionName = VersionUtil.getVersionName();
+
+                ToastUtil.showShort(mContext, versionName + " - " + versionCode);
+                return true;
+            }
+        });
 
     }
 
@@ -170,11 +180,23 @@ public class SettingHomeFragment extends MvpFragment<SettingPresenter> implement
 
         for (VersionBean.Version v : list) {
             if (pname.equals(v.packageName)) {
-                if (v.versionId > versionId) {
-
+                String vname = v.version;
+                String[] temp = vname.split("\\.");
+                int code = 0;
+                if (temp.length > 0) {
+                    try {
+                        String vcode = temp[temp.length - 1];
+                        code = Integer.parseInt(vcode);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        code = 0;
+                    }
+                }
+                if (code > versionId) {
                     start(UpdateFragment.newInstance(v, bean.remark));
-
                     break;
+                } else {
+                    ToastUtil.showShort(mContext, "已是最新版本");
                 }
             }
         }

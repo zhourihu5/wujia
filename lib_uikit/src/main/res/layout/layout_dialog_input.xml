@@ -25,7 +25,7 @@
         android:id="@+id/dialog_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/px48"
+        android:layout_marginTop="@dimen/px38"
         android:background="@null"
         android:gravity="center"
         android:hint="@string/please_input_member_phone"
@@ -49,7 +49,7 @@
 
     <View
         style="@style/ItemLineStyle"
-        android:layout_marginTop="@dimen/px50" />
+        android:layout_marginTop="@dimen/px30" />
 
     <LinearLayout
         android:layout_width="match_parent"

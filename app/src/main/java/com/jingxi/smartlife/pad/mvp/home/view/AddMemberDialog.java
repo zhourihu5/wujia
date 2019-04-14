@@ -55,11 +55,17 @@ public class AddMemberDialog extends CommDialog {
                         return;
                     }
                     dismiss();
-                    DataBaseUtil.insert(new HomeMeberBean(phone));
+                    DataBaseUtil.insert(new HomeMeberBean(phone, getHeadUrl()));
                     listener.dialogSureClick(inputEt.getText().toString());
                 }
             }
         });
+    }
+
+    public String getHeadUrl() {
+        int num = (int) (Math.random() * 6 + 1);
+        String head = String.format("file:///android_asset/img_default_head_%d.png", num);
+        return head;
     }
 
     @Override

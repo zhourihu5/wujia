@@ -1,6 +1,7 @@
 package com.jingxi.smartlife.pad.mvp.home.contract;
 
 import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
+import com.jingxi.smartlife.pad.mvp.home.data.LockADBean;
 import com.wujia.businesslib.base.BaseModel;
 import com.wujia.businesslib.data.RootResponse;
 import com.jingxi.smartlife.pad.mvp.MainAppApiService;
@@ -10,6 +11,7 @@ import com.jingxi.smartlife.pad.mvp.home.data.WeatherBean;
 import com.wujia.lib_common.data.network.RxUtil;
 
 import io.reactivex.Flowable;
+import retrofit2.http.Query;
 
 /**
  * author ：shenbingkai@163.com
@@ -55,5 +57,10 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
     @Override
     public Flowable<MessageBean> getManagerMessageById(String id) {
         return mHttpHelper.create(MainAppApiService.class).getManagerMessageById(id).compose(RxUtil.<MessageBean>rxSchedulerHelper());
+    }
+
+    @Override
+    public Flowable<LockADBean> getScreenSaverByCommunityId(String communityId) {
+        return mHttpHelper.create(MainAppApiService.class).getScreenSaverByCommunityId(communityId).compose(RxUtil.<LockADBean>rxSchedulerHelper());
     }
 }

@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/px72"
-    android:layout_height="@dimen/px72">
+    android:layout_height="@dimen/px72"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
+        android:id="@id/img1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/icon_head_default" />
+        android:scaleType="centerCrop"
+        tools:background="@mipmap/icon_head_default" />
 </FrameLayout>
