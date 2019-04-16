@@ -103,10 +103,10 @@
                     android:layout_width="@dimen/px120"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/px32"
-                    android:background="@drawable/bg_c3_raduis_shape"
+                    android:background="@drawable/bg_white_a80_raduis_shape"
                     android:gravity="center"
                     android:text="@string/swich_live"
-                    android:textColor="@color/white"
+                    android:textColor="@color/c3"
                     android:textSize="@dimen/text20" />
             </LinearLayout>
 

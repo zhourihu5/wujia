@@ -26,6 +26,7 @@ import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.base.DataManager;
 import com.jingxi.smartlife.pad.safe.R;
 import com.wujia.businesslib.dialog.LoadingDialog;
+import com.wujia.lib.widget.WJButton;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
@@ -63,7 +64,7 @@ public class SafeOutsideFragment extends BaseFragment implements
     private RecyclerView rvPlayBack;
     private TextView btnEdit;
     private SeekBar seekBar;
-    private TextView btnPlay, btnPause, btnRefrsh, btnSave, btnMute, btnFull, btnSos;
+    private WJButton btnPlay, btnPause, btnRefrsh, btnSave, btnMute, btnFull, btnSos;
     private TextView tvPlaybackCurrentTime, tvPlaybackCountTime;
 
     private boolean isEdit = true;
@@ -348,9 +349,11 @@ public class SafeOutsideFragment extends BaseFragment implements
             if (isMute) {
                 audioHelper.setVoice100(0);
                 ToastUtil.showShort(mContext, "已静音");
+                btnMute.setBackgroundImage(R.mipmap.btn_safe_mutebig_pressed, R.mipmap.btn_safe_mutebig_pressed);
             } else {
 //                audioHelper.setVoice100(audioValue);
                 audioHelper.setVoice100(75);
+                btnMute.setBackgroundImage(R.mipmap.btn_safe_mutebig, R.mipmap.btn_safe_mutebig_pressed);
             }
         } else if (v.getId() == R.id.safe_btn_full) {   //全屏
             if (isPalyback) {//回放

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/px64"
+        android:paddingRight="@dimen/px64">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px24"
+            android:background="@drawable/bg_white_radius_shape"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/px64"
+            android:paddingTop="@dimen/px40"
+            android:paddingRight="@dimen/px64"
+            android:paddingBottom="@dimen/px40">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="卓越维港服务热线"
+                android:textColor="@color/c3"
+                android:textSize="@dimen/px24" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px88"
+                android:layout_marginTop="@dimen/px48"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/px88"
+                    android:layout_height="@dimen/px88"
+                    android:layout_marginRight="@dimen/px24"
+                    android:background="@mipmap/avatar_wuye" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="南区热线"
+                    android:textColor="@color/c3"
+                    android:textSize="@dimen/text32" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0755-86398039"
+                    android:textColor="@color/c3"
+                    android:textSize="@dimen/text24" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/ItemLineStyle"
+                android:layout_marginLeft="@dimen/px110"
+                android:layout_marginTop="@dimen/px24"
+                android:layout_marginBottom="@dimen/px24" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px88"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/px88"
+                    android:layout_height="@dimen/px88"
+                    android:layout_marginRight="@dimen/px24"
+                    android:background="@mipmap/avatar_wuye" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="北区热线"
+                    android:textColor="@color/c3"
+                    android:textSize="@dimen/text32" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0755-86398008"
+                    android:textColor="@color/c3"
+                    android:textSize="@dimen/text24" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/px24"
+            android:background="@drawable/bg_white_radius_shape"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/px64"
+            android:paddingTop="@dimen/px40"
+            android:paddingRight="@dimen/px64"
+            android:paddingBottom="@dimen/px40">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="其他服务方"
+                android:textColor="@color/c3"
+                android:textSize="@dimen/text24" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px168"
+                android:layout_marginTop="@dimen/px48"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/px88"
+                    android:layout_height="@dimen/px88"
+                    android:layout_marginRight="@dimen/px24"
+                    android:background="@mipmap/ic_tel_avatar_tongrentang" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="同仁堂"
+                    android:textColor="@color/c3"
+                    android:textSize="@dimen/text32" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0755-86399353"
+                    android:textColor="@color/c3"
+                    android:textSize="@dimen/text24" />
+
+            </LinearLayout>
+            <View
+                style="@style/ItemLineStyle"
+                android:layout_marginLeft="@dimen/px110"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px168"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/px88"
+                    android:layout_height="@dimen/px88"
+                    android:layout_marginRight="@dimen/px24"
+                    android:background="@mipmap/ic_tel_avatar_711" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="7-11便利店"
+                    android:textColor="@color/c3"
+                    android:textSize="@dimen/text32" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0755-26815197"
+                    android:textColor="@color/c3"
+                    android:textSize="@dimen/text24" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/ItemLineStyle"
+                android:layout_marginLeft="@dimen/px110"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px168"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/px88"
+                    android:layout_height="@dimen/px88"
+                    android:layout_marginRight="@dimen/px24"
+                    android:background="@mipmap/ic_tel_avatar_shekou" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="蛇口街道办"
+                    android:textColor="@color/c3"
+                    android:textSize="@dimen/text32" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0755-26866199"
+                    android:textColor="@color/c3"
+                    android:textSize="@dimen/text24" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/ItemLineStyle"
+                android:layout_marginLeft="@dimen/px110"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px168"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/px88"
+                    android:layout_height="@dimen/px88"
+                    android:layout_marginRight="@dimen/px24"
+                    android:background="@mipmap/ic_tel_avatar_szrq" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="深圳燃气集团"
+                    android:textColor="@color/c3"
+                    android:textSize="@dimen/text32" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0755-25199999"
+                    android:textColor="@color/c3"
+                    android:textSize="@dimen/text24" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/ItemLineStyle"
+                android:layout_marginLeft="@dimen/px110"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px168"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/px88"
+                    android:layout_height="@dimen/px88"
+                    android:layout_marginRight="@dimen/px24"
+                    android:background="@mipmap/ic_tel_avatar_huarun" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="华润万家"
+                    android:textColor="@color/c3"
+                    android:textSize="@dimen/text32" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0755-21619662"
+                    android:textColor="@color/c3"
+                    android:textSize="@dimen/text24" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

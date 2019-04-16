@@ -73,7 +73,7 @@ public class LockService extends DreamService implements HomeContract.View {
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        setInteractive(true);
+        setInteractive(false);
         setFullscreen(true);
         setContentView(R.layout.activity_lock);
         init();
@@ -202,9 +202,9 @@ public class LockService extends DreamService implements HomeContract.View {
         HomeNotifyAdapter notifyAdapter = new HomeNotifyAdapter(this, notifys);
         rvHomeMsg.setAdapter(notifyAdapter);
 
-        notifyAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
-            @Override
-            public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
+//        notifyAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
+//            @Override
+//            public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
 //                new MessageDialog(LockService.this, notifys.get(position))
 //                        .setListener(new OnDialogListener() {
 //                            @Override
@@ -213,9 +213,9 @@ public class LockService extends DreamService implements HomeContract.View {
 //                                EventBusUtil.post(new EventMsg(EventMsg.TYPE_READ));
 //                            }
 //                        }).show();
-                wakeUp();
-            }
-        });
+//                wakeUp();
+//            }
+//        });
     }
 
 

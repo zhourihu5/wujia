@@ -57,4 +57,13 @@ public class WJButton extends android.support.v7.widget.AppCompatTextView {
                 break;
         }
     }
+
+    public void setBackgroundImage(int bg_normal, int bg_press) {
+        StateListDrawable sld = new StateListDrawable();
+        sld.addState(new int[]{android.R.attr.state_focused}, getContext().getDrawable(bg_normal));
+        sld.addState(new int[]{android.R.attr.state_pressed}, getContext().getDrawable(bg_press));
+        sld.addState(new int[]{0}, getContext().getDrawable(bg_normal));
+
+        setCompoundDrawablesWithIntrinsicBounds(null, sld, null, null);
+    }
 }

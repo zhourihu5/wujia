@@ -3,6 +3,7 @@ package com.jingxi.smartlife.pad.property.mvp;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.jingxi.smartlife.pad.property.mvp.view.SimpleTelFragment;
 import com.wujia.businesslib.Constants;
 import com.jingxi.smartlife.pad.property.R;
 import com.jingxi.smartlife.pad.property.mvp.view.SimpleFixFragment;
@@ -56,14 +57,14 @@ public class ProperyHomeFragment extends TabFragment {
         SupportFragment firstFragment = findFragment(SimpleFixFragment.class);
         if (firstFragment == null) {
             mFragments[0] = SimpleFixFragment.newInstance();
-            mFragments[1] = TelFragment.newInstance();
+            mFragments[1] = SimpleTelFragment.newInstance();
             loadMultipleRootFragment(R.id.tab_content_container, currentTab, mFragments[0], mFragments[1]);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
             // 这里我们需要拿到mFragments的引用
             mFragments[0] = firstFragment;
-            mFragments[1] = findChildFragment(TelFragment.class);
+            mFragments[1] = findChildFragment(SimpleTelFragment.class);
         }
 
         mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_serve_leftnav_service_default, R.mipmap.icon_serve_leftnav_service_selected, R.string.propery_report_fix))
