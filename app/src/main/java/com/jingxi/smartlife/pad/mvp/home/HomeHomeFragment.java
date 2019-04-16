@@ -362,7 +362,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
         switch (view.getId()) {
             case R.id.home_chat_btn:
                 ToastUtil.showShort(mContext, getString(R.string.chat_is_developing));
-//                mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, "200");
+                mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, "200");
                 break;
             case R.id.home_member_add_btn:
                 new AddMemberDialog(mActivity).setListener(new OnInputDialogListener() {
@@ -383,7 +383,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
             case R.id.home_arc_view:
 //                start(ExceptionStatusFragment.newInstance());
-//                mPresenter.getPropertyMessageById(HomeNotifyBean.TYPE_PROPERTY, "1");
+                mPresenter.getPropertyMessageById(HomeNotifyBean.TYPE_PROPERTY, "1");
 
 //                Advert advert = new Advert();
 //                advert.href = "http://politics.cntv.cn/leaders/person/xijinping/index.shtml";

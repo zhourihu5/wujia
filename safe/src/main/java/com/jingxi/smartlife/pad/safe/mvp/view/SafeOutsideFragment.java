@@ -504,7 +504,7 @@ public class SafeOutsideFragment extends BaseFragment implements
         btnPlay.setVisibility(View.GONE);
         btnPause.setVisibility(View.GONE);
         btnSave.setVisibility(View.GONE);
-        btnSos.setVisibility(View.VISIBLE);
+//        btnSos.setVisibility(View.VISIBLE);
         btnRefrsh.setVisibility(View.VISIBLE);
 
         mDoorAccessManager.pausePlayBack(playBackSessionId);
@@ -516,7 +516,7 @@ public class SafeOutsideFragment extends BaseFragment implements
         $(R.id.safe_rec_seek_layout).setVisibility(View.VISIBLE);
         btnPause.setVisibility(View.VISIBLE);
         btnPlay.setVisibility(View.GONE);
-        btnSave.setVisibility(View.VISIBLE);
+//        btnSave.setVisibility(View.VISIBLE);
         btnSos.setVisibility(View.GONE);
         btnRefrsh.setVisibility(View.GONE);
 

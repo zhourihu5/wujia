@@ -151,6 +151,7 @@
                 android:id="@+id/safe_btn_sos"
                 style="@style/SafeIconBtnStyle"
                 android:text="@string/sos"
+                android:visibility="gone"
                 app:button_mode="TOP"
                 app:button_normal="@mipmap/btn_safe_sosbig"
                 app:button_press="@mipmap/btn_safe_sosbig_pressed" />
