@@ -1,9 +1,12 @@
 package com.jingxi.smartlife.pad.mvp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.service.dreams.DreamService;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,11 +18,14 @@ import com.jingxi.smartlife.pad.mvp.home.data.LockADBean;
 import com.jingxi.smartlife.pad.mvp.home.data.WeatherBean;
 import com.jingxi.smartlife.pad.mvp.home.view.MessageDialog;
 import com.litesuits.orm.db.assit.QueryBuilder;
+import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.base.DataManager;
+import com.wujia.businesslib.base.WebViewActivity;
 import com.wujia.businesslib.data.DBMessage;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventMsg;
+import com.wujia.businesslib.event.EventWakeup;
 import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.businesslib.listener.OnDialogListener;
 import com.wujia.lib.imageloader.ImageLoaderManager;
@@ -68,16 +74,23 @@ public class LockService extends DreamService implements HomeContract.View {
             }
         }
     });
+    private EventWakeup eventWakeup = new EventWakeup(new IMiessageInvoke<EventWakeup>() {
+        @Override
+        public void eventBus(EventWakeup event) {
+            wakeUp();
+        }
+    });
 
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        setInteractive(false);
+        setInteractive(true);
         setFullscreen(true);
         setContentView(R.layout.activity_lock);
         init();
         EventBusUtil.register(eventMsg);
+        EventBusUtil.register(eventWakeup);
 
     }
 
@@ -89,6 +102,12 @@ public class LockService extends DreamService implements HomeContract.View {
         loginTemperatureDesc = findViewById(R.id.login_temperature_desc);
         rvHomeMsg = findViewById(R.id.rv_home_msg);
         bgImg = findViewById(R.id.lock_img_bg);
+        findViewById(R.id.btn_lock_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wakeUp();
+            }
+        });
 
         FontUtils.changeFontTypeface(loginTimeTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
         FontUtils.changeFontTypeface(loginTemperatureTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
@@ -114,10 +133,22 @@ public class LockService extends DreamService implements HomeContract.View {
                 super.onResponse(bean);
                 if (bean.isSuccess()) {
                     if (bean.content != null && bean.content.size() > 0) {
-                        for (LockADBean.AD ad : bean.content) {
+                        for (final LockADBean.AD ad : bean.content) {
                             if (ad.imageType == 1) {
                                 if (bgImg != null) {
                                     ImageLoaderManager.getInstance().loadImage(ad.image, bgImg);
+                                    bgImg.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            if (!TextUtils.isEmpty(ad.url)) {
+                                                Intent intent = new Intent(LockService.this, WebViewActivity.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                intent.putExtra(Constants.INTENT_KEY_1, ad.url);
+                                                startActivity(intent);
+                                            }
+                                            wakeUp();
+                                        }
+                                    });
                                 }
                                 break;
                             }
@@ -202,20 +233,12 @@ public class LockService extends DreamService implements HomeContract.View {
         HomeNotifyAdapter notifyAdapter = new HomeNotifyAdapter(this, notifys);
         rvHomeMsg.setAdapter(notifyAdapter);
 
-//        notifyAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
-//            @Override
-//            public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
-//                new MessageDialog(LockService.this, notifys.get(position))
-//                        .setListener(new OnDialogListener() {
-//                            @Override
-//                            public void dialogSureClick() {
-//                                setNotify();
-//                                EventBusUtil.post(new EventMsg(EventMsg.TYPE_READ));
-//                            }
-//                        }).show();
-//                wakeUp();
-//            }
-//        });
+        notifyAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
+            @Override
+            public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
+                wakeUp();
+            }
+        });
     }
 
 
@@ -224,6 +247,7 @@ public class LockService extends DreamService implements HomeContract.View {
         super.onDetachedFromWindow();
         if (null != mCompositeDisposable) mCompositeDisposable.clear();
         EventBusUtil.unregister(eventMsg);
+        EventBusUtil.unregister(eventWakeup);
     }
 
     @Override

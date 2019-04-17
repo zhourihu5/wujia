@@ -15,6 +15,7 @@ public class LockADBean extends RootResponse {
 
     public static class AD{
         public String image;
+        public String url;
         public int imageType;
     }
 }

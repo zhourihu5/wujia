@@ -33,6 +33,7 @@ import com.wujia.businesslib.event.EventCardChange;
 import com.wujia.businesslib.event.EventMemberChange;
 import com.wujia.businesslib.event.EventMsg;
 import com.wujia.businesslib.event.EventSafeState;
+import com.wujia.businesslib.event.EventWakeup;
 import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.businesslib.listener.OnDialogListener;
 import com.wujia.businesslib.listener.OnInputDialogListener;
@@ -500,6 +501,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                 Intent intent = new Intent(mActivity, AdvertActivity.class);
                 intent.putExtra(Constants.INTENT_KEY_1, advert);
                 startActivity(intent);
+                EventBusUtil.post(new EventWakeup());
             }
         } catch (Exception e) {
             e.printStackTrace();

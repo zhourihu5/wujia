@@ -45,9 +45,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/px20"
         android:gravity="bottom"
-        tools:text="22°"
         android:textColor="@color/white"
-        android:textSize="@dimen/text96" />
+        android:textSize="@dimen/text96"
+        tools:text="22°" />
 
     <TextView
         android:id="@+id/login_temperature_desc"
@@ -69,9 +69,9 @@
         android:layout_marginLeft="@dimen/px60"
         android:layout_toRightOf="@id/login_temperature_desc"
         android:text="空气质量 优"
-        android:visibility="invisible"
         android:textColor="@color/white"
-        android:textSize="@dimen/text24" />
+        android:textSize="@dimen/text24"
+        android:visibility="invisible" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_home_msg"
@@ -84,6 +84,13 @@
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:listitem="@layout/item_home_notify_layout" />
 
+    <ImageView
+        android:id="@+id/btn_lock_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/px30"
+        android:src="@mipmap/btn_close_circle" />
 
 </RelativeLayout>
 
