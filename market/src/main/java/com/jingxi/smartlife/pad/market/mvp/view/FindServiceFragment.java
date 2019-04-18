@@ -50,7 +50,7 @@ public class FindServiceFragment extends ServiceBaseFragment<MarketPresenter> im
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_service_all;
+        return R.layout.fragment_service_find;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class FindServiceFragment extends ServiceBaseFragment<MarketPresenter> im
 
         datas = new ArrayList<>();
 
-        FindServiceChildAdapter mAdapter = new FindServiceChildAdapter(mActivity, datas,FindServiceChildAdapter.TYPE_FIND);
+        FindServiceChildAdapter mAdapter = new FindServiceChildAdapter(mActivity, datas, FindServiceChildAdapter.TYPE_FIND);
         mLoadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(mLoadMoreWrapper);
         mLoadMoreWrapper.setOnLoadMoreListener(this);

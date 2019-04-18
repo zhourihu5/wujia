@@ -33,8 +33,8 @@ public class DataManager {
                     newFamilyId.append("0");
                 }
             }
-            return user.familyId + newFamilyId.toString();
-//            return "001901181CD10000";
+//            return user.familyId + newFamilyId.toString();
+            return "001901181CD10000";
         }
         return "";
     }
