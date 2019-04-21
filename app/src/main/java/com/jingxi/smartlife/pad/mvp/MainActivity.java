@@ -44,6 +44,7 @@ import com.jingxi.smartlife.pad.safe.SafeFragment;
 import com.jingxi.smartlife.pad.safe.mvp.view.VideoCallActivity;
 import com.wujia.businesslib.event.EventMsg;
 import com.wujia.businesslib.event.EventSafeState;
+import com.wujia.businesslib.event.EventWakeup;
 import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
@@ -323,6 +324,8 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
 
     @Override
     public void onRinging(String sessionId) {
+        EventBusUtil.post(new EventWakeup());
+
         Intent intent = new Intent(this, VideoCallActivity.class);
         intent.putExtra("sessionId", sessionId);
         startActivity(intent);

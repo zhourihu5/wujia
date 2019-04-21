@@ -9,16 +9,10 @@ android {
         versionCode app_version.versionCode
         versionName app_version.versionName
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [moduleName: project.getName()]
-            }
-        }
     }
 
 }
 dependencies {
     implementation project(':businesslib')
     annotationProcessor deps.butterknife.compiler
-    annotationProcessor deps.arouter.compiler
 }

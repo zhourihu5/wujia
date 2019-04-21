@@ -326,20 +326,9 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
     }
 
-//    @Override
-//    public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
-//        super.onFragmentResult(requestCode, resultCode, data);
-//        if (requestCode == CardManagerFragment.REQUEST_CODE_CARD_MANAGER && resultCode == CardManagerFragment.REQUEST_CODE_CARD_MANAGER_COMPLETE) {
-//            //刷新首页或卡片
-//            mPresenter.getUserQuickCard(DataManager.getOpenid());
-//        }
-//    }
-
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        // 当对用户可见时 回调
-        // 不管是 父Fragment还是子Fragment 都有效！
         LogUtil.i("HomeHomeFragment  可见 " + DataManager.getFamilyId());
         if (null != homeCardAdapter && homeCardAdapter.getDatas().size() == 0) {
             isRefreshCard = true;
@@ -353,9 +342,6 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     public void onSupportInvisible() {
         super.onSupportInvisible();
         LogUtil.i("HomeHomeFragment  不可见");
-
-        // 当对用户不可见时 回调
-        // 不管是 父Fragment还是子Fragment 都有效！
     }
 
     @OnClick({R.id.home_chat_btn, R.id.home_call_service_btn, R.id.home_member_add_btn, R.id.home_arc_view})
@@ -379,7 +365,6 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
             case R.id.home_call_service_btn:
 //                new CallDialog(mContext).show();
                 ToastUtil.showShort(mContext, getString(R.string.not_join));
-                //TODO 物业联系方式弹框
                 break;
 
             case R.id.home_arc_view:

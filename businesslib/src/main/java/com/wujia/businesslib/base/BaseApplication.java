@@ -4,8 +4,6 @@ package com.wujia.businesslib.base;
 import android.app.Application;
 
 import com.jingxi.smartlife.pad.sdk.JXPadSdk;
-import com.wujia.businesslib.BuildConfig;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.wujia.lib_common.utils.AppContext;
 import com.wujia.lib_common.utils.SystemUtil;
 
@@ -19,7 +17,6 @@ public class BaseApplication extends Application {
         super.onCreate();
         instance = this;
         AppContext.init(instance);
-        initArouter();
         initSDKManager();
 
         SystemUtil.init();
@@ -29,13 +26,5 @@ public class BaseApplication extends Application {
         JXPadSdk.init(instance);
         JXPadSdk.initDoorAccess();
         JXPadSdk.initPushManager();
-    }
-
-    private void initArouter() {
-        ARouter.init(instance); // 尽可能早，推荐在Application中初始化
-        if (BuildConfig.DEBUG) {
-            ARouter.openLog();     // 打印日志
-            ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
-        }
     }
 }

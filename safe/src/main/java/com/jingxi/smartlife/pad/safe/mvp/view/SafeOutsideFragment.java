@@ -357,7 +357,6 @@ public class SafeOutsideFragment extends BaseFragment implements
             }
         } else if (v.getId() == R.id.safe_btn_full) {   //全屏
             if (isPalyback) {//回放
-//                mDoorAccessManager.removePlayBackListener(this);
                 Intent playbackIntent = new Intent(mActivity, FullScreenActivity.class);
                 playbackIntent.putExtra(Constants.INTENT_KEY_1, playBackSessionId);
                 playbackIntent.putExtra(Constants.INTENT_KEY_2, isPalyback);

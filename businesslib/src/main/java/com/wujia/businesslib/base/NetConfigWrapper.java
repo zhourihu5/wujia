@@ -17,7 +17,6 @@ public class NetConfigWrapper {
     public static NetConfig create(String baseUrl) {
 //        NetConfig.debug = BuildConfig.DEBUG;
         NetConfig.debug = true;
-//        NetConfig.signKey = BuildConfig.PARAM_SIGN_KEY;
         NetConfig config = new NetConfig();
         config.configInterceptors(new Interceptor[]{new BusinessInterceptor(), new TokenInterceptor()});
         config.baseURL = baseUrl;

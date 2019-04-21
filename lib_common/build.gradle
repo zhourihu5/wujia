@@ -58,9 +58,6 @@ dependencies {
     //fragmentation
     api deps.fragmentation
 
-    //router
-    api deps.arouter.runtime
-
     api deps.rxpermission
     api 'com.github.ForgetAll:LoadingDialog:v1.0.4'
 }

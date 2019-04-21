@@ -15,6 +15,7 @@ import com.jingxi.smartlife.pad.mvp.MainActivity;
 import com.jingxi.smartlife.pad.mvp.login.contract.LoginContract;
 import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.wujia.businesslib.Constants;
+import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpActivity;
 import com.wujia.businesslib.data.TokenBean;
@@ -87,6 +88,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     @Override
     protected void initEventAndData(Bundle savedInstanceState) {
 
+        HookUtil.hookWebView();
 
         FontUtils.changeFontTypeface(loginTimeTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
         FontUtils.changeFontTypeface(loginTemperatureTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
