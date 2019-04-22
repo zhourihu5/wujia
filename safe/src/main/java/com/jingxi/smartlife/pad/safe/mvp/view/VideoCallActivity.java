@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.intercom.sdk.IntercomConstants;
@@ -30,6 +32,8 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
     private LoadingDialog loadingDialog;
     private View frore;
     private Runnable runnable;
+    private ImageButton btnCall;
+    private boolean btnCallFlag;
 
 
     @Override
@@ -47,7 +51,8 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
         manager = JXPadSdk.getDoorAccessManager();
         manager.addConversationUIListener(this);
 
-        findViewById(R.id.btn3).setOnClickListener(this);
+        btnCall = findViewById(R.id.btn3);
+        btnCall.setOnClickListener(this);
         findViewById(R.id.btn4).setOnClickListener(this);
         findViewById(R.id.btn6).setOnClickListener(this);
         findViewById(R.id.btn9).setOnClickListener(this);
@@ -77,7 +82,13 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
         if (v.getId() == R.id.btn1) {
             finish();
         } else if (v.getId() == R.id.btn3) {//接听
-            manager.acceptCall(sessionId);
+            if (!btnCallFlag) {
+                manager.acceptCall(sessionId);
+                btnCall.setBackgroundResource(R.mipmap.btn_safe_hangup);
+            } else {
+                finish();
+            }
+            btnCallFlag = !btnCallFlag;
         } else if (v.getId() == R.id.btn4) {//开门
             manager.openDoor(sessionId);
         } else if (v.getId() == R.id.btn6) {//音量

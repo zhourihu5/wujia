@@ -62,6 +62,7 @@ public class LockService extends DreamService implements HomeContract.View {
     private RecyclerView rvHomeMsg;
     private ImageView bgImg;
     private HomeModel model;
+    private String adUrl = "";
 
 
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
@@ -102,10 +103,24 @@ public class LockService extends DreamService implements HomeContract.View {
         loginTemperatureDesc = findViewById(R.id.login_temperature_desc);
         rvHomeMsg = findViewById(R.id.rv_home_msg);
         bgImg = findViewById(R.id.lock_img_bg);
-        findViewById(R.id.btn_lock_close).setOnClickListener(new View.OnClickListener() {
+
+        bgImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 wakeUp();
+            }
+        });
+
+        findViewById(R.id.btn_details).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!TextUtils.isEmpty(adUrl)) {
+                    Intent intent = new Intent(LockService.this, WebViewActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(Constants.INTENT_KEY_1, adUrl);
+                    startActivity(intent);
+                    wakeUp();
+                }
             }
         });
 
@@ -136,19 +151,8 @@ public class LockService extends DreamService implements HomeContract.View {
                         for (final LockADBean.AD ad : bean.content) {
                             if (ad.imageType == 1) {
                                 if (bgImg != null) {
+                                    adUrl = ad.url;
                                     ImageLoaderManager.getInstance().loadImage(ad.image, bgImg);
-                                    bgImg.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            if (!TextUtils.isEmpty(ad.url)) {
-                                                Intent intent = new Intent(LockService.this, WebViewActivity.class);
-                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                intent.putExtra(Constants.INTENT_KEY_1, ad.url);
-                                                startActivity(intent);
-                                            }
-                                            wakeUp();
-                                        }
-                                    });
                                 }
                                 break;
                             }

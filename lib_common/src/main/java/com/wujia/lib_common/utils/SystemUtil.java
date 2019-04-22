@@ -16,8 +16,8 @@ public class SystemUtil {
     }
 
     public static String getSerialNum() {
-//        return serialNum;
-        return "HS1JXY6M12D2900034";
+        return serialNum;
+//        return "HS1JXY6M12D2900034";
 //        return "GB8ZAJFKZE";
     }
 }

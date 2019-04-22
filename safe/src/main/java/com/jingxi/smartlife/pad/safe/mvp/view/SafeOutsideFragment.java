@@ -320,7 +320,6 @@ public class SafeOutsideFragment extends BaseFragment implements
 
             isEdit = !isEdit;
         } else if (v.getId() == R.id.safe_btn_sos) {    // SOS
-            startActivity(new Intent(mActivity, VideoCallActivity.class));
         } else if (v.getId() == R.id.safe_btn_play) {   // 播放
             isPause = false;
             btnPause.setVisibility(View.VISIBLE);
