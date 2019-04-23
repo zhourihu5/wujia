@@ -368,7 +368,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
             case R.id.home_arc_view:
 //                start(ExceptionStatusFragment.newInstance());
-                mPresenter.getPropertyMessageById(HomeNotifyBean.TYPE_PROPERTY, "1");
+//                mPresenter.getPropertyMessageById(HomeNotifyBean.TYPE_PROPERTY, "1");
 
 //                Advert advert = new Advert();
 //                advert.href = "http://politics.cntv.cn/leaders/person/xijinping/index.shtml";

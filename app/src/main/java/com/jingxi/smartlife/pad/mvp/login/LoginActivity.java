@@ -231,8 +231,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
         JXPadSdk.setAccid(user.accid);
         JXPadSdk.setAppKey(Constants.APPID, DataManager.getToken());
-//        JXPadSdk.setCommunityId(user.communityId);
-        JXPadSdk.setCommunityId(DataManager.getCommunityId());
+        JXPadSdk.setCommunityId(user.communityId);
         JXPadSdk.setFamilyInfoId(user.familyId);
 //        JXPadSdk.initNeighbor();
     }
