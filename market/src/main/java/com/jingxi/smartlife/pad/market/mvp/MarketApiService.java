@@ -1,6 +1,7 @@
 package com.jingxi.smartlife.pad.market.mvp;
 
 
+import com.jingxi.smartlife.pad.market.mvp.data.FIndBannerBean;
 import com.jingxi.smartlife.pad.market.mvp.data.ServiceBean;
 
 import io.reactivex.Flowable;
@@ -17,5 +18,6 @@ public interface MarketApiService {
     @GET("/openapi/v1/wj/getAllService")
     Flowable<ServiceBean> getAllService(@Query("communityId") String communityId, @Query("pageIndex") int pageIndex, @Query("pageIndex") int pageSize);
 
-
+    @GET("/api/v2/adServer/queryApiAdInfoByCommunityIdAndPlatform")
+    Flowable<FIndBannerBean> getBanner(@Query("class") String _class, @Query("communityId") String communityId);
 }

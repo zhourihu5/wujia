@@ -1,5 +1,6 @@
 package com.jingxi.smartlife.pad.market.mvp.contract;
 
+import com.jingxi.smartlife.pad.market.mvp.data.FIndBannerBean;
 import com.jingxi.smartlife.pad.market.mvp.data.ServiceBean;
 import com.wujia.businesslib.base.RxPresenter;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
@@ -14,6 +15,7 @@ public class MarketPresenter extends RxPresenter<MarketContract.View> implements
 
     public static final int REQUEST_CDOE_GET_SERVICE_FIND = 1;
     public static final int REQUEST_CDOE_GET_SERVICE_ALL = 2;
+    public static final int REQUEST_CDOE_GET_BANNER = 3;
 
 
     private MarketModel mModel;
@@ -56,6 +58,25 @@ public class MarketPresenter extends RxPresenter<MarketContract.View> implements
             public void onFailed(ApiException apiException) {
                 super.onFailed(apiException);
                 mView.onDataLoadFailed(REQUEST_CDOE_GET_SERVICE_ALL, apiException);
+            }
+        }));
+    }
+
+    @Override
+    public void getBanner(String communityId) {
+        addSubscribe(mModel.getBanner(communityId).subscribeWith(new SimpleRequestSubscriber<FIndBannerBean>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+            @Override
+            public void onResponse(FIndBannerBean response) {
+                super.onResponse(response);
+                if (response.isSuccess()) {
+                    mView.onDataLoadSucc(REQUEST_CDOE_GET_BANNER, response);
+                }
+            }
+
+            @Override
+            public void onFailed(ApiException apiException) {
+                super.onFailed(apiException);
+                mView.onDataLoadFailed(REQUEST_CDOE_GET_BANNER, apiException);
             }
         }));
     }

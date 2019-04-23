@@ -21,10 +21,11 @@
                 android:layout_height="293dp">
 
                 <ImageView
+                    android:id="@id/img1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/px440"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/img_banner" />
+                    android:src="@color/c9" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -32,9 +33,9 @@
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="41dp"
                     android:layout_marginBottom="18dp"
-                    android:text="中粮品牌专区"
                     android:textColor="@color/c3"
-                    android:textSize="43sp" />
+                    android:textSize="43sp"
+                    tools:text="中粮品牌专区" />
             </FrameLayout>
 
             <android.support.v7.widget.RecyclerView

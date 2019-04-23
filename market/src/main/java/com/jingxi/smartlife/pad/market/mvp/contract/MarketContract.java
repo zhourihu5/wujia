@@ -1,5 +1,6 @@
 package com.jingxi.smartlife.pad.market.mvp.contract;
 
+import com.jingxi.smartlife.pad.market.mvp.data.FIndBannerBean;
 import com.jingxi.smartlife.pad.market.mvp.data.ServiceBean;
 import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.CommonDataLoadView;
@@ -19,6 +20,8 @@ public interface MarketContract {
 
         Flowable<ServiceBean> getAllService(String communityId, int pageIndex, int pageSize);
 
+        Flowable<FIndBannerBean> getBanner(String communityId);
+
     }
 
     interface View extends CommonDataLoadView {
@@ -29,6 +32,8 @@ public interface MarketContract {
         void getServiceClassification(String communityId, String category, int pageIndex, int pageSize);
 
         void getAllService(String communityId, int pageIndex, int pageSize);
+
+        void getBanner(String communityId);
 
     }
 }

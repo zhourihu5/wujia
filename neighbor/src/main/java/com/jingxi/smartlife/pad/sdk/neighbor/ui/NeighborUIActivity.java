@@ -19,7 +19,7 @@ public class NeighborUIActivity extends AppCompatActivity {
         JXPadSdk.setAppKey("test","467ee23d-f01d-4cc2-97a2-7e675f91a211");
         JXPadSdk.setCommunityId("1");
         JXPadSdk.setFamilyInfoId("1241");
-        JXPadSdk.initNeighbor();
+//        JXPadSdk.initNeighbor();
 
         setContentView(R.layout.layout_activity_neighbor_demo);
         getSupportFragmentManager().beginTransaction().add(frameLayoutId,new NeighborMainFragment()).commitAllowingStateLoss();
