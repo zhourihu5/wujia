@@ -24,6 +24,7 @@ import com.jingxi.smartlife.pad.R;
 import com.jingxi.smartlife.pad.mvp.MainActivity;
 import com.jingxi.smartlife.pad.mvp.login.contract.LoginContract;
 import com.jingxi.smartlife.pad.mvp.login.presenter.LoginPresenter;
+import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.DateUtil;
 import com.wujia.lib_common.utils.FontUtils;
@@ -96,17 +97,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         loginTimeDateTv.setText(StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay()));
         mPresenter.doTimeChange();
 
-        //TODO 每次请求token
-//        if (TextUtils.isEmpty(DataManager.getToken())) {
         mPresenter.doGetAccessToken();
-//        }
-//        if (!TextUtils.isEmpty(DataManager.getFamilyId())) {
-//            initSdkData(DataManager.getUser());
-//            toActivity(MainActivity.class);
-//            finish();
-//        }
-
-
     }
 
     @OnClick({R.id.login_btn, R.id.login_btn_confim, R.id.login_password_visibility, R.id.login_verify_code_btn})
@@ -214,29 +205,25 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
         } else if (requestCode == LoginPresenter.REQUEST_CDOE_LOGIN) {
             UserBean userBean = (UserBean) object;
-            SPHelper.saveObject(LoginActivity.this, Constants.SP_KEY_USER, userBean.content);
-            loginPhoneError.setVisibility(View.INVISIBLE);
+            if (TextUtils.isEmpty(userBean.content.accid) || TextUtils.isEmpty(userBean.content.familyId) || TextUtils.isEmpty(userBean.content.buttonkey)
+                    || TextUtils.isEmpty(userBean.content.dockkey) || TextUtils.isEmpty(userBean.content.communityId) || TextUtils.isEmpty(userBean.content.openId)) {
+                ToastUtil.showShort(LoginActivity.this, "缺少必要参数");
+                return;
+            }
 
+            SPHelper.saveObject(LoginActivity.this, Constants.SP_KEY_USER, userBean.content);
+            initSdkData(userBean.content);
+
+            loginPhoneError.setVisibility(View.INVISIBLE);
             loginWelcomName.append(userBean.content.nickName);
             loginLayout1.setVisibility(View.GONE);
             loginLayout2.setVisibility(View.VISIBLE);
 
-            initSdkData(userBean.content);
 
         } else if (requestCode == LoginPresenter.REQUEST_CDOE_TOKEN) {
             TokenBean bean = (TokenBean) object;
             LogUtil.i(bean.toString());
             DataManager.saveToken(bean.content);
-
-//            if (!TextUtils.isEmpty(DataManager.getFamilyId())) {
-//
-//                UserBean.User user = DataManager.getUser();
-//
-//                initSdkData(user);
-//
-//                toActivity(MainActivity.class);
-//                finish();
-//            }
         }
     }
 
@@ -245,17 +232,8 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         JXPadSdk.setAccid(user.accid);
         JXPadSdk.setAppKey(Constants.APPID, DataManager.getToken());
         JXPadSdk.setCommunityId(user.communityId);
-        JXPadSdk.setFamilyInfoId(DataManager.getFamilyId());
-
-
-//        JXPadSdk.setAccid("y_p_1241_18021651812");
-        //TODO token变更后应重新设置
-//        JXPadSdk.setAppKey("userKey:d38bf3b32e09484b83673c90772442cc", "6a591fc521f347bfad171fd2932e60d6");
-//        JXPadSdk.setCommunityId("1");
-//        JXPadSdk.getDoorAccessManager().startFamily("001901181CD10000", "01");
-
-
-        JXPadSdk.initNeighbor();
+        JXPadSdk.setFamilyInfoId(user.familyId);
+//        JXPadSdk.initNeighbor();
     }
 
     @Override

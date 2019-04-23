@@ -329,7 +329,6 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        LogUtil.i("HomeHomeFragment  可见 " + DataManager.getFamilyId());
         if (null != homeCardAdapter && homeCardAdapter.getDatas().size() == 0) {
             isRefreshCard = true;
         }

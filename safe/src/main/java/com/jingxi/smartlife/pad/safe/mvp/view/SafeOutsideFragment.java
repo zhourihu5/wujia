@@ -81,7 +81,7 @@ public class SafeOutsideFragment extends BaseFragment implements
      */
     private boolean isTouchSeek = false;
     private View layoutBottomOp;
-    private String familyID = DataManager.getFamilyId();
+    private String familyID;
     private List<DoorRecordBean> recordList;
     private DoorRecordBean recordBean;
     private LoadingDialog loadingDialog;
@@ -114,6 +114,7 @@ public class SafeOutsideFragment extends BaseFragment implements
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
         LogUtil.i("SafeOutsideFragment onLazyInitView");
+        familyID = DataManager.getDockKey();
 
         audioHelper = new AudioMngHelper(mContext);
         audioValue = audioHelper.get100CurrentVolume();

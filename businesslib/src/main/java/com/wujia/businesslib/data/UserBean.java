@@ -25,5 +25,8 @@ public class UserBean extends RootResponse {
         public String headImage;
         public String communityId;
         public String accid;
+        public String dockkey;
+        public String docksn;
+        public String buttonkey;
     }
 }

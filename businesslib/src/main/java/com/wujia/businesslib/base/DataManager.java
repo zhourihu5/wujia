@@ -26,14 +26,7 @@ public class DataManager {
     public static String getFamilyId() {
         UserBean.User user = getUser();
         if (null != user) {
-            int count = user.familyId.length();
-            StringBuilder newFamilyId = new StringBuilder();
-            if (count < 16) {
-                for (int i = 0; i < 16 - count; i++) {
-                    newFamilyId.append("0");
-                }
-            }
-            return user.familyId + newFamilyId.toString();
+            return user.familyId;
 //            return "001901181CD10000";
         }
         return "";
@@ -63,6 +56,22 @@ public class DataManager {
         return "";
     }
 
+    public static String getDockKey() {
+        UserBean.User user = getUser();
+        if (null != user) {
+            return user.dockkey;
+        }
+        return "";
+    }
+
+    public static String getButtonKey() {
+        UserBean.User user = getUser();
+        if (null != user) {
+            return user.buttonkey;
+        }
+        return "";
+    }
+
     public static String getToken() {
         return (String) SPHelper.get(AppContext.get(), Constants.COMMON_REQUEST_TOKEN, "");
     }
@@ -70,4 +79,21 @@ public class DataManager {
     public static void saveToken(String token) {
         SPHelper.put(AppContext.get(), Constants.COMMON_REQUEST_TOKEN, token);
     }
+
+
+    //    public static String getFamilyId() {
+//        UserBean.User user = getUser();
+//        if (null != user) {
+//            int count = user.familyId.length();
+//            StringBuilder newFamilyId = new StringBuilder();
+//            if (count < 16) {
+//                for (int i = 0; i < 16 - count; i++) {
+//                    newFamilyId.append("0");
+//                }
+//            }
+//            return user.familyId + newFamilyId.toString();
+////            return "001901181CD10000";
+//        }
+//        return "";
+//    }
 }

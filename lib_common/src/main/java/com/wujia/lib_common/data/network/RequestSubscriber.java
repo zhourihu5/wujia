@@ -63,6 +63,9 @@ public abstract class RequestSubscriber<T> extends ResourceSubscriber<T> {
 
     @Override
     public void onComplete() {
+        if (view == null) {
+            return;
+        }
         if (actionConfig.isShowLoading) {
             view.hideLoadingDialog();
         }

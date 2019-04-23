@@ -251,7 +251,7 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
     private void initSDKManager() {
         manager = JXPadSdk.getDoorAccessManager();
         manager.setDoorAccessListener(this);
-        manager.startFamily(DataManager.getFamilyId(), "01");
+        manager.startFamily(DataManager.getDockKey(), DataManager.getButtonKey());
 
 //        manager.addSecurityListener(this);
 //        manager.querySecurityStatus(DataManager.getFamilyId());

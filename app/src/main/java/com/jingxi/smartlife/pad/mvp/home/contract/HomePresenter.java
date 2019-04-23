@@ -146,7 +146,7 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
 
     @Override
     public void getPropertyMessageById(final String type, String id) {
-        addSubscribe(mModel.getPropertyMessageById(id).subscribeWith(new SimpleRequestSubscriber<MessageBean>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(mModel.getPropertyMessageById(id).subscribeWith(new SimpleRequestSubscriber<MessageBean>(mView, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(MessageBean response) {
                 super.onResponse(response);
@@ -166,7 +166,7 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
 
     @Override
     public void getManagerMessageById(final String type, String id) {
-        addSubscribe(mModel.getManagerMessageById(id).subscribeWith(new SimpleRequestSubscriber<MessageBean>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(mModel.getManagerMessageById(id).subscribeWith(new SimpleRequestSubscriber<MessageBean>(mView, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(MessageBean response) {
                 super.onResponse(response);
