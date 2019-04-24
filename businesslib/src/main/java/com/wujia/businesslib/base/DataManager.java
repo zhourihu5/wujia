@@ -35,8 +35,7 @@ public class DataManager {
     public static String getCommunityId() {
         UserBean.User user = getUser();
         if (null != user) {
-//            return user.communityId;
-            return "1";
+            return user.communityId;
         }
         return "";
     }

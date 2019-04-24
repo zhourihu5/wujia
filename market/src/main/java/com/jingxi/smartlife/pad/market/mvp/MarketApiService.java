@@ -5,7 +5,10 @@ import com.jingxi.smartlife.pad.market.mvp.data.FIndBannerBean;
 import com.jingxi.smartlife.pad.market.mvp.data.ServiceBean;
 
 import io.reactivex.Flowable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 
@@ -18,6 +21,7 @@ public interface MarketApiService {
     @GET("/openapi/v1/wj/getAllService")
     Flowable<ServiceBean> getAllService(@Query("communityId") String communityId, @Query("pageIndex") int pageIndex, @Query("pageIndex") int pageSize);
 
-    @GET("/api/v2/adServer/queryApiAdInfoByCommunityIdAndPlatform")
-    Flowable<FIndBannerBean> getBanner(@Query("class") String _class, @Query("communityId") String communityId);
+    @FormUrlEncoded
+    @POST("/api/v2/adServer/queryApiAdInfoByCommunityIdAndPlatform")
+    Flowable<FIndBannerBean> getBanner(@Field("class") String _class, @Field("communityId") String communityId);
 }
