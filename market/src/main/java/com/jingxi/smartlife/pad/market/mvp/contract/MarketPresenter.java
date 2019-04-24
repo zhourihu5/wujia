@@ -1,6 +1,6 @@
 package com.jingxi.smartlife.pad.market.mvp.contract;
 
-import com.jingxi.smartlife.pad.market.mvp.data.FIndBannerBean;
+import com.jingxi.smartlife.pad.market.mvp.data.FindBannerBean;
 import com.jingxi.smartlife.pad.market.mvp.data.ServiceBean;
 import com.wujia.businesslib.base.RxPresenter;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
@@ -64,9 +64,9 @@ public class MarketPresenter extends RxPresenter<MarketContract.View> implements
 
     @Override
     public void getBanner(String communityId) {
-        addSubscribe(mModel.getBanner(communityId).subscribeWith(new SimpleRequestSubscriber<FIndBannerBean>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(mModel.getBanner(communityId).subscribeWith(new SimpleRequestSubscriber<FindBannerBean>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
-            public void onResponse(FIndBannerBean response) {
+            public void onResponse(FindBannerBean response) {
                 super.onResponse(response);
                 if (response.isSuccess()) {
                     mView.onDataLoadSucc(REQUEST_CDOE_GET_BANNER, response);

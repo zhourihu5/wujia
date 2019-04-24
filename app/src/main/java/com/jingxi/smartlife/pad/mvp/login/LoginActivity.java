@@ -205,11 +205,11 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
         } else if (requestCode == LoginPresenter.REQUEST_CDOE_LOGIN) {
             UserBean userBean = (UserBean) object;
-            if (TextUtils.isEmpty(userBean.content.accid) || TextUtils.isEmpty(userBean.content.familyId) || TextUtils.isEmpty(userBean.content.buttonkey)
-                    || TextUtils.isEmpty(userBean.content.dockkey) || TextUtils.isEmpty(userBean.content.communityId) || TextUtils.isEmpty(userBean.content.openId)) {
-                ToastUtil.showShort(LoginActivity.this, "缺少必要参数");
+//            if (TextUtils.isEmpty(userBean.content.accid) || TextUtils.isEmpty(userBean.content.familyId) || TextUtils.isEmpty(userBean.content.buttonkey)
+//                    || TextUtils.isEmpty(userBean.content.dockkey) || TextUtils.isEmpty(userBean.content.communityId) || TextUtils.isEmpty(userBean.content.openId)) {
+//                ToastUtil.showShort(LoginActivity.this, "缺少必要参数");
 //                return;
-            }
+//            }
 
             SPHelper.saveObject(LoginActivity.this, Constants.SP_KEY_USER, userBean.content);
             initSdkData(userBean.content);
@@ -233,7 +233,6 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         JXPadSdk.setAppKey(Constants.APPID, DataManager.getToken());
         JXPadSdk.setCommunityId(user.communityId);
         JXPadSdk.setFamilyInfoId(user.familyId);
-//        JXPadSdk.initNeighbor();
     }
 
     @Override

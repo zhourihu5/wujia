@@ -1,7 +1,7 @@
 package com.jingxi.smartlife.pad.market.mvp;
 
 
-import com.jingxi.smartlife.pad.market.mvp.data.FIndBannerBean;
+import com.jingxi.smartlife.pad.market.mvp.data.FindBannerBean;
 import com.jingxi.smartlife.pad.market.mvp.data.ServiceBean;
 
 import io.reactivex.Flowable;
@@ -23,5 +23,5 @@ public interface MarketApiService {
 
     @FormUrlEncoded
     @POST("/api/v2/adServer/queryApiAdInfoByCommunityIdAndPlatform")
-    Flowable<FIndBannerBean> getBanner(@Field("class") String _class, @Field("communityId") String communityId);
+    Flowable<FindBannerBean> getBanner(@Field("class") String _class, @Field("communityId") String communityId);
 }

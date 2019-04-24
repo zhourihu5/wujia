@@ -1,7 +1,7 @@
 package com.jingxi.smartlife.pad.market.mvp.contract;
 
 import com.jingxi.smartlife.pad.market.mvp.MarketApiService;
-import com.jingxi.smartlife.pad.market.mvp.data.FIndBannerBean;
+import com.jingxi.smartlife.pad.market.mvp.data.FindBannerBean;
 import com.jingxi.smartlife.pad.market.mvp.data.ServiceBean;
 import com.wujia.businesslib.base.BaseModel;
 import com.wujia.lib_common.data.network.RxUtil;
@@ -28,8 +28,8 @@ public class MarketModel extends BaseModel implements MarketContract.Model {
     }
 
     @Override
-    public Flowable<FIndBannerBean> getBanner(String communityId) {
-        return mHttpHelper.create(MarketApiService.class).getBanner("discover",communityId ).compose(RxUtil.<FIndBannerBean>rxSchedulerHelper());
+    public Flowable<FindBannerBean> getBanner(String communityId) {
+        return mHttpHelper.create(MarketApiService.class).getBanner("discover",communityId ).compose(RxUtil.<FindBannerBean>rxSchedulerHelper());
 
     }
 }

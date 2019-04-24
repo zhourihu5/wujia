@@ -4,16 +4,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jingxi.smartlife.pad.market.mvp.adapter.FindServiceChildAdapter;
+import com.jingxi.smartlife.pad.market.mvp.data.FindBannerBean;
 import com.wujia.businesslib.base.DataManager;
 import com.jingxi.smartlife.pad.market.R;
 import com.jingxi.smartlife.pad.market.mvp.contract.MarketContract;
 import com.jingxi.smartlife.pad.market.mvp.contract.MarketPresenter;
 import com.jingxi.smartlife.pad.market.mvp.data.ServiceBean;
 import com.wujia.businesslib.base.WebViewFragment;
+import com.wujia.lib.imageloader.ImageLoaderManager;
 import com.wujia.lib.widget.HorizontalTabBar;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.base.baseadapter.wrapper.LoadMoreWrapper;
@@ -39,6 +43,7 @@ public class FindServiceFragment extends ServiceBaseFragment<MarketPresenter> im
     private ArrayList<ServiceBean.Service> datas;
     private LoadMoreWrapper mLoadMoreWrapper;
     private ImageView ivBanner;
+    private TextView tvBanner;
 
 
     public FindServiceFragment() {
@@ -64,6 +69,7 @@ public class FindServiceFragment extends ServiceBaseFragment<MarketPresenter> im
         mSwipeRefreshLayout = $(R.id.swipe_container);
         recyclerView = $(R.id.rv1);
         ivBanner = $(R.id.img1);
+        tvBanner = $(R.id.tv1);
         recyclerView.addItemDecoration(new ServiceCardDecoration(ScreenUtil.dip2px(24)));
 
         datas = new ArrayList<>();
@@ -77,15 +83,6 @@ public class FindServiceFragment extends ServiceBaseFragment<MarketPresenter> im
         mAdapter.setOnItemClickListener(this);
         getList();
         mPresenter.getBanner(DataManager.getCommunityId());
-
-
-        ivBanner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String app_url = "http://www.sz.gov.cn/cn/";
-                parentStart(WebViewFragment.newInstance(app_url));
-            }
-        });
     }
 
     private void getList() {
@@ -107,7 +104,19 @@ public class FindServiceFragment extends ServiceBaseFragment<MarketPresenter> im
     public void onDataLoadSucc(int requestCode, Object object) {
         switch (requestCode) {
             case MarketPresenter.REQUEST_CDOE_GET_BANNER:
-
+                FindBannerBean list = (FindBannerBean) object;
+                if (null == list.content || list.content.isEmpty()) {
+                    return;
+                }
+                final FindBannerBean.FindBanner banner = list.content.get(0);
+                ImageLoaderManager.getInstance().loadImage(banner.imgPic, ivBanner);
+                tvBanner.setText(TextUtils.isEmpty(banner.title) ? "" : banner.title);
+                ivBanner.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        parentStart(WebViewFragment.newInstance(banner.links));
+                    }
+                });
                 break;
 
             case MarketPresenter.REQUEST_CDOE_GET_SERVICE_FIND:
@@ -139,13 +148,6 @@ public class FindServiceFragment extends ServiceBaseFragment<MarketPresenter> im
     public void onDataLoadFailed(int requestCode, ApiException apiException) {
         switch (requestCode) {
             case MarketPresenter.REQUEST_CDOE_GET_BANNER:
-                ivBanner.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String app_url = "http://www.sz.gov.cn/cn/";
-                        parentStart(WebViewFragment.newInstance(app_url));
-                    }
-                });
                 break;
 
             case MarketPresenter.REQUEST_CDOE_GET_SERVICE_FIND:

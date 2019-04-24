@@ -14,7 +14,7 @@ public class RootResponse extends BaseResponse implements Serializable {
 
     @Override
     public boolean isSuccess() {
-        return Constants.HTTP_SUCESS.equals(errcode) || Constants.HTTP_SUCESS.equals(code) || TextUtils.isEmpty(code);
+        return Constants.HTTP_SUCESS.equals(errcode) || Constants.HTTP_SUCESS.equals(code) || TextUtils.isEmpty(code) || code.equals("2000");
     }
 
     @Override
