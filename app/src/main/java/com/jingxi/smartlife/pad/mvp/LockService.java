@@ -59,10 +59,10 @@ public class LockService extends DreamService implements HomeContract.View {
     private TextView loginTimeDateTv;
     private TextView loginTemperatureTv;
     private TextView loginTemperatureDesc;
+    private TextView btnDetails;
     private RecyclerView rvHomeMsg;
     private ImageView bgImg;
     private HomeModel model;
-    private String adUrl = "";
 
 
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
@@ -111,18 +111,7 @@ public class LockService extends DreamService implements HomeContract.View {
             }
         });
 
-        findViewById(R.id.btn_details).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!TextUtils.isEmpty(adUrl)) {
-                    Intent intent = new Intent(LockService.this, WebViewActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(Constants.INTENT_KEY_1, adUrl);
-                    startActivity(intent);
-                    wakeUp();
-                }
-            }
-        });
+        btnDetails = findViewById(R.id.btn_details);
 
         FontUtils.changeFontTypeface(loginTimeTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
         FontUtils.changeFontTypeface(loginTemperatureTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
@@ -151,8 +140,20 @@ public class LockService extends DreamService implements HomeContract.View {
                         for (final LockADBean.AD ad : bean.content) {
                             if (ad.imageType == 1) {
                                 if (bgImg != null) {
-                                    adUrl = ad.url;
-                                    ImageLoaderManager.getInstance().loadImage(ad.image, bgImg);
+                                    ImageLoaderManager.getInstance().loadImage(ad.image, R.mipmap.bg_lockscreen, bgImg);
+                                    btnDetails.setVisibility(View.VISIBLE);
+                                    btnDetails.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            if (!TextUtils.isEmpty(ad.url)) {
+                                                Intent intent = new Intent(LockService.this, WebViewActivity.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                intent.putExtra(Constants.INTENT_KEY_1, ad.url);
+                                                startActivity(intent);
+                                                wakeUp();
+                                            }
+                                        }
+                                    });
                                 }
                                 break;
                             }

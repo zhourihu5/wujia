@@ -91,6 +91,7 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
             btnCallFlag = !btnCallFlag;
         } else if (v.getId() == R.id.btn4) {//开门
             manager.openDoor(sessionId);
+            finish();
         } else if (v.getId() == R.id.btn6) {//音量
             updateSurface();
         } else if (v.getId() == R.id.btn9) {//挂断
