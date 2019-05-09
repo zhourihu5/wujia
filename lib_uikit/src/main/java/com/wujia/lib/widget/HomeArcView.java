@@ -27,7 +27,7 @@ public class HomeArcView extends AppCompatTextView {
     private int mColor;
 
 
-    public void setmColor(@ColorRes int color) {
+    public void setColor(@ColorRes int color) {
 
         mColor = ContextCompat.getColor(getContext(), color);
         mOutArcPaint.setColor(mColor);

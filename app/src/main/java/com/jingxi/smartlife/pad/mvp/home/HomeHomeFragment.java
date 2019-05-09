@@ -129,6 +129,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
         public void eventBus(EventSafeState event) {
 
             homeArcView.setText(event.online ? "正常\n" : "异常\n");
+            homeArcView.setColor(event.online ? R.color.colorAccent : R.color.cdd6767);
         }
     });
     private EventMsg eventMsg = new EventMsg(new IMiessageInvoke<EventMsg>() {

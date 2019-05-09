@@ -88,40 +88,7 @@ public class AllFragment extends BaseFragment {
         useAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
             @Override
             public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
-//                showSeekbarDialog();
                 expand(useList.get(position));
-
-
-//                View view = llm.getChildAt(position);
-//                int[] location = new int[2];
-//                view.getLocationInWindow(location); //获取在当前窗口内的绝对坐标
-//                view.getLocationOnScreen(location);//获取在整个屏幕内的绝对坐标
-//
-//                Dialog dialog = new Dialog(mActivity);
-//                dialog.setContentView(R.layout.layout_seekbar_pop);
-//                Window dialogWindow = dialog.getWindow();
-//                dialogWindow.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//                WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-//                dialogWindow.setGravity(Gravity.LEFT|Gravity.TOP);
-////
-//                int wi=view.getWidth();
-//
-//                lp.x = 0;
-//                lp.y = location[1];
-//                lp.width = 320;
-//                lp.height = view.getHeight();
-//                dialogWindow.setAttributes(lp);
-//
-//                dialog.show();
-
-//                new WJPopWindow.PopupWindowBuilder(mActivity)
-//                        .setView(R.layout.layout_seekbar_pop)//显示的布局，还可以通过设置一个View
-//                        .size(view.getWidth(), view.getHeight()) //设置显示的大小，不设置就默认包裹内容
-//                        .setFocusable(true)//是否获取焦点，默认为ture
-//                        .setOutsideTouchable(true)//是否PopupWindow 以外触摸dissmiss
-//
-//                        .create()//创建PopupWindow
-//                        .showAtLocation(rvUsually,Gravity.CENTER, 0,0);//显示PopupWindow
             }
         });
 
@@ -152,7 +119,7 @@ public class AllFragment extends BaseFragment {
 
             case CARMERA:
 
-                startActivity(new Intent(mActivity,FamilyCameraActivity.class));
+                startActivity(new Intent(mActivity, FamilyCameraActivity.class));
                 break;
         }
     }

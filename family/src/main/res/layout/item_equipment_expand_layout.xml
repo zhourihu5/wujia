@@ -8,17 +8,18 @@
 
     <ImageView
         android:id="@+id/equipment_img"
-        android:layout_width="@dimen/px80"
-        android:layout_height="@dimen/px80"
+        android:layout_width="@dimen/px120"
+        android:layout_height="@dimen/px120"
+        android:scaleType="centerCrop"
         tools:src="@mipmap/icon_curtain" />
 
     <TextView
         android:id="@+id/equipment_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/px10"
+        android:layout_marginTop="@dimen/px14"
         android:textColor="@color/c8"
-        android:textSize="@dimen/text20"
+        android:textSize="@dimen/text24"
         tools:text="@string/curtain" />
 
 </LinearLayout>
