@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SIGN_PATH="/Users/shenbingkai/Documents/signApk";
+SIGN_PATH="/Users/huzhou/workspace/wujia/signApk";
 
 	    ./gradlew clean assembleRelease
 

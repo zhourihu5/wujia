@@ -2,11 +2,17 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
+//        config {
+//            keyAlias 'wallet'
+//            keyPassword 'wallet!@#'
+//            storeFile file('../GYWallet.keystore')
+//            storePassword 'guiyi!@#'
+//        }
         config {
-            keyAlias 'wallet'
-            keyPassword 'wallet!@#'
-            storeFile file('../GYWallet.keystore')
-            storePassword 'guiyi!@#'
+            keyAlias 'keyAlias'
+            keyPassword 'android'
+            storeFile file('../source.keystore')
+            storePassword 'android'
         }
     }
     compileSdkVersion build_versions.target_sdk

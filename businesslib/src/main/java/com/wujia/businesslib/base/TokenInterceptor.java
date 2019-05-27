@@ -37,6 +37,8 @@ public class TokenInterceptor implements Interceptor {
 
         String url = request.url().toString();//请求Url
 
+//        originalResponse.header()//todo 从header获取token信息
+
         //获取返回的json，response.body().string();只有效一次，对返回数据进行转换
         ResponseBody responseBody = originalResponse.body();
         BufferedSource source = responseBody.source();
@@ -50,6 +52,10 @@ public class TokenInterceptor implements Interceptor {
         String bodyString = buffer.clone().readString(charset);//首次请求返回的结果
 
         if (isTokenExpired(bodyString)) {//根据和服务端的约定判断token过期
+            String token=originalResponse.header("Authorization");
+            if(token!=null){//todo token过期
+
+            }
             //同步请求方式，获取最新的Token
             TokenBean tokenBean = getNewToken();
             DataManager.saveToken(tokenBean.content);
@@ -64,6 +70,7 @@ public class TokenInterceptor implements Interceptor {
 
                 Request.Builder builder = request.newBuilder();
                 builder.url(requestBuilder.build());
+                builder.addHeader("Authorization",token);//todo token
                 request = builder.build();
 
             } else if (request.method().equals("POST")) {
@@ -81,6 +88,7 @@ public class TokenInterceptor implements Interceptor {
                     Request.Builder builder = request.newBuilder();
                     builder.url(url);
                     builder.method(request.method(), newFormBody.build());
+                    builder.addHeader("Authorization",token);//todo token
                     request = builder.build();
                 }
             }
