@@ -52,7 +52,6 @@ public class TokenInterceptor implements Interceptor {
         String bodyString = buffer.clone().readString(charset);//首次请求返回的结果
 
         if (isTokenExpired(bodyString)) {//根据和服务端的约定判断token过期
-            String token=originalResponse.header("Authorization");
             //同步请求方式，获取最新的Token
             TokenBean tokenBean = getNewToken();
             DataManager.saveToken(tokenBean.content);
@@ -67,7 +66,7 @@ public class TokenInterceptor implements Interceptor {
 
                 Request.Builder builder = request.newBuilder();
                 builder.url(requestBuilder.build());
-                builder.addHeader("Authorization",token);//todo token
+                builder.addHeader("Authorization",tokenBean.content);//todo token
                 request = builder.build();
 
             } else if (request.method().equals("POST")) {
@@ -85,7 +84,7 @@ public class TokenInterceptor implements Interceptor {
                     Request.Builder builder = request.newBuilder();
                     builder.url(url);
                     builder.method(request.method(), newFormBody.build());
-                    builder.addHeader("Authorization",token);//todo token
+                    builder.addHeader("Authorization",tokenBean.content);//todo token
                     request = builder.build();
                 }
             }
