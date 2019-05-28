@@ -53,9 +53,6 @@ public class TokenInterceptor implements Interceptor {
 
         if (isTokenExpired(bodyString)) {//根据和服务端的约定判断token过期
             String token=originalResponse.header("Authorization");
-            if(token!=null){//todo token过期
-
-            }
             //同步请求方式，获取最新的Token
             TokenBean tokenBean = getNewToken();
             DataManager.saveToken(tokenBean.content);
