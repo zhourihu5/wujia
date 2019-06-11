@@ -31,6 +31,8 @@ public class BaseApplication extends Application {
         JXPadSdk.init(instance);
         JXPadSdk.initDoorAccess();
         JXPadSdk.initPushManager();//todo replace it by our push，原来的push APPkey等信息是写在manifest里的，
+
+
         // 如果需要更改为我们自己的推送，用代码住处推送账号信息
 
 //        String appKey="8bc0518b5aa55c176ffbcbcb";
