@@ -19,14 +19,14 @@ public class UserBean extends RootResponse {
 //    communityId	社区ID
 
    public static class User implements Serializable {
-        public String familyId;
+        public String familyId;//todo sdk 家庭ID
         public String nickName;
-        public String openId;
+        public String openId;//原来接口获取卡片接口需要的参数
         public String headImage;
-        public String communityId;
-        public String accid;
-        public String dockkey;
+        public String communityId;//todo SDK 社区id
+        public String accid;//todo sdk需要的padAccid  字段
+        public String dockkey;//todo sdk安防相关
         public String docksn;
-        public String buttonkey;
+        public String buttonkey;//todo sdk安防相关 锁
     }
 }
