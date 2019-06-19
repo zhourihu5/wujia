@@ -5,9 +5,15 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.jingxi.smartlife.pad.mvp.home.HomeHomeFragment;
+import com.jingxi.smartlife.pad.mvp.home.adapter.HomeMemberAdapter;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeMeberBean;
+import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean;
+import com.jingxi.smartlife.pad.mvp.setting.model.FamilyMemberModel;
 import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.TitleFragment;
+import com.wujia.businesslib.base.DataManager;
+import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventMemberChange;
 import com.wujia.businesslib.listener.OnInputDialogListener;
@@ -15,8 +21,12 @@ import com.jingxi.smartlife.pad.R;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeMeberBean;
 import com.jingxi.smartlife.pad.mvp.setting.adapter.SetMemberAdapter;
 import com.wujia.businesslib.dialog.InputDialog;
+import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.view.VerticallDecoration;
+import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
+import com.wujia.lib_common.data.network.exception.ApiException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,7 +43,7 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
     TextView btnAddMember;
     @BindView(R.id.rv_member)
     RecyclerView rvMember;
-    List<HomeMeberBean> mems;
+//    List<HomeMeberBean> mems;
     SetMemberAdapter mAdapter;
 
     public FamilyMemberFragment() {
@@ -62,16 +72,34 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
         return R.string.set_family_member;
     }
 
+    FamilyMemberModel familyMemberModel;
+
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
 
-        mems = DataBaseUtil.query(HomeMeberBean.class);
         rvMember.addItemDecoration(new VerticallDecoration(1));
-        mAdapter = new SetMemberAdapter(mContext, mems);
-        rvMember.setAdapter(mAdapter);
+
+        familyMemberModel=new FamilyMemberModel();
+        String familyId= DataManager.getUser().getUserInfo().getFid();
+        addSubscribe(familyMemberModel.getFamilyMemberList(familyId).subscribeWith(new SimpleRequestSubscriber<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+            @Override
+            public void onResponse(ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>> response) {
+                super.onResponse(response);
+                mAdapter = new SetMemberAdapter(mContext, response.data);
+                rvMember.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onFailed(ApiException apiException) {
+                super.onFailed(apiException);
+            }
+        }));
+
+
+
     }
 
     @Override
@@ -102,12 +130,31 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
     }
 
     @Override
-    public void dialogSureClick(String input) {
-        DataBaseUtil.insert(new HomeMeberBean(input, getHeadUrl()));
-        mems.clear();
-        mems.addAll(DataBaseUtil.query(HomeMeberBean.class));
-        mAdapter.notifyDataSetChanged();
-        EventBusUtil.post(new EventMemberChange());
+    public void dialogSureClick(final String input) {
+        String familyId=DataManager.getUser().getUserInfo().getFid();
+        addSubscribe(familyMemberModel.addFamilyMember(input,familyId).subscribeWith(new SimpleRequestSubscriber<ApiResponse<String>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+            @Override
+            public void onResponse(ApiResponse<String> response) {
+                super.onResponse(response);
+                HomeUserInfoBean.DataBean.UserInfoListBean userInfoListBean=new HomeUserInfoBean.DataBean.UserInfoListBean();
+                userInfoListBean.setUserName(input);
+                if(mAdapter==null){
+                    mAdapter= new SetMemberAdapter(mContext, new ArrayList<HomeUserInfoBean.DataBean.UserInfoListBean>());
+                    rvMember.setAdapter(mAdapter);
+                }
+                mAdapter.getDatas().add(userInfoListBean);
+                mAdapter.notifyDataSetChanged();
+
+                EventBusUtil.post(new EventMemberChange());
+            }
+
+            @Override
+            public void onFailed(ApiException apiException) {
+                super.onFailed(apiException);
+            }
+        }));
+
+
     }
 
     public String getHeadUrl() {
@@ -115,4 +162,6 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
         String head = String.format("file:///android_asset/img_default_head_%d.png", num);
         return head;
     }
+
+
 }

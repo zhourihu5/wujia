@@ -18,9 +18,9 @@ import com.jingxi.smartlife.pad.mvp.home.data.Advert;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean;
 import com.jingxi.smartlife.pad.mvp.home.data.WeatherInfoBean;
 import com.jingxi.smartlife.pad.mvp.login.AdvertActivity;
+import com.jingxi.smartlife.pad.mvp.setting.model.FamilyMemberModel;
 import com.jingxi.smartlife.pad.sdk.push.OnPushedListener;
 import com.jingxi.smartlife.pad.sdk.push.PushManager;
-import com.litesuits.orm.db.assit.QueryBuilder;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.base.DataManager;
@@ -37,7 +37,6 @@ import com.wujia.businesslib.event.EventMsg;
 import com.wujia.businesslib.event.EventSafeState;
 import com.wujia.businesslib.event.EventWakeup;
 import com.wujia.businesslib.event.IMiessageInvoke;
-import com.wujia.businesslib.listener.OnDialogListener;
 import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.jingxi.smartlife.pad.R;
 import com.jingxi.smartlife.pad.mvp.MainActivity;
@@ -153,12 +152,20 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     private EventMemberChange eventMemberChange = new EventMemberChange(new IMiessageInvoke<EventMemberChange>() {
         @Override
         public void eventBus(EventMemberChange event) {
-            if (null != mems && null != memAdapter) {
-                ArrayList<HomeMeberBean> temp = DataBaseUtil.query(HomeMeberBean.class);
-                mems.clear();
-                mems.addAll(temp);
-                memAdapter.notifyDataSetChanged();
-            }
+            String familyId=DataManager.getUser().getUserInfo().getFid();
+            addSubscribe(familyMemberModel.getFamilyMemberList(familyId).subscribeWith(new SimpleRequestSubscriber<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(HomeHomeFragment.this, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                @Override
+                public void onResponse(ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>> response) {
+                    super.onResponse(response);
+                    memAdapter = new HomeMemberAdapter(mActivity,response.data);
+                    rvHomeMember.setAdapter(memAdapter);
+                }
+
+                @Override
+                public void onFailed(ApiException apiException) {
+                    super.onFailed(apiException);
+                }
+            }));
         }
     });
 
@@ -213,18 +220,6 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
         EventBusUtil.register(eventCardChange);
         EventBusUtil.register(eventMemberChange);
     }
-
-
-//    private void setMemberView() {
-//        mems = new ArrayList<>();
-//        ArrayList<HomeMeberBean> temp = DataBaseUtil.query(HomeMeberBean.class);
-//        mems.clear();
-//        mems.addAll(temp);
-//        rvHomeMember.addItemDecoration(new HorizontalDecoration(10));
-//        memAdapter = new HomeMemberAdapter(mActivity, mems);
-//        rvHomeMember.setAdapter(memAdapter);
-//
-//    }
 
     private void setCardView() {
 
@@ -322,7 +317,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                                             public void onResponse(ApiResponse<Object> response) {
                                                 super.onResponse(response);
                                                 item.setStatus(MsgDto.STATUS_READ);
-                                                setNotify();
+//                                                setNotify();//在消息里处理了
                                                 EventBusUtil.post(new EventMsg(EventMsg.TYPE_READ));
                                             }
 
@@ -377,6 +372,8 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
         LogUtil.i("HomeHomeFragment  不可见");
     }
 
+    FamilyMemberModel familyMemberModel;
+
     @OnClick({R.id.home_chat_btn, R.id.home_call_service_btn, R.id.home_member_add_btn, R.id.home_arc_view})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -385,13 +382,29 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 //                mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, "200");
                 break;
             case R.id.home_member_add_btn:
-                new AddMemberDialog(mActivity).setListener(new OnInputDialogListener() {
+                new AddMemberDialog(mActivity,memAdapter.getDatas()).setListener(new OnInputDialogListener() {
                     @Override
-                    public void dialogSureClick(String input) {
-                        ArrayList<HomeMeberBean> temp = DataBaseUtil.query(HomeMeberBean.class);
-                        mems.clear();
-                        mems.addAll(temp);
-                        memAdapter.notifyDataSetChanged();
+                    public void dialogSureClick(final String input) {
+                        if(familyMemberModel==null){
+                            familyMemberModel=new FamilyMemberModel();
+                        }
+                        String familyId=DataManager.getUser().getUserInfo().getFid();
+                        addSubscribe(familyMemberModel.addFamilyMember(input,familyId).subscribeWith(new SimpleRequestSubscriber<ApiResponse<String>>(HomeHomeFragment.this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                            @Override
+                            public void onResponse(ApiResponse<String> response) {
+                                super.onResponse(response);
+                                HomeUserInfoBean.DataBean.UserInfoListBean userInfoListBean=new HomeUserInfoBean.DataBean.UserInfoListBean();
+                                userInfoListBean.setUserName(input);
+                                memAdapter.getDatas().add(userInfoListBean);
+                                memAdapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onFailed(ApiException apiException) {
+                                super.onFailed(apiException);
+                            }
+                        }));
+
                     }
                 }).show();
                 break;

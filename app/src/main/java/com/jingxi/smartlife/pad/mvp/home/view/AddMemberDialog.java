@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean;
 import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.jingxi.smartlife.pad.R;
@@ -30,8 +31,11 @@ public class AddMemberDialog extends CommDialog {
     private EditText inputEt;
     private RecyclerView rv;
 
-    public AddMemberDialog(@NonNull Context context) {
+    List<HomeUserInfoBean.DataBean.UserInfoListBean> datas;
+
+    public AddMemberDialog(@NonNull Context context,List<HomeUserInfoBean.DataBean.UserInfoListBean> datas) {
         super(context, R.style.dialogStyle);
+        this.datas=datas;
     }
 
     @Override
@@ -39,9 +43,8 @@ public class AddMemberDialog extends CommDialog {
         inputEt = findViewById(R.id.dialog_input);
         rv = findViewById(R.id.rv_dialog_invite);
 
-        List<HomeMeberBean> mems = DataBaseUtil.query(HomeMeberBean.class);
         rv.addItemDecoration(new VerticallDecoration(24));
-        rv.setAdapter(new HomeInviteAdapter(context, mems));
+        rv.setAdapter(new HomeInviteAdapter(context, datas));
 
         findViewById(R.id.btn_send_invite).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,8 +58,7 @@ public class AddMemberDialog extends CommDialog {
                         return;
                     }
                     dismiss();
-                    DataBaseUtil.insert(new HomeMeberBean(phone, getHeadUrl()));
-                    listener.dialogSureClick(inputEt.getText().toString());
+                    listener.dialogSureClick(phone);
                 }
             }
         });

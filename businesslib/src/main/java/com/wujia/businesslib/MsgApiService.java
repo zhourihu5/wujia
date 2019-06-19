@@ -26,6 +26,9 @@ public interface MsgApiService {
     @GET("/v1/message/top3UnRead")
     Flowable<ApiResponse<List<MsgDto.ContentBean>>> getTop3UnReadMsg();
 
+    @GET("/v1/message/isUnRead")
+    Flowable<ApiResponse<Boolean>> isUnReadMsg();
+
 
     @FormUrlEncoded
     @POST("/v1/message/read")

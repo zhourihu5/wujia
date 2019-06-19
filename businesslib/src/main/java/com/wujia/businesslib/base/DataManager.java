@@ -21,7 +21,7 @@ public class DataManager {
         return (LoginDTO.DataBean) SPHelper.readObject(AppContext.get(), Constants.SP_KEY_USER);
     }
 
-//    public static String getFamilyId() {
+//    public static String getFid() {
 //        LoginDTO.DataBean user = getUser();
 //        if (null != user) {
 //            return user.getUserInfo().get;

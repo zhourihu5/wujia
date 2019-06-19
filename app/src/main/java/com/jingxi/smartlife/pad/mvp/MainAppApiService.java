@@ -10,6 +10,8 @@ import com.wujia.businesslib.data.LoginDTO;
 import com.wujia.businesslib.data.RootResponse;
 import com.wujia.businesslib.data.MessageBean;
 
+import java.util.List;
+
 import io.reactivex.Flowable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -20,8 +22,6 @@ import retrofit2.http.Query;
 
 public interface MainAppApiService {
 
-    @GET("")
-    Flowable<ApiResponse<String>> getTestNet();
 
 //    @FormUrlEncoded
     @GET("/login/checking")
@@ -38,12 +38,12 @@ public interface MainAppApiService {
     Flowable<HomeRecBean> getUserQuickCard();
 
     @FormUrlEncoded
-    @POST("/openapi/v1/wj/userQuickCardSubscription")
-    Flowable<RootResponse> addUserQuickCard(@Field("openid") String openid, @Field("quickCardId") String quickCardId);
+    @POST("/v1/card/save")
+    Flowable<RootResponse> addUserQuickCard( @Field("id") String quickCardId);
 
     @FormUrlEncoded
-    @POST("/openapi/v1/wj/userQuickCardRemove")
-    Flowable<RootResponse> removeUserQuickCard(@Field("openid") String openid, @Field("quickCardId") String quickCardId);
+    @POST("/v1/card/remove")
+    Flowable<RootResponse> removeUserQuickCard( @Field("id") String quickCardId);
 
     @GET("/v1/weather/query")
     Flowable<WeatherInfoBean> getWeather();
@@ -51,13 +51,21 @@ public interface MainAppApiService {
     @GET("/v1/user/findUserInfo")
     Flowable<HomeUserInfoBean> getHomeUserInfo(@Query("deviceKey") String key);
 
-
+    @Deprecated
     @GET("/openapi/v1/message/getPropertyMessageById")
     Flowable<MessageBean> getPropertyMessageById(@Query("id") String id);
 
+    @Deprecated
     @GET("/openapi/v1/message/getManagerMessageById")
     Flowable<MessageBean> getManagerMessageById(@Query("id") String id);
 
     @GET("/v1/screen/findAll")
     Flowable<LockADBean> getScreenSaverByCommunityId();
+
+    @FormUrlEncoded
+    @POST("/v1/userFamily/addFamily")
+    Flowable<ApiResponse<String>> addFamilyMember(@Field("userName")String userName,@Field("familyId") String familyId);
+
+    @GET("/v1/userFamily/findFamilyUserList")
+    Flowable<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>> getFamilyMemberList(@Query("familyId")String familyId);
 }

@@ -1,9 +1,6 @@
 package com.wujia.businesslib.data;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * author ：shenbingkai@163.com
@@ -128,6 +125,16 @@ public class LoginDTO extends RootResponse {
             private String password;
             private int status;
             private String userName;
+
+            private String fid;
+
+            public String getFid() {
+                return fid;
+            }
+
+            public void setFid(String fid) {
+                this.fid = fid;
+            }
 
             public String getCreateDate() {
                 return createDate;

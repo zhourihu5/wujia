@@ -128,8 +128,8 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
     }
 
     @Override
-    public void addUserQuickCard(String openid, String quickCardId) {
-        addSubscribe(mModel.addUserQuickCard(openid, quickCardId).subscribeWith(new SimpleRequestSubscriber<RootResponse>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+    public void addUserQuickCard( String quickCardId) {
+        addSubscribe(mModel.addUserQuickCard( quickCardId).subscribeWith(new SimpleRequestSubscriber<RootResponse>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(RootResponse response) {
                 super.onResponse(response);
@@ -147,8 +147,8 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
     }
 
     @Override
-    public void removeUserQuickCard(String openid, String quickCardId) {
-        addSubscribe(mModel.removeUserQuickCard(openid, quickCardId).subscribeWith(new SimpleRequestSubscriber<RootResponse>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+    public void removeUserQuickCard( String quickCardId) {
+        addSubscribe(mModel.removeUserQuickCard( quickCardId).subscribeWith(new SimpleRequestSubscriber<RootResponse>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(RootResponse response) {
                 super.onResponse(response);

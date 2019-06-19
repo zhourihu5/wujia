@@ -27,7 +27,10 @@ import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListener;
 import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.base.DataManager;
+import com.wujia.businesslib.base.MvpActivity;
+import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.DBMessage;
+import com.wujia.businesslib.data.LoginDTO;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventDoorDevice;
 import com.jingxi.smartlife.pad.R;
@@ -46,12 +49,16 @@ import com.wujia.businesslib.event.EventMsg;
 import com.wujia.businesslib.event.EventSafeState;
 import com.wujia.businesslib.event.EventWakeup;
 import com.wujia.businesslib.event.IMiessageInvoke;
+import com.wujia.businesslib.model.MsgModel;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.BaseActivity;
 import com.wujia.lib_common.base.BaseMainFragment;
+import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.TabFragment;
+import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
+import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.LogUtil;
 import com.wujia.lib_common.utils.ScreenUtil;
 import com.wujia.lib_common.utils.grant.PermissionsManager;
@@ -64,7 +71,7 @@ import me.yokeyword.fragmentation.SupportFragment;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
-public class MainActivity extends BaseActivity implements DoorAccessListener, DoorSecurityUtil.OnSecurityChangedListener {
+public class MainActivity extends MvpActivity implements DoorAccessListener, DoorSecurityUtil.OnSecurityChangedListener {
 
     public static final int POSITION_HOME = 0;
     public static final int POSITION_SAFE = 1;
@@ -94,11 +101,24 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
         }
     });
 
+    MsgModel msgModel;
     private void setMessagePoint() {//todo 接口获取是否有未读消息
+        if(msgModel==null){
+            msgModel=new MsgModel();
+        }
+        addSubscribe(msgModel.isUnReadMessage().subscribeWith(new SimpleRequestSubscriber<ApiResponse<Boolean>>(this, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+            @Override
+            public void onResponse(ApiResponse<Boolean> response) {
+                super.onResponse(response);
+                VerticalTabItem tab = (VerticalTabItem) mTabBar.getChildAt(4);
+                tab.setPoint(response.data);
+            }
 
-        ArrayList<DBMessage> list = DataBaseUtil.queryEquals("_read_state", 0, DBMessage.class);
-        VerticalTabItem tab = (VerticalTabItem) mTabBar.getChildAt(4);
-        tab.setPoint(list != null && list.size() > 0);
+            @Override
+            public void onFailed(ApiException apiException) {
+                super.onFailed(apiException);
+            }
+        }));
     }
 
     @Override
@@ -254,7 +274,7 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
         manager.startFamily(DataManager.getDockKey(), DataManager.getButtonKey());
 
 //        manager.addSecurityListener(this);
-//        manager.querySecurityStatus(DataManager.getFamilyId());
+//        manager.querySecurityStatus(DataManager.getFid());
     }
 
     @Override
@@ -416,6 +436,11 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
                 fragment.switchTab(childPos);
             }
         }
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 
     @Override

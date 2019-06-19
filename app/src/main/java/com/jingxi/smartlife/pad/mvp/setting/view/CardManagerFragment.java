@@ -103,7 +103,7 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
 
             @Override
             public void removeCard(int pos) {
-                mPresenter.removeUserQuickCard(DataManager.getOpenid(), addList.get(pos).id);
+                mPresenter.removeUserQuickCard( addList.get(pos).id);
 
                 unaddList.add(addList.remove(pos));
                 addedAdapter.notifyItemRemoved(pos);
@@ -130,7 +130,7 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
         unaddAdapter.setManagerCardListener(new HomeCardManagerAdapter.OnManagerCardListener() {
             @Override
             public void addCard(int pos) {
-                mPresenter.addUserQuickCard(DataManager.getOpenid(), unaddList.get(pos).id);
+                mPresenter.addUserQuickCard( unaddList.get(pos).id);
 
                 addList.add(unaddList.remove(pos));
                 unaddAdapter.notifyItemRemoved(pos);
@@ -189,13 +189,9 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
                     setUserCard(cards.data);
                     setOtherCard(toAddList);
                 }
-//                setOtherCard(cards.data);
                 break;
 
             case HomePresenter.REQUEST_CDOE_GET_CARD_MY:
-//                HomeRecBean userCards = (HomeRecBean) object;
-//                setUserCard(userCards.data);
-//                mPresenter.getQuickCard(DataManager.getCommunityId());
                 break;
         }
     }

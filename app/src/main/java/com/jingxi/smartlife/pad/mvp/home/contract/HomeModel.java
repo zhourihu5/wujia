@@ -33,14 +33,14 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
     }
 
     @Override
-    public Flowable<RootResponse> addUserQuickCard(String openid, String quickCardId) {
-        return mHttpHelper.create(MainAppApiService.class).addUserQuickCard(openid, quickCardId).compose(RxUtil.<RootResponse>rxSchedulerHelper());
+    public Flowable<RootResponse> addUserQuickCard( String quickCardId) {
+        return mHttpHelper.create(MainAppApiService.class).addUserQuickCard( quickCardId).compose(RxUtil.<RootResponse>rxSchedulerHelper());
 
     }
 
     @Override
-    public Flowable<RootResponse> removeUserQuickCard(String openid, String quickCardId) {
-        return mHttpHelper.create(MainAppApiService.class).removeUserQuickCard(openid, quickCardId).compose(RxUtil.<RootResponse>rxSchedulerHelper());
+    public Flowable<RootResponse> removeUserQuickCard( String quickCardId) {
+        return mHttpHelper.create(MainAppApiService.class).removeUserQuickCard( quickCardId).compose(RxUtil.<RootResponse>rxSchedulerHelper());
     }
 
     @Override
@@ -66,4 +66,6 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
     public Flowable<LockADBean> getScreenSaverByCommunityId() {
         return mHttpHelper.create(MainAppApiService.class).getScreenSaverByCommunityId().compose(RxUtil.<LockADBean>rxSchedulerHelper());
     }
+
+
 }

@@ -30,5 +30,9 @@ public class MsgModel extends BaseModel {
         return mHttpHelper.create(MsgApiService.class).readMsg(id).compose(RxUtil.<ApiResponse<Object>>rxSchedulerHelper());
 
     }
+    public Flowable<ApiResponse<Boolean>> isUnReadMessage() {
+        return mHttpHelper.create(MsgApiService.class).isUnReadMsg().compose(RxUtil.<ApiResponse<Boolean>>rxSchedulerHelper());
+
+    }
 
 }
