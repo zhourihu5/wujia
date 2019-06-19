@@ -11,23 +11,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jingxi.smartlife.pad.R;
+import com.jingxi.smartlife.pad.mvp.home.HomeHomeFragment;
 import com.jingxi.smartlife.pad.mvp.home.adapter.HomeNotifyAdapter;
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeContract;
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeModel;
 import com.jingxi.smartlife.pad.mvp.home.data.LockADBean;
-import com.jingxi.smartlife.pad.mvp.home.data.WeatherBean;
+import com.jingxi.smartlife.pad.mvp.home.data.WeatherInfoBean;
 import com.jingxi.smartlife.pad.mvp.home.view.MessageDialog;
 import com.litesuits.orm.db.assit.QueryBuilder;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.DataBaseUtil;
-import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.WebViewActivity;
+import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.DBMessage;
+import com.wujia.businesslib.data.MsgDto;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventMsg;
 import com.wujia.businesslib.event.EventWakeup;
 import com.wujia.businesslib.event.IMiessageInvoke;
-import com.wujia.businesslib.listener.OnDialogListener;
+import com.wujia.businesslib.model.MsgModel;
 import com.wujia.lib.imageloader.ImageLoaderManager;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
@@ -37,14 +39,12 @@ import com.wujia.lib_common.utils.FontUtils;
 import com.wujia.lib_common.utils.StringUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -127,39 +127,47 @@ public class LockService extends DreamService implements HomeContract.View {
         setTime();
 
         setNotify();
+//        testWakeup();//todo just for test
 
+    }
+    private void testWakeup(){//todo just for test
+        btnDetails.setVisibility(View.VISIBLE);
+        btnDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    Intent intent = new Intent(LockService.this, WebViewActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(Constants.INTENT_KEY_1, "www.baidu.com");
+                    startActivity(intent);
+                    wakeUp();
+            }
+        });
     }
 
     private void setScreenBg() {
-        mCompositeDisposable.add(model.getScreenSaverByCommunityId(DataManager.getCommunityId()).subscribeWith(new SimpleRequestSubscriber<LockADBean>(LockService.this, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        mCompositeDisposable.add(model.getScreenSaverByCommunityId().subscribeWith(new SimpleRequestSubscriber<LockADBean>(LockService.this, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(LockADBean bean) {
                 super.onResponse(bean);
-                if (bean.isSuccess()) {
-                    if (bean.content != null && bean.content.size() > 0) {
-                        for (final LockADBean.AD ad : bean.content) {
-                            if (ad.imageType == 1) {
-                                if (bgImg != null) {
-                                    ImageLoaderManager.getInstance().loadImage(ad.image, R.mipmap.bg_lockscreen, bgImg);
-                                    btnDetails.setVisibility(View.VISIBLE);
-                                    btnDetails.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            if (!TextUtils.isEmpty(ad.url)) {
-                                                Intent intent = new Intent(LockService.this, WebViewActivity.class);
-                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                intent.putExtra(Constants.INTENT_KEY_1, ad.url);
-                                                startActivity(intent);
-                                                wakeUp();
-                                            }
-                                        }
-                                    });
+                    if (bean.data != null ) {
+                        if (bgImg != null) {
+                            final LockADBean.AD ad=bean.data;
+                            ImageLoaderManager.getInstance().loadImage(ad.image, R.mipmap.bg_lockscreen, bgImg);
+                            btnDetails.setVisibility(View.VISIBLE);
+                            btnDetails.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if (!TextUtils.isEmpty(ad.url)) {
+                                        Intent intent = new Intent(LockService.this, WebViewActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.putExtra(Constants.INTENT_KEY_1, ad.url);
+                                        startActivity(intent);
+                                        wakeUp();
+                                    }
                                 }
-                                break;
-                            }
+                            });
                         }
                     }
-                }
             }
 
             @Override
@@ -198,18 +206,26 @@ public class LockService extends DreamService implements HomeContract.View {
                     @Override
                     public void accept(Long aLong) throws Exception {
 
-                        mCompositeDisposable.add(model.getWeather(DataManager.getCommunityId()).subscribeWith(new SimpleRequestSubscriber<WeatherBean>(LockService.this, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                        mCompositeDisposable.add(model.getWeather().subscribeWith(new SimpleRequestSubscriber<WeatherInfoBean>(LockService.this, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
                             @Override
-                            public void onResponse(WeatherBean weatherBean) {
-                                super.onResponse(weatherBean);
-                                if (weatherBean.isSuccess()) {
+                            public void onResponse(WeatherInfoBean weatherInfoBean) {
+                                super.onResponse(weatherInfoBean);
+                                if (weatherInfoBean.isSuccess()) {
 
                                     String curdate = DateUtil.getCurrentyyyymmddhh() + "00";
-
-                                    for (WeatherBean.Weather weather : weatherBean.content) {
-                                        if (weather.time.equals(curdate) && null != loginTemperatureTv && null != loginTemperatureDesc) {
-                                            loginTemperatureTv.setText(weather.temperature + "°");
-                                            loginTemperatureDesc.setText(weather.weather);
+                                    List<WeatherInfoBean.DataBean.WeatherBean.ShowapiResBodyBean.HourListBean>weatherList= null;
+                                    try {
+                                        weatherList = weatherInfoBean.getData().getWeather().getShowapi_res_body().getHourList();
+                                    } catch (Exception e) {
+//                    e.printStackTrace();
+                                    }
+                                    if(weatherList!=null){
+                                        for (WeatherInfoBean.DataBean.WeatherBean.ShowapiResBodyBean.HourListBean weather : weatherList) {
+                                            if (weather.getTime().equals(curdate)) {
+                                                loginTemperatureTv.setText(weather.getTemperature() + "°");
+                                                loginTemperatureDesc.setText(weather.getWeather());
+                                                //todo 空气质量没有  天气图标没有
+                                            }
                                         }
                                     }
                                 }
@@ -226,24 +242,38 @@ public class LockService extends DreamService implements HomeContract.View {
 
     }
 
-
+    MsgModel msgModel;
     //消息
     private void setNotify() {
 
-        QueryBuilder builder = new QueryBuilder<>(DBMessage.class);
-        builder.limit(0, 3).whereEquals("_read_state", 0).appendOrderDescBy("_id");
+        if(msgModel==null){
+            msgModel=new MsgModel();
+        }
 
-        final ArrayList<DBMessage> notifys = DataBaseUtil.query(builder);
 
-        HomeNotifyAdapter notifyAdapter = new HomeNotifyAdapter(this, notifys);
-        rvHomeMsg.setAdapter(notifyAdapter);
-
-        notifyAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
+        mCompositeDisposable.add(msgModel.getTop3UnReadMsg().subscribeWith(new SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
-            public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
-                wakeUp();
+            public void onResponse(ApiResponse<List<MsgDto.ContentBean>> response) {
+                super.onResponse(response);
+                final List<MsgDto.ContentBean> notifys = response.data;
+                HomeNotifyAdapter notifyAdapter = new HomeNotifyAdapter(LockService.this, notifys);
+                rvHomeMsg.setAdapter(notifyAdapter);
+
+                notifyAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
+                    @Override
+                    public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
+                        wakeUp();
+                    }
+                });
             }
-        });
+
+            @Override
+            public void onFailed(ApiException apiException) {
+                super.onFailed(apiException);
+            }
+        }));
+
+
     }
 
 

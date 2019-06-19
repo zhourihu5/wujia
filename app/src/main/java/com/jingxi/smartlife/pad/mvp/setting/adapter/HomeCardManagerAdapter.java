@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.jingxi.smartlife.pad.R;
-import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.wujia.lib.imageloader.ImageLoaderManager;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
@@ -40,7 +39,7 @@ public class HomeCardManagerAdapter extends CommonAdapter<HomeRecBean.Card> {
         View subview = null;
 
         switch (item.type) {
-            case HomeRecBean.TYPE_FUN:
+            case HomeRecBean.TYPE_APP_PAGE:
 //                subview = LayoutInflater.from(mContext).inflate(R.layout.item_home_rec_layout_0, null);
 //                break;
             case HomeRecBean.TYPE_LINK:
@@ -53,10 +52,11 @@ public class HomeCardManagerAdapter extends CommonAdapter<HomeRecBean.Card> {
                 ImageLoaderManager.getInstance().loadImage(item.image, R.mipmap.default_loading,img);
 
                 break;
-            case HomeRecBean.TYPE_IMAGE:
+            case HomeRecBean.TYPE_IMAGE://todo 样式怎样？？
                 subview = LayoutInflater.from(mContext).inflate(R.layout.item_home_rec_layout_2, null);
                 ImageView headImg = subview.findViewById(R.id.scene_in_img);
-                ImageLoaderManager.getInstance().loadImage(item.headImage, R.mipmap.default_loading,headImg);
+                ImageLoaderManager.getInstance().loadImage(item.image, R.mipmap.default_loading,headImg);
+
                 break;
         }
 

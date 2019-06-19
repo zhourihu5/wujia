@@ -1,9 +1,11 @@
 package com.jingxi.smartlife.pad.mvp.home.data;
 
+import com.google.gson.annotations.SerializedName;
 import com.wujia.businesslib.data.RootResponse;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Author: created by shenbingkai on 2019/2/11 00 19
@@ -13,9 +15,12 @@ import java.util.ArrayList;
 public class HomeRecBean extends RootResponse {
 
 
-    public static final String TYPE_LINK = "link";
-    public static final String TYPE_FUN = "function";
-    public static final String TYPE_IMAGE = "image";
+    public static final String TYPE_LINK = "WU";
+    public static final String TYPE_APP_PAGE = "IU";
+    public static final String TYPE_IMAGE = "IMG";
+    public static final String TYPE_FUN = "OP";//功能型 TODO
+
+
     public static final String TYPE_ADD = "add";
 
 
@@ -25,7 +30,7 @@ public class HomeRecBean extends RootResponse {
     public HomeRecBean() {
     }
 
-    public ArrayList<Card> content;
+    public ArrayList<Card> data;
 
     public static class Card implements Serializable {
 
@@ -38,16 +43,27 @@ public class HomeRecBean extends RootResponse {
 
 
         public String id;
+
         public String title;
+        @SerializedName("icon")
         public String image;
         public String linkType;
+        @SerializedName("url")
         public String linkUrl;
-        public String headImage;
-        public String type;
-        public String communityId;
-        public String explain;
-        public ArrayList<Subscriptions> subscriptions;
 
+//        public String headImage;
+
+        public String isShow;
+
+        public String type;
+        @SerializedName("memo")
+        public String explain;
+        public ArrayList<Subscriptions> subscriptions;//todo 目前接口缺该字段，是否需要？
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id);
+        }
 
         //重写equals方法
         @Override

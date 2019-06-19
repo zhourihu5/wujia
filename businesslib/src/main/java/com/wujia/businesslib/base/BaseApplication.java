@@ -1,7 +1,9 @@
 package com.wujia.businesslib.base;
 
 
+import android.app.Activity;
 import android.app.Application;
+import android.os.Bundle;
 
 import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.CommonCallback;
@@ -13,10 +15,19 @@ import com.squareup.leakcanary.LeakCanary;
 import com.wujia.lib_common.utils.AppContext;
 import com.wujia.lib_common.utils.SystemUtil;
 
+import java.lang.ref.WeakReference;
+
 public class BaseApplication extends Application {
 
     protected static BaseApplication instance;
     String TAG="wujia";
+    protected static WeakReference<Activity> currentActivity;
+    public static Activity getCurrentAcitivity(){
+        if(currentActivity!=null){
+            return currentActivity.get();
+        }
+        return null;
+    }
     @Override
     public void onCreate() {
         super.onCreate();
@@ -25,12 +36,50 @@ public class BaseApplication extends Application {
         initSDKManager();
 
         SystemUtil.init();
+
+
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                currentActivity=new WeakReference<>(activity);
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+
+            }
+        });
     }
 
     private void initSDKManager() {
         JXPadSdk.init(instance);
         JXPadSdk.initDoorAccess();
-        JXPadSdk.initPushManager();//todo replace it by our push，原来的push APPkey等信息是写在manifest里的，
+//        JXPadSdk.initPushManager();//todo replace it by our push，原来的push APPkey等信息是写在manifest里的，
 
 
         // 如果需要更改为我们自己的推送，用代码住处推送账号信息

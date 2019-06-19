@@ -1,10 +1,11 @@
 package com.jingxi.smartlife.pad.mvp.home.contract;
 
+import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean;
 import com.jingxi.smartlife.pad.mvp.home.data.LockADBean;
 import com.wujia.businesslib.data.RootResponse;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.wujia.businesslib.data.MessageBean;
-import com.jingxi.smartlife.pad.mvp.home.data.WeatherBean;
+import com.jingxi.smartlife.pad.mvp.home.data.WeatherInfoBean;
 import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.CommonDataLoadView;
 import com.wujia.lib_common.base.IBaseModle;
@@ -19,21 +20,22 @@ import io.reactivex.Flowable;
 public interface HomeContract {
     interface Model extends IBaseModle {
 
-        Flowable<HomeRecBean> getQuickCard(String communityId);
+        Flowable<HomeRecBean> getQuickCard();
 
-        Flowable<HomeRecBean> getUserQuickCard(String openid);
+        Flowable<HomeRecBean> getUserQuickCard();
 
         Flowable<RootResponse> addUserQuickCard(String openid, String quickCardId);
 
         Flowable<RootResponse> removeUserQuickCard(String openid, String quickCardId);
 
-        Flowable<WeatherBean> getWeather(String communityId);
+        Flowable<WeatherInfoBean> getWeather();
+        public Flowable<HomeUserInfoBean> getHomeUserInfo(String key);
 
         Flowable<MessageBean> getPropertyMessageById(String id);
 
         Flowable<MessageBean> getManagerMessageById(String id);
 
-        Flowable<LockADBean> getScreenSaverByCommunityId(String communityId);
+        Flowable<LockADBean> getScreenSaverByCommunityId();
 
     }
 
@@ -42,11 +44,13 @@ public interface HomeContract {
 
     interface Presenter extends BasePresenter<View> {
 
-        void getQuickCard(String communityId);
+        void getQuickCard();
 
-        void getWeather(String communityId);
+        void getWeather();
 
-        void getUserQuickCard(String openid);
+        void getHomeUserInfo(String key);
+
+        void getUserQuickCard();
 
         void addUserQuickCard(String openid, String quickCardId);
 

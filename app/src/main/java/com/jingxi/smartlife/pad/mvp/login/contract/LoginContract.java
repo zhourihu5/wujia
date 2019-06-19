@@ -1,5 +1,6 @@
 package com.jingxi.smartlife.pad.mvp.login.contract;
 
+import com.wujia.businesslib.data.LoginDTO;
 import com.wujia.businesslib.data.RootResponse;
 import com.wujia.businesslib.data.TokenBean;
 import com.wujia.businesslib.data.UserBean;
@@ -17,11 +18,10 @@ import io.reactivex.Flowable;
 public interface LoginContract {
     interface Model extends IBaseModle {
 
-        Flowable<TokenBean> getAccessToken();
 
-        Flowable<UserBean> login(String mobile, String captcha, String padSn);
+        Flowable<LoginDTO> login(String mobile, String captcha, String padSn);
 
-        Flowable<RootResponse> login(String mobile);
+        Flowable<RootResponse> getCode(String mobile);
 
 
     }
@@ -31,7 +31,7 @@ public interface LoginContract {
     }
 
     interface Presenter extends BasePresenter<View> {
-        void doGetAccessToken();
+//        void doGetAccessToken();
 
         void doTimeChange();
 

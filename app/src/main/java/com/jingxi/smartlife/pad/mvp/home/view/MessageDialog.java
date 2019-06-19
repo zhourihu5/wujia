@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.data.DBMessage;
+import com.wujia.businesslib.data.MsgDto;
 import com.wujia.businesslib.listener.OnDialogListener;
 import com.jingxi.smartlife.pad.R;
 import com.wujia.lib_common.utils.DateUtil;
@@ -19,12 +20,15 @@ import com.wujia.lib_common.utils.DateUtil;
  * description ：
  */
 public class MessageDialog extends Dialog {
-    private Context mContext;
-    private OnDialogListener listener;
 
-    public MessageDialog(@NonNull Context context, final DBMessage message) {
+    public interface MsgReadCallBack{
+        void updateMsgReadStatus(MsgDto.ContentBean msg);
+    }
+    MsgReadCallBack msgReadCallBack;
+
+    public MessageDialog(@NonNull Context context, final MsgDto.ContentBean message) {
         super(context);
-        mContext = context;
+//        mContext = context;
         setContentView(R.layout.dialog_msg_layout);
         TextView btnCall = findViewById(R.id.btn1);
         TextView btnKnow = findViewById(R.id.btn2);
@@ -35,18 +39,19 @@ public class MessageDialog extends Dialog {
         TextView tvDesc = findViewById(R.id.tv4);
         ImageView icon = findViewById(R.id.img1);
 
-        if (message._type.equals(DBMessage.TYPE_NOTIFY)) {
+        if (message.getType().equals(MsgDto.TYPE_NOTIFY)) {
             icon.setImageResource(R.mipmap.ic_msg_label_neighbour);
-        } else if (message._type.equals(DBMessage.TYPE_PROPERTY)) {
+        } else if (message.getType().equals(MsgDto.TYPE_PROPERTY)) {
             icon.setImageResource(R.mipmap.ic_msg_label_serve);
         }
 
-        tvType.setText(message.typeText);
-        tvTitle.setText(message.title);
-        tvTime.setText(DateUtil.formatMsgDate(message.createDate));
-        tvDesc.setText(message.pureText);
+        tvType.setText(MsgDto.getTypeText(message));//todo 消息类型，接口返回还是
+        tvTitle.setText(message.getTitle());
+//        tvTime.setText(DateUtil.formatMsgDate(message.createDate));
+        tvTime.setText(message.getCreateDate());
+        tvDesc.setText(message.getContent());
 
-        if (message._read_state == 0) {//未读
+        if (message.getStatus().equals(MsgDto.STATUS_UNREAD)) {//未读
             btnKnow.setBackgroundResource(R.drawable.btn_rect_accent_select);
         } else {
             btnKnow.setBackgroundResource(R.drawable.btn_rect_no_can);
@@ -54,12 +59,11 @@ public class MessageDialog extends Dialog {
         btnKnow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (message._read_state == 0) {//未读
-                    message._read_state = 1;
+                if (message.getStatus().equals(MsgDto.STATUS_UNREAD)) {//未读
                     v.setBackgroundResource(R.drawable.btn_rect_no_can);
-                    DataBaseUtil.update(message);
-                    if (null != listener) {
-                        listener.dialogSureClick();
+
+                    if (null != msgReadCallBack) {
+                        msgReadCallBack.updateMsgReadStatus(message);
                     }
                 }
                 dismiss();
@@ -68,8 +72,8 @@ public class MessageDialog extends Dialog {
 
     }
 
-    public MessageDialog setListener(OnDialogListener listener) {
-        this.listener = listener;
+    public MessageDialog setListener(MsgReadCallBack listener) {
+        this.msgReadCallBack = listener;
         return this;
     }
 

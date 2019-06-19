@@ -9,6 +9,7 @@ import com.litesuits.orm.db.enums.AssignType;
  * Email:  shenbingkai@gamil.com
  * Description:
  */
+@Deprecated
 @Table("table_member")
 public class HomeMeberBean {
     // 指定自增，每个对象需要有一个主键

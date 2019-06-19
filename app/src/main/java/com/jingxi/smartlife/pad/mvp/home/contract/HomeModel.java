@@ -1,17 +1,16 @@
 package com.jingxi.smartlife.pad.mvp.home.contract;
 
 import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
+import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean;
 import com.jingxi.smartlife.pad.mvp.home.data.LockADBean;
 import com.wujia.businesslib.base.BaseModel;
 import com.wujia.businesslib.data.RootResponse;
 import com.jingxi.smartlife.pad.mvp.MainAppApiService;
-import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.wujia.businesslib.data.MessageBean;
-import com.jingxi.smartlife.pad.mvp.home.data.WeatherBean;
+import com.jingxi.smartlife.pad.mvp.home.data.WeatherInfoBean;
 import com.wujia.lib_common.data.network.RxUtil;
 
 import io.reactivex.Flowable;
-import retrofit2.http.Query;
 
 /**
  * author ：shenbingkai@163.com
@@ -22,14 +21,14 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
 
 
     @Override
-    public Flowable<HomeRecBean> getQuickCard(String communityId) {
-        return mHttpHelper.create(MainAppApiService.class).getQuickCard(communityId).compose(RxUtil.<HomeRecBean>rxSchedulerHelper());
+    public Flowable<HomeRecBean> getQuickCard() {
+        return mHttpHelper.create(MainAppApiService.class).getQuickCard().compose(RxUtil.<HomeRecBean>rxSchedulerHelper());
 
     }
 
     @Override
-    public Flowable<HomeRecBean> getUserQuickCard(String openid) {
-        return mHttpHelper.create(MainAppApiService.class).getUserQuickCard(openid).compose(RxUtil.<HomeRecBean>rxSchedulerHelper());
+    public Flowable<HomeRecBean> getUserQuickCard() {
+        return mHttpHelper.create(MainAppApiService.class).getUserQuickCard().compose(RxUtil.<HomeRecBean>rxSchedulerHelper());
 
     }
 
@@ -45,8 +44,12 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
     }
 
     @Override
-    public Flowable<WeatherBean> getWeather(String communityId) {
-        return mHttpHelper.create(MainAppApiService.class).getWeather(communityId).compose(RxUtil.<WeatherBean>rxSchedulerHelper());
+    public Flowable<WeatherInfoBean> getWeather() {
+        return mHttpHelper.create(MainAppApiService.class).getWeather().compose(RxUtil.<WeatherInfoBean>rxSchedulerHelper());
+    }
+    @Override
+    public Flowable<HomeUserInfoBean> getHomeUserInfo(String key) {
+        return mHttpHelper.create(MainAppApiService.class).getHomeUserInfo(key).compose(RxUtil.<HomeUserInfoBean>rxSchedulerHelper());
     }
 
     @Override
@@ -60,7 +63,7 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
     }
 
     @Override
-    public Flowable<LockADBean> getScreenSaverByCommunityId(String communityId) {
-        return mHttpHelper.create(MainAppApiService.class).getScreenSaverByCommunityId(communityId).compose(RxUtil.<LockADBean>rxSchedulerHelper());
+    public Flowable<LockADBean> getScreenSaverByCommunityId() {
+        return mHttpHelper.create(MainAppApiService.class).getScreenSaverByCommunityId().compose(RxUtil.<LockADBean>rxSchedulerHelper());
     }
 }

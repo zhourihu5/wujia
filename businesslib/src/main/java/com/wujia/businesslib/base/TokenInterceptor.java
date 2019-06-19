@@ -1,6 +1,12 @@
 package com.wujia.businesslib.base;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Build;
+import android.text.TextUtils;
+
 import com.jingxi.smartlife.pad.sdk.JXPadSdk;
+import com.wujia.businesslib.BuildConfig;
 import com.wujia.businesslib.BusAppApiService;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.data.RootResponse;
@@ -29,15 +35,39 @@ import retrofit2.Call;
  * Description:
  */
 public class TokenInterceptor implements Interceptor {
+
+
+    private boolean isInWhiteList(Request request){
+        String path=request.url().encodedPath();
+        if(!path.startsWith("/v1/")) {//服务器token filter(JwtFilter)拦截路径
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public Response intercept(Chain chain) throws IOException {
 
         Request request = chain.request();
-        Response originalResponse = chain.proceed(request);
+        Response originalResponse =null;
 
-        String url = request.url().toString();//请求Url
+        if(isInWhiteList(request)){//服务器token filter(JwtFilter)拦截路径
+            originalResponse= chain.proceed(request);
+            return originalResponse;
+        }else {
+            String token= DataManager.getToken();
+            if(TextUtils.isEmpty(token)){
+                originalResponse= chain.proceed(request);
+                toLoginActivity();
+                return originalResponse;
+            }
+            request=request.newBuilder()
+                    .addHeader("Authorization",token)
+            .build();
+            originalResponse=chain.proceed(request);
+        }
 
-//        originalResponse.header()//todo 从header获取token信息
+
 
         //获取返回的json，response.body().string();只有效一次，对返回数据进行转换
         ResponseBody responseBody = originalResponse.body();
@@ -50,50 +80,26 @@ public class TokenInterceptor implements Interceptor {
             charset = contentType.charset(Charset.forName("UTF-8"));
         }
         String bodyString = buffer.clone().readString(charset);//首次请求返回的结果
-
-        if (isTokenExpired(bodyString)) {//根据和服务端的约定判断token过期
-            //同步请求方式，获取最新的Token
-            TokenBean tokenBean = getNewToken();
-            DataManager.saveToken(tokenBean.content);
-            JXPadSdk.setAppKey(Constants.APPID, tokenBean.content);
-            //使用新的Token，创建新的请求
-            if (request.method().equals("GET")) {
-
-                HttpUrl.Builder requestBuilder = request.url()
-                        .newBuilder();
-                requestBuilder.removeAllQueryParameters(Constants.COMMON_REQUEST_TOKEN);
-                requestBuilder.addQueryParameter(Constants.COMMON_REQUEST_TOKEN, tokenBean.content);
-
-                Request.Builder builder = request.newBuilder();
-                builder.url(requestBuilder.build());
-                builder.addHeader("Authorization",tokenBean.content);//todo token
-                request = builder.build();
-
-            } else if (request.method().equals("POST")) {
-                if (request.body() instanceof FormBody) {
-                    FormBody.Builder newFormBody = new FormBody.Builder();
-                    FormBody oidFormBody = (FormBody) request.body();
-                    for (int i = 0; i < oidFormBody.size(); i++) {
-                        //根据需求修改参数
-                        if (Constants.COMMON_REQUEST_TOKEN.equals(oidFormBody.encodedName(i))) {
-                            newFormBody.addEncoded(oidFormBody.encodedName(i), tokenBean.content);
-                        } else {
-                            newFormBody.addEncoded(oidFormBody.encodedName(i), oidFormBody.encodedValue(i));
-                        }
-                    }
-                    Request.Builder builder = request.newBuilder();
-                    builder.url(url);
-                    builder.method(request.method(), newFormBody.build());
-                    builder.addHeader("Authorization",tokenBean.content);//todo token
-                    request = builder.build();
-                }
-            }
-
-            originalResponse.body().close();
-            //重新请求
-            return chain.proceed(request);
+//        boolean isTestToken= BuildConfig.DEBUG&&url.contains("checkVersion");//  测试token失效
+        if(isTokenExpired(bodyString)){//根据和服务端的约定判断token过期
+            DataManager.saveToken("");
+            toLoginActivity();
         }
         return originalResponse;
+    }
+
+    private void toLoginActivity() {
+        Activity currentActivity= BaseApplication.getCurrentAcitivity();
+        if(currentActivity!=null){
+            try {
+                Class loginClass=Class.forName("com.jingxi.smartlife.pad.mvp.login.LoginActivity");
+                Intent intent=new Intent(currentActivity,loginClass);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                currentActivity.startActivity(intent);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -114,17 +120,4 @@ public class TokenInterceptor implements Interceptor {
         return false;
     }
 
-    /**
-     * 同步请求方式，获取最新的Token
-     */
-    private TokenBean getNewToken() throws IOException {
-        // 通过一个特定的接口获取新的token，此处要用到同步的retrofit请求
-//        Call<TokenBean> loginCall = RetrofitHelper.getInstance().getRetrofit(Api.class)
-//                .getToken("参数");
-
-        Call<TokenBean> call = new HttpHelper.Builder(NetConfigWrapper.create(Constants.BASE_URL_TOKEN))
-                .build().create(BusAppApiService.class).getAccessTokenCall(Constants.SECRET);
-
-        return call.execute().body();
-    }
 }

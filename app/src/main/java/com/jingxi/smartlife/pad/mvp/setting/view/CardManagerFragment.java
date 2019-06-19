@@ -23,6 +23,7 @@ import com.wujia.lib_common.base.view.VerticallDecoration;
 import com.wujia.lib_common.data.network.exception.ApiException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -79,7 +80,8 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
 
         layoutTitleTv.setText(R.string.manager_home_card);
 
-        mPresenter.getUserQuickCard(DataManager.getOpenid());
+//        mPresenter.getUserQuickCard();
+        mPresenter.getQuickCard();
 
     }
 
@@ -176,13 +178,24 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
         switch (requestCode) {
             case HomePresenter.REQUEST_CDOE_GET_CARD_OTHER:
                 HomeRecBean cards = (HomeRecBean) object;
-                setOtherCard(cards.content);
+                if(cards.data!=null&&cards.data.size()>0){
+                    ArrayList<HomeRecBean.Card>toAddList=new ArrayList<>();
+                    for(HomeRecBean.Card card:cards.data){
+                        if("NO".equals(card.isShow)){
+                            toAddList.add(card);
+                        }
+                    }
+                    cards.data.removeAll(toAddList);
+                    setUserCard(cards.data);
+                    setOtherCard(toAddList);
+                }
+//                setOtherCard(cards.data);
                 break;
 
             case HomePresenter.REQUEST_CDOE_GET_CARD_MY:
-                HomeRecBean userCards = (HomeRecBean) object;
-                setUserCard(userCards.content);
-                mPresenter.getQuickCard(DataManager.getCommunityId());
+//                HomeRecBean userCards = (HomeRecBean) object;
+//                setUserCard(userCards.data);
+//                mPresenter.getQuickCard(DataManager.getCommunityId());
                 break;
         }
     }

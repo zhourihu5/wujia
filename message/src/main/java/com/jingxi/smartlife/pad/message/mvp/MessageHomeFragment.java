@@ -72,13 +72,13 @@ public class MessageHomeFragment extends BaseFragment {
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
-                String type = "";
+                String type = "99";
                 switch (position) {
                     case 1:
-                        type = DBMessage.TYPE_PROPERTY;
+                        type = "1";
                         break;
                     case 2:
-                        type = DBMessage.TYPE_NOTIFY;
+                        type ="2";
                         break;
                 }
                 msgFragment.setType(type);

@@ -5,9 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 
-import com.litesuits.orm.db.assit.QueryBuilder;
-import com.wujia.businesslib.DataBaseUtil;
-import com.wujia.businesslib.data.DBMessage;
+import com.wujia.businesslib.model.MsgModel;
+import com.wujia.businesslib.base.MvpFragment;
+import com.wujia.businesslib.data.ApiResponse;
+import com.wujia.businesslib.data.MsgDto;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventMsg;
 import com.wujia.businesslib.event.IMiessageInvoke;
@@ -15,11 +16,14 @@ import com.jingxi.smartlife.pad.message.R;
 import com.jingxi.smartlife.pad.message.mvp.adapter.MessageAdapter;
 import com.wujia.lib.widget.HorizontalTabBar;
 import com.wujia.lib.widget.HorizontalTabItem;
-import com.wujia.lib_common.base.BaseFragment;
+import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.baseadapter.wrapper.LoadMoreWrapper;
+import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
+import com.wujia.lib_common.data.network.exception.ApiException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,17 +31,17 @@ import java.util.Map;
  * date ：2019-02-17
  * description ：
  */
-public class AllMsgFragment extends BaseFragment implements HorizontalTabBar.OnTabSelectedListener, LoadMoreWrapper.OnLoadMoreListener {
+public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTabSelectedListener, LoadMoreWrapper.OnLoadMoreListener, MessageAdapter.ReadMsgCallback {
 
     HorizontalTabBar tabBar;
     RecyclerView recyclerView;
-    private ArrayList<DBMessage> msgList;
+    private ArrayList<MsgDto.ContentBean> msgList;
     private MessageAdapter mAdapter;
     private int currentState = 0;
     private LoadMoreWrapper mLoadMoreWrapper;
-    private int page = 0, pageSize = 15;
-    private ArrayList<DBMessage> allList;//所有数据
-    private String type = "";//默认所有
+    private int page = 1, pageSize = 15;
+//    private ArrayList<DBMessage> allList;//所有数据
+    private String type = "99";//默认所有
     private boolean isVisible;
 
     public void setType(String type) {
@@ -63,9 +67,9 @@ public class AllMsgFragment extends BaseFragment implements HorizontalTabBar.OnT
     });
 
     private void reset() {
-        page = 0;
+        page = 1;
         msgList.clear();
-        allList.clear();
+//        allList.clear();
     }
 
     public AllMsgFragment() {
@@ -98,7 +102,7 @@ public class AllMsgFragment extends BaseFragment implements HorizontalTabBar.OnT
         tabBar.setOnTabSelectedListener(this);
 
         msgList = new ArrayList<>();
-        mAdapter = new MessageAdapter(mActivity, msgList);
+        mAdapter = new MessageAdapter(mActivity, msgList,this);
         mLoadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(mLoadMoreWrapper);
         mLoadMoreWrapper.setOnLoadMoreListener(this);
@@ -115,42 +119,53 @@ public class AllMsgFragment extends BaseFragment implements HorizontalTabBar.OnT
         getData();
 
     }
-
+    MsgModel msgModel;
     private void getData() {
-        ArrayList<DBMessage> temp = null;
-        QueryBuilder builder = new QueryBuilder<DBMessage>(DBMessage.class);
+        if(msgModel==null){
+            msgModel=new MsgModel();
+        }
+
+        String status="99";//全部
         switch (currentState) {
             case 0://全部
-                allList = DataBaseUtil.queryEquals(getMapAll(), DBMessage.class);
+                status="99";
                 break;
             case 1://已读
-                allList = DataBaseUtil.queryNotEquals(getMap(), DBMessage.class);
-                builder.whereNoEquals("_read_state", 0);
+               status="1";
                 break;
             case 2://未读
-                allList = DataBaseUtil.queryEquals(getMap(), DBMessage.class);
-                builder.whereEquals("_read_state", 0);
+                status="0";
                 break;
         }
-        if (!TextUtils.isEmpty(type)) {
-            builder.whereAppendAnd();
-            builder.whereEquals("_type", type);
-        }
-        builder.limit(page * pageSize, pageSize).appendOrderDescBy("_id");
-        temp = DataBaseUtil.query(builder);
 
-        if (temp.size() > 0) {
-            msgList.addAll(temp);
-        }
-        if (msgList.size() < allList.size()) {
-            mLoadMoreWrapper.setLoadMoreView(R.layout.view_loadmore);
-        } else {
-            mLoadMoreWrapper.setLoadMoreView(0);
-        }
+        addSubscribe(msgModel.getMsg(page+"",type,status).subscribeWith(new SimpleRequestSubscriber<ApiResponse<MsgDto>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+            @Override
+            public void onResponse(ApiResponse<MsgDto> response) {
+                super.onResponse(response);
 
-        mLoadMoreWrapper.notifyDataSetChanged();
+                    List<MsgDto.ContentBean> temp = response.data.getContent();
+
+                    if (temp!=null&&temp.size() > 0) {
+                        msgList.addAll(temp);
+                    }
+                    if(response.data.isLast()){
+                        mLoadMoreWrapper.setLoadMoreView(0);
+                    } else {
+                        mLoadMoreWrapper.setLoadMoreView(R.layout.view_loadmore);
+                    }
+
+                    mLoadMoreWrapper.notifyDataSetChanged();
 //        pageSize = temp.size();
-        page++;
+                    page++;
+                }
+
+            @Override
+            public void onFailed(ApiException apiException) {
+                super.onFailed(apiException);
+            }
+        }));
+
+
     }
 
     private Map<String, Object> getMap() {
@@ -197,12 +212,36 @@ public class AllMsgFragment extends BaseFragment implements HorizontalTabBar.OnT
     @Override
     public void onLoadMoreRequested() {
 //        if (page != 0 && msgList.size() >= 15)
-        if (msgList.size() < allList.size() && msgList.size() > 0)
+//        if (msgList.size() < allList.size() && msgList.size() > 0)
             recyclerView.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     getData();
                 }
             }, 2000);
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
+    @Override
+    public void onMsgReadClick(final MsgDto.ContentBean item) {//todo
+        addSubscribe(msgModel.readMsg(item.getId()+"").subscribeWith(new SimpleRequestSubscriber<ApiResponse<Object>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+            @Override
+            public void onResponse(ApiResponse<Object> response) {
+                super.onResponse(response);
+                item.setStatus(MsgDto.STATUS_READ);
+                EventBusUtil.post(new EventMsg(EventMsg.TYPE_READ));
+            }
+
+            @Override
+            public void onFailed(ApiException apiException) {
+                super.onFailed(apiException);
+            }
+        }));
+
+
     }
 }

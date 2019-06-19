@@ -10,6 +10,7 @@ import com.litesuits.orm.db.enums.AssignType;
  * description ：
  */
 
+@Deprecated
 @Table("table_message")
 public class DBMessage {
 

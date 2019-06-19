@@ -18,6 +18,7 @@ import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpActivity;
+import com.wujia.businesslib.data.LoginDTO;
 import com.wujia.businesslib.data.TokenBean;
 import com.wujia.businesslib.data.UserBean;
 import com.jingxi.smartlife.pad.R;
@@ -89,7 +90,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     @Override
     protected void initEventAndData(Bundle savedInstanceState) {
 
-        HookUtil.hookWebView();
+
 
         FontUtils.changeFontTypeface(loginTimeTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
         FontUtils.changeFontTypeface(loginTemperatureTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
@@ -97,7 +98,12 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         loginTimeDateTv.setText(StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay()));
         mPresenter.doTimeChange();
 
-        mPresenter.doGetAccessToken();
+//        mPresenter.doGetAccessToken();
+        //todo 验证本地是否有token，如果没有，则需要登录。如果有token，则接口验证token是否过期，如果未过期，直接进入主页，如果过期了则需要重新登录。
+//        String token=DataManager.getToken();
+//        if(!TextUtils.isEmpty(token)){
+//
+//        }
     }
 
     @OnClick({R.id.login_btn, R.id.login_btn_confim, R.id.login_password_visibility, R.id.login_verify_code_btn})
@@ -164,10 +170,10 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     }
 
     private void login() {
-        if (TextUtils.isEmpty(DataManager.getToken())) {
-            mPresenter.doGetAccessToken();
-            return;
-        }
+//        if (TextUtils.isEmpty(DataManager.getToken())) {
+//            mPresenter.doGetAccessToken();
+//            return;
+//        }
 
         //TODO 验证手机号
         String phone = loginAccount.getText().toString();
@@ -204,18 +210,19 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
             startTimer();
 
         } else if (requestCode == LoginPresenter.REQUEST_CDOE_LOGIN) {
-            UserBean userBean = (UserBean) object;
-//            if (TextUtils.isEmpty(userBean.content.accid) || TextUtils.isEmpty(userBean.content.familyId) || TextUtils.isEmpty(userBean.content.buttonkey)
-//                    || TextUtils.isEmpty(userBean.content.dockkey) || TextUtils.isEmpty(userBean.content.communityId) || TextUtils.isEmpty(userBean.content.openId)) {
+            LoginDTO userBean = (LoginDTO) object;
+//            if (TextUtils.isEmpty(userBean.data.accid) || TextUtils.isEmpty(userBean.data.familyId) || TextUtils.isEmpty(userBean.data.buttonkey)
+//                    || TextUtils.isEmpty(userBean.data.dockkey) || TextUtils.isEmpty(userBean.data.communityId) || TextUtils.isEmpty(userBean.data.openId)) {
 //                ToastUtil.showShort(LoginActivity.this, "缺少必要参数");
 //                return;
 //            }
 
-            SPHelper.saveObject(LoginActivity.this, Constants.SP_KEY_USER, userBean.content);
-            initSdkData(userBean.content);
+            SPHelper.saveObject(LoginActivity.this, Constants.SP_KEY_USER, userBean.getData());//todo 对象流兼容性不好，修改为json等格式保存。
+//            initSdkData(userBean.data);
+            DataManager.saveToken(userBean.getData().getToken());
 
             loginPhoneError.setVisibility(View.INVISIBLE);
-            loginWelcomName.append(userBean.content.nickName);
+            loginWelcomName.append(userBean.getData().getUserInfo().getNickName());
             loginLayout1.setVisibility(View.GONE);
             loginLayout2.setVisibility(View.VISIBLE);
 
@@ -227,13 +234,13 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         }
     }
 
-    private void initSdkData(UserBean.User user) {
-
-        JXPadSdk.setAccid(user.accid);
-        JXPadSdk.setAppKey(Constants.APPID, DataManager.getToken());
-        JXPadSdk.setCommunityId(user.communityId);
-        JXPadSdk.setFamilyInfoId(user.familyId);
-    }
+//    private void initSdkData(UserBean.User user) {
+//
+////        JXPadSdk.setAccid(user.accid);
+//        JXPadSdk.setAppKey(Constants.APPID, DataManager.getToken());
+////        JXPadSdk.setCommunityId(user.communityId);
+////        JXPadSdk.setFamilyInfoId(user.familyId);
+//    }
 
     @Override
     public void onDataLoadFailed(int requestCode, ApiException apiException) {

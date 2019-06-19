@@ -5,12 +5,15 @@ package com.wujia.businesslib;
  */
 
 public class Constants {
-    public static final String BASE_URL = "https://openapi.house-keeper.cn";
+//    public static final String BASE_URL = "https://openapi.house-keeper.cn";
+    public static final String BASE_URL = "http://39.97.186.122:8081";
+//    public static final String BASE_URL = "http://192.168.1.23:8081";
+
     public static final String BASE_URL_TOKEN = "http://tokenct.house-keeper.cn";
     public static final String BASE_URL_UPDATE = "https://api.house-keeper.cn";
-    public static final String HTTP_SUCESS = "0";
-    public static final String HTTP_TOKEN_FAILD = "40011";
-    public static final String HTTP_TOKEN_NO = "41001";
+    public static final String HTTP_SUCESS = "200";
+    public static final String HTTP_TOKEN_FAILD = "-2";
+    public static final String HTTP_TOKEN_NO = "-1";
 
     public static final int LOGIN_STATUS_ERROR = 900;
     public static final String APPID = "18bf4301ea0f42a08d96fc665a5c8c85";

@@ -7,6 +7,7 @@ import java.io.Serializable;
  * date ：2019-03-20
  * description ：
  */
+@Deprecated
 public class UserBean extends RootResponse {
 
     public User content;

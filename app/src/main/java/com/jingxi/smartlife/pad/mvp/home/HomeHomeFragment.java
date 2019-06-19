@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeContract;
 import com.jingxi.smartlife.pad.mvp.home.data.Advert;
+import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean;
+import com.jingxi.smartlife.pad.mvp.home.data.WeatherInfoBean;
 import com.jingxi.smartlife.pad.mvp.login.AdvertActivity;
-import com.jingxi.smartlife.pad.safe.mvp.view.VideoCallActivity;
-import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.jingxi.smartlife.pad.sdk.push.OnPushedListener;
 import com.jingxi.smartlife.pad.sdk.push.PushManager;
 import com.litesuits.orm.db.assit.QueryBuilder;
@@ -26,8 +26,10 @@ import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpFragment;
 import com.wujia.businesslib.base.WebViewFragment;
+import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.DBMessage;
 import com.wujia.businesslib.data.LinkUrlBean;
+import com.wujia.businesslib.data.MsgDto;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventCardChange;
 import com.wujia.businesslib.event.EventMemberChange;
@@ -47,15 +49,16 @@ import com.jingxi.smartlife.pad.mvp.home.data.HomeMeberBean;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeNotifyBean;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.wujia.businesslib.data.MessageBean;
-import com.jingxi.smartlife.pad.mvp.home.data.WeatherBean;
 import com.jingxi.smartlife.pad.mvp.home.view.AddMemberDialog;
 import com.jingxi.smartlife.pad.mvp.home.view.MessageDialog;
 import com.jingxi.smartlife.pad.mvp.setting.view.CardManagerFragment;
+import com.wujia.businesslib.model.MsgModel;
 import com.wujia.lib.widget.HomeArcView;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.base.view.HomeCardDecoration;
 import com.wujia.lib_common.base.view.HorizontalDecoration;
+import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
 import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.DateUtil;
 import com.wujia.lib_common.utils.FontUtils;
@@ -63,6 +66,7 @@ import com.wujia.lib_common.utils.GsonUtil;
 import com.wujia.lib_common.utils.LogUtil;
 import com.wujia.lib_common.utils.NetworkUtil;
 import com.wujia.lib_common.utils.StringUtil;
+import com.wujia.lib_common.utils.SystemUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,6 +162,8 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
         }
     });
 
+    MsgModel msgModel;
+
     public HomeHomeFragment() {
     }
 
@@ -180,25 +186,27 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
         FontUtils.changeFontTypeface(homeWeatherNumTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
 
-        homeRoomTv.setText(DataManager.getUser().nickName);
+//        homeRoomTv.setText(DataManager.getUser().getUserInfo().getNickName());
         homeDateTv.setText(StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay()));
 
         setCardView();
 
-        setMemberView();
+//        setMemberView();
 
         setNotify();
 
         setState();
 
-        pushManager = JXPadSdk.getPushManager();
-        pushManager.addCallback(this);
-        LogUtil.i("bindTags  accid =" + DataManager.getAccid() + "  prod_homePad_" + DataManager.getCommunityId());
-        pushManager.bindAccount(DataManager.getAccid());
-        pushManager.bindTags(DataManager.getAccid(), "prod_homePad_" + DataManager.getCommunityId());
+//        pushManager = JXPadSdk.getPushManager();//todo push
+//        pushManager.addCallback(this);
+//        LogUtil.i("bindTags  accid =" + DataManager.getAccid() + "  prod_homePad_" + DataManager.getCommunityId());
+//        pushManager.bindAccount(DataManager.getAccid());
+//        pushManager.bindTags(DataManager.getAccid(), "prod_homePad_" + DataManager.getCommunityId());
 
-        mPresenter.getUserQuickCard(DataManager.getOpenid());
-        mPresenter.getWeather(DataManager.getCommunityId());
+        mPresenter.getUserQuickCard();
+        mPresenter.getHomeUserInfo(SystemUtil.getSerialNum());
+        mPresenter.getWeather();//todo
+
 
         EventBusUtil.register(eventSafeState);
         EventBusUtil.register(eventMsg);
@@ -207,16 +215,16 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     }
 
 
-    private void setMemberView() {
-        mems = new ArrayList<>();
-        ArrayList<HomeMeberBean> temp = DataBaseUtil.query(HomeMeberBean.class);
-        mems.clear();
-        mems.addAll(temp);
-        rvHomeMember.addItemDecoration(new HorizontalDecoration(10));
-        memAdapter = new HomeMemberAdapter(mActivity, mems);
-        rvHomeMember.setAdapter(memAdapter);
-
-    }
+//    private void setMemberView() {
+//        mems = new ArrayList<>();
+//        ArrayList<HomeMeberBean> temp = DataBaseUtil.query(HomeMeberBean.class);
+//        mems.clear();
+//        mems.addAll(temp);
+//        rvHomeMember.addItemDecoration(new HorizontalDecoration(10));
+//        memAdapter = new HomeMemberAdapter(mActivity, mems);
+//        rvHomeMember.setAdapter(memAdapter);
+//
+//    }
 
     private void setCardView() {
 
@@ -238,7 +246,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                         }
                         break;
 
-                    case HomeRecBean.TYPE_FUN:
+                    case HomeRecBean.TYPE_APP_PAGE:
                         break;
 
                     case HomeRecBean.TYPE_IMAGE:
@@ -289,32 +297,57 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     }
 
     private void setNotify() {
-//        List<HomeNotifyBean> notifys = new ArrayList<>();
-//        notifys.add(new HomeNotifyBean());
-//        notifys.add(new HomeNotifyBean());
-//        notifys.add(new HomeNotifyBean());
+        if(msgModel==null){
+            msgModel=new MsgModel();
+        }
 
-        QueryBuilder builder = new QueryBuilder<>(DBMessage.class);
-        builder.limit(0, 3).whereEquals("_read_state", 0).appendOrderDescBy("_id");
 
-        final ArrayList<DBMessage> notifys = DataBaseUtil.query(builder);
-
-//        rvHomeMsg.addItemDecoration(new HorizontalDecoration(25));
-        HomeNotifyAdapter notifyAdapter = new HomeNotifyAdapter(mActivity, notifys);
-        rvHomeMsg.setAdapter(notifyAdapter);
-        notifyAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
+        addSubscribe(msgModel.getTop3UnReadMsg().subscribeWith(new SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
-            public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
-                new MessageDialog(mContext, notifys.get(position))
-                        .setListener(new OnDialogListener() {
-                            @Override
-                            public void dialogSureClick() {
-                                setNotify();
-                                EventBusUtil.post(new EventMsg(EventMsg.TYPE_READ));
-                            }
-                        }).show();
+            public void onResponse(ApiResponse<List<MsgDto.ContentBean>> response) {
+                super.onResponse(response);
+                final List<MsgDto.ContentBean> notifys = response.data;
+                //        rvHomeMsg.addItemDecoration(new HorizontalDecoration(25));
+                HomeNotifyAdapter notifyAdapter = new HomeNotifyAdapter(mActivity, notifys);
+                rvHomeMsg.setAdapter(notifyAdapter);
+                notifyAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
+                    @Override
+                    public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
+                        new MessageDialog(mContext, notifys.get(position))
+                                .setListener(new MessageDialog.MsgReadCallBack() {
+                                    @Override
+                                    public void updateMsgReadStatus(final MsgDto.ContentBean item) {
+                                        addSubscribe(msgModel.readMsg(item.getId()+"").subscribeWith(new SimpleRequestSubscriber<ApiResponse<Object>>(HomeHomeFragment.this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                                            @Override
+                                            public void onResponse(ApiResponse<Object> response) {
+                                                super.onResponse(response);
+                                                item.setStatus(MsgDto.STATUS_READ);
+                                                setNotify();
+                                                EventBusUtil.post(new EventMsg(EventMsg.TYPE_READ));
+                                            }
+
+                                            @Override
+                                            public void onFailed(ApiException apiException) {
+                                                super.onFailed(apiException);
+                                            }
+                                        }));
+
+
+                                    }
+                                })
+                                .show();
+                    }
+                });
             }
-        });
+
+            @Override
+            public void onFailed(ApiException apiException) {
+                super.onFailed(apiException);
+            }
+        }));
+
+
+
     }
 
     private void setState() {
@@ -334,7 +367,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
             isRefreshCard = true;
         }
         if (isRefreshCard) {
-            mPresenter.getUserQuickCard(DataManager.getOpenid());
+            mPresenter.getUserQuickCard();//todo
         }
     }
 
@@ -388,20 +421,49 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                 isRefreshCard = false;
                 HomeRecBean homeRecBean = (HomeRecBean) object;
                 cards.clear();
-                cards.addAll(homeRecBean.content);
+                cards.addAll(homeRecBean.data);
                 cards.add(new HomeRecBean.Card(HomeRecBean.TYPE_ADD));
                 homeCardAdapter.notifyDataSetChanged();
 
                 break;
 
+            case HomePresenter.REQUEST_CDOE_HOME_USER:
+                HomeUserInfoBean homeUserInfoBean = (HomeUserInfoBean) object;
+
+                homeRoomTv.setText(homeUserInfoBean.getData().getCommuntity().getName());
+
+                rvHomeMember.addItemDecoration(new HorizontalDecoration(10));
+                memAdapter = new HomeMemberAdapter(mActivity, homeUserInfoBean.getData().getUserInfoList());
+                rvHomeMember.setAdapter(memAdapter);
+
+                break;
             case HomePresenter.REQUEST_CDOE_WEATHER:
-                WeatherBean weatherBean = (WeatherBean) object;
+                WeatherInfoBean weatherInfoBean = (WeatherInfoBean) object;
+                WeatherInfoBean.DataBean dataBean= weatherInfoBean.getData();
+                String token=dataBean.getToken();
+                DataManager.saveToken(token);
+
+                try {
+                    homeCarNumTv.setText(String.format("今日限行：%s",dataBean.getRestrict().getNum()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 String curdate = DateUtil.getCurrentyyyymmddhh() + "00";
 
-                for (WeatherBean.Weather weather : weatherBean.content) {
-                    if (weather.time.equals(curdate)) {
-                        homeWeatherNumTv.setText(weather.temperature + "°");
-                        homeWeatherDescTv.setText(weather.weather);
+                List<WeatherInfoBean.DataBean.WeatherBean.ShowapiResBodyBean.HourListBean>weatherList= null;
+                try {
+                    weatherList = dataBean.getWeather().getShowapi_res_body().getHourList();
+                } catch (Exception e) {
+//                    e.printStackTrace();
+                }
+                if(weatherList!=null){
+                    for (WeatherInfoBean.DataBean.WeatherBean.ShowapiResBodyBean.HourListBean weather : weatherList) {
+                        if (weather.getTime().equals(curdate)) {
+                            homeWeatherNumTv.setText(weather.getTemperature() + "°");
+                            homeWeatherDescTv.setText(weather.getWeather());
+                            //todo 空气质量没有  天气图标没有
+                        }
                     }
                 }
 
@@ -438,10 +500,10 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
 //    private void setWeather() {
 //        String curdate = DateUtil.getCurrentyyyymmddhh();
-////        ArrayList<WeatherBean.Weather> weatherlist = DataBaseUtil.queryEquals("time", curdate, WeatherBean.Weather.class);
+////        ArrayList<WeatherInfoBean.Weather> weatherlist = DataBaseUtil.queryEquals("time", curdate, WeatherInfoBean.Weather.class);
 ////
 ////        if (null != weatherlist && weatherlist.size() > 0) {
-////            WeatherBean.Weather weather = weatherlist.get(0);
+////            WeatherInfoBean.Weather weather = weatherlist.get(0);
 ////            homeWeatherNumTv.setText(weather.temperature + "°");
 ////            homeWeatherDescTv.setText(weather.weather);
 ////        }
@@ -480,7 +542,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
             } else if (TextUtils.equals(notify.type, HomeNotifyBean.TYPE_NOTIFY)) {
                 mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, notify.propertyMessage);
             } else if (TextUtils.equals(notify.type, HomeNotifyBean.TYPE_HOME_CARD)) {
-                mPresenter.getUserQuickCard(DataManager.getOpenid());
+                mPresenter.getUserQuickCard();
             } else if (TextUtils.equals(notify.type, HomeNotifyBean.TYPE_HOME_AD)) {
                 Advert advert = notify.adLeapInfo;
                 Intent intent = new Intent(mActivity, AdvertActivity.class);

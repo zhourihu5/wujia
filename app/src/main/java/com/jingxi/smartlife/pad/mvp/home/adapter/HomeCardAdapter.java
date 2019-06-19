@@ -5,8 +5,6 @@ import android.widget.ImageView;
 
 import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.jingxi.smartlife.pad.R;
-import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
-import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean.Card;
 import com.wujia.lib.imageloader.ImageLoaderManager;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ItemViewDelegate;
@@ -48,7 +46,7 @@ public class HomeCardAdapter extends MultiItemTypeAdapter<HomeRecBean.Card> {
 
             @Override
             public boolean isForViewType(HomeRecBean.Card item, int position) {
-                return item.type.equals(HomeRecBean.TYPE_LINK) || item.type.equals(HomeRecBean.TYPE_FUN);
+                return item.type.equals(HomeRecBean.TYPE_LINK) || item.type.equals(HomeRecBean.TYPE_APP_PAGE);
             }
 
             @Override
@@ -75,7 +73,7 @@ public class HomeCardAdapter extends MultiItemTypeAdapter<HomeRecBean.Card> {
             @Override
             public void convert(ViewHolder holder, HomeRecBean.Card item, int pos) {
                 ImageView img = holder.getView(R.id.scene_in_img);
-                ImageLoaderManager.getInstance().loadImage(item.headImage,R.mipmap.default_loading, img);
+                ImageLoaderManager.getInstance().loadImage(item.image,R.mipmap.default_loading, img);
                 holder.setText(R.id.scene_in_mode_tv, item.title);
             }
         });

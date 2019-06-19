@@ -24,13 +24,23 @@ import com.wujia.lib.widget.WjSwitch;
 import com.wujia.businesslib.dialog.SimpleDialog;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.data.network.exception.ApiException;
+import com.wujia.lib_common.utils.AppContext;
+import com.wujia.lib_common.utils.AppUtil;
 import com.wujia.lib_common.utils.FileUtil;
+import com.wujia.lib_common.utils.LogUtil;
 import com.wujia.lib_common.utils.VersionUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * author ：shenbingkai@163.com
@@ -159,8 +169,44 @@ public class SettingHomeFragment extends MvpFragment<SettingPresenter> implement
                 loadingDialog.show();
 
                 mPresenter.checkVersion();
+//                install();//todo test install
+
                 break;
         }
+    }
+    //测试安装
+    private void install() {
+        int versionId = VersionUtil.getVersionCode();
+        LogUtil.i(String.format("当前版本号：versioncode=%d,versionname=%s",versionId,VersionUtil.getVersionName()));
+        Observable.create(new ObservableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
+
+                File file=new File(FileUtil.getDowndloadApkPath(AppContext.get()), "app_signed.apk");
+                LogUtil.i(String.format("安装文件路径：%s,大小：%d,exist:%s",file.getAbsolutePath(),file.length(),file.exists()));
+
+                boolean install = AppUtil.install(file.getAbsolutePath());
+//                                    boolean install = true;
+                emitter.onNext(install);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean install) throws Exception {
+                        if (install) {
+                            LogUtil.i("install 安装成功");
+
+                            ToastUtil.showShort(mContext, "安装完成");
+                            //安装成功，本地记录
+//                                            ThirdPermissionUtil.requestDefaultPermissions(mVersion.packageName);
+
+                        } else {
+                            ToastUtil.showShort(mContext, "安装失败");//todo 一般是存储空间不足，或者签名不一致，或者版本低于当前版本等
+                            LogUtil.i("install 安装失败");
+                        }
+                    }
+                });
     }
 
     @Override

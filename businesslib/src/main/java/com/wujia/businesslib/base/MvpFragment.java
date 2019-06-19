@@ -10,6 +10,9 @@ import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.BaseView;
 import com.wujia.lib_common.utils.AppContext;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * Created by xmren on 2017/8/1.
@@ -23,6 +26,22 @@ public abstract class MvpFragment<T extends BasePresenter> extends BaseFragment 
 
 
     protected abstract T createPresenter();
+
+    protected CompositeDisposable mCompositeDisposable;
+
+    protected void unSubscribe() {
+        if (mCompositeDisposable != null) {
+            mCompositeDisposable.clear();
+            mCompositeDisposable = null;
+        }
+    }
+
+    protected void addSubscribe(Disposable subscription) {
+        if (mCompositeDisposable == null) {
+            mCompositeDisposable = new CompositeDisposable();
+        }
+        mCompositeDisposable.add(subscription);
+    }
 
     @Override
     protected void interruptInject() {
@@ -39,6 +58,7 @@ public abstract class MvpFragment<T extends BasePresenter> extends BaseFragment 
             mLoadingDialog = null;
         }
         if (mPresenter != null) mPresenter.detachView();
+        unSubscribe();
     }
 
     @Override

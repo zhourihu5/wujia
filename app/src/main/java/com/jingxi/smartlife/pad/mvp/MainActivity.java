@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity implements DoorAccessListener, Do
         }
     });
 
-    private void setMessagePoint() {
+    private void setMessagePoint() {//todo 接口获取是否有未读消息
 
         ArrayList<DBMessage> list = DataBaseUtil.queryEquals("_read_state", 0, DBMessage.class);
         VerticalTabItem tab = (VerticalTabItem) mTabBar.getChildAt(4);

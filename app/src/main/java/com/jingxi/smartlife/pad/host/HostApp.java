@@ -1,5 +1,6 @@
 package com.jingxi.smartlife.pad.host;
 
+import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.base.BaseApplication;
 import com.wujia.lib_common.utils.NetworkUtil;
 
@@ -17,7 +18,7 @@ public class HostApp extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         NetworkUtil.getNetWork(instance);
-
+        HookUtil.hookWebView();
 //        Fragmentation.builder()
 //                // 设置 栈视图 模式为 （默认）悬浮球模式   SHAKE: 摇一摇唤出  NONE：隐藏， 仅在Debug环境生效
 //                .stackViewMode(Fragmentation.BUBBLE)

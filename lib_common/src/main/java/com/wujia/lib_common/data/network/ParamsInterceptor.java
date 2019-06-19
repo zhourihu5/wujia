@@ -93,7 +93,7 @@ public class ParamsInterceptor implements Interceptor {
     private Map<String, String> buildCommonParamsMap() {
         Map<String, String> queryParamsMap = new HashMap<>();
 
-        queryParamsMap.put(Constants.COMMON_REQUEST_APP_ID, Constants.APP_ID);
+//        queryParamsMap.put(Constants.COMMON_REQUEST_APP_ID, Constants.APP_ID);
 //        queryParamsMap.put(Constants.COMMON_REQUEST_CLIENT_VERSION, AppUtil.getVersionCode(AppContext.get()) + "");
 //        queryParamsMap.put(Constants.COMMON_REQUEST_TIMESTAMP, RequestParamsUtils.getSecondTimestamp(new Date()) + "");
 //        queryParamsMap.put(Constants.COMMON_REQUEST_UUID, AppUtil.getDeviceInfo(AppContext.get()));

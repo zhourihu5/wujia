@@ -5,11 +5,10 @@ import android.widget.ImageView;
 
 import com.jingxi.smartlife.pad.R;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeMeberBean;
-import com.jingxi.smartlife.pad.mvp.setting.data.FamilyMeberBean;
+import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean;
 import com.wujia.lib.imageloader.ImageLoaderManager;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
-import com.wujia.lib_common.utils.LogUtil;
 
 import java.util.List;
 
@@ -18,18 +17,18 @@ import java.util.List;
  * Email:  shenbingkai@gamil.com
  * Description:
  */
-public class HomeMemberAdapter extends CommonAdapter<HomeMeberBean> {
-    public HomeMemberAdapter(Context context, List<HomeMeberBean> datas) {
+public class HomeMemberAdapter extends CommonAdapter<HomeUserInfoBean.DataBean.UserInfoListBean> {
+    public HomeMemberAdapter(Context context, List<HomeUserInfoBean.DataBean.UserInfoListBean> datas) {
         super(context, R.layout.item_home_head, datas);
     }
 
     @Override
-    protected void convert(ViewHolder holder, HomeMeberBean item, int pos) {
+    protected void convert(ViewHolder holder, HomeUserInfoBean.DataBean.UserInfoListBean item, int pos) {
 
 //        holder.setText(R.id.scene_in_mode_tv,item.title);
 
         ImageView img = holder.getView(com.jingxi.smartlife.pad.market.R.id.img1);
-        ImageLoaderManager.getInstance().loadImage(item.head_res, img);
+        ImageLoaderManager.getInstance().loadImage(item.getIcon(),R.mipmap.icon_head_default, img);
 
     }
 

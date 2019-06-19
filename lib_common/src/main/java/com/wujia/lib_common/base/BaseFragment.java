@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -24,6 +26,8 @@ public abstract class BaseFragment extends SupportFragment {
     protected Context mContext;
     private Unbinder mUnBinder;
     protected View mView;
+
+    protected CompositeDisposable mCompositeDisposable;
 
 
     @Override
@@ -63,10 +67,16 @@ public abstract class BaseFragment extends SupportFragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         mUnBinder.unbind();
         mView = null;
+
     }
 
     @Override

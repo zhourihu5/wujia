@@ -52,9 +52,8 @@ public class HttpHelper {
         }
         T apiService = null;
         if (mServiceMap != null) {
-            if (mServiceMap.containsKey(service)) {
-                apiService = (T) mServiceMap.get(service.getName());
-            } else {
+            apiService = (T) mServiceMap.get(service.getName());
+            if (apiService==null) {
                 apiService = mRetrofit.create(service);
                 mServiceMap.put(service.getName(), apiService);
             }

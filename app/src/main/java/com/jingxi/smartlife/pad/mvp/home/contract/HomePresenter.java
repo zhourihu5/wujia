@@ -1,11 +1,12 @@
 package com.jingxi.smartlife.pad.mvp.home.contract;
 
+import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean;
 import com.jingxi.smartlife.pad.mvp.home.data.LockADBean;
+import com.jingxi.smartlife.pad.mvp.home.data.WeatherInfoBean;
 import com.wujia.businesslib.base.RxPresenter;
 import com.wujia.businesslib.data.RootResponse;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.wujia.businesslib.data.MessageBean;
-import com.jingxi.smartlife.pad.mvp.home.data.WeatherBean;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
 import com.wujia.lib_common.data.network.exception.ApiException;
 
@@ -30,6 +31,7 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
     public static final int REQUEST_CDOE_WEATHER = 5;
     public static final int REQUEST_CDOE_MESSAGE = 6;
     public static final int REQUEST_CDOE_SCREEN_AD = 7;
+    public static final int REQUEST_CDOE_HOME_USER = 8;
 
 
     private HomeModel mModel;
@@ -39,9 +41,9 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
     }
 
     @Override
-    public void getQuickCard(String communityId) {
+    public void getQuickCard() {
 
-        addSubscribe(mModel.getQuickCard(communityId).subscribeWith(new SimpleRequestSubscriber<HomeRecBean>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(mModel.getQuickCard().subscribeWith(new SimpleRequestSubscriber<HomeRecBean>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(HomeRecBean response) {
                 super.onResponse(response);
@@ -60,16 +62,16 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
     }
 
     @Override
-    public void getWeather(final String communityId) {
+    public void getWeather() {
         addSubscribe(Flowable.interval(10, 60 * 60, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-                        addSubscribe(mModel.getWeather(communityId).subscribeWith(new SimpleRequestSubscriber<WeatherBean>(mView, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                        addSubscribe(mModel.getWeather().subscribeWith(new SimpleRequestSubscriber<WeatherInfoBean>(mView, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
                             @Override
-                            public void onResponse(WeatherBean response) {
+                            public void onResponse(WeatherInfoBean response) {
                                 super.onResponse(response);
                                 if (response.isSuccess()) {
                                     mView.onDataLoadSucc(REQUEST_CDOE_WEATHER, response);
@@ -86,10 +88,29 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
                 }));
 
     }
+    @Override
+    public void getHomeUserInfo(final String key) {
+        addSubscribe(mModel.getHomeUserInfo(key).subscribeWith(new SimpleRequestSubscriber<HomeUserInfoBean>(mView, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+            @Override
+            public void onResponse(HomeUserInfoBean response) {
+                super.onResponse(response);
+                if (response.isSuccess()) {
+                    mView.onDataLoadSucc(REQUEST_CDOE_HOME_USER, response);
+                }
+            }
+
+            @Override
+            public void onFailed(ApiException apiException) {
+                super.onFailed(apiException);
+                mView.onDataLoadFailed(REQUEST_CDOE_HOME_USER, apiException);
+            }
+        }));
+
+    }
 
     @Override
-    public void getUserQuickCard(String openid) {
-        addSubscribe(mModel.getUserQuickCard(openid).subscribeWith(new SimpleRequestSubscriber<HomeRecBean>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+    public void getUserQuickCard() {
+        addSubscribe(mModel.getUserQuickCard().subscribeWith(new SimpleRequestSubscriber<HomeRecBean>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(HomeRecBean response) {
                 super.onResponse(response);
@@ -186,7 +207,7 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
 
     @Override
     public void getScreenSaverByCommunityId(String communityId) {
-        addSubscribe(mModel.getScreenSaverByCommunityId(communityId).subscribeWith(new SimpleRequestSubscriber<LockADBean>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(mModel.getScreenSaverByCommunityId().subscribeWith(new SimpleRequestSubscriber<LockADBean>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(LockADBean response) {
                 super.onResponse(response);
