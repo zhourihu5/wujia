@@ -6,15 +6,23 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
 import com.jingxi.smartlife.pad.market.mvp.adapter.FindServiceChildAdapter;
+import com.jingxi.smartlife.pad.market.mvp.contract.MarketModel;
+import com.jingxi.smartlife.pad.market.mvp.data.ServiceDto;
 import com.wujia.businesslib.base.DataManager;
 import com.jingxi.smartlife.pad.market.R;
 import com.jingxi.smartlife.pad.market.mvp.contract.MarketContract;
 import com.jingxi.smartlife.pad.market.mvp.contract.MarketPresenter;
 import com.jingxi.smartlife.pad.market.mvp.data.ServiceBean;
+import com.wujia.businesslib.data.ApiResponse;
+import com.wujia.businesslib.data.CardDetailBean;
+import com.wujia.businesslib.event.EventBusUtil;
+import com.wujia.businesslib.event.EventSubscription;
+import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.lib.widget.HorizontalTabBar;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.base.baseadapter.wrapper.LoadMoreWrapper;
 import com.wujia.lib_common.base.view.ServiceCardDecoration;
+import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
 import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.ScreenUtil;
 
@@ -25,7 +33,7 @@ import java.util.ArrayList;
  * date ：2019-02-17
  * description ：
  */
-public class AllServiceFragment extends ServiceBaseFragment<MarketPresenter> implements HorizontalTabBar.OnTabSelectedListener, MarketContract.View, LoadMoreWrapper.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, MultiItemTypeAdapter.OnRVItemClickListener {
+public class AllServiceFragment extends ServiceBaseFragment implements HorizontalTabBar.OnTabSelectedListener, LoadMoreWrapper.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, MultiItemTypeAdapter.OnRVItemClickListener {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -33,17 +41,40 @@ public class AllServiceFragment extends ServiceBaseFragment<MarketPresenter> imp
     private int pageSize = 12;
     private int pageNo = 1;
     private int totleSize = 0;
-    private ArrayList<ServiceBean.Service> datas;
+    private ArrayList<CardDetailBean.ServicesBean> datas;
     private LoadMoreWrapper mLoadMoreWrapper;
 
 
+    public static final String TYPE_ALL="4";
+    public static final String TYPE_MY="1";
+    public static final String TYPE_GOV="3";
+
+    private static final String KEY_TYPE="type";
+
+    String type="4";
+
+    MarketModel marketModel;
+
+
+    private EventSubscription event = new EventSubscription(new IMiessageInvoke<EventSubscription>() {
+        @Override
+        public void eventBus(EventSubscription event) {
+            if(isVisible){
+                mLoadMoreWrapper.notifyDataSetChanged();
+            }else {
+                pageNo=1;
+                getList();
+            }
+        }
+    });
     public AllServiceFragment() {
 
     }
 
-    public static AllServiceFragment newInstance() {
+    public static AllServiceFragment newInstance(String type) {
         AllServiceFragment fragment = new AllServiceFragment();
         Bundle args = new Bundle();
+        args.putString(KEY_TYPE,type);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,24 +88,80 @@ public class AllServiceFragment extends ServiceBaseFragment<MarketPresenter> imp
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
 
+        type=getArguments().getString(KEY_TYPE);
+
         mSwipeRefreshLayout = $(R.id.swipe_container);
         recyclerView = $(R.id.rv1);
         recyclerView.addItemDecoration(new ServiceCardDecoration(ScreenUtil.dip2px(84)));
 
         datas = new ArrayList<>();
 
-        FindServiceChildAdapter mAdapter = new FindServiceChildAdapter(mActivity, datas,FindServiceChildAdapter.TYPE_ALL);
+        FindServiceChildAdapter mAdapter = getAdapter(datas);
         mLoadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(mLoadMoreWrapper);
         mLoadMoreWrapper.setOnLoadMoreListener(this);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mAdapter.setOnItemClickListener(this);
+        marketModel=new MarketModel();
         getList();
+//        if(type.equals(TYPE_MY)){
+            EventBusUtil.register(event);
+//        }
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+//        if(type.equals(TYPE_MY)){
+            EventBusUtil.unregister(event);
+//        }
+    }
+
+    boolean isVisible;
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        isVisible=true;
+    }
+
+    @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+        isVisible=false;
     }
 
     private void getList() {
         isLoading = true;
-        mPresenter.getAllService(DataManager.getCommunityId(), pageNo, pageSize);
+        addSubscribe(marketModel.getServiceList(type, pageNo, pageSize).subscribeWith(new SimpleRequestSubscriber<ApiResponse<ServiceDto>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+            @Override
+            public void onResponse(ApiResponse<ServiceDto> response) {
+                super.onResponse(response);
+                if (mSwipeRefreshLayout.isRefreshing())
+                    mSwipeRefreshLayout.setRefreshing(false);
+                isLoading = false;
+
+                if (pageNo == 1)
+                    datas.clear();
+
+                datas.addAll(response.data.getPage().getContent());
+
+                if (response.data.getPage().isLast()) {
+                    mLoadMoreWrapper.setLoadMoreView(0);
+                } else {
+                    mLoadMoreWrapper.setLoadMoreView(R.layout.view_loadmore);
+                }
+
+                mLoadMoreWrapper.notifyDataSetChanged();
+                pageNo++;
+            }
+
+            @Override
+            public void onFailed(ApiException apiException) {
+                super.onFailed(apiException);
+                isLoading = false;
+                if (mSwipeRefreshLayout.isRefreshing())
+                    mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }));
     }
 
     @Override
@@ -84,38 +171,7 @@ public class AllServiceFragment extends ServiceBaseFragment<MarketPresenter> imp
 
     @Override
     protected MarketPresenter createPresenter() {
-        return new MarketPresenter();
-    }
-
-    @Override
-    public void onDataLoadSucc(int requestCode, Object object) {
-        if (mSwipeRefreshLayout.isRefreshing())
-            mSwipeRefreshLayout.setRefreshing(false);
-        isLoading = false;
-        ServiceBean bean = (ServiceBean) object;
-        totleSize = bean.totalSize;
-
-        if (pageNo == 1)
-            datas.clear();
-
-        datas.addAll(bean.content);
-
-        if (datas.size() < totleSize) {
-            mLoadMoreWrapper.setLoadMoreView(R.layout.view_loadmore);
-        } else {
-            mLoadMoreWrapper.setLoadMoreView(0);
-        }
-
-        mLoadMoreWrapper.notifyDataSetChanged();
-        pageNo++;
-    }
-
-    @Override
-    public void onDataLoadFailed(int requestCode, ApiException apiException) {
-        isLoading = false;
-        if (mSwipeRefreshLayout.isRefreshing())
-            mSwipeRefreshLayout.setRefreshing(false);
-
+        return null;
     }
 
     @Override

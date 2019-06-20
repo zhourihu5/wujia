@@ -2,24 +2,15 @@ package com.wujia.businesslib.base;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.text.TextUtils;
 
-import com.jingxi.smartlife.pad.sdk.JXPadSdk;
-import com.wujia.businesslib.BuildConfig;
-import com.wujia.businesslib.BusAppApiService;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.data.RootResponse;
-import com.wujia.businesslib.data.TokenBean;
-import com.wujia.lib_common.data.network.HttpHelper;
-import com.wujia.lib_common.data.network.RxUtil;
 import com.wujia.lib_common.utils.GsonUtil;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import okhttp3.FormBody;
-import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -27,7 +18,6 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okio.Buffer;
 import okio.BufferedSource;
-import retrofit2.Call;
 
 /**
  * Author: created by shenbingkai on 2019/3/28 13 42

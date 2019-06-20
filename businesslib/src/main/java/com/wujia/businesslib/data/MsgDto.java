@@ -4,19 +4,49 @@ import java.util.List;
 
 public class MsgDto {
 
-    public static final String TYPE_PROPERTY="WY";//物业消息
-    public static final String TYPE_NOTIFY="SQ";//社区公告
+    public static final String TYPE_PROPERTY="1";//物业消息
+    public static final String TYPE_NOTIFY="2";//社区公告
+    public static final String TYPE_SYSTEM="0";//系统通知
+
+    public enum MessageType {
+
+        SY("系统通知"),
+        WY("物业通知"),
+        SQ("社区通知");
+
+        public String getName() {
+            return name;
+        }
+
+        private final String name;
+
+        MessageType(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+
+    }
+
+//    SY("系统通知"),
+//    WY("物业通知"),
+//    SQ("社区通知");
 
 
-    public static final String STATUS_READ="YES";
-    public static final String STATUS_UNREAD="NO";
+    public static final String STATUS_READ="1";
+    public static final String STATUS_UNREAD="0";
 
     public static final String getTypeText(MsgDto.ContentBean data){
         switch (data.getType()){
             case TYPE_NOTIFY:
-                return "社区公告";
+                return MessageType.SQ.getName();
             case TYPE_PROPERTY:
-                return "物业消息";
+                return MessageType.WY.getName();
+            case TYPE_SYSTEM:
+                return MessageType.SY.getName();
 
         }
         return "";

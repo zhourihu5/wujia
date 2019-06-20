@@ -8,15 +8,16 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 
-import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
+import com.jingxi.smartlife.pad.mvp.home.contract.HomeModel;
+import com.wujia.businesslib.data.CardDetailBean;
 import com.jingxi.smartlife.pad.R;
 import com.jingxi.smartlife.pad.market.mvp.adapter.FindServiceChildAdapter;
-import com.jingxi.smartlife.pad.market.mvp.adapter.ServiceBaseAdapter;
-import com.jingxi.smartlife.pad.market.mvp.data.ServiceBean;
 import com.jingxi.smartlife.pad.market.mvp.view.ServiceBaseFragment;
-import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
+import com.wujia.businesslib.data.ApiResponse;
+import com.wujia.businesslib.model.BusModel;
 import com.wujia.lib_common.base.BasePresenter;
-import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
+import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
+import com.wujia.lib_common.data.network.exception.ApiException;
 
 import java.util.ArrayList;
 
@@ -29,21 +30,20 @@ import java.util.ArrayList;
 public class ImageTxtFragment extends ServiceBaseFragment {
 
     public static final String KEY_TXT = "txt";
-    public static final String KEY_SUBCRIPTION = "subscriptions";
+//    public static final String KEY_SUBCRIPTION = "subscriptions";
+    private HomeModel mModel;
 
-    private ArrayList<ServiceBean.Service> datas;
+    private ArrayList<CardDetailBean.ServicesBean> datas;
     private WebView webView;
     private FindServiceChildAdapter mAdapter;
-    private ArrayList<HomeRecBean.Subscriptions> subscriptions;
 
     public ImageTxtFragment() {
     }
 
-    public static ImageTxtFragment newInstance(String txt, ArrayList<HomeRecBean.Subscriptions> subscriptions) {
+    public static ImageTxtFragment newInstance(String cardId) {
         ImageTxtFragment fragment = new ImageTxtFragment();
         Bundle args = new Bundle();
-        args.putString(KEY_TXT, txt);
-        args.putSerializable(KEY_SUBCRIPTION, subscriptions);
+        args.putString(KEY_TXT, cardId);
 
         fragment.setArguments(args);
         return fragment;
@@ -54,12 +54,12 @@ public class ImageTxtFragment extends ServiceBaseFragment {
         return R.layout.fragment_img_txt;
     }
 
+    BusModel busModel;
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
 
-        String txt = getArguments().getString(KEY_TXT);
-        subscriptions = (ArrayList<HomeRecBean.Subscriptions>) getArguments().getSerializable(KEY_SUBCRIPTION);
+        final String cardId = getArguments().getString(KEY_TXT);
 
         webView = $(R.id.webview);
         RecyclerView rv = $(R.id.rv1);
@@ -96,60 +96,38 @@ public class ImageTxtFragment extends ServiceBaseFragment {
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient());
 
-        webView.loadData(txt, "text/html; charset=UTF-8", null);
+        datas = new ArrayList<CardDetailBean.ServicesBean>();
 
-        datas = new ArrayList<>();
-
-        getData();
-
-
-        mAdapter = new FindServiceChildAdapter(mContext, datas, FindServiceChildAdapter.TYPE_RECOMMEND);
-        mAdapter.setAdapterCallback(new ServiceBaseAdapter.AdatperCallback() {
-            @Override
-            public void notifydatachange() {
-                getData();
-                mAdapter.notifyDataSetChanged();
-            }
-        });
-        mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {
-            @Override
-            public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
-                toTarget(datas.get(position));
-            }
-        });
+        busModel=new BusModel();
+        mAdapter=getAdapter(datas);
         rv.setAdapter(mAdapter);
+
+        mModel=new HomeModel();
+        getData(cardId);
 
     }
 
-    private void getData() {
-        datas.clear();
-        for (HomeRecBean.Subscriptions sub : subscriptions) {
-            ServiceBean.Service service = new ServiceBean.Service();
-            service.name = sub.serviceTitle;
-            service.image = sub.serviceImage;
-            service.app_url = sub.serviceUrl;
-            service.explain = sub.serviceDesc;
-            service.packageName = sub.servicePackage;
-            service.service_id = sub.serviceId;
 
-            if (sub.type.equals("app")) {
-                service.app_type = ServiceBean.TYPE_NATIVE;
-                //TODO 临时处理，需要后台修改html的type
-                if (sub.serviceUrl.endsWith(".html")) {
-                    service.app_type = ServiceBean.TYPE_WEB;
-                }
+
+    private void getData(String cardId) {
+
+        addSubscribe(mModel.getCardDetail(cardId).subscribeWith(new SimpleRequestSubscriber<ApiResponse<CardDetailBean>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+            @Override
+            public void onResponse(ApiResponse<CardDetailBean> response) {
+                super.onResponse(response);
+                String txt= response.data.getContent();
+                webView.loadData(txt, "text/html; charset=UTF-8", null);
+                datas.clear();
+                datas.addAll(response.data.getServices());
+                mAdapter.notifyDataSetChanged();
             }
 
-            //匹配已订阅数据
-//            for (int i = 0; i < mySub.size(); i++) {
-//                if (service.service_id.equals(mySub.get(i).service_id)) {
-//                    service._installed = true;
-//                    break;
-//                }
-//            }
+            @Override
+            public void onFailed(ApiException apiException) {
+                super.onFailed(apiException);
+            }
+        }));
 
-            datas.add(service);
-        }
     }
 
     @Override

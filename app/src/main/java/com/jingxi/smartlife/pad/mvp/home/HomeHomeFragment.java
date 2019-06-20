@@ -51,7 +51,7 @@ import com.wujia.businesslib.data.MessageBean;
 import com.jingxi.smartlife.pad.mvp.home.view.AddMemberDialog;
 import com.jingxi.smartlife.pad.mvp.home.view.MessageDialog;
 import com.jingxi.smartlife.pad.mvp.setting.view.CardManagerFragment;
-import com.wujia.businesslib.model.MsgModel;
+import com.wujia.businesslib.model.BusModel;
 import com.wujia.lib.widget.HomeArcView;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
@@ -169,7 +169,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
         }
     });
 
-    MsgModel msgModel;
+    BusModel busModel;
 
     public HomeHomeFragment() {
     }
@@ -245,7 +245,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                         break;
 
                     case HomeRecBean.TYPE_IMAGE:
-                        start(ImageTxtFragment.newInstance(card.explain, card.subscriptions));
+                        start(ImageTxtFragment.newInstance(card.id));
                         break;
 
                     case HomeRecBean.TYPE_ADD:
@@ -292,12 +292,12 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     }
 
     private void setNotify() {
-        if(msgModel==null){
-            msgModel=new MsgModel();
+        if(busModel ==null){
+            busModel =new BusModel();
         }
 
 
-        addSubscribe(msgModel.getTop3UnReadMsg().subscribeWith(new SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(busModel.getTop3UnReadMsg().subscribeWith(new SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(ApiResponse<List<MsgDto.ContentBean>> response) {
                 super.onResponse(response);
@@ -312,7 +312,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                                 .setListener(new MessageDialog.MsgReadCallBack() {
                                     @Override
                                     public void updateMsgReadStatus(final MsgDto.ContentBean item) {
-                                        addSubscribe(msgModel.readMsg(item.getId()+"").subscribeWith(new SimpleRequestSubscriber<ApiResponse<Object>>(HomeHomeFragment.this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                                        addSubscribe(busModel.readMsg(item.getId()+"").subscribeWith(new SimpleRequestSubscriber<ApiResponse<Object>>(HomeHomeFragment.this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
                                             @Override
                                             public void onResponse(ApiResponse<Object> response) {
                                                 super.onResponse(response);

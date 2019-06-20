@@ -2,7 +2,9 @@ package com.jingxi.smartlife.pad.market.mvp.contract;
 
 import com.jingxi.smartlife.pad.market.mvp.data.FindBannerBean;
 import com.jingxi.smartlife.pad.market.mvp.data.ServiceBean;
+import com.jingxi.smartlife.pad.market.mvp.data.ServiceDto;
 import com.wujia.businesslib.base.RxPresenter;
+import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
 import com.wujia.lib_common.data.network.exception.ApiException;
 
@@ -44,10 +46,10 @@ public class MarketPresenter extends RxPresenter<MarketContract.View> implements
     }
 
     @Override
-    public void getAllService(String communityId, int pageIndex, int pageSize) {
-        addSubscribe(mModel.getAllService(communityId, pageIndex, pageSize).subscribeWith(new SimpleRequestSubscriber<ServiceBean>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+    public void getServiceList(String type, int pageIndex, int pageSize) {
+        addSubscribe(mModel.getServiceList(type, pageIndex, pageSize).subscribeWith(new SimpleRequestSubscriber<ApiResponse<ServiceDto>>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
-            public void onResponse(ServiceBean response) {
+            public void onResponse(ApiResponse<ServiceDto> response) {
                 super.onResponse(response);
                 if (response.isSuccess()) {
                     mView.onDataLoadSucc(REQUEST_CDOE_GET_SERVICE_ALL, response);

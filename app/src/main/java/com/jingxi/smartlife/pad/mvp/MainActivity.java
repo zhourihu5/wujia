@@ -24,13 +24,10 @@ import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.jingxi.smartlife.pad.sdk.doorAccess.DoorAccessManager;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.DoorSecurityUtil;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListener;
-import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpActivity;
 import com.wujia.businesslib.data.ApiResponse;
-import com.wujia.businesslib.data.DBMessage;
-import com.wujia.businesslib.data.LoginDTO;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventDoorDevice;
 import com.jingxi.smartlife.pad.R;
@@ -38,8 +35,6 @@ import com.jingxi.smartlife.pad.family.FamilyFragment;
 import com.jingxi.smartlife.pad.market.MarketFragment;
 import com.jingxi.smartlife.pad.market.mvp.MarketHomeFragment;
 import com.jingxi.smartlife.pad.message.MessageFragment;
-import com.jingxi.smartlife.pad.mvp.home.HomeFragment;
-import com.jingxi.smartlife.pad.mvp.home.HomeHomeFragment;
 import com.jingxi.smartlife.pad.neighbor.NeighborFragment;
 import com.jingxi.smartlife.pad.property.ProperyFragment;
 import com.jingxi.smartlife.pad.property.mvp.ProperyHomeFragment;
@@ -49,11 +44,10 @@ import com.wujia.businesslib.event.EventMsg;
 import com.wujia.businesslib.event.EventSafeState;
 import com.wujia.businesslib.event.EventWakeup;
 import com.wujia.businesslib.event.IMiessageInvoke;
-import com.wujia.businesslib.model.MsgModel;
+import com.wujia.businesslib.model.BusModel;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib.widget.util.ToastUtil;
-import com.wujia.lib_common.base.BaseActivity;
 import com.wujia.lib_common.base.BaseMainFragment;
 import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.TabFragment;
@@ -64,7 +58,6 @@ import com.wujia.lib_common.utils.ScreenUtil;
 import com.wujia.lib_common.utils.grant.PermissionsManager;
 import com.wujia.lib_common.utils.grant.PermissionsResultAction;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import me.yokeyword.fragmentation.SupportFragment;
@@ -101,12 +94,12 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
         }
     });
 
-    MsgModel msgModel;
-    private void setMessagePoint() {//todo 接口获取是否有未读消息
-        if(msgModel==null){
-            msgModel=new MsgModel();
+    BusModel busModel;
+    private void setMessagePoint() {
+        if(busModel ==null){
+            busModel =new BusModel();
         }
-        addSubscribe(msgModel.isUnReadMessage().subscribeWith(new SimpleRequestSubscriber<ApiResponse<Boolean>>(this, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(busModel.isUnReadMessage().subscribeWith(new SimpleRequestSubscriber<ApiResponse<Boolean>>(this, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(ApiResponse<Boolean> response) {
                 super.onResponse(response);

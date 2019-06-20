@@ -69,6 +69,10 @@ public class DownloadUtil {
                     listener.onTaskComplete(STATE_CANCELED, "");
 
                 } else {
+                    if(realCause!=null){
+                        realCause.printStackTrace();
+                    }
+                    LogUtil.i("cause:"+cause.name());
                     listener.onTaskComplete(STATE_OTHER, "");
 
                 }

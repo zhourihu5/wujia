@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * Email:  shenbingkai@gamil.com
  * Description:
  */
+@Deprecated
 public class ServiceBean extends RootResponse {
 
     public static final int TYPE_NATIVE = 0;

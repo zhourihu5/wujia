@@ -2,6 +2,8 @@ package com.jingxi.smartlife.pad.market.mvp.contract;
 
 import com.jingxi.smartlife.pad.market.mvp.data.FindBannerBean;
 import com.jingxi.smartlife.pad.market.mvp.data.ServiceBean;
+import com.jingxi.smartlife.pad.market.mvp.data.ServiceDto;
+import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.CommonDataLoadView;
 import com.wujia.lib_common.base.IBaseModle;
@@ -18,7 +20,7 @@ public interface MarketContract {
 
         Flowable<ServiceBean> getServiceClassification(String communityId, String category, int pageIndex, int pageSize);
 
-        Flowable<ServiceBean> getAllService(String communityId, int pageIndex, int pageSize);
+        Flowable<ApiResponse<ServiceDto>> getServiceList(String communityId, int pageIndex, int pageSize);
 
         Flowable<FindBannerBean> getBanner(String communityId);
 
@@ -31,7 +33,7 @@ public interface MarketContract {
 
         void getServiceClassification(String communityId, String category, int pageIndex, int pageSize);
 
-        void getAllService(String communityId, int pageIndex, int pageSize);
+        void getServiceList(String communityId, int pageIndex, int pageSize);
 
         void getBanner(String communityId);
 

@@ -33,7 +33,8 @@ public class MessageAdapter extends CommonAdapter<MsgDto.ContentBean> {
     @Override
     protected void convert(final ViewHolder holder, final MsgDto.ContentBean item, final int pos) {
 
-        holder.setText(R.id.tv1, item.getTitle()+ item.getId());
+//        holder.setText(R.id.tv1, item.getTitle()+ item.getId());
+        holder.setText(R.id.tv1, item.getTitle());
 //        holder.setText(R.id.tv2, DateUtil.formatMsgDate(item.createDate));
         holder.setText(R.id.tv2, item.getCreateDate());
         holder.setText(R.id.tv3, item.getTitle());
@@ -41,12 +42,16 @@ public class MessageAdapter extends CommonAdapter<MsgDto.ContentBean> {
         holder.setText(R.id.tv5, item.getContent());
 
         int res = 0;
-        if (item.getType().equals(MsgDto.TYPE_NOTIFY)) {//社区
-            res = R.mipmap.ic_msg_label_neighbour;
-        } else if (item.getType().equals(MsgDto.TYPE_PROPERTY)) {//物业
-            res = R.mipmap.ic_msg_label_serve;
-        }
         holder.setImageResource(R.id.img2, res);
+        if (item.getType().equals(MsgDto.TYPE_NOTIFY)) {//社区
+//            res = R.mipmap.ic_msg_label_neighbour;
+            res = R.mipmap.ic_msg_label_neighbour2;
+        } else if (item.getType().equals(MsgDto.TYPE_PROPERTY)) {//物业
+//            res = R.mipmap.ic_msg_label_serve;
+            res = R.mipmap.ic_msg_label_serve2;
+        } else if (item.getType().equals(MsgDto.TYPE_SYSTEM)) {//
+            res = R.mipmap.icon_msg_label_system;
+        }
 
         holder.setVisible(R.id.img3, item.getStatus().equals(MsgDto.STATUS_UNREAD));
 

@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 
-import com.wujia.businesslib.model.MsgModel;
+import com.wujia.businesslib.model.BusModel;
 import com.wujia.businesslib.base.MvpFragment;
 import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.MsgDto;
@@ -41,7 +41,7 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
     private LoadMoreWrapper mLoadMoreWrapper;
     private int page = 1, pageSize = 15;
 //    private ArrayList<DBMessage> allList;//所有数据
-    private String type = "99";//默认所有
+    private String type = "";//默认所有
     private boolean isVisible;
 
     public void setType(String type) {
@@ -119,16 +119,16 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
         getData();
 
     }
-    MsgModel msgModel;
+    BusModel busModel;
     private void getData() {
-        if(msgModel==null){
-            msgModel=new MsgModel();
+        if(busModel ==null){
+            busModel =new BusModel();
         }
 
-        String status="99";//全部
+        String status="";//全部
         switch (currentState) {
             case 0://全部
-                status="99";
+                status="";
                 break;
             case 1://已读
                status="1";
@@ -138,7 +138,7 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
                 break;
         }
 
-        addSubscribe(msgModel.getMsg(page+"",type,status).subscribeWith(new SimpleRequestSubscriber<ApiResponse<MsgDto>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(busModel.getMsg(type,status,page,pageSize).subscribeWith(new SimpleRequestSubscriber<ApiResponse<MsgDto>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(ApiResponse<MsgDto> response) {
                 super.onResponse(response);
@@ -211,14 +211,7 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
 
     @Override
     public void onLoadMoreRequested() {
-//        if (page != 0 && msgList.size() >= 15)
-//        if (msgList.size() < allList.size() && msgList.size() > 0)
-            recyclerView.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    getData();
-                }
-            }, 2000);
+        getData();
     }
 
     @Override
@@ -228,7 +221,7 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
 
     @Override
     public void onMsgReadClick(final MsgDto.ContentBean item) {//todo
-        addSubscribe(msgModel.readMsg(item.getId()+"").subscribeWith(new SimpleRequestSubscriber<ApiResponse<Object>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(busModel.readMsg(item.getId()+"").subscribeWith(new SimpleRequestSubscriber<ApiResponse<Object>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(ApiResponse<Object> response) {
                 super.onResponse(response);

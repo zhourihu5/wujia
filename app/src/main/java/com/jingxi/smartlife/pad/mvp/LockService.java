@@ -11,25 +11,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jingxi.smartlife.pad.R;
-import com.jingxi.smartlife.pad.mvp.home.HomeHomeFragment;
 import com.jingxi.smartlife.pad.mvp.home.adapter.HomeNotifyAdapter;
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeContract;
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeModel;
 import com.jingxi.smartlife.pad.mvp.home.data.LockADBean;
 import com.jingxi.smartlife.pad.mvp.home.data.WeatherInfoBean;
-import com.jingxi.smartlife.pad.mvp.home.view.MessageDialog;
-import com.litesuits.orm.db.assit.QueryBuilder;
 import com.wujia.businesslib.Constants;
-import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.base.WebViewActivity;
 import com.wujia.businesslib.data.ApiResponse;
-import com.wujia.businesslib.data.DBMessage;
 import com.wujia.businesslib.data.MsgDto;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventMsg;
 import com.wujia.businesslib.event.EventWakeup;
 import com.wujia.businesslib.event.IMiessageInvoke;
-import com.wujia.businesslib.model.MsgModel;
+import com.wujia.businesslib.model.BusModel;
 import com.wujia.lib.imageloader.ImageLoaderManager;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
@@ -38,7 +33,6 @@ import com.wujia.lib_common.utils.DateUtil;
 import com.wujia.lib_common.utils.FontUtils;
 import com.wujia.lib_common.utils.StringUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -242,16 +236,16 @@ public class LockService extends DreamService implements HomeContract.View {
 
     }
 
-    MsgModel msgModel;
+    BusModel busModel;
     //消息
     private void setNotify() {
 
-        if(msgModel==null){
-            msgModel=new MsgModel();
+        if(busModel ==null){
+            busModel =new BusModel();
         }
 
 
-        mCompositeDisposable.add(msgModel.getTop3UnReadMsg().subscribeWith(new SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        mCompositeDisposable.add(busModel.getTop3UnReadMsg().subscribeWith(new SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(ApiResponse<List<MsgDto.ContentBean>> response) {
                 super.onResponse(response);

@@ -1,9 +1,11 @@
 package com.jingxi.smartlife.pad.mvp.home.contract;
 
+import com.wujia.businesslib.data.CardDetailBean;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean;
 import com.jingxi.smartlife.pad.mvp.home.data.LockADBean;
 import com.wujia.businesslib.base.BaseModel;
+import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.RootResponse;
 import com.jingxi.smartlife.pad.mvp.MainAppApiService;
 import com.wujia.businesslib.data.MessageBean;
@@ -23,6 +25,10 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
     @Override
     public Flowable<HomeRecBean> getQuickCard() {
         return mHttpHelper.create(MainAppApiService.class).getQuickCard().compose(RxUtil.<HomeRecBean>rxSchedulerHelper());
+
+    }
+    public Flowable<ApiResponse<CardDetailBean>> getCardDetail(String cardId) {
+        return mHttpHelper.create(MainAppApiService.class).getCardDetail(cardId).compose(RxUtil.<ApiResponse<CardDetailBean>>rxSchedulerHelper());
 
     }
 

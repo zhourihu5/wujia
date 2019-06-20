@@ -10,41 +10,61 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jingxi.smartlife.pad.market.mvp.adapter.FindServiceChildAdapter;
+import com.jingxi.smartlife.pad.market.mvp.contract.MarketModel;
 import com.jingxi.smartlife.pad.market.mvp.data.FindBannerBean;
+import com.jingxi.smartlife.pad.market.mvp.data.ServiceDto;
 import com.wujia.businesslib.base.DataManager;
 import com.jingxi.smartlife.pad.market.R;
 import com.jingxi.smartlife.pad.market.mvp.contract.MarketContract;
 import com.jingxi.smartlife.pad.market.mvp.contract.MarketPresenter;
 import com.jingxi.smartlife.pad.market.mvp.data.ServiceBean;
 import com.wujia.businesslib.base.WebViewFragment;
+import com.wujia.businesslib.data.ApiResponse;
+import com.wujia.businesslib.data.CardDetailBean;
+import com.wujia.businesslib.event.EventBusUtil;
+import com.wujia.businesslib.event.EventSubscription;
+import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.lib.imageloader.ImageLoaderManager;
 import com.wujia.lib.widget.HorizontalTabBar;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.base.baseadapter.wrapper.LoadMoreWrapper;
 import com.wujia.lib_common.base.view.ServiceCardDecoration;
+import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
 import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.ScreenUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * author ：shenbingkai@163.com
  * date ：2019-02-17
  * description ：
  */
-public class FindServiceFragment extends ServiceBaseFragment<MarketPresenter> implements HorizontalTabBar.OnTabSelectedListener, MarketContract.View, LoadMoreWrapper.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, MultiItemTypeAdapter.OnRVItemClickListener {
+public class FindServiceFragment extends ServiceBaseFragment<MarketPresenter> implements HorizontalTabBar.OnTabSelectedListener, LoadMoreWrapper.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, MultiItemTypeAdapter.OnRVItemClickListener {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private boolean isLoading;
     private int pageSize = 12;
     private int pageNo = 1;
-    private int totleSize = 0;
-    private ArrayList<ServiceBean.Service> datas;
+//    private int totleSize = 0;
+    private ArrayList<CardDetailBean.ServicesBean> datas;
     private LoadMoreWrapper mLoadMoreWrapper;
     private ImageView ivBanner;
     private TextView tvBanner;
 
+    private EventSubscription event = new EventSubscription(new IMiessageInvoke<EventSubscription>() {
+        @Override
+        public void eventBus(EventSubscription event) {
+            if(isVisible()){
+                mLoadMoreWrapper.notifyDataSetChanged();
+            }else {
+                pageNo=1;
+                getList();
+            }
+        }
+    });
 
     public FindServiceFragment() {
 
@@ -62,6 +82,7 @@ public class FindServiceFragment extends ServiceBaseFragment<MarketPresenter> im
         return R.layout.fragment_service_find;
     }
 
+    MarketModel marketModel;
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
@@ -74,20 +95,76 @@ public class FindServiceFragment extends ServiceBaseFragment<MarketPresenter> im
 
         datas = new ArrayList<>();
 
-        FindServiceChildAdapter mAdapter = new FindServiceChildAdapter(mActivity, datas, FindServiceChildAdapter.TYPE_FIND);
+        FindServiceChildAdapter mAdapter =getAdapter(datas);
         mLoadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(mLoadMoreWrapper);
         mLoadMoreWrapper.setOnLoadMoreListener(this);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         mAdapter.setOnItemClickListener(this);
+        marketModel=new MarketModel();
         getList();
-        mPresenter.getBanner(DataManager.getCommunityId());
+        EventBusUtil.register(event);
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBusUtil.unregister(event);
     }
 
     private void getList() {
         isLoading = true;
-        mPresenter.getServiceClassification(DataManager.getCommunityId(), "discover", pageNo, pageSize);
+        addSubscribe(marketModel.getServiceList("2", pageNo, pageSize).subscribeWith(new SimpleRequestSubscriber<ApiResponse<ServiceDto>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+            @Override
+            public void onResponse(ApiResponse<ServiceDto> response) {
+                super.onResponse(response);
+                setBanner(response);
+
+                if (mSwipeRefreshLayout.isRefreshing())
+                    mSwipeRefreshLayout.setRefreshing(false);
+                isLoading = false;
+
+                if (pageNo == 1)
+                    datas.clear();
+
+                datas.addAll(response.data.getPage().getContent());
+
+                if (response.data.getPage().isLast()) {
+                    mLoadMoreWrapper.setLoadMoreView(0);
+                } else {
+                    mLoadMoreWrapper.setLoadMoreView(R.layout.view_loadmore);
+                }
+
+                mLoadMoreWrapper.notifyDataSetChanged();
+                pageNo++;
+
+
+            }
+
+            @Override
+            public void onFailed(ApiException apiException) {
+                super.onFailed(apiException);
+                isLoading = false;
+                if (mSwipeRefreshLayout.isRefreshing())
+                    mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }));
+    }
+
+    protected void setBanner(ApiResponse<ServiceDto> response) {
+        List<ServiceDto.BannerListBean> list= response.data.getBannerList();
+        if (null == list || list.isEmpty()) {
+            return;
+        }
+        final ServiceDto.BannerListBean banner = list.get(0);
+        ImageLoaderManager.getInstance().loadImage(banner.getCover(), ivBanner);
+//                tvBanner.setText(TextUtils.isEmpty(banner.title) ? "" : banner.title);
+        ivBanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                parentStart(WebViewFragment.newInstance(banner.getUrl()));
+            }
+        });
     }
 
     @Override
@@ -97,74 +174,14 @@ public class FindServiceFragment extends ServiceBaseFragment<MarketPresenter> im
 
     @Override
     protected MarketPresenter createPresenter() {
-        return new MarketPresenter();
-    }
-
-    @Override
-    public void onDataLoadSucc(int requestCode, Object object) {
-        switch (requestCode) {
-            case MarketPresenter.REQUEST_CDOE_GET_BANNER:
-                FindBannerBean list = (FindBannerBean) object;
-                if (null == list.content || list.content.isEmpty()) {
-                    return;
-                }
-                final FindBannerBean.FindBanner banner = list.content.get(0);
-                ImageLoaderManager.getInstance().loadImage(banner.imgPic, ivBanner);
-                tvBanner.setText(TextUtils.isEmpty(banner.title) ? "" : banner.title);
-                ivBanner.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        parentStart(WebViewFragment.newInstance(banner.links));
-                    }
-                });
-                break;
-
-            case MarketPresenter.REQUEST_CDOE_GET_SERVICE_FIND:
-                if (mSwipeRefreshLayout.isRefreshing())
-                    mSwipeRefreshLayout.setRefreshing(false);
-                isLoading = false;
-                ServiceBean bean = (ServiceBean) object;
-                totleSize = bean.totalSize;
-
-                if (pageNo == 1)
-                    datas.clear();
-
-                datas.addAll(bean.content);
-
-                if (datas.size() < totleSize) {
-                    mLoadMoreWrapper.setLoadMoreView(R.layout.view_loadmore);
-                } else {
-                    mLoadMoreWrapper.setLoadMoreView(0);
-                }
-
-                mLoadMoreWrapper.notifyDataSetChanged();
-                pageNo++;
-                break;
-        }
-
-    }
-
-    @Override
-    public void onDataLoadFailed(int requestCode, ApiException apiException) {
-        switch (requestCode) {
-            case MarketPresenter.REQUEST_CDOE_GET_BANNER:
-                break;
-
-            case MarketPresenter.REQUEST_CDOE_GET_SERVICE_FIND:
-                isLoading = false;
-                if (mSwipeRefreshLayout.isRefreshing())
-                    mSwipeRefreshLayout.setRefreshing(false);
-                break;
-        }
+        return null;
     }
 
     @Override
     public void onLoadMoreRequested() {
         if (mSwipeRefreshLayout.isRefreshing() || isLoading)
             return;
-        if (datas.size() < totleSize) {
-            getList();
-        }
+        getList();
     }
 
     @Override

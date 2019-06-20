@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageInstaller;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.text.TextUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -109,6 +110,9 @@ public class AppUtil {
     }
 
     public static boolean uninstall(String packName) {
+        if(TextUtils.isEmpty(packName)){
+            return false;
+        }
         LogUtil.i("uninstall " + packName);
 //        InputStream sderr = null;
 //        Process proc = null;

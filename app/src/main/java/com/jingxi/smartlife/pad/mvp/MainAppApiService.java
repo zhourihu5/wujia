@@ -1,6 +1,7 @@
 package com.jingxi.smartlife.pad.mvp;
 
 
+import com.wujia.businesslib.data.CardDetailBean;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean;
 import com.jingxi.smartlife.pad.mvp.home.data.LockADBean;
@@ -68,4 +69,7 @@ public interface MainAppApiService {
 
     @GET("/v1/userFamily/findFamilyUserList")
     Flowable<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>> getFamilyMemberList(@Query("familyId")String familyId);
+
+    @GET("/v1/card/detail")
+    Flowable<ApiResponse<CardDetailBean>> getCardDetail(@Query("id")String cardId);
 }

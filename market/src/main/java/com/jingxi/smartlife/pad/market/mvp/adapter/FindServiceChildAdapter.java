@@ -4,74 +4,87 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.wujia.businesslib.data.CardDetailBean;
 import com.wujia.businesslib.dialog.SimpleDialog;
 import com.wujia.businesslib.listener.OnDialogListener;
 import com.jingxi.smartlife.pad.market.R;
 import com.jingxi.smartlife.pad.market.mvp.data.ServiceBean;
 import com.wujia.lib.imageloader.ImageLoaderManager;
+import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: created by shenbingkai on 2018/12/11 11 24
  * Email:  shenbingkai@gamil.com
  * Description:
  */
-public class FindServiceChildAdapter extends ServiceBaseAdapter<ServiceBean.Service> {
+public class FindServiceChildAdapter extends CommonAdapter<CardDetailBean.ServicesBean> {
 
-    private int mType;
+//    private int mType;
 
-    public FindServiceChildAdapter(Context context, ArrayList<ServiceBean.Service> datas, int type) {
+    public interface SubsribeClickCallback{
+        void subscibe(CardDetailBean.ServicesBean item);
+
+        void unsubscibe(CardDetailBean.ServicesBean item, int pos);
+    }
+    SubsribeClickCallback subsribeClickCallback;
+
+    public FindServiceChildAdapter(Context context, List<CardDetailBean.ServicesBean> datas, SubsribeClickCallback subsribeClickCallback) {
         super(context, R.layout.item_service_find_child, datas);
-        this.mType = type;
+//        this.mType = type;
+        this.subsribeClickCallback=subsribeClickCallback;
+    }
+    public FindServiceChildAdapter(Context context, List<CardDetailBean.ServicesBean> datas) {
+        super(context, R.layout.item_service_find_child, datas);
+    }
+
+    public void setSubsribeClickCallback(SubsribeClickCallback subsribeClickCallback) {
+        this.subsribeClickCallback = subsribeClickCallback;
     }
 
     @Override
-    protected void convert(final ViewHolder holder, final ServiceBean.Service item, final int pos) {
+    protected void convert(final ViewHolder holder, final CardDetailBean.ServicesBean item, final int pos) {
 
         ImageView img = holder.getView(R.id.img1);
-        ImageLoaderManager.getInstance().loadImage(item.image, img);
-        holder.setText(R.id.tv1, item.name);
-        holder.setText(R.id.tv2, item.explain);
+        ImageLoaderManager.getInstance().loadImage(item.getCover(), img);
+        holder.setText(R.id.tv1, item.getTitle());
+        holder.setText(R.id.tv2, item.getMemo());
 
-        switch (mType) {
-
-            case TYPE_MY:
-
-                holder.setVisible(R.id.btn1, false);
-                holder.setVisible(R.id.btn2, true);
-                holder.setText(R.id.btn2, "取消订阅");
-
-                holder.setOnClickListener(R.id.btn2, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-//                        mContext,"确定取消该订阅？","确定"
-                        new SimpleDialog.Builder().title("温馨提示").confirm("确定").message("确定取消该订阅？").listener(new OnDialogListener() {
-                            @Override
-                            public void dialogSureClick() {
-                                unsubscibe(item, pos);
+        if(item.getIsSubscribe()==0){
+            holder.setVisible(R.id.btn1, true);
+            holder.setVisible(R.id.btn2, false);
+            holder.setOnClickListener(R.id.btn1, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(subsribeClickCallback!=null){
+                        subsribeClickCallback.subscibe(item);
+                    }
+//                    subscibe(item);
+                }
+            });
+        }else {
+            holder.setText(R.id.btn2, "取消订阅");
+            holder.setVisible(R.id.btn1, false);
+            holder.setVisible(R.id.btn2, true);
+            holder.setOnClickListener(R.id.btn2, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new SimpleDialog.Builder().title("温馨提示").confirm("确定").message("确定取消该订阅？").listener(new OnDialogListener() {
+                        @Override
+                        public void dialogSureClick() {
+//                                    unsubscibe(item, pos);
+                            if(subsribeClickCallback!=null){
+                                subsribeClickCallback.unsubscibe(item, pos);
                             }
-                        }).build(mContext).show();
-                    }
-                });
-                break;
+                        }
+                    }).build(mContext).show();
 
-            case TYPE_GOV:
-                holder.setVisible(R.id.btn1, false);
-                break;
-
-            case TYPE_FIND:
-            case TYPE_ALL:
-            case TYPE_RECOMMEND:
-
-                holder.setOnClickListener(R.id.btn1, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        subscibe(item);
-                    }
-                });
-                break;
+                }
+            });
         }
+
     }
 }

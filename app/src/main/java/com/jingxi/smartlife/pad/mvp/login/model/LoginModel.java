@@ -1,17 +1,10 @@
 package com.jingxi.smartlife.pad.mvp.login.model;
 
 import com.jingxi.smartlife.pad.mvp.login.contract.LoginContract;
-import com.wujia.businesslib.BusAppApiService;
-import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.base.BaseModel;
-import com.wujia.businesslib.base.NetConfigWrapper;
 import com.wujia.businesslib.data.LoginDTO;
 import com.wujia.businesslib.data.RootResponse;
-import com.wujia.businesslib.data.TokenBean;
-import com.wujia.businesslib.data.UserBean;
 import com.jingxi.smartlife.pad.mvp.MainAppApiService;
-import com.jingxi.smartlife.pad.mvp.login.contract.LoginContract;
-import com.wujia.lib_common.data.network.HttpHelper;
 import com.wujia.lib_common.data.network.RxUtil;
 import com.wujia.lib_common.utils.SystemUtil;
 

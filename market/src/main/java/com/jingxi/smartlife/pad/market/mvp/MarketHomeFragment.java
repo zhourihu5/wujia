@@ -5,8 +5,6 @@ import android.support.annotation.Nullable;
 
 import com.jingxi.smartlife.pad.market.mvp.view.AllServiceFragment;
 import com.jingxi.smartlife.pad.market.mvp.view.FindServiceFragment;
-import com.jingxi.smartlife.pad.market.mvp.view.GovServiceFragment;
-import com.jingxi.smartlife.pad.market.mvp.view.MyServiceFragment;
 import com.wujia.businesslib.Constants;
 import com.jingxi.smartlife.pad.market.R;
 import com.wujia.lib.widget.VerticalTabBar;
@@ -61,24 +59,26 @@ public class MarketHomeFragment extends TabFragment {
             currentTab = 0;
         }
 
-        SupportFragment firstFragment = findFragment(MyServiceFragment.class);
+        SupportFragment firstFragment = findFragment(AllServiceFragment.class);
         if (firstFragment == null) {
-            mFragments[0] = MyServiceFragment.newInstance();
+            mFragments[0] = AllServiceFragment.newInstance(AllServiceFragment.TYPE_MY);
             mFragments[1] = FindServiceFragment.newInstance();
-            mFragments[2] = GovServiceFragment.newInstance();
-            mFragments[3] = AllServiceFragment.newInstance();
+//            mFragments[2] = GovServiceFragment.newInstance();
+            mFragments[2] = AllServiceFragment.newInstance(AllServiceFragment.TYPE_GOV);
+            mFragments[3] = AllServiceFragment.newInstance(AllServiceFragment.TYPE_ALL);
 
             loadMultipleRootFragment(R.id.tab_content_container, currentTab, mFragments[0], mFragments[1], mFragments[2], mFragments[3]);
-        } else {
-            // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
-
-            // 这里我们需要拿到mFragments的引用
-            mFragments[0] = firstFragment;
-            mFragments[1] = findChildFragment(FindServiceFragment.class);
-            mFragments[2] = findChildFragment(GovServiceFragment.class);
-            mFragments[3] = findChildFragment(AllServiceFragment.class);
-
         }
+//        else {
+//            // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
+//
+//            // 这里我们需要拿到mFragments的引用
+//            mFragments[0] = firstFragment;
+//            mFragments[1] = findChildFragment(FindServiceFragment.class);
+//            mFragments[2] = findChildFragment(GovServiceFragment.class);
+//            mFragments[3] = findChildFragment(AllServiceFragment.class);
+//
+//        }
 
         mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_my_default, R.mipmap.icon_market_leftnav_my_highlight, R.string.my_service))
                 .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_find_default, R.mipmap.icon_market_leftnav_my_highlight, R.string.find_service))
