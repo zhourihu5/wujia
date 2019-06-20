@@ -8,11 +8,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean;
-import com.wujia.businesslib.DataBaseUtil;
 import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.jingxi.smartlife.pad.R;
 import com.jingxi.smartlife.pad.mvp.home.adapter.HomeInviteAdapter;
-import com.jingxi.smartlife.pad.mvp.home.data.HomeMeberBean;
 import com.wujia.businesslib.dialog.CommDialog;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.view.VerticallDecoration;

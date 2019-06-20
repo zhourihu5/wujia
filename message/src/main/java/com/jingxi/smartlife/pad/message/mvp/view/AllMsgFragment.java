@@ -225,7 +225,7 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
             @Override
             public void onResponse(ApiResponse<Object> response) {
                 super.onResponse(response);
-                item.setStatus(MsgDto.STATUS_READ);
+                item.setIsRead(MsgDto.STATUS_READ);
                 EventBusUtil.post(new EventMsg(EventMsg.TYPE_READ));
             }
 

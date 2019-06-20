@@ -40,18 +40,22 @@ public class MessageDialog extends Dialog {
         ImageView icon = findViewById(R.id.img1);
 
         if (message.getType().equals(MsgDto.TYPE_NOTIFY)) {
-            icon.setImageResource(R.mipmap.ic_msg_label_neighbour);
+//            icon.setImageResource(R.mipmap.ic_msg_label_neighbour);
+            icon.setImageResource(R.mipmap.ic_msg_label_neighbour2);
         } else if (message.getType().equals(MsgDto.TYPE_PROPERTY)) {
-            icon.setImageResource(R.mipmap.ic_msg_label_serve);
+//            icon.setImageResource(R.mipmap.ic_msg_label_serve);
+            icon.setImageResource(R.mipmap.ic_msg_label_serve2);
+        } else if (message.getType().equals(MsgDto.TYPE_SYSTEM)) {
+            icon.setImageResource(R.mipmap.icon_msg_label_system);
         }
 
-        tvType.setText(MsgDto.getTypeText(message));//todo 消息类型，接口返回还是
+        tvType.setText(MsgDto.getTypeText(message));
         tvTitle.setText(message.getTitle());
 //        tvTime.setText(DateUtil.formatMsgDate(message.createDate));
         tvTime.setText(message.getCreateDate());
         tvDesc.setText(message.getContent());
 
-        if (message.getStatus().equals(MsgDto.STATUS_UNREAD)) {//未读
+        if (message.getIsRead()==MsgDto.STATUS_UNREAD) {//未读
             btnKnow.setBackgroundResource(R.drawable.btn_rect_accent_select);
         } else {
             btnKnow.setBackgroundResource(R.drawable.btn_rect_no_can);
@@ -59,7 +63,7 @@ public class MessageDialog extends Dialog {
         btnKnow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (message.getStatus().equals(MsgDto.STATUS_UNREAD)) {//未读
+                if (message.getIsRead()==MsgDto.STATUS_UNREAD) {//未读
                     v.setBackgroundResource(R.drawable.btn_rect_no_can);
 
                     if (null != msgReadCallBack) {

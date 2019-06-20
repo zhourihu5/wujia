@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jingxi.jpushdemo.TagAliasOperatorHelper;
 import com.jingxi.smartlife.pad.mvp.MainActivity;
 import com.jingxi.smartlife.pad.mvp.login.contract.LoginContract;
 import com.jingxi.smartlife.pad.sdk.JXPadSdk;
@@ -37,6 +38,9 @@ import com.wujia.lib_common.utils.VerifyUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.jingxi.jpushdemo.TagAliasOperatorHelper.ACTION_SET;
+import static com.jingxi.jpushdemo.TagAliasOperatorHelper.sequence;
 
 /**
  * author ：shenbingkai@163.com
@@ -170,10 +174,6 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     }
 
     private void login() {
-//        if (TextUtils.isEmpty(DataManager.getToken())) {
-//            mPresenter.doGetAccessToken();
-//            return;
-//        }
 
         //TODO 验证手机号
         String phone = loginAccount.getText().toString();
@@ -220,6 +220,13 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
             SPHelper.saveObject(LoginActivity.this, Constants.SP_KEY_USER, userBean.getData());//todo 对象流兼容性不好，修改为json等格式保存。
 //            initSdkData(userBean.data);
             DataManager.saveToken(userBean.getData().getToken());
+
+            //set push alias
+            TagAliasOperatorHelper.TagAliasBean tagAliasBean = new TagAliasOperatorHelper.TagAliasBean();
+            tagAliasBean.isAliasAction = true;
+            tagAliasBean.alias=userBean.getData().getUserInfo().getUserName();
+            tagAliasBean.action=TagAliasOperatorHelper.ACTION_SET;
+            TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(),TagAliasOperatorHelper.sequence,tagAliasBean);
 
             loginPhoneError.setVisibility(View.INVISIBLE);
             loginWelcomName.append(userBean.getData().getUserInfo().getNickName());

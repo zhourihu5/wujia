@@ -181,7 +181,7 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
                 if(cards.data!=null&&cards.data.size()>0){
                     ArrayList<HomeRecBean.Card>toAddList=new ArrayList<>();
                     for(HomeRecBean.Card card:cards.data){
-                        if("NO".equals(card.isShow)){
+                        if("NO".equals(card.userCards.get(0).isShow)){
                             toAddList.add(card);
                         }
                     }

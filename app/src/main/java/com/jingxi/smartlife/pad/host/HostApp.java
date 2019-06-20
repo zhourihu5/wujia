@@ -1,9 +1,11 @@
 package com.jingxi.smartlife.pad.host;
 
+import com.wujia.businesslib.BuildConfig;
 import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.base.BaseApplication;
 import com.wujia.lib_common.utils.NetworkUtil;
 
+import cn.jpush.android.api.JPushInterface;
 import me.yokeyword.fragmentation.Fragmentation;
 import me.yokeyword.fragmentation.helper.ExceptionHandler;
 
@@ -19,6 +21,8 @@ public class HostApp extends BaseApplication {
         super.onCreate();
         NetworkUtil.getNetWork(instance);
         HookUtil.hookWebView();
+        JPushInterface.setDebugMode(BuildConfig.DEBUG); 	// 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);     		// 初始化 JPush
 //        Fragmentation.builder()
 //                // 设置 栈视图 模式为 （默认）悬浮球模式   SHAKE: 摇一摇唤出  NONE：隐藏， 仅在Debug环境生效
 //                .stackViewMode(Fragmentation.BUBBLE)

@@ -53,9 +53,9 @@ public class MessageAdapter extends CommonAdapter<MsgDto.ContentBean> {
             res = R.mipmap.icon_msg_label_system;
         }
 
-        holder.setVisible(R.id.img3, item.getStatus().equals(MsgDto.STATUS_UNREAD));
+        holder.setVisible(R.id.img3, item.getIsRead()==MsgDto.STATUS_UNREAD);
 
-        if (item.getStatus().equals(MsgDto.STATUS_UNREAD)) {//未读
+        if (item.getIsRead()==MsgDto.STATUS_UNREAD) {//未读
             holder.setAlpha(R.id.l1, 1f);
             holder.setBackgroundRes(R.id.btn2, R.drawable.btn_rect_accent_select);
         } else {
@@ -65,7 +65,7 @@ public class MessageAdapter extends CommonAdapter<MsgDto.ContentBean> {
 
         holder.setBackgroundRes(R.id.l1, R.drawable.bg_white_radius_left_yellow_shape);
         holder.setImageResource(R.id.img1, R.mipmap.btn_more_pressed);
-        holder.setVisible(R.id.l2, false);//todo test
+        holder.setVisible(R.id.l2, false);//todo test,修改为有状态的？？
 
 
         holder.setOnClickListener(R.id.l1, new View.OnClickListener() {
@@ -93,7 +93,7 @@ public class MessageAdapter extends CommonAdapter<MsgDto.ContentBean> {
                 holder.setOnClickListener(R.id.btn2, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (!item.getStatus().equals(MsgDto.STATUS_UNREAD)) {
+                        if (item.getIsRead()!=MsgDto.STATUS_UNREAD) {
                             return;
                         }
                         holder.setAlpha(R.id.l1, 0.5f);
@@ -102,7 +102,6 @@ public class MessageAdapter extends CommonAdapter<MsgDto.ContentBean> {
                         if(readMsgCallback!=null){
                             readMsgCallback.onMsgReadClick(item);
                         }
-//                        item._read_state = 1;
 
                     }
                 });

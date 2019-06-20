@@ -5,6 +5,7 @@ import com.wujia.businesslib.data.RootResponse;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -53,12 +54,13 @@ public class HomeRecBean extends RootResponse {
 
 //        public String headImage;
 
-        public String isShow;
+//        public String isShow;
+        public List<UserCards>userCards;
 
         public String type;
         @SerializedName("memo")
         public String explain;
-        public ArrayList<Subscriptions> subscriptions;//todo 目前接口缺该字段，是否需要？
+//        public ArrayList<Subscriptions> subscriptions;//todo 目前接口缺该字段，是否需要？
 
         @Override
         public int hashCode() {
@@ -72,6 +74,9 @@ public class HomeRecBean extends RootResponse {
                     && this.id.equals(((Card) o).id);
         }
 
+    }
+    public static class UserCards{
+        public String isShow;
     }
 
     public static class Subscriptions implements Serializable {

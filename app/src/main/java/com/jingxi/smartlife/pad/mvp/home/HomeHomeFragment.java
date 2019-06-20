@@ -44,7 +44,6 @@ import com.jingxi.smartlife.pad.mvp.home.adapter.HomeMemberAdapter;
 import com.jingxi.smartlife.pad.mvp.home.adapter.HomeNotifyAdapter;
 import com.jingxi.smartlife.pad.mvp.home.adapter.HomeCardAdapter;
 import com.jingxi.smartlife.pad.mvp.home.contract.HomePresenter;
-import com.jingxi.smartlife.pad.mvp.home.data.HomeMeberBean;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeNotifyBean;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.wujia.businesslib.data.MessageBean;
@@ -120,7 +119,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     private BatteryReceiver batterReceiver;
     private NetworkChangeReceiver networkReceiver;
 
-    private List<HomeMeberBean> mems;
+//    private List<HomeMeberBean> mems;
     private HomeMemberAdapter memAdapter;
     private ArrayList<HomeRecBean.Card> cards;
 
@@ -316,7 +315,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                                             @Override
                                             public void onResponse(ApiResponse<Object> response) {
                                                 super.onResponse(response);
-                                                item.setStatus(MsgDto.STATUS_READ);
+                                                item.setIsRead(MsgDto.STATUS_READ);
 //                                                setNotify();//在消息里处理了
                                                 EventBusUtil.post(new EventMsg(EventMsg.TYPE_READ));
                                             }

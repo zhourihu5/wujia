@@ -32,14 +32,18 @@ public class HomeNotifyAdapter extends CommonAdapter<MsgDto.ContentBean> {
         holder.setText(R.id.home_notify_item_time, item.getCreateDate());
         holder.setText(R.id.home_notify_item_info, item.getContent());
 
-        holder.setVisible(R.id.home_notify_item_point, item.getStatus().equals(MsgDto.STATUS_UNREAD));
+        holder.setVisible(R.id.home_notify_item_point, item.getIsRead()==MsgDto.STATUS_UNREAD);
 
         titleTv.setText(item.getTitle());
         int res = 0;
         if (item.getType().equals(MsgDto.TYPE_NOTIFY)) {
-            res = R.mipmap.ic_msg_label_neighbour;
+//            res = R.mipmap.ic_msg_label_neighbour;
+            res = R.mipmap.ic_msg_label_neighbour2;
         } else if (item.getType().equals(MsgDto.TYPE_PROPERTY)) {
-            res = R.mipmap.ic_msg_label_serve;
+//            res = R.mipmap.ic_msg_label_serve;
+            res = R.mipmap.ic_msg_label_serve2;
+        } else if (item.getType().equals(MsgDto.TYPE_SYSTEM)) {
+            res = R.mipmap.icon_msg_label_system;
         }
         titleTv.setCompoundDrawablesWithIntrinsicBounds(0, 0, res, 0);
     }

@@ -36,8 +36,8 @@ public class MsgDto {
 //    SQ("社区通知");
 
 
-    public static final String STATUS_READ="1";
-    public static final String STATUS_UNREAD="0";
+    public static final int STATUS_READ=1;
+    public static final int STATUS_UNREAD=0;
 
     public static final String getTypeText(MsgDto.ContentBean data){
         switch (data.getType()){
@@ -291,10 +291,19 @@ public class MsgDto {
         private String content;
         private String createDate;
         private int id;
-        private String status;
+//        private String status;
         private String title;
         private String type;
         private int userId;
+        private int isRead;
+
+        public int getIsRead() {
+            return isRead;
+        }
+
+        public void setIsRead(int isRead) {
+            this.isRead = isRead;
+        }
 
         public String getContent() {
             return content;
@@ -320,13 +329,13 @@ public class MsgDto {
             this.id = id;
         }
 
-        public String getStatus() {
-            return status;
-        }
+//        public String getStatus() {
+//            return status;
+//        }
 
-        public void setStatus(String status) {
-            this.status = status;
-        }
+//        public void setStatus(String status) {
+//            this.status = status;
+//        }
 
         public String getTitle() {
             return title;
