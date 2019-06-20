@@ -6,19 +6,16 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
 import com.jingxi.smartlife.pad.market.mvp.adapter.FindServiceChildAdapter;
-import com.jingxi.smartlife.pad.market.mvp.contract.MarketModel;
+import com.jingxi.smartlife.pad.market.mvp.model.MarketModel;
 import com.jingxi.smartlife.pad.market.mvp.data.ServiceDto;
-import com.wujia.businesslib.base.DataManager;
 import com.jingxi.smartlife.pad.market.R;
-import com.jingxi.smartlife.pad.market.mvp.contract.MarketContract;
-import com.jingxi.smartlife.pad.market.mvp.contract.MarketPresenter;
-import com.jingxi.smartlife.pad.market.mvp.data.ServiceBean;
 import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.CardDetailBean;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventSubscription;
 import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.lib.widget.HorizontalTabBar;
+import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.base.baseadapter.wrapper.LoadMoreWrapper;
 import com.wujia.lib_common.base.view.ServiceCardDecoration;
@@ -169,10 +166,7 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
 
     }
 
-    @Override
-    protected MarketPresenter createPresenter() {
-        return null;
-    }
+
 
     @Override
     public void onLoadMoreRequested() {
@@ -195,5 +189,10 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
     @Override
     public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
         toTarget(datas.get(position));
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 }

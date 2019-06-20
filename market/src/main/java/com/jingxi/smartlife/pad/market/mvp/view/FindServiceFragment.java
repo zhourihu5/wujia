@@ -4,20 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jingxi.smartlife.pad.market.mvp.adapter.FindServiceChildAdapter;
-import com.jingxi.smartlife.pad.market.mvp.contract.MarketModel;
-import com.jingxi.smartlife.pad.market.mvp.data.FindBannerBean;
+import com.jingxi.smartlife.pad.market.mvp.model.MarketModel;
 import com.jingxi.smartlife.pad.market.mvp.data.ServiceDto;
-import com.wujia.businesslib.base.DataManager;
 import com.jingxi.smartlife.pad.market.R;
-import com.jingxi.smartlife.pad.market.mvp.contract.MarketContract;
-import com.jingxi.smartlife.pad.market.mvp.contract.MarketPresenter;
-import com.jingxi.smartlife.pad.market.mvp.data.ServiceBean;
 import com.wujia.businesslib.base.WebViewFragment;
 import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.CardDetailBean;
@@ -26,6 +20,7 @@ import com.wujia.businesslib.event.EventSubscription;
 import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.lib.imageloader.ImageLoaderManager;
 import com.wujia.lib.widget.HorizontalTabBar;
+import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.base.baseadapter.wrapper.LoadMoreWrapper;
 import com.wujia.lib_common.base.view.ServiceCardDecoration;
@@ -41,7 +36,7 @@ import java.util.List;
  * date ：2019-02-17
  * description ：
  */
-public class FindServiceFragment extends ServiceBaseFragment<MarketPresenter> implements HorizontalTabBar.OnTabSelectedListener, LoadMoreWrapper.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, MultiItemTypeAdapter.OnRVItemClickListener {
+public class FindServiceFragment extends ServiceBaseFragment implements HorizontalTabBar.OnTabSelectedListener, LoadMoreWrapper.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, MultiItemTypeAdapter.OnRVItemClickListener {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -172,10 +167,7 @@ public class FindServiceFragment extends ServiceBaseFragment<MarketPresenter> im
 
     }
 
-    @Override
-    protected MarketPresenter createPresenter() {
-        return null;
-    }
+
 
     @Override
     public void onLoadMoreRequested() {
@@ -191,11 +183,15 @@ public class FindServiceFragment extends ServiceBaseFragment<MarketPresenter> im
         mLoadMoreWrapper.setLoadMoreView(0);
         pageNo = 1;
         getList();
-        mPresenter.getBanner(DataManager.getCommunityId());
     }
 
     @Override
     public void onItemClick(@Nullable RecyclerView.Adapter adapter, RecyclerView.ViewHolder holder, int position) {
         toTarget(datas.get(position));
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 }

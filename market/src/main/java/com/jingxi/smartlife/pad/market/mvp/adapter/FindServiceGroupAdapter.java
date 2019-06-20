@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.jingxi.smartlife.pad.market.R;
-import com.jingxi.smartlife.pad.market.mvp.data.ServiceBean;
 import com.wujia.businesslib.data.CardDetailBean;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;

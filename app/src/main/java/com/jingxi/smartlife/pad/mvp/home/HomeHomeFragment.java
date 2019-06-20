@@ -119,7 +119,6 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     private BatteryReceiver batterReceiver;
     private NetworkChangeReceiver networkReceiver;
 
-//    private List<HomeMeberBean> mems;
     private HomeMemberAdapter memAdapter;
     private ArrayList<HomeRecBean.Card> cards;
 
