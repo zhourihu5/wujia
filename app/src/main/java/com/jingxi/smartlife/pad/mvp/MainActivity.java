@@ -150,9 +150,9 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
     }
 
     private void initTab() {
-        mTabBar = findViewById(R.id.main_tab_bar);
-        mainCover = findViewById(R.id.main_cover);
-        mArrow = findViewById(R.id.main_tab_arrow);
+        mTabBar = $(R.id.main_tab_bar);
+        mainCover = $(R.id.main_cover);
+        mArrow = $(R.id.main_tab_arrow);
 
 
         FragmentManager fm = getSupportFragmentManager();

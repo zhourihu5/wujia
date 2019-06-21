@@ -106,6 +106,14 @@ public class LoginDTO extends RootResponse {
         }
 
         public static class UserInfoBean implements Serializable{
+            public int getCommuntityId() {
+                return communtityId;
+            }
+
+            public void setCommuntityId(int communtityId) {
+                this.communtityId = communtityId;
+            }
+
             /**
              * createDate : 2019-06-17T10:17:54.371Z
              * flag : 0
@@ -117,6 +125,7 @@ public class LoginDTO extends RootResponse {
              * userName : string
              */
 
+            private int communtityId;
             private String createDate;
             private int flag;
             private String icon;

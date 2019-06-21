@@ -23,7 +23,7 @@ public class VersionBean extends RootResponse {
         public String imageurl;
         @SerializedName("sysVer")
         public String versionCode;
-
+        @SerializedName("versionDesc")
         public String desc;
 
 //        public String packageName;

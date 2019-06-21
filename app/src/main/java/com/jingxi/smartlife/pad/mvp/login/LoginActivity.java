@@ -36,6 +36,9 @@ import com.wujia.lib_common.utils.StringUtil;
 import com.wujia.lib_common.utils.SystemUtil;
 import com.wujia.lib_common.utils.VerifyUtil;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -227,6 +230,17 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
             tagAliasBean.alias=userBean.getData().getUserInfo().getUserName();
             tagAliasBean.action=TagAliasOperatorHelper.ACTION_SET;
             TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(),TagAliasOperatorHelper.sequence,tagAliasBean);
+
+            TagAliasOperatorHelper.TagAliasBean tagAliasBeanTag = new TagAliasOperatorHelper.TagAliasBean();
+            tagAliasBeanTag.isAliasAction = false;
+            Set<String>tags=new HashSet<>();
+            tags.add("community_"+userBean.getData().getUserInfo().getCommuntityId());
+
+            tagAliasBeanTag.tags=tags;
+            tagAliasBeanTag.action=TagAliasOperatorHelper.ACTION_SET;
+            TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(),TagAliasOperatorHelper.sequence,tagAliasBean);
+
+
 
             loginPhoneError.setVisibility(View.INVISIBLE);
             loginWelcomName.append(userBean.getData().getUserInfo().getNickName());
