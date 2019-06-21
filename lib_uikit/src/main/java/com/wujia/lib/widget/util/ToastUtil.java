@@ -1,6 +1,8 @@
 package com.wujia.lib.widget.util;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.DrawableRes;
 import android.view.Gravity;
 import android.view.View;
@@ -10,13 +12,14 @@ import android.widget.Toast;
 
 import com.wujia.lib.uikit.R;
 
+
 /**
  * author ：shenbingkai@163.com
  * date ：2019-01-27 00:21
  * description ： toast 工具
  */
 public class ToastUtil {
-
+//    public static Handler handler=new Handler(Looper.getMainLooper());
     static Toast toast;
     private static void show(Context context, String msg, @DrawableRes int iconId, int duration) {
         TextView title;
