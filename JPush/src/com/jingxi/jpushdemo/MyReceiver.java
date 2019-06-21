@@ -150,7 +150,7 @@ public class MyReceiver extends BroadcastReceiver {
 					Advert advert = GsonUtil.GsonToBean(message, Advert.class);
 					Intent intent = new Intent();
 					intent.setClassName(context, "com.jingxi.smartlife.pad.mvp.login.AdvertActivity");
-					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					intent.putExtra(Constants.INTENT_KEY_1, advert);
 					context.startActivity(intent);
 					EventBusUtil.post(new EventWakeup());

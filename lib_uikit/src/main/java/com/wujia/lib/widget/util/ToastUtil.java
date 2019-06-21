@@ -17,20 +17,32 @@ import com.wujia.lib.uikit.R;
  */
 public class ToastUtil {
 
+    static Toast toast;
     private static void show(Context context, String msg, @DrawableRes int iconId, int duration) {
-        Toast toast = new Toast(context);
-        View contentView = View.inflate(context, R.layout.layout_toast, null);
-        TextView title = contentView.findViewById(R.id.toast_msg);
-        title.setText(msg);
+        TextView title;
+        ImageView icon;
+        if(toast==null){
+            toast = new Toast(context.getApplicationContext());
+            View contentView = View.inflate(context, R.layout.layout_toast, null);
 
+            toast.setView(contentView);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+
+        }else {
+            toast.cancel();
+        }
+        title=toast.getView().findViewById(R.id.toast_msg);
+        title.setText(msg);
+        toast.setDuration(duration);
+        icon= toast.getView().findViewById(R.id.toast_icon);
         if (iconId != 0) {
-            ImageView icon = contentView.findViewById(R.id.toast_icon);
             icon.setImageResource(iconId);
             icon.setVisibility(View.VISIBLE);
+        }else {
+            icon.setImageResource(iconId);
+            icon.setVisibility(View.GONE);
         }
-        toast.setView(contentView);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.setDuration(duration);
+
         toast.show();
     }
 

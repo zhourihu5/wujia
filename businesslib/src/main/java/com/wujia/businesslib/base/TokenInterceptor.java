@@ -60,9 +60,9 @@ public class TokenInterceptor implements Interceptor {
             request=request.newBuilder()
                     .addHeader("Authorization",token)
             .build();
+            originalResponse=chain.proceed(request);
 
         }
-
 
 
         //获取返回的json，response.body().string();只有效一次，对返回数据进行转换
@@ -82,7 +82,7 @@ public class TokenInterceptor implements Interceptor {
             toLoginActivity();
             throw new TokenException("请重新登录");
         }
-        originalResponse=chain.proceed(request);
+
         return originalResponse;
     }
 
