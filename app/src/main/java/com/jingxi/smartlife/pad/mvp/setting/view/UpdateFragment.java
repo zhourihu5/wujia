@@ -7,13 +7,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.jingxi.smartlife.pad.mvp.setting.data.VersionBean;
+import com.wujia.businesslib.data.VersionBean;
 import com.liulishuo.okdownload.DownloadTask;
 import com.wujia.businesslib.DownloadUtil;
 import com.wujia.businesslib.TitleFragment;
 import com.wujia.businesslib.listener.DownloadListener;
 import com.jingxi.smartlife.pad.R;
-import com.jingxi.smartlife.pad.mvp.setting.data.VersionBean;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.utils.AppUtil;
 import com.wujia.lib_common.utils.LogUtil;
@@ -77,7 +76,7 @@ public class UpdateFragment extends TitleFragment {
         mVersion = (VersionBean.Version) getArguments().getSerializable("version");
         String remark = getArguments().getString("remark");
         tvVersionDesc.setText(remark);
-        tvVersion.setText(mVersion.version);
+        tvVersion.setText(mVersion.versionName);
 
     }
 
@@ -130,7 +129,7 @@ public class UpdateFragment extends TitleFragment {
                         Observable.create(new ObservableOnSubscribe<Boolean>() {
                             @Override
                             public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
-                                LogUtil.i("install " + mVersion.packageName);
+                                LogUtil.i("install " + filePath);
                                 boolean install = AppUtil.install(filePath);
 //                                    boolean install = true;
                                 emitter.onNext(install);
@@ -167,7 +166,7 @@ public class UpdateFragment extends TitleFragment {
         Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
-                LogUtil.i("install " + mVersion.packageName);
+//                LogUtil.i("install " + mVersion.packageName);
                 boolean install = AppUtil.install("/storage/emulated/0/Android/data/com.jingxi.smartlife.pad/files/Download/apk/e4283230-33a9-47ce-9131-40b819538515.apk");
 //                                    boolean install = true;
                 emitter.onNext(install);

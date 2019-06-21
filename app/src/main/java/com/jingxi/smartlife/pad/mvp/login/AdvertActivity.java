@@ -7,15 +7,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jingxi.smartlife.pad.R;
-import com.jingxi.smartlife.pad.mvp.MainActivity;
-import com.jingxi.smartlife.pad.mvp.home.data.Advert;
+import com.wujia.businesslib.data.Advert;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.base.WebViewActivity;
 import com.wujia.lib.imageloader.ImageLoaderManager;
 import com.wujia.lib_common.base.BaseActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

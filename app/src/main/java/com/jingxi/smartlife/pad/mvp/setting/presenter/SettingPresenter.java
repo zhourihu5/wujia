@@ -1,12 +1,9 @@
 package com.jingxi.smartlife.pad.mvp.setting.presenter;
 
-import com.jingxi.smartlife.pad.mvp.setting.data.VersionBean;
+import com.wujia.businesslib.data.VersionBean;
 import com.wujia.businesslib.base.RxPresenter;
-import com.jingxi.smartlife.pad.mvp.home.contract.HomeContract;
-import com.jingxi.smartlife.pad.mvp.setting.contract.FamilyMemberContract;
 import com.jingxi.smartlife.pad.mvp.setting.contract.SettingContract;
-import com.jingxi.smartlife.pad.mvp.setting.data.VersionBean;
-import com.jingxi.smartlife.pad.mvp.setting.model.SettingModel;
+import com.wujia.businesslib.model.BusModel;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
 import com.wujia.lib_common.data.network.exception.ApiException;
 
@@ -17,10 +14,10 @@ import com.wujia.lib_common.data.network.exception.ApiException;
  */
 public class SettingPresenter extends RxPresenter<SettingContract.View> implements SettingContract.Presenter {
 
-    private SettingModel mModel;
+    private BusModel mModel;
 
     public SettingPresenter() {
-        this.mModel = new SettingModel();
+        this.mModel = new BusModel();
     }
 
 

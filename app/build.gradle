@@ -57,5 +57,5 @@ dependencies {
     implementation project(':message')
     implementation project(':neighbor')
 
-    implementation project(':JPushExample(1334462)')
+    implementation project(':JPush')
 }

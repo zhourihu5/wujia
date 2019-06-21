@@ -1,7 +1,6 @@
 package com.jingxi.smartlife.pad.mvp.setting.contract;
 
-import com.jingxi.smartlife.pad.mvp.setting.data.VersionBean;
-import com.jingxi.smartlife.pad.mvp.setting.data.VersionBean;
+import com.wujia.businesslib.data.VersionBean;
 import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.CommonDataLoadView;
 import com.wujia.lib_common.base.IBaseModle;

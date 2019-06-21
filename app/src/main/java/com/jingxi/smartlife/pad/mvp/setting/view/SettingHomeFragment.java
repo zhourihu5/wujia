@@ -11,15 +11,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jingxi.smartlife.pad.mvp.setting.contract.SettingContract;
-import com.jingxi.smartlife.pad.mvp.setting.data.VersionBean;
+import com.wujia.businesslib.data.VersionBean;
 import com.jingxi.smartlife.pad.mvp.setting.presenter.SettingPresenter;
 import com.wujia.businesslib.base.MvpFragment;
 import com.wujia.businesslib.listener.OnDialogListener;
 import com.jingxi.smartlife.pad.R;
 import com.wujia.businesslib.dialog.LoadingDialog;
-import com.jingxi.smartlife.pad.mvp.setting.contract.SettingContract;
-import com.jingxi.smartlife.pad.mvp.setting.data.VersionBean;
-import com.jingxi.smartlife.pad.mvp.setting.presenter.SettingPresenter;
 import com.wujia.lib.widget.WjSwitch;
 import com.wujia.businesslib.dialog.SimpleDialog;
 import com.wujia.lib.widget.util.ToastUtil;
@@ -31,7 +28,6 @@ import com.wujia.lib_common.utils.LogUtil;
 import com.wujia.lib_common.utils.VersionUtil;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -218,33 +214,15 @@ public class SettingHomeFragment extends MvpFragment<SettingPresenter> implement
     public void onDataLoadSucc(int requestCode, Object object) {
 
         VersionBean bean = (VersionBean) object;
-        ArrayList<VersionBean.Version> list = bean.infoList;
 
 //        String pname = AppContext.get().getPackageName();
-        String pname = "com.jingxi.smartlife.pad";
+//        String pname = "com.jingxi.smartlife.pad";
         int versionId = VersionUtil.getVersionCode();
 
-        for (VersionBean.Version v : list) {
-            if (pname.equals(v.packageName)) {
-                String vname = v.version;
-                String[] temp = vname.split("\\.");
-                int code = 0;
-                if (temp.length > 0) {
-                    try {
-                        String vcode = temp[temp.length - 1];
-                        code = Integer.parseInt(vcode);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        code = 0;
-                    }
-                }
-                if (code > versionId) {
-                    start(UpdateFragment.newInstance(v, bean.remark));
-                    break;
-                } else {
-                    ToastUtil.showShort(mContext, "已是最新版本");
-                }
-            }
+        if (Integer.valueOf(bean.data.versionCode) > versionId) {
+            start(UpdateFragment.newInstance(bean.data, bean.data.desc));
+        } else {
+            ToastUtil.showShort(mContext, "已是最新版本");
         }
 
         if (null != loadingDialog) {

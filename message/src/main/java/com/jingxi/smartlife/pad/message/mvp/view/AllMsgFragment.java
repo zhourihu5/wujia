@@ -48,7 +48,7 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
         this.type = type;
 //        currentState = 0;
         reset();
-        getData();
+        getData(true);
     }
 
     private EventMsg eventMsg = new EventMsg(new IMiessageInvoke<EventMsg>() {
@@ -56,11 +56,11 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
         public void eventBus(EventMsg event) {
             if (event.type == EventMsg.TYPE_NEW_MSG) {
                 reset();
-                getData();
+                getData(false);
             } else if (event.type == EventMsg.TYPE_READ) {
                 if (!isVisible) {//本页也会发送TYPE_READ,adapter已处理，所以页面显示时不处理
                     reset();
-                    getData();
+                    getData(false);
                 }
             }
         }
@@ -68,8 +68,6 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
 
     private void reset() {
         page = 1;
-        msgList.clear();
-//        allList.clear();
     }
 
     public AllMsgFragment() {
@@ -106,8 +104,10 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
         mLoadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(mLoadMoreWrapper);
         mLoadMoreWrapper.setOnLoadMoreListener(this);
-
-        getData();
+        if(busModel ==null){
+            busModel =new BusModel();
+        }
+        getData(true);
 
         EventBusUtil.register(eventMsg);
     }
@@ -116,14 +116,11 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
     public void onTabSelected(int position, int prePosition) {
         currentState = position;
         reset();
-        getData();
+        getData(true);
 
     }
     BusModel busModel;
-    private void getData() {
-        if(busModel ==null){
-            busModel =new BusModel();
-        }
+    private void getData(boolean isShowLoadingDialog) {
 
         String status="";//全部
         switch (currentState) {
@@ -138,13 +135,15 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
                 break;
         }
 
-        addSubscribe(busModel.getMsg(type,status,page,pageSize).subscribeWith(new SimpleRequestSubscriber<ApiResponse<MsgDto>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(busModel.getMsg(type,status,page,pageSize).subscribeWith(new SimpleRequestSubscriber<ApiResponse<MsgDto>>(this, new SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(ApiResponse<MsgDto> response) {
                 super.onResponse(response);
 
                     List<MsgDto.ContentBean> temp = response.data.getContent();
-
+                    if(page==1){
+                        msgList.clear();
+                    }
                     if (temp!=null&&temp.size() > 0) {
                         msgList.addAll(temp);
                     }
@@ -211,7 +210,7 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
 
     @Override
     public void onLoadMoreRequested() {
-        getData();
+        getData(false);
     }
 
     @Override

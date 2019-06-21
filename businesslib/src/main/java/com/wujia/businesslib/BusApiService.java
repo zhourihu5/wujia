@@ -6,6 +6,7 @@ import com.wujia.businesslib.data.LoginDTO;
 import com.wujia.businesslib.data.MessageBean;
 import com.wujia.businesslib.data.MsgDto;
 import com.wujia.businesslib.data.RootResponse;
+import com.wujia.businesslib.data.VersionBean;
 
 import java.util.List;
 
@@ -38,5 +39,6 @@ public interface BusApiService {
     @POST("/v1/service/subscribe")
     Flowable<ApiResponse<Object>> subscribe(@Field("serviceId")String serviceId, @Field("isSubscribe") String isSubscribe);
 
-
+    @GET("/v1/system/versionName")
+    Flowable<VersionBean> checkVersion();
 }

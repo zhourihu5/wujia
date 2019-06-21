@@ -115,11 +115,12 @@ public class FindServiceFragment extends ServiceBaseFragment implements Horizont
             @Override
             public void onResponse(ApiResponse<ServiceDto> response) {
                 super.onResponse(response);
+                isLoading = false;
                 setBanner(response);
 
-                if (mSwipeRefreshLayout.isRefreshing())
+                if (mSwipeRefreshLayout.isRefreshing()) {
                     mSwipeRefreshLayout.setRefreshing(false);
-                isLoading = false;
+                }
 
                 if (pageNo == 1)
                     datas.clear();

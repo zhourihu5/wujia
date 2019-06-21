@@ -4,6 +4,7 @@ import com.wujia.businesslib.BusApiService;
 import com.wujia.businesslib.base.BaseModel;
 import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.MsgDto;
+import com.wujia.businesslib.data.VersionBean;
 import com.wujia.lib_common.data.network.RxUtil;
 
 import java.util.List;
@@ -40,7 +41,9 @@ public class BusModel extends BaseModel {
 
     }
 
-
+    public Flowable<VersionBean> checkVersion() {
+        return mHttpHelper.create(BusApiService.class).checkVersion().compose(RxUtil.<VersionBean>rxSchedulerHelper());
+    }
 
 
 

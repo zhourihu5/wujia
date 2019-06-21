@@ -19,6 +19,7 @@ import com.jingxi.smartlife.pad.mvp.home.contract.HomeContract;
 import com.jingxi.smartlife.pad.mvp.home.contract.HomePresenter;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.jingxi.smartlife.pad.mvp.setting.adapter.HomeCardManagerAdapter;
+import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.lib_common.base.view.VerticallDecoration;
 import com.wujia.lib_common.data.network.exception.ApiException;
 
@@ -54,6 +55,13 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
     private List<HomeRecBean.Card> addList, unaddList;
     private HomeCardManagerAdapter addedAdapter, unaddAdapter;
 
+    private EventCardChange eventCardChange = new EventCardChange(new IMiessageInvoke<EventCardChange>() {
+        @Override
+        public void eventBus(EventCardChange event) {
+                mPresenter.getUserQuickCard();
+        }
+    });
+
     public CardManagerFragment() {
     }
 
@@ -82,9 +90,10 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
 
 //        mPresenter.getUserQuickCard();
         mPresenter.getQuickCard();
+        EventBusUtil.register(eventCardChange);
 
     }
-
+    boolean isChanged=false;
     private void setUserCard(ArrayList<HomeRecBean.Card> list) {
 
         addList = list;
@@ -103,6 +112,7 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
 
             @Override
             public void removeCard(int pos) {
+                isChanged=true;
                 mPresenter.removeUserQuickCard( addList.get(pos).id);
 
                 unaddList.add(addList.remove(pos));
@@ -130,6 +140,7 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
         unaddAdapter.setManagerCardListener(new HomeCardManagerAdapter.OnManagerCardListener() {
             @Override
             public void addCard(int pos) {
+                isChanged=true;
                 mPresenter.addUserQuickCard( unaddList.get(pos).id);
 
                 addList.add(unaddList.remove(pos));
@@ -164,7 +175,10 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
 
     @Override
     public void pop() {
-        EventBusUtil.post(new EventCardChange());
+        EventBusUtil.unregister(eventCardChange);
+        if(isChanged){
+            EventBusUtil.post(new EventCardChange());
+        }
         super.pop();
     }
 
@@ -191,8 +205,6 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
                 }
                 break;
 
-            case HomePresenter.REQUEST_CDOE_GET_CARD_MY:
-                break;
         }
     }
 

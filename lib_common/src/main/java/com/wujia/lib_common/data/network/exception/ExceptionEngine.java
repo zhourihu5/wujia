@@ -74,6 +74,9 @@ public class ExceptionEngine {
         } else if (e instanceof SocketTimeoutException) {//超时
             ex = new ApiException(e, ERROR.NETWORK_TIMEOUT, "网络连接超时，请检查网络");
             return ex;
+        } else if (e instanceof TokenException) {
+            ex = new ApiException(e, ERROR.HTTP_ERROR, e.getMessage());
+            return ex;
         } else {
             ex = new ApiException(e, ERROR.UNKNOWN, "未知错误");//未知错误
             return ex;

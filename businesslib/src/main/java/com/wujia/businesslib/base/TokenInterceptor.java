@@ -1,11 +1,16 @@
 package com.wujia.businesslib.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.wujia.businesslib.BuildConfig;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.data.RootResponse;
+import com.wujia.lib_common.data.network.exception.ApiException;
+import com.wujia.lib_common.data.network.exception.TokenException;
+import com.wujia.lib_common.utils.AppContext;
 import com.wujia.lib_common.utils.GsonUtil;
 
 import java.io.IOException;
@@ -47,14 +52,15 @@ public class TokenInterceptor implements Interceptor {
         }else {
             String token= DataManager.getToken();
             if(TextUtils.isEmpty(token)){
-                originalResponse= chain.proceed(request);
+//                originalResponse= chain.proceed(request);
                 toLoginActivity();
-                return originalResponse;
+                throw new TokenException("请先登录");
+//                return originalResponse;
             }
             request=request.newBuilder()
                     .addHeader("Authorization",token)
             .build();
-            originalResponse=chain.proceed(request);
+
         }
 
 
@@ -74,21 +80,29 @@ public class TokenInterceptor implements Interceptor {
         if(isTokenExpired(bodyString)){//根据和服务端的约定判断token过期
             DataManager.saveToken("");
             toLoginActivity();
+            throw new TokenException("请重新登录");
         }
+        originalResponse=chain.proceed(request);
         return originalResponse;
     }
 
     private void toLoginActivity() {
-        Activity currentActivity= BaseApplication.getCurrentAcitivity();
-        if(currentActivity!=null){
-            try {
-                Class loginClass=Class.forName("com.jingxi.smartlife.pad.mvp.login.LoginActivity");
-                Intent intent=new Intent(currentActivity,loginClass);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                currentActivity.startActivity(intent);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+        try {
+            Activity currentActivity = BaseApplication.getCurrentAcitivity();
+            Context context = AppContext.get();
+//            if (currentActivity != null) {
+//                context = currentActivity;
+//            }
+
+            Intent intent = new Intent();
+            intent.setClassName(context, "com.jingxi.smartlife.pad.mvp.login.LoginActivity");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);//applicationcontext 启动只能以newtask
+            context.startActivity(intent);
+            if (currentActivity != null) {
+                currentActivity.finish();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

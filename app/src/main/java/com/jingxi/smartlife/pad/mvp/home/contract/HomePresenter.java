@@ -63,7 +63,7 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
 
     @Override
     public void getWeather() {
-        addSubscribe(Flowable.interval(10, 60 * 60, TimeUnit.SECONDS)
+        addSubscribe(Flowable.interval(0, 60 * 60, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Long>() {

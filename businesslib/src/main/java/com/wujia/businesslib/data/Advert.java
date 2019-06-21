@@ -1,4 +1,4 @@
-package com.jingxi.smartlife.pad.mvp.home.data;
+package com.wujia.businesslib.data;
 
 import java.io.Serializable;
 
@@ -9,9 +9,9 @@ import java.io.Serializable;
  */
 public class Advert implements Serializable {
 
-    public String href;
+    public String href;//链接
     public String title;
     public String type;
-    public String url;
+    public String url;//图片
     public int id;
 }
