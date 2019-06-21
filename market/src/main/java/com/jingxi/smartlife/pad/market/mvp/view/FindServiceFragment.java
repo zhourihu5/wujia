@@ -55,8 +55,10 @@ public class FindServiceFragment extends ServiceBaseFragment implements Horizont
             if(isVisible()){
                 mLoadMoreWrapper.notifyDataSetChanged();
             }else {
-                pageNo=1;
-                getList();
+                if(event.getType()==EventSubscription.TYPE_FIND){
+                    pageNo=1;
+                    getList(false);
+                }
             }
         }
     });
@@ -98,7 +100,7 @@ public class FindServiceFragment extends ServiceBaseFragment implements Horizont
 
         mAdapter.setOnItemClickListener(this);
         marketModel=new MarketModel();
-        getList();
+        getList(true);
         EventBusUtil.register(event);
     }
     @Override
@@ -107,9 +109,9 @@ public class FindServiceFragment extends ServiceBaseFragment implements Horizont
         EventBusUtil.unregister(event);
     }
 
-    private void getList() {
+    private void getList(boolean isShowLoadingDialog) {
         isLoading = true;
-        addSubscribe(marketModel.getServiceList("2", pageNo, pageSize).subscribeWith(new SimpleRequestSubscriber<ApiResponse<ServiceDto>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(marketModel.getServiceList("2", pageNo, pageSize).subscribeWith(new SimpleRequestSubscriber<ApiResponse<ServiceDto>>(this, new SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(ApiResponse<ServiceDto> response) {
                 super.onResponse(response);
@@ -173,7 +175,7 @@ public class FindServiceFragment extends ServiceBaseFragment implements Horizont
     public void onLoadMoreRequested() {
         if (mSwipeRefreshLayout.isRefreshing() || isLoading)
             return;
-        getList();
+        getList(false);
     }
 
     @Override
@@ -182,7 +184,7 @@ public class FindServiceFragment extends ServiceBaseFragment implements Horizont
             return;
         mLoadMoreWrapper.setLoadMoreView(0);
         pageNo = 1;
-        getList();
+        getList(false);
     }
 
     @Override

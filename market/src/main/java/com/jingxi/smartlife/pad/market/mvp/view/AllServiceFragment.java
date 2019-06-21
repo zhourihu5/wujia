@@ -59,8 +59,18 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
             if(isVisible){
                 mLoadMoreWrapper.notifyDataSetChanged();
             }else {
+                switch (event.getType()){
+                    case EventSubscription.TYPE_GOV:
+                        break;
+                    case EventSubscription.TYPE_FIND:
+                        if(type.equals(TYPE_GOV)){
+                            return;
+                        }
+                        break;
+
+                }
                 pageNo=1;
-                getList();
+                getList(false);
             }
         }
     });
@@ -100,7 +110,7 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mAdapter.setOnItemClickListener(this);
         marketModel=new MarketModel();
-        getList();
+        getList(true);
 //        if(type.equals(TYPE_MY)){
             EventBusUtil.register(event);
 //        }
@@ -126,9 +136,9 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
         isVisible=false;
     }
 
-    private void getList() {
+    private void getList(boolean isShowLoadingDialog) {
         isLoading = true;
-        addSubscribe(marketModel.getServiceList(type, pageNo, pageSize).subscribeWith(new SimpleRequestSubscriber<ApiResponse<ServiceDto>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(marketModel.getServiceList(type, pageNo, pageSize).subscribeWith(new SimpleRequestSubscriber<ApiResponse<ServiceDto>>(this, new SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(ApiResponse<ServiceDto> response) {
                 super.onResponse(response);
@@ -173,7 +183,7 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
         if (mSwipeRefreshLayout.isRefreshing() || isLoading)
             return;
         if (datas.size() < totleSize) {
-            getList();
+            getList(false);
         }
     }
 
@@ -183,7 +193,7 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
             return;
         mLoadMoreWrapper.setLoadMoreView(0);
         pageNo = 1;
-        getList();
+        getList(false);
     }
 
     @Override

@@ -56,7 +56,7 @@ public abstract class ServiceBaseFragment<T extends BasePresenter> extends MvpFr
                         super.onResponse(response);
                         item.setIsSubscribe(1);
                         mAdapter.notifyDataSetChanged();
-                        EventBusUtil.post(new EventSubscription());
+                        EventBusUtil.post(new EventSubscription(item.getType()));
                     }
 
                     @Override
@@ -74,7 +74,7 @@ public abstract class ServiceBaseFragment<T extends BasePresenter> extends MvpFr
                         super.onResponse(response);
                         item.setIsSubscribe(0);
                         mAdapter.notifyDataSetChanged();
-                        EventBusUtil.post(new EventSubscription());
+                        EventBusUtil.post(new EventSubscription(item.getType()));
                         if(item.getFlag()==CardDetailBean.TYPE_NATIVE){
                             uninstall(item);
                         }
