@@ -19,7 +19,7 @@ public class VersionBean extends RootResponse {
 
         @SerializedName("showVer")
         public String versionName;
-        @SerializedName("pName")
+        @SerializedName("url")
         public String imageurl;
         @SerializedName("sysVer")
         public String versionCode;
