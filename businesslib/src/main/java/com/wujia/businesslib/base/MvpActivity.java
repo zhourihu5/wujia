@@ -2,8 +2,10 @@ package com.wujia.businesslib.base;
 
 import android.content.Context;
 import android.os.Build;
+import android.widget.Toast;
 
 import com.wujia.businesslib.dialog.LoadingDialog;
+import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.BaseActivity;
 import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.BaseView;
@@ -62,7 +64,7 @@ public abstract class MvpActivity<T extends BasePresenter> extends BaseActivity 
 
     @Override
     public void showErrorMsg(String msg) {
-        showToast(msg);
+        ToastUtil.showShort(this,msg);
     }
 
     @Override

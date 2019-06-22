@@ -18,7 +18,7 @@ public class NetConfigWrapper {
 //        NetConfig.debug = BuildConfig.DEBUG;
         NetConfig.debug = true;
         NetConfig config = new NetConfig();
-        config.configInterceptors(new Interceptor[]{new BusinessInterceptor(), new TokenInterceptor()});
+        config.configInterceptors(new Interceptor[]{ new TokenInterceptor()});
         config.baseURL = baseUrl;
         return config;
     }

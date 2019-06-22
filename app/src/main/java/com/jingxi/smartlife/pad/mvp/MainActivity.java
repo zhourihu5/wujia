@@ -35,7 +35,6 @@ import com.jingxi.smartlife.pad.family.FamilyFragment;
 import com.jingxi.smartlife.pad.market.MarketFragment;
 import com.jingxi.smartlife.pad.market.mvp.MarketHomeFragment;
 import com.jingxi.smartlife.pad.message.MessageFragment;
-import com.jingxi.smartlife.pad.neighbor.NeighborFragment;
 import com.jingxi.smartlife.pad.property.ProperyFragment;
 import com.jingxi.smartlife.pad.property.mvp.ProperyHomeFragment;
 import com.jingxi.smartlife.pad.safe.SafeFragment;
@@ -131,6 +130,7 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
         LogUtil.i("ScreenUtil.densityDpi()  " + ScreenUtil.densityDpi);
         LogUtil.i("ScreenUtil.scaleDensity()  " + ScreenUtil.scaleDensity);
 
+
 //        for (int i = 400; i <= 500; i++) {
 //            LogUtil.i("<dimen name=\"px"+i+"\">"+Math.round(i/1.5)+"dp</dimen>");
 //           LogUtil.i("<dimen name=\"text"+i+"\">"+Math.round(i/1.5)+"sp</dimen>");
@@ -164,8 +164,8 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
             mFragments[3] = ProperyFragment.newInstance();
             mFragments[4] = MessageFragment.newInstance();
             mFragments[5] = MarketFragment.newInstance();
-            mFragments[6] = NeighborFragment.newInstance();
-            mFragments[7] = SettingFragment.newInstance();
+//            mFragments[6] = NeighborFragment.newInstance();
+            mFragments[6] = SettingFragment.newInstance();
 
             loadMultipleRootFragment(R.id.container, 0,
                     mFragments[0],
@@ -174,8 +174,8 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
                     mFragments[3],
                     mFragments[4],
                     mFragments[5],
-                    mFragments[6],
-                    mFragments[7]);
+//                    mFragments[6],
+                    mFragments[6]);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
@@ -186,8 +186,8 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
             mFragments[3] = findFragment(ProperyFragment.class);
             mFragments[4] = findFragment(MessageFragment.class);
             mFragments[5] = findFragment(MarketFragment.class);
-            mFragments[6] = findFragment(NeighborFragment.class);
-            mFragments[7] = findFragment(SettingFragment.class);
+//            mFragments[6] = findFragment(NeighborFragment.class);
+            mFragments[6] = findFragment(SettingFragment.class);
         }
 
         mTabBar.addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_home_default, R.mipmap.icon_leftnav_home_selected, R.string.home))
@@ -196,7 +196,7 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
                 .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_serve_default, R.mipmap.icon_leftnav_serve_selected, R.string.property_service))
                 .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_news_deafult, R.mipmap.icon_leftnav_news_selected, R.string.message_notify))
                 .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_market_default, R.mipmap.icon_leftnav_market_selected, R.string.market_service))
-                .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_neighbor_default, R.mipmap.icon_leftnav_neighbor_selected, R.string.neighbor))
+//                .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_neighbor_default, R.mipmap.icon_leftnav_neighbor_selected, R.string.neighbor))
                 .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_set_default, R.mipmap.icon_leftnav_set_selected, R.string.setting));
 
 

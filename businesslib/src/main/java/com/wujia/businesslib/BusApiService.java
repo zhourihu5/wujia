@@ -39,6 +39,6 @@ public interface BusApiService {
     @POST("/v1/service/subscribe")
     Flowable<ApiResponse<Object>> subscribe(@Field("serviceId")String serviceId, @Field("isSubscribe") String isSubscribe);
 
-    @GET("/v1/system/versionName")
+    @GET("/v1/system/version")
     Flowable<VersionBean> checkVersion();
 }

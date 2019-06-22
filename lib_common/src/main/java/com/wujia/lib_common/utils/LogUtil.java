@@ -46,6 +46,11 @@ public class LogUtil {
             Log.e(tag, message.toString());
         }
     }
+    public static void t(Object message,Throwable t) {
+        if (logSwitch) {
+            Log.e(TAG, message.toString(),t);
+        }
+    }
 
     public static void d(Object message) {
         if (logSwitch) {

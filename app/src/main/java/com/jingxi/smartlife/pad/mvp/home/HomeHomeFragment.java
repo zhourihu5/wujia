@@ -74,7 +74,7 @@ import butterknife.OnClick;
  * date ：2019-01-12 20:06
  * description ： home
  */
-public class HomeHomeFragment extends MvpFragment<HomePresenter> implements HomeContract.View, OnPushedListener {
+public class HomeHomeFragment extends MvpFragment<HomePresenter> implements HomeContract.View {
 
     @BindView(R.id.home_room_tv)
     TextView homeRoomTv;
@@ -202,15 +202,10 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
         setState();
 
-//        pushManager = JXPadSdk.getPushManager();//todo push
-//        pushManager.addCallback(this);
-//        LogUtil.i("bindTags  accid =" + DataManager.getAccid() + "  prod_homePad_" + DataManager.getCommunityId());
-//        pushManager.bindAccount(DataManager.getAccid());
-//        pushManager.bindTags(DataManager.getAccid(), "prod_homePad_" + DataManager.getCommunityId());
 
         mPresenter.getUserQuickCard();
         mPresenter.getHomeUserInfo(SystemUtil.getSerialNum());
-        mPresenter.getWeather();//todo
+        mPresenter.getWeather();
 
 
         EventBusUtil.register(eventSafeState);
@@ -504,33 +499,6 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
         super.onDestroyView();
     }
 
-    @Override
-    public void onReceiverMessage(String content) {
-
-        if (TextUtils.isEmpty(content))
-            return;
-        try {
-            LogUtil.i("收到新消息 " + content);
-            HomeNotifyBean notify = GsonUtil.GsonToBean(content, HomeNotifyBean.class);
-            if (TextUtils.equals(notify.type, HomeNotifyBean.TYPE_PROPERTY)) {
-                mPresenter.getPropertyMessageById(HomeNotifyBean.TYPE_PROPERTY, notify.propertyMessage);
-            } else if (TextUtils.equals(notify.type, HomeNotifyBean.TYPE_NOTIFY)) {
-                mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, notify.propertyMessage);
-            } else if (TextUtils.equals(notify.type, HomeNotifyBean.TYPE_HOME_CARD)) {
-                mPresenter.getUserQuickCard();
-            } else if (TextUtils.equals(notify.type, HomeNotifyBean.TYPE_HOME_AD)) {
-                Advert advert = notify.adLeapInfo;
-                Intent intent = new Intent(mActivity, AdvertActivity.class);
-                intent.putExtra(Constants.INTENT_KEY_1, advert);
-                startActivity(intent);
-                EventBusUtil.post(new EventWakeup());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            LogUtil.i("消息数据 json解析异常" + content);
-        }
-
-    }
 
     /**
      * 监听获取手机系统剩余电量

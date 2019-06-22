@@ -55,7 +55,9 @@ dependencies {
     implementation project(':safe')
     implementation project(':market')
     implementation project(':message')
-    implementation project(':neighbor')
+//    implementation project(':neighbor')
 
     implementation project(':JPush')
+
+    debugImplementation 'com.iqiyi.xcrash:xcrash-android-lib:2.1.7'//todo just for debug
 }

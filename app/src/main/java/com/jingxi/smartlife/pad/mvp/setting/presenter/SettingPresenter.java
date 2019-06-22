@@ -28,15 +28,13 @@ public class SettingPresenter extends RxPresenter<SettingContract.View> implemen
             @Override
             public void onResponse(VersionBean response) {
                 super.onResponse(response);
-                if (response.isSuccess()) {
-                    mView.onDataLoadSucc(0, response);
-                }
+                mView.onDataLoadSucc(0, response);
             }
 
             @Override
             public void onFailed(ApiException apiException) {
-                super.onFailed(apiException);
                 mView.onDataLoadFailed(0, apiException);
+                super.onFailed(apiException);
             }
         }));
     }

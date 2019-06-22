@@ -22,17 +22,17 @@ public class ToastUtil {
 //    public static Handler handler=new Handler(Looper.getMainLooper());
     static Toast toast;
     private static void show(Context context, String msg, @DrawableRes int iconId, int duration) {
+//        Toast toast=null;
         TextView title;
         ImageView icon;
+        Context appContext=context.getApplicationContext();
         if(toast==null){
-            toast = new Toast(context.getApplicationContext());
-            View contentView = View.inflate(context, R.layout.layout_toast, null);
+            toast = new Toast(appContext);
+            View contentView = View.inflate(appContext, R.layout.layout_toast, null);
 
             toast.setView(contentView);
             toast.setGravity(Gravity.CENTER, 0, 0);
 
-        }else {
-            toast.cancel();
         }
         title=toast.getView().findViewById(R.id.toast_msg);
         title.setText(msg);

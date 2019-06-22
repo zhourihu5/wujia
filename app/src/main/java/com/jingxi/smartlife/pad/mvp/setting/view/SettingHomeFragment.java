@@ -65,7 +65,6 @@ public class SettingHomeFragment extends MvpFragment<SettingPresenter> implement
     LinearLayout itemClearCache;
     @BindView(R.id.item_check_update)
     RelativeLayout itemCheckUpdate;
-    private LoadingDialog loadingDialog;
 
     public SettingHomeFragment() {
     }
@@ -159,10 +158,7 @@ public class SettingHomeFragment extends MvpFragment<SettingPresenter> implement
                 }).build(mContext).show();
                 break;
             case R.id.item_check_update:
-
-                loadingDialog = new LoadingDialog(mContext);
-                loadingDialog.setTitle(getString(R.string.check_update_ing));
-                loadingDialog.show();
+                showLoadingDialog(getString(R.string.check_update_ing));
 
                 mPresenter.checkVersion();
 //                install();//todo test install
@@ -212,7 +208,7 @@ public class SettingHomeFragment extends MvpFragment<SettingPresenter> implement
 
     @Override
     public void onDataLoadSucc(int requestCode, Object object) {
-
+        hideLoadingDialog();
         VersionBean bean = (VersionBean) object;
 
 //        String pname = AppContext.get().getPackageName();
@@ -224,18 +220,10 @@ public class SettingHomeFragment extends MvpFragment<SettingPresenter> implement
         } else {
             ToastUtil.showShort(mContext, "已是最新版本");
         }
-
-        if (null != loadingDialog) {
-            loadingDialog.dismiss();
-            loadingDialog = null;
-        }
     }
 
     @Override
     public void onDataLoadFailed(int requestCode, ApiException apiException) {
-        if (null != loadingDialog) {
-            loadingDialog.dismiss();
-            loadingDialog = null;
-        }
+        hideLoadingDialog();
     }
 }
