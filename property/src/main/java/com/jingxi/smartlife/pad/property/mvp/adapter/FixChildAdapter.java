@@ -2,8 +2,8 @@ package com.jingxi.smartlife.pad.property.mvp.adapter;
 
 import android.content.Context;
 
-import com.jingxi.smartlife.pad.property.mvp.data.WyFixBean;
 import com.jingxi.smartlife.pad.property.R;
+import com.jingxi.smartlife.pad.property.mvp.data.WyFixBean;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 

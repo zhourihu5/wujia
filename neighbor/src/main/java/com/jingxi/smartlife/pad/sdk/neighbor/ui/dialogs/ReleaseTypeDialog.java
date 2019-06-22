@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.alibaba.fastjson.JSONArray;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.R;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.adapter.NeighborBoardTypeAdapter;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.bean.NeighborBoardTypeBean;

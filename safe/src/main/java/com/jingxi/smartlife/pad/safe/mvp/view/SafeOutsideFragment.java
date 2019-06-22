@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.intercom.sdk.IntercomConstants;
 import com.intercom.sdk.IntercomObserver;
+import com.jingxi.smartlife.pad.safe.R;
 import com.jingxi.smartlife.pad.safe.mvp.adapter.PlayBackAdapter;
 import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.jingxi.smartlife.pad.sdk.doorAccess.DoorAccessManager;
@@ -24,7 +25,6 @@ import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessConversationUI;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListUI;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.base.DataManager;
-import com.jingxi.smartlife.pad.safe.R;
 import com.wujia.businesslib.dialog.LoadingDialog;
 import com.wujia.lib.widget.WJButton;
 import com.wujia.lib.widget.util.ToastUtil;

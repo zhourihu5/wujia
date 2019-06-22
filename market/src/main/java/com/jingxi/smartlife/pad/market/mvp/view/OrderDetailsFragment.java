@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.wujia.businesslib.TitleFragment;
 import com.jingxi.smartlife.pad.market.R;
 import com.jingxi.smartlife.pad.market.mvp.adapter.OrderGoodsAdapter;
 import com.jingxi.smartlife.pad.market.mvp.data.OrderBean;
+import com.wujia.businesslib.TitleFragment;
 
 import java.util.ArrayList;
 import java.util.List;

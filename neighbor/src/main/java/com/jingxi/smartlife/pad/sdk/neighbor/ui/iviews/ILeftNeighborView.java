@@ -2,7 +2,6 @@ package com.jingxi.smartlife.pad.sdk.neighbor.ui.iviews;
 
 import android.content.Context;
 
-import com.alibaba.fastjson.JSONObject;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.bean.NeighborDetailDo;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.bean.NeighborInfoBean;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.bean.PersonalInfo;

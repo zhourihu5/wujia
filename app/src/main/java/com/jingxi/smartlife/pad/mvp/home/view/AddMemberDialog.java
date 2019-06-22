@@ -7,11 +7,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
-import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean;
-import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.jingxi.smartlife.pad.R;
 import com.jingxi.smartlife.pad.mvp.home.adapter.HomeInviteAdapter;
+import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean;
 import com.wujia.businesslib.dialog.CommDialog;
+import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.view.VerticallDecoration;
 

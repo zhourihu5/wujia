@@ -1,7 +1,7 @@
 package com.wujia.lib_common.data.network;
 
-import com.wujia.lib_common.utils.GsonUtil;
 import com.google.gson.reflect.TypeToken;
+import com.wujia.lib_common.utils.GsonUtil;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;

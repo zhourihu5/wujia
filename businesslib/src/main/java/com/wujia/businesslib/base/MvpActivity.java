@@ -2,7 +2,6 @@ package com.wujia.businesslib.base;
 
 import android.content.Context;
 import android.os.Build;
-import android.widget.Toast;
 
 import com.wujia.businesslib.dialog.LoadingDialog;
 import com.wujia.lib.widget.util.ToastUtil;

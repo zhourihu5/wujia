@@ -1,10 +1,10 @@
 package retrofit2.converter.gson;
 
-import com.wujia.lib_common.data.network.exception.ApiJsonFormateException;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
+import com.wujia.lib_common.data.network.exception.ApiJsonFormateException;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

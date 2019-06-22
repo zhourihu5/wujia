@@ -6,8 +6,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jingxi.smartlife.pad.R;
-import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
-import com.jingxi.smartlife.pad.mvp.setting.adapter.HomeCardManagerAdapter;
 import com.wujia.lib_common.base.BaseActivity;
 
 import butterknife.BindView;

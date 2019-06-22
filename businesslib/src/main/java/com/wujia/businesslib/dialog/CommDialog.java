@@ -2,15 +2,11 @@ package com.wujia.businesslib.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
-import com.wujia.lib.imageloader.DensityUtil;
 import com.wujia.lib.uikit.R;
 
 /**

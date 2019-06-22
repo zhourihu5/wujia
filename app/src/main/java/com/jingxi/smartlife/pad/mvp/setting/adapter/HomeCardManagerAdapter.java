@@ -7,8 +7,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.jingxi.smartlife.pad.R;
+import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.wujia.lib.imageloader.ImageLoaderManager;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;

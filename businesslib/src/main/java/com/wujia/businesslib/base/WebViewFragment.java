@@ -10,7 +10,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.wujia.businesslib.Constants;
-import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.R;
 import com.wujia.businesslib.TitleFragment;
 

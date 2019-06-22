@@ -3,7 +3,6 @@ package com.jingxi.smartlife.pad.market;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.jingxi.smartlife.pad.market.R;
 import com.jingxi.smartlife.pad.market.mvp.MarketHomeFragment;
 import com.wujia.lib_common.base.BaseMainFragment;
 

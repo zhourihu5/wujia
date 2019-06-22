@@ -26,7 +26,6 @@ import com.wujia.lib_common.utils.DoubleClickUtils;
 import com.wujia.lib_common.utils.FileUtil;
 import com.wujia.lib_common.utils.LogUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;

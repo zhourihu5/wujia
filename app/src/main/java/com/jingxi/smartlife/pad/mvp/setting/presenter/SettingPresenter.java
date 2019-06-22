@@ -1,8 +1,8 @@
 package com.jingxi.smartlife.pad.mvp.setting.presenter;
 
-import com.wujia.businesslib.data.VersionBean;
-import com.wujia.businesslib.base.RxPresenter;
 import com.jingxi.smartlife.pad.mvp.setting.contract.SettingContract;
+import com.wujia.businesslib.base.RxPresenter;
+import com.wujia.businesslib.data.VersionBean;
 import com.wujia.businesslib.model.BusModel;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
 import com.wujia.lib_common.data.network.exception.ApiException;

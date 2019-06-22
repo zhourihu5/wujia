@@ -5,13 +5,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
-import com.alibaba.sdk.android.push.CloudPushService;
-import com.alibaba.sdk.android.push.CommonCallback;
-import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 import com.jingxi.smartlife.pad.sdk.JXPadSdk;
-import com.jingxi.smartlife.pad.sdk.utils.JXContextWrapper;
-import com.jingxi.smartlife.pad.sdk.utils.JXLogUtil;
-import com.squareup.leakcanary.LeakCanary;
 import com.wujia.lib_common.utils.AppContext;
 import com.wujia.lib_common.utils.SystemUtil;
 

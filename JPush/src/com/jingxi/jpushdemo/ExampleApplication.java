@@ -1,6 +1,7 @@
 package com.jingxi.jpushdemo;
 
 import android.app.Application;
+
 import cn.jpush.android.api.JPushInterface;
 
 /**

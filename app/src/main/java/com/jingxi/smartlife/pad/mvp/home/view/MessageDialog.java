@@ -7,12 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.wujia.businesslib.DataBaseUtil;
-import com.wujia.businesslib.data.DBMessage;
-import com.wujia.businesslib.data.MsgDto;
-import com.wujia.businesslib.listener.OnDialogListener;
 import com.jingxi.smartlife.pad.R;
-import com.wujia.lib_common.utils.DateUtil;
+import com.wujia.businesslib.data.MsgDto;
 
 /**
  * author ：shenbingkai@163.com

@@ -4,10 +4,10 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.jingxi.smartlife.pad.market.R;
 import com.wujia.businesslib.data.CardDetailBean;
 import com.wujia.businesslib.dialog.SimpleDialog;
 import com.wujia.businesslib.listener.OnDialogListener;
-import com.jingxi.smartlife.pad.market.R;
 import com.wujia.lib.imageloader.ImageLoaderManager;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;

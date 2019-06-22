@@ -2,8 +2,6 @@ package com.jingxi.smartlife.pad.mvp.login.contract;
 
 import com.wujia.businesslib.data.LoginDTO;
 import com.wujia.businesslib.data.RootResponse;
-import com.wujia.businesslib.data.TokenBean;
-import com.wujia.businesslib.data.UserBean;
 import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.CommonDataLoadView;
 import com.wujia.lib_common.base.IBaseModle;

@@ -4,9 +4,7 @@ import android.annotation.TargetApi;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
 import android.os.Build;
-import android.provider.MediaStore;
 
 import java.io.File;
 import java.io.FileInputStream;

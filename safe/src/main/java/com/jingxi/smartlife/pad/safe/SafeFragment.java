@@ -3,9 +3,9 @@ package com.jingxi.smartlife.pad.safe;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.jingxi.smartlife.pad.safe.R;
 import com.jingxi.smartlife.pad.safe.mvp.SafeHomeFragment;
 import com.wujia.lib_common.base.BaseFragment;
+import com.wujia.lib_common.base.BaseMainFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
 /**
@@ -13,7 +13,7 @@ import com.wujia.lib_common.utils.LogUtil;
 * date ：2019-01-12 20:06
 * description ：可视安防 home
 */
-public class SafeFragment extends BaseFragment {
+public class SafeFragment extends BaseMainFragment {
 
     public SafeFragment() {
     }
@@ -44,7 +44,7 @@ public class SafeFragment extends BaseFragment {
         LogUtil.i("SafeFragment onLazyInitView");
 
         if (findChildFragment(SafeHomeFragment.class) == null) {
-            loadRootFragment(R.id.fl_first_container, SafeHomeFragment.newInstance());
+            loadRootFragment(R.id.fl_first_container, SafeHomeFragment.newInstance(currentTab));
         }
     }
 

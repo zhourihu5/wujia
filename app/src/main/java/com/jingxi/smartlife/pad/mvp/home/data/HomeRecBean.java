@@ -4,7 +4,6 @@ import android.text.TextUtils;
 
 import com.google.gson.annotations.SerializedName;
 import com.wujia.businesslib.data.RootResponse;
-import com.wujia.lib_common.utils.LogUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;

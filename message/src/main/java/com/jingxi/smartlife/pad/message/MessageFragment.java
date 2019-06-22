@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.jingxi.smartlife.pad.message.mvp.MessageHomeFragment;
-import com.jingxi.smartlife.pad.message.R;
 import com.wujia.lib_common.base.BaseMainFragment;
 
 /**
@@ -40,7 +39,7 @@ public class MessageFragment extends BaseMainFragment {
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
         if (findChildFragment(MessageHomeFragment.class) == null) {
-            loadRootFragment(R.id.fl_first_container, MessageHomeFragment.newInstance());
+            loadRootFragment(R.id.fl_first_container, MessageHomeFragment.newInstance(currentTab));
         }
     }
 

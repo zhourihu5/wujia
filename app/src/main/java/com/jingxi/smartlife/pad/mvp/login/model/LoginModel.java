@@ -1,10 +1,10 @@
 package com.jingxi.smartlife.pad.mvp.login.model;
 
+import com.jingxi.smartlife.pad.mvp.MainAppApiService;
 import com.jingxi.smartlife.pad.mvp.login.contract.LoginContract;
 import com.wujia.businesslib.base.BaseModel;
 import com.wujia.businesslib.data.LoginDTO;
 import com.wujia.businesslib.data.RootResponse;
-import com.jingxi.smartlife.pad.mvp.MainAppApiService;
 import com.wujia.lib_common.data.network.RxUtil;
 import com.wujia.lib_common.utils.SystemUtil;
 

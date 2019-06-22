@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.jingxi.smartlife.pad.family.mvp.FamilyHomeFragment;
-import com.jingxi.smartlife.pad.family.R;
 import com.wujia.lib_common.base.BaseMainFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
@@ -42,7 +41,7 @@ public class FamilyFragment extends BaseMainFragment {
         LogUtil.i("FamilyFragment onLazyInitView");
 
         if (findChildFragment(FamilyHomeFragment.class) == null) {
-            loadRootFragment(R.id.fl_first_container, FamilyHomeFragment.newInstance());
+            loadRootFragment(R.id.fl_first_container, FamilyHomeFragment.newInstance(currentTab));
         }
     }
 

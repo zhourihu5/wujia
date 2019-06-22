@@ -13,14 +13,14 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.jingxi.smartlife.pad.family.mvp.adapter.EquipmentExpandAdapter;
-import com.jingxi.smartlife.pad.family.mvp.data.EquipmentBean;
-import com.jingxi.smartlife.pad.family.mvp.data.EquipmentType;
-import com.jingxi.smartlife.pad.family.mvp.view.EqExpandGridDecoration;
 import com.jingxi.smartlife.pad.family.R;
 import com.jingxi.smartlife.pad.family.mvp.adapter.EquipmentAdapter;
+import com.jingxi.smartlife.pad.family.mvp.adapter.EquipmentExpandAdapter;
 import com.jingxi.smartlife.pad.family.mvp.adapter.ModeAdapter;
+import com.jingxi.smartlife.pad.family.mvp.data.EquipmentBean;
+import com.jingxi.smartlife.pad.family.mvp.data.EquipmentType;
 import com.jingxi.smartlife.pad.family.mvp.data.ModeBean;
+import com.jingxi.smartlife.pad.family.mvp.view.EqExpandGridDecoration;
 import com.wujia.lib.widget.ArcSeekBar;
 import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;

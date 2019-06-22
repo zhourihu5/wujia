@@ -1,12 +1,10 @@
 package com.jingxi.smartlife.pad.mvp.login.presenter;
 
 import com.jingxi.smartlife.pad.mvp.login.contract.LoginContract;
+import com.jingxi.smartlife.pad.mvp.login.model.LoginModel;
 import com.wujia.businesslib.base.RxPresenter;
 import com.wujia.businesslib.data.LoginDTO;
 import com.wujia.businesslib.data.RootResponse;
-import com.wujia.businesslib.data.TokenBean;
-import com.wujia.businesslib.data.UserBean;
-import com.jingxi.smartlife.pad.mvp.login.model.LoginModel;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
 import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.DateUtil;

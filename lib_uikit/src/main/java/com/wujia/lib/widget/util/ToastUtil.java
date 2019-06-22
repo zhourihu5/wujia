@@ -1,8 +1,6 @@
 package com.wujia.lib.widget.util;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.DrawableRes;
 import android.view.Gravity;
 import android.view.View;

@@ -3,11 +3,10 @@ package com.jingxi.smartlife.pad.property.mvp;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.jingxi.smartlife.pad.property.mvp.view.SimpleTelFragment;
-import com.wujia.businesslib.Constants;
 import com.jingxi.smartlife.pad.property.R;
 import com.jingxi.smartlife.pad.property.mvp.view.SimpleFixFragment;
-import com.jingxi.smartlife.pad.property.mvp.view.TelFragment;
+import com.jingxi.smartlife.pad.property.mvp.view.SimpleTelFragment;
+import com.wujia.businesslib.Constants;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib_common.base.TabFragment;
@@ -29,9 +28,10 @@ public class ProperyHomeFragment extends TabFragment {
 
     }
 
-    public static ProperyHomeFragment newInstance() {
+    public static ProperyHomeFragment newInstance(int tabIndex) {
         ProperyHomeFragment fragment = new ProperyHomeFragment();
         Bundle args = new Bundle();
+        args.putInt(Constants.ARG_PARAM_1,tabIndex);
         fragment.setArguments(args);
         return fragment;
     }

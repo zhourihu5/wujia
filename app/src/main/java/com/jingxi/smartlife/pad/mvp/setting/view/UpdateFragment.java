@@ -7,12 +7,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.wujia.businesslib.data.VersionBean;
+import com.jingxi.smartlife.pad.R;
 import com.liulishuo.okdownload.DownloadTask;
 import com.wujia.businesslib.DownloadUtil;
 import com.wujia.businesslib.TitleFragment;
+import com.wujia.businesslib.data.VersionBean;
 import com.wujia.businesslib.listener.DownloadListener;
-import com.jingxi.smartlife.pad.R;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.utils.AppUtil;
 import com.wujia.lib_common.utils.LogUtil;

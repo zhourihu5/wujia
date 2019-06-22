@@ -3,8 +3,8 @@ package com.jingxi.smartlife.pad.mvp.home.adapter;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.jingxi.smartlife.pad.R;
+import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.wujia.lib.imageloader.ImageLoaderManager;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ItemViewDelegate;

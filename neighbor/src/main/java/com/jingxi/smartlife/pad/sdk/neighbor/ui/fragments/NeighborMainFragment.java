@@ -2,13 +2,11 @@ package com.jingxi.smartlife.pad.sdk.neighbor.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.alibaba.fastjson.JSONObject;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.R;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.bean.GoDetailBusBean;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.bean.NeighborInfoBean;

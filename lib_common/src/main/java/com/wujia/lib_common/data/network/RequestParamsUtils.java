@@ -1,9 +1,6 @@
 package com.wujia.lib_common.data.network;
 
 
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.Date;
 import java.util.Map;
 

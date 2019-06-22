@@ -1,7 +1,7 @@
 package com.jingxi.smartlife.pad.mvp.setting.presenter;
 
-import com.wujia.businesslib.base.RxPresenter;
 import com.jingxi.smartlife.pad.mvp.setting.contract.FamilyMemberContract;
+import com.wujia.businesslib.base.RxPresenter;
 
 /**
  * author ：shenbingkai@163.com

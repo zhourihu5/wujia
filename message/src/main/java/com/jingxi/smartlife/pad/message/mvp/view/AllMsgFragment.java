@@ -5,15 +5,15 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 
-import com.wujia.businesslib.model.BusModel;
+import com.jingxi.smartlife.pad.message.R;
+import com.jingxi.smartlife.pad.message.mvp.adapter.MessageAdapter;
 import com.wujia.businesslib.base.MvpFragment;
 import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.MsgDto;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventMsg;
 import com.wujia.businesslib.event.IMiessageInvoke;
-import com.jingxi.smartlife.pad.message.R;
-import com.jingxi.smartlife.pad.message.mvp.adapter.MessageAdapter;
+import com.wujia.businesslib.model.BusModel;
 import com.wujia.lib.widget.HorizontalTabBar;
 import com.wujia.lib.widget.HorizontalTabItem;
 import com.wujia.lib_common.base.BasePresenter;

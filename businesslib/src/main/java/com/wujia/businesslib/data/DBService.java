@@ -1,8 +1,6 @@
 package com.wujia.businesslib.data;
 
-import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.annotation.Table;
-import com.litesuits.orm.db.enums.AssignType;
 
 /**
  * Author: created by shenbingkai on 2019/4/5 16 25

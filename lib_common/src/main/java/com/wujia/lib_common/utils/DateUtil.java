@@ -1,7 +1,5 @@
 package com.wujia.lib_common.utils;
 
-import android.util.Log;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;

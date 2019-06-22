@@ -8,12 +8,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 
-import com.jingxi.smartlife.pad.mvp.home.contract.HomeModel;
-import com.wujia.businesslib.data.CardDetailBean;
 import com.jingxi.smartlife.pad.R;
 import com.jingxi.smartlife.pad.market.mvp.adapter.FindServiceChildAdapter;
 import com.jingxi.smartlife.pad.market.mvp.view.ServiceBaseFragment;
+import com.jingxi.smartlife.pad.mvp.home.contract.HomeModel;
 import com.wujia.businesslib.data.ApiResponse;
+import com.wujia.businesslib.data.CardDetailBean;
 import com.wujia.businesslib.model.BusModel;
 import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;

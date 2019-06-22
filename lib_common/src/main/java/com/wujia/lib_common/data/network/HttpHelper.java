@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.wujia.lib_common.data.network.https.SslContextFactory;
 import com.wujia.lib_common.data.network.retrofit_url.RetrofitUrlManager;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

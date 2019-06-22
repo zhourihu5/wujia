@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.jingxi.smartlife.pad.property.mvp.ProperyHomeFragment;
-import com.jingxi.smartlife.pad.property.R;
 import com.wujia.lib_common.base.BaseMainFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
@@ -40,7 +39,7 @@ public class ProperyFragment extends BaseMainFragment {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         if (findChildFragment(ProperyHomeFragment.class) == null) {
-            loadRootFragment(R.id.fl_first_container, ProperyHomeFragment.newInstance());
+            loadRootFragment(R.id.fl_first_container, ProperyHomeFragment.newInstance(currentTab));
         }
 
     }

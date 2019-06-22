@@ -3,12 +3,11 @@ package com.jingxi.smartlife.pad.message.mvp;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.jingxi.smartlife.pad.message.mvp.view.AllMsgFragment;
-import com.wujia.businesslib.data.DBMessage;
 import com.jingxi.smartlife.pad.message.R;
+import com.jingxi.smartlife.pad.message.mvp.view.AllMsgFragment;
+import com.wujia.businesslib.Constants;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
-import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.TabFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
@@ -30,9 +29,10 @@ public class MessageHomeFragment extends TabFragment {
 
     }
 
-    public static MessageHomeFragment newInstance() {
+    public static MessageHomeFragment newInstance(int currentTab) {
         MessageHomeFragment fragment = new MessageHomeFragment();
         Bundle args = new Bundle();
+        fragment.currentTab=currentTab;
         fragment.setArguments(args);
         return fragment;
     }
@@ -87,7 +87,7 @@ public class MessageHomeFragment extends TabFragment {
                 msgFragment.setType(type);
             }
         });
-
+        switchTab(currentTab);
 
     }
 

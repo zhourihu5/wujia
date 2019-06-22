@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.wujia.businesslib.dialog.CommDialog;
 import com.jingxi.smartlife.pad.market.R;
+import com.wujia.businesslib.dialog.CommDialog;
 import com.wujia.lib.imageloader.DensityUtil;
 import com.wujia.lib.widget.util.ToastUtil;
 

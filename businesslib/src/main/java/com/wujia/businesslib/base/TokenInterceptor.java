@@ -5,10 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.wujia.businesslib.BuildConfig;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.data.RootResponse;
-import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.data.network.exception.TokenException;
 import com.wujia.lib_common.utils.AppContext;
 import com.wujia.lib_common.utils.GsonUtil;

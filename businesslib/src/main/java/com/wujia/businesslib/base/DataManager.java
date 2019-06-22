@@ -1,10 +1,7 @@
 package com.wujia.businesslib.base;
 
-import android.content.Context;
-
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.data.LoginDTO;
-import com.wujia.businesslib.data.UserBean;
 import com.wujia.lib_common.utils.AppContext;
 import com.wujia.lib_common.utils.SPHelper;
 

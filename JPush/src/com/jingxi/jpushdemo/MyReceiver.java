@@ -1,6 +1,5 @@
 package com.jingxi.jpushdemo;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +8,6 @@ import android.text.TextUtils;
 
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.DownloadUtil;
-import com.wujia.businesslib.base.BaseApplication;
 import com.wujia.businesslib.data.Advert;
 import com.wujia.businesslib.data.VersionBean;
 import com.wujia.businesslib.event.EventBusUtil;
@@ -17,8 +15,6 @@ import com.wujia.businesslib.event.EventCardChange;
 import com.wujia.businesslib.event.EventMsg;
 import com.wujia.businesslib.event.EventWakeup;
 import com.wujia.businesslib.listener.DownloadListener;
-import com.wujia.lib.widget.util.ToastUtil;
-import com.wujia.lib_common.utils.AppContext;
 import com.wujia.lib_common.utils.AppUtil;
 import com.wujia.lib_common.utils.GsonUtil;
 import com.wujia.lib_common.utils.LogUtil;

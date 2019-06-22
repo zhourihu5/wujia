@@ -6,25 +6,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jingxi.smartlife.pad.mvp.home.contract.HomeContract;
-import com.jingxi.smartlife.pad.mvp.home.contract.HomePresenter;
-import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
-import com.jingxi.smartlife.pad.mvp.setting.adapter.HomeCardManagerAdapter;
-import com.wujia.businesslib.base.DataManager;
-import com.wujia.businesslib.base.MvpFragment;
-import com.wujia.businesslib.event.EventBusUtil;
-import com.wujia.businesslib.event.EventCardChange;
 import com.jingxi.smartlife.pad.R;
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeContract;
 import com.jingxi.smartlife.pad.mvp.home.contract.HomePresenter;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.jingxi.smartlife.pad.mvp.setting.adapter.HomeCardManagerAdapter;
+import com.wujia.businesslib.base.MvpFragment;
+import com.wujia.businesslib.event.EventBusUtil;
+import com.wujia.businesslib.event.EventCardChange;
 import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.lib_common.base.view.VerticallDecoration;
 import com.wujia.lib_common.data.network.exception.ApiException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;

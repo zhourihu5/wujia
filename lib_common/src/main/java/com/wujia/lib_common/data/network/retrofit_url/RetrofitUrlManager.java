@@ -2,7 +2,6 @@ package com.wujia.lib_common.data.network.retrofit_url;
 
 import android.text.TextUtils;
 
-
 import com.wujia.lib_common.data.network.retrofit_url.parser.DefaultUrlParser;
 import com.wujia.lib_common.data.network.retrofit_url.parser.UrlParser;
 

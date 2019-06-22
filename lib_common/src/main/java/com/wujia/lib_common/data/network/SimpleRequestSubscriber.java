@@ -2,7 +2,6 @@ package com.wujia.lib_common.data.network;
 
 import com.wujia.lib_common.base.BaseView;
 import com.wujia.lib_common.data.network.exception.ApiException;
-import com.wujia.lib_common.data.network.exception.ERROR;
 
 /**
  * Author: shenbingkai

@@ -1,12 +1,12 @@
 package com.jingxi.smartlife.pad.mvp.home.contract;
 
+import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean;
 import com.jingxi.smartlife.pad.mvp.home.data.LockADBean;
 import com.jingxi.smartlife.pad.mvp.home.data.WeatherInfoBean;
 import com.wujia.businesslib.base.RxPresenter;
-import com.wujia.businesslib.data.RootResponse;
-import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.wujia.businesslib.data.MessageBean;
+import com.wujia.businesslib.data.RootResponse;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
 import com.wujia.lib_common.data.network.exception.ApiException;
 

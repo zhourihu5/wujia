@@ -2,8 +2,8 @@ package com.jingxi.smartlife.pad.family.mvp.adapter;
 
 import android.content.Context;
 
-import com.jingxi.smartlife.pad.family.mvp.data.ModeBean;
 import com.jingxi.smartlife.pad.family.R;
+import com.jingxi.smartlife.pad.family.mvp.data.ModeBean;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 

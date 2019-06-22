@@ -2,17 +2,9 @@ package com.jingxi.smartlife.pad.property.mvp.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 
 import com.jingxi.smartlife.pad.property.R;
-import com.jingxi.smartlife.pad.property.mvp.adapter.WyOtherTelAdapter;
-import com.jingxi.smartlife.pad.property.mvp.adapter.WyTelGroupAdapter;
-import com.jingxi.smartlife.pad.property.mvp.data.WyChildBean;
-import com.jingxi.smartlife.pad.property.mvp.data.WySectionBean;
 import com.wujia.lib_common.base.BaseFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * author ：shenbingkai@163.com

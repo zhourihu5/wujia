@@ -2,8 +2,6 @@ package com.wujia.lib_common.utils;
 
 import android.util.Log;
 
-import com.wujia.lib_common.BuildConfig;
-
 public class LogUtil {
 
 

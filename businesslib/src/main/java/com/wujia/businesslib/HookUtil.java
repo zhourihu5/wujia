@@ -1,7 +1,6 @@
 package com.wujia.businesslib;
 
 import android.os.Build;
-import android.util.Log;
 
 import com.wujia.lib_common.utils.LogUtil;
 

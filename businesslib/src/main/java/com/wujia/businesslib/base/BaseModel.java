@@ -1,10 +1,6 @@
 package com.wujia.businesslib.base;
 
-import com.wujia.businesslib.Constants;
 import com.wujia.lib_common.data.network.HttpHelper;
-import com.wujia.lib_common.data.network.NetConfig;
-
-import okhttp3.Interceptor;
 
 /**
  * author ：shenbingkai

@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.jingxi.smartlife.pad.R;
-import com.jingxi.smartlife.pad.mvp.home.contract.HomePresenter;
-import com.jingxi.smartlife.pad.mvp.setting.view.SettingHomeFragment;
 import com.wujia.lib_common.base.BaseMainFragment;
 
 /**

@@ -1,7 +1,5 @@
 package com.wujia.lib_common.base;
 
-import android.content.Context;
-
 /**
  * 懒加载
  * Created by YoKeyword on 16/6/5.

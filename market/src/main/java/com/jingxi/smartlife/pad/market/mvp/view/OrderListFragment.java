@@ -5,10 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.jingxi.smartlife.pad.market.R;
 import com.jingxi.smartlife.pad.market.mvp.adapter.OrderAdapter;
 import com.jingxi.smartlife.pad.market.mvp.data.OrderBean;
 import com.wujia.businesslib.TitleFragment;
-import com.jingxi.smartlife.pad.market.R;
 import com.wujia.lib.widget.HorizontalTabBar;
 import com.wujia.lib.widget.HorizontalTabItem;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;

@@ -8,10 +8,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jingxi.smartlife.pad.market.mvp.adapter.FindServiceChildAdapter;
-import com.jingxi.smartlife.pad.market.mvp.model.MarketModel;
-import com.jingxi.smartlife.pad.market.mvp.data.ServiceDto;
 import com.jingxi.smartlife.pad.market.R;
+import com.jingxi.smartlife.pad.market.mvp.adapter.FindServiceChildAdapter;
+import com.jingxi.smartlife.pad.market.mvp.data.ServiceDto;
+import com.jingxi.smartlife.pad.market.mvp.model.MarketModel;
 import com.wujia.businesslib.base.WebViewFragment;
 import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.CardDetailBean;

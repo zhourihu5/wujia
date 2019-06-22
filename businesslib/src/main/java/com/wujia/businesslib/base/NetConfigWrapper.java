@@ -1,6 +1,5 @@
 package com.wujia.businesslib.base;
 
-import com.wujia.businesslib.BuildConfig;
 import com.wujia.businesslib.Constants;
 import com.wujia.lib_common.data.network.NetConfig;
 

@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.wujia.businesslib.base.MvpFragment;
-import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.BasePresenter;
 
 /**

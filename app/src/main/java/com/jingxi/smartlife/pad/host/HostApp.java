@@ -1,13 +1,9 @@
 package com.jingxi.smartlife.pad.host;
 
-import android.util.Log;
-import android.widget.Toast;
-
 import com.umeng.commonsdk.UMConfigure;
 import com.wujia.businesslib.BuildConfig;
 import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.base.BaseApplication;
-import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.utils.LogUtil;
 import com.wujia.lib_common.utils.NetworkUtil;
 
@@ -17,12 +13,7 @@ import java.io.File;
 import java.io.FileWriter;
 
 import cn.jpush.android.api.JPushInterface;
-import me.yokeyword.fragmentation.Fragmentation;
-import me.yokeyword.fragmentation.helper.ExceptionHandler;
-import xcrash.ICrashCallback;
-import xcrash.TombstoneManager;
 import xcrash.TombstoneParser;
-import xcrash.XCrash;
 
 /**
  * author ：shenbingkai
@@ -43,48 +34,48 @@ public class HostApp extends BaseApplication {
         UMConfigure.init(this, "5d0ddf284ca357c8dc000dd6", "mychanel", UMConfigure.DEVICE_TYPE_PHONE, null);//友盟统计，周日虎的账号
 
 
-        if(BuildConfig.DEBUG){
-            // The callback when App process crashed.
-            ICrashCallback callback = new ICrashCallback() {
-                @Override
-                public void onCrash(String logPath, String emergency) {
-                    if (emergency != null) {
-                        debug(logPath, emergency);
-
-                        // Disk is exhausted, send crash report immediately.
-                        sendThenDeleteCrashLog(logPath, emergency);
-                    } else {
-                        // Add some expanded sections. Send crash report at the next time APP startup.
-
-                        // OK
-                        TombstoneManager.appendSection(logPath, "expanded_key_1", "expanded_content");
-                        TombstoneManager.appendSection(logPath, "expanded_key_2", "expanded_content_row_1\nexpanded_content_row_2");
-
-                        // Invalid. (Do NOT include multiple consecutive newline characters ("\n\n") in the content string.)
-                        // TombstoneManager.appendSection(logPath, "expanded_key_3", "expanded_content_row_1\n\nexpanded_content_row_2");
-
-                        debug(logPath, null);
-                    }
-                }
-            };
-
-            // Initialize xCrash.
-            XCrash.init(this, new XCrash.InitParameters()
-                    .setAppVersion("1.2.3-beta456-patch789")
-                    .setJavaRethrow(true)
-                    .setJavaLogCountMax(10)
-                    .setJavaDumpAllThreadsWhiteList(new String[]{"^main$", "^Binder:.*", ".*Finalizer.*"})
-                    .setJavaDumpAllThreadsCountMax(10)
-                    .setJavaCallback(callback)
-                    .setNativeRethrow(true)
-                    .setNativeLogCountMax(10)
-                    .setNativeDumpAllThreadsWhiteList(new String[]{"^com\\.jingxi", "^Signal Catcher$", "^Jit thread pool$", ".*(R|r)ender.*", ".*Chrome.*"})
-                    .setNativeDumpAllThreadsCountMax(10)
-                    .setNativeCallback(callback)
-                    .setPlaceholderCountMax(3)
-                    .setPlaceholderSizeKb(512)
-                    .setLogFileMaintainDelayMs(1000));
-        }
+//        if(BuildConfig.DEBUG){
+//            // The callback when App process crashed.
+//            ICrashCallback callback = new ICrashCallback() {
+//                @Override
+//                public void onCrash(String logPath, String emergency) {
+//                    if (emergency != null) {
+//                        debug(logPath, emergency);
+//
+//                        // Disk is exhausted, send crash report immediately.
+//                        sendThenDeleteCrashLog(logPath, emergency);
+//                    } else {
+//                        // Add some expanded sections. Send crash report at the next time APP startup.
+//
+//                        // OK
+//                        TombstoneManager.appendSection(logPath, "expanded_key_1", "expanded_content");
+//                        TombstoneManager.appendSection(logPath, "expanded_key_2", "expanded_content_row_1\nexpanded_content_row_2");
+//
+//                        // Invalid. (Do NOT include multiple consecutive newline characters ("\n\n") in the content string.)
+//                        // TombstoneManager.appendSection(logPath, "expanded_key_3", "expanded_content_row_1\n\nexpanded_content_row_2");
+//
+//                        debug(logPath, null);
+//                    }
+//                }
+//            };
+//
+//            // Initialize xCrash.
+//            XCrash.init(this, new XCrash.InitParameters()
+//                    .setAppVersion("1.2.3-beta456-patch789")
+//                    .setJavaRethrow(true)
+//                    .setJavaLogCountMax(10)
+//                    .setJavaDumpAllThreadsWhiteList(new String[]{"^main$", "^Binder:.*", ".*Finalizer.*"})
+//                    .setJavaDumpAllThreadsCountMax(10)
+//                    .setJavaCallback(callback)
+//                    .setNativeRethrow(true)
+//                    .setNativeLogCountMax(10)
+//                    .setNativeDumpAllThreadsWhiteList(new String[]{"^com\\.jingxi", "^Signal Catcher$", "^Jit thread pool$", ".*(R|r)ender.*", ".*Chrome.*"})
+//                    .setNativeDumpAllThreadsCountMax(10)
+//                    .setNativeCallback(callback)
+//                    .setPlaceholderCountMax(3)
+//                    .setPlaceholderSizeKb(512)
+//                    .setLogFileMaintainDelayMs(1000));
+//        }
 
 
 

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import com.wujia.lib_common.base.baseadapter.base.ItemViewDelegate;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 
-
 import java.util.List;
 
 public abstract class CommonAdapter<T> extends MultiItemTypeAdapter<T>

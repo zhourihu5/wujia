@@ -1,9 +1,11 @@
 package com.wujia.lib_common.base.baseadapter.wrapper;
+
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 import com.wujia.lib_common.base.baseadapter.utils.WrapperUtils;
 

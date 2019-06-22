@@ -6,15 +6,14 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.intercom.sdk.IntercomConstants;
+import com.jingxi.smartlife.pad.safe.R;
 import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.jingxi.smartlife.pad.sdk.doorAccess.DoorAccessManager;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorEvent;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessConversationUI;
-import com.jingxi.smartlife.pad.safe.R;
 import com.wujia.businesslib.dialog.LoadingDialog;
 import com.wujia.lib_common.base.BaseActivity;
 import com.wujia.lib_common.utils.LogUtil;

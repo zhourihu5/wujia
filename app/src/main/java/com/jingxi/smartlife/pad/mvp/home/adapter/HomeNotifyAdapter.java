@@ -3,12 +3,10 @@ package com.jingxi.smartlife.pad.mvp.home.adapter;
 import android.content.Context;
 import android.widget.TextView;
 
-import com.wujia.businesslib.data.DBMessage;
 import com.jingxi.smartlife.pad.R;
 import com.wujia.businesslib.data.MsgDto;
 import com.wujia.lib_common.base.baseadapter.CommonAdapter;
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
-import com.wujia.lib_common.utils.DateUtil;
 
 import java.util.List;
 

@@ -7,18 +7,18 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
-import com.wujia.lib.imageloader.glideprogress.ProgressLoadListener;
-import com.wujia.lib.imageloader.glideprogress.ProgressModelLoader;
-import com.wujia.lib.imageloader.glideprogress.ProgressUIListener;
-import com.wujia.lib.imageloader.listener.ImageSaveListener;
-import com.wujia.lib.imageloader.listener.SourceReadyListener;
-import com.wujia.lib.imageloader.transformation.GlideCircleTransform;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.wujia.lib.imageloader.glideprogress.ProgressLoadListener;
+import com.wujia.lib.imageloader.glideprogress.ProgressModelLoader;
+import com.wujia.lib.imageloader.glideprogress.ProgressUIListener;
+import com.wujia.lib.imageloader.listener.ImageSaveListener;
+import com.wujia.lib.imageloader.listener.SourceReadyListener;
+import com.wujia.lib.imageloader.transformation.GlideCircleTransform;
 
 import java.io.File;
 import java.io.FileInputStream;

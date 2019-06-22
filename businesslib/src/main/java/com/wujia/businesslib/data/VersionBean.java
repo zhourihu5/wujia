@@ -1,10 +1,8 @@
 package com.wujia.businesslib.data;
 
 import com.google.gson.annotations.SerializedName;
-import com.wujia.businesslib.data.RootResponse;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * author ：shenbingkai@163.com

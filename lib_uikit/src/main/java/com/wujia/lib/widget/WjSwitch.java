@@ -1,13 +1,7 @@
 package com.wujia.lib.widget;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.widget.CheckBox;
-import android.widget.Switch;
-
-import com.wujia.lib.uikit.R;
 
 /**
  * author ：shenbingkai@163.com

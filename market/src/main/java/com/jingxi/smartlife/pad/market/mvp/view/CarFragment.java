@@ -3,10 +3,10 @@ package com.jingxi.smartlife.pad.market.mvp.view;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
+import com.jingxi.smartlife.pad.market.R;
 import com.jingxi.smartlife.pad.market.mvp.adapter.CarGroupAdapter;
 import com.jingxi.smartlife.pad.market.mvp.data.GoodsBean;
 import com.wujia.businesslib.TitleFragment;
-import com.jingxi.smartlife.pad.market.R;
 
 import java.util.ArrayList;
 import java.util.List;

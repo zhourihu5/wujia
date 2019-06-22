@@ -12,21 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jingxi.jpushdemo.TagAliasOperatorHelper;
-import com.jingxi.smartlife.pad.mvp.MainActivity;
-import com.jingxi.smartlife.pad.mvp.login.contract.LoginContract;
-import com.jingxi.smartlife.pad.sdk.JXPadSdk;
-import com.wujia.businesslib.Constants;
-import com.wujia.businesslib.HookUtil;
-import com.wujia.businesslib.base.DataManager;
-import com.wujia.businesslib.base.MvpActivity;
-import com.wujia.businesslib.data.LoginDTO;
-import com.wujia.businesslib.data.TokenBean;
-import com.wujia.businesslib.data.UserBean;
 import com.jingxi.smartlife.pad.R;
 import com.jingxi.smartlife.pad.mvp.MainActivity;
 import com.jingxi.smartlife.pad.mvp.login.contract.LoginContract;
 import com.jingxi.smartlife.pad.mvp.login.presenter.LoginPresenter;
-import com.wujia.lib.widget.util.ToastUtil;
+import com.wujia.businesslib.Constants;
+import com.wujia.businesslib.base.DataManager;
+import com.wujia.businesslib.base.MvpActivity;
+import com.wujia.businesslib.data.LoginDTO;
+import com.wujia.businesslib.data.TokenBean;
 import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.DateUtil;
 import com.wujia.lib_common.utils.FontUtils;
@@ -41,9 +35,6 @@ import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
-import static com.jingxi.jpushdemo.TagAliasOperatorHelper.ACTION_SET;
-import static com.jingxi.jpushdemo.TagAliasOperatorHelper.sequence;
 
 /**
  * author ：shenbingkai@163.com

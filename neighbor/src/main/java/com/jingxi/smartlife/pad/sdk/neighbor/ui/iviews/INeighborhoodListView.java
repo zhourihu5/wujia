@@ -3,7 +3,6 @@ package com.jingxi.smartlife.pad.sdk.neighbor.ui.iviews;
 import android.content.Context;
 import android.view.View;
 
-import com.alibaba.fastjson.JSONObject;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.bean.NeighborBoardTypeBean;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.bean.NeighborInfoBean;
 

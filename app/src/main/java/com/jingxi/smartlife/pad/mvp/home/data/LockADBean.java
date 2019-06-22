@@ -3,8 +3,6 @@ package com.jingxi.smartlife.pad.mvp.home.data;
 import com.google.gson.annotations.SerializedName;
 import com.wujia.businesslib.data.RootResponse;
 
-import java.util.ArrayList;
-
 /**
  * author ：shenbingkai@163.com
  * date ：2019-04-13

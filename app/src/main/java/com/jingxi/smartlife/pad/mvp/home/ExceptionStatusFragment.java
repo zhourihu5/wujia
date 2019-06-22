@@ -3,10 +3,10 @@ package com.jingxi.smartlife.pad.mvp.home;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
-import com.wujia.businesslib.TitleFragment;
 import com.jingxi.smartlife.pad.R;
 import com.jingxi.smartlife.pad.mvp.home.adapter.HomeExceptionAdapter;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeExceptionBean;
+import com.wujia.businesslib.TitleFragment;
 import com.wujia.lib.widget.HorizontalTabBar;
 import com.wujia.lib.widget.HorizontalTabItem;
 

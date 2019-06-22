@@ -3,10 +3,10 @@ package com.jingxi.smartlife.pad.market.mvp;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.jingxi.smartlife.pad.market.R;
 import com.jingxi.smartlife.pad.market.mvp.view.AllServiceFragment;
 import com.jingxi.smartlife.pad.market.mvp.view.FindServiceFragment;
 import com.wujia.businesslib.Constants;
-import com.jingxi.smartlife.pad.market.R;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib_common.base.TabFragment;

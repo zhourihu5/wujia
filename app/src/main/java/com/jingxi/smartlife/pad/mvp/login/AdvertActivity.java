@@ -7,9 +7,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jingxi.smartlife.pad.R;
-import com.wujia.businesslib.data.Advert;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.base.WebViewActivity;
+import com.wujia.businesslib.data.Advert;
 import com.wujia.lib.imageloader.ImageLoaderManager;
 import com.wujia.lib_common.base.BaseActivity;
 
