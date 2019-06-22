@@ -39,6 +39,5 @@ dependencies {
     api project(':lib_uikit')
     api project(':lib_imageloader')
     debugImplementation deps.leakcanary
-    releaseImplementation deps.leakcanary_no_op
     implementation files('libs/framework1.jar')
 }

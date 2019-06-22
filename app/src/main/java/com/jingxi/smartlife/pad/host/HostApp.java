@@ -3,6 +3,7 @@ package com.jingxi.smartlife.pad.host;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.umeng.commonsdk.UMConfigure;
 import com.wujia.businesslib.BuildConfig;
 import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.base.BaseApplication;
@@ -37,6 +38,10 @@ public class HostApp extends BaseApplication {
         HookUtil.hookWebView();
         JPushInterface.setDebugMode(BuildConfig.DEBUG); 	// 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);     		// 初始化 JPush
+
+        //方便错误统计，方便查看错误日志，便于修复bug
+        UMConfigure.init(this, "5d0ddf284ca357c8dc000dd6", "mychanel", UMConfigure.DEVICE_TYPE_PHONE, null);//友盟统计，周日虎的账号
+
 
         if(BuildConfig.DEBUG){
             // The callback when App process crashed.

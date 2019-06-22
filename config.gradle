@@ -54,7 +54,6 @@ deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_g
 deps.fragmentation = "me.yokeyword:fragmentation:$versions.fragmentation"
 deps.rxpermission = "com.tbruyelle.rxpermissions2:rxpermissions:$versions.rxpermission@aar"
 deps.leakcanary = "com.squareup.leakcanary:leakcanary-android:$versions.leakcanary"
-deps.leakcanary_no_op = "com.squareup.leakcanary:leakcanary-android-no-op:$versions.leakcanary"
 deps.glide_transformations = "jp.wasabeef:glide-transformations:$versions.glide_transformations"
 
 ext.deps = deps
@@ -89,6 +88,10 @@ def addRepos(RepositoryHandler handler) {
 
     handler.maven { url "https://raw.githubusercontent.com/s-tree/JxRepository/master/releases/" }
     handler.maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' }
+
+    //youmeng
+    handler.maven { url 'https://dl.bintray.com/umsdk/release' }
+
 }
 
 ext.addRepos = this.&addRepos
