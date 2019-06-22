@@ -139,6 +139,9 @@ public class UpdateFragment extends TitleFragment {
                                 .subscribe(new Consumer<Boolean>() {
                                     @Override
                                     public void accept(Boolean install) throws Exception {
+                                        updateCheckLayout.setVisibility(View.VISIBLE);
+                                        updateIngLayout.setVisibility(View.GONE);
+                                        ToastUtil.showShort(mContext, "安装失败");
                                         if (install) {
                                             ToastUtil.showShort(mContext, "安装完成");
                                             //安装成功，本地记录
@@ -155,6 +158,12 @@ public class UpdateFragment extends TitleFragment {
                         break;
                     case DownloadUtil.STATE_CANCELED:
                     case DownloadUtil.STATE_OTHER:
+                        updateCheckLayout.setVisibility(View.VISIBLE);
+                        updateIngLayout.setVisibility(View.GONE);
+                        if (null != tvUpdateDownloaded) {
+                            tvUpdateDownloaded.setText("安装失败");
+                        }
+                        ToastUtil.showShort(mContext, "安装失败");
                         break;
                 }
             }
