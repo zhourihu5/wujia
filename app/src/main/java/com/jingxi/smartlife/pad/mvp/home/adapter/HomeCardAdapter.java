@@ -54,7 +54,7 @@ public class HomeCardAdapter extends MultiItemTypeAdapter<HomeRecBean.Card> {
                 ImageView img = holder.getView(R.id.scene_in_img);
                 ImageLoaderManager.getInstance().loadImage(item.image,R.mipmap.default_loading, img);
                 holder.setText(R.id.scene_in_mode_tv, item.title);
-                holder.setText(R.id.scene_in_mode_status_tv, item.explain);
+                holder.setText(R.id.scene_in_mode_status_tv, item.getExplain());
 
             }
         });

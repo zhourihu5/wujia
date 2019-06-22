@@ -46,7 +46,7 @@ public class HomeCardManagerAdapter extends CommonAdapter<HomeRecBean.Card> {
                 subview = LayoutInflater.from(mContext).inflate(R.layout.item_home_rec_layout_1, null);
 
                 TextView desc = subview.findViewById(R.id.scene_in_mode_status_tv);
-                desc.setText(item.explain);
+                desc.setText(item.getExplain());
 
                 ImageView img = subview.findViewById(R.id.scene_in_img);
                 ImageLoaderManager.getInstance().loadImage(item.image, R.mipmap.default_loading,img);

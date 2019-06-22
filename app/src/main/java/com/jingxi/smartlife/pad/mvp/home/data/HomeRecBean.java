@@ -1,7 +1,10 @@
 package com.jingxi.smartlife.pad.mvp.home.data;
 
+import android.text.TextUtils;
+
 import com.google.gson.annotations.SerializedName;
 import com.wujia.businesslib.data.RootResponse;
+import com.wujia.lib_common.utils.LogUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -59,8 +62,15 @@ public class HomeRecBean extends RootResponse {
 
         public String type;
         @SerializedName("memo")
-        public String explain;
-//        public ArrayList<Subscriptions> subscriptions;//todo 目前接口缺该字段，是否需要？
+        private String explain;
+
+        public String getExplain() {
+            if(!TextUtils.isEmpty(explain)){
+                return explain.replaceAll("_","\n");
+            }
+            return explain;
+        }
+        //        public ArrayList<Subscriptions> subscriptions;//todo 目前接口缺该字段，是否需要？
 
         @Override
         public int hashCode() {
