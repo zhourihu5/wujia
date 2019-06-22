@@ -18,8 +18,11 @@ import android.widget.RelativeLayout;
 
 import com.intercom.sdk.SecurityMessage;
 import com.intercom.sdk.SmartHomeManager;
+import com.jingxi.smartlife.pad.family.mvp.FamilyHomeFragment;
+import com.jingxi.smartlife.pad.message.mvp.MessageHomeFragment;
 import com.jingxi.smartlife.pad.mvp.home.HomeFragment;
 import com.jingxi.smartlife.pad.mvp.home.HomeHomeFragment;
+import com.jingxi.smartlife.pad.safe.mvp.SafeHomeFragment;
 import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.jingxi.smartlife.pad.sdk.doorAccess.DoorAccessManager;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.DoorSecurityUtil;
@@ -419,6 +422,15 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
                 break;
             case POSITION_PROPERTY:
                 tabFragment = mFragments[pos].findChildFragment(ProperyHomeFragment.class);
+                break;
+            case POSITION_FAMILY:
+                tabFragment = mFragments[pos].findChildFragment(FamilyHomeFragment.class);
+                break;
+            case POSITION_SAFE:
+                tabFragment = mFragments[pos].findChildFragment(SafeHomeFragment.class);
+                break;
+            case POSITION_MESSAGE:
+                tabFragment = mFragments[pos].findChildFragment(MessageHomeFragment.class);
                 break;
         }
         if (null != tabFragment)

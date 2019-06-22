@@ -28,8 +28,6 @@ public class HomeRecBean extends RootResponse {
     public static final String TYPE_ADD = "add";
 
 
-    public static final String TYPE_LINK_EXTERNAL = "external";//外链
-    public static final String TYPE_LINK_INTERNALL = "internal";//内链
 
     public HomeRecBean() {
     }
@@ -51,7 +49,7 @@ public class HomeRecBean extends RootResponse {
         public String title;
         @SerializedName("icon")
         public String image;
-        public String linkType;
+//        public String linkType;
         @SerializedName("url")
         public String linkUrl;
 

@@ -227,14 +227,12 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                 HomeRecBean.Card card = cards.get(position);
                 switch (card.type) {
                     case HomeRecBean.TYPE_LINK:
-                        if (HomeRecBean.TYPE_LINK_EXTERNAL.equals(card.linkType)) {//外链
-                            start(WebViewFragment.newInstance(card.linkUrl));
-                        } else if (HomeRecBean.TYPE_LINK_INTERNALL.equals(card.linkType)) {//内链
-                            parseLinkUrl(card.linkUrl);
-                        }
+                        start(WebViewFragment.newInstance(card.linkUrl));
+
                         break;
 
                     case HomeRecBean.TYPE_APP_PAGE:
+                        parseLinkUrl(card.linkUrl);
                         break;
 
                     case HomeRecBean.TYPE_IMAGE:
@@ -251,35 +249,25 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
         });
     }
 
-    private void parseLinkUrl(String json) {
-        LinkUrlBean linkUrl = GsonUtil.GsonToBean(json, LinkUrlBean.class);
-        switch (linkUrl.code) {
-            case LinkUrlBean.CODE_TYPE_MARKET://服务市场
-                switch (linkUrl.children.code) {
-                    case LinkUrlBean.Children1.CODE_TYPE_FIND:
-                        ((MainActivity) mActivity).switchHomeTab(MainActivity.POSITION_MARKET, 1);
-                        break;
-
-                    case LinkUrlBean.Children1.CODE_TYPE_GOV:
-                        ((MainActivity) mActivity).switchHomeTab(MainActivity.POSITION_MARKET, 2);
-                        break;
-
-                    case LinkUrlBean.Children1.CODE_TYPE_ALL:
-                        ((MainActivity) mActivity).switchHomeTab(MainActivity.POSITION_MARKET, 3);
-                        break;
-                }
+    private void parseLinkUrl(String url) {
+        switch (url) {
+            case "FWSC_WDFW":
+                ((MainActivity) mActivity).switchHomeTab(MainActivity.POSITION_MARKET, 0);
                 break;
 
-            case LinkUrlBean.CODE_TYPE_PROPERTY://物业服务
-                switch (linkUrl.children.code) {
-                    case LinkUrlBean.Children1.CODE_TYPE_REPORT:
-                        ((MainActivity) mActivity).switchHomeTab(MainActivity.POSITION_PROPERTY, 0);
-                        break;
+            case "WYFW_BSBX":
+                ((MainActivity) mActivity).switchHomeTab(MainActivity.POSITION_PROPERTY, 0);
+                break;
 
-                    case LinkUrlBean.Children1.CODE_TYPE_PHONE:
-                        ((MainActivity) mActivity).switchHomeTab(MainActivity.POSITION_PROPERTY, 1);
-                        break;
-                }
+            case "XXTZ_QBXX":
+                ((MainActivity) mActivity).switchHomeTab(MainActivity.POSITION_MESSAGE, 0);
+                break;
+
+            case "ZNJJ_SY":
+                ((MainActivity) mActivity).switchHomeTab(MainActivity.POSITION_FAMILY, 0);
+                break;
+            case "KSAF_SW":
+                ((MainActivity) mActivity).switchHomeTab(MainActivity.POSITION_SAFE, 0);
                 break;
         }
     }

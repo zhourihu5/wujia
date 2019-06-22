@@ -9,6 +9,7 @@ import com.jingxi.smartlife.pad.message.R;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib_common.base.BaseFragment;
+import com.wujia.lib_common.base.TabFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
 import me.yokeyword.fragmentation.SupportFragment;
@@ -18,7 +19,7 @@ import me.yokeyword.fragmentation.SupportFragment;
  * date ：2019-02-17
  * description ：
  */
-public class MessageHomeFragment extends BaseFragment {
+public class MessageHomeFragment extends TabFragment {
 
 
     private VerticalTabBar mTabBar;
@@ -90,4 +91,8 @@ public class MessageHomeFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void switchTab(int pos) {
+        mTabBar.getChildAt(pos).performClick();
+    }
 }

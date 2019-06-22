@@ -7,6 +7,7 @@ import com.jingxi.smartlife.pad.family.R;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib_common.base.BaseFragment;
+import com.wujia.lib_common.base.TabFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
 import me.yokeyword.fragmentation.SupportFragment;
@@ -16,7 +17,7 @@ import me.yokeyword.fragmentation.SupportFragment;
  * date ：2019-01-12 20:06
  * description ：智能家居 home
  */
-public class FamilyHomeFragment extends BaseFragment {
+public class FamilyHomeFragment extends TabFragment {
     private VerticalTabBar mTabBar;
     private SupportFragment[] mFragments = new SupportFragment[6];
 
@@ -90,5 +91,10 @@ public class FamilyHomeFragment extends BaseFragment {
         // 不管是 父Fragment还是子Fragment 都有效！
         LogUtil.i("FamilyFragment onSupportInvisible");
 
+    }
+
+    @Override
+    public void switchTab(int pos) {
+        mTabBar.getChildAt(pos).performClick();
     }
 }
