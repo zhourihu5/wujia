@@ -452,5 +452,7 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
     protected void onDestroy() {
         super.onDestroy();
         EventBusUtil.unregister(eventMsg);
+        manager.setDoorAccessListener(null);
+        manager=null;
     }
 }

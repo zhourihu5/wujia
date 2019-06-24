@@ -11,7 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.jingxi.smartlife.pad.R;
+import com.jingxi.smartlife.pad.jpush.R;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

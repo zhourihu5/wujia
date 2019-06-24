@@ -13,7 +13,7 @@ import android.widget.CheckBox;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.jingxi.smartlife.pad.R;
+import com.jingxi.smartlife.pad.jpush.R;
 
 import java.util.HashSet;
 import java.util.Set;

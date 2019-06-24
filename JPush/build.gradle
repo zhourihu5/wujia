@@ -47,7 +47,7 @@ android {
         abortOnError false
     }
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 21
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
     }
 }

@@ -62,8 +62,8 @@
         tools:text="晴" />
     <ImageView
         android:id="@+id/ivWeather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_alignBottom="@id/login_temperature_tv"
         android:layout_marginLeft="@dimen/px60"
         android:layout_marginBottom="@dimen/px16"

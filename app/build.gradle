@@ -30,11 +30,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 
 
-
+    lintOptions {
+        abortOnError false
+    }
     dexOptions {
         javaMaxHeapSize "4g"
     }
@@ -67,5 +70,5 @@ dependencies {
     // Optional, if you use support library fragments:
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
 
-    debugImplementation 'com.iqiyi.xcrash:xcrash-android-lib:2.1.7'//todo just for debug
+//    debugImplementation 'com.iqiyi.xcrash:xcrash-android-lib:2.1.7'//todo just for debug
 }

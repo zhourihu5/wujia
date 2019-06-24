@@ -1,20 +1,14 @@
 package com.jingxi.smartlife.pad.host;
 
+import com.jingxi.smartlife.pad.BuildConfig;
 import com.squareup.leakcanary.LeakCanary;
 import com.umeng.commonsdk.UMConfigure;
-import com.wujia.businesslib.BuildConfig;
 import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.base.BaseApplication;
-import com.wujia.lib_common.utils.LogUtil;
 import com.wujia.lib_common.utils.NetworkUtil;
 
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileWriter;
-
 import cn.jpush.android.api.JPushInterface;
-import xcrash.TombstoneParser;
+//import xcrash.TombstoneParser;
 
 /**
  * author ：shenbingkai
@@ -107,7 +101,7 @@ public class HostApp extends BaseApplication {
 //                .install();
     }
 
-    private void sendThenDeleteCrashLog(String logPath, String emergency) {
+    /*private void sendThenDeleteCrashLog(String logPath, String emergency) {
         // Parse
         //Map<String, String> map = TombstoneParser.parse(logPath, emergency);
         //String crashReport = new JSONObject(map).toString();
@@ -143,5 +137,5 @@ public class HostApp extends BaseApplication {
                 }
             }
         }
-    }
+    }*/
 }
