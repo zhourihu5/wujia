@@ -3,6 +3,8 @@ package com.wujia.businesslib.base;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.R;
 import com.wujia.lib_common.base.BaseActivity;
+import com.wujia.lib_common.utils.WebViewUtil;
 
 /**
  * author ：shenbingkai@163.com
@@ -19,7 +22,7 @@ import com.wujia.lib_common.base.BaseActivity;
  */
 public class WebViewActivity extends BaseActivity implements View.OnClickListener {
 
-    private WebView webView;
+    private WebView mWebView;
     private ProgressBar progressBar;
 
     @Override
@@ -32,7 +35,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
         String url = getIntent().getStringExtra(Constants.INTENT_KEY_1);
 
-        webView = $(R.id.webview);
+        mWebView = $(R.id.webview);
         progressBar = $(R.id.web_progress);
         TextView layoutBackBtn = $(R.id.layout_back_btn);
         TextView layoutRightBtn = $(R.id.layout_right_btn);
@@ -43,9 +46,9 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         layoutRightBtn.setText("关闭");
         layoutBackBtn.setVisibility(View.VISIBLE);
         layoutRightBtn.setVisibility(View.VISIBLE);
-        webView.loadUrl(url);
+        mWebView.loadUrl(url);
 
-        WebSettings settings = webView.getSettings();
+        WebSettings settings = mWebView.getSettings();
         settings.setAllowUniversalAccessFromFileURLs(true);
         settings.setAllowFileAccessFromFileURLs(true);
 
@@ -59,8 +62,8 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 //        settings.setBlockNetworkImage(true);
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
-        webView.setWebChromeClient(new WebViewActivity.WebChromeClient());
-        webView.setWebViewClient(new WebViewActivity.WebViewClient());
+        mWebView.setWebChromeClient(new WebViewActivity.WebChromeClient());
+        mWebView.setWebViewClient(new WebViewActivity.WebViewClient());
 
         layoutBackBtn.setOnClickListener(this);
         layoutRightBtn.setOnClickListener(this);
@@ -68,21 +71,21 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onPause() {
-        webView.onPause();
+        mWebView.onPause();
         super.onPause();
     }
 
     @Override
     public void onResume() {
-        webView.onResume();
+        mWebView.onResume();
         super.onResume();
     }
 
     @Override
     protected void onDestroy() {
-        if (null != webView)
-            webView.destroy();
+        WebViewUtil.onDestroy(mWebView);
         super.onDestroy();
+        android.os.Process.killProcess(android.os.Process.myPid());//webview 内存泄漏，单独放一个进程
     }
 
     @Override
@@ -91,8 +94,8 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             finish();
         } else if (v.getId() == R.id.layout_back_btn) {
 
-            if (webView.canGoBack()) {
-                webView.goBack();
+            if (mWebView.canGoBack()) {
+                mWebView.goBack();
             } else {
                 finish();
             }

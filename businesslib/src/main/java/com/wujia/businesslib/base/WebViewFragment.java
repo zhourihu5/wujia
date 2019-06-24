@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.R;
 import com.wujia.businesslib.TitleFragment;
+import com.wujia.lib_common.utils.WebViewUtil;
 
 
 /**
@@ -21,7 +24,7 @@ import com.wujia.businesslib.TitleFragment;
  */
 public class WebViewFragment extends TitleFragment implements View.OnClickListener {
 
-    private WebView webView;
+    private WebView mWebView;
     private ProgressBar progressBar;
 
     public WebViewFragment() {
@@ -55,7 +58,7 @@ public class WebViewFragment extends TitleFragment implements View.OnClickListen
     protected void initEventAndData() {
         super.initEventAndData();
 
-        webView = $(R.id.webview);
+        mWebView = $(R.id.webview);
         progressBar = $(R.id.web_progress);
         TextView layoutBackBtn = $(R.id.layout_back_btn);
         TextView layoutRightBtn = $(R.id.layout_right_btn);
@@ -66,17 +69,17 @@ public class WebViewFragment extends TitleFragment implements View.OnClickListen
 
         layoutRightBtn.setText("关闭");
         layoutRightBtn.setVisibility(View.VISIBLE);
-        webView.loadUrl(url);
+        mWebView.loadUrl(url);
 
-//        webView.setBackgroundColor(0);
-//        webView.getBackground().setAlpha(0);
+//        mWebView.setBackgroundColor(0);
+//        mWebView.getBackground().setAlpha(0);
 
 //        if (!NetWorkUtil.hasNet) {
 //            ToastUtils.showToast("网络未连接");
 //            return;
 //        }
 
-        WebSettings settings = webView.getSettings();
+        WebSettings settings = mWebView.getSettings();
         settings.setAllowUniversalAccessFromFileURLs(true);
         settings.setAllowFileAccessFromFileURLs(true);
 
@@ -90,8 +93,8 @@ public class WebViewFragment extends TitleFragment implements View.OnClickListen
 //        settings.setBlockNetworkImage(true);
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
-        webView.setWebChromeClient(new WebChromeClient());
-        webView.setWebViewClient(new WebViewClient());
+        mWebView.setWebChromeClient(new WebChromeClient());
+        mWebView.setWebViewClient(new WebViewClient());
 
 
         layoutBackBtn.setOnClickListener(this);
@@ -102,8 +105,8 @@ public class WebViewFragment extends TitleFragment implements View.OnClickListen
 //    @Override
 //    public boolean onBackPressedSupport() {
 //
-//        if (webView.canGoBack()) {
-//            webView.goBack();
+//        if (mWebView.canGoBack()) {
+//            mWebView.goBack();
 //        } else {
 //            pop();
 //        }
@@ -113,20 +116,19 @@ public class WebViewFragment extends TitleFragment implements View.OnClickListen
 
     @Override
     public void onPause() {
-        webView.onPause();
+        mWebView.onPause();
         super.onPause();
     }
 
     @Override
     public void onResume() {
-        webView.onResume();
+        mWebView.onResume();
         super.onResume();
     }
 
     @Override
     public void onDestroyView() {
-        if (null != webView)
-            webView.destroy();
+        WebViewUtil.onDestroy(mWebView);
         super.onDestroyView();
     }
 
@@ -136,8 +138,8 @@ public class WebViewFragment extends TitleFragment implements View.OnClickListen
             pop();
         } else if (v.getId() == R.id.layout_back_btn) {
 
-            if (webView.canGoBack()) {
-                webView.goBack();
+            if (mWebView.canGoBack()) {
+                mWebView.goBack();
             } else {
                 pop();
             }

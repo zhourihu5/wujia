@@ -163,6 +163,17 @@ public class SafeOutsideFragment extends BaseFragment implements
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(mDoorAccessManager!=null){
+            mDoorAccessManager.setListUIListener(null);
+            mDoorAccessManager.removeConversationUIListener(this);
+            mDoorAccessManager.removePlayBackListener(this);
+            mDoorAccessManager = null;
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
     }

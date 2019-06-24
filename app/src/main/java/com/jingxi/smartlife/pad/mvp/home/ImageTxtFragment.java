@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
@@ -18,6 +20,7 @@ import com.wujia.businesslib.model.BusModel;
 import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
 import com.wujia.lib_common.data.network.exception.ApiException;
+import com.wujia.lib_common.utils.WebViewUtil;
 
 import java.util.ArrayList;
 
@@ -34,7 +37,7 @@ public class ImageTxtFragment extends ServiceBaseFragment {
     private HomeModel mModel;
 
     private ArrayList<CardDetailBean.ServicesBean> datas;
-    private WebView webView;
+    private WebView mWebView;
     private FindServiceChildAdapter mAdapter;
 
     public ImageTxtFragment() {
@@ -61,7 +64,7 @@ public class ImageTxtFragment extends ServiceBaseFragment {
 
         final String cardId = getArguments().getString(KEY_TXT);
 
-        webView = $(R.id.webview);
+        mWebView = $(R.id.webview);
         RecyclerView rv = $(R.id.rv1);
         TextView tvTitle = $(R.id.layout_title_tv);
         TextView btnBack = $(R.id.layout_back_btn);
@@ -75,11 +78,11 @@ public class ImageTxtFragment extends ServiceBaseFragment {
             }
         });
 
-        webView.setBackgroundColor(0);
-        webView.getBackground().setAlpha(0);
+        mWebView.setBackgroundColor(0);
+        mWebView.getBackground().setAlpha(0);
 
 
-        WebSettings settings = webView.getSettings();
+        WebSettings settings = mWebView.getSettings();
         settings.setAllowUniversalAccessFromFileURLs(true);
         settings.setAllowFileAccessFromFileURLs(true);
 
@@ -93,8 +96,8 @@ public class ImageTxtFragment extends ServiceBaseFragment {
 //        settings.setBlockNetworkImage(true);
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
-        webView.setWebChromeClient(new WebChromeClient());
-        webView.setWebViewClient(new WebViewClient());
+        mWebView.setWebChromeClient(new WebChromeClient());
+        mWebView.setWebViewClient(new WebViewClient());
 
         datas = new ArrayList<CardDetailBean.ServicesBean>();
 
@@ -116,7 +119,7 @@ public class ImageTxtFragment extends ServiceBaseFragment {
             public void onResponse(ApiResponse<CardDetailBean> response) {
                 super.onResponse(response);
                 String txt= response.data.getContent();
-                webView.loadData(txt, "text/html; charset=UTF-8", null);
+                mWebView.loadData(txt, "text/html; charset=UTF-8", null);
                 datas.clear();
                 datas.addAll(response.data.getServices());
                 mAdapter.notifyDataSetChanged();
@@ -132,10 +135,10 @@ public class ImageTxtFragment extends ServiceBaseFragment {
 
     @Override
     public void onDestroyView() {
-        if (null != webView)
-            webView.destroy();
+        WebViewUtil.onDestroy(mWebView);
         super.onDestroyView();
     }
+
 
     public class WebViewClient extends android.webkit.WebViewClient {
         // 如果页面中链接，如果希望点击链接继续在当前browser中响应，
