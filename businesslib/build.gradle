@@ -38,6 +38,5 @@ dependencies {
     api 'org.greenrobot:eventbus:3.1.1'
     api project(':lib_uikit')
     api project(':lib_imageloader')
-    debugImplementation deps.leakcanary
     implementation files('libs/framework1.jar')
 }

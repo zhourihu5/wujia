@@ -59,8 +59,13 @@ dependencies {
 
     implementation project(':JPush')
 
-    compile  'com.umeng.umsdk:analytics:7.5.4'
-    compile  'com.umeng.umsdk:common:1.5.4'
+    implementation  'com.umeng.umsdk:analytics:7.5.4'
+    implementation  'com.umeng.umsdk:common:1.5.4'
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+    // Optional, if you use support library fragments:
+    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
 
     debugImplementation 'com.iqiyi.xcrash:xcrash-android-lib:2.1.7'//todo just for debug
 }

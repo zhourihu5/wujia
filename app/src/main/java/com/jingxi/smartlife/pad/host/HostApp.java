@@ -1,5 +1,6 @@
 package com.jingxi.smartlife.pad.host;
 
+import com.squareup.leakcanary.LeakCanary;
 import com.umeng.commonsdk.UMConfigure;
 import com.wujia.businesslib.BuildConfig;
 import com.wujia.businesslib.HookUtil;
@@ -25,6 +26,13 @@ public class HostApp extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
+
         NetworkUtil.getNetWork(instance);
         HookUtil.hookWebView();
         JPushInterface.setDebugMode(BuildConfig.DEBUG); 	// 设置开启日志,发布时请关闭日志
