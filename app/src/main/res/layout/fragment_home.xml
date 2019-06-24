@@ -166,7 +166,8 @@
                 android:gravity="center"
                 android:text="空气质量：优"
                 android:textColor="@color/c3"
-                android:textSize="@dimen/text24" />
+                android:textSize="@dimen/text24"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <LinearLayout
@@ -175,22 +176,33 @@
             android:layout_alignRight="@+id/home_status_layout"
             android:layout_marginTop="@dimen/px140"
             android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/home_weather_desc_tv"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="晴朗"
-                android:textColor="@color/c8"
-                android:textSize="@dimen/text20" />
+                android:orientation="vertical">
+                <ImageView android:id="@+id/ivWeather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    tools:src="@mipmap/icon_home_weather_sunny"
+                    />
+                <TextView
+                    android:id="@+id/home_weather_desc_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="晴朗"
+                    android:textColor="@color/c8"
+                    android:textSize="@dimen/text20" />
                 <!--android:drawableTop="@mipmap/icon_home_weather_sunny"-->
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/home_weather_num_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/px10"
-                android:text="12°"
+                tools:text="12°"
                 android:textColor="@color/c53"
                 android:textSize="@dimen/text80" />
 

@@ -26,7 +26,7 @@ public class EventSubscription extends AbsEventEntiry<EventSubscription> {
 //
 //    }
 
-    public EventSubscription(int type) {//todo 加个服务类型，判断哪个服务类型的列表数据需要刷新
+    public EventSubscription(int type) {
         this.type=type;
     }
 

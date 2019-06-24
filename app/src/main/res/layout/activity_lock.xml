@@ -60,7 +60,15 @@
         android:textColor="@color/white"
         android:textSize="@dimen/text24"
         tools:text="晴" />
-
+    <ImageView
+        android:id="@+id/ivWeather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/login_temperature_tv"
+        android:layout_marginLeft="@dimen/px60"
+        android:layout_marginBottom="@dimen/px16"
+        android:layout_toRightOf="@+id/login_temperature_desc"
+        tools:src="@mipmap/icon_home_weather_sunny" />
     <TextView
         android:id="@+id/login_weather_desc"
         android:layout_width="wrap_content"

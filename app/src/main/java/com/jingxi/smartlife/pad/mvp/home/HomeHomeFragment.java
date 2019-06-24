@@ -40,6 +40,7 @@ import com.wujia.businesslib.event.EventSafeState;
 import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.wujia.businesslib.model.BusModel;
+import com.wujia.lib.imageloader.ImageLoaderManager;
 import com.wujia.lib.widget.HomeArcView;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
@@ -97,6 +98,8 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     TextView homeWeatherDescTv;
     @BindView(R.id.home_weather_num_tv)
     TextView homeWeatherNumTv;
+    @BindView(R.id.ivWeather)
+    ImageView ivWeather;
     @BindView(R.id.rv_home_card)
     RecyclerView rvHomeCard;
     @BindView(R.id.rv_home_msg)
@@ -447,7 +450,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                         if (weather.getTime().equals(curdate)) {
                             homeWeatherNumTv.setText(weather.getTemperature() + "°");
                             homeWeatherDescTv.setText(weather.getWeather());
-                            //todo 空气质量没有  天气图标没有
+                            ImageLoaderManager.getInstance().loadImage(weather.getWeather_code(),ivWeather);
                         }
                     }
                 }

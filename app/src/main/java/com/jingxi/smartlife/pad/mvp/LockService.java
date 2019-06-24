@@ -53,6 +53,7 @@ public class LockService extends DreamService implements HomeContract.View {
     private TextView loginTimeDateTv;
     private TextView loginTemperatureTv;
     private TextView loginTemperatureDesc;
+    private ImageView ivWeather;
     private TextView btnDetails;
     private RecyclerView rvHomeMsg;
     private ImageView bgImg;
@@ -94,6 +95,7 @@ public class LockService extends DreamService implements HomeContract.View {
         loginTimeDateTv = findViewById(R.id.login_time_date_tv);
         loginTimeTv = findViewById(R.id.login_time_tv);
         loginTemperatureTv = findViewById(R.id.login_temperature_tv);
+        ivWeather = findViewById(R.id.ivWeather);
         loginTemperatureDesc = findViewById(R.id.login_temperature_desc);
         rvHomeMsg = findViewById(R.id.rv_home_msg);
         bgImg = findViewById(R.id.lock_img_bg);
@@ -218,7 +220,7 @@ public class LockService extends DreamService implements HomeContract.View {
                                             if (weather.getTime().equals(curdate)) {
                                                 loginTemperatureTv.setText(weather.getTemperature() + "°");
                                                 loginTemperatureDesc.setText(weather.getWeather());
-                                                //todo 空气质量没有  天气图标没有
+                                                ImageLoaderManager.getInstance().loadImage(weather.getWeather_code(),ivWeather);
                                             }
                                         }
                                     }
