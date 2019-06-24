@@ -359,7 +359,7 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
     }
 
     @Override
-    public void onBaseButtonClick(String buttonKey, String cmd, String time) {
+    public void onBaseButtonClick(String buttonKey, String cmd, String time) {//todo 底座按键回调
 
     }
 

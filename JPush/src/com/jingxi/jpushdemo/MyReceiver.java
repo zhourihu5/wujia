@@ -13,6 +13,7 @@ import com.wujia.businesslib.data.VersionBean;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventCardChange;
 import com.wujia.businesslib.event.EventMsg;
+import com.wujia.businesslib.event.EventSubscription;
 import com.wujia.businesslib.event.EventWakeup;
 import com.wujia.businesslib.listener.DownloadListener;
 import com.wujia.lib_common.utils.AppUtil;
@@ -46,6 +47,7 @@ public class MyReceiver extends BroadcastReceiver {
 	public static final String TYPE_CARD="CARD";
 	public static final String TYPE_ADV="ADV";
 	public static final String TYPE_SYS="SYS";
+	public static final String TYPE_MARKET="MARKET";//TODO 服务
 
 	private static final String TAG = "JIGUANG-Example";
 
@@ -134,7 +136,19 @@ public class MyReceiver extends BroadcastReceiver {
 			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
 			String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
 			String type= bundle.getString(JPushInterface.EXTRA_CONTENT_TYPE);
+
 			switch (type){
+				case TYPE_MARKET://todo 服务
+					int marketType=EventSubscription.TYPE_NOTIFY;
+					try {
+						marketType=Integer.valueOf(message);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					EventSubscription eventSubscription=new EventSubscription(marketType);
+					eventSubscription.eventType=EventSubscription.PUSH_NOTIFY;
+					EventBusUtil.post(eventSubscription);
+					break;
 				case TYPE_ADV:
 
 //					Activity currentActivity = BaseApplication.getCurrentAcitivity();

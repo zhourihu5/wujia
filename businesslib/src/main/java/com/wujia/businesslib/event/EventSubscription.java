@@ -12,6 +12,10 @@ public class EventSubscription extends AbsEventEntiry<EventSubscription> {
     public static final int TYPE_FIND=1;
     public static final int TYPE_GOV=2;
 
+    public static final int TYPE_NOTIFY=99;
+
+    public static int PUSH_NOTIFY=99;
+    public int eventType;
 
     private int type;
 

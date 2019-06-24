@@ -56,7 +56,10 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
     private EventSubscription event = new EventSubscription(new IMiessageInvoke<EventSubscription>() {
         @Override
         public void eventBus(EventSubscription event) {
-            if(isVisible){
+            if(event.getType()==EventSubscription.TYPE_NOTIFY){
+                pageNo=1;
+                getList(false);
+            } else if(isVisible&&event.eventType!=EventSubscription.PUSH_NOTIFY){
                 mLoadMoreWrapper.notifyDataSetChanged();
             }else {
                 switch (event.getType()){
