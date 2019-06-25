@@ -14,46 +14,18 @@ public class DataManager {
 
 //    private static LoginDTO.DataBean user;
 
-    public static LoginDTO.DataBean getUser() {
-        return (LoginDTO.DataBean) SPHelper.readObject(AppContext.get(), Constants.SP_KEY_USER);
+    public static LoginDTO.DataBean getUser() throws Exception{
+       Object object= SPHelper.readObject(AppContext.get(), Constants.SP_KEY_USER);
+       if(object==null){
+           throw new Exception("please relogin to get user");
+       }
+       return (LoginDTO.DataBean)object;
+    }
+    public static final String getFamilyId()throws Exception{
+        return getUser().getUserInfo().getFid();
     }
 
-//    public static String getFid() {
-//        LoginDTO.DataBean user = getUser();
-//        if (null != user) {
-//            return user.getUserInfo().get;
-//        }
-//        return "";
-//    }
-    @Deprecated
-    public static String getCommunityId() {//todo
-//        LoginDTO.DataBean user = getUser();
-//        if (null != user) {
-//            return user.communityId;
-//        }
-        throw new RuntimeException("deprecated api");
-//        return "";
-    }
-    @Deprecated
-    public static String getOpenid() {
-//        UserBean.User user = getUser();
-//        if (null != user) {
-//            return user.openId;
-//        }
-//        return "";
-        throw new RuntimeException("deprecated api");
-    }
-    @Deprecated
-    public static String getAccid() {
-//        UserBean.User user = getUser();
-//        if (null != user) {
-//            return user.accid;
-//        }
-//        return "";
-        throw new RuntimeException("deprecated api");
-    }
-
-    public static String getDockKey() {
+    public static String getDockKey() throws Exception{
         LoginDTO.DataBean user = getUser();
         if (null != user) {
             int count = user.getDevice().getDeviceKey().length();
@@ -66,15 +38,15 @@ public class DataManager {
             return user.getDevice().getDeviceKey() + newDockkey.toString();
             // return "001901181CD10000";
         }
-        return "";
+        throw new Exception("no dock key,please relogin to get dockkey");
     }
 
-    public static String getButtonKey() {
+    public static String getButtonKey()throws Exception {
         LoginDTO.DataBean user = getUser();
         if (null != user) {
             return user.getDevice().getButtonKey();
         }
-        return "";
+        throw new Exception("no dock key,please relogin to get dockkey");
     }
 
     public static String getToken() {

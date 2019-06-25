@@ -26,6 +26,7 @@ import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListUI;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.dialog.LoadingDialog;
+import com.wujia.businesslib.util.LoginUtil;
 import com.wujia.lib.widget.WJButton;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.BaseFragment;
@@ -114,7 +115,13 @@ public class SafeOutsideFragment extends BaseFragment implements
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
         LogUtil.i("SafeOutsideFragment onLazyInitView");
-        familyID = DataManager.getDockKey();
+        try {
+            familyID = DataManager.getDockKey();
+        } catch (Exception e) {
+            LoginUtil.toLoginActivity();
+            LogUtil.t("get familyid failed",e);
+            return;
+        }
 
         audioHelper = new AudioMngHelper(mContext);
         audioValue = audioHelper.get100CurrentVolume();

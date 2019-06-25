@@ -47,6 +47,7 @@ import com.wujia.businesslib.event.EventSafeState;
 import com.wujia.businesslib.event.EventWakeup;
 import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.businesslib.model.BusModel;
+import com.wujia.businesslib.util.LoginUtil;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib.widget.util.ToastUtil;
@@ -267,7 +268,17 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
     private void initSDKManager() {
         manager = JXPadSdk.getDoorAccessManager();
         manager.setDoorAccessListener(this);
-        manager.startFamily(DataManager.getDockKey(), DataManager.getButtonKey());
+        String dockeKey=null;
+        String buttonKey=null;
+        try {
+            dockeKey= DataManager.getDockKey();
+            buttonKey=  DataManager.getButtonKey();
+        } catch (Exception e) {
+            LogUtil.t("获取dockKey失败",e);
+            LoginUtil.toLoginActivity();
+            return;
+        }
+        manager.startFamily(dockeKey,buttonKey);
 
 //        manager.addSecurityListener(this);
 //        manager.querySecurityStatus(DataManager.getFid());

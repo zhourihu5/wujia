@@ -40,6 +40,7 @@ import com.wujia.businesslib.event.EventSafeState;
 import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.wujia.businesslib.model.BusModel;
+import com.wujia.businesslib.util.LoginUtil;
 import com.wujia.lib.imageloader.ImageLoaderManager;
 import com.wujia.lib.widget.HomeArcView;
 import com.wujia.lib.widget.util.ToastUtil;
@@ -113,7 +114,6 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     private HomeMemberAdapter memAdapter;
     private ArrayList<HomeRecBean.Card> cards;
 
-    private PushManager pushManager;
     private boolean isRefreshCard = false;
 
     private EventSafeState eventSafeState = new EventSafeState(new IMiessageInvoke<EventSafeState>() {
@@ -144,7 +144,15 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     private EventMemberChange eventMemberChange = new EventMemberChange(new IMiessageInvoke<EventMemberChange>() {
         @Override
         public void eventBus(EventMemberChange event) {
-            String familyId=DataManager.getUser().getUserInfo().getFid();
+            String familyId= null;
+            try {
+                familyId = DataManager.getFamilyId();
+            } catch (Exception e) {
+                LogUtil.t("get familyId failed",e);
+                LoginUtil.toLoginActivity();
+                return;
+            }
+
             addSubscribe(familyMemberModel.getFamilyMemberList(familyId).subscribeWith(new SimpleRequestSubscriber<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(HomeHomeFragment.this, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
                 @Override
                 public void onResponse(ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>> response) {
@@ -185,12 +193,9 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
         FontUtils.changeFontTypeface(homeWeatherNumTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
 
-//        homeRoomTv.setText(DataManager.getUser().getUserInfo().getNickName());
         homeDateTv.setText(StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay()));
 
         setCardView();
-
-//        setMemberView();
 
         setNotify(true);
 
@@ -363,7 +368,14 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                         if(familyMemberModel==null){
                             familyMemberModel=new FamilyMemberModel();
                         }
-                        String familyId=DataManager.getUser().getUserInfo().getFid();
+                        String familyId=null;
+                        try {
+                            familyId = DataManager.getFamilyId();
+                        } catch (Exception e) {
+                            LoginUtil.toLoginActivity();
+                            LogUtil.t("get familyid failed",e);
+                            return;
+                        }
                         addSubscribe(familyMemberModel.addFamilyMember(input,familyId).subscribeWith(new SimpleRequestSubscriber<ApiResponse<String>>(HomeHomeFragment.this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
                             @Override
                             public void onResponse(ApiResponse<String> response) {

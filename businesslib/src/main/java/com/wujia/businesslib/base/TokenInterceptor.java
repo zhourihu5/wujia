@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.data.RootResponse;
+import com.wujia.businesslib.util.LoginUtil;
 import com.wujia.lib_common.data.network.exception.TokenException;
 import com.wujia.lib_common.utils.AppContext;
 import com.wujia.lib_common.utils.GsonUtil;
@@ -51,7 +52,7 @@ public class TokenInterceptor implements Interceptor {
             String token= DataManager.getToken();
             if(TextUtils.isEmpty(token)){
 //                originalResponse= chain.proceed(request);
-                toLoginActivity();
+                LoginUtil.toLoginActivity();
                 throw new TokenException("请先登录");
 //                return originalResponse;
             }
@@ -77,32 +78,14 @@ public class TokenInterceptor implements Interceptor {
 //        boolean isTestToken= BuildConfig.DEBUG&&url.contains("checkVersion");//  测试token失效
         if(isTokenExpired(bodyString)){//根据和服务端的约定判断token过期
             DataManager.saveToken("");
-            toLoginActivity();
+            LoginUtil.toLoginActivity();
             throw new TokenException("请重新登录");
         }
 
         return originalResponse;
     }
 
-    private void toLoginActivity() {
-        try {
-            Activity currentActivity = BaseApplication.getCurrentAcitivity();
-            Context context = AppContext.get();
-//            if (currentActivity != null) {
-//                context = currentActivity;
-//            }
 
-            Intent intent = new Intent();
-            intent.setClassName(context, "com.jingxi.smartlife.pad.mvp.login.LoginActivity");
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);//applicationcontext 启动只能以newtask
-            context.startActivity(intent);
-            if (currentActivity != null) {
-                currentActivity.finish();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * 根据Response约定，判断Token是否失效
@@ -112,8 +95,7 @@ public class TokenInterceptor implements Interceptor {
     private boolean isTokenExpired(String response) {
         try {
             RootResponse token = GsonUtil.GsonToBean(response, RootResponse.class);
-
-            if (Constants.HTTP_TOKEN_FAILD.equals(token.code) || Constants.HTTP_TOKEN_NO.equals(token.code)) {
+            if (Integer.valueOf(token.code)<0) {
                 return true;
             }
         } catch (Exception e) {

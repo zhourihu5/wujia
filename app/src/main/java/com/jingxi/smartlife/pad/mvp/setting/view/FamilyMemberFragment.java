@@ -16,9 +16,11 @@ import com.wujia.businesslib.dialog.InputDialog;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventMemberChange;
 import com.wujia.businesslib.listener.OnInputDialogListener;
+import com.wujia.businesslib.util.LoginUtil;
 import com.wujia.lib_common.base.view.VerticallDecoration;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
 import com.wujia.lib_common.data.network.exception.ApiException;
+import com.wujia.lib_common.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +39,6 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
     TextView btnAddMember;
     @BindView(R.id.rv_member)
     RecyclerView rvMember;
-//    List<HomeMeberBean> mems;
     SetMemberAdapter mAdapter;
 
     public FamilyMemberFragment() {
@@ -77,7 +78,15 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
         rvMember.addItemDecoration(new VerticallDecoration(1));
 
         familyMemberModel=new FamilyMemberModel();
-        String familyId= DataManager.getUser().getUserInfo().getFid();
+        String familyId= null;
+        try {
+            familyId = DataManager.getFamilyId();
+        } catch (Exception e) {
+            LogUtil.t("get familyId failed",e);
+            LoginUtil.toLoginActivity();
+            return;
+        }
+
         addSubscribe(familyMemberModel.getFamilyMemberList(familyId).subscribeWith(new SimpleRequestSubscriber<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>> response) {
@@ -125,7 +134,14 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
 
     @Override
     public void dialogSureClick(final String input) {
-        String familyId=DataManager.getUser().getUserInfo().getFid();
+        String familyId= null;
+        try {
+            familyId = DataManager.getFamilyId();
+        } catch (Exception e) {
+            LoginUtil.toLoginActivity();
+            LogUtil.t("get familyId failed",e);
+            return;
+        }
         addSubscribe(familyMemberModel.addFamilyMember(input,familyId).subscribeWith(new SimpleRequestSubscriber<ApiResponse<String>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(ApiResponse<String> response) {
