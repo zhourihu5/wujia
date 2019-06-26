@@ -2,10 +2,8 @@ package com.jingxi.smartlife.pad.mvp.home.contract;
 
 import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean;
-import com.jingxi.smartlife.pad.mvp.home.data.LockADBean;
 import com.jingxi.smartlife.pad.mvp.home.data.WeatherInfoBean;
 import com.wujia.businesslib.base.RxPresenter;
-import com.wujia.businesslib.data.MessageBean;
 import com.wujia.businesslib.data.RootResponse;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
 import com.wujia.lib_common.data.network.exception.ApiException;
@@ -166,62 +164,4 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
         }));
     }
 
-    @Override
-    public void getPropertyMessageById(final String type, String id) {
-        addSubscribe(mModel.getPropertyMessageById(id).subscribeWith(new SimpleRequestSubscriber<MessageBean>(mView, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
-            @Override
-            public void onResponse(MessageBean response) {
-                super.onResponse(response);
-                if (response.isSuccess()) {
-                    response._type = type;
-                    mView.onDataLoadSucc(REQUEST_CDOE_MESSAGE, response);
-                }
-            }
-
-            @Override
-            public void onFailed(ApiException apiException) {
-                super.onFailed(apiException);
-                mView.onDataLoadFailed(REQUEST_CDOE_MESSAGE, apiException);
-            }
-        }));
-    }
-
-    @Override
-    public void getManagerMessageById(final String type, String id) {
-        addSubscribe(mModel.getManagerMessageById(id).subscribeWith(new SimpleRequestSubscriber<MessageBean>(mView, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
-            @Override
-            public void onResponse(MessageBean response) {
-                super.onResponse(response);
-                if (response.isSuccess()) {
-                    response._type = type;
-                    mView.onDataLoadSucc(REQUEST_CDOE_MESSAGE, response);
-                }
-            }
-
-            @Override
-            public void onFailed(ApiException apiException) {
-                super.onFailed(apiException);
-                mView.onDataLoadFailed(REQUEST_CDOE_MESSAGE, apiException);
-            }
-        }));
-    }
-
-    @Override
-    public void getScreenSaverByCommunityId(String communityId) {
-        addSubscribe(mModel.getScreenSaverByCommunityId().subscribeWith(new SimpleRequestSubscriber<LockADBean>(mView, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
-            @Override
-            public void onResponse(LockADBean response) {
-                super.onResponse(response);
-                if (response.isSuccess()) {
-                    mView.onDataLoadSucc(REQUEST_CDOE_SCREEN_AD, response);
-                }
-            }
-
-            @Override
-            public void onFailed(ApiException apiException) {
-                super.onFailed(apiException);
-                mView.onDataLoadFailed(REQUEST_CDOE_SCREEN_AD, apiException);
-            }
-        }));
-    }
 }

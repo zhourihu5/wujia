@@ -32,10 +32,6 @@ public interface HomeContract {
 
         public Flowable<HomeUserInfoBean> getHomeUserInfo(String key);
 
-        Flowable<MessageBean> getPropertyMessageById(String id);
-
-        Flowable<MessageBean> getManagerMessageById(String id);
-
         Flowable<LockADBean> getScreenSaverByCommunityId();
 
     }
@@ -57,10 +53,5 @@ public interface HomeContract {
 
         void removeUserQuickCard(String quickCardId);
 
-        void getPropertyMessageById(String type, String id);
-
-        void getManagerMessageById(String type, String id);
-
-        void getScreenSaverByCommunityId(String communityId);
     }
 }

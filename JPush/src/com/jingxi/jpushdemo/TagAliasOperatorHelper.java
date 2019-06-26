@@ -87,7 +87,7 @@ public class TagAliasOperatorHelper {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case DELAY_SEND_ACTION:
-                    if (msg.obj != null && msg.obj instanceof TagAliasBean) {
+                    if (msg.obj instanceof TagAliasBean) {
                         Logger.i(TAG, "on delay time");
                         sequence++;
                         TagAliasBean tagAliasBean = (TagAliasBean) msg.obj;
@@ -102,7 +102,7 @@ public class TagAliasOperatorHelper {
                     }
                     break;
                 case DELAY_SET_MOBILE_NUMBER_ACTION:
-                    if (msg.obj != null && msg.obj instanceof String) {
+                    if (msg.obj instanceof String) {
                         Logger.i(TAG, "retry set mobile number");
                         sequence++;
                         String mobileNumber = (String) msg.obj;

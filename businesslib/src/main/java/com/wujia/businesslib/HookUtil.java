@@ -281,7 +281,7 @@ public class HookUtil {
                     f.setAccessible(true);
                 } // author: sodino mail:sodino@qq.com
                 obj_get = f.get(imm);
-                if (obj_get != null && obj_get instanceof View) {
+                if (obj_get instanceof View) {
                     View v_get = (View) obj_get;
                     if (v_get.getContext() == destContext) { // 被InputMethodManager持有引用的context是想要目标销毁的
                         f.set(imm, null); // 置空，破坏掉path to gc节点

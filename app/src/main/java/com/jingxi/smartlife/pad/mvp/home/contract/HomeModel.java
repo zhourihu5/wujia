@@ -8,7 +8,6 @@ import com.jingxi.smartlife.pad.mvp.home.data.WeatherInfoBean;
 import com.wujia.businesslib.base.BaseModel;
 import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.CardDetailBean;
-import com.wujia.businesslib.data.MessageBean;
 import com.wujia.businesslib.data.RootResponse;
 import com.wujia.lib_common.data.network.RxUtil;
 
@@ -58,16 +57,6 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
     @Override
     public Flowable<HomeUserInfoBean> getHomeUserInfo(String key) {
         return mHttpHelper.create(MainAppApiService.class).getHomeUserInfo(key).compose(RxUtil.<HomeUserInfoBean>rxSchedulerHelper());
-    }
-
-    @Override
-    public Flowable<MessageBean> getPropertyMessageById(String id) {
-        return mHttpHelper.create(MainAppApiService.class).getPropertyMessageById(id).compose(RxUtil.<MessageBean>rxSchedulerHelper());
-    }
-
-    @Override
-    public Flowable<MessageBean> getManagerMessageById(String id) {
-        return mHttpHelper.create(MainAppApiService.class).getManagerMessageById(id).compose(RxUtil.<MessageBean>rxSchedulerHelper());
     }
 
     @Override
