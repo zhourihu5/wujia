@@ -30,7 +30,7 @@ public class HomeNotifyAdapter extends CommonAdapter<MsgDto.ContentBean> {
         holder.setText(R.id.home_notify_item_time, item.getCreateDate());
         holder.setText(R.id.home_notify_item_info, item.getContent());
 
-        holder.setVisible(R.id.home_notify_item_point, item.getIsRead()==MsgDto.STATUS_UNREAD);
+        holder.setVisible(R.id.home_notify_item_point, item.getIsRead() == MsgDto.STATUS_UNREAD);
 
         titleTv.setText(item.getTitle());
         int res = 0;

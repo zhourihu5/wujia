@@ -17,10 +17,10 @@ public class TestActivity extends Activity {
         tv.setText("用户自定义打开的Activity");
         Intent intent = getIntent();
         if (null != intent) {
-	        Bundle bundle = getIntent().getExtras();
+            Bundle bundle = getIntent().getExtras();
             String title = null;
             String content = null;
-            if(bundle!=null){
+            if (bundle != null) {
                 title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE);
                 content = bundle.getString(JPushInterface.EXTRA_ALERT);
             }

@@ -61,10 +61,9 @@ public class NeighborTitleHolder implements View.OnClickListener {
             public void onTabSelected(TabLayout.Tab tab) {
                 int tagPosition = tab.getPosition();
                 int nowPosition = viewPager.getCurrentItem();
-                if (Math.abs(tagPosition - nowPosition) <= 1){
+                if (Math.abs(tagPosition - nowPosition) <= 1) {
                     viewPager.setCurrentItem(tagPosition);
-                }
-                else {
+                } else {
                     // TODO: 2017/9/7 发现关闭动画效果  会发生界面不显示   数据加载完成bug
                     viewPager.setCurrentItem(tagPosition, true);
                 }

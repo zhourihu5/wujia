@@ -25,7 +25,7 @@ public class NeighborhoodDo {
      */
     public static final int TYPE_REPORT = 3;
 
-    public int type ;
+    public int type;
     public JSONObject jsonObject;
     public String typeID;
 }

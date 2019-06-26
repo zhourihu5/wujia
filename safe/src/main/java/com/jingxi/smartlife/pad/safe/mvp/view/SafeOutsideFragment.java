@@ -119,7 +119,7 @@ public class SafeOutsideFragment extends BaseFragment implements
             familyID = DataManager.getDockKey();
         } catch (Exception e) {
             LoginUtil.toLoginActivity();
-            LogUtil.t("get familyid failed",e);
+            LogUtil.t("get familyid failed", e);
             return;
         }
 
@@ -172,7 +172,7 @@ public class SafeOutsideFragment extends BaseFragment implements
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(mDoorAccessManager!=null){
+        if (mDoorAccessManager != null) {
             mDoorAccessManager.setListUIListener(null);
             mDoorAccessManager.removeConversationUIListener(this);
             mDoorAccessManager.removePlayBackListener(this);
@@ -458,7 +458,7 @@ public class SafeOutsideFragment extends BaseFragment implements
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         isTouchSeek = false;
-        if(max>0&&seek>0){
+        if (max > 0 && seek > 0) {
             mDoorAccessManager.seekPlayBack(playBackSessionId, seek * 100 / max);
         }
     }

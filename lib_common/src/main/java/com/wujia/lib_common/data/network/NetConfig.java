@@ -21,6 +21,7 @@ public class NetConfig {
 
     /**
      * add okhttp Interceptors
+     *
      * @param configInterceptors
      * @return
      */
@@ -41,6 +42,7 @@ public class NetConfig {
 
     /**
      * config cookieManager
+     *
      * @param mCookieJar
      * @return
      */

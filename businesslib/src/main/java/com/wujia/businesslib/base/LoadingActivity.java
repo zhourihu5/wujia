@@ -8,7 +8,7 @@ import com.wujia.lib_common.base.BasePresenter;
  */
 
 public abstract class
-LoadingActivity <T extends BasePresenter> extends MvpActivity<T>{
+LoadingActivity<T extends BasePresenter> extends MvpActivity<T> {
 
     private LoadingDialog loadingDialog;
 

@@ -6,5 +6,4 @@
     android:gravity="center_horizontal"
     android:textSize="@dimen/sp_18"
     android:visibility="gone"
-    android:textColor="@color/color_gray_d9d9d9"
-    />
+    android:textColor="@color/color_gray_d9d9d9" />

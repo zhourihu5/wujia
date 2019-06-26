@@ -21,6 +21,7 @@ public abstract class TitleFragment extends MvpFragment {
     protected BasePresenter createPresenter() {
         return null;
     }
+
     @Override
     protected void initEventAndData() {
         super.initEventAndData();

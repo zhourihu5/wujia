@@ -11,7 +11,7 @@ import okio.Okio;
 import okio.Source;
 
 /**
- * @author  "https://github.com/square/okhttp/blob/master/samples/guide/src/main/java/okhttp3/recipes/Progress.java"
+ * @author "https://github.com/square/okhttp/blob/master/samples/guide/src/main/java/okhttp3/recipes/Progress.java"
  * @see <a href="https://github.com/square/okhttp/blob/master/samples/guide/src/main/java/okhttp3/recipes/Progress.java">OkHttp sample</a>
  */
 class ProgressResponseBody extends ResponseBody {

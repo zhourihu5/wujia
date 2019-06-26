@@ -6,6 +6,7 @@ package com.jingxi.smartlife.pad.sdk.neighbor.ui.observer;
 public interface MyAction<T> {
 
     void call(T t);
+
     /**
      * @MyHttpStatus
      */

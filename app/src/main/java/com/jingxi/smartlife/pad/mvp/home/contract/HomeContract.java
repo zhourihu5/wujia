@@ -24,11 +24,12 @@ public interface HomeContract {
 
         Flowable<HomeRecBean> getUserQuickCard();
 
-        Flowable<RootResponse> addUserQuickCard( String quickCardId);
+        Flowable<RootResponse> addUserQuickCard(String quickCardId);
 
-        Flowable<RootResponse> removeUserQuickCard( String quickCardId);
+        Flowable<RootResponse> removeUserQuickCard(String quickCardId);
 
         Flowable<WeatherInfoBean> getWeather();
+
         public Flowable<HomeUserInfoBean> getHomeUserInfo(String key);
 
         Flowable<MessageBean> getPropertyMessageById(String id);
@@ -52,9 +53,9 @@ public interface HomeContract {
 
         void getUserQuickCard();
 
-        void addUserQuickCard( String quickCardId);
+        void addUserQuickCard(String quickCardId);
 
-        void removeUserQuickCard( String quickCardId);
+        void removeUserQuickCard(String quickCardId);
 
         void getPropertyMessageById(String type, String id);
 

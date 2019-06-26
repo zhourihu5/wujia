@@ -344,7 +344,7 @@ public class NeighborLeftView extends RelativeLayout implements ILeftNeighborVie
         if (adapter != null) {
             if (loadMoreFaildView == null) {
                 loadMoreFaildView = inflate(getContext(), R.layout.def_load_more_failed, null);
-                ((TextView) loadMoreFaildView.findViewById(R.id.tv_prompt)).setText(StringUtils.getString(R.string.loadFaildwithCode,erro));
+                ((TextView) loadMoreFaildView.findViewById(R.id.tv_prompt)).setText(StringUtils.getString(R.string.loadFaildwithCode, erro));
                 adapter.setLoadMoreFailedView(loadMoreFaildView);
             }
             adapter.showLoadMoreFailedView(this);

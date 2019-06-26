@@ -105,7 +105,7 @@ public class NeighborDetialFragment extends Fragment implements KeyboardStatusDe
                 neighborRightView.getRightPresenter().OnleftItemSelect(neighborDetailDo.neighborInfoBean);
             }
         } else if (neighborDetailDo.type == NeighborDetailDo.TYPE_GO_DETAIL) {
-            GoDetailBusBean busBean = new GoDetailBusBean(neighborDetailDo.neighborInfoBean,-1);
+            GoDetailBusBean busBean = new GoDetailBusBean(neighborDetailDo.neighborInfoBean, -1);
             Bus.getDefault().post(busBean);
         } else if (neighborDetailDo.type == NeighborDetailDo.TYPE_MY_MESSAGE) {
 //            neighBorhoodNoticeView.setNeighborBoardBean(neighborDetailDo.neighborInfoBean);
@@ -138,7 +138,7 @@ public class NeighborDetialFragment extends Fragment implements KeyboardStatusDe
         JXPadSdk.getNeighborManager().updateFavour(
                 neighborInfoBean.neighborBoardId,
                 !neighborInfoBean.isFavour)
-                .subscribe(new ResponseTagObserver<String,NeighborInfoBean>(neighborInfoBean) {
+                .subscribe(new ResponseTagObserver<String, NeighborInfoBean>(neighborInfoBean) {
                     @Override
                     public void onResponse(String s) {
                         onFavour = false;

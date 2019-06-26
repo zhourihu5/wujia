@@ -49,13 +49,13 @@ public class HomeCardManagerAdapter extends CommonAdapter<HomeRecBean.Card> {
                 desc.setText(item.getExplain());
 
                 ImageView img = subview.findViewById(R.id.scene_in_img);
-                ImageLoaderManager.getInstance().loadImage(item.image, R.mipmap.default_loading,img);
+                ImageLoaderManager.getInstance().loadImage(item.image, R.mipmap.default_loading, img);
 
                 break;
             case HomeRecBean.TYPE_IMAGE://todo 样式怎样？？
                 subview = LayoutInflater.from(mContext).inflate(R.layout.item_home_rec_layout_2, null);
                 ImageView headImg = subview.findViewById(R.id.scene_in_img);
-                ImageLoaderManager.getInstance().loadImage(item.image, R.mipmap.default_loading,headImg);
+                ImageLoaderManager.getInstance().loadImage(item.image, R.mipmap.default_loading, headImg);
 
                 break;
         }

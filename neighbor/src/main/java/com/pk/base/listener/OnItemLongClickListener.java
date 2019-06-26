@@ -11,8 +11,6 @@ import com.pk.base.BaseQuickAdapter;
 public abstract class OnItemLongClickListener extends SimpleClickListener {
 
 
-
-
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
@@ -20,7 +18,7 @@ public abstract class OnItemLongClickListener extends SimpleClickListener {
 
     @Override
     public void onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-        SimpleOnItemLongClick( adapter,  view,  position);
+        SimpleOnItemLongClick(adapter, view, position);
     }
 
     @Override
@@ -31,5 +29,6 @@ public abstract class OnItemLongClickListener extends SimpleClickListener {
     @Override
     public void onItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
     }
+
     public abstract void SimpleOnItemLongClick(BaseQuickAdapter adapter, View view, int position);
 }

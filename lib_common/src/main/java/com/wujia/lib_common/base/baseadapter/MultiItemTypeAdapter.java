@@ -54,7 +54,7 @@ public class MultiItemTypeAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
 
     @Nullable
     public T getItemData(int pos) {
-        if (mDatas == null ||mDatas.size()==0|| pos < 0 || pos > mDatas.size()) {
+        if (mDatas == null || mDatas.size() == 0 || pos < 0 || pos > mDatas.size()) {
             return null;
         }
         return mDatas.get(pos);

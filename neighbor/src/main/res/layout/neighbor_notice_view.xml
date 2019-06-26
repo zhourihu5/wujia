@@ -29,6 +29,7 @@
             android:imeActionLabel="@string/send"
             android:imeOptions="actionSend"
             android:paddingStart="@dimen/dp_11" />
+
         <TextView
             android:paddingStart="@dimen/dp_14"
             android:paddingEnd="@dimen/dp_14"
@@ -45,7 +46,6 @@
             android:background="@drawable/shape_release_bg"
             android:textSize="@dimen/sp_13.3"
             android:layout_centerVertical="true"
-            android:clickable="true"
-            />
+            android:clickable="true" />
     </RelativeLayout>
 </RelativeLayout>

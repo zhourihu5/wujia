@@ -29,11 +29,11 @@ public class ThirdPermissionUtil {
      * PackageManager.FLAG_PERMISSION_GRANTED_BY_DEFAULT
      */
     public static final int FLAG_PERMISSION_USER_SET = 1 << 0;
-    public static final int FLAG_PERMISSION_USER_FIXED =  1 << 1;
-    public static final int FLAG_PERMISSION_POLICY_FIXED =  1 << 2;
-    public static final int FLAG_PERMISSION_REVOKE_ON_UPGRADE =  1 << 3;
-    public static final int FLAG_PERMISSION_SYSTEM_FIXED =  1 << 4;
-    public static final int FLAG_PERMISSION_GRANTED_BY_DEFAULT =  1 << 5;
+    public static final int FLAG_PERMISSION_USER_FIXED = 1 << 1;
+    public static final int FLAG_PERMISSION_POLICY_FIXED = 1 << 2;
+    public static final int FLAG_PERMISSION_REVOKE_ON_UPGRADE = 1 << 3;
+    public static final int FLAG_PERMISSION_SYSTEM_FIXED = 1 << 4;
+    public static final int FLAG_PERMISSION_GRANTED_BY_DEFAULT = 1 << 5;
 
     private static String[] grantPermissions = new String[]{
             Manifest.permission.CHANGE_WIFI_MULTICAST_STATE,
@@ -58,49 +58,49 @@ public class ThirdPermissionUtil {
     };
     private static List<String> grantList = Arrays.asList(grantPermissions);
 
-    public static void requestDefaultPermissions(String packageName){
-        requestDefaultPermissions(packageName,false);
+    public static void requestDefaultPermissions(String packageName) {
+        requestDefaultPermissions(packageName, false);
     }
 
-    public static void requestDefaultPermissions(String packageName,boolean needGrant){
-        if(TextUtils.isEmpty(packageName)){
+    public static void requestDefaultPermissions(String packageName, boolean needGrant) {
+        if (TextUtils.isEmpty(packageName)) {
             return;
         }
 
         try {
             PackageManager packageManager = AppContext.get().getPackageManager();
 
-            PackageInfo info = packageManager.getPackageInfo(packageName,PackageManager.GET_PERMISSIONS);
-            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName,0);
+            PackageInfo info = packageManager.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS);
+            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName, 0);
 
             Constructor newUserHandle = UserHandle.class.getDeclaredConstructor(int.class);
             newUserHandle.setAccessible(true);
             UserHandle handle = (UserHandle) newUserHandle.newInstance(0);
 
-            Method grantRuntimePermission = packageManager.getClass().getDeclaredMethod("grantRuntimePermission",String.class,String.class,UserHandle.class);
+            Method grantRuntimePermission = packageManager.getClass().getDeclaredMethod("grantRuntimePermission", String.class, String.class, UserHandle.class);
             grantRuntimePermission.setAccessible(true);
 
-            Method revokeRuntimePermission = packageManager.getClass().getDeclaredMethod("revokeRuntimePermission",String.class,String.class,UserHandle.class);
+            Method revokeRuntimePermission = packageManager.getClass().getDeclaredMethod("revokeRuntimePermission", String.class, String.class, UserHandle.class);
             revokeRuntimePermission.setAccessible(true);
 
-            Method updatePermissionFlags = packageManager.getClass().getDeclaredMethod("updatePermissionFlags",String.class,String.class,int.class,int.class,UserHandle.class);
+            Method updatePermissionFlags = packageManager.getClass().getDeclaredMethod("updatePermissionFlags", String.class, String.class, int.class, int.class, UserHandle.class);
             updatePermissionFlags.setAccessible(true);
             String[] permissions = info.requestedPermissions;
-            for(String permission : permissions){
+            for (String permission : permissions) {
                 try {
-                    if(grantList.contains(permission) || needGrant || ( applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) > 0){
-                        grantRuntimePermission.invoke(packageManager,packageName,permission,handle);
-                    }else{
-                        revokeRuntimePermission.invoke(packageManager,packageName,permission,handle);
+                    if (grantList.contains(permission) || needGrant || (applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) > 0) {
+                        grantRuntimePermission.invoke(packageManager, packageName, permission, handle);
+                    } else {
+                        revokeRuntimePermission.invoke(packageManager, packageName, permission, handle);
                         /**
                          * 不再提示权限申请弹框
                          */
-                        updatePermissionFlags.invoke(packageManager,permission,packageName,
-                                FLAG_PERMISSION_USER_FIXED| FLAG_PERMISSION_USER_SET,
-                                FLAG_PERMISSION_USER_FIXED,handle);
+                        updatePermissionFlags.invoke(packageManager, permission, packageName,
+                                FLAG_PERMISSION_USER_FIXED | FLAG_PERMISSION_USER_SET,
+                                FLAG_PERMISSION_USER_FIXED, handle);
                     }
                 } catch (Exception e) {
-                    LogUtil.i("Permission err : [ " + e.getMessage() + " ]" );
+                    LogUtil.i("Permission err : [ " + e.getMessage() + " ]");
                     e.printStackTrace();
                 }
             }

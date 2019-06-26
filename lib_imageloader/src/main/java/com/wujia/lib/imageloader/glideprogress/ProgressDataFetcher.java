@@ -41,8 +41,8 @@ public class ProgressDataFetcher implements DataFetcher<InputStream> {
 
             @Override
             public void update(long bytesRead, long contentLength, boolean done) {
-                if(proListener != null){
-                    proListener.update((int)bytesRead,(int)contentLength);
+                if (proListener != null) {
+                    proListener.update((int) bytesRead, (int) contentLength);
                 }
             }
         };

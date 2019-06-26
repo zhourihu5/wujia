@@ -46,14 +46,14 @@ public class CameraUtil {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         }
         imageFile = file.getAbsolutePath();
-        ((Activity)context).startActivityForResult(intent, CAMERA_REQUEST_CODE);
+        ((Activity) context).startActivityForResult(intent, CAMERA_REQUEST_CODE);
     }
 
-    public static void pickPhoto(Context context){
+    public static void pickPhoto(Context context) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("image/*");
-        ((Activity)context).startActivityForResult(Intent.createChooser(intent, StringUtils.getString(R.string.select_picture)), PHOTO_REQUEST_CODE);
+        ((Activity) context).startActivityForResult(Intent.createChooser(intent, StringUtils.getString(R.string.select_picture)), PHOTO_REQUEST_CODE);
     }
 
     public static File getPhoto(String path) {

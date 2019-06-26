@@ -79,9 +79,9 @@ public class ReleaseUtil {
         /**
          * 上传好之后才能清掉之前的图片路径和名称
          */
-        JXPadSdk.getNeighborManager().uploadNewNeighbor(content,boardType,imageList,originalPrice,price,
-                deadline,activityInfo)
-                .subscribe(new ResponseTagObserver<String,String>(boardType) {
+        JXPadSdk.getNeighborManager().uploadNewNeighbor(content, boardType, imageList, originalPrice, price,
+                deadline, activityInfo)
+                .subscribe(new ResponseTagObserver<String, String>(boardType) {
                     @Override
                     public void onResponse(String jsonObject) {
                         UpdateData data = new UpdateData();

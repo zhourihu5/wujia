@@ -21,7 +21,7 @@ public final class LocalBroadcastManager {
     private static final boolean DEBUG = false;
     private final Context mAppContext;
     private final HashMap<BroadcastReceiver, ArrayList<IntentFilter>> mReceivers = new HashMap<BroadcastReceiver, ArrayList<IntentFilter>>();
-    private final HashMap<String, ArrayList<LocalBroadcastManager.ReceiverRecord>> mActions = new HashMap<String, ArrayList<LocalBroadcastManager.ReceiverRecord>> ();
+    private final HashMap<String, ArrayList<LocalBroadcastManager.ReceiverRecord>> mActions = new HashMap<String, ArrayList<LocalBroadcastManager.ReceiverRecord>>();
     private final ArrayList<LocalBroadcastManager.BroadcastRecord> mPendingBroadcasts = new ArrayList<LocalBroadcastManager.BroadcastRecord>();
     static final int MSG_EXEC_PENDING_BROADCASTS = 1;
     private final Handler mHandler;

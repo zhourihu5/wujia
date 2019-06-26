@@ -145,11 +145,11 @@ public class SocialAdapter extends RecyclerView.Adapter<SocialAdapter.ViewHolder
             holder.statu_iv_head.setImageResource(R.mipmap.mrtx);
 
             PicassoImageLoader.getMyPicasso()
-                        .load(PicassoImageLoader.checkUrl(infoBean.familyMemberHeadImage))
-                        .error(R.mipmap.mrtx)
-                        .config(Bitmap.Config.RGB_565)
-                        .resize(150, 150)
-                        .into(holder.statu_iv_head);
+                    .load(PicassoImageLoader.checkUrl(infoBean.familyMemberHeadImage))
+                    .error(R.mipmap.mrtx)
+                    .config(Bitmap.Config.RGB_565)
+                    .resize(150, 150)
+                    .into(holder.statu_iv_head);
             /**
              * 加载9宫格图片
              */

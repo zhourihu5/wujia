@@ -39,9 +39,9 @@ public class WyTelGroupAdapter extends CommonAdapter<WySectionBean> {
 
         rv.addItemDecoration(new GridDecoration(0, 24));
         rv.setAdapter(new WyTelChildAdapter(mContext, datas));
-        if (!isLast(pos)){
+        if (!isLast(pos)) {
             holder.getView(R.id.line1).setVisibility(View.VISIBLE);
-        }else{
+        } else {
             holder.getView(R.id.line1).setVisibility(View.INVISIBLE);
         }
         holder.setOnClickListener(R.id.l1, new View.OnClickListener() {
@@ -52,14 +52,15 @@ public class WyTelGroupAdapter extends CommonAdapter<WySectionBean> {
                 holder.setVisible(R.id.rv2, !visib);
                 if (visib) {
                     holder.getView(R.id.img9).animate().rotation(0);
-                    if (!isLast(pos)){
+                    if (!isLast(pos)) {
                         holder.getView(R.id.line1).setVisibility(View.VISIBLE);
                     }
                 } else {
                     holder.getView(R.id.img9).animate().rotation(180);
                     if (!isLast(pos)) {
                         holder.getView(R.id.line1).setVisibility(View.INVISIBLE);
-                    }                }
+                    }
+                }
             }
         });
 

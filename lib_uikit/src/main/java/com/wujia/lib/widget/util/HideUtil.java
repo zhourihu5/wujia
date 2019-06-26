@@ -35,6 +35,7 @@ public class HideUtil {
 
     /**
      * Initialization method
+     *
      * @param activity
      */
     public static void init(Activity activity) {
@@ -43,6 +44,7 @@ public class HideUtil {
 
     /**
      * Can pass the outer layout
+     *
      * @param activity
      * @param content
      */

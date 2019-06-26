@@ -74,8 +74,7 @@
                 android:layout_below="@+id/rl_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dp_20"
-                android:background="@color/white"
-                >
+                android:background="@color/white">
 
                 <ImageView
                     android:layout_centerVertical="true"
@@ -259,6 +258,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_20" />
         </LinearLayout>
-    </com.jingxi.smartlife.pad.sdk.neighbor.ui.views.MyScrollView>>
+    </com.jingxi.smartlife.pad.sdk.neighbor.ui.views.MyScrollView>
+    >
 </LinearLayout>
 

@@ -35,14 +35,14 @@ public class MyNineGridViewAdper extends NineGridViewAdapter {
             imaggeList.add(image.getBigImageUrl());
         }
 
-        if(onItemClick != null){
-            onItemClick.onClick(nineGridView.getChildAt(index),index,imaggeList);
+        if (onItemClick != null) {
+            onItemClick.onClick(nineGridView.getChildAt(index), index, imaggeList);
             return;
         }
 //        ValidateJumpResult.validateJumpResult(iJump.jump((Activity) context, RouterConfig.getPreviewUri(), RouterBundlesFactory.getPreviewBundle(index,imaggeList,0,0)));
     }
 
-    public interface OnItemClick{
+    public interface OnItemClick {
         void onClick(View v, int index, ArrayList<String> imageInfo);
     }
 }

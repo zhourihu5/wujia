@@ -12,7 +12,6 @@ import retrofit2.http.Query;
 public interface MarketApiService {
 
 
-
     @GET("/v1/service/findListByType")
     Flowable<ApiResponse<ServiceDto>> getServiceList(@Query("type") String type, @Query("pageNum") int pageIndex, @Query("pageSize") int pageSize);
 

@@ -17,14 +17,15 @@ import com.wujia.lib.uikit.R;
  * description ： toast 工具
  */
 public class ToastUtil {
-//    public static Handler handler=new Handler(Looper.getMainLooper());
+    //    public static Handler handler=new Handler(Looper.getMainLooper());
     static Toast toast;
+
     private static void show(Context context, String msg, @DrawableRes int iconId, int duration) {
 //        Toast toast=null;
         TextView title;
         ImageView icon;
-        Context appContext=context.getApplicationContext();
-        if(toast==null){
+        Context appContext = context.getApplicationContext();
+        if (toast == null) {
             toast = new Toast(appContext);
             View contentView = View.inflate(appContext, R.layout.layout_toast, null);
 
@@ -32,14 +33,14 @@ public class ToastUtil {
             toast.setGravity(Gravity.CENTER, 0, 0);
 
         }
-        title=toast.getView().findViewById(R.id.toast_msg);
+        title = toast.getView().findViewById(R.id.toast_msg);
         title.setText(msg);
         toast.setDuration(duration);
-        icon= toast.getView().findViewById(R.id.toast_icon);
+        icon = toast.getView().findViewById(R.id.toast_icon);
         if (iconId != 0) {
             icon.setImageResource(iconId);
             icon.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             icon.setImageResource(iconId);
             icon.setVisibility(View.GONE);
         }

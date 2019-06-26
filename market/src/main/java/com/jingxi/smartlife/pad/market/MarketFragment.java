@@ -7,10 +7,10 @@ import com.jingxi.smartlife.pad.market.mvp.MarketHomeFragment;
 import com.wujia.lib_common.base.BaseMainFragment;
 
 /**
-* author ：shenbingkai@163.com
-* date ：2019-01-12 20:06
-* description ：服务市场 home
-*/
+ * author ：shenbingkai@163.com
+ * date ：2019-01-12 20:06
+ * description ：服务市场 home
+ */
 public class MarketFragment extends BaseMainFragment {
 
     public MarketFragment() {
@@ -33,6 +33,7 @@ public class MarketFragment extends BaseMainFragment {
     protected void initEventAndData() {
 
     }
+
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);

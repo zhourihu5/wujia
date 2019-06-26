@@ -42,13 +42,13 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
     private LoadMoreWrapper mLoadMoreWrapper;
 
 
-    public static final String TYPE_ALL="4";
-    public static final String TYPE_MY="1";
-    public static final String TYPE_GOV="3";
+    public static final String TYPE_ALL = "4";
+    public static final String TYPE_MY = "1";
+    public static final String TYPE_GOV = "3";
 
-    private static final String KEY_TYPE="type";
+    private static final String KEY_TYPE = "type";
 
-    String type="4";
+    String type = "4";
 
     MarketModel marketModel;
 
@@ -56,27 +56,28 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
     private EventSubscription event = new EventSubscription(new IMiessageInvoke<EventSubscription>() {
         @Override
         public void eventBus(EventSubscription event) {
-            if(event.getType()==EventSubscription.TYPE_NOTIFY){
-                pageNo=1;
+            if (event.getType() == EventSubscription.TYPE_NOTIFY) {
+                pageNo = 1;
                 getList(false);
-            } else if(isVisible&&event.eventType!=EventSubscription.PUSH_NOTIFY){
+            } else if (isVisible && event.eventType != EventSubscription.PUSH_NOTIFY) {
                 mLoadMoreWrapper.notifyDataSetChanged();
-            }else {
-                switch (event.getType()){
+            } else {
+                switch (event.getType()) {
                     case EventSubscription.TYPE_GOV:
                         break;
                     case EventSubscription.TYPE_FIND:
-                        if(type.equals(TYPE_GOV)){
+                        if (type.equals(TYPE_GOV)) {
                             return;
                         }
                         break;
 
                 }
-                pageNo=1;
+                pageNo = 1;
                 getList(false);
             }
         }
     });
+
     public AllServiceFragment() {
 
     }
@@ -84,7 +85,7 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
     public static AllServiceFragment newInstance(String type) {
         AllServiceFragment fragment = new AllServiceFragment();
         Bundle args = new Bundle();
-        args.putString(KEY_TYPE,type);
+        args.putString(KEY_TYPE, type);
         fragment.setArguments(args);
         return fragment;
     }
@@ -98,7 +99,7 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
 
-        type=getArguments().getString(KEY_TYPE);
+        type = getArguments().getString(KEY_TYPE);
 
         mSwipeRefreshLayout = $(R.id.swipe_container);
         recyclerView = $(R.id.rv1);
@@ -112,31 +113,33 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
         mLoadMoreWrapper.setOnLoadMoreListener(this);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mAdapter.setOnItemClickListener(this);
-        marketModel=new MarketModel();
+        marketModel = new MarketModel();
         getList(true);
 //        if(type.equals(TYPE_MY)){
-            EventBusUtil.register(event);
+        EventBusUtil.register(event);
 //        }
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
 //        if(type.equals(TYPE_MY)){
-            EventBusUtil.unregister(event);
+        EventBusUtil.unregister(event);
 //        }
     }
 
     boolean isVisible;
+
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        isVisible=true;
+        isVisible = true;
     }
 
     @Override
     public void onSupportInvisible() {
         super.onSupportInvisible();
-        isVisible=false;
+        isVisible = false;
     }
 
     private void getList(boolean isShowLoadingDialog) {
@@ -178,7 +181,6 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
     public void onTabSelected(int position, int prePosition) {
 
     }
-
 
 
     @Override

@@ -34,7 +34,7 @@ public class LoginDTO extends RootResponse {
         this.data = data;
     }
 
-    public static class DataBean implements Serializable{
+    public static class DataBean implements Serializable {
         /**
          * authorityList : [{"component":"string","id":0,"meta":{},"name":"string","path":"string","pid":0,"redirect":"string"}]
          * device : {"buttonKey":"string","deviceKey":"string"}
@@ -79,7 +79,7 @@ public class LoginDTO extends RootResponse {
 //            this.authorityList = authorityList;
 //        }
 
-        public static class DeviceBean implements Serializable{
+        public static class DeviceBean implements Serializable {
             /**
              * buttonKey : string
              * deviceKey : string
@@ -105,7 +105,7 @@ public class LoginDTO extends RootResponse {
             }
         }
 
-        public static class UserInfoBean implements Serializable{
+        public static class UserInfoBean implements Serializable {
             public int getCommuntityId() {
                 return communtityId;
             }

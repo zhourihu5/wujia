@@ -21,7 +21,7 @@ import butterknife.BindView;
  * Email:  shenbingkai@gamil.com
  * Description: 异常状态详情
  */
-public class ExceptionStatusFragment extends TitleFragment implements HorizontalTabBar.OnTabSelectedListener{
+public class ExceptionStatusFragment extends TitleFragment implements HorizontalTabBar.OnTabSelectedListener {
 
 
     @BindView(R.id.tab_layout)
@@ -61,12 +61,12 @@ public class ExceptionStatusFragment extends TitleFragment implements Horizontal
 
         tabBar.setOnTabSelectedListener(this);
 
-        List<HomeExceptionBean> datas=new ArrayList<>();
+        List<HomeExceptionBean> datas = new ArrayList<>();
         datas.add(new HomeExceptionBean());
         datas.add(new HomeExceptionBean());
         datas.add(new HomeExceptionBean());
         datas.add(new HomeExceptionBean());
-        rvException.setAdapter(new HomeExceptionAdapter(mActivity,datas));
+        rvException.setAdapter(new HomeExceptionAdapter(mActivity, datas));
     }
 
     @Override

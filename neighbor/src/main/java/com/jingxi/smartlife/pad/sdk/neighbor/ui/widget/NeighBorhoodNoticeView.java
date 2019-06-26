@@ -116,7 +116,7 @@ public class NeighBorhoodNoticeView extends SwipeRefreshLayout implements
         @Override
         public void onResponse(List<NeighborNoticeBean> neighborNoticeBeans) {
             setRefreshing(false);
-            if(!isAttachedToWindow()){
+            if (!isAttachedToWindow()) {
                 return;
             }
             setAdapter(neighborNoticeBeans, pageIndex != 1);
@@ -125,7 +125,7 @@ public class NeighBorhoodNoticeView extends SwipeRefreshLayout implements
         @Override
         public void onFaild(String message) {
             setRefreshing(false);
-            if(!isAttachedToWindow()){
+            if (!isAttachedToWindow()) {
                 return;
             }
             ToastUtil.showToast(message);
@@ -160,7 +160,7 @@ public class NeighBorhoodNoticeView extends SwipeRefreshLayout implements
                         .map(new Function<List<NeighborNoticeBean>, List<NeighborNoticeBean>>() {
                             @Override
                             public List<NeighborNoticeBean> apply(List<NeighborNoticeBean> neighborNoticeBeen) {
-                                return NeighborhoodUtil.getDuplicatedNoticeList(neighBorhoodNoticeAdapter.getData(),jsonObjectList);
+                                return NeighborhoodUtil.getDuplicatedNoticeList(neighBorhoodNoticeAdapter.getData(), jsonObjectList);
                             }
                         }).observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Consumer<List<NeighborNoticeBean>>() {
@@ -177,7 +177,7 @@ public class NeighBorhoodNoticeView extends SwipeRefreshLayout implements
         if (jsonObjectList.size() < pageSize) {
             neighBorhoodNoticeAdapter.loadComplete();
             if (neighBorhoodNoticeAdapter.getData().size() == 0) {
-                if(noContentView == null){
+                if (noContentView == null) {
                     noContentView = LayoutInflater.from(getContext()).inflate(R.layout.neighbor_nocontent, null);
                 }
                 neighBorhoodNoticeAdapter.addFooterView(noContentView);
@@ -203,7 +203,7 @@ public class NeighBorhoodNoticeView extends SwipeRefreshLayout implements
             neighborBoardId = String.valueOf(object.neighborBoardId);
             rl_noticeComment.setVisibility(VISIBLE);
             et_noticeComment.requestFocus();
-            et_noticeComment.setHint(StringUtils.getString(R.string.neighbor_reply_with_name,object.replyMemberName));
+            et_noticeComment.setHint(StringUtils.getString(R.string.neighbor_reply_with_name, object.replyMemberName));
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -252,7 +252,7 @@ public class NeighBorhoodNoticeView extends SwipeRefreshLayout implements
                     @Override
                     public void onResponse(NeighborInfoBean infoBean) {
                         onVerify = false;
-                        GoDetailBusBean busBean = new GoDetailBusBean(infoBean,-1);
+                        GoDetailBusBean busBean = new GoDetailBusBean(infoBean, -1);
                         Bus.getDefault().post(busBean);
                     }
 
@@ -280,13 +280,13 @@ public class NeighBorhoodNoticeView extends SwipeRefreshLayout implements
         }
     }
 
-    private void sendReply(){
+    private void sendReply() {
         if (TextUtils.isEmpty(et_noticeComment.getText().toString())) {
             ToastUtil.showToast(StringUtils.getString(R.string.reply_content_can_not_be_empty));
             return;
         }
         InputMethodUtils.hideSoftInput(et_noticeComment);
-        JXPadSdk.getNeighborManager().sendReply( neighborBoardId, replyId, et_noticeComment.getText().toString())
+        JXPadSdk.getNeighborManager().sendReply(neighborBoardId, replyId, et_noticeComment.getText().toString())
                 .subscribe(new ResponseObserver<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -297,7 +297,7 @@ public class NeighBorhoodNoticeView extends SwipeRefreshLayout implements
 
                     @Override
                     public void onFaild(String message) {
-                        ToastUtil.showToast(StringUtils.getString(R.string.neighbor_reply_faild_with_code,message));
+                        ToastUtil.showToast(StringUtils.getString(R.string.neighbor_reply_faild_with_code, message));
                     }
                 });
         et_noticeComment.setText("");

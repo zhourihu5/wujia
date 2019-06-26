@@ -28,10 +28,14 @@ public class HeaderScrollHelper {
         sysVersion = Build.VERSION.SDK_INT;
     }
 
-    /** 包含有 ScrollView ListView RecyclerView 的组件 */
+    /**
+     * 包含有 ScrollView ListView RecyclerView 的组件
+     */
     public interface ScrollableContainer {
 
-        /** @return ScrollView ListView RecyclerView 或者其他的布局的实例 */
+        /**
+         * @return ScrollView ListView RecyclerView 或者其他的布局的实例
+         */
         View getScrollableView();
     }
 

@@ -1,11 +1,12 @@
 package com.wujia.businesslib.event;
 
 import org.greenrobot.eventbus.EventBus;
+
 /**
-* author ：shenbingkai@163.com
-* date ：2019-03-31 01:30
-* description ：
-*/
+ * author ：shenbingkai@163.com
+ * date ：2019-03-31 01:30
+ * description ：
+ */
 public class EventBusUtil {
 
     /**

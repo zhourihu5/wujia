@@ -126,16 +126,17 @@ public class LockService extends DreamService implements HomeContract.View {
 //        testWakeup();//todo just for test
 
     }
-    private void testWakeup(){//todo just for test
+
+    private void testWakeup() {//todo just for test
         btnDetails.setVisibility(View.VISIBLE);
         btnDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Intent intent = new Intent(LockService.this, WebViewActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(Constants.INTENT_KEY_1, "www.baidu.com");
-                    startActivity(intent);
-                    wakeUp();
+                Intent intent = new Intent(LockService.this, WebViewActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(Constants.INTENT_KEY_1, "www.baidu.com");
+                startActivity(intent);
+                wakeUp();
             }
         });
     }
@@ -145,25 +146,25 @@ public class LockService extends DreamService implements HomeContract.View {
             @Override
             public void onResponse(LockADBean bean) {
                 super.onResponse(bean);
-                    if (bean.data != null ) {
-                        if (bgImg != null) {
-                            final LockADBean.AD ad=bean.data;
-                            ImageLoaderManager.getInstance().loadImage(ad.image, R.mipmap.bg_lockscreen, bgImg);
-                            btnDetails.setVisibility(View.VISIBLE);
-                            btnDetails.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    if (!TextUtils.isEmpty(ad.url)) {
-                                        Intent intent = new Intent(LockService.this, WebViewActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        intent.putExtra(Constants.INTENT_KEY_1, ad.url);
-                                        startActivity(intent);
-                                        wakeUp();
-                                    }
+                if (bean.data != null) {
+                    if (bgImg != null) {
+                        final LockADBean.AD ad = bean.data;
+                        ImageLoaderManager.getInstance().loadImage(ad.image, R.mipmap.bg_lockscreen, bgImg);
+                        btnDetails.setVisibility(View.VISIBLE);
+                        btnDetails.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (!TextUtils.isEmpty(ad.url)) {
+                                    Intent intent = new Intent(LockService.this, WebViewActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    intent.putExtra(Constants.INTENT_KEY_1, ad.url);
+                                    startActivity(intent);
+                                    wakeUp();
                                 }
-                            });
-                        }
+                            }
+                        });
                     }
+                }
             }
 
             @Override
@@ -209,18 +210,18 @@ public class LockService extends DreamService implements HomeContract.View {
                                 if (weatherInfoBean.isSuccess()) {
 
                                     String curdate = DateUtil.getCurrentyyyymmddhh() + "00";
-                                    List<WeatherInfoBean.DataBean.WeatherBean.ShowapiResBodyBean.HourListBean>weatherList= null;
+                                    List<WeatherInfoBean.DataBean.WeatherBean.ShowapiResBodyBean.HourListBean> weatherList = null;
                                     try {
                                         weatherList = weatherInfoBean.getData().getWeather().getShowapi_res_body().getHourList();
                                     } catch (Exception e) {
 //                    e.printStackTrace();
                                     }
-                                    if(weatherList!=null){
+                                    if (weatherList != null) {
                                         for (WeatherInfoBean.DataBean.WeatherBean.ShowapiResBodyBean.HourListBean weather : weatherList) {
                                             if (weather.getTime().equals(curdate)) {
                                                 loginTemperatureTv.setText(weather.getTemperature() + "°");
                                                 loginTemperatureDesc.setText(weather.getWeather());
-                                                ImageLoaderManager.getInstance().loadImage(weather.getWeather_code(),ivWeather);
+                                                ImageLoaderManager.getInstance().loadImage(weather.getWeather_code(), ivWeather);
                                             }
                                         }
                                     }
@@ -239,11 +240,12 @@ public class LockService extends DreamService implements HomeContract.View {
     }
 
     BusModel busModel;
+
     //消息
     private void setNotify() {
 
-        if(busModel ==null){
-            busModel =new BusModel();
+        if (busModel == null) {
+            busModel = new BusModel();
         }
 
 

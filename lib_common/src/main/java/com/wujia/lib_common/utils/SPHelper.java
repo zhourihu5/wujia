@@ -9,7 +9,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.StreamCorruptedException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -213,7 +212,7 @@ public class SPHelper {
             sharedata.commit();
         } catch (IOException e) {
             e.printStackTrace();
-            LogUtil.e( "保存obj失败");
+            LogUtil.e("保存obj失败");
         }
     }
 

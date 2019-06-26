@@ -27,7 +27,7 @@ public class HomeMemberAdapter extends CommonAdapter<HomeUserInfoBean.DataBean.U
 //        holder.setText(R.id.scene_in_mode_tv,item.title);
 
         ImageView img = holder.getView(com.jingxi.smartlife.pad.market.R.id.img1);
-        ImageLoaderManager.getInstance().loadImage(item.getIcon(),R.mipmap.icon_head_default, img);
+        ImageLoaderManager.getInstance().loadImage(item.getIcon(), R.mipmap.icon_head_default, img);
 
     }
 

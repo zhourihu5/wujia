@@ -12,7 +12,7 @@ public class LockADBean extends RootResponse {
 
     public AD data;
 
-    public static class AD{
+    public static class AD {
         @SerializedName("cover")
         public String image;
         public String url;

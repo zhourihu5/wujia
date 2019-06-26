@@ -245,8 +245,8 @@ public class NeighborRightView extends RelativeLayout implements IRightNeighborV
         commit_comment.setOnClickListener(this);
     }
 
-    private void sendReply(String neighborBoardId,String mReplyId,String content){
-        JXPadSdk.getNeighborManager().sendReply(neighborBoardId,replyId,content)
+    private void sendReply(String neighborBoardId, String mReplyId, String content) {
+        JXPadSdk.getNeighborManager().sendReply(neighborBoardId, replyId, content)
                 .subscribe(new ResponseObserver<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -730,7 +730,7 @@ public class NeighborRightView extends RelativeLayout implements IRightNeighborV
                         @Override
                         public void onNext(Long aLong) {
                             notifyNeighborActivity();
-                            if(subscription != null){
+                            if (subscription != null) {
                                 subscription.request(1);
                             }
                         }
@@ -810,7 +810,7 @@ public class NeighborRightView extends RelativeLayout implements IRightNeighborV
             view_whiteBg.setVisibility(GONE);
             tv_enrollNumber.setVisibility(GONE);
             tv_enroll.setVisibility(GONE);
-            if(subscription != null ){
+            if (subscription != null) {
                 subscription.cancel();
             }
         }

@@ -23,18 +23,20 @@ public class FindServiceChildAdapter extends CommonAdapter<CardDetailBean.Servic
 
 //    private int mType;
 
-    public interface SubsribeClickCallback{
+    public interface SubsribeClickCallback {
         void subscibe(CardDetailBean.ServicesBean item);
 
         void unsubscibe(CardDetailBean.ServicesBean item, int pos);
     }
+
     SubsribeClickCallback subsribeClickCallback;
 
     public FindServiceChildAdapter(Context context, List<CardDetailBean.ServicesBean> datas, SubsribeClickCallback subsribeClickCallback) {
         super(context, R.layout.item_service_find_child, datas);
 //        this.mType = type;
-        this.subsribeClickCallback=subsribeClickCallback;
+        this.subsribeClickCallback = subsribeClickCallback;
     }
+
     public FindServiceChildAdapter(Context context, List<CardDetailBean.ServicesBean> datas) {
         super(context, R.layout.item_service_find_child, datas);
     }
@@ -51,19 +53,19 @@ public class FindServiceChildAdapter extends CommonAdapter<CardDetailBean.Servic
         holder.setText(R.id.tv1, item.getTitle());
         holder.setText(R.id.tv2, item.getMemo());
 
-        if(item.getIsSubscribe()==0){
+        if (item.getIsSubscribe() == 0) {
             holder.setVisible(R.id.btn1, true);
             holder.setVisible(R.id.btn2, false);
             holder.setOnClickListener(R.id.btn1, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(subsribeClickCallback!=null){
+                    if (subsribeClickCallback != null) {
                         subsribeClickCallback.subscibe(item);
                     }
 //                    subscibe(item);
                 }
             });
-        }else {
+        } else {
             holder.setText(R.id.btn2, "取消订阅");
             holder.setVisible(R.id.btn1, false);
             holder.setVisible(R.id.btn2, true);
@@ -74,7 +76,7 @@ public class FindServiceChildAdapter extends CommonAdapter<CardDetailBean.Servic
                         @Override
                         public void dialogSureClick() {
 //                                    unsubscibe(item, pos);
-                            if(subsribeClickCallback!=null){
+                            if (subsribeClickCallback != null) {
                                 subsribeClickCallback.unsubscibe(item, pos);
                             }
                         }

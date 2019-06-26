@@ -8,8 +8,11 @@ import android.content.Context;
 
 public interface BaseView {
     void showErrorMsg(String msg);
+
     void showLoadingDialog(String text);
+
     void hideLoadingDialog();
+
     Context getContext();
 
     void onLoginStatusError();

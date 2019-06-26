@@ -29,7 +29,7 @@ public class ImageUtil {
         }
     }
 
-    public static Observable<File> getImageFileFromUri(final ContentResolver cr,Uri uri){
+    public static Observable<File> getImageFileFromUri(final ContentResolver cr, Uri uri) {
         return Observable.just(uri)
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
@@ -38,14 +38,13 @@ public class ImageUtil {
                     public File apply(Uri uri) throws Exception {
                         Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
                         File tempFile = FileAccessor.getTempFile("jpg");
-                        if(tempFile.exists()){
+                        if (tempFile.exists()) {
                             tempFile.delete();
-                        }
-                        else {
+                        } else {
                             tempFile.createNewFile();
                         }
                         FileOutputStream outputStream = new FileOutputStream(tempFile);
-                        bitmap.compress(CompressFormat.JPEG,100,outputStream);
+                        bitmap.compress(CompressFormat.JPEG, 100, outputStream);
                         try {
                             outputStream.close();
                         } catch (IOException e) {

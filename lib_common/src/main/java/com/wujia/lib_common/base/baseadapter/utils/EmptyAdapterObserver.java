@@ -3,6 +3,7 @@ package com.wujia.lib_common.base.baseadapter.utils;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
 /**
  * Author: shenbingkai
  * CreateDate: 2019-04-06 00:51

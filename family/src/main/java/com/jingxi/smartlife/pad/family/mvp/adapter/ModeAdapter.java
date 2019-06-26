@@ -22,7 +22,7 @@ public class ModeAdapter extends CommonAdapter<ModeBean> {
     @Override
     protected void convert(ViewHolder holder, ModeBean item, int pos) {
 
-        holder.setText(R.id.scene_in_mode_tv,item.title);
+        holder.setText(R.id.scene_in_mode_tv, item.title);
 
     }
 }

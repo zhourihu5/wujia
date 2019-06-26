@@ -77,12 +77,12 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
 
         rvMember.addItemDecoration(new VerticallDecoration(1));
 
-        familyMemberModel=new FamilyMemberModel();
-        String familyId= null;
+        familyMemberModel = new FamilyMemberModel();
+        String familyId = null;
         try {
             familyId = DataManager.getFamilyId();
         } catch (Exception e) {
-            LogUtil.t("get familyId failed",e);
+            LogUtil.t("get familyId failed", e);
             LoginUtil.toLoginActivity();
             return;
         }
@@ -100,7 +100,6 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
                 super.onFailed(apiException);
             }
         }));
-
 
 
     }
@@ -134,22 +133,22 @@ public class FamilyMemberFragment extends TitleFragment implements OnInputDialog
 
     @Override
     public void dialogSureClick(final String input) {
-        String familyId= null;
+        String familyId = null;
         try {
             familyId = DataManager.getFamilyId();
         } catch (Exception e) {
             LoginUtil.toLoginActivity();
-            LogUtil.t("get familyId failed",e);
+            LogUtil.t("get familyId failed", e);
             return;
         }
-        addSubscribe(familyMemberModel.addFamilyMember(input,familyId).subscribeWith(new SimpleRequestSubscriber<ApiResponse<String>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(familyMemberModel.addFamilyMember(input, familyId).subscribeWith(new SimpleRequestSubscriber<ApiResponse<String>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(ApiResponse<String> response) {
                 super.onResponse(response);
-                HomeUserInfoBean.DataBean.UserInfoListBean userInfoListBean=new HomeUserInfoBean.DataBean.UserInfoListBean();
+                HomeUserInfoBean.DataBean.UserInfoListBean userInfoListBean = new HomeUserInfoBean.DataBean.UserInfoListBean();
                 userInfoListBean.setUserName(input);
-                if(mAdapter==null){
-                    mAdapter= new SetMemberAdapter(mContext, new ArrayList<HomeUserInfoBean.DataBean.UserInfoListBean>());
+                if (mAdapter == null) {
+                    mAdapter = new SetMemberAdapter(mContext, new ArrayList<HomeUserInfoBean.DataBean.UserInfoListBean>());
                     rvMember.setAdapter(mAdapter);
                 }
                 mAdapter.getDatas().add(userInfoListBean);

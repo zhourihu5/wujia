@@ -90,7 +90,6 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     protected void initEventAndData(Bundle savedInstanceState) {
 
 
-
         FontUtils.changeFontTypeface(loginTimeTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
         FontUtils.changeFontTypeface(loginTemperatureTv, FontUtils.Font_TYPE_EXTRA_LIGHT);
 
@@ -167,12 +166,12 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
             codeCountDownTimer.cancel();
         }
         HookUtil.fixInputMethodManagerLeak(this);//fixme memory leack,inputmethodmanager caused.
-        if(loginPassword!=null){
+        if (loginPassword != null) {
             loginPassword.setTransformationMethod(null);
-            loginPassword=null;
+            loginPassword = null;
         }
-        if(loginAccount!=null){
-            loginAccount=null;
+        if (loginAccount != null) {
+            loginAccount = null;
         }
     }
 
@@ -228,19 +227,18 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
             //set push alias
             TagAliasOperatorHelper.TagAliasBean tagAliasBean = new TagAliasOperatorHelper.TagAliasBean();
             tagAliasBean.isAliasAction = true;
-            tagAliasBean.alias=userBean.getData().getUserInfo().getUserName();
-            tagAliasBean.action=TagAliasOperatorHelper.ACTION_SET;
-            TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(),TagAliasOperatorHelper.sequence,tagAliasBean);
+            tagAliasBean.alias = userBean.getData().getUserInfo().getUserName();
+            tagAliasBean.action = TagAliasOperatorHelper.ACTION_SET;
+            TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(), TagAliasOperatorHelper.sequence, tagAliasBean);
 
             TagAliasOperatorHelper.TagAliasBean tagAliasBeanTag = new TagAliasOperatorHelper.TagAliasBean();
             tagAliasBeanTag.isAliasAction = false;
-            Set<String>tags=new HashSet<>();
-            tags.add("community_"+userBean.getData().getUserInfo().getCommuntityId());
+            Set<String> tags = new HashSet<>();
+            tags.add("community_" + userBean.getData().getUserInfo().getCommuntityId());
 
-            tagAliasBeanTag.tags=tags;
-            tagAliasBeanTag.action=TagAliasOperatorHelper.ACTION_SET;
-            TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(),TagAliasOperatorHelper.sequence,tagAliasBean);
-
+            tagAliasBeanTag.tags = tags;
+            tagAliasBeanTag.action = TagAliasOperatorHelper.ACTION_SET;
+            TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(), TagAliasOperatorHelper.sequence, tagAliasBean);
 
 
             loginPhoneError.setVisibility(View.INVISIBLE);

@@ -29,7 +29,8 @@ public abstract class PermissionsResultAction {
     /**
      * Default Constructor
      */
-    public PermissionsResultAction() {}
+    public PermissionsResultAction() {
+    }
 
     /**
      * Alternate Constructor. Pass the looper you wish the PermissionsResultAction
@@ -40,7 +41,9 @@ public abstract class PermissionsResultAction {
      * @param looper the looper that the callbacks will be called using.
      */
     @SuppressWarnings("unused")
-    public PermissionsResultAction(@NonNull Looper looper) {mLooper = looper;}
+    public PermissionsResultAction(@NonNull Looper looper) {
+        mLooper = looper;
+    }
 
     /**
      * This method is called when ALL permissions that have been

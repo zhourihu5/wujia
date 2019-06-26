@@ -23,7 +23,7 @@ public interface INeighborhoodListView {
 
     void willGoDetail(NeighborInfoBean jsonObject, int detailType);
 
-    HashMap<String,View> getPagerViews();
+    HashMap<String, View> getPagerViews();
 
     Context getTheContext();
 

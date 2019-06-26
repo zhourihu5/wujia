@@ -35,7 +35,7 @@ public class NeighborBoardTypeAdapter extends RecyclerView.Adapter {
         view.setLayoutParams(
                 new RecyclerView.LayoutParams(
                         (int) JXContextWrapper.context.getResources().getDimension(R.dimen.dp_208),
-                (int) JXContextWrapper.context.getResources().getDimension(R.dimen.dp_120)));
+                        (int) JXContextWrapper.context.getResources().getDimension(R.dimen.dp_120)));
         return new NeighborBoardTypeAdapter.NeighborBoardTypeViewHolder(view);
     }
 

@@ -1,5 +1,5 @@
-
 package com.jingxi.smartlife.pad.sdk.neighbor.ui.ipresenters;
+
 import com.alibaba.fastjson.JSONObject;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.dialogs.LibTipDialog;
 

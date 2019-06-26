@@ -71,10 +71,10 @@ public class GsonUtil {
     }
 
 
-
     /**
      * 复杂类型需要使用给方法处理
      * 例如GsonToList需要用方法处理
+     *
      * @param gsonString
      * @param typeToken
      * @param <T>

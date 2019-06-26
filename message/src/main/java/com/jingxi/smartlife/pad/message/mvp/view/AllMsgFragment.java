@@ -40,7 +40,7 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
     private int currentState = 0;
     private LoadMoreWrapper mLoadMoreWrapper;
     private int page = 1, pageSize = 15;
-//    private ArrayList<DBMessage> allList;//所有数据
+    //    private ArrayList<DBMessage> allList;//所有数据
     private String type = "";//默认所有
     private boolean isVisible;
 
@@ -100,12 +100,12 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
         tabBar.setOnTabSelectedListener(this);
 
         msgList = new ArrayList<>();
-        mAdapter = new MessageAdapter(mActivity, msgList,this);
+        mAdapter = new MessageAdapter(mActivity, msgList, this);
         mLoadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(mLoadMoreWrapper);
         mLoadMoreWrapper.setOnLoadMoreListener(this);
-        if(busModel ==null){
-            busModel =new BusModel();
+        if (busModel == null) {
+            busModel = new BusModel();
         }
         getData(true);
 
@@ -119,44 +119,46 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
         getData(true);
 
     }
+
     BusModel busModel;
+
     private void getData(boolean isShowLoadingDialog) {
 
-        String status="";//全部
+        String status = "";//全部
         switch (currentState) {
             case 0://全部
-                status="";
+                status = "";
                 break;
             case 1://已读
-               status="1";
+                status = "1";
                 break;
             case 2://未读
-                status="0";
+                status = "0";
                 break;
         }
 
-        addSubscribe(busModel.getMsg(type,status,page,pageSize).subscribeWith(new SimpleRequestSubscriber<ApiResponse<MsgDto>>(this, new SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(busModel.getMsg(type, status, page, pageSize).subscribeWith(new SimpleRequestSubscriber<ApiResponse<MsgDto>>(this, new SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(ApiResponse<MsgDto> response) {
                 super.onResponse(response);
 
-                    List<MsgDto.ContentBean> temp = response.data.getContent();
-                    if(page==1){
-                        msgList.clear();
-                    }
-                    if (temp!=null&&temp.size() > 0) {
-                        msgList.addAll(temp);
-                    }
-                    if(response.data.isLast()){
-                        mLoadMoreWrapper.setLoadMoreView(0);
-                    } else {
-                        mLoadMoreWrapper.setLoadMoreView(R.layout.view_loadmore);
-                    }
-
-                    mLoadMoreWrapper.notifyDataSetChanged();
-//        pageSize = temp.size();
-                    page++;
+                List<MsgDto.ContentBean> temp = response.data.getContent();
+                if (page == 1) {
+                    msgList.clear();
                 }
+                if (temp != null && temp.size() > 0) {
+                    msgList.addAll(temp);
+                }
+                if (response.data.isLast()) {
+                    mLoadMoreWrapper.setLoadMoreView(0);
+                } else {
+                    mLoadMoreWrapper.setLoadMoreView(R.layout.view_loadmore);
+                }
+
+                mLoadMoreWrapper.notifyDataSetChanged();
+//        pageSize = temp.size();
+                page++;
+            }
 
             @Override
             public void onFailed(ApiException apiException) {
@@ -220,7 +222,7 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
 
     @Override
     public void onMsgReadClick(final MsgDto.ContentBean item) {//todo
-        addSubscribe(busModel.readMsg(item.getId()+"").subscribeWith(new SimpleRequestSubscriber<ApiResponse<Object>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(busModel.readMsg(item.getId() + "").subscribeWith(new SimpleRequestSubscriber<ApiResponse<Object>>(this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(ApiResponse<Object> response) {
                 super.onResponse(response);

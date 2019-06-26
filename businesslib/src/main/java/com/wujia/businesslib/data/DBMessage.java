@@ -14,8 +14,8 @@ import com.litesuits.orm.db.enums.AssignType;
 @Table("table_message")
 public class DBMessage {
 
-    public static final String TYPE_PROPERTY="propertyMessage";
-    public static final String TYPE_NOTIFY="noticeMessage";
+    public static final String TYPE_PROPERTY = "propertyMessage";
+    public static final String TYPE_NOTIFY = "noticeMessage";
 
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     public int _id;

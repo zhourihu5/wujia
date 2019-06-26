@@ -7,7 +7,7 @@ public class TokenException extends RuntimeException {
         super(throwable.getMessage(), throwable);
     }
 
-    public TokenException( String message) {
+    public TokenException(String message) {
         super(message);
     }
 

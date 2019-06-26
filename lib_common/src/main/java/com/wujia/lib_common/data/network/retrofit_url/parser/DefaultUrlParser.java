@@ -3,6 +3,7 @@ package com.wujia.lib_common.data.network.retrofit_url.parser;
 import okhttp3.HttpUrl;
 
 /**
+ *
  */
 public class DefaultUrlParser implements UrlParser {
     @Override

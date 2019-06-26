@@ -23,6 +23,7 @@ public class LoadingDialog extends Dialog {
         super(context, R.style.dialog);
         init();
     }
+
     public LoadingDialog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
     }

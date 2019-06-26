@@ -48,9 +48,9 @@ public class ReleaseTypeDialog extends BaseLibDialog {
         iv_closeType.setOnClickListener(onClickListener);
     }
 
-    public void setTypes(List<NeighborBoardTypeBean> types){
-        for(NeighborBoardTypeBean typeBean : types){
-            if(TextUtils.equals(typeBean.neighborBoardTypeId,"all")){
+    public void setTypes(List<NeighborBoardTypeBean> types) {
+        for (NeighborBoardTypeBean typeBean : types) {
+            if (TextUtils.equals(typeBean.neighborBoardTypeId, "all")) {
                 types.remove(typeBean);
                 break;
             }

@@ -9,9 +9,9 @@ import io.reactivex.Observer;
 
 public abstract class BaseResponseObserver<T> implements Observer<BaseEntry> {
 
-    public Class<T> getContentClass(){
+    public Class<T> getContentClass() {
         Type superClass = this.getClass().getGenericSuperclass();
-        Type type = ((ParameterizedType)superClass).getActualTypeArguments()[0];
+        Type type = ((ParameterizedType) superClass).getActualTypeArguments()[0];
         Class<T> clazz = null;
         try {
             return (Class<T>) Class.forName(((Class) type).getName());

@@ -15,15 +15,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class BaseApplication extends Application {
 
     protected static BaseApplication instance;
-    String TAG="wujia";
-//    private static volatile int mFinalCount;
+    String TAG = "wujia";
+    //    private static volatile int mFinalCount;
     protected static WeakReference<Activity> currentActivity;
-    public static Activity getCurrentAcitivity(){
-        if(currentActivity!=null){
+
+    public static Activity getCurrentAcitivity() {
+        if (currentActivity != null) {
             return currentActivity.get();
         }
         return null;
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -35,7 +37,8 @@ public abstract class BaseApplication extends Application {
 
 
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
-            AtomicInteger mFinalCount=new AtomicInteger(0);
+            AtomicInteger mFinalCount = new AtomicInteger(0);
+
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
 
@@ -44,10 +47,10 @@ public abstract class BaseApplication extends Application {
             @Override
             public void onActivityStarted(Activity activity) {
                 //说明从后台回到了前台
-                if(mFinalCount.incrementAndGet()==1){
+                if (mFinalCount.incrementAndGet() == 1) {
                     runInForeGround();
                 }
-                currentActivity=new WeakReference<>(activity);
+                currentActivity = new WeakReference<>(activity);
 
             }
 
@@ -64,7 +67,7 @@ public abstract class BaseApplication extends Application {
             @Override
             public void onActivityStopped(Activity activity) {
                 //说明从前台回到了后台
-                if( mFinalCount.decrementAndGet()<=0){//fixme some times more than one,maybe we have start the same
+                if (mFinalCount.decrementAndGet() <= 0) {//fixme some times more than one,maybe we have start the same
                     runInbackGround();
                 }
             }
@@ -80,7 +83,9 @@ public abstract class BaseApplication extends Application {
             }
         });
     }
+
     protected abstract void runInbackGround();
+
     protected abstract void runInForeGround();
 //    public static boolean isInbackground(){
 //        return mFinalCount<=0;

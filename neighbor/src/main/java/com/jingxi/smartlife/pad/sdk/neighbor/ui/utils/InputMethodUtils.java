@@ -16,7 +16,9 @@ public class InputMethodUtils {
     }
 
     public static boolean showSoftInput(View view) {
-        if (view == null) {return false;}
+        if (view == null) {
+            return false;
+        }
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         return imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
     }
@@ -32,7 +34,9 @@ public class InputMethodUtils {
     }
 
     public static boolean hideSoftInput(View view) {
-        if (view == null) {return false;}
+        if (view == null) {
+            return false;
+        }
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         return imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }

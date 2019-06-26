@@ -22,10 +22,10 @@
         android:layout_weight="1">
 
         <!--<ProgressBar-->
-            <!--style="@style/ProgressLoadingWhiteStyle"-->
-            <!--android:layout_width="@dimen/px50"-->
-            <!--android:layout_height="@dimen/px50"-->
-            <!--android:layout_gravity="center" />-->
+        <!--style="@style/ProgressLoadingWhiteStyle"-->
+        <!--android:layout_width="@dimen/px50"-->
+        <!--android:layout_height="@dimen/px50"-->
+        <!--android:layout_gravity="center" />-->
     </FrameLayout>
 
 </LinearLayout>

@@ -40,6 +40,7 @@ public class FileAccessor {
 
     /**
      * 获取相机返回的照片
+     *
      * @return
      */
     public static File getTackPicFilePath() {
@@ -53,6 +54,7 @@ public class FileAccessor {
 
     /**
      * 获取相机返回的照片
+     *
      * @return
      */
     public static File getTempFile(String extension) {

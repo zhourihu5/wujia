@@ -1,8 +1,6 @@
 package com.wujia.lib.widget.bean;
 
 
-
-
 import com.wujia.lib.uikit.R;
 
 import java.io.Serializable;
@@ -70,7 +68,7 @@ public class ToolBarOptions implements Serializable {
         }
         if (mOptionsButtons == null)
             mOptionsButtons = new ArrayList<>();
-      mOptionsButtons.add(optionsButton);
+        mOptionsButtons.add(optionsButton);
         return this;
     }
 

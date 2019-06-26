@@ -77,12 +77,12 @@ public abstract class BaseItemDraggableAdapter<T, K extends BaseViewHolder> exte
     }
 
 
-        /**
-         * Set the toggle view's id which will trigger drag event.
-         * If the toggle view id is not set, drag event will be triggered when the item is long pressed.
-         *
-         * @param toggleViewId the toggle view's id
-         */
+    /**
+     * Set the toggle view's id which will trigger drag event.
+     * If the toggle view id is not set, drag event will be triggered when the item is long pressed.
+     *
+     * @param toggleViewId the toggle view's id
+     */
     public void setToggleViewId(int toggleViewId) {
         mToggleViewId = toggleViewId;
     }

@@ -20,9 +20,7 @@ public class DataBaseUtil {
 
     private static LiteOrm getLiteOrm() {
 
-        if (liteOrm == null)
-
-        {
+        if (liteOrm == null) {
             liteOrm = LiteOrm.newSingleInstance(AppContext.get(), "wj_terminal.db");
             liteOrm.setDebugged(true); // open the log
         }

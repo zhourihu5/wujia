@@ -165,16 +165,17 @@ public class SettingHomeFragment extends MvpFragment<SettingPresenter> implement
                 break;
         }
     }
+
     //测试安装
     private void install() {
         int versionId = VersionUtil.getVersionCode();
-        LogUtil.i(String.format("当前版本号：versioncode=%d,versionname=%s",versionId,VersionUtil.getVersionName()));
+        LogUtil.i(String.format("当前版本号：versioncode=%d,versionname=%s", versionId, VersionUtil.getVersionName()));
         Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
 
-                File file=new File(FileUtil.getDowndloadApkPath(AppContext.get()), "app_signed.apk");
-                LogUtil.i(String.format("安装文件路径：%s,大小：%d,exist:%s",file.getAbsolutePath(),file.length(),file.exists()));
+                File file = new File(FileUtil.getDowndloadApkPath(AppContext.get()), "app_signed.apk");
+                LogUtil.i(String.format("安装文件路径：%s,大小：%d,exist:%s", file.getAbsolutePath(), file.length(), file.exists()));
 
                 boolean install = AppUtil.install(file.getAbsolutePath());
 //                                    boolean install = true;

@@ -43,7 +43,7 @@ public class FindServiceFragment extends ServiceBaseFragment implements Horizont
     private boolean isLoading;
     private int pageSize = 12;
     private int pageNo = 1;
-//    private int totleSize = 0;
+    //    private int totleSize = 0;
     private ArrayList<CardDetailBean.ServicesBean> datas;
     private LoadMoreWrapper mLoadMoreWrapper;
     private ImageView ivBanner;
@@ -52,13 +52,13 @@ public class FindServiceFragment extends ServiceBaseFragment implements Horizont
     private EventSubscription event = new EventSubscription(new IMiessageInvoke<EventSubscription>() {
         @Override
         public void eventBus(EventSubscription event) {
-            if(event.getType()==EventSubscription.TYPE_FIND
-                    ||event.getType()==EventSubscription.TYPE_NOTIFY
-            ){//如果未 发现服务或者推送过来的通知服务就需要刷新界面
-                if(event.eventType==EventSubscription.PUSH_NOTIFY ||!isVisible()){
-                    pageNo=1;
+            if (event.getType() == EventSubscription.TYPE_FIND
+                    || event.getType() == EventSubscription.TYPE_NOTIFY
+            ) {//如果未 发现服务或者推送过来的通知服务就需要刷新界面
+                if (event.eventType == EventSubscription.PUSH_NOTIFY || !isVisible()) {
+                    pageNo = 1;
                     getList(false);
-                }else {//非推送消息并且当前界面可见状态为本页面发送的消息
+                } else {//非推送消息并且当前界面可见状态为本页面发送的消息
                     mLoadMoreWrapper.notifyDataSetChanged();
                 }
 
@@ -83,6 +83,7 @@ public class FindServiceFragment extends ServiceBaseFragment implements Horizont
     }
 
     MarketModel marketModel;
+
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
@@ -95,17 +96,18 @@ public class FindServiceFragment extends ServiceBaseFragment implements Horizont
 
         datas = new ArrayList<>();
 
-        FindServiceChildAdapter mAdapter =getAdapter(datas);
+        FindServiceChildAdapter mAdapter = getAdapter(datas);
         mLoadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(mLoadMoreWrapper);
         mLoadMoreWrapper.setOnLoadMoreListener(this);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         mAdapter.setOnItemClickListener(this);
-        marketModel=new MarketModel();
+        marketModel = new MarketModel();
         getList(true);
         EventBusUtil.register(event);
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -153,7 +155,7 @@ public class FindServiceFragment extends ServiceBaseFragment implements Horizont
     }
 
     protected void setBanner(ApiResponse<ServiceDto> response) {
-        List<ServiceDto.BannerListBean> list= response.data.getBannerList();
+        List<ServiceDto.BannerListBean> list = response.data.getBannerList();
         if (null == list || list.isEmpty()) {
             return;
         }
@@ -172,7 +174,6 @@ public class FindServiceFragment extends ServiceBaseFragment implements Horizont
     public void onTabSelected(int position, int prePosition) {
 
     }
-
 
 
     @Override

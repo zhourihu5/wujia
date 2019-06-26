@@ -225,12 +225,11 @@ public class ArcSeekBar extends View {
         mThumbPaint.setTextSize(56);
 
         setLayerType(LAYER_TYPE_SOFTWARE, null);//对单独的View在运行时阶段禁用硬件加速
-        mThumbPaint.setShadowLayer(5,0,0,ContextCompat.getColor(getContext(),R.color.c75));
+        mThumbPaint.setShadowLayer(5, 0, 0, ContextCompat.getColor(getContext(), R.color.c75));
 
 
-
-        mThumbBmp=BitmapFactory.decodeResource(getResources(),R.drawable.bg_white_circle);
-        mThumbRect=new Rect(0,0,mThumbBmp.getWidth(),mThumbBmp.getHeight());
+        mThumbBmp = BitmapFactory.decodeResource(getResources(), R.drawable.bg_white_circle);
+        mThumbRect = new Rect(0, 0, mThumbBmp.getWidth(), mThumbBmp.getHeight());
     }
 
     // 初始化拖动按钮画笔

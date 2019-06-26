@@ -34,8 +34,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/px30"
         android:layout_marginRight="@dimen/px30"
-        app:thumbTint="@color/white"
-        />
+        app:thumbTint="@color/white" />
 
     <!--<Switch-->
     <!--android:id="@+id/switch_voice"-->

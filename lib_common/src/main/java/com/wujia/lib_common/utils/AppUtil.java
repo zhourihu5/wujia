@@ -110,7 +110,7 @@ public class AppUtil {
     }
 
     public static boolean uninstall(String packName) {
-        if(TextUtils.isEmpty(packName)){
+        if (TextUtils.isEmpty(packName)) {
             return false;
         }
         LogUtil.i("uninstall " + packName);

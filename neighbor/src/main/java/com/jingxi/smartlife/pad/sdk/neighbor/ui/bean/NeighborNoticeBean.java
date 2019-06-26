@@ -1,6 +1,7 @@
 package com.jingxi.smartlife.pad.sdk.neighbor.ui.bean;
 
-/**社区新鲜事我的消息
+/**
+ * 社区新鲜事我的消息
  * Created by lb on 2017/12/11.
  */
 
@@ -40,14 +41,14 @@ public class NeighborNoticeBean {
     public String neighborBoardMemberName;
     public String neighborBoardMemberHeadImage;
     public String neighborBoardCommunityName;
-    public int    neighborBoardId;
-    public long   neighborBoardCreateTime;
-    public int    replyId;
+    public int neighborBoardId;
+    public long neighborBoardCreateTime;
+    public int replyId;
     public String replyContent;
     public String replyMemberName;
     public String replyMemberHeadImage;
     public String replyParentMemberName;
-    public long   replyCreateDate;
+    public long replyCreateDate;
     public String type;
     public String neighborBoardMemberAccId;
     public String replyMemberAccId;

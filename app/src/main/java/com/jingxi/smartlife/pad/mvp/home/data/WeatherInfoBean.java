@@ -229,7 +229,7 @@ public class WeatherInfoBean extends RootResponse {
                     private String temperature;
 
                     public String getWeather_code() {
-                        return String.format("http://appimg.showapi.com/images/weather/icon/day/%s.png",weather_code) ;
+                        return String.format("http://appimg.showapi.com/images/weather/icon/day/%s.png", weather_code);
                     }
 
                     public void setWeather_code(String weather_code) {
@@ -310,8 +310,6 @@ public class WeatherInfoBean extends RootResponse {
 //        public String wind_power;
 
 //    }
-
-
 
 
 }

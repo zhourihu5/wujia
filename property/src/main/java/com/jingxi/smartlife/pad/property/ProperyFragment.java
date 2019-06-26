@@ -8,10 +8,10 @@ import com.wujia.lib_common.base.BaseMainFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
 /**
-* author ：shenbingkai@163.com
-* date ：2019-01-12 20:06
-* description ：物业服务 home
-*/
+ * author ：shenbingkai@163.com
+ * date ：2019-01-12 20:06
+ * description ：物业服务 home
+ */
 public class ProperyFragment extends BaseMainFragment {
 
     public ProperyFragment() {
@@ -35,6 +35,7 @@ public class ProperyFragment extends BaseMainFragment {
     protected void initEventAndData() {
 
     }
+
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);

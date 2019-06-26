@@ -112,7 +112,7 @@ public class NeighborHoodListPresenter implements INeighborhoodListPresernter {
         JXPadSdk.getNeighborManager().updateFavour(
                 jsonObject.getString("neighborBoardId"),
                 !jsonObject.getBoolean("isFavour"))
-                .subscribe(new ResponseTagObserver<String,JSONObject>(jsonObject) {
+                .subscribe(new ResponseTagObserver<String, JSONObject>(jsonObject) {
 
                     @Override
                     public void onResponse(String s) {
@@ -161,7 +161,7 @@ public class NeighborHoodListPresenter implements INeighborhoodListPresernter {
         if (iView == null) {
             return null;
         }
-        LibTipDialog  libTipDialog = new LibTipDialog(iView.getTheContext(), deleteCheckAction);
+        LibTipDialog libTipDialog = new LibTipDialog(iView.getTheContext(), deleteCheckAction);
         libTipDialog.setObject(neighborhoodId, StringUtils.getString(R.string.is_delete_this_neighbor));
         return libTipDialog;
     }
@@ -206,7 +206,7 @@ public class NeighborHoodListPresenter implements INeighborhoodListPresernter {
                         NeighborBoardTypeBean typeBean = new NeighborBoardTypeBean();
                         typeBean.name = StringUtils.getString(R.string.default_neighbor_type_name);
                         typeBean.neighborBoardTypeId = "all";
-                        neighborBoardTypeBeans.add(0,typeBean);
+                        neighborBoardTypeBeans.add(0, typeBean);
                         if (iView != null) {
                             iView.setTypes((ArrayList<NeighborBoardTypeBean>) neighborBoardTypeBeans);
                         }
@@ -234,13 +234,13 @@ public class NeighborHoodListPresenter implements INeighborhoodListPresernter {
         iView.showLoadingDialog(true);
         onVerify = true;
         JXPadSdk.getNeighborManager().getNeighborBoardInfo(mData.getString("neighborBoardId"))
-                .subscribe(new ResponseTagObserver<NeighborInfoBean,JSONObject>(mData){
+                .subscribe(new ResponseTagObserver<NeighborInfoBean, JSONObject>(mData) {
 
                     @Override
                     public void onResponse(NeighborInfoBean data, BaseEntry entry) {
                         onVerify = false;
                         iView.showLoadingDialog(false);
-                        iView.willGoDetail(data,-1);
+                        iView.willGoDetail(data, -1);
                     }
 
                     @Override
@@ -257,7 +257,7 @@ public class NeighborHoodListPresenter implements INeighborhoodListPresernter {
                         /**
                          * 已删除
                          */
-                        if(code == 9007){
+                        if (code == 9007) {
                             updateItem(tag, type_delete);
                         }
                         ToastUtil.showToast(message);

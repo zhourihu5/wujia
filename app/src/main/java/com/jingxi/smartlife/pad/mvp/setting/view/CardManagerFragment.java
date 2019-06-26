@@ -52,7 +52,7 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
     private EventCardChange eventCardChange = new EventCardChange(new IMiessageInvoke<EventCardChange>() {
         @Override
         public void eventBus(EventCardChange event) {
-                mPresenter.getUserQuickCard();
+            mPresenter.getUserQuickCard();
         }
     });
 
@@ -87,7 +87,9 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
         EventBusUtil.register(eventCardChange);
 
     }
-    boolean isChanged=false;
+
+    boolean isChanged = false;
+
     private void setUserCard(ArrayList<HomeRecBean.Card> list) {
 
         addList = list;
@@ -106,8 +108,8 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
 
             @Override
             public void removeCard(int pos) {
-                isChanged=true;
-                mPresenter.removeUserQuickCard( addList.get(pos).id);
+                isChanged = true;
+                mPresenter.removeUserQuickCard(addList.get(pos).id);
 
                 unaddList.add(addList.remove(pos));
                 addedAdapter.notifyItemRemoved(pos);
@@ -134,8 +136,8 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
         unaddAdapter.setManagerCardListener(new HomeCardManagerAdapter.OnManagerCardListener() {
             @Override
             public void addCard(int pos) {
-                isChanged=true;
-                mPresenter.addUserQuickCard( unaddList.get(pos).id);
+                isChanged = true;
+                mPresenter.addUserQuickCard(unaddList.get(pos).id);
 
                 addList.add(unaddList.remove(pos));
                 unaddAdapter.notifyItemRemoved(pos);
@@ -170,7 +172,7 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
     @Override
     public void pop() {
         EventBusUtil.unregister(eventCardChange);
-        if(isChanged){
+        if (isChanged) {
             EventBusUtil.post(new EventCardChange());
         }
         super.pop();
@@ -186,10 +188,10 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
         switch (requestCode) {
             case HomePresenter.REQUEST_CDOE_GET_CARD_OTHER:
                 HomeRecBean cards = (HomeRecBean) object;
-                if(cards.data!=null&&cards.data.size()>0){
-                    ArrayList<HomeRecBean.Card>toAddList=new ArrayList<>();
-                    for(HomeRecBean.Card card:cards.data){
-                        if("NO".equals(card.userCards.get(0).isShow)){
+                if (cards.data != null && cards.data.size() > 0) {
+                    ArrayList<HomeRecBean.Card> toAddList = new ArrayList<>();
+                    for (HomeRecBean.Card card : cards.data) {
+                        if ("NO".equals(card.userCards.get(0).isShow)) {
                             toAddList.add(card);
                         }
                     }

@@ -1,4 +1,3 @@
-
 package com.wujia.lib_common.data.network;
 
 import android.support.annotation.NonNull;
@@ -55,7 +54,7 @@ public class HttpHelper {
         T apiService = null;
         if (mServiceMap != null) {
             apiService = (T) mServiceMap.get(service.getName());
-            if (apiService==null) {
+            if (apiService == null) {
                 apiService = mRetrofit.create(service);
                 mServiceMap.put(service.getName(), apiService);
             }
@@ -87,7 +86,6 @@ public class HttpHelper {
             builder.sslSocketFactory(SslContextFactory.createSSLSocketFactory());
 
 
-
             List<Interceptor> interceptors = retrofitBuilder.interceptors();
             if (interceptors != null && interceptors.size() > 0) {
                 for (Interceptor interceptor : interceptors) {
@@ -103,7 +101,7 @@ public class HttpHelper {
             builder.addInterceptor(new ParamsInterceptor());
 
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            loggingInterceptor.setLevel(NetConfig.debug?HttpLoggingInterceptor.Level.BODY: HttpLoggingInterceptor.Level.NONE);
+            loggingInterceptor.setLevel(NetConfig.debug ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
             builder.addInterceptor(loggingInterceptor);
 
             //设置超时

@@ -24,13 +24,13 @@ import retrofit2.http.Query;
 public interface MainAppApiService {
 
 
-//    @FormUrlEncoded
+    //    @FormUrlEncoded
     @GET("/login/checking")
     Flowable<LoginDTO> login(@Query("userName") String mobile, @Query("smsCode") String captcha, @Query("key") String padSn);
 
-//    @FormUrlEncoded
+    //    @FormUrlEncoded
     @GET("/login/sendMsg")
-    Flowable<RootResponse> getCode(@Query("userName") String mobile,@Query("key")String key);
+    Flowable<RootResponse> getCode(@Query("userName") String mobile, @Query("key") String key);
 
     @GET("/v1/card/all")
     Flowable<HomeRecBean> getQuickCard();
@@ -40,11 +40,11 @@ public interface MainAppApiService {
 
     @FormUrlEncoded
     @POST("/v1/card/save")
-    Flowable<RootResponse> addUserQuickCard( @Field("id") String quickCardId);
+    Flowable<RootResponse> addUserQuickCard(@Field("id") String quickCardId);
 
     @FormUrlEncoded
     @POST("/v1/card/remove")
-    Flowable<RootResponse> removeUserQuickCard( @Field("id") String quickCardId);
+    Flowable<RootResponse> removeUserQuickCard(@Field("id") String quickCardId);
 
     @GET("/v1/weather/query")
     Flowable<WeatherInfoBean> getWeather();
@@ -65,11 +65,11 @@ public interface MainAppApiService {
 
     @FormUrlEncoded
     @POST("/v1/userFamily/addFamily")
-    Flowable<ApiResponse<String>> addFamilyMember(@Field("userName")String userName,@Field("familyId") String familyId);
+    Flowable<ApiResponse<String>> addFamilyMember(@Field("userName") String userName, @Field("familyId") String familyId);
 
     @GET("/v1/userFamily/findFamilyUserList")
-    Flowable<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>> getFamilyMemberList(@Query("familyId")String familyId);
+    Flowable<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>> getFamilyMemberList(@Query("familyId") String familyId);
 
     @GET("/v1/card/detail")
-    Flowable<ApiResponse<CardDetailBean>> getCardDetail(@Query("id")String cardId);
+    Flowable<ApiResponse<CardDetailBean>> getCardDetail(@Query("id") String cardId);
 }

@@ -13,7 +13,7 @@
         android:scaleType="centerCrop"
         tools:src="@mipmap/img_card_home_serve"
         app:left_top_radius="@dimen/px8"
-        app:right_top_radius="@dimen/px8"/>
+        app:right_top_radius="@dimen/px8" />
 
     <TextView
         android:id="@+id/scene_in_mode_tv"

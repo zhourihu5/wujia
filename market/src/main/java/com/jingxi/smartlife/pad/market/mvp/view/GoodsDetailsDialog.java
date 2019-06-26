@@ -17,7 +17,7 @@ import com.wujia.lib.widget.util.ToastUtil;
  * Email:  shenbingkai@gamil.com
  * Description:
  */
-public class GoodsDetailsDialog extends CommDialog implements View.OnClickListener{
+public class GoodsDetailsDialog extends CommDialog implements View.OnClickListener {
 
     public GoodsDetailsDialog(@NonNull Context context) {
         super(context, R.style.dialogStyle);
@@ -51,7 +51,7 @@ public class GoodsDetailsDialog extends CommDialog implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        ToastUtil.showShort(getContext(),"增加成功");
+        ToastUtil.showShort(getContext(), "增加成功");
         dismiss();
     }
 }

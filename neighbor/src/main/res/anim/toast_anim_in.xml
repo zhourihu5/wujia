@@ -5,8 +5,7 @@
         android:fromYDelta="0"
         android:toXDelta="0"
         android:toYDelta="85"
-        android:duration="1"
-        />
+        android:duration="1" />
     <translate
         android:fromXDelta="0"
         android:fromYDelta="0"
@@ -14,13 +13,11 @@
         android:toYDelta="-105"
         android:duration="150"
         android:fillAfter="true"
-        android:interpolator="@android:anim/decelerate_interpolator"
-        />
-    <alpha 
+        android:interpolator="@android:anim/decelerate_interpolator" />
+    <alpha
         android:fromAlpha="0"
         android:toAlpha="1"
-        android:duration="100"
-        />
+        android:duration="100" />
     <translate
         android:fromXDelta="0"
         android:fromYDelta="0"
@@ -28,6 +25,5 @@
         android:toYDelta="20"
         android:duration="80"
         android:fillAfter="true"
-        android:startOffset="150"
-        />
+        android:startOffset="150" />
 </set>

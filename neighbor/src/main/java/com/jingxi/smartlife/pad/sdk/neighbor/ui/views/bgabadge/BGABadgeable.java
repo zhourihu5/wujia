@@ -1,4 +1,3 @@
-
 package com.jingxi.smartlife.pad.sdk.neighbor.ui.views.bgabadge;
 
 import android.content.Context;

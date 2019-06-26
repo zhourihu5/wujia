@@ -1,10 +1,6 @@
 package com.jingxi.smartlife.pad.host;
 
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.provider.Settings;
 
 import com.jingxi.smartlife.pad.BuildConfig;
@@ -15,11 +11,7 @@ import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.base.BaseApplication;
 import com.wujia.lib_common.utils.NetworkUtil;
 
-import java.util.List;
-
 import cn.jpush.android.api.JPushInterface;
-
-import static android.content.pm.PackageManager.GET_SERVICES;
 //import xcrash.TombstoneParser;
 
 /**
@@ -42,8 +34,8 @@ public class HostApp extends BaseApplication {
         NetworkUtil.getNetWork(instance);
         HookUtil.hookWebView();
         HookUtil.fixFocusedViewLeak(this);
-        JPushInterface.setDebugMode(BuildConfig.DEBUG); 	// 设置开启日志,发布时请关闭日志
-        JPushInterface.init(this);     		// 初始化 JPush
+        JPushInterface.setDebugMode(BuildConfig.DEBUG);    // 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);            // 初始化 JPush
 
         //方便错误统计，方便查看错误日志，便于修复bug
         UMConfigure.init(this, "5d0ddf284ca357c8dc000dd6", "mychanel", UMConfigure.DEVICE_TYPE_PHONE, null);//友盟统计，周日虎的账号
@@ -93,9 +85,6 @@ public class HostApp extends BaseApplication {
 //        }
 
 
-
-
-
 //        Fragmentation.builder()
 //                // 设置 栈视图 模式为 （默认）悬浮球模式   SHAKE: 摇一摇唤出  NONE：隐藏， 仅在Debug环境生效
 //                .stackViewMode(Fragmentation.BUBBLE)
@@ -113,45 +102,7 @@ public class HostApp extends BaseApplication {
 //                })
 //                .install();
     }
-    boolean isInMainProcess(){
-        Context context=this;
-        PackageManager packageManager = context.getPackageManager();
-        PackageInfo packageInfo;
-        try {
-            packageInfo = packageManager.getPackageInfo(context.getPackageName(), GET_SERVICES);
-        } catch (Exception e) {
-//            CanaryLog.d(e, "Could not get package info for %s", context.getPackageName());
-            return true;
-        }
-        String mainProcess = packageInfo.applicationInfo.processName;
 
-        int myPid = android.os.Process.myPid();
-        ActivityManager activityManager =
-                (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        ActivityManager.RunningAppProcessInfo myProcess = null;
-        List<ActivityManager.RunningAppProcessInfo> runningProcesses;
-        try {
-            runningProcesses = activityManager.getRunningAppProcesses();
-        } catch (SecurityException exception) {
-            // https://github.com/square/leakcanary/issues/948
-//            CanaryLog.d("Could not get running app processes %d", exception);
-            return true;
-        }
-        if (runningProcesses != null) {
-            for (ActivityManager.RunningAppProcessInfo process : runningProcesses) {
-                if (process.pid == myPid) {
-                    myProcess = process;
-                    break;
-                }
-            }
-        }
-        if (myProcess == null) {
-//            CanaryLog.d("Could not find running process for %d", myPid);
-            return true;
-        }
-
-        return myProcess.processName.equals(mainProcess);
-    }
     @Override
     protected void runInbackGround() {
 //        if(!isInMainProcess()){

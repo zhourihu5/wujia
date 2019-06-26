@@ -21,6 +21,7 @@ import java.util.List;
 public class RightNeighborBoardPresenter implements IRightNeighborBoardPresenter {
     private IRightNeighborView iRightNeighborView;
     private NeighborInfoBean neighborInfoBean;
+
     public RightNeighborBoardPresenter(NeighborRightView iRightNeighborView) {
         this.iRightNeighborView = iRightNeighborView;
     }
@@ -28,21 +29,21 @@ public class RightNeighborBoardPresenter implements IRightNeighborBoardPresenter
     @Override
     public void setData(NeighborInfoBean neighborInfoBean, String bz) {
         this.neighborInfoBean = neighborInfoBean;
-        if(iRightNeighborView != null){
+        if (iRightNeighborView != null) {
             iRightNeighborView.setData(neighborInfoBean);
         }
     }
 
     @Override
     public void setComment(List<CommentBean> commentBeanList, String totalSize) {
-        if(iRightNeighborView != null){
-            iRightNeighborView.setComment(commentBeanList,totalSize);
+        if (iRightNeighborView != null) {
+            iRightNeighborView.setComment(commentBeanList, totalSize);
         }
     }
 
     @Override
     public void OnleftItemSelect(NeighborInfoBean neighborInfoBean) {
-        if(iRightNeighborView != null){
+        if (iRightNeighborView != null) {
             if (neighborInfoBean != null) {
                 if (iRightNeighborView != null) {
                     iRightNeighborView.startRefresh();
@@ -78,21 +79,21 @@ public class RightNeighborBoardPresenter implements IRightNeighborBoardPresenter
 
     @Override
     public void loadMoreComment(List<CommentBean> commentBeanList) {
-        if(iRightNeighborView != null){
+        if (iRightNeighborView != null) {
             iRightNeighborView.loadMoreComment(commentBeanList);
         }
     }
 
     @Override
     public void updateFavour(NeighborInfoBean mData) {
-        if(iRightNeighborView != null){
+        if (iRightNeighborView != null) {
             iRightNeighborView.updateFavour(mData);
         }
     }
 
     @Override
     public void setEnrollPeople(List<EnrollPeopleBean> enrollPeopleBeanList) {
-        if(iRightNeighborView != null){
+        if (iRightNeighborView != null) {
             iRightNeighborView.setEnrollPeople(enrollPeopleBeanList);
         }
     }
@@ -121,7 +122,7 @@ public class RightNeighborBoardPresenter implements IRightNeighborBoardPresenter
 
     @Override
     public void getComment(String neighborBoardId, final int pageIndex) {
-        JXPadSdk.getNeighborManager().queryNeighborBoardReply(neighborBoardId,pageIndex)
+        JXPadSdk.getNeighborManager().queryNeighborBoardReply(neighborBoardId, pageIndex)
                 .subscribe(new ResponseListObserver<CommentBean>() {
                     @Override
                     public void onResponse(List<CommentBean> commentBeans, BaseEntry baseEntry) {
@@ -159,8 +160,8 @@ public class RightNeighborBoardPresenter implements IRightNeighborBoardPresenter
                 });
     }
 
-    private void stopViewRefresh(){
-        if(iRightNeighborView != null){
+    private void stopViewRefresh() {
+        if (iRightNeighborView != null) {
             iRightNeighborView.stopRefresh();
         }
     }

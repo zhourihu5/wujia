@@ -27,7 +27,7 @@ public class SetMemberAdapter extends CommonAdapter<HomeUserInfoBean.DataBean.Us
         holder.setText(R.id.name_member_set_item, item.getUserName());
 
         ImageView img = holder.getView(R.id.icon_member_set_item);
-        ImageLoaderManager.getInstance().loadImage(item.getIcon(),R.mipmap.icon_head_default, img);
+        ImageLoaderManager.getInstance().loadImage(item.getIcon(), R.mipmap.icon_head_default, img);
 
 
     }

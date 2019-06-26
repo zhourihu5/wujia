@@ -27,7 +27,6 @@ public class HomeRecBean extends RootResponse {
     public static final String TYPE_ADD = "add";
 
 
-
     public HomeRecBean() {
     }
 
@@ -48,22 +47,22 @@ public class HomeRecBean extends RootResponse {
         public String title;
         @SerializedName("icon")
         public String image;
-//        public String linkType;
+        //        public String linkType;
         @SerializedName("url")
         public String linkUrl;
 
 //        public String headImage;
 
-//        public String isShow;
-        public List<UserCards>userCards;
+        //        public String isShow;
+        public List<UserCards> userCards;
 
         public String type;
         @SerializedName("memo")
         private String explain;
 
         public String getExplain() {
-            if(!TextUtils.isEmpty(explain)){
-                return explain.replaceAll("_","\n");
+            if (!TextUtils.isEmpty(explain)) {
+                return explain.replaceAll("_", "\n");
             }
             return explain;
         }
@@ -82,7 +81,8 @@ public class HomeRecBean extends RootResponse {
         }
 
     }
-    public static class UserCards{
+
+    public static class UserCards {
         public String isShow;
     }
 

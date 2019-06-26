@@ -2,20 +2,22 @@
     android:id="@+id/layout_root"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/tiledstripes" >
+    android:background="@drawable/tiledstripes">
 
-    <LinearLayout  android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
-        android:padding="20dip" >
+        android:padding="20dip">
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="#9C9C9C"
             android:orientation="vertical"
-            android:padding="10dip" >
+            android:padding="10dip">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -23,6 +25,7 @@
                 android:text="设置Tag和Alias "
                 android:textColor="#000" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -30,13 +33,13 @@
             android:background="@drawable/corners_bg"
             android:orientation="vertical"
             android:paddingBottom="20dip"
-            android:paddingTop="20dip" >
+            android:paddingTop="20dip">
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:background="@android:color/transparent"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -58,10 +61,12 @@
                     android:layout_marginRight="5dip"
                     android:textSize="15sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/bt_addtag"
                     android:layout_width="0dp"
@@ -69,6 +74,7 @@
                     android:layout_height="wrap_content"
                     android:text="增加Tag"
                     android:textSize="12sp" />
+
                 <Button
                     android:id="@+id/bt_settag"
                     android:layout_width="0dp"
@@ -76,6 +82,7 @@
                     android:layout_height="wrap_content"
                     android:text="设置Tag"
                     android:textSize="12sp" />
+
                 <Button
                     android:id="@+id/bt_deletetag"
                     android:layout_width="0dp"
@@ -84,10 +91,12 @@
                     android:text="删除Tag"
                     android:textSize="12sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/bt_getalltag"
                     android:layout_width="0dp"
@@ -95,6 +104,7 @@
                     android:layout_height="wrap_content"
                     android:text="查询所有Tag"
                     android:textSize="12sp" />
+
                 <Button
                     android:id="@+id/bt_cleantag"
                     android:layout_width="0dp"
@@ -102,6 +112,7 @@
                     android:layout_height="wrap_content"
                     android:text="清除所有Tag"
                     android:textSize="12sp" />
+
                 <Button
                     android:id="@+id/bt_checktag"
                     android:layout_width="0dp"
@@ -110,10 +121,11 @@
                     android:text="查询Tag状态"
                     android:textSize="12sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -135,10 +147,12 @@
                     android:layout_marginRight="5dip"
                     android:textSize="15sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/bt_setalias"
                     android:layout_width="0dp"
@@ -146,6 +160,7 @@
                     android:layout_height="wrap_content"
                     android:text="设置Alias"
                     android:textSize="12sp" />
+
                 <Button
                     android:id="@+id/bt_getalias"
                     android:layout_width="0dp"
@@ -153,6 +168,7 @@
                     android:layout_height="wrap_content"
                     android:text="获取Alias"
                     android:textSize="12sp" />
+
                 <Button
                     android:id="@+id/bt_deletealias"
                     android:layout_width="0dp"
@@ -165,7 +181,7 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -187,10 +203,12 @@
                     android:layout_marginRight="5dip"
                     android:textSize="15sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/bt_setmobileNumber"
                     android:layout_width="0dp"
@@ -200,13 +218,14 @@
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginTop="10dip"
             android:background="#9C9C9C"
             android:orientation="vertical"
-            android:padding="10dip" >
+            android:padding="10dip">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -222,12 +241,14 @@
             android:background="@drawable/corners_bg"
             android:orientation="vertical"
             android:paddingBottom="10dip"
-            android:paddingTop="10dip" >
+            android:paddingTop="10dip">
+
             <Button
                 android:id="@+id/setStyle0"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="定制通知栏样式：AddActions" />
+
             <Button
                 android:id="@+id/setStyle1"
                 android:layout_width="fill_parent"
@@ -247,8 +268,8 @@
             android:layout_marginTop="10dip"
             android:background="#9C9C9C"
             android:orientation="vertical"
-            android:padding="10dip"
-            >
+            android:padding="10dip">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -263,7 +284,8 @@
             android:background="@drawable/corners_bg"
             android:orientation="vertical"
             android:paddingBottom="10dip"
-            android:paddingTop="10dip" >
+            android:paddingTop="10dip">
+
             <Button
                 android:id="@+id/bu_setTime"
                 android:layout_width="fill_parent"

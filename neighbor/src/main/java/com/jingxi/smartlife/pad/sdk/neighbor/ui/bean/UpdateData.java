@@ -67,8 +67,7 @@ public class UpdateData {
     public static final int TYPE_NEIGHBOR_UPDATE_COMMENT = 1;
 
     /**
-     * @deprecated
-     * old tips
+     * @deprecated old tips
      * 大于等于0表示更新社区新鲜事;
      * -1表示发布社区新鲜事;
      * -2不在本家庭;
@@ -80,17 +79,17 @@ public class UpdateData {
      * -8手机端注册成功
      * -9跳转SOS界面
      * -10pad登陆
-     *
+     * <p>
      * -11更新所有好友验证完成
      * -12获取地址完成
      * -13更新积分
-     *
+     * <p>
      * -100平板添加删除联系人
      * -101更新常用联系人
-     *
+     * <p>
      * -102 tentative
      * -400  留言板更新
-     *
+     * <p>
      * -500  搜索界面进入聊天界面逻辑处理(搜索界面销毁)
      * 10.更新点赞，评论数，点赞数
      * 3.删除数据

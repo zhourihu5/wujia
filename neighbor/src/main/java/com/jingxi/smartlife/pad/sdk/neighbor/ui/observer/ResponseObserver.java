@@ -5,7 +5,7 @@ import com.jingxi.smartlife.pad.sdk.network.BaseEntry;
 
 import io.reactivex.disposables.Disposable;
 
-public abstract class ResponseObserver<T> extends BaseResponseObserver<T>{
+public abstract class ResponseObserver<T> extends BaseResponseObserver<T> {
     boolean isDispose = false;
 
     @Override
@@ -16,14 +16,14 @@ public abstract class ResponseObserver<T> extends BaseResponseObserver<T>{
     @Override
     public void onNext(BaseEntry baseEntry) {
         isDispose = true;
-        if(baseEntry.result){
-            T t = JSON.parseObject(baseEntry.content,getContentClass());
+        if (baseEntry.result) {
+            T t = JSON.parseObject(baseEntry.content, getContentClass());
             onResponse(t);
-            onResponse(t,baseEntry);
+            onResponse(t, baseEntry);
             return;
         }
         onFaild(baseEntry.msg);
-        onFaild(baseEntry.code,baseEntry.msg);
+        onFaild(baseEntry.code, baseEntry.msg);
     }
 
     @Override
@@ -34,24 +34,24 @@ public abstract class ResponseObserver<T> extends BaseResponseObserver<T>{
 
     @Override
     public void onComplete() {
-        if (!isDispose){
+        if (!isDispose) {
             onFaild("http request faild");
         }
     }
 
-    public void onResponse(T t){
+    public void onResponse(T t) {
 
     }
 
-    public void onFaild(String message){
+    public void onFaild(String message) {
 
     }
 
-    public void onResponse(T data,BaseEntry entry){
+    public void onResponse(T data, BaseEntry entry) {
 
     }
 
-    public void onFaild(int code,String message){
+    public void onFaild(int code, String message) {
 
     }
 

@@ -38,11 +38,11 @@ public class StringUtils {
     /**
      * 秒与毫秒的倍数
      */
-    public static final int SEC  = 1000;
+    public static final int SEC = 1000;
     /**
      * 分与毫秒的倍数
      */
-    public static final int MIN  = 60000;
+    public static final int MIN = 60000;
     /**
      * 时与毫秒的倍数
      */
@@ -50,7 +50,7 @@ public class StringUtils {
     /**
      * 天与毫秒的倍数
      */
-    public static final int DAY  = 86400000;
+    public static final int DAY = 86400000;
     public static final String url_and = "&";
     public static final String url_with = "?";
     public static final String url_with_pattern = "\\?";
@@ -64,24 +64,26 @@ public class StringUtils {
 
     /**
      * 获取字符串中的数字
-     * @param arg   字符串
-     * @return  数字的集合
+     *
+     * @param arg 字符串
+     * @return 数字的集合
      */
-    public static ArrayList<Integer> getIntegers(String arg){
-        if(TextUtils.isEmpty(arg)){
+    public static ArrayList<Integer> getIntegers(String arg) {
+        if (TextUtils.isEmpty(arg)) {
             return null;
         }
         ArrayList<Integer> numbers = new ArrayList<>();
         Matcher matcher = number_pattern.matcher(arg);
-        while(matcher.find()){
+        while (matcher.find()) {
             String group = matcher.group();
-            if(TextUtils.isEmpty(group)){
+            if (TextUtils.isEmpty(group)) {
                 continue;
             }
             numbers.add(Integer.parseInt(matcher.group()));
         }
         return numbers;
     }
+
     private StringUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
@@ -114,14 +116,18 @@ public class StringUtils {
      * @return {@code true}: 相等<br>{@code false}: 不相等
      */
     public static boolean equals(CharSequence a, CharSequence b) {
-        if (a == b) {return true;}
+        if (a == b) {
+            return true;
+        }
         int length;
         if (a != null && b != null && (length = a.length()) == b.length()) {
             if (a instanceof String && b instanceof String) {
                 return a.equals(b);
             } else {
                 for (int i = 0; i < length; i++) {
-                    if (a.charAt(i) != b.charAt(i)) {return false;}
+                    if (a.charAt(i) != b.charAt(i)) {
+                        return false;
+                    }
                 }
                 return true;
             }
@@ -153,49 +159,51 @@ public class StringUtils {
     /**
      * 获取http 链接中的参数map
      */
-    public static ArrayMap<String,String> decodeHttpUrlParam(String url){
-        ArrayMap<String,String> arrayMap = new ArrayMap();
-        if(TextUtils.isEmpty(url) || !url.contains(url_and)){
+    public static ArrayMap<String, String> decodeHttpUrlParam(String url) {
+        ArrayMap<String, String> arrayMap = new ArrayMap();
+        if (TextUtils.isEmpty(url) || !url.contains(url_and)) {
             return arrayMap;
         }
-        if(url.contains(url_with)){
+        if (url.contains(url_with)) {
             url = url.split(url_with_pattern)[1];
         }
         String[] urls = url.split(url_and);
-        for(String param : urls){
+        for (String param : urls) {
             String[] params = param.split(url_is);
-            if(params == null || params.length < 2){
+            if (params == null || params.length < 2) {
                 continue;
             }
-            arrayMap.put(params[0],params[1]);
+            arrayMap.put(params[0], params[1]);
         }
         return arrayMap;
     }
 
     /**
      * 根据字符串判断是否为空，否则返回另一个字符串
+     *
      * @param source
      * @param messageRes
      * @return
      */
-    public static String getNoMessage(String source,@StringRes int messageRes){
-        if(TextUtils.isEmpty(source)){
+    public static String getNoMessage(String source, @StringRes int messageRes) {
+        if (TextUtils.isEmpty(source)) {
             return getString(messageRes);
         }
         return source;
     }
 
-    public static String getNoMessage(String source,String message){
-        if(TextUtils.isEmpty(source)){
+    public static String getNoMessage(String source, String message) {
+        if (TextUtils.isEmpty(source)) {
             return message;
         }
         return source;
     }
+
     /**
      * 获取http 链接的头
      */
-    public static String getHttpUrlHead(String url){
-        if(TextUtils.isEmpty(url) || !url.contains(url_with)){
+    public static String getHttpUrlHead(String url) {
+        if (TextUtils.isEmpty(url) || !url.contains(url_with)) {
             return "";
         }
         return url.split(url_with_pattern)[0];
@@ -208,7 +216,9 @@ public class StringUtils {
      * @return 首字母大写字符串
      */
     public static String upperFirstLetter(String s) {
-        if (isEmpty(s) || !Character.isLowerCase(s.charAt(0))) {return s;}
+        if (isEmpty(s) || !Character.isLowerCase(s.charAt(0))) {
+            return s;
+        }
         return String.valueOf((char) (s.charAt(0) - 32)) + s.substring(1);
     }
 
@@ -219,7 +229,9 @@ public class StringUtils {
      * @return 首字母小写字符串
      */
     public static String lowerFirstLetter(String s) {
-        if (isEmpty(s) || !Character.isUpperCase(s.charAt(0))) {return s;}
+        if (isEmpty(s) || !Character.isUpperCase(s.charAt(0))) {
+            return s;
+        }
         return String.valueOf((char) (s.charAt(0) + 32)) + s.substring(1);
     }
 
@@ -231,7 +243,9 @@ public class StringUtils {
      */
     public static String reverse(String s) {
         int len = length(s);
-        if (len <= 1) {return s;}
+        if (len <= 1) {
+            return s;
+        }
         int mid = len >> 1;
         char[] chars = s.toCharArray();
         char c;
@@ -250,7 +264,9 @@ public class StringUtils {
      * @return 半角字符串
      */
     public static String toDBC(String s) {
-        if (isEmpty(s)) {return s;}
+        if (isEmpty(s)) {
+            return s;
+        }
         char[] chars = s.toCharArray();
         for (int i = 0, len = chars.length; i < len; i++) {
             if (chars[i] == 12288) {
@@ -271,7 +287,9 @@ public class StringUtils {
      * @return 全角字符串
      */
     public static String toSBC(String s) {
-        if (isEmpty(s)) {return s;}
+        if (isEmpty(s)) {
+            return s;
+        }
         char[] chars = s.toCharArray();
         for (int i = 0, len = chars.length; i < len; i++) {
             if (chars[i] == ' ') {
@@ -285,42 +303,40 @@ public class StringUtils {
         return new String(chars);
     }
 
-    public static boolean isNewVersion(String newVersion,Context context){
+    public static boolean isNewVersion(String newVersion, Context context) {
         String myVersion = getAppVersionName(context);
-        if(myVersion == null){
+        if (myVersion == null) {
             return false;
         }
-        if(TextUtils.equals(newVersion, myVersion)){
+        if (TextUtils.equals(newVersion, myVersion)) {
             return false;
         }
         String[] newVersionArray = newVersion.split("\\.");
         String[] myVersionArray = myVersion.split("\\.");
-        int minLength = Math.min(newVersionArray.length,myVersionArray.length);
+        int minLength = Math.min(newVersionArray.length, myVersionArray.length);
         int index = 0;
         int buff = 0;
-        while(index < minLength &&  (buff = ( Integer.parseInt(newVersionArray[index]) - Integer.parseInt(myVersionArray[index])) ) == 0){
+        while (index < minLength && (buff = (Integer.parseInt(newVersionArray[index]) - Integer.parseInt(myVersionArray[index]))) == 0) {
             index++;
         }
-        if(buff > 0 || (buff == 0 && minLength == myVersionArray.length)){
+        if (buff > 0 || (buff == 0 && minLength == myVersionArray.length)) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
     /**
-     *
-     * @param versionName  如 1.0.1
-     * @return	   如 1_0_1
+     * @param versionName 如 1.0.1
+     * @return 如 1_0_1
      */
-    public static String getNewVersionName(String versionName){
+    public static String getNewVersionName(String versionName) {
         return versionName.replaceAll("\\.", "_");
     }
 
-    public static  String getAppVersionName(Context context){
+    public static String getAppVersionName(Context context) {
         try {
-            String versionName = context.getPackageManager().getPackageInfo(context.getPackageName(),0).versionName;
+            String versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
             return versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -333,7 +349,7 @@ public class StringUtils {
             return null;
         }
         byte[] b = createChecksum(filename);
-        if(null == b){
+        if (null == b) {
             return null;
         }
         StringBuilder result = new StringBuilder();
@@ -368,23 +384,23 @@ public class StringUtils {
         return null;
     }
 
-    public static String getFileName(String url){
-        if(TextUtils.isEmpty(url)){
+    public static String getFileName(String url) {
+        if (TextUtils.isEmpty(url)) {
             return url;
         }
         String[] strings = url.split("/");
-        if(strings.length == 1){
+        if (strings.length == 1) {
             return url;
         }
         return strings[strings.length - 1];
     }
 
-    public static String getString(@StringRes int stringRes){
+    public static String getString(@StringRes int stringRes) {
         return JXContextWrapper.context.getString(stringRes);
     }
 
-    public static String getString(@StringRes int stringRes,Object... placeString){
-        return JXContextWrapper.context.getString(stringRes,placeString);
+    public static String getString(@StringRes int stringRes, Object... placeString) {
+        return JXContextWrapper.context.getString(stringRes, placeString);
     }
 
     public static String getFormatTime(long time) {
@@ -421,18 +437,18 @@ public class StringUtils {
         long wee = (now / DAY) * DAY - 8 * HOUR;
         if (millis >= wee) {
             return String.format("%tR", millis);
-        }
-        else {
+        } else {
             return String.format("%tm-%td %tR", millis, millis, millis);
         }
     }
 
     /**
      * unicode 解码
-     * @param unicodeStr    带解码字符串
-     * @return              解码后字符串
+     *
+     * @param unicodeStr 带解码字符串
+     * @return 解码后字符串
      */
-    public static String getStrFromUniCode(String unicodeStr){
+    public static String getStrFromUniCode(String unicodeStr) {
         if (unicodeStr == null) {
             return null;
         }
@@ -447,8 +463,7 @@ public class StringUtils {
                     } catch (NumberFormatException localNumberFormatException) {
                         retBuf.append(unicodeStr.charAt(i));
                     }
-                }
-                else {
+                } else {
                     retBuf.append(unicodeStr.charAt(i));
                 }
             } else {
@@ -467,9 +482,10 @@ public class StringUtils {
     }
 
     private static long oldClicktime = 0;
-    public static boolean isFastClick(){
+
+    public static boolean isFastClick() {
         long now = System.currentTimeMillis();
-        if(now - oldClicktime >= 1000){
+        if (now - oldClicktime >= 1000) {
             oldClicktime = now;
             return false;
         }
@@ -480,49 +496,45 @@ public class StringUtils {
         Pattern mobilePattern = Pattern.compile("^((13[0-9])|(14[0-9])|(15([0-9]))|(17([0-9]))|(18[0-9]))\\d{8}$");
         return mobilePattern.matcher(mobileNo).matches();
     }
+
     /**
-     *
-     * @param myVersion     本地版本号
-     * @param newVersion    新版本号
-     * @return    result  :   是否是新版本
+     * @param myVersion  本地版本号
+     * @param newVersion 新版本号
+     * @return result  :   是否是新版本
      */
-    public static boolean checkNewVersion(String myVersion,String newVersion){
-        if(TextUtils.equals(newVersion,myVersion)){
+    public static boolean checkNewVersion(String myVersion, String newVersion) {
+        if (TextUtils.equals(newVersion, myVersion)) {
             return false;
         }
         String[] newVersionArray = newVersion.split("\\.");
         String[] myVersionArray = myVersion.split("\\.");
-        int minLength = Math.min(newVersionArray.length,myVersionArray.length);
+        int minLength = Math.min(newVersionArray.length, myVersionArray.length);
         int index = 0;
         int buff = 0;
-        while(index < minLength &&  (buff = ( Integer.parseInt(newVersionArray[index]) - Integer.parseInt(myVersionArray[index])) ) == 0){
+        while (index < minLength && (buff = (Integer.parseInt(newVersionArray[index]) - Integer.parseInt(myVersionArray[index]))) == 0) {
             index++;
         }
-        if(buff > 0 || (buff == 0 && minLength == myVersionArray.length)){
+        if (buff > 0 || (buff == 0 && minLength == myVersionArray.length)) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
     /**
-     *
-     * @param size  需要转换的字节大小
+     * @param size 需要转换的字节大小
      * @return
      */
-    public static String formatSize(long size){
-        if(size < 1024){
-            return size +" B";
+    public static String formatSize(long size) {
+        if (size < 1024) {
+            return size + " B";
         }
-        if(size < 1024 * 1024){
-            return getSize(size,1024) +" KB";
-        }
-        else if(size  < 1024 * 1024 * 1024){
-            return getSize(size,1024 * 1024) +" MB";
-        }
-        else{
-            return getSize(size,1024 * 1024 * 1024) +" GB";
+        if (size < 1024 * 1024) {
+            return getSize(size, 1024) + " KB";
+        } else if (size < 1024 * 1024 * 1024) {
+            return getSize(size, 1024 * 1024) + " MB";
+        } else {
+            return getSize(size, 1024 * 1024 * 1024) + " GB";
         }
     }
 
@@ -543,8 +555,8 @@ public class StringUtils {
         return size / 1024 / 1024 + "M";
     }
 
-    private static float getSize(long size, long xishu){
-        int number = (int) (( size * 100) / xishu);
+    private static float getSize(long size, long xishu) {
+        int number = (int) ((size * 100) / xishu);
         return (float) number / 100f;
     }
 }

@@ -30,14 +30,14 @@ public class SystemUtil {
                 return;
             }
             serialNum = Build.getSerial();
-        }else {
+        } else {
             serialNum = android.os.Build.SERIAL;//todo 有时获取不到，结果就是"unknown"
         }
 
     }
 
     public static String getSerialNum() {
-        if(TextUtils.isEmpty(serialNum)||Build.UNKNOWN.equals(serialNum)){
+        if (TextUtils.isEmpty(serialNum) || Build.UNKNOWN.equals(serialNum)) {
             init();
         }
         return serialNum;

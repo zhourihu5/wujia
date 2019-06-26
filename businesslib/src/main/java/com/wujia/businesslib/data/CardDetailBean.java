@@ -5,8 +5,8 @@ import java.util.List;
 public class CardDetailBean {
 
 
-    public static final int TYPE_WEB=2;
-    public static final int TYPE_NATIVE=1;
+    public static final int TYPE_WEB = 2;
+    public static final int TYPE_NATIVE = 1;
 
 
     /**

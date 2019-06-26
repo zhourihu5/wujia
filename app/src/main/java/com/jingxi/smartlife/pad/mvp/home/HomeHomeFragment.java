@@ -26,7 +26,6 @@ import com.jingxi.smartlife.pad.mvp.home.view.AddMemberDialog;
 import com.jingxi.smartlife.pad.mvp.home.view.MessageDialog;
 import com.jingxi.smartlife.pad.mvp.setting.model.FamilyMemberModel;
 import com.jingxi.smartlife.pad.mvp.setting.view.CardManagerFragment;
-import com.jingxi.smartlife.pad.sdk.push.PushManager;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpFragment;
 import com.wujia.businesslib.base.WebViewFragment;
@@ -128,7 +127,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
         @Override
         public void eventBus(EventMsg event) {
 //            if (event.type == EventMsg.TYPE_READ) {
-                setNotify(false);
+            setNotify(false);
 //            }
         }
     });
@@ -136,7 +135,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
         @Override
         public void eventBus(EventCardChange event) {
             isRefreshCard = true;
-            if(isVisible()){
+            if (isVisible()) {
                 mPresenter.getUserQuickCard();
             }
         }
@@ -144,11 +143,11 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     private EventMemberChange eventMemberChange = new EventMemberChange(new IMiessageInvoke<EventMemberChange>() {
         @Override
         public void eventBus(EventMemberChange event) {
-            String familyId= null;
+            String familyId = null;
             try {
                 familyId = DataManager.getFamilyId();
             } catch (Exception e) {
-                LogUtil.t("get familyId failed",e);
+                LogUtil.t("get familyId failed", e);
                 LoginUtil.toLoginActivity();
                 return;
             }
@@ -157,7 +156,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                 @Override
                 public void onResponse(ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>> response) {
                     super.onResponse(response);
-                    memAdapter = new HomeMemberAdapter(mActivity,response.data);
+                    memAdapter = new HomeMemberAdapter(mActivity, response.data);
                     rvHomeMember.setAdapter(memAdapter);
                 }
 
@@ -272,8 +271,8 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
     }
 
     private void setNotify(boolean isShowLoadingDialog) {
-        if(busModel ==null){
-            busModel =new BusModel();
+        if (busModel == null) {
+            busModel = new BusModel();
         }
 
 
@@ -292,7 +291,7 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                                 .setListener(new MessageDialog.MsgReadCallBack() {
                                     @Override
                                     public void updateMsgReadStatus(final MsgDto.ContentBean item) {
-                                        addSubscribe(busModel.readMsg(item.getId()+"").subscribeWith(new SimpleRequestSubscriber<ApiResponse<Object>>(HomeHomeFragment.this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                                        addSubscribe(busModel.readMsg(item.getId() + "").subscribeWith(new SimpleRequestSubscriber<ApiResponse<Object>>(HomeHomeFragment.this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
                                             @Override
                                             public void onResponse(ApiResponse<Object> response) {
                                                 super.onResponse(response);
@@ -320,7 +319,6 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                 super.onFailed(apiException);
             }
         }));
-
 
 
     }
@@ -362,25 +360,25 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 //                mPresenter.getManagerMessageById(HomeNotifyBean.TYPE_NOTIFY, "200");
                 break;
             case R.id.home_member_add_btn:
-                new AddMemberDialog(mActivity,memAdapter.getDatas()).setListener(new OnInputDialogListener() {
+                new AddMemberDialog(mActivity, memAdapter.getDatas()).setListener(new OnInputDialogListener() {
                     @Override
                     public void dialogSureClick(final String input) {
-                        if(familyMemberModel==null){
-                            familyMemberModel=new FamilyMemberModel();
+                        if (familyMemberModel == null) {
+                            familyMemberModel = new FamilyMemberModel();
                         }
-                        String familyId=null;
+                        String familyId = null;
                         try {
                             familyId = DataManager.getFamilyId();
                         } catch (Exception e) {
                             LoginUtil.toLoginActivity();
-                            LogUtil.t("get familyid failed",e);
+                            LogUtil.t("get familyid failed", e);
                             return;
                         }
-                        addSubscribe(familyMemberModel.addFamilyMember(input,familyId).subscribeWith(new SimpleRequestSubscriber<ApiResponse<String>>(HomeHomeFragment.this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                        addSubscribe(familyMemberModel.addFamilyMember(input, familyId).subscribeWith(new SimpleRequestSubscriber<ApiResponse<String>>(HomeHomeFragment.this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
                             @Override
                             public void onResponse(ApiResponse<String> response) {
                                 super.onResponse(response);
-                                HomeUserInfoBean.DataBean.UserInfoListBean userInfoListBean=new HomeUserInfoBean.DataBean.UserInfoListBean();
+                                HomeUserInfoBean.DataBean.UserInfoListBean userInfoListBean = new HomeUserInfoBean.DataBean.UserInfoListBean();
                                 userInfoListBean.setUserName(input);
                                 memAdapter.getDatas().add(userInfoListBean);
                                 memAdapter.notifyDataSetChanged();
@@ -439,30 +437,30 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                 break;
             case HomePresenter.REQUEST_CDOE_WEATHER:
                 WeatherInfoBean weatherInfoBean = (WeatherInfoBean) object;
-                WeatherInfoBean.DataBean dataBean= weatherInfoBean.getData();
-                String token=dataBean.getToken();
+                WeatherInfoBean.DataBean dataBean = weatherInfoBean.getData();
+                String token = dataBean.getToken();
                 DataManager.saveToken(token);
 
                 try {
-                    homeCarNumTv.setText(String.format("今日限行：%s",dataBean.getRestrict().getNum()));
+                    homeCarNumTv.setText(String.format("今日限行：%s", dataBean.getRestrict().getNum()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
                 String curdate = DateUtil.getCurrentyyyymmddhh() + "00";
 
-                List<WeatherInfoBean.DataBean.WeatherBean.ShowapiResBodyBean.HourListBean>weatherList= null;
+                List<WeatherInfoBean.DataBean.WeatherBean.ShowapiResBodyBean.HourListBean> weatherList = null;
                 try {
                     weatherList = dataBean.getWeather().getShowapi_res_body().getHourList();
                 } catch (Exception e) {
 //                    e.printStackTrace();
                 }
-                if(weatherList!=null){
+                if (weatherList != null) {
                     for (WeatherInfoBean.DataBean.WeatherBean.ShowapiResBodyBean.HourListBean weather : weatherList) {
                         if (weather.getTime().equals(curdate)) {
                             homeWeatherNumTv.setText(weather.getTemperature() + "°");
                             homeWeatherDescTv.setText(weather.getWeather());
-                            ImageLoaderManager.getInstance().loadImage(weather.getWeather_code(),ivWeather);
+                            ImageLoaderManager.getInstance().loadImage(weather.getWeather_code(), ivWeather);
                         }
                     }
                 }

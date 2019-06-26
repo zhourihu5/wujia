@@ -30,10 +30,9 @@ public class SimpleSwipeRefreshLayout extends SwipeRefreshLayout {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             isUp = false;
             preY = ev.getY();
-        }
-        else if(ev.getAction() == MotionEvent.ACTION_MOVE){
+        } else if (ev.getAction() == MotionEvent.ACTION_MOVE) {
             isUp = ev.getY() < preY;
-        }else if (ev.getAction() == MotionEvent.ACTION_UP) {
+        } else if (ev.getAction() == MotionEvent.ACTION_UP) {
             isUp = ev.getY() < preY;
             preY = ev.getY();
         }

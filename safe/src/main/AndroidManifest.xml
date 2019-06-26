@@ -4,15 +4,15 @@
 
     <application>
         <!--<activity-->
-            <!--android:name="com.jingxi.smartlife.pad.safe.mvp.view.FullScreenLiveActivity"-->
-            <!--android:screenOrientation="landscape" />-->
+        <!--android:name="com.jingxi.smartlife.pad.safe.mvp.view.FullScreenLiveActivity"-->
+        <!--android:screenOrientation="landscape" />-->
         <activity
             android:name="com.jingxi.smartlife.pad.safe.mvp.view.FullScreenActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.jingxi.smartlife.pad.safe.mvp.view.VideoCallActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.ActivityDialogStyle"/>
+            android:theme="@style/Theme.ActivityDialogStyle" />
     </application>
 
 </manifest>

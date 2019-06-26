@@ -11,7 +11,6 @@ import android.os.Looper;
 import android.os.MessageQueue;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.inputmethod.InputConnectionWrapper;
 import android.view.inputmethod.InputMethodManager;
 
 import com.wujia.lib_common.utils.LogUtil;
@@ -25,7 +24,7 @@ import java.lang.reflect.Method;
  * Author: created by shenbingkai on 2019/4/5 00 09
  * Email:  shenbingkai@gamil.com
  * Description:
- *visit https://www.cnblogs.com/genggeng/p/7716482.html
+ * visit https://www.cnblogs.com/genggeng/p/7716482.html
  */
 public class HookUtil {
 
@@ -70,18 +69,18 @@ public class HookUtil {
 
     /**
      * Fix for https://code.google.com/p/android/issues/detail?id=171190 .
-     *
+     * <p>
      * When a view that has focus gets detached, we wait for the main thread to be idle and then
      * check if the InputMethodManager is leaking a view. If yes, we tell it that the decor view got
      * focus, which is what happens if you press home and come back from recent apps. This replaces
      * the reference to the detached view with a reference to the decor view.
-     *
+     * <p>
      * Should be called from {@link Activity#onCreate(android.os.Bundle)} )}.
      */
     public static void fixFocusedViewLeak(Application application) {
 
         // Don't know about other versions yet.
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1|| Build.VERSION.SDK_INT > 23) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 || Build.VERSION.SDK_INT > 23) {
             return;
         }
 
@@ -108,37 +107,38 @@ public class HookUtil {
 
         application.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
-            public void onActivityDestroyed(Activity activity){
+            public void onActivityDestroyed(Activity activity) {
 
             }
 
 
             @Override
-            public void onActivityStarted(Activity activity){
+            public void onActivityStarted(Activity activity) {
 
             }
 
             @Override
-            public void onActivityResumed(Activity activity){
+            public void onActivityResumed(Activity activity) {
 
             }
 
             @Override
-            public void onActivityPaused(Activity activity){
+            public void onActivityPaused(Activity activity) {
 
             }
 
             @Override
-            public void onActivityStopped(Activity activity){
+            public void onActivityStopped(Activity activity) {
 
             }
 
             @Override
-            public void onActivitySaveInstanceState(Activity activity, Bundle bundle){
+            public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
 
             }
 
-            @Override public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 ReferenceCleaner cleaner = new ReferenceCleaner(inputMethodManager, mHField, mServedViewField,
                         finishInputLockedMethod);
                 View rootView = activity.getWindow().getDecorView().getRootView();
@@ -165,7 +165,8 @@ public class HookUtil {
             this.finishInputLockedMethod = finishInputLockedMethod;
         }
 
-        @Override public void onGlobalFocusChanged(View oldFocus, View newFocus) {
+        @Override
+        public void onGlobalFocusChanged(View oldFocus, View newFocus) {
             if (newFocus == null) {
                 return;
             }
@@ -176,16 +177,19 @@ public class HookUtil {
             newFocus.addOnAttachStateChangeListener(this);
         }
 
-        @Override public void onViewAttachedToWindow(View v) {
+        @Override
+        public void onViewAttachedToWindow(View v) {
         }
 
-        @Override public void onViewDetachedFromWindow(View v) {
+        @Override
+        public void onViewDetachedFromWindow(View v) {
             v.removeOnAttachStateChangeListener(this);
             Looper.myQueue().removeIdleHandler(this);
             Looper.myQueue().addIdleHandler(this);
         }
 
-        @Override public boolean queueIdle() {
+        @Override
+        public boolean queueIdle() {
             clearInputMethodManagerLeak();
             return false;
         }
@@ -261,17 +265,17 @@ public class HookUtil {
         }
         try {
             InputMethodManager.class.getDeclaredMethod("windowDismissed", IBinder.class).invoke(imm,
-                    ((Activity)destContext).getWindow().getDecorView().getWindowToken());
-        } catch (Exception e){
+                    ((Activity) destContext).getWindow().getDecorView().getWindowToken());
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        String [] arr = new String[]{"mCurRootView", "mServedView", "mNextServedView"};
+        String[] arr = new String[]{"mCurRootView", "mServedView", "mNextServedView"};
         Field f = null;
         Object obj_get = null;
-        for (int i = 0;i < arr.length;i ++) {
+        for (int i = 0; i < arr.length; i++) {
             String param = arr[i];
-            try{
+            try {
                 f = imm.getClass().getDeclaredField(param);
                 if (f.isAccessible() == false) {
                     f.setAccessible(true);
@@ -284,12 +288,12 @@ public class HookUtil {
                     } else {
                         // 不是想要目标销毁的，即为又进了另一层界面了，不要处理，避免影响原逻辑,也就不用继续for循环了
 //                        if (QLog.isColorLevel()) {
-                            LogUtil.i("fixInputMethodManagerLeak break, context is not suitable, get_context=" + v_get.getContext()+" dest_context=" + destContext);
+                        LogUtil.i("fixInputMethodManagerLeak break, context is not suitable, get_context=" + v_get.getContext() + " dest_context=" + destContext);
 //                        }
                         break;
                     }
                 }
-            }catch(Throwable t){
+            } catch (Throwable t) {
                 t.printStackTrace();
             }
         }

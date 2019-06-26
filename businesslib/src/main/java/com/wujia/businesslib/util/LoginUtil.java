@@ -15,8 +15,8 @@ public class LoginUtil {
             Intent intent = new Intent();
             if (currentActivity != null) {
                 context = currentActivity;
-            }else {
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);//applicationcontext 启动只能以newtask
+            } else {
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);//applicationcontext 启动只能以newtask
             }
 
             intent.setClassName(context, "com.jingxi.smartlife.pad.mvp.login.LoginActivity");

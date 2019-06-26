@@ -65,8 +65,8 @@ dependencies {
 
     implementation project(':JPush')
 
-    implementation  'com.umeng.umsdk:analytics:7.5.4'
-    implementation  'com.umeng.umsdk:common:1.5.4'
+    implementation 'com.umeng.umsdk:analytics:7.5.4'
+    implementation 'com.umeng.umsdk:common:1.5.4'
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'

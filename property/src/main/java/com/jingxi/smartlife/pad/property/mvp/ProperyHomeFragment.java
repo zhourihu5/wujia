@@ -31,7 +31,7 @@ public class ProperyHomeFragment extends TabFragment {
     public static ProperyHomeFragment newInstance(int tabIndex) {
         ProperyHomeFragment fragment = new ProperyHomeFragment();
         Bundle args = new Bundle();
-        args.putInt(Constants.ARG_PARAM_1,tabIndex);
+        args.putInt(Constants.ARG_PARAM_1, tabIndex);
         fragment.setArguments(args);
         return fragment;
     }

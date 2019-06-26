@@ -28,7 +28,7 @@ public class FamilyHomeFragment extends TabFragment {
     public static FamilyHomeFragment newInstance(int tab) {
         FamilyHomeFragment fragment = new FamilyHomeFragment();
         Bundle args = new Bundle();
-        args.putInt(Constants.ARG_PARAM_1,tab);
+        args.putInt(Constants.ARG_PARAM_1, tab);
         fragment.setArguments(args);
         return fragment;
     }
@@ -44,7 +44,7 @@ public class FamilyHomeFragment extends TabFragment {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        int tabIndex=getArguments().getInt(Constants.ARG_PARAM_1);
+        int tabIndex = getArguments().getInt(Constants.ARG_PARAM_1);
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
         LogUtil.i("FamilyFragment onLazyInitView");
@@ -53,10 +53,10 @@ public class FamilyHomeFragment extends TabFragment {
         SupportFragment firstFragment = findFragment(AllFragment.class);
         if (firstFragment == null) {
             mFragments[0] = AllFragment.newInstance();
-            if(tabIndex>0){//todo 目前只有一个
-                tabIndex=0;
+            if (tabIndex > 0) {//todo 目前只有一个
+                tabIndex = 0;
             }
-            loadMultipleRootFragment(R.id.tab_content_container,tabIndex, mFragments[0]);
+            loadMultipleRootFragment(R.id.tab_content_container, tabIndex, mFragments[0]);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 

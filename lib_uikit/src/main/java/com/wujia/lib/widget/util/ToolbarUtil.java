@@ -48,23 +48,23 @@ public class ToolbarUtil {
     public void setToolBar(Activity activity, Toolbar toolbar, ToolBarOptions options, boolean
             haveLine) {
         mActivity = activity;
-        this.toolbar=toolbar;
+        this.toolbar = toolbar;
         if (haveLine) {
             toolbar.setBackgroundResource(R.drawable.bg_toolbar_shape);
-            toolbar.setPadding(0, 0, 0, dip2px(mActivity,1f));
+            toolbar.setPadding(0, 0, 0, dip2px(mActivity, 1f));
         }
         if (options == null) {
             throw new RuntimeException(
                     " options is null ");
         }
         if (!TextUtils.isEmpty(options.titleString)) {
-          setTitle(options.titleString);
+            setTitle(options.titleString);
 
         } else if (options.titleId != 0) {
-          setTitle(mActivity.getText(options.titleId));
+            setTitle(mActivity.getText(options.titleId));
         }
         if (options.mOptionsButtons != null && options.mOptionsButtons.size() > 0) {
-           addOptionButton(options.mOptionsButtons);
+            addOptionButton(options.mOptionsButtons);
         }
 
         if (options.logoId != 0) {
@@ -115,7 +115,7 @@ public class ToolbarUtil {
                 TypedValue typedValue = new TypedValue();
                 mActivity.getTheme().resolveAttribute(R.attr.selectableItemBackground, typedValue, true);
                 rightImageView.setBackgroundResource(typedValue.resourceId);
-                rightImageView.setPadding(dip2px(mActivity,16), 0,dip2px(mActivity,16), 0);
+                rightImageView.setPadding(dip2px(mActivity, 16), 0, dip2px(mActivity, 16), 0);
                 rightImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -135,7 +135,7 @@ public class ToolbarUtil {
                         Drawable drawable = mActivity.getResources().getDrawable(R.mipmap.back);
                         /// 这一步必须要做,否则不会显示.
                         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight() - 2);
-                        textView.setCompoundDrawablePadding(dip2px(mActivity,5));
+                        textView.setCompoundDrawablePadding(dip2px(mActivity, 5));
                         textView.setCompoundDrawables(drawable, null, null, null);
                     }
                     if (button.navigateColor != 0) {
@@ -157,7 +157,7 @@ public class ToolbarUtil {
                     textView.setTextColor(button.rightColor);
                 }
                 textView.setGravity(Gravity.CENTER);
-                textView.setPadding(dip2px(mActivity,10), 0,dip2px(mActivity,10), 0);
+                textView.setPadding(dip2px(mActivity, 10), 0, dip2px(mActivity, 10), 0);
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -173,7 +173,7 @@ public class ToolbarUtil {
     public void setLine(boolean line) {
 
 
-        Toolbar.LayoutParams params = new Toolbar.LayoutParams(Toolbar.LayoutParams.MATCH_PARENT,dip2px(mActivity,1), Gravity.BOTTOM);
+        Toolbar.LayoutParams params = new Toolbar.LayoutParams(Toolbar.LayoutParams.MATCH_PARENT, dip2px(mActivity, 1), Gravity.BOTTOM);
         View view = new View(mActivity);
         //        view.setBackgroundColor(Color.parseColor());
         view.setLayoutParams(params);
@@ -207,8 +207,7 @@ public class ToolbarUtil {
      * 将dip或dp值转换为px值，保证尺寸大小不变
      *
      * @param dipValue
-     * @param scale
-     *            （DisplayMetrics类中属性density）
+     * @param scale    （DisplayMetrics类中属性density）
      * @return
      */
     public static int dip2px(Context context, float dipValue) {

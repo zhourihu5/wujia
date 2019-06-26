@@ -86,7 +86,7 @@ public class CommentAdapter extends RecyclerView.Adapter {
             } else {
                 String nickName = bean.getParentReplyMemberName();
                 commentViewHoler.tv_commentContent.setText(LibAppUtils.setDifTvColoc(JXContextWrapper.context, Color.parseColor("#4483f8"),
-                        TextUtils.concat("回复@",nickName,":",bean.getContent()).toString(), 2, 3 + nickName.length()));
+                        TextUtils.concat("回复@", nickName, ":", bean.getContent()).toString(), 2, 3 + nickName.length()));
             }
             commentViewHoler.rl_content.setOnClickListener(onClickListener);
             commentViewHoler.rl_content.setTag(bean);

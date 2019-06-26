@@ -19,7 +19,7 @@ import com.jingxi.smartlife.pad.sdk.neighbor.ui.xbus.annotation.BusReceiver;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
-public class NeighborMainFragment extends SupportFragment implements NeighborTitleHolder.OnTitleClickListener{
+public class NeighborMainFragment extends SupportFragment implements NeighborTitleHolder.OnTitleClickListener {
     public NeighborListFragment listFragment;
     private FragmentManager fragmentManager;
     private NeighborTitleHolder titleHolder;
@@ -29,7 +29,7 @@ public class NeighborMainFragment extends SupportFragment implements NeighborTit
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.layout_fragment_neighbor_main,null);
+        return inflater.inflate(R.layout.layout_fragment_neighbor_main, null);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class NeighborMainFragment extends SupportFragment implements NeighborTit
         InputMethodUtils.hideSoftInput(getActivity());
         Bundle bundle = new Bundle();
         if (detailtype == -1) {
-            titleHolder.setTitleText(StringUtils.getString(R.string.somebody_neighborhood,neighborInfoBean != null ? neighborInfoBean.familyMemberName: ""));
+            titleHolder.setTitleText(StringUtils.getString(R.string.somebody_neighborhood, neighborInfoBean != null ? neighborInfoBean.familyMemberName : ""));
         } else {
             titleHolder.setTitleText(getString(R.string.my_neighbor_board));
         }
@@ -121,12 +121,12 @@ public class NeighborMainFragment extends SupportFragment implements NeighborTit
     }
 
     @BusReceiver
-    public void onEvent(GoDetailBusBean busBean){
-        goDetail(busBean.infoBean,busBean.detailType);
+    public void onEvent(GoDetailBusBean busBean) {
+        goDetail(busBean.infoBean, busBean.detailType);
     }
 
     @BusReceiver
-    public void onEvent(SetTitleBusBean setTitleBusBean){
+    public void onEvent(SetTitleBusBean setTitleBusBean) {
         titleHolder.setTabLayout(listFragment.getTitlePager());
     }
 

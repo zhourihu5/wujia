@@ -24,11 +24,13 @@ public class SafeHomeFragment extends TabFragment {
     public SafeHomeFragment() {
 
     }
-    private static final String KEY_TAB="tab";
+
+    private static final String KEY_TAB = "tab";
+
     public static SafeHomeFragment newInstance(int currentTag) {
         SafeHomeFragment fragment = new SafeHomeFragment();
         Bundle args = new Bundle();
-        args.putInt(KEY_TAB,currentTag);
+        args.putInt(KEY_TAB, currentTag);
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,7 +48,7 @@ public class SafeHomeFragment extends TabFragment {
         super.onLazyInitView(savedInstanceState);
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
-        int tabIndex=getArguments().getInt(KEY_TAB);
+        int tabIndex = getArguments().getInt(KEY_TAB);
         mTabBar = $(R.id.tab_home_tab_bar);
 
         SupportFragment firstFragment = findFragment(SafeOutsideFragment.class);

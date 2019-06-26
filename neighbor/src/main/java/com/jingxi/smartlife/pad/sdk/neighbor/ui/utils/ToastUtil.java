@@ -15,7 +15,7 @@ public class ToastUtil {
     }
 
     public static void showToast(String text) {
-        if (TextUtils.isEmpty(text)){
+        if (TextUtils.isEmpty(text)) {
             return;
         }
         try {

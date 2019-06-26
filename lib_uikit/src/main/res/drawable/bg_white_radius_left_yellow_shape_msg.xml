@@ -19,7 +19,7 @@
             <corners
                 android:bottomRightRadius="@dimen/px8"
                 android:topLeftRadius="@dimen/px8"
-                android:topRightRadius="@dimen/px8"/>
+                android:topRightRadius="@dimen/px8" />
             <solid android:color="@color/white" />
         </shape>
     </item>

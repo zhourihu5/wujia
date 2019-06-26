@@ -3,8 +3,6 @@ package com.wujia.businesslib.base;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;

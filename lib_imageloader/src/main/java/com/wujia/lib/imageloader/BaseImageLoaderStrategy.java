@@ -68,5 +68,6 @@ public interface BaseImageLoaderStrategy {
     void saveImage(Context context, String url, String savePath, String saveFileName, ImageSaveListener listener);
 
     void loadRoundedCornersImage(Context context, String url, int placeholder, int roundRadius, ImageView imageView);
+
     void loadRoundedCornersImage(Context context, String url, int placeholder, int errorHolder, int roundRadius, ImageView imageView);
 }

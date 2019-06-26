@@ -5,7 +5,7 @@
         <attr name="borderColor" format="color" />
         <attr name="borderThickness" format="dimension" />
     </declare-styleable>
-    
+
     <declare-styleable name="NineGridView">
         <attr name="ngv_singleImageSize" format="dimension" />
         <attr name="ngv_singleImageRatio" format="float" />
@@ -60,13 +60,14 @@
     <style name="TabLayoutTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
         <item name="android:textSize">@dimen/sp_23</item>
     </style>
+
     <declare-styleable name="CurrencyBaseTitleBar">
         <attr name="leftView" format="reference" />
         <attr name="centerView" format="reference" />
         <attr name="backPicture" format="reference" />
         <attr name="backText" format="string" />
         <attr name="currencyBackground" format="integer" />
-        <attr name="backTextColor" format="color"/>
+        <attr name="backTextColor" format="color" />
     </declare-styleable>
     <declare-styleable name="CurrencyTitleBarView">
         <attr name="centerText" format="string" />

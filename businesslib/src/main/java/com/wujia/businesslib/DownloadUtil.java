@@ -52,7 +52,7 @@ public class DownloadUtil {
                 if (totalLength != 0) {
                     int percent = (int) (currentOffset * 1.0f / totalLength * 100);
                     LogUtil.i("正在下载：" + percent + " %");
-                    listener.onTaskProgress(percent, currentOffset,  totalLength);
+                    listener.onTaskProgress(percent, currentOffset, totalLength);
                 }
             }
 
@@ -69,10 +69,10 @@ public class DownloadUtil {
                     listener.onTaskComplete(STATE_CANCELED, "");
 
                 } else {
-                    if(realCause!=null){
+                    if (realCause != null) {
                         realCause.printStackTrace();
                     }
-                    LogUtil.i("cause:"+cause.name());
+                    LogUtil.i("cause:" + cause.name());
                     listener.onTaskComplete(STATE_OTHER, "");
 
                 }

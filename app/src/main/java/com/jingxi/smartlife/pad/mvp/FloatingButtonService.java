@@ -17,7 +17,6 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 
 import com.jingxi.smartlife.pad.R;
 import com.wujia.lib_common.utils.LogUtil;
@@ -38,7 +37,8 @@ public class FloatingButtonService extends Service {
 
     private View floatingView;
     private long startTime;
-    boolean isAdded=false;
+    boolean isAdded = false;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -81,23 +81,25 @@ public class FloatingButtonService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        startTime=System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
 //        isStarted = true;
         showFloatingWindow();
-        int resutl= super.onStartCommand(intent, flags, startId);
+        int resutl = super.onStartCommand(intent, flags, startId);
         stopIfCurrentApp();
         return resutl;
     }
-    void removeFloatingWindow(){
-        if(isAdded){
+
+    void removeFloatingWindow() {
+        if (isAdded) {
             windowManager.removeView(floatingView);
-            isAdded=false;
+            isAdded = false;
         }
 //        windowManager.removeViewImmediate(floatingView);
     }
+
     private void showFloatingWindow() {
-        if (Settings.canDrawOverlays(this)&&!isAdded) {
-            floatingView=View.inflate(getApplicationContext(),R.layout.floating_back,null);
+        if (Settings.canDrawOverlays(this) && !isAdded) {
+            floatingView = View.inflate(getApplicationContext(), R.layout.floating_back, null);
 //           floatingView = new Button(getApplicationContext());
 //            floatingView.setText("go home");
 //            floatingView.setBackgr oundColor(Color.BLUE);
@@ -105,7 +107,7 @@ public class FloatingButtonService extends Service {
             windowManager.addView(floatingView, layoutParams);
 
             floatingView.setOnTouchListener(new FloatingOnTouchListener());
-            isAdded=true;
+            isAdded = true;
         }
     }
 
@@ -121,14 +123,14 @@ public class FloatingButtonService extends Service {
         }
     }
 
-    String getTopActivityPackage(){
+    String getTopActivityPackage() {
         String topActivity = "";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             UsageStatsManager m = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
             if (m != null) {
                 long now = System.currentTimeMillis();
                 //获取60秒之内的应用数据
-                List<UsageStats> stats = m.queryUsageStats(UsageStatsManager.INTERVAL_BEST, startTime-50*1000, now);
+                List<UsageStats> stats = m.queryUsageStats(UsageStatsManager.INTERVAL_BEST, startTime - 50 * 1000, now);
                 LogUtil.info(TAG, "Running app number in last 60 seconds : " + stats.size());
 
                 //取得最近运行的一个app，即当前运行的app
@@ -142,17 +144,17 @@ public class FloatingButtonService extends Service {
 //                        LogUtil.info(TAG, "top running app is : "+topActivity);
                     }
 
-                }else {
+                } else {
 
                 }
 //                return stats.size();
             }
-        }else {
+        } else {
             ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
             ComponentName cn = activityManager.getRunningTasks(1).get(0).topActivity;
             topActivity = cn.getPackageName();
         }
-        LogUtil.info(TAG, "top running app is : "+topActivity);
+        LogUtil.info(TAG, "top running app is : " + topActivity);
         return topActivity;
     }
 
@@ -160,7 +162,7 @@ public class FloatingButtonService extends Service {
     private class FloatingOnTouchListener implements View.OnTouchListener {
         private int x;
         private int y;
-        GestureDetector gestureDetector=new GestureDetector(FloatingButtonService.this,new GestureDetector.OnGestureListener() {
+        GestureDetector gestureDetector = new GestureDetector(FloatingButtonService.this, new GestureDetector.OnGestureListener() {
             @Override
             public boolean onDown(MotionEvent e) {
                 LogUtil.i("onDown");
@@ -205,6 +207,7 @@ public class FloatingButtonService extends Service {
                 return false;
             }
         });
+
         @Override
         public boolean onTouch(View view, MotionEvent event) {
             switch (event.getAction()) {
@@ -232,7 +235,7 @@ public class FloatingButtonService extends Service {
     }
 
     protected boolean stopIfCurrentApp() {
-        if(getPackageName().equals(getTopActivityPackage())){
+        if (getPackageName().equals(getTopActivityPackage())) {
             stopSelf();
             return true;
         }

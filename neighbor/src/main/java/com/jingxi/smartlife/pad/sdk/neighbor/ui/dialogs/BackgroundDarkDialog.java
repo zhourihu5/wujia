@@ -80,21 +80,21 @@ public class BackgroundDarkDialog extends Dialog {
         return p;
     }
 
-    public int getWindowType(){
+    public int getWindowType() {
         return WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
     }
 
     private int computeFlags(int curFlags) {
-            curFlags |= (
-                    WindowManager.LayoutParams.FLAG_IGNORE_CHEEK_PRESSES |
-                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |
-                            WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH |
-                            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS |
-                            WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM |
-                            WindowManager.LayoutParams.FLAG_SPLIT_TOUCH |
-                            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN |
-                            WindowManager.LayoutParams.FLAG_FULLSCREEN );
+        curFlags |= (
+                WindowManager.LayoutParams.FLAG_IGNORE_CHEEK_PRESSES |
+                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |
+                        WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH |
+                        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS |
+                        WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM |
+                        WindowManager.LayoutParams.FLAG_SPLIT_TOUCH |
+                        WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN |
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
         curFlags |= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         curFlags |= WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
         return curFlags;

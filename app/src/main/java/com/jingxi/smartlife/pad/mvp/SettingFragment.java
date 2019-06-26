@@ -15,7 +15,6 @@ import com.wujia.lib_common.base.BaseMainFragment;
 public class SettingFragment extends BaseMainFragment {
 
 
-
     public SettingFragment() {
     }
 

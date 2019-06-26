@@ -26,7 +26,7 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 public abstract class BaseLibDialog extends BackgroundDarkDialog {
 
     private AtomicBoolean hideInput = new AtomicBoolean(false);
-    public float width,height;
+    public float width, height;
 
     /**
      * 是否有输入框
@@ -80,7 +80,7 @@ public abstract class BaseLibDialog extends BackgroundDarkDialog {
         width = getWidth();
         height = getHeight();
 
-        if(width <= 1 && height <= 1){
+        if (width <= 1 && height <= 1) {
             DisplayMetrics dm = new DisplayMetrics();
             getWindow().getWindowManager().getDefaultDisplay().getMetrics(dm);
             int mScreenWidth = dm.widthPixels;

@@ -117,11 +117,11 @@ public class LeftNeighborhoodAdapter extends BaseQuickAdapter<NeighborInfoBean, 
         ArrayList<ImageInfo> imageInfo = new ArrayList<>();
         for (int i = 0; null != simgList && i < simgList.size(); i++) {
             ImageInfo info = new ImageInfo();
-            info.setThumbnailUrl(AliyunUtils.getAliPic(simgList.get(i),200,200));
+            info.setThumbnailUrl(AliyunUtils.getAliPic(simgList.get(i), 200, 200));
             info.setBigImageUrl(simgList.get(i));
             imageInfo.add(info);
         }
-        MyNineGridViewAdper nineGridViewAdapter = new MyNineGridViewAdper(JXContextWrapper.context, imageInfo,iJump);
+        MyNineGridViewAdper nineGridViewAdapter = new MyNineGridViewAdper(JXContextWrapper.context, imageInfo, iJump);
         nineGridViewAdapter.canClick = (onClickListener != null);
         helper.<NineGridView>getView(R.id.ninegridview_img).setAdapter(nineGridViewAdapter);
         //整个条目的点击事件
@@ -166,21 +166,21 @@ public class LeftNeighborhoodAdapter extends BaseQuickAdapter<NeighborInfoBean, 
             /**
              * 中划线
              */
-            ((TextView) helper.getView(R.id.statu_tv_originalPrice)).getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG);
+            ((TextView) helper.getView(R.id.statu_tv_originalPrice)).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             helper.setVisible(R.id.statu_rl_price, true);
             if (TextUtils.isEmpty(item.originalPrice)) {
                 helper.setVisible(R.id.statu_tv_originalPrice, false);
             } else {
                 helper.setVisible(R.id.statu_tv_originalPrice, true);
-                helper.setText(R.id.statu_tv_originalPrice, StringUtils.getString(R.string.oldPrice_with_num,item.originalPrice));
+                helper.setText(R.id.statu_tv_originalPrice, StringUtils.getString(R.string.oldPrice_with_num, item.originalPrice));
             }
-            String nowPrice = StringUtils.getString(R.string.nowPrice_with_num,item.price);
+            String nowPrice = StringUtils.getString(R.string.nowPrice_with_num, item.price);
             SpannableString spannableString = new SpannableString(nowPrice);
             int start = nowPrice.indexOf("¥");
             /**
              * 2.0f表示默认字体大小的两倍
              */
-            spannableString.setSpan(new RelativeSizeSpan(1.5f), start+1, nowPrice.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new RelativeSizeSpan(1.5f), start + 1, nowPrice.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             helper.setText(R.id.statu_tv_price, spannableString);
         } else {
             helper.setVisible(R.id.statu_rl_price, false);

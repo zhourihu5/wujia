@@ -32,9 +32,9 @@ public class AddMemberDialog extends CommDialog {
 
     List<HomeUserInfoBean.DataBean.UserInfoListBean> datas;
 
-    public AddMemberDialog(@NonNull Context context,List<HomeUserInfoBean.DataBean.UserInfoListBean> datas) {
+    public AddMemberDialog(@NonNull Context context, List<HomeUserInfoBean.DataBean.UserInfoListBean> datas) {
         super(context, R.style.dialogStyle);
-        this.datas=datas;
+        this.datas = datas;
     }
 
     @Override

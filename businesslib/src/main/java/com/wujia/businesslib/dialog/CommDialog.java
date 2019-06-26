@@ -29,7 +29,7 @@ public abstract class CommDialog extends Dialog {
     }
 
     private void set(Context context) {
-        mContext=context;
+        mContext = context;
         setContentView(R.layout.layout_comm_dialog);
         FrameLayout cont = findViewById(R.id.dialog_comm_container);
         cont.addView(LayoutInflater.from(context).inflate(getLayoutId(), null));
@@ -44,7 +44,7 @@ public abstract class CommDialog extends Dialog {
     }
 
     public int getBaseWidthPx() {
-        return  60;
+        return 60;
     }
 
     protected abstract void init(Context context);

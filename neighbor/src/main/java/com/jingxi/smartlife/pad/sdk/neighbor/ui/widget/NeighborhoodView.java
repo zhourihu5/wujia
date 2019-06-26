@@ -165,7 +165,7 @@ public class NeighborhoodView extends RelativeLayout
                     public Integer apply(JSONObject jsonObject) {
                         NeighborInfoBean temp = NeighborInfoBean.getEmpty(jsonObject.getString("neighborBoardId"));
                         int index = beanList.indexOf(temp);
-                        if(index == -1){
+                        if (index == -1) {
                             return index;
                         }
                         NeighborInfoBean infoBean = beanList.get(index);
@@ -263,10 +263,10 @@ public class NeighborhoodView extends RelativeLayout
 //                    this,
 //                    false);
 //        } else {
-            beanList = new ArrayList<>();
-            socialAdapter = new SocialAdapter(beanList,
-                    this,
-                    false);
+        beanList = new ArrayList<>();
+        socialAdapter = new SocialAdapter(beanList,
+                this,
+                false);
 //        }
         recyclerView.setAdapter(socialAdapter);
         swipe_refresh.setRefreshing(true);

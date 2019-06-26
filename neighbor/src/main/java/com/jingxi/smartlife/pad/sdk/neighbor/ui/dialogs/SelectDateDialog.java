@@ -36,11 +36,11 @@ public class SelectDateDialog extends BaseLibDialog implements View.OnClickListe
         initDialog();
     }
 
-    public MyAction<String> getAction(){
+    public MyAction<String> getAction() {
         return action;
     }
 
-    public void setAction(MyAction<String> action){
+    public void setAction(MyAction<String> action) {
         this.action = action;
     }
 
@@ -57,17 +57,17 @@ public class SelectDateDialog extends BaseLibDialog implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.tv_comfire) {
-            String time = TextUtils.concat(String.valueOf(dp_YMD.getYear()),"/",
-                    zeroFill((dp_YMD.getMonth() + 1)),"/",
-                    zeroFill(dp_YMD.getDayOfMonth()) ," ",
-                    zeroFill(tp_HD.getHour()),":",zeroFill(tp_HD.getMinute())).toString();
+            String time = TextUtils.concat(String.valueOf(dp_YMD.getYear()), "/",
+                    zeroFill((dp_YMD.getMonth() + 1)), "/",
+                    zeroFill(dp_YMD.getDayOfMonth()), " ",
+                    zeroFill(tp_HD.getHour()), ":", zeroFill(tp_HD.getMinute())).toString();
             if ((LibAppUtils.getTimetoLong(time) - System.currentTimeMillis()) < 0) {
                 ToastUtil.showToast(StringUtils.getString(R.string.select_date_can_not_early));
                 return;
             }
 
             action.call(time);
-        }else if (v.getId() == R.id.tv_close) {
+        } else if (v.getId() == R.id.tv_close) {
             dismiss();
         }
     }

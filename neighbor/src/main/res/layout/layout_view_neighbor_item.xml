@@ -16,8 +16,9 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </com.jingxi.smartlife.pad.sdk.neighbor.ui.views.SimpleSwipeRefreshLayout>
+
     <TextView
         android:drawableTop="@mipmap/neighborboard_no_publish"
         android:visibility="gone"
@@ -29,7 +30,7 @@
         android:text="@string/no_one_published"
         android:textColor="@color/ff919191"
         android:textSize="@dimen/sp_20"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </com.jingxi.smartlife.pad.sdk.neighbor.ui.widget.NeighborhoodView>
 

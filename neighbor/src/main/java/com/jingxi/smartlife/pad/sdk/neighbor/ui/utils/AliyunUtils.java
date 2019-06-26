@@ -53,7 +53,7 @@ public class AliyunUtils {
     }
 
     public String getOssFilepath(@UploadType int type) {
-        if(TextUtils.isEmpty(JXContextWrapper.familyInfoId)){
+        if (TextUtils.isEmpty(JXContextWrapper.familyInfoId)) {
             throw new RuntimeException("JXPadSDK.setFamilyInfoId is not called");
         }
         if (type == VISIT) {

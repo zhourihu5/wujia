@@ -14,18 +14,19 @@ public class DataManager {
 
 //    private static LoginDTO.DataBean user;
 
-    public static LoginDTO.DataBean getUser() throws Exception{
-       Object object= SPHelper.readObject(AppContext.get(), Constants.SP_KEY_USER);
-       if(object==null){
-           throw new Exception("please relogin to get user");
-       }
-       return (LoginDTO.DataBean)object;
+    public static LoginDTO.DataBean getUser() throws Exception {
+        Object object = SPHelper.readObject(AppContext.get(), Constants.SP_KEY_USER);
+        if (object == null) {
+            throw new Exception("please relogin to get user");
+        }
+        return (LoginDTO.DataBean) object;
     }
-    public static final String getFamilyId()throws Exception{
+
+    public static final String getFamilyId() throws Exception {
         return getUser().getUserInfo().getFid();
     }
 
-    public static String getDockKey() throws Exception{
+    public static String getDockKey() throws Exception {
         LoginDTO.DataBean user = getUser();
         if (null != user) {
             int count = user.getDevice().getDeviceKey().length();
@@ -41,7 +42,7 @@ public class DataManager {
         throw new Exception("no dock key,please relogin to get dockkey");
     }
 
-    public static String getButtonKey()throws Exception {
+    public static String getButtonKey() throws Exception {
         LoginDTO.DataBean user = getUser();
         if (null != user) {
             return user.getDevice().getButtonKey();

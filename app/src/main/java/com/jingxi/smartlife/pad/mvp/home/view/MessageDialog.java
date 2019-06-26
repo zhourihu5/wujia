@@ -17,9 +17,10 @@ import com.wujia.businesslib.data.MsgDto;
  */
 public class MessageDialog extends Dialog {
 
-    public interface MsgReadCallBack{
+    public interface MsgReadCallBack {
         void updateMsgReadStatus(MsgDto.ContentBean msg);
     }
+
     MsgReadCallBack msgReadCallBack;
 
     public MessageDialog(@NonNull Context context, final MsgDto.ContentBean message) {
@@ -51,7 +52,7 @@ public class MessageDialog extends Dialog {
         tvTime.setText(message.getCreateDate());
         tvDesc.setText(message.getContent());
 
-        if (message.getIsRead()==MsgDto.STATUS_UNREAD) {//未读
+        if (message.getIsRead() == MsgDto.STATUS_UNREAD) {//未读
             btnKnow.setBackgroundResource(R.drawable.btn_rect_accent_select);
         } else {
             btnKnow.setBackgroundResource(R.drawable.btn_rect_no_can);
@@ -59,7 +60,7 @@ public class MessageDialog extends Dialog {
         btnKnow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (message.getIsRead()==MsgDto.STATUS_UNREAD) {//未读
+                if (message.getIsRead() == MsgDto.STATUS_UNREAD) {//未读
                     v.setBackgroundResource(R.drawable.btn_rect_no_can);
 
                     if (null != msgReadCallBack) {

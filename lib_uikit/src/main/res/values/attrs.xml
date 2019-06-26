@@ -85,6 +85,6 @@
 
 
     <!--<declare-styleable name="WjSwitch">-->
-        <!--<attr name="radius" format="dimension" />-->
+    <!--<attr name="radius" format="dimension" />-->
     <!--</declare-styleable>-->
 </resources>

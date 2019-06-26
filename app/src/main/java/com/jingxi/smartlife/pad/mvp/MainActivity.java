@@ -98,9 +98,10 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
     });
 
     BusModel busModel;
+
     private void setMessagePoint() {
-        if(busModel ==null){
-            busModel =new BusModel();
+        if (busModel == null) {
+            busModel = new BusModel();
         }
         addSubscribe(busModel.isUnReadMessage().subscribeWith(new SimpleRequestSubscriber<ApiResponse<Boolean>>(this, new SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
@@ -268,17 +269,17 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
     private void initSDKManager() {
         manager = JXPadSdk.getDoorAccessManager();
         manager.setDoorAccessListener(this);
-        String dockeKey=null;
-        String buttonKey=null;
+        String dockeKey = null;
+        String buttonKey = null;
         try {
-            dockeKey= DataManager.getDockKey();
-            buttonKey=  DataManager.getButtonKey();
+            dockeKey = DataManager.getDockKey();
+            buttonKey = DataManager.getButtonKey();
         } catch (Exception e) {
-            LogUtil.t("获取dockKey失败",e);
+            LogUtil.t("获取dockKey失败", e);
             LoginUtil.toLoginActivity();
             return;
         }
-        manager.startFamily(dockeKey,buttonKey);
+        manager.startFamily(dockeKey, buttonKey);
 
 //        manager.addSecurityListener(this);
 //        manager.querySecurityStatus(DataManager.getFid());
@@ -464,6 +465,6 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
         super.onDestroy();
         EventBusUtil.unregister(eventMsg);
         manager.setDoorAccessListener(null);
-        manager=null;
+        manager = null;
     }
 }

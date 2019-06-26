@@ -44,7 +44,7 @@ public class FullScreenLiveActivity extends BaseActivity implements View.OnClick
             public void run() {
                 manager.updateCallWindow(sessionId, surfaceView);
             }
-        },500);
+        }, 500);
 
     }
 

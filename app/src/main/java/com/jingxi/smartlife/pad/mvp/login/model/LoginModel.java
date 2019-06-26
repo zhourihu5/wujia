@@ -18,7 +18,6 @@ import io.reactivex.Flowable;
 public class LoginModel extends BaseModel implements LoginContract.Model {
 
 
-
     @Override
     public Flowable<LoginDTO> login(String mobile, String captcha, String padSn) {
         return mHttpHelper.create(MainAppApiService.class).login(mobile, captcha, padSn).compose(RxUtil.<LoginDTO>rxSchedulerHelper());

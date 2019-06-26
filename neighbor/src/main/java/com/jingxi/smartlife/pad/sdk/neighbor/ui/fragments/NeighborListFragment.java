@@ -188,7 +188,7 @@ public class NeighborListFragment extends Fragment implements INeighborhoodListV
         Bus.getDefault().post(new SetTitleBusBean());
     }
 
-    public ViewPager getTitlePager(){
+    public ViewPager getTitlePager() {
         return viewPager;
     }
 
@@ -223,7 +223,7 @@ public class NeighborListFragment extends Fragment implements INeighborhoodListV
 
     @Override
     public void willGoDetail(NeighborInfoBean infoBean, int detailType) {
-        GoDetailBusBean busBean = new GoDetailBusBean(infoBean,detailType);
+        GoDetailBusBean busBean = new GoDetailBusBean(infoBean, detailType);
         Bus.getDefault().post(busBean);
     }
 

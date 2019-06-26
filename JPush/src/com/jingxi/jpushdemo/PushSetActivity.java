@@ -95,7 +95,7 @@ public class PushSetActivity extends InstrumentedActivity implements OnClickList
     TagAliasCallback tagAlias = new TagAliasCallback() {
         @Override
         public void gotResult(int responseCode, String alias, Set<String> tags) {
-            Log.e(TAG,"responseCode:"+responseCode+",alias:"+alias+",tags:"+tags);
+            Log.e(TAG, "responseCode:" + responseCode + ",alias:" + alias + ",tags:" + tags);
         }
     };
 
@@ -149,7 +149,7 @@ public class PushSetActivity extends InstrumentedActivity implements OnClickList
 
     /**
      * 处理tag/alias相关操作的点击
-     * */
+     */
     public void onTagAliasAction(View view) {
         Set<String> tags = null;
         String alias = null;
@@ -214,16 +214,16 @@ public class PushSetActivity extends InstrumentedActivity implements OnClickList
         TagAliasBean tagAliasBean = new TagAliasBean();
         tagAliasBean.action = action;
         sequence++;
-        if(isAliasAction){
+        if (isAliasAction) {
             tagAliasBean.alias = alias;
-        }else{
+        } else {
             tagAliasBean.tags = tags;
         }
         tagAliasBean.isAliasAction = isAliasAction;
-        TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(),sequence,tagAliasBean);
+        TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(), sequence, tagAliasBean);
     }
 
-    private void handleSetMobileNumber(){
+    private void handleSetMobileNumber() {
         EditText mobileEdit = (EditText) findViewById(R.id.et_mobilenumber);
         String mobileNumber = mobileEdit.getText().toString().trim();
         if (TextUtils.isEmpty(mobileNumber)) {
@@ -234,12 +234,13 @@ public class PushSetActivity extends InstrumentedActivity implements OnClickList
             return;
         }
         sequence++;
-        TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(),sequence,mobileNumber);
+        TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(), sequence, mobileNumber);
     }
+
     /**
      * 获取输入的alias
-     * */
-    private String getInPutAlias(){
+     */
+    private String getInPutAlias() {
         EditText aliasEdit = (EditText) findViewById(R.id.et_alias);
         String alias = aliasEdit.getText().toString().trim();
         if (TextUtils.isEmpty(alias)) {
@@ -252,10 +253,11 @@ public class PushSetActivity extends InstrumentedActivity implements OnClickList
         }
         return alias;
     }
+
     /**
      * 获取输入的tags
-     * */
-    private Set<String> getInPutTags(){
+     */
+    private Set<String> getInPutTags() {
         EditText tagEdit = (EditText) findViewById(R.id.et_tag);
         String tag = tagEdit.getText().toString().trim();
         // 检查 tag 的有效性
@@ -274,7 +276,7 @@ public class PushSetActivity extends InstrumentedActivity implements OnClickList
             }
             tagSet.add(sTagItme);
         }
-        if(tagSet.isEmpty()){
+        if (tagSet.isEmpty()) {
             Toast.makeText(getApplicationContext(), R.string.error_tag_empty, Toast.LENGTH_SHORT).show();
             return null;
         }

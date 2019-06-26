@@ -63,7 +63,7 @@ public class OrderListFragment extends TitleFragment implements View.OnClickList
         datas.add(new OrderBean());
 
         OrderAdapter adapter = new OrderAdapter(mActivity, datas);
-        mAdapter=new EmptyWrapper(adapter);
+        mAdapter = new EmptyWrapper(adapter);
         mAdapter.setEmptyView(R.layout.layout_empty);
         recyclerView.setAdapter(mAdapter);
         adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnRVItemClickListener() {

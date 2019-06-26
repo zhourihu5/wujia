@@ -33,6 +33,6 @@ public abstract class OnItemChildClickListener extends SimpleClickListener {
 
     }
 
-    public  abstract void SimpleOnItemChildClick(BaseQuickAdapter adapter, View view, int position);
+    public abstract void SimpleOnItemChildClick(BaseQuickAdapter adapter, View view, int position);
 
 }

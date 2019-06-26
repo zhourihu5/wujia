@@ -1,8 +1,7 @@
 package com.wujia.lib_common.base.baseadapter.base;
 
 
-public interface ItemViewDelegate<T>
-{
+public interface ItemViewDelegate<T> {
 
     int getItemViewLayoutId();
 

@@ -8,7 +8,7 @@ package com.wujia.businesslib.data;
 public class MessageBean extends RootResponse {
 
     public Message content;
-    public String _type="";
+    public String _type = "";
 
     public static class Message {
 

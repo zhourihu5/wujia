@@ -37,7 +37,7 @@ public class NeighborImgAdapter extends Adapter {
         NeighborImgViewHolder viewHolder = (NeighborImgViewHolder) holder;
         Object tag = viewHolder.llItem.getTag();
         String imgUrl = imgList.get(position);
-        if (tag == null || !TextUtils.equals(imgUrl, (String)tag)) {
+        if (tag == null || !TextUtils.equals(imgUrl, (String) tag)) {
             PicassoImageLoader.getMyPicasso()
                     .load(imgUrl)
                     .placeholder(R.mipmap.ic_placeholderimg)
@@ -62,6 +62,7 @@ public class NeighborImgAdapter extends Adapter {
     private class NeighborImgViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_neighborImg;
         View llItem;
+
         public NeighborImgViewHolder(View itemView) {
             super(itemView);
             iv_neighborImg = (ImageView) itemView.findViewById(R.id.iv_neighborImg);

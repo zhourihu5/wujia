@@ -24,17 +24,17 @@ public abstract class BaseMultiItemQuickAdapter<T extends MultiItemEntity, K ext
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
      * some initialization data.
      *
-     * @param data    A new list is created out of this one to avoid mutable list
+     * @param data A new list is created out of this one to avoid mutable list
      */
-    public BaseMultiItemQuickAdapter( List<T> data) {
-        super( data);
+    public BaseMultiItemQuickAdapter(List<T> data) {
+        super(data);
     }
 
     @Override
     protected int getDefItemViewType(int position) {
         Object item = mData.get(position);
         if (item instanceof MultiItemEntity) {
-            return ((MultiItemEntity)item).getItemType();
+            return ((MultiItemEntity) item).getItemType();
         }
         return DEFAULT_VIEW_TYPE;
     }

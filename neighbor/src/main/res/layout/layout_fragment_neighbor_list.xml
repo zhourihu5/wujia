@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/fff2f2f2">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fff2f2f2">
 
     <RelativeLayout
         android:id="@+id/rl_right"
         android:layout_width="@dimen/dp_100"
         android:layout_height="match_parent"
         android:background="@drawable/drawable_neighbor_list_left_bg"
-        android:elevation="@dimen/dp_10"
-        >
+        android:elevation="@dimen/dp_10">
 
         <com.jingxi.smartlife.pad.sdk.neighbor.ui.views.RoundImageView
             android:id="@+id/iv_neighbor_head"
@@ -22,7 +21,7 @@
             app:borderOutsideColor="@color/transparent"
             app:borderColor="@color/transparent"
             android:layout_marginTop="@dimen/dp_47"
-            android:transitionName="neighbor_head"/>
+            android:transitionName="neighbor_head" />
 
         <TextView
             android:id="@+id/tv_neighbor_activity"
@@ -34,7 +33,7 @@
             android:gravity="center_horizontal"
             android:text="@string/my_activity"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp_16"/>
+            android:textSize="@dimen/sp_16" />
 
         <TextView
             android:id="@+id/tv_neighbor_mypraise"
@@ -46,7 +45,7 @@
             android:gravity="center_horizontal"
             android:text="@string/my_favoured"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp_16"/>
+            android:textSize="@dimen/sp_16" />
 
         <TextView
             android:id="@+id/tv_neighbor_msg"
@@ -58,15 +57,14 @@
             android:gravity="center_horizontal"
             android:text="@string/my_msg"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp_16"/>
+            android:textSize="@dimen/sp_16" />
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toEndOf="@id/rl_right"
-        />
+        android:layout_toEndOf="@id/rl_right" />
 
     <com.jingxi.smartlife.pad.sdk.neighbor.ui.views.FloatingActionButton
         android:id="@+id/fab_addlinliq"
@@ -83,5 +81,5 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
-        android:background="@drawable/shape_shado_titlebar"/>
+        android:background="@drawable/shape_shado_titlebar" />
 </RelativeLayout>

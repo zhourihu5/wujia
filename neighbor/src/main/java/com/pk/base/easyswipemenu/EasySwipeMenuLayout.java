@@ -310,7 +310,7 @@ public class EasySwipeMenuLayout extends ViewGroup {
                 //当处于水平滑动时，禁止父类拦截
                 if (Math.abs(distanceX) > mScaledTouchSlop
 //                        || Math.abs(getScrollX()) > mScaledTouchSlop
-                        ) {
+                ) {
                     //  Log.i(TAG, ">>>>当处于水平滑动时，禁止父类拦截 true");
                     getParent().requestDisallowInterceptTouchEvent(true);
                 }

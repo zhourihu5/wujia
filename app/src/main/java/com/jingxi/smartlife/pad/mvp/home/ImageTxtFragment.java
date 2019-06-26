@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
@@ -33,7 +31,7 @@ import java.util.ArrayList;
 public class ImageTxtFragment extends ServiceBaseFragment {
 
     public static final String KEY_TXT = "txt";
-//    public static final String KEY_SUBCRIPTION = "subscriptions";
+    //    public static final String KEY_SUBCRIPTION = "subscriptions";
     private HomeModel mModel;
 
     private ArrayList<CardDetailBean.ServicesBean> datas;
@@ -58,6 +56,7 @@ public class ImageTxtFragment extends ServiceBaseFragment {
     }
 
     BusModel busModel;
+
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
@@ -101,15 +100,14 @@ public class ImageTxtFragment extends ServiceBaseFragment {
 
         datas = new ArrayList<CardDetailBean.ServicesBean>();
 
-        busModel=new BusModel();
-        mAdapter=getAdapter(datas);
+        busModel = new BusModel();
+        mAdapter = getAdapter(datas);
         rv.setAdapter(mAdapter);
 
-        mModel=new HomeModel();
+        mModel = new HomeModel();
         getData(cardId);
 
     }
-
 
 
     private void getData(String cardId) {
@@ -118,7 +116,7 @@ public class ImageTxtFragment extends ServiceBaseFragment {
             @Override
             public void onResponse(ApiResponse<CardDetailBean> response) {
                 super.onResponse(response);
-                String txt= response.data.getContent();
+                String txt = response.data.getContent();
                 mWebView.loadData(txt, "text/html; charset=UTF-8", null);
                 datas.clear();
                 datas.addAll(response.data.getServices());

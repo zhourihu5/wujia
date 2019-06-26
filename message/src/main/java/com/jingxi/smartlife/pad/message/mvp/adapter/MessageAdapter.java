@@ -16,13 +16,15 @@ import java.util.List;
  * Description:
  */
 public class MessageAdapter extends CommonAdapter<MsgDto.ContentBean> {
-    public  interface ReadMsgCallback{
-       void onMsgReadClick(MsgDto.ContentBean item);
+    public interface ReadMsgCallback {
+        void onMsgReadClick(MsgDto.ContentBean item);
     }
+
     ReadMsgCallback readMsgCallback;
-    public MessageAdapter(Context context, List<MsgDto.ContentBean> datas,ReadMsgCallback readMsgCallback) {
+
+    public MessageAdapter(Context context, List<MsgDto.ContentBean> datas, ReadMsgCallback readMsgCallback) {
         super(context, R.layout.item_msg, datas);
-        this.readMsgCallback=readMsgCallback;
+        this.readMsgCallback = readMsgCallback;
     }
 
     @Override
@@ -48,9 +50,9 @@ public class MessageAdapter extends CommonAdapter<MsgDto.ContentBean> {
             res = R.mipmap.icon_msg_label_system;
         }
 
-        holder.setVisible(R.id.img3, item.getIsRead()==MsgDto.STATUS_UNREAD);
+        holder.setVisible(R.id.img3, item.getIsRead() == MsgDto.STATUS_UNREAD);
 
-        if (item.getIsRead()==MsgDto.STATUS_UNREAD) {//未读
+        if (item.getIsRead() == MsgDto.STATUS_UNREAD) {//未读
             holder.setAlpha(R.id.l1, 1f);
             holder.setBackgroundRes(R.id.btn2, R.drawable.btn_rect_accent_select);
         } else {
@@ -88,13 +90,13 @@ public class MessageAdapter extends CommonAdapter<MsgDto.ContentBean> {
                 holder.setOnClickListener(R.id.btn2, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (item.getIsRead()!=MsgDto.STATUS_UNREAD) {
+                        if (item.getIsRead() != MsgDto.STATUS_UNREAD) {
                             return;
                         }
                         holder.setAlpha(R.id.l1, 0.5f);
                         holder.setBackgroundRes(R.id.btn2, R.drawable.btn_rect_no_can);
                         holder.setVisible(R.id.img3, false);
-                        if(readMsgCallback!=null){
+                        if (readMsgCallback != null) {
                             readMsgCallback.onMsgReadClick(item);
                         }
 

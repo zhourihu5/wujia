@@ -6,7 +6,7 @@ public class LogUtil {
 
 
     private static final String TAG = "--NoTAG--";
-//    private static boolean logSwitch = BuildConfig.DEBUG;
+    //    private static boolean logSwitch = BuildConfig.DEBUG;
     private static boolean logSwitch = true;
 
 
@@ -22,36 +22,39 @@ public class LogUtil {
         }
     }
 
-    public static void debug(String tag,Object message) {
+    public static void debug(String tag, Object message) {
         if (logSwitch) {
             Log.d(tag, message.toString());
         }
     }
 
-    public static void warn(String tag,Object message) {
+    public static void warn(String tag, Object message) {
         if (logSwitch) {
             Log.w(tag, message.toString());
         }
     }
-    public static void info(String tag,Object message) {
+
+    public static void info(String tag, Object message) {
         if (logSwitch) {
             Log.i(tag, message.toString());
         }
     }
 
-    public static void error(String tag,Object message) {
+    public static void error(String tag, Object message) {
         if (logSwitch) {
             Log.e(tag, message.toString());
         }
     }
-    public static void t(Object message,Throwable t) {
+
+    public static void t(Object message, Throwable t) {
         if (logSwitch) {
-            Log.e(TAG, message.toString(),t);
+            Log.e(TAG, message.toString(), t);
         }
     }
-    public static void tr(String tag,Object message,Throwable t) {
+
+    public static void tr(String tag, Object message, Throwable t) {
         if (logSwitch) {
-            Log.e(tag, message.toString(),t);
+            Log.e(tag, message.toString(), t);
         }
     }
 

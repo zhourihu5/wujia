@@ -14,9 +14,9 @@ public class GridDecoration extends RecyclerView.ItemDecoration {
     private int spaceHorizontal;
     private int spaceVertical;
 
-    public GridDecoration(int spaceHorizontal,int spaceVertical) {
+    public GridDecoration(int spaceHorizontal, int spaceVertical) {
         this.spaceHorizontal = spaceHorizontal;
-        this.spaceVertical=spaceVertical;
+        this.spaceVertical = spaceVertical;
     }
 
 

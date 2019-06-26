@@ -15,7 +15,7 @@
         android:layout_marginBottom="30dp"
         android:scaleType="centerCrop"
         android:src="@mipmap/img_food"
-        app:radius="@dimen/px8"/>
+        app:radius="@dimen/px8" />
 
     <TextView
         android:id="@id/tv1"
@@ -62,6 +62,7 @@
         android:text="¥38"
         android:textColor="#CBAF8F"
         android:textSize="20sp" />
+
     <TextView
         android:id="@id/tv11"
         android:layout_width="wrap_content"

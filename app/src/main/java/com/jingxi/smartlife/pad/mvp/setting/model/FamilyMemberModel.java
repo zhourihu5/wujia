@@ -18,13 +18,13 @@ import io.reactivex.Flowable;
  */
 public class FamilyMemberModel extends BaseModel implements FamilyMemberContract.Model {
 
-    public Flowable<ApiResponse<String>> addFamilyMember(String userName,String familyId) {
-        return mHttpHelper.create(MainAppApiService.class).addFamilyMember(userName,familyId).compose(RxUtil.<ApiResponse<String>>rxSchedulerHelper());
+    public Flowable<ApiResponse<String>> addFamilyMember(String userName, String familyId) {
+        return mHttpHelper.create(MainAppApiService.class).addFamilyMember(userName, familyId).compose(RxUtil.<ApiResponse<String>>rxSchedulerHelper());
     }
+
     public Flowable<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>> getFamilyMemberList(String familyId) {
         return mHttpHelper.create(MainAppApiService.class).getFamilyMemberList(familyId).compose(RxUtil.<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>rxSchedulerHelper());
     }
-
 
 
 }

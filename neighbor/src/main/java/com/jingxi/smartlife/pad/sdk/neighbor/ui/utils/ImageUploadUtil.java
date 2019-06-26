@@ -39,10 +39,11 @@ public class ImageUploadUtil {
     }
 
     private static ImageUploadUtil instance;
-    public static ImageUploadUtil getInstance(){
-        if(instance == null){
-            synchronized (ImageUploadUtil.class){
-                if(instance == null){
+
+    public static ImageUploadUtil getInstance() {
+        if (instance == null) {
+            synchronized (ImageUploadUtil.class) {
+                if (instance == null) {
                     instance = new ImageUploadUtil();
                 }
             }
@@ -62,7 +63,7 @@ public class ImageUploadUtil {
          */
         AliyunUtils aliyunUtils = AliyunUtils.getInstance(JXContextWrapper.context);
         String imgUrl = TextUtils.concat(aliyunUtils.getOssFilepath(type),
-                LibAppUtils.getTimeDataToString(System.currentTimeMillis(), "yyyy-MM-dd"),"/",filename).toString();
+                LibAppUtils.getTimeDataToString(System.currentTimeMillis(), "yyyy-MM-dd"), "/", filename).toString();
         PutObjectRequest put = new PutObjectRequest(aliyunUtils.getBucketName(), imgUrl, bytes);
         try {
             AliyunUtils.getInstance(JXContextWrapper.context).getOssClient().putObject(put);
@@ -75,7 +76,7 @@ public class ImageUploadUtil {
             ArrayMap<String, String> uploadto = new ArrayMap<>();
             uploadto.put(PadHttpParams.PublicKey.RESULT, PadHttpParams.PublicValue.FALSE);
             uploadto.put(IMAGE_NAME, filename);
-            uploadto.put(PadHttpParams.PublicKey.MSG,StringUtils.getString(R.string.uploadFaild));
+            uploadto.put(PadHttpParams.PublicKey.MSG, StringUtils.getString(R.string.uploadFaild));
             Observable.just(uploadto).observeOn(AndroidSchedulers.mainThread()).subscribe(ac);
         }
     }
@@ -96,8 +97,8 @@ public class ImageUploadUtil {
         private int type;
 
         private HttpUploadThread(Consumer<ArrayMap<String, String>> ac,
-                                List<ArrayMap<String, Object>> imagePrepareUpload,
-                                @AliyunUtils.UploadType int type) {
+                                 List<ArrayMap<String, Object>> imagePrepareUpload,
+                                 @AliyunUtils.UploadType int type) {
             this.ac = ac;
             this.imagePrepareUpload = imagePrepareUpload;
             this.type = type;
@@ -112,7 +113,7 @@ public class ImageUploadUtil {
                     ArrayMap<String, String> uploadto = new ArrayMap<>();
                     uploadto.put(PadHttpParams.PublicKey.RESULT, PadHttpParams.PublicValue.FALSE);
                     uploadto.put(IMAGE_NAME, name);
-                    uploadto.put(PadHttpParams.PublicKey.MSG,StringUtils.getString(R.string.uploadFaild));
+                    uploadto.put(PadHttpParams.PublicKey.MSG, StringUtils.getString(R.string.uploadFaild));
                     Observable.just(uploadto).observeOn(AndroidSchedulers.mainThread()).subscribe(ac);
                     continue;
                 }
@@ -126,7 +127,7 @@ public class ImageUploadUtil {
                         ArrayMap<String, String> uploadto = new ArrayMap<>();
                         uploadto.put(PadHttpParams.PublicKey.RESULT, PadHttpParams.PublicValue.FALSE);
                         uploadto.put(IMAGE_NAME, name);
-                        uploadto.put(PadHttpParams.PublicKey.MSG,StringUtils.getString(R.string.uploadFaild));
+                        uploadto.put(PadHttpParams.PublicKey.MSG, StringUtils.getString(R.string.uploadFaild));
                         Observable.just(uploadto).observeOn(AndroidSchedulers.mainThread()).subscribe(ac);
                         continue;
                     }

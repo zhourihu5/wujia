@@ -11,8 +11,7 @@ import com.wujia.lib.widget.util.ToastUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -33,15 +32,15 @@ public class ExampleInstrumentedTest {
     public void toastUtil() {
         // Context of the app under test.
         final Context appContext = InstrumentationRegistry.getTargetContext();
-        Handler handler=new Handler(Looper.getMainLooper());
-        for(int i=0;i<5;i++){
+        Handler handler = new Handler(Looper.getMainLooper());
+        for (int i = 0; i < 5; i++) {
             final int finalI = i;
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    ToastUtil.showShort(appContext,"toastUtilTest"+ finalI);
+                    ToastUtil.showShort(appContext, "toastUtilTest" + finalI);
                 }
-            },1000*finalI);
+            }, 1000 * finalI);
 
         }
 

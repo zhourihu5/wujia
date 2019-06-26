@@ -63,7 +63,7 @@ public abstract class MvpActivity<T extends BasePresenter> extends BaseActivity 
 
     @Override
     public void showErrorMsg(String msg) {
-        ToastUtil.showShort(this,msg);
+        ToastUtil.showShort(this, msg);
     }
 
     @Override

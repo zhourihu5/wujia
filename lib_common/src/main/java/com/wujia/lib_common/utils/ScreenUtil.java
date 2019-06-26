@@ -59,8 +59,8 @@ public class ScreenUtil {
         DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
         screenWidth = dm.widthPixels;
         screenHeight = dm.heightPixels;
-        screenMin = Math.min(screenWidth , screenHeight);
-        screenMax = Math.max(screenWidth , screenHeight);
+        screenMin = Math.min(screenWidth, screenHeight);
+        screenMax = Math.max(screenWidth, screenHeight);
         density = dm.density;
         scaleDensity = dm.scaledDensity;
         xdpi = dm.xdpi;
@@ -77,13 +77,13 @@ public class ScreenUtil {
         return screenWidth;
     }
 
-    public static int getLandscapeWidth(){
+    public static int getLandscapeWidth() {
         if (screenMax == 0)
             GetInfo(AppContext.get());
         return screenMax;
     }
 
-    public static int getLandscapeHeight(){
+    public static int getLandscapeHeight() {
         if (screenMin == 0)
             GetInfo(AppContext.get());
         return screenMin;
@@ -103,8 +103,8 @@ public class ScreenUtil {
         DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
         screenWidth = dm.widthPixels;
         screenHeight = dm.heightPixels;
-        screenMin = Math.min(screenWidth , screenHeight);
-        screenMax = Math.max(screenWidth , screenHeight);
+        screenMin = Math.min(screenWidth, screenHeight);
+        screenMax = Math.max(screenWidth, screenHeight);
         density = dm.density;
         scaleDensity = dm.scaledDensity;
         xdpi = dm.xdpi;
@@ -185,12 +185,12 @@ public class ScreenUtil {
     }
 
     public static int getRealScreenWidth(Context context) {
-        if (Build.VERSION.SDK_INT >=Build.VERSION_CODES.JELLY_BEAN_MR1 ) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             DisplayMetrics dm = new DisplayMetrics();
             //获取的像素高度不包含虚拟键所占空间
             ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay()
                     .getRealMetrics(dm);
-            return Math.max(dm.widthPixels,dm.heightPixels);
+            return Math.max(dm.widthPixels, dm.heightPixels);
         } else {
             return getLandscapeWidth();
         }

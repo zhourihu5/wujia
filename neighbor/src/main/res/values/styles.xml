@@ -32,6 +32,7 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.6</item>
     </style>
+
     <declare-styleable name="FloatActionButton">
         <attr name="urv_fab_colorPressed" format="color" />
         <attr name="urv_fab_colorNormal" format="color" />

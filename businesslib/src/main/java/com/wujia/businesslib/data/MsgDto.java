@@ -4,9 +4,9 @@ import java.util.List;
 
 public class MsgDto {
 
-    public static final String TYPE_PROPERTY="1";//物业消息
-    public static final String TYPE_NOTIFY="2";//社区公告
-    public static final String TYPE_SYSTEM="0";//系统通知
+    public static final String TYPE_PROPERTY = "1";//物业消息
+    public static final String TYPE_NOTIFY = "2";//社区公告
+    public static final String TYPE_SYSTEM = "0";//系统通知
 
     public enum MessageType {
 
@@ -36,11 +36,11 @@ public class MsgDto {
 //    SQ("社区通知");
 
 
-    public static final int STATUS_READ=1;
-    public static final int STATUS_UNREAD=0;
+    public static final int STATUS_READ = 1;
+    public static final int STATUS_UNREAD = 0;
 
-    public static final String getTypeText(MsgDto.ContentBean data){
-        switch (data.getType()){
+    public static final String getTypeText(MsgDto.ContentBean data) {
+        switch (data.getType()) {
             case TYPE_NOTIFY:
                 return MessageType.SQ.getName();
             case TYPE_PROPERTY:
@@ -51,8 +51,6 @@ public class MsgDto {
         }
         return "";
     }
-
-
 
 
     /**
@@ -291,7 +289,7 @@ public class MsgDto {
         private String content;
         private String createDate;
         private int id;
-//        private String status;
+        //        private String status;
         private String title;
         private String type;
         private int userId;

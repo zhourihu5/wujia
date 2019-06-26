@@ -47,7 +47,7 @@ public abstract class OptionsButton implements Serializable {
         return this;
     }
 
-    public OptionsButton rightTextSize(int rightTextSize){
+    public OptionsButton rightTextSize(int rightTextSize) {
         this.rightTextSize = rightTextSize;
         return this;
     }
@@ -72,7 +72,7 @@ public abstract class OptionsButton implements Serializable {
         return this;
     }
 
-    public OptionsButton navigateTextSize(int navigateTextSize){
+    public OptionsButton navigateTextSize(int navigateTextSize) {
         this.navigateTextSize = navigateTextSize;
         return this;
     }

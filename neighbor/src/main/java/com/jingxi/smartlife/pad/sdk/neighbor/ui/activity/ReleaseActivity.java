@@ -69,7 +69,7 @@ public class ReleaseActivity extends AppCompatActivity implements View.OnClickLi
     private MyEditText et_releaseContent;
 
     private List<RelativeLayout> imageViewList;
-//    private SelectPicUtil selectPicUtil;
+    //    private SelectPicUtil selectPicUtil;
     private LoadingDialog loadingDialog;
     /**
      * 准备上传的图片名称及新加的名称
@@ -353,7 +353,7 @@ public class ReleaseActivity extends AppCompatActivity implements View.OnClickLi
 
         if (resultCode == RESULT_OK) {
             if (requestCode == CameraUtil.PHOTO_REQUEST_CODE) {
-                ImageUtil.getImageFileFromUri(this.getContentResolver(),intent.getData())
+                ImageUtil.getImageFileFromUri(this.getContentResolver(), intent.getData())
                         .subscribe(new Observer<File>() {
                             @Override
                             public void onSubscribe(Disposable d) {
@@ -373,7 +373,7 @@ public class ReleaseActivity extends AppCompatActivity implements View.OnClickLi
 
                             @Override
                             public void onError(Throwable e) {
-                                if(e instanceof FileNotFoundException){
+                                if (e instanceof FileNotFoundException) {
                                     ToastUtil.showToast("文件不存在");
                                     return;
                                 }
@@ -467,10 +467,10 @@ public class ReleaseActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(selectDateDialog != null){
+        if (selectDateDialog != null) {
             selectDateDialog.setAction(null);
         }
-        if(selectPicUtil != null){
+        if (selectPicUtil != null) {
             selectPicUtil.dismiss();
         }
     }

@@ -37,7 +37,7 @@
             android:background="@drawable/rectangle_takephoto_bottom"
             android:text="@string/chooseFromAlbum"
             android:textColor="@color/color_ff4483f8"
-            android:textSize="@dimen/sp_24"/>
+            android:textSize="@dimen/sp_24" />
 
         <Button
             android:id="@+id/btn_cancel"
@@ -50,8 +50,7 @@
             android:layout_weight="1"
             android:background="@drawable/rectangle_takephoto"
             android:text="@string/cancel"
-            android:textSize="@dimen/sp_24"
-            />
+            android:textSize="@dimen/sp_24" />
     </LinearLayout>
 </RelativeLayout>
 

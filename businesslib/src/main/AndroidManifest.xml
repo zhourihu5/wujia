@@ -6,7 +6,7 @@
         <activity
             android:name=".base.WebViewActivity"
             android:screenOrientation="landscape"
-            android:process=":webview"/>
+            android:process=":webview" />
 
     </application>
 </manifest>

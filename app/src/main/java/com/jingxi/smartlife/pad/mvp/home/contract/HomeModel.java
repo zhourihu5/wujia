@@ -27,6 +27,7 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
         return mHttpHelper.create(MainAppApiService.class).getQuickCard().compose(RxUtil.<HomeRecBean>rxSchedulerHelper());
 
     }
+
     public Flowable<ApiResponse<CardDetailBean>> getCardDetail(String cardId) {
         return mHttpHelper.create(MainAppApiService.class).getCardDetail(cardId).compose(RxUtil.<ApiResponse<CardDetailBean>>rxSchedulerHelper());
 
@@ -39,20 +40,21 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
     }
 
     @Override
-    public Flowable<RootResponse> addUserQuickCard( String quickCardId) {
-        return mHttpHelper.create(MainAppApiService.class).addUserQuickCard( quickCardId).compose(RxUtil.<RootResponse>rxSchedulerHelper());
+    public Flowable<RootResponse> addUserQuickCard(String quickCardId) {
+        return mHttpHelper.create(MainAppApiService.class).addUserQuickCard(quickCardId).compose(RxUtil.<RootResponse>rxSchedulerHelper());
 
     }
 
     @Override
-    public Flowable<RootResponse> removeUserQuickCard( String quickCardId) {
-        return mHttpHelper.create(MainAppApiService.class).removeUserQuickCard( quickCardId).compose(RxUtil.<RootResponse>rxSchedulerHelper());
+    public Flowable<RootResponse> removeUserQuickCard(String quickCardId) {
+        return mHttpHelper.create(MainAppApiService.class).removeUserQuickCard(quickCardId).compose(RxUtil.<RootResponse>rxSchedulerHelper());
     }
 
     @Override
     public Flowable<WeatherInfoBean> getWeather() {
         return mHttpHelper.create(MainAppApiService.class).getWeather().compose(RxUtil.<WeatherInfoBean>rxSchedulerHelper());
     }
+
     @Override
     public Flowable<HomeUserInfoBean> getHomeUserInfo(String key) {
         return mHttpHelper.create(MainAppApiService.class).getHomeUserInfo(key).compose(RxUtil.<HomeUserInfoBean>rxSchedulerHelper());

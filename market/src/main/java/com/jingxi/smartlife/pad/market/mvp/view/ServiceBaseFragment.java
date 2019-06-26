@@ -43,13 +43,13 @@ import io.reactivex.schedulers.Schedulers;
 public abstract class ServiceBaseFragment<T extends BasePresenter> extends MvpFragment<T> {
     DownloadTask mTask;
 
-    protected FindServiceChildAdapter getAdapter(final List<CardDetailBean.ServicesBean> datas ) {
-        final BusModel busModel=new BusModel();
+    protected FindServiceChildAdapter getAdapter(final List<CardDetailBean.ServicesBean> datas) {
+        final BusModel busModel = new BusModel();
         final FindServiceChildAdapter mAdapter = new FindServiceChildAdapter(mContext, datas);
-        mAdapter.setSubsribeClickCallback( new FindServiceChildAdapter.SubsribeClickCallback() {
+        mAdapter.setSubsribeClickCallback(new FindServiceChildAdapter.SubsribeClickCallback() {
             @Override
             public void subscibe(final CardDetailBean.ServicesBean item) {
-                addSubscribe(busModel.subscribe(item.getId()+"","1").subscribeWith(new SimpleRequestSubscriber<ApiResponse<Object>>(ServiceBaseFragment.this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                addSubscribe(busModel.subscribe(item.getId() + "", "1").subscribeWith(new SimpleRequestSubscriber<ApiResponse<Object>>(ServiceBaseFragment.this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
                     @Override
                     public void onResponse(ApiResponse<Object> response) {
                         super.onResponse(response);
@@ -67,14 +67,14 @@ public abstract class ServiceBaseFragment<T extends BasePresenter> extends MvpFr
 
             @Override
             public void unsubscibe(final CardDetailBean.ServicesBean item, int pos) {
-                addSubscribe(busModel.subscribe(item.getId()+"","0").subscribeWith(new SimpleRequestSubscriber<ApiResponse<Object>>(ServiceBaseFragment.this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                addSubscribe(busModel.subscribe(item.getId() + "", "0").subscribeWith(new SimpleRequestSubscriber<ApiResponse<Object>>(ServiceBaseFragment.this, new SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
                     @Override
                     public void onResponse(ApiResponse<Object> response) {
                         super.onResponse(response);
                         item.setIsSubscribe(0);
                         mAdapter.notifyDataSetChanged();
                         EventBusUtil.post(new EventSubscription(item.getType()));
-                        if(item.getFlag()==CardDetailBean.TYPE_NATIVE){
+                        if (item.getFlag() == CardDetailBean.TYPE_NATIVE) {
                             uninstall(item);
                         }
                     }
@@ -147,6 +147,7 @@ public abstract class ServiceBaseFragment<T extends BasePresenter> extends MvpFr
             }
         }
     }
+
     public void downloadAndInstall(final CardDetailBean.ServicesBean item) {
         LogUtil.i("downloadAndInstall");
 
@@ -156,7 +157,7 @@ public abstract class ServiceBaseFragment<T extends BasePresenter> extends MvpFr
             LogUtil.i("apk path = " + apkPath);
 
             final LoadingProgressDialog loadDialog = new LoadingProgressDialog(mContext);
-             mTask = DownloadUtil.download(item.getUrl(), new DownloadListener() {
+            mTask = DownloadUtil.download(item.getUrl(), new DownloadListener() {
                 @Override
                 public void onTaskStart() {
 
@@ -203,7 +204,7 @@ public abstract class ServiceBaseFragment<T extends BasePresenter> extends MvpFr
                                             } else {
                                                 ToastUtil.showShort(mContext, "安装失败");
                                             }
-                                            if(!AppUtil.startAPPByPackageName(item.getPackageName())){
+                                            if (!AppUtil.startAPPByPackageName(item.getPackageName())) {
                                                 ToastUtil.showShort(mContext, "应用打开失败");
                                             }
 

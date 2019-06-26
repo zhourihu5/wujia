@@ -31,7 +31,7 @@ public class MessageHomeFragment extends TabFragment {
     public static MessageHomeFragment newInstance(int currentTab) {
         MessageHomeFragment fragment = new MessageHomeFragment();
         Bundle args = new Bundle();
-        fragment.currentTab=currentTab;
+        fragment.currentTab = currentTab;
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,7 +66,7 @@ public class MessageHomeFragment extends TabFragment {
         mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_all_default, R.mipmap.icon_news_leftnav_all_highlight, R.string.all_msg))
                 .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_property_default, R.mipmap.icon_news_leftnav_property_highlight, R.string.wuye_notify))
                 .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_community_default, R.mipmap.icon_news_leftnav_community_highlight, R.string.shequ_notify))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_system_default, R.mipmap.icon_news_leftnav_system_highlight,R.string.app_notify));
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_system_default, R.mipmap.icon_news_leftnav_system_highlight, R.string.app_notify));
 
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {
             @Override
@@ -77,10 +77,10 @@ public class MessageHomeFragment extends TabFragment {
                         type = "1";
                         break;
                     case 2:
-                        type ="2";
+                        type = "2";
                         break;
                     case 3:
-                        type="0";//系统消息
+                        type = "0";//系统消息
                         break;
                 }
                 msgFragment.setType(type);

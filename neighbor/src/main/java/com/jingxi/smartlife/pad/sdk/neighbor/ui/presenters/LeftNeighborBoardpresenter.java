@@ -155,15 +155,15 @@ public class LeftNeighborBoardpresenter implements ILeftNeighborBoardPresenter {
             } else {
                 otherAccId = JXContextWrapper.accid;
             }
-            JXPadSdk.getNeighborManager().getNeighborBoardList("",String.valueOf(pageIndex), otherAccId)
+            JXPadSdk.getNeighborManager().getNeighborBoardList("", String.valueOf(pageIndex), otherAccId)
                     .subscribe(action);
         } else if (detailtype == 1) {
 //            NeighborhoodUtil.getAboutMeNeighborList("notice", String.valueOf(pageIndex), action);
         } else if (detailtype == 2) {
-            JXPadSdk.getNeighborManager().getAboutMeNeighborList(PadHttpParams.NeighborHood.Value.SCENE_FAVOUR,String.valueOf(pageIndex))
+            JXPadSdk.getNeighborManager().getAboutMeNeighborList(PadHttpParams.NeighborHood.Value.SCENE_FAVOUR, String.valueOf(pageIndex))
                     .subscribe(action);
         } else if (detailtype == 3) {
-            JXPadSdk.getNeighborManager().getAboutMeNeighborList(PadHttpParams.NeighborHood.Value.SCENE_ACTIVITY,String.valueOf(pageIndex))
+            JXPadSdk.getNeighborManager().getAboutMeNeighborList(PadHttpParams.NeighborHood.Value.SCENE_ACTIVITY, String.valueOf(pageIndex))
                     .subscribe(action);
         }
     }
@@ -293,7 +293,7 @@ public class LeftNeighborBoardpresenter implements ILeftNeighborBoardPresenter {
             } else {
                 otherAccId = JXContextWrapper.accid;
             }
-            JXPadSdk.getNeighborManager().getNeighborBoardList("",String.valueOf(pageIndex),otherAccId)
+            JXPadSdk.getNeighborManager().getNeighborBoardList("", String.valueOf(pageIndex), otherAccId)
                     .subscribe(loadMoreAction);
         } else if (detailtype == 1) {
 //            NeighborhoodUtil.getAboutMeNeighborList("notice", String.valueOf(pageIndex), loadMoreAction);
@@ -407,7 +407,7 @@ public class LeftNeighborBoardpresenter implements ILeftNeighborBoardPresenter {
                     .map(new Function<List<NeighborInfoBean>, List<NeighborInfoBean>>() {
                         @Override
                         public List<NeighborInfoBean> apply(List<NeighborInfoBean> infoBeans) throws Exception {
-                            if(infoBeans.size() >= NeighborhoodUtil.PAGESIZE ){
+                            if (infoBeans.size() >= NeighborhoodUtil.PAGESIZE) {
                                 hasMore = false;
                             }
                             return NeighborhoodUtil.getDuplicatedList(neighborInfoList, infoBeans);

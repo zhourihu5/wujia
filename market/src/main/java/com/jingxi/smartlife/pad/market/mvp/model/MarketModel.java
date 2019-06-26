@@ -13,10 +13,10 @@ import io.reactivex.Flowable;
  * date ：2019-01-27
  * description ：
  */
-public class MarketModel extends BaseModel  {
+public class MarketModel extends BaseModel {
 
     public Flowable<ApiResponse<ServiceDto>> getServiceList(String type, int pageIndex, int pageSize) {
-        return mHttpHelper.create(MarketApiService.class).getServiceList(type,  pageIndex, pageSize).compose(RxUtil.<ApiResponse<ServiceDto>>rxSchedulerHelper());
+        return mHttpHelper.create(MarketApiService.class).getServiceList(type, pageIndex, pageSize).compose(RxUtil.<ApiResponse<ServiceDto>>rxSchedulerHelper());
     }
 
 }
