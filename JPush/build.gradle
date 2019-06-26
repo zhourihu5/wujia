@@ -16,7 +16,7 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion build_versions.target_sdk
 
     sourceSets {
         main {

@@ -12,13 +12,14 @@ public class LoginUtil {
         try {
             Activity currentActivity = BaseApplication.getCurrentAcitivity();
             Context context = AppContext.get();
-//            if (currentActivity != null) {
-//                context = currentActivity;
-//            }
-
             Intent intent = new Intent();
+            if (currentActivity != null) {
+                context = currentActivity;
+            }else {
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);//applicationcontext 启动只能以newtask
+            }
+
             intent.setClassName(context, "com.jingxi.smartlife.pad.mvp.login.LoginActivity");
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);//applicationcontext 启动只能以newtask
             context.startActivity(intent);
             if (currentActivity != null) {
                 currentActivity.finish();

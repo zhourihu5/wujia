@@ -50,6 +50,9 @@ def getInnnerVersionName() {
 }
 
 dependencies {
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':businesslib')
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     annotationProcessor deps.butterknife.compiler
@@ -70,5 +73,5 @@ dependencies {
     // Optional, if you use support library fragments:
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
 
-//    debugImplementation 'com.iqiyi.xcrash:xcrash-android-lib:2.1.7'//todo just for debug
+//    debugImplementation 'com.iqiyi.xcrash:xcrash-android-lib:2.1.7'// just for debug
 }

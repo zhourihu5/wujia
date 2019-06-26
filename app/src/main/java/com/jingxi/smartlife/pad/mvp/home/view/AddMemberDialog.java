@@ -10,6 +10,7 @@ import android.widget.EditText;
 import com.jingxi.smartlife.pad.R;
 import com.jingxi.smartlife.pad.mvp.home.adapter.HomeInviteAdapter;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean;
+import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.dialog.CommDialog;
 import com.wujia.businesslib.listener.OnInputDialogListener;
 import com.wujia.lib.widget.util.ToastUtil;
@@ -60,6 +61,12 @@ public class AddMemberDialog extends CommDialog {
                 }
             }
         });
+    }
+
+    @Override
+    public void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        HookUtil.fixInputMethodManagerLeak(getContext());
     }
 
     public String getHeadUrl() {

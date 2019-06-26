@@ -1,6 +1,12 @@
 package com.jingxi.smartlife.pad.host;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
+import android.widget.Toast;
+
 import com.jingxi.smartlife.pad.BuildConfig;
+import com.jingxi.smartlife.pad.mvp.FloatingButtonService;
 import com.squareup.leakcanary.LeakCanary;
 import com.umeng.commonsdk.UMConfigure;
 import com.wujia.businesslib.HookUtil;
@@ -29,6 +35,7 @@ public class HostApp extends BaseApplication {
 
         NetworkUtil.getNetWork(instance);
         HookUtil.hookWebView();
+        HookUtil.fixFocusedViewLeak(this);
         JPushInterface.setDebugMode(BuildConfig.DEBUG); 	// 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);     		// 初始化 JPush
 
@@ -99,6 +106,25 @@ public class HostApp extends BaseApplication {
 //                    }
 //                })
 //                .install();
+    }
+
+    @Override
+    protected void runInbackGround() {
+        if (FloatingButtonService.isStarted) {
+            stopService(new Intent(this, FloatingButtonService.class));
+            return;
+        }
+        if (!Settings.canDrawOverlays(this)) {
+//            Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT);
+//            startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 0);
+        } else {
+            startService(new Intent(this, FloatingButtonService.class));
+        }
+    }
+
+    @Override
+    protected void runInForeGround() {
+        stopService(new Intent(this, FloatingButtonService.class));
     }
 
     /*private void sendThenDeleteCrashLog(String logPath, String emergency) {

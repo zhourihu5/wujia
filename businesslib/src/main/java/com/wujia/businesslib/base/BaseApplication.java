@@ -10,11 +10,13 @@ import com.wujia.lib_common.utils.AppContext;
 import com.wujia.lib_common.utils.SystemUtil;
 
 import java.lang.ref.WeakReference;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class BaseApplication extends Application {
+public abstract class BaseApplication extends Application {
 
     protected static BaseApplication instance;
     String TAG="wujia";
+//    private static volatile int mFinalCount;
     protected static WeakReference<Activity> currentActivity;
     public static Activity getCurrentAcitivity(){
         if(currentActivity!=null){
@@ -33,13 +35,19 @@ public class BaseApplication extends Application {
 
 
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            AtomicInteger mFinalCount=new AtomicInteger(0);
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                currentActivity=new WeakReference<>(activity);
+
             }
 
             @Override
             public void onActivityStarted(Activity activity) {
+                //说明从后台回到了前台
+                if(mFinalCount.incrementAndGet()==1){
+                    runInForeGround();
+                }
+                currentActivity=new WeakReference<>(activity);
 
             }
 
@@ -55,7 +63,10 @@ public class BaseApplication extends Application {
 
             @Override
             public void onActivityStopped(Activity activity) {
-
+                //说明从前台回到了后台
+                if( mFinalCount.decrementAndGet()<=0){//fixme some times more than one,maybe we have start the same
+                    runInbackGround();
+                }
             }
 
             @Override
@@ -69,6 +80,11 @@ public class BaseApplication extends Application {
             }
         });
     }
+    protected abstract void runInbackGround();
+    protected abstract void runInForeGround();
+//    public static boolean isInbackground(){
+//        return mFinalCount<=0;
+//    }
 
     private void initSDKManager() {
         JXPadSdk.init(instance);

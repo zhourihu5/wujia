@@ -17,6 +17,7 @@ import com.jingxi.smartlife.pad.mvp.MainActivity;
 import com.jingxi.smartlife.pad.mvp.login.contract.LoginContract;
 import com.jingxi.smartlife.pad.mvp.login.presenter.LoginPresenter;
 import com.wujia.businesslib.Constants;
+import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpActivity;
 import com.wujia.businesslib.data.LoginDTO;
@@ -165,6 +166,14 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         if (codeCountDownTimer != null) {
             codeCountDownTimer.cancel();
         }
+        HookUtil.fixInputMethodManagerLeak(this);//fixme memory leack,inputmethodmanager caused.
+        if(loginPassword!=null){
+            loginPassword.setTransformationMethod(null);
+            loginPassword=null;
+        }
+        if(loginAccount!=null){
+            loginAccount=null;
+        }
     }
 
     private void login() {
@@ -185,6 +194,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         mPresenter.doLogin(phone, pwd, sn);
 
     }
+
 
     @Override
     protected LoginPresenter createPresenter() {

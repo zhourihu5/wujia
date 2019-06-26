@@ -458,7 +458,9 @@ public class SafeOutsideFragment extends BaseFragment implements
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         isTouchSeek = false;
-        mDoorAccessManager.seekPlayBack(playBackSessionId, seek * 100 / max);
+        if(max>0&&seek>0){
+            mDoorAccessManager.seekPlayBack(playBackSessionId, seek * 100 / max);
+        }
     }
 
     @Override
