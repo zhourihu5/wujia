@@ -1,5 +1,7 @@
 package com.jingxi.smartlife.pad.safe.mvp.view;
 
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.SurfaceHolder;
@@ -34,6 +36,9 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
     private ImageButton btnCall;
     private boolean btnCallFlag;
 
+    private SoundPool mSoundPool;
+    private int sampleId;
+    private int mCurrentId;
 
     @Override
     protected int getLayout() {
@@ -64,7 +69,7 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
         loadingDialog.setTitle("正在连接中...");
         loadingDialog.show();
 
-        runnable = new Runnable() {
+        runnable = new Runnable() {//todo remove it,and add SurfaceHolder.Callback
             @Override
             public void run() {
                 updateSurface();
@@ -74,6 +79,34 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
                 }
             }
         };
+
+        mSoundPool = new SoundPool(1, AudioManager.STREAM_VOICE_CALL,0);
+        mSoundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                if(!ringStoped){
+                    startRing();
+                }
+            }
+        });
+        sampleId=  mSoundPool.load(mContext, R.raw.call_ring,1);
+
+        surfaceView.getHolder().addCallback(this);
+        LogUtil.i("initEventAndData");
+    }
+    void startRing(){
+        stopRing();
+        mCurrentId = mSoundPool.play(sampleId, 1f, 1f, 1,  -1 , 1);
+        LogUtil.i("mCurrentId=="+mCurrentId);
+    }
+    boolean ringStoped=false;
+    private void stopRing(){
+        LogUtil.i("stopRing");
+        if(mCurrentId!=0){
+            mSoundPool.stop(mCurrentId);
+//            mCurrentId=0;
+        }
+        ringStoped=true;
     }
 
     @Override
@@ -82,6 +115,7 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
             finish();
         } else if (v.getId() == R.id.btn3) {//接听
             if (!btnCallFlag) {
+                stopRing();
                 manager.acceptCall(sessionId);
                 btnCall.setBackgroundResource(R.mipmap.btn_safe_hangup);
             } else {
@@ -100,21 +134,48 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void finish() {
+        LogUtil.i("finish");
+        stopRing();
         manager.hangupCall(sessionId);
         super.finish();
     }
 
     @Override
     protected void onDestroy() {
+        LogUtil.i("onDestroy");
         super.onDestroy();
         if (null != runnable && null != surfaceView) {
             surfaceView.removeCallbacks(runnable);
         }
         DoorAccessManager.getInstance().removeConversationUIListener(this);
+        if(mSoundPool!=null){
+            stopRing();
+            mSoundPool.setOnLoadCompleteListener(null);
+            try {
+                mSoundPool.release();//fixme
+                //06-26 20:02:31.900 10264-10272/com.jingxi.smartlife.pad E/System: Uncaught exception thrown by finalizer
+//                06-26 20:02:31.901 10264-10272/com.jingxi.smartlife.pad E/System: java.lang.NullPointerException: Attempt to invoke interface method 'android.os.IBinder com.android.internal.app.IAppOpsCallback.asBinder()' on a null object reference
+//                at android.os.Parcel.readException(Parcel.java:1626)
+//                at android.os.Parcel.readException(Parcel.java:1573)
+//                at com.android.internal.app.IAppOpsService$Stub$Proxy.stopWatchingMode(IAppOpsService.java:420)
+//                at android.media.SoundPool.release(SoundPool.java:194)
+//                at android.media.SoundPool.finalize(SoundPool.java:203)
+//                at java.lang.Daemons$FinalizerDaemon.doFinalize(Daemons.java:202)
+//                at java.lang.Daemons$FinalizerDaemon.run(Daemons.java:185)
+//                at java.lang.Thread.run(Thread.java:818)
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
+        LogUtil.i("surfaceCreated");
+        frore.setVisibility(View.GONE);
+        if (loadingDialog != null) {
+            loadingDialog.dismiss();
+        }
         manager.updateCallWindow(sessionId, surfaceView);
     }
 
@@ -125,14 +186,15 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+        LogUtil.i("surfaceDestroyed");
         manager.updateCallWindow(sessionId, null);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        updateSurface();
-        surfaceView.postDelayed(runnable, 1000);
+//        updateSurface();
+//        surfaceView.postDelayed(runnable, 1000);
     }
 
     public void updateSurface() {

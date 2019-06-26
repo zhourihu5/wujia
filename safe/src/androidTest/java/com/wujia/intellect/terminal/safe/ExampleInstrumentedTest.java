@@ -1,8 +1,11 @@
 package com.jingxi.smartlife.pad.safe;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+
+import com.jingxi.smartlife.pad.safe.mvp.view.VideoCallActivity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +23,7 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
+
 
         assertEquals("com.jingxi.smartlife.pad.safe.test", appContext.getPackageName());
     }

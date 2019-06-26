@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.os.ServiceManager;
 import android.service.dreams.IDreamManager;
@@ -152,6 +153,12 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
         setMessagePoint();
 
         EventBusUtil.register(eventMsg);
+//        new Handler().postDelayed(new Runnable() {//todo test
+//            @Override
+//            public void run() {
+//                onRinging("test");//todo test
+//            }
+//        },2000);
     }
 
     private void initTab() {
