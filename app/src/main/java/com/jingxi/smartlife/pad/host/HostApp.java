@@ -1,9 +1,11 @@
 package com.jingxi.smartlife.pad.host;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.provider.Settings;
-import android.widget.Toast;
 
 import com.jingxi.smartlife.pad.BuildConfig;
 import com.jingxi.smartlife.pad.mvp.FloatingButtonService;
@@ -13,7 +15,11 @@ import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.base.BaseApplication;
 import com.wujia.lib_common.utils.NetworkUtil;
 
+import java.util.List;
+
 import cn.jpush.android.api.JPushInterface;
+
+import static android.content.pm.PackageManager.GET_SERVICES;
 //import xcrash.TombstoneParser;
 
 /**
@@ -107,13 +113,50 @@ public class HostApp extends BaseApplication {
 //                })
 //                .install();
     }
+    boolean isInMainProcess(){
+        Context context=this;
+        PackageManager packageManager = context.getPackageManager();
+        PackageInfo packageInfo;
+        try {
+            packageInfo = packageManager.getPackageInfo(context.getPackageName(), GET_SERVICES);
+        } catch (Exception e) {
+//            CanaryLog.d(e, "Could not get package info for %s", context.getPackageName());
+            return true;
+        }
+        String mainProcess = packageInfo.applicationInfo.processName;
 
+        int myPid = android.os.Process.myPid();
+        ActivityManager activityManager =
+                (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager.RunningAppProcessInfo myProcess = null;
+        List<ActivityManager.RunningAppProcessInfo> runningProcesses;
+        try {
+            runningProcesses = activityManager.getRunningAppProcesses();
+        } catch (SecurityException exception) {
+            // https://github.com/square/leakcanary/issues/948
+//            CanaryLog.d("Could not get running app processes %d", exception);
+            return true;
+        }
+        if (runningProcesses != null) {
+            for (ActivityManager.RunningAppProcessInfo process : runningProcesses) {
+                if (process.pid == myPid) {
+                    myProcess = process;
+                    break;
+                }
+            }
+        }
+        if (myProcess == null) {
+//            CanaryLog.d("Could not find running process for %d", myPid);
+            return true;
+        }
+
+        return myProcess.processName.equals(mainProcess);
+    }
     @Override
     protected void runInbackGround() {
-        if (FloatingButtonService.isStarted) {
-            stopService(new Intent(this, FloatingButtonService.class));
-            return;
-        }
+//        if(!isInMainProcess()){
+//            return;
+//        }
         if (!Settings.canDrawOverlays(this)) {
 //            Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT);
 //            startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 0);
@@ -124,6 +167,9 @@ public class HostApp extends BaseApplication {
 
     @Override
     protected void runInForeGround() {
+//        if(!isInMainProcess()){
+//            return;
+//        }
         stopService(new Intent(this, FloatingButtonService.class));
     }
 

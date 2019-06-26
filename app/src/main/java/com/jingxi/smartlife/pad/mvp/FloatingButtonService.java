@@ -31,18 +31,17 @@ import java.util.List;
 
 public class FloatingButtonService extends Service {
     private static final String TAG = "FloatingButtonService";
-    public static boolean isStarted = false;
+//    public static boolean isStarted = false;
 
     private WindowManager windowManager;
     private WindowManager.LayoutParams layoutParams;
 
     private View floatingView;
     private long startTime;
+    boolean isAdded=false;
     @Override
     public void onCreate() {
         super.onCreate();
-        startTime=System.currentTimeMillis();
-        isStarted = true;
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         layoutParams = new WindowManager.LayoutParams();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -64,7 +63,7 @@ public class FloatingButtonService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        isStarted=false;
+//        isStarted=false;
         removeFloatingWindow();
     }
 
@@ -75,16 +74,29 @@ public class FloatingButtonService extends Service {
     }
 
     @Override
+    public boolean onUnbind(Intent intent) {
+
+        return super.onUnbind(intent);
+    }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        startTime=System.currentTimeMillis();
+//        isStarted = true;
         showFloatingWindow();
-        return super.onStartCommand(intent, flags, startId);
+        int resutl= super.onStartCommand(intent, flags, startId);
+        stopIfCurrentApp();
+        return resutl;
     }
     void removeFloatingWindow(){
-        windowManager.removeView(floatingView);
+        if(isAdded){
+            windowManager.removeView(floatingView);
+            isAdded=false;
+        }
 //        windowManager.removeViewImmediate(floatingView);
     }
     private void showFloatingWindow() {
-        if (Settings.canDrawOverlays(this)) {
+        if (Settings.canDrawOverlays(this)&&!isAdded) {
             floatingView=View.inflate(getApplicationContext(),R.layout.floating_back,null);
 //           floatingView = new Button(getApplicationContext());
 //            floatingView.setText("go home");
@@ -93,7 +105,7 @@ public class FloatingButtonService extends Service {
             windowManager.addView(floatingView, layoutParams);
 
             floatingView.setOnTouchListener(new FloatingOnTouchListener());
-
+            isAdded=true;
         }
     }
 
@@ -163,10 +175,7 @@ public class FloatingButtonService extends Service {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 LogUtil.i("onSingleTapUp");
-                if(getPackageName().equals(getTopActivityPackage())){
-                    stopSelf();
-                    return false;
-                }
+                if (stopIfCurrentApp()) return false;
                 closeWPS(getTopActivityPackage());//todo optimize it to go to the same page  before.
 //                    closeWPS("com.jingxi.smartlife.pad");
 //                    try {
@@ -220,5 +229,13 @@ public class FloatingButtonService extends Service {
             gestureDetector.onTouchEvent(event);
             return false;
         }
+    }
+
+    protected boolean stopIfCurrentApp() {
+        if(getPackageName().equals(getTopActivityPackage())){
+            stopSelf();
+            return true;
+        }
+        return false;
     }
 }
