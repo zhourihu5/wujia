@@ -238,7 +238,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
             tagAliasBeanTag.tags = tags;
             tagAliasBeanTag.action = TagAliasOperatorHelper.ACTION_SET;
-            TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(), TagAliasOperatorHelper.sequence, tagAliasBean);
+            TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(), TagAliasOperatorHelper.sequence, tagAliasBeanTag);
 
 
             loginPhoneError.setVisibility(View.INVISIBLE);

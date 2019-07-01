@@ -7,8 +7,8 @@ package com.wujia.businesslib;
 public class Constants {
     //    public static final String BASE_URL = "https://openapi.house-keeper.cn";
 //    public static final String BASE_URL = "http://39.97.186.122:8081";
-    public static final String BASE_URL = "http://api.home-guard.cn";
-//    public static final String BASE_URL = "http://192.168.1.23:8081";
+//    public static final String BASE_URL = "http://api.home-guard.cn";
+    public static final String BASE_URL = "http://192.168.1.18:8081";
 
     public static final String HTTP_SUCESS = "200";
 
