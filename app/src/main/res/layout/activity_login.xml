@@ -147,6 +147,7 @@
                     android:id="@+id/login_verify_code_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="8dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="@string/send_verify_code"

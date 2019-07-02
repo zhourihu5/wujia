@@ -46,7 +46,8 @@ public class HomeCardAdapter extends MultiItemTypeAdapter<HomeRecBean.Card> {
 
             @Override
             public boolean isForViewType(HomeRecBean.Card item, int position) {
-                return item.type.equals(HomeRecBean.TYPE_LINK) || item.type.equals(HomeRecBean.TYPE_APP_PAGE);
+                return item.type.equals(HomeRecBean.TYPE_LINK) || item.type.equals(HomeRecBean.TYPE_APP_PAGE)
+                        ||item.type.equals(HomeRecBean.TYPE_IMAGE);
             }
 
             @Override
@@ -59,24 +60,25 @@ public class HomeCardAdapter extends MultiItemTypeAdapter<HomeRecBean.Card> {
             }
         });
 
-        addItemViewDelegate(2, new ItemViewDelegate<HomeRecBean.Card>() {
-            @Override
-            public int getItemViewLayoutId() {
-                return R.layout.item_home_rec_layout_2_shadow;
-            }
-
-            @Override
-            public boolean isForViewType(HomeRecBean.Card item, int position) {
-                return item.type.equals(HomeRecBean.TYPE_IMAGE);
-            }
-
-            @Override
-            public void convert(ViewHolder holder, HomeRecBean.Card item, int pos) {
-                ImageView img = holder.getView(R.id.scene_in_img);
-                ImageLoaderManager.getInstance().loadImage(item.image, R.mipmap.default_loading, img);
-                holder.setText(R.id.scene_in_mode_tv, item.title);
-            }
-        });
+//        addItemViewDelegate(2, new ItemViewDelegate<HomeRecBean.Card>() {
+//            @Override
+//            public int getItemViewLayoutId() {
+//                return R.layout.item_home_rec_layout_2_shadow;
+//            }
+//
+//            @Override
+//            public boolean isForViewType(HomeRecBean.Card item, int position) {
+//                return item.type.equals(HomeRecBean.TYPE_IMAGE);
+//            }
+//
+//            @Override
+//            public void convert(ViewHolder holder, HomeRecBean.Card item, int pos) {
+//                ImageView img = holder.getView(R.id.scene_in_img);
+//                ImageLoaderManager.getInstance().loadImage(item.image, R.mipmap.default_loading, img);
+//                holder.setText(R.id.scene_in_mode_tv, item.title);
+//                holder.setText(R.id.scene_in_mode_status_tv, item.getExplain());
+//            }
+//        });
         addItemViewDelegate(10, new ItemViewDelegate<HomeRecBean.Card>() {
             @Override
             public int getItemViewLayoutId() {

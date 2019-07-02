@@ -49,7 +49,7 @@ public class FindServiceChildAdapter extends CommonAdapter<CardDetailBean.Servic
     protected void convert(final ViewHolder holder, final CardDetailBean.ServicesBean item, final int pos) {
 
         ImageView img = holder.getView(R.id.img1);
-        ImageLoaderManager.getInstance().loadImage(item.getCover(), img);
+        ImageLoaderManager.getInstance().loadImage(item.getCover(),0, img);//placeholder should be passed
         holder.setText(R.id.tv1, item.getTitle());
         holder.setText(R.id.tv2, item.getMemo());
 

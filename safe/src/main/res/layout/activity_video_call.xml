@@ -1,7 +1,13 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.wujia.lib.widget.StencilFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    >
+    <!--android:background="@drawable/bg_videocall_ring_shape"-->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="@dimen/px940"
@@ -194,4 +200,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:background="@mipmap/btn_close_circle" />
-</FrameLayout>
+    </FrameLayout>
+</com.wujia.lib.widget.StencilFrameLayout>

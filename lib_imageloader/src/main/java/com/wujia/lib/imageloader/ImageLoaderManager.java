@@ -99,7 +99,7 @@ public class ImageLoaderManager {
     }
 
     public void loadImage(String url, ImageView imageView) {
-        mStrategy.loadImage(url, imageView);
+        mStrategy.loadImage(url,0, imageView);
     }
 
     public void loadImageWithAppCxt(String url, ImageView imageView) {

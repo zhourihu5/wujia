@@ -168,14 +168,26 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
                 break;
         }
     }
-
+    boolean isUnregistered=false;
     @Override
     public void pop() {
-        EventBusUtil.unregister(eventCardChange);
+        unRegisterCardChangeEvent();
         if (isChanged) {
             EventBusUtil.post(new EventCardChange());
         }
         super.pop();
+    }
+    private void unRegisterCardChangeEvent(){
+        if(!isUnregistered){
+            EventBusUtil.unregister(eventCardChange);
+            isUnregistered=true;
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unRegisterCardChangeEvent();
     }
 
     @Override
