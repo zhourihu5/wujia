@@ -1,5 +1,7 @@
 package com.wujia.businesslib.data;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -9,9 +11,11 @@ import java.io.Serializable;
  */
 public class Advert implements Serializable {
 
+    @SerializedName("url")
     public String href;//链接
+    @SerializedName("cover")
+    public String url;//图片
     public String title;
     public String type;
-    public String url;//图片
     public int id;
 }

@@ -1,2 +1,3 @@
-include ':app', ':lib_common', ':lib_imageloader', ':lib_uikit', ':businesslib', ':property', ':family', ':safe', ':message', ':market', ':neighbor', ':JPush'
-//, ':testforfloatingwindow'
+include ':app', ':lib_common', ':lib_imageloader', ':lib_uikit', ':businesslib', ':property',
+        ':family', ':safe', ':message', ':market', ':neighbor',
+        ':JPush' ,':testforfloatingwindow'
