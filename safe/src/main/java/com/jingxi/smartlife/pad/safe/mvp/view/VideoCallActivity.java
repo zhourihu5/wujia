@@ -17,6 +17,9 @@ import com.jingxi.smartlife.pad.sdk.doorAccess.DoorAccessManager;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorEvent;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessConversationUI;
 import com.wujia.businesslib.dialog.LoadingDialog;
+import com.wujia.businesslib.event.EventBaseButtonClick;
+import com.wujia.businesslib.event.EventBusUtil;
+import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.lib_common.base.BaseActivity;
 import com.wujia.lib_common.utils.LogUtil;
 
@@ -39,7 +42,14 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
     private SoundPool mSoundPool;
     private int sampleId;
     private int mCurrentId;
+    private View btn_safe_open;
 
+    private EventBaseButtonClick eventBaseButtonClick=new EventBaseButtonClick(new IMiessageInvoke<EventBaseButtonClick>() {
+        @Override
+        public void eventBus(EventBaseButtonClick event) {
+            onClick(btn_safe_open);
+        }
+    });
     @Override
     protected int getLayout() {
         return R.layout.activity_video_call;
@@ -57,7 +67,8 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
 
         btnCall = findViewById(R.id.btn3);
         btnCall.setOnClickListener(this);
-        findViewById(R.id.btn4).setOnClickListener(this);
+        btn_safe_open= findViewById(R.id.btn4);
+        btn_safe_open.setOnClickListener(this);
         findViewById(R.id.btn6).setOnClickListener(this);
         findViewById(R.id.btn9).setOnClickListener(this);
 
@@ -93,7 +104,9 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
 
         surfaceView.getHolder().addCallback(this);
         LogUtil.i("initEventAndData");
+        EventBusUtil.register(eventBaseButtonClick);
     }
+
     void startRing(){
         stopRing();
         mCurrentId = mSoundPool.play(sampleId, 1f, 1f, 1,  -1 , 1);
@@ -148,6 +161,7 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
             surfaceView.removeCallbacks(runnable);
         }
         DoorAccessManager.getInstance().removeConversationUIListener(this);
+        EventBusUtil.unregister(eventBaseButtonClick);
         if(mSoundPool!=null){
             stopRing();
             mSoundPool.setOnLoadCompleteListener(null);

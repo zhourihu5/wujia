@@ -41,6 +41,7 @@ import com.wujia.businesslib.HookUtil;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpActivity;
 import com.wujia.businesslib.data.ApiResponse;
+import com.wujia.businesslib.event.EventBaseButtonClick;
 import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventDoorDevice;
 import com.wujia.businesslib.event.EventMsg;
@@ -379,7 +380,14 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
 
     @Override
     public void onBaseButtonClick(String buttonKey, String cmd, String time) {//todo 底座按键回调
-
+        LogUtil.i(String.format("buttonKey=%s,cmd=%s,time=%s",buttonKey,cmd,time));
+        if(com.intercom.sdk.IntercomConstants.kButtonMonitor.equals(cmd)){
+            switchHomeTab(POSITION_SAFE,0);
+        }else if(com.intercom.sdk.IntercomConstants.kButtonUser.equals(cmd)){
+            switchHomeTab(POSITION_PROPERTY,0);
+        }else if(com.intercom.sdk.IntercomConstants.kButtonUnlock.equals(cmd)){
+            EventBusUtil.post(new EventBaseButtonClick());
+        }
     }
 
     @Override
