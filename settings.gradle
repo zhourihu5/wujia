@@ -1,3 +1,5 @@
 include ':app', ':lib_common', ':lib_imageloader', ':lib_uikit', ':businesslib', ':property',
-        ':family', ':safe', ':message', ':market', ':neighbor',
-        ':JPush' ,':testforfloatingwindow'
+        ':family', ':safe', ':message', ':market',
+        ':JPush'
+include ':neighbor'
+include ':testforfloatingwindow'

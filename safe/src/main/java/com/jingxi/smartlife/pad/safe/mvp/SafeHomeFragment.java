@@ -2,12 +2,15 @@ package com.jingxi.smartlife.pad.safe.mvp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.jingxi.smartlife.pad.safe.R;
 import com.jingxi.smartlife.pad.safe.mvp.view.SafeOutsideFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
-import com.wujia.lib_common.base.TabFragment;
+import com.wujia.businesslib.TabFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
 import me.yokeyword.fragmentation.SupportFragment;
@@ -18,7 +21,6 @@ import me.yokeyword.fragmentation.SupportFragment;
  * description ：智能家居 home
  */
 public class SafeHomeFragment extends TabFragment {
-    private VerticalTabBar mTabBar;
     private SupportFragment[] mFragments = new SupportFragment[4];
 
     public SafeHomeFragment() {
@@ -29,12 +31,24 @@ public class SafeHomeFragment extends TabFragment {
 
     public static SafeHomeFragment newInstance(int currentTag) {
         SafeHomeFragment fragment = new SafeHomeFragment();
-        Bundle args = new Bundle();
-        args.putInt(KEY_TAB, currentTag);
-        fragment.setArguments(args);
+        fragment.currentTab=currentTag;
+//        Bundle args = new Bundle();
+//        args.putInt(KEY_TAB, currentTag);
+//        fragment.setArguments(args);
         return fragment;
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    protected void interruptInject() {
+        super.interruptInject();
+
+    }
 
     @Override
     protected int getLayoutId() {
@@ -48,7 +62,7 @@ public class SafeHomeFragment extends TabFragment {
         super.onLazyInitView(savedInstanceState);
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
-        int tabIndex = getArguments().getInt(KEY_TAB);
+        getCurrentTab(savedInstanceState);
         mTabBar = $(R.id.tab_home_tab_bar);
 
         SupportFragment firstFragment = findFragment(SafeOutsideFragment.class);
@@ -58,7 +72,7 @@ public class SafeHomeFragment extends TabFragment {
 //            mFragments[2] = SafeOtherFragment.newInstance();
 //            mFragments[3] = SafeParkFragment.newInstance();
 //            loadMultipleRootFragment(R.id.tab_content_container, 0, mFragments[0], mFragments[1], mFragments[2], mFragments[3]);
-            loadMultipleRootFragment(R.id.tab_content_container, tabIndex, mFragments[0]);
+            loadMultipleRootFragment(R.id.tab_content_container, 0, mFragments[0]);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
@@ -79,6 +93,8 @@ public class SafeHomeFragment extends TabFragment {
             @Override
             public void onTabSelected(int position, int prePosition) {
                 showHideFragment(mFragments[position], mFragments[prePosition]);
+                currentTab =position;
+                parentSwitchTab();
             }
         });
     }
@@ -101,8 +117,4 @@ public class SafeHomeFragment extends TabFragment {
 
     }
 
-    @Override
-    public void switchTab(int pos) {
-        mTabBar.getChildAt(pos).performClick();
-    }
 }

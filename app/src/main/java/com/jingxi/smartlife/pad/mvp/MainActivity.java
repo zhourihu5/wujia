@@ -6,12 +6,11 @@ import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PersistableBundle;
 import android.os.ServiceManager;
 import android.service.dreams.IDreamManager;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -27,7 +26,6 @@ import com.jingxi.smartlife.pad.market.mvp.MarketHomeFragment;
 import com.jingxi.smartlife.pad.message.MessageFragment;
 import com.jingxi.smartlife.pad.message.mvp.MessageHomeFragment;
 import com.jingxi.smartlife.pad.mvp.home.HomeFragment;
-import com.jingxi.smartlife.pad.mvp.home.HomeHomeFragment;
 import com.jingxi.smartlife.pad.property.ProperyFragment;
 import com.jingxi.smartlife.pad.property.mvp.ProperyHomeFragment;
 import com.jingxi.smartlife.pad.safe.SafeFragment;
@@ -55,7 +53,7 @@ import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.BaseMainFragment;
 import com.wujia.lib_common.base.BasePresenter;
-import com.wujia.lib_common.base.TabFragment;
+import com.wujia.businesslib.TabFragment;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
 import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.LogUtil;
@@ -100,6 +98,7 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
     });
 
     BusModel busModel;
+    private int currentTab;
 
     private void setMessagePoint() {
         if (busModel == null) {
@@ -118,6 +117,19 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
                 super.onFailed(apiException);
             }
         }));
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState!=null){
+            currentTab=savedInstanceState.getInt(POSITION_KEY,currentTab);
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
     }
 
     @Override
@@ -168,8 +180,7 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
         mArrow = $(R.id.main_tab_arrow);
 
 
-        FragmentManager fm = getSupportFragmentManager();
-        SupportFragment firstFragment = findFragment(HomeHomeFragment.class);
+        SupportFragment firstFragment = findFragment(HomeFragment.class);
         if (firstFragment == null) {
             mFragments[0] = HomeFragment.newInstance();
             mFragments[1] = SafeFragment.newInstance();
@@ -180,7 +191,7 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
 //            mFragments[6] = NeighborFragment.newInstance();
             mFragments[6] = SettingFragment.newInstance();
 
-            loadMultipleRootFragment(R.id.container, 0,
+            loadMultipleRootFragment(R.id.container, currentTab,
                     mFragments[0],
                     mFragments[1],
                     mFragments[2],
@@ -212,16 +223,15 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
 //                .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_neighbor_default, R.mipmap.icon_leftnav_neighbor_selected, R.string.neighbor))
                 .addItem(new VerticalTabItem(this, R.mipmap.icon_leftnav_set_default, R.mipmap.icon_leftnav_set_selected, R.string.setting));
 
-
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
                 showHideFragment(mFragments[position], mFragments[prePosition]);
                 moveArrow(position);
+                currentTab=position;
             }
 
         });
-
         mTabBar.post(new Runnable() {
             @Override
             public void run() {
@@ -233,8 +243,10 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
                 lastTop = (itemHeight - arrowHeight) / 2;
                 arrowLayoutParams.topMargin = lastTop;
                 mArrow.setLayoutParams(arrowLayoutParams);
+                if(currentTab!=0){
+                    mTabBar.getChildAt(currentTab).performClick();
+                }
 
-//                mTabBar.getChildAt(5).performClick();
             }
         });
     }
@@ -295,14 +307,14 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
 
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-//        super.onSaveInstanceState(outState, outPersistentState);
+        super.onSaveInstanceState(outState, outPersistentState);
     }
-
+    static final String POSITION_KEY="position";
     @SuppressLint("MissingSuperCall")
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-
+        super.onSaveInstanceState(outState);
+        outState.putInt(POSITION_KEY,currentTab);
     }
 
     private void moveArrow(int pos) {

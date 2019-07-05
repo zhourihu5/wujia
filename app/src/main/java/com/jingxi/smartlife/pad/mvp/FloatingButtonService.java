@@ -21,6 +21,9 @@ import android.view.WindowManager;
 import com.jingxi.smartlife.pad.R;
 import com.wujia.lib_common.utils.LogUtil;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -112,15 +115,45 @@ public class FloatingButtonService extends Service {
     }
 
     private void closeWPS(String packageName) {
+        stopApp(packageName);
+//        try {
+//            ActivityManager m = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+//            Method method = m.getClass().getMethod("forceStopPackage", String.class);
+//            method.setAccessible(true);
+//            method.invoke(m, packageName);
+////            finish();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+    }
+    public static void stopApp(String packageName) {
+        Process process = null;
         try {
-            ActivityManager m = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-            Method method = m.getClass().getMethod("forceStopPackage", String.class);
-            method.setAccessible(true);
-            method.invoke(m, packageName);
-//            finish();
+            Runtime runtime = Runtime.getRuntime();
+            String command = "am force-stop " + packageName + " all\n";
+            process = runtime.exec(command);
+            InputStream stderr = process.getErrorStream();
+            InputStreamReader isr = new InputStreamReader(stderr);
+            BufferedReader br = new BufferedReader(isr);
+            String line = null;
+            LogUtil.i("[STOP APP SUCCESS]");
+            while ((line = br.readLine()) != null) {
+                LogUtil.i(line);
+            }
+            int exitVal = process.waitFor();
+            LogUtil.i("Process exitValue: " + exitVal);
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if(process != null){
+                try {
+                    process.destroy();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
+
     }
 
     String getTopActivityPackage() {

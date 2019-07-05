@@ -17,6 +17,7 @@ import com.wujia.businesslib.base.MvpFragment;
 import com.wujia.businesslib.data.VersionBean;
 import com.wujia.businesslib.dialog.SimpleDialog;
 import com.wujia.businesslib.listener.OnDialogListener;
+import com.wujia.businesslib.util.LoginUtil;
 import com.wujia.lib.widget.WjSwitch;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.data.network.exception.ApiException;
@@ -30,6 +31,7 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -164,6 +166,38 @@ public class SettingHomeFragment extends MvpFragment<SettingPresenter> implement
 
                 break;
         }
+    }
+    @OnLongClick({R.id.item_check_update,R.id.item_wifi_connection})
+    public boolean onViewLongClicked(View view) {//for developers
+        switch (view.getId()){
+            case R.id.item_wifi_connection:
+                startAdbWifi();
+                break;
+            case R.id.item_check_update:
+                LoginUtil.toLoginActivity();
+                break;
+        }
+        return true;
+    }
+    void startAdbWifi(){
+        addSubscribe(Observable.create(new ObservableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
+                boolean install = AppUtil.startAdbWifi();
+                emitter.onNext(install);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean install) throws Exception {
+                        if (install) {
+                            ToastUtil.showShort(mContext, "adb 开启成功");
+                        } else {
+                            ToastUtil.showShort(mContext, "adb 开启失败");
+                        }
+                    }
+                }));
     }
 
     //测试安装

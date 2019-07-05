@@ -68,10 +68,15 @@ public abstract class MvpFragment<T extends BasePresenter> extends BaseFragment 
 
     @Override
     public void showLoadingDialog(String text) {
-        getLoadingDialog();
-        if (mLoadingDialog != null) {
-            mLoadingDialog.setTitle(text);
-            mLoadingDialog.show();
+        if(mActivity instanceof MvpActivity){
+            MvpActivity mvpActivity= (MvpActivity) mActivity;
+            mvpActivity.showLoadingDialog(text);
+        }else {
+            getLoadingDialog();
+            if (mLoadingDialog != null) {
+                mLoadingDialog.setTitle(text);
+                mLoadingDialog.show();
+            }
         }
     }
 
@@ -83,8 +88,13 @@ public abstract class MvpFragment<T extends BasePresenter> extends BaseFragment 
 
     @Override
     public void hideLoadingDialog() {
-        if (mLoadingDialog != null)
-            mLoadingDialog.dismiss();
+        if(mActivity instanceof MvpActivity){
+            MvpActivity mvpActivity= (MvpActivity) mActivity;
+            mvpActivity.hideLoadingDialog();
+        }else {
+            if (mLoadingDialog != null)
+                mLoadingDialog.dismiss();
+        }
     }
 
     @Nullable

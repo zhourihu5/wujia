@@ -4,10 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.jingxi.smartlife.pad.family.R;
-import com.wujia.businesslib.Constants;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
-import com.wujia.lib_common.base.TabFragment;
+import com.wujia.businesslib.TabFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
 import me.yokeyword.fragmentation.SupportFragment;
@@ -18,7 +17,6 @@ import me.yokeyword.fragmentation.SupportFragment;
  * description ：智能家居 home
  */
 public class FamilyHomeFragment extends TabFragment {
-    private VerticalTabBar mTabBar;
     private SupportFragment[] mFragments = new SupportFragment[6];
 
     public FamilyHomeFragment() {
@@ -27,9 +25,10 @@ public class FamilyHomeFragment extends TabFragment {
 
     public static FamilyHomeFragment newInstance(int tab) {
         FamilyHomeFragment fragment = new FamilyHomeFragment();
-        Bundle args = new Bundle();
-        args.putInt(Constants.ARG_PARAM_1, tab);
-        fragment.setArguments(args);
+        fragment.currentTab=tab;
+//        Bundle args = new Bundle();
+//        args.putInt(Constants.ARG_PARAM_1, tab);
+//        fragment.setArguments(args);
         return fragment;
     }
 
@@ -44,7 +43,7 @@ public class FamilyHomeFragment extends TabFragment {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        int tabIndex = getArguments().getInt(Constants.ARG_PARAM_1);
+        getCurrentTab(savedInstanceState);
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
         LogUtil.i("FamilyFragment onLazyInitView");
@@ -53,14 +52,8 @@ public class FamilyHomeFragment extends TabFragment {
         SupportFragment firstFragment = findFragment(AllFragment.class);
         if (firstFragment == null) {
             mFragments[0] = AllFragment.newInstance();
-            if (tabIndex > 0) {//todo 目前只有一个
-                tabIndex = 0;
-            }
-            loadMultipleRootFragment(R.id.tab_content_container, tabIndex, mFragments[0]);
+            loadMultipleRootFragment(R.id.tab_content_container, 0, mFragments[0]);
         } else {
-            // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
-
-            // 这里我们需要拿到mFragments的引用
             mFragments[0] = firstFragment;
         }
 
@@ -75,9 +68,11 @@ public class FamilyHomeFragment extends TabFragment {
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
-//                showHideFragment(mFragments[0], mFragments[prePosition]);//todo
+//                showHideFragment(mFragments[0], mFragments[prePosition]);//
+                parentSwitchTab();
             }
         });
+        switchTab(currentTab);
     }
 
     @Override
@@ -98,8 +93,4 @@ public class FamilyHomeFragment extends TabFragment {
 
     }
 
-    @Override
-    public void switchTab(int pos) {
-        mTabBar.getChildAt(pos).performClick();
-    }
 }

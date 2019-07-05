@@ -134,6 +134,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
                     loginPhoneError.setVisibility(View.VISIBLE);
                     return;
                 }
+                loginPhoneError.setVisibility(View.INVISIBLE);
                 mPresenter.doGetCode(phone);
 //                startTimer();
                 break;

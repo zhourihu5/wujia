@@ -245,6 +245,7 @@ public class FullScreenActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        manager.pausePlayBack(sessionId);
         DoorAccessManager.getInstance().removeConversationUIListener(this);
         DoorAccessManager.getInstance().removePlayBackListener(this);
 

@@ -5,11 +5,17 @@ package com.wujia.businesslib;
  */
 
 public class Constants {
-    //    public static final String BASE_URL = "https://openapi.house-keeper.cn";
-//    public static final String BASE_URL = "http://39.97.186.122:8081";
-//    public static final String BASE_URL = "http://api.home-guard.cn";
-//    public static final String BASE_URL = "http://192.168.1.18:8081";
-    public static final String BASE_URL = "http://192.168.1.26:8081";
+    public static final String BASE_URL;
+
+    static {
+        if(BuildConfig.DEBUG){
+//            BASE_URL = "http://api.home-guard.cn";
+            BASE_URL = "http://192.168.1.26:8081";
+        }else {
+//            BASE_URL = "http://39.97.186.122:8081"
+            BASE_URL = "http://api.home-guard.cn";
+        }
+    }
 
     public static final String HTTP_SUCESS = "200";
 

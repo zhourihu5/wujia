@@ -2,8 +2,10 @@ package com.jingxi.smartlife.pad.market;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 
 import com.jingxi.smartlife.pad.market.mvp.MarketHomeFragment;
+import com.wujia.businesslib.Constants;
 import com.wujia.lib_common.base.BaseMainFragment;
 
 /**
@@ -39,7 +41,8 @@ public class MarketFragment extends BaseMainFragment {
         super.onLazyInitView(savedInstanceState);
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
-        if (findChildFragment(MarketHomeFragment.class) == null) {
+        Fragment marketHomeFragment=findChildFragment(MarketHomeFragment.class);
+        if (marketHomeFragment == null) {
             loadRootFragment(R.id.fl_first_container, MarketHomeFragment.newInstance(currentTab));
         }
     }

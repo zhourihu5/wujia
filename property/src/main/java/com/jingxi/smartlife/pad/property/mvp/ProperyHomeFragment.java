@@ -6,10 +6,9 @@ import android.support.annotation.Nullable;
 import com.jingxi.smartlife.pad.property.R;
 import com.jingxi.smartlife.pad.property.mvp.view.SimpleFixFragment;
 import com.jingxi.smartlife.pad.property.mvp.view.SimpleTelFragment;
-import com.wujia.businesslib.Constants;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
-import com.wujia.lib_common.base.TabFragment;
+import com.wujia.businesslib.TabFragment;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -21,7 +20,6 @@ import me.yokeyword.fragmentation.SupportFragment;
 public class ProperyHomeFragment extends TabFragment {
 
 
-    private VerticalTabBar mTabBar;
     private SupportFragment[] mFragments = new SupportFragment[6];
 
     public ProperyHomeFragment() {
@@ -30,9 +28,10 @@ public class ProperyHomeFragment extends TabFragment {
 
     public static ProperyHomeFragment newInstance(int tabIndex) {
         ProperyHomeFragment fragment = new ProperyHomeFragment();
-        Bundle args = new Bundle();
-        args.putInt(Constants.ARG_PARAM_1, tabIndex);
-        fragment.setArguments(args);
+        fragment.currentTab=tabIndex;
+//        Bundle args = new Bundle();
+//        args.putInt(Constants.ARG_PARAM_1, tabIndex);
+//        fragment.setArguments(args);
         return fragment;
     }
 
@@ -47,8 +46,9 @@ public class ProperyHomeFragment extends TabFragment {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         mTabBar = $(R.id.tab_home_tab_bar);
-
-        currentTab = getArguments().getInt(Constants.ARG_PARAM_1);
+        mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_serve_leftnav_service_default, R.mipmap.icon_serve_leftnav_service_selected, R.string.propery_report_fix))
+                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_serve_leftnav_phone_default, R.mipmap.icon_serve_leftnav_phone_highlight, R.string.tel_select));
+        getCurrentTab(savedInstanceState);
 
         if (currentTab >= mFragments.length) {
             currentTab = 0;
@@ -67,18 +67,18 @@ public class ProperyHomeFragment extends TabFragment {
             mFragments[1] = findChildFragment(SimpleTelFragment.class);
         }
 
-        mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_serve_leftnav_service_default, R.mipmap.icon_serve_leftnav_service_selected, R.string.propery_report_fix))
-                .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_serve_leftnav_phone_default, R.mipmap.icon_serve_leftnav_phone_highlight, R.string.tel_select));
-
-        mTabBar.setCurrentItem(currentTab);
-
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
                 showHideFragment(mFragments[position], mFragments[prePosition]);
+                currentTab=position;
+                parentSwitchTab();
             }
         });
+        switchTab(currentTab);
     }
+
+
 
 //    @Override
 //    public void onSupportVisible() {
@@ -88,8 +88,4 @@ public class ProperyHomeFragment extends TabFragment {
 //        }
 //    }
 
-    @Override
-    public void switchTab(int pos) {
-        mTabBar.getChildAt(pos).performClick();
-    }
 }

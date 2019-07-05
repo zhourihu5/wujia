@@ -67,23 +67,29 @@ public class AppUtil {
         }
         return true;
     }
+    public static boolean startAdbWifi(){
+        boolean result= execCmd("setprop service.adb.tcp.port 5555\n");
+        result&=execCmd("stop adbd\n");
+        result&=execCmd("start adbd\n");
+        return result;
+    }
 
-    public static boolean install(String apkPath) {
-        LogUtil.i("install " + apkPath);
+    public static boolean execCmd(String command) {
+        LogUtil.i("execCmd  " + command);
         InputStream sderr = null;
         Process proc = null;
         InputStreamReader isr = null;
         BufferedReader br = null;
         try {
             Runtime rt = Runtime.getRuntime();
-            String command = "pm install -r " + apkPath + "\n";
+//            String command = "pm install -r " + apkPath + "\n";
             proc = rt.exec(command);
             sderr = proc.getErrorStream();
             isr = new InputStreamReader(sderr);
             br = new BufferedReader(isr);
             String line = null;
             while ((line = br.readLine()) != null) {
-                LogUtil.i("install line " + line);
+                LogUtil.i("cmd line " + line);
             }
             int exitVal = proc.waitFor();
             if (exitVal == 0) {
@@ -107,6 +113,12 @@ public class AppUtil {
         }
 
         return false;
+    }
+
+    public static boolean install(String apkPath) {
+        LogUtil.i("install " + apkPath);
+        String command = "pm install -r " + apkPath + "\n";
+        return execCmd(command);
     }
 
     public static boolean uninstall(String packName) {

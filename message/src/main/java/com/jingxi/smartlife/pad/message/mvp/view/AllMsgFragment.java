@@ -33,6 +33,7 @@ import java.util.Map;
  */
 public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTabSelectedListener, LoadMoreWrapper.OnLoadMoreListener, MessageAdapter.ReadMsgCallback {
 
+    private static final String KEY_TYPE = "type";
     HorizontalTabBar tabBar;
     RecyclerView recyclerView;
     private ArrayList<MsgDto.ContentBean> msgList;
@@ -46,9 +47,18 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
 
     public void setType(String type) {
         this.type = type;
+        if(tabBar!=null){
 //        currentState = 0;
-        reset();
-        getData(true);
+            reset();
+            getData(true);
+
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_TYPE,type);
     }
 
     private EventMsg eventMsg = new EventMsg(new IMiessageInvoke<EventMsg>() {
@@ -89,7 +99,9 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-
+        if(savedInstanceState!=null){
+            type=savedInstanceState.getString(KEY_TYPE,type);
+        }
         tabBar = $(R.id.tab_layout);
         recyclerView = $(R.id.rv1);
 

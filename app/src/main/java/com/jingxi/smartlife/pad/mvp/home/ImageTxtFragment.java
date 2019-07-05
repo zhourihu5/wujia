@@ -119,7 +119,9 @@ public class ImageTxtFragment extends ServiceBaseFragment {
                 String txt = response.data.getContent();
                 mWebView.loadData(txt, "text/html; charset=UTF-8", null);
                 datas.clear();
-                datas.addAll(response.data.getServices());
+                if(response.data.getServices()!=null){
+                    datas.addAll(response.data.getServices());
+                }
                 mAdapter.notifyDataSetChanged();
             }
 

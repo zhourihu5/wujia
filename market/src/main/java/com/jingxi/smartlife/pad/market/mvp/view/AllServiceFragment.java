@@ -21,6 +21,7 @@ import com.wujia.lib_common.base.baseadapter.wrapper.LoadMoreWrapper;
 import com.wujia.lib_common.base.view.ServiceCardDecoration;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
 import com.wujia.lib_common.data.network.exception.ApiException;
+import com.wujia.lib_common.utils.LogUtil;
 import com.wujia.lib_common.utils.ScreenUtil;
 
 import java.util.ArrayList;
@@ -48,7 +49,18 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
 
     private static final String KEY_TYPE = "type";
 
-    String type = "4";
+    String type = TYPE_MY;
+
+    public void setType(String type) {
+        this.type = type;
+        if(mLoadMoreWrapper!=null){
+            datas.clear();
+            mLoadMoreWrapper.setLoadMoreView(0);
+            mLoadMoreWrapper.notifyDataSetChanged();
+            pageNo = 1;
+            getList(true);
+        }
+    }
 
     MarketModel marketModel;
 
@@ -73,7 +85,7 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
 
                 }
                 pageNo = 1;
-                getList(false);
+                getList(true);
             }
         }
     });
@@ -84,9 +96,10 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
 
     public static AllServiceFragment newInstance(String type) {
         AllServiceFragment fragment = new AllServiceFragment();
-        Bundle args = new Bundle();
-        args.putString(KEY_TYPE, type);
-        fragment.setArguments(args);
+//        Bundle args = new Bundle();
+//        args.putString(KEY_TYPE, type);
+//        fragment.setArguments(args);
+        fragment.type=type;
         return fragment;
     }
 
@@ -96,10 +109,18 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_TYPE,type);
+    }
+
+    @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-
-        type = getArguments().getString(KEY_TYPE);
+        if(savedInstanceState!=null){
+            type =savedInstanceState.getString(KEY_TYPE);
+            LogUtil.i("Allservice from savedInstanceState type="+type);
+        }
 
         mSwipeRefreshLayout = $(R.id.swipe_container);
         recyclerView = $(R.id.rv1);

@@ -110,19 +110,8 @@ public class SafeOutsideFragment extends BaseFragment implements
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-        // 懒加载
-        // 同级Fragment场景、ViewPager场景均适用
-        LogUtil.i("SafeOutsideFragment onLazyInitView");
-        try {
-            familyID = DataManager.getDockKey();
-        } catch (Exception e) {
-            LoginUtil.toLoginActivity();
-            LogUtil.t("get familyid failed", e);
-            return;
-        }
-
+    protected void interruptInject() {
+        super.interruptInject();
         audioHelper = new AudioMngHelper(mContext);
         audioValue = audioHelper.get100CurrentVolume();
 
@@ -158,10 +147,24 @@ public class SafeOutsideFragment extends BaseFragment implements
         btnSos.setOnClickListener(this);
         btnEdit.setOnClickListener(this);
 
-        mDoorAccessManager = JXPadSdk.getDoorAccessManager();
-        mDoorAccessManager.setListUIListener(this);
-        mDoorAccessManager.addConversationUIListener(this);
-        mDoorAccessManager.addPlayBackListener(this);
+        initDoorAccessManager();
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        // 懒加载
+        // 同级Fragment场景、ViewPager场景均适用
+        LogUtil.i("SafeOutsideFragment onLazyInitView");
+        try {
+            familyID = DataManager.getDockKey();
+        } catch (Exception e) {
+            LoginUtil.toLoginActivity();
+            LogUtil.t("get familyid failed", e);
+            return;
+        }
+
+
 
         setVideo();
 
@@ -169,9 +172,21 @@ public class SafeOutsideFragment extends BaseFragment implements
 
     }
 
+    protected void initDoorAccessManager() {
+        if(mDoorAccessManager==null){
+            mDoorAccessManager = JXPadSdk.getDoorAccessManager();
+            mDoorAccessManager.setListUIListener(this);
+            mDoorAccessManager.addConversationUIListener(this);
+            mDoorAccessManager.addPlayBackListener(this);
+        }
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    protected void destroyDoorAccessManager() {
         if (mDoorAccessManager != null) {
             mDoorAccessManager.setListUIListener(null);
             mDoorAccessManager.removeConversationUIListener(this);
@@ -233,7 +248,6 @@ public class SafeOutsideFragment extends BaseFragment implements
         // 当对用户可见时 回调
         // 不管是 父Fragment还是子Fragment 都有效！
         LogUtil.i("SafeOutsideFragment onSupportVisible");
-
         if (null != mDoorAccessManager) {
             List<DoorRecordBean> recordBeans = mDoorAccessManager.getHistoryListByType(familyID, DoorRecordBean.RECORD_TYPE_DOOR, 0, 50);
             if (null != recordBeans && recordBeans.size() > 0) {
@@ -257,14 +271,18 @@ public class SafeOutsideFragment extends BaseFragment implements
         if (inVisibleType != REQUEST_CODE_FULL_LIVE && inVisibleType != REQUEST_CODE_FULL_HISTORY) {
 
             //不可见时暂停回放
-            if (btnPause.getVisibility() == View.VISIBLE) {
-                btnPause.performClick();
-            }
-            isSeeeionIdValid = false;
+            pausePlay();
         }
         if (!isEdit && null != btnEdit) {
             btnEdit.performClick();
         }
+    }
+
+    protected void pausePlay() {
+        if (btnPause.getVisibility() == View.VISIBLE) {
+            btnPause.performClick();
+        }
+        isSeeeionIdValid = false;
     }
 
     @Override
@@ -563,9 +581,9 @@ public class SafeOutsideFragment extends BaseFragment implements
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        pausePlay();
         isSeeeionIdValid = false;
-        mDoorAccessManager.removeConversationUIListener(this);
-        mDoorAccessManager.removePlayBackListener(this);
+        destroyDoorAccessManager();
         LogUtil.i("SafeOutsideFragment onDestroyView");
     }
 
