@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.os.ServiceManager;
 import android.service.dreams.IDreamManager;
@@ -398,7 +399,9 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
         }else if(com.intercom.sdk.IntercomConstants.kButtonUser.equals(cmd)){
             switchHomeTab(POSITION_PROPERTY,0);
         }else if(com.intercom.sdk.IntercomConstants.kButtonUnlock.equals(cmd)){
-            EventBusUtil.post(new EventBaseButtonClick());
+            EventBusUtil.post(new EventBaseButtonClick(com.intercom.sdk.IntercomConstants.kButtonUnlock));
+        }else if(com.intercom.sdk.IntercomConstants.kButtonPickup.equals(cmd)){
+            EventBusUtil.post(new EventBaseButtonClick(com.intercom.sdk.IntercomConstants.kButtonPickup));
         }
     }
 

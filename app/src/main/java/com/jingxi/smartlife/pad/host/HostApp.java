@@ -51,48 +51,48 @@ public class HostApp extends BaseApplication {
         UMConfigure.init(this, "5d0ddf284ca357c8dc000dd6", "mychanel", UMConfigure.DEVICE_TYPE_PHONE, null);//友盟统计，周日虎的账号
 
 
-//        if(BuildConfig.DEBUG){
-//            // The callback when App process crashed.
-//            xcrash.ICrashCallback callback = new xcrash.ICrashCallback() {
-//                @Override
-//                public void onCrash(String logPath, String emergency) {
-//                    if (emergency != null) {
-//                        debug(logPath, emergency);
-//
-//                        // Disk is exhausted, send crash report immediately.
-//                        sendThenDeleteCrashLog(logPath, emergency);
-//                    } else {
-//                        // Add some expanded sections. Send crash report at the next time APP startup.
-//
-//                        // OK
-//                        xcrash.TombstoneManager.appendSection(logPath, "expanded_key_1", "expanded_content");
-//                        xcrash.TombstoneManager.appendSection(logPath, "expanded_key_2", "expanded_content_row_1\nexpanded_content_row_2");
-//
-//                        // Invalid. (Do NOT include multiple consecutive newline characters ("\n\n") in the content string.)
-//                        // TombstoneManager.appendSection(logPath, "expanded_key_3", "expanded_content_row_1\n\nexpanded_content_row_2");
-//
-//                        debug(logPath, null);
-//                    }
-//                }
-//            };
-//
-//            // Initialize xCrash.
-//            xcrash.XCrash.init(this, new xcrash.XCrash.InitParameters()
-//                    .setAppVersion("1.2.3-beta456-patch789")
-//                    .setJavaRethrow(true)
-//                    .setJavaLogCountMax(10)
-//                    .setJavaDumpAllThreadsWhiteList(new String[]{"^main$", "^Binder:.*", ".*Finalizer.*"})
-//                    .setJavaDumpAllThreadsCountMax(10)
-//                    .setJavaCallback(callback)
-//                    .setNativeRethrow(true)
-//                    .setNativeLogCountMax(10)
-//                    .setNativeDumpAllThreadsWhiteList(new String[]{"^com\\.jingxi", "^Signal Catcher$", "^Jit thread pool$", ".*(R|r)ender.*", ".*Chrome.*"})
-//                    .setNativeDumpAllThreadsCountMax(10)
-//                    .setNativeCallback(callback)
-//                    .setPlaceholderCountMax(3)
-//                    .setPlaceholderSizeKb(512)
-//                    .setLogFileMaintainDelayMs(1000));
-//        }
+        if(BuildConfig.DEBUG){
+            // The callback when App process crashed.
+            xcrash.ICrashCallback callback = new xcrash.ICrashCallback() {
+                @Override
+                public void onCrash(String logPath, String emergency) {
+                    if (emergency != null) {
+                        debug(logPath, emergency);
+
+                        // Disk is exhausted, send crash report immediately.
+                        sendThenDeleteCrashLog(logPath, emergency);
+                    } else {
+                        // Add some expanded sections. Send crash report at the next time APP startup.
+
+                        // OK
+                        xcrash.TombstoneManager.appendSection(logPath, "expanded_key_1", "expanded_content");
+                        xcrash.TombstoneManager.appendSection(logPath, "expanded_key_2", "expanded_content_row_1\nexpanded_content_row_2");
+
+                        // Invalid. (Do NOT include multiple consecutive newline characters ("\n\n") in the content string.)
+                        // TombstoneManager.appendSection(logPath, "expanded_key_3", "expanded_content_row_1\n\nexpanded_content_row_2");
+
+                        debug(logPath, null);
+                    }
+                }
+            };
+
+            // Initialize xCrash.
+            xcrash.XCrash.init(this, new xcrash.XCrash.InitParameters()
+                    .setAppVersion("1.2.3-beta456-patch789")
+                    .setJavaRethrow(true)
+                    .setJavaLogCountMax(10)
+                    .setJavaDumpAllThreadsWhiteList(new String[]{"^main$", "^Binder:.*", ".*Finalizer.*"})
+                    .setJavaDumpAllThreadsCountMax(10)
+                    .setJavaCallback(callback)
+                    .setNativeRethrow(true)
+                    .setNativeLogCountMax(10)
+                    .setNativeDumpAllThreadsWhiteList(new String[]{"^com\\.jingxi", "^Signal Catcher$", "^Jit thread pool$", ".*(R|r)ender.*", ".*Chrome.*"})
+                    .setNativeDumpAllThreadsCountMax(10)
+                    .setNativeCallback(callback)
+                    .setPlaceholderCountMax(3)
+                    .setPlaceholderSizeKb(512)
+                    .setLogFileMaintainDelayMs(1000));
+        }
 
 
 //        Fragmentation.builder()
@@ -115,9 +115,6 @@ public class HostApp extends BaseApplication {
 
     @Override
     protected void runInbackGround() {
-//        if(!isInMainProcess()){
-//            return;
-//        }
         if (!Settings.canDrawOverlays(this)) {
 //            Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT);
 //            startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 0);
@@ -128,9 +125,6 @@ public class HostApp extends BaseApplication {
 
     @Override
     protected void runInForeGround() {
-//        if(!isInMainProcess()){
-//            return;
-//        }
         stopService(new Intent(this, FloatingButtonService.class));
     }
 
@@ -151,27 +145,27 @@ public class HostApp extends BaseApplication {
     }
 
     private void debug(String logPath, String emergency) {
-//        if(BuildConfig.DEBUG){
-//            LogUtil.e( "logPath: " + (logPath != null ? logPath : "(null)") + ", emergency: " + (emergency != null ? emergency : "(null)"));
-//
-//            // Parse and save the crash info to a JSON file for debugging.
-//            FileWriter writer = null;
-//            try {
-//                File debug = new File(getApplicationContext().getFilesDir() + "/tombstones/debug.json");
-//                debug.createNewFile();
-//                writer = new FileWriter(debug, false);
-//                writer.write(new JSONObject(xcrash.TombstoneParser.parse(logPath, emergency)).toString());
-//            } catch (Exception e) {
-//                LogUtil.t( "debug failed", e);
-//            } finally {
-//                if (writer != null) {
-//                    try {
-//                        writer.close();
-//                    } catch (Exception ignored) {
-//                    }
-//                }
-//            }
-//
-//        }
+        if(BuildConfig.DEBUG){
+            LogUtil.e( "logPath: " + (logPath != null ? logPath : "(null)") + ", emergency: " + (emergency != null ? emergency : "(null)"));
+
+            // Parse and save the crash info to a JSON file for debugging.
+            FileWriter writer = null;
+            try {
+                File debug = new File(getApplicationContext().getFilesDir() + "/tombstones/debug.json");
+                debug.createNewFile();
+                writer = new FileWriter(debug, false);
+                writer.write(new JSONObject(xcrash.TombstoneParser.parse(logPath, emergency)).toString());
+            } catch (Exception e) {
+                LogUtil.t( "debug failed", e);
+            } finally {
+                if (writer != null) {
+                    try {
+                        writer.close();
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+
+        }
     }
 }

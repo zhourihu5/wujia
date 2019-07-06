@@ -9,8 +9,8 @@ public class Constants {
 
     static {
         if(BuildConfig.DEBUG){
-//            BASE_URL = "http://api.home-guard.cn";
-            BASE_URL = "http://192.168.1.26:8081";
+            BASE_URL = "http://api.home-guard.cn";
+//            BASE_URL = "http://192.168.1.26:8081";
         }else {
 //            BASE_URL = "http://39.97.186.122:8081"
             BASE_URL = "http://api.home-guard.cn";

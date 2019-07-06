@@ -47,9 +47,17 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
     private EventBaseButtonClick eventBaseButtonClick=new EventBaseButtonClick(new IMiessageInvoke<EventBaseButtonClick>() {
         @Override
         public void eventBus(EventBaseButtonClick event) {
-            onClick(btn_safe_open);
+            if(com.intercom.sdk.IntercomConstants.kButtonUnlock.equals(event.keyCmd)){
+                onClick(btn_safe_open);
+            }else if(com.intercom.sdk.IntercomConstants.kButtonPickup.equals(event.keyCmd)){
+                if (!btnCallFlag) {
+                    onClick(btnCall);
+                }
+            }
         }
     });
+    private boolean accepted=false;
+
     @Override
     protected int getLayout() {
         return R.layout.activity_video_call;
@@ -121,6 +129,12 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
         }
         ringStoped=true;
     }
+    void acceptCall(){
+        if(!accepted){
+            accepted=true;
+            manager.acceptCall(sessionId);
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -129,16 +143,18 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
         } else if (v.getId() == R.id.btn3) {//接听
             if (!btnCallFlag) {
                 stopRing();
-                manager.acceptCall(sessionId);
+                acceptCall();
                 btnCall.setBackgroundResource(R.mipmap.btn_safe_hangup);
             } else {
                 finish();
             }
             btnCallFlag = !btnCallFlag;
         } else if (v.getId() == R.id.btn4) {//开门
+            stopRing();
+            acceptCall();
             manager.openDoor(sessionId);
             finish();
-        } else if (v.getId() == R.id.btn6) {//音量
+        } else if (v.getId() == R.id.btn6) {//refresh
             updateSurface();
         } else if (v.getId() == R.id.btn9) {//挂断
             finish();

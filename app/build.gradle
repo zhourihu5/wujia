@@ -41,13 +41,23 @@ android {
     dexOptions {
         javaMaxHeapSize "4g"
     }
-
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+//                outputFileName = rootProject.getName()+"_" + productFlavors[0].name + "_" + buildType.name + "_v" + defaultConfig.versionName + "-${releaseTime()}.apk"
+                if(buildType.name.equals("release")){
+                     outputFileName = "wujia_" + buildType.name + "_v" + defaultConfig.versionName + "-${releaseTime()}.apk"
+                }
+            }
+    }
 }
 
 
-def getInnnerVersionName() {
-    new Date().format("yyyyMMdd")
+def releaseTime() {
+    new Date().format("yyyyMMdd_HHmm")
 }
+
+
 
 dependencies {
     testImplementation 'junit:junit:4.12'
@@ -73,5 +83,6 @@ dependencies {
     // Optional, if you use support library fragments:
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
 
-    debugImplementation 'com.iqiyi.xcrash:xcrash-android-lib:2.1.7'// just for debug
+    implementation 'com.iqiyi.xcrash:xcrash-android-lib:2.1.7'// just for debug
+
 }

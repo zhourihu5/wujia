@@ -78,6 +78,10 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
 
     private void reset() {
         page = 1;
+        if(msgList!=null){
+            msgList.clear();
+            mLoadMoreWrapper.notifyDataSetChanged();
+        }
     }
 
     public AllMsgFragment() {

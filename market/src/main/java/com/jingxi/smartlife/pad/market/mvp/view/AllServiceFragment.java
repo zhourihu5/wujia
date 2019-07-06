@@ -38,7 +38,7 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
     private boolean isLoading;
     private int pageSize = 12;
     private int pageNo = 1;
-    private int totleSize = 0;
+//    private int totleSize = 0;
     private ArrayList<CardDetailBean.ServicesBean> datas;
     private LoadMoreWrapper mLoadMoreWrapper;
 
@@ -208,9 +208,7 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
     public void onLoadMoreRequested() {
         if (mSwipeRefreshLayout.isRefreshing() || isLoading)
             return;
-        if (datas.size() < totleSize) {
-            getList(false);
-        }
+        getList(false);
     }
 
     @Override

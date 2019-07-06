@@ -22,7 +22,10 @@ import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpActivity;
 import com.wujia.businesslib.data.LoginDTO;
 import com.wujia.businesslib.data.TokenBean;
+import com.wujia.businesslib.util.LoginUtil;
+import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.data.network.exception.ApiException;
+import com.wujia.lib_common.utils.AppUtil;
 import com.wujia.lib_common.utils.DateUtil;
 import com.wujia.lib_common.utils.FontUtils;
 import com.wujia.lib_common.utils.LogUtil;
@@ -36,6 +39,13 @@ import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * author ：shenbingkai@163.com
@@ -139,6 +149,35 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 //                startTimer();
                 break;
         }
+    }
+    @OnLongClick({R.id.login_btn})
+    public boolean onViewLongClicked(View view) {//for developers
+        switch (view.getId()){
+            case R.id.login_btn:
+                startAdbWifi();
+                break;
+        }
+        return true;
+    }
+    void startAdbWifi(){
+        addSubscribe(Observable.create(new ObservableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
+                boolean install = AppUtil.startAdbWifi();
+                emitter.onNext(install);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean install) throws Exception {
+                        if (install) {
+                            ToastUtil.showShort(mContext, "adb 开启成功");
+                        } else {
+                            ToastUtil.showShort(mContext, "adb 开启失败");
+                        }
+                    }
+                }));
     }
 
     protected void startTimer() {

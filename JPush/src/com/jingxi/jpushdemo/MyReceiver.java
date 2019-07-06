@@ -1,5 +1,6 @@
 package com.jingxi.jpushdemo;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.text.TextUtils;
 
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.DownloadUtil;
+import com.wujia.businesslib.base.BaseApplication;
 import com.wujia.businesslib.data.Advert;
 import com.wujia.businesslib.data.VersionBean;
 import com.wujia.businesslib.event.EventBusUtil;
@@ -153,10 +155,10 @@ public class MyReceiver extends BroadcastReceiver {
                 break;
             case TYPE_ADV:
 
-//					Activity currentActivity = BaseApplication.getCurrentAcitivity();
-//        if (currentActivity != null) {
-//            context = currentActivity;
-//        }
+                Activity currentActivity = BaseApplication.getCurrentAcitivity();
+                if (currentActivity != null && currentActivity.getClass().getName().equals("com.jingxi.smartlife.pad.safe.mvp.view.VideoCallActivity")) {
+                    return;
+                }
                 Advert advert = GsonUtil.GsonToBean(message, Advert.class);
                 Intent intent = new Intent();
                 intent.setClassName(context, "com.jingxi.smartlife.pad.mvp.login.AdvertActivity");

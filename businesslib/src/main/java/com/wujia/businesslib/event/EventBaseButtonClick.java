@@ -10,8 +10,9 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public class EventBaseButtonClick extends AbsEventEntiry<EventBaseButtonClick> {
 
-    public EventBaseButtonClick() {
-
+    public String keyCmd;
+    public EventBaseButtonClick(String kButtonPickup) {
+        this.keyCmd=kButtonPickup;
     }
 
     public EventBaseButtonClick(IMiessageInvoke<EventBaseButtonClick> invoke) {
