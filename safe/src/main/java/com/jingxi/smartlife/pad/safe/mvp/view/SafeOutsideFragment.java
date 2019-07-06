@@ -86,6 +86,7 @@ public class SafeOutsideFragment extends BaseFragment implements
     private List<DoorRecordBean> recordList;
     private DoorRecordBean recordBean;
     private LoadingDialog loadingDialog;
+    private View safe_swich_live_btn;
 
     public SafeOutsideFragment() {
     }
@@ -132,7 +133,8 @@ public class SafeOutsideFragment extends BaseFragment implements
         tvPlaybackCurrentTime = $(R.id.safe_progress_time_current_tv);
         tvPlaybackCountTime = $(R.id.safe_progress_time_count_tv);
 
-        $(R.id.safe_swich_live_btn).setOnClickListener(this);
+        safe_swich_live_btn= $(R.id.safe_swich_live_btn);
+        safe_swich_live_btn .setOnClickListener(this);
         $(R.id.safe_rec_all_choose_btn).setOnClickListener(this);
         $(R.id.safe_rec_del_btn).setOnClickListener(this);
         $(R.id.safe_btn_full).setOnClickListener(this);
@@ -147,7 +149,7 @@ public class SafeOutsideFragment extends BaseFragment implements
         btnSos.setOnClickListener(this);
         btnEdit.setOnClickListener(this);
 
-        initDoorAccessManager();
+
     }
 
     @Override
@@ -245,6 +247,8 @@ public class SafeOutsideFragment extends BaseFragment implements
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
+        initDoorAccessManager();
+        safe_swich_live_btn.performClick();
         // 当对用户可见时 回调
         // 不管是 父Fragment还是子Fragment 都有效！
         LogUtil.i("SafeOutsideFragment onSupportVisible");
@@ -266,13 +270,15 @@ public class SafeOutsideFragment extends BaseFragment implements
         // 当对用户不可见时 回调
         // 不管是 父Fragment还是子Fragment 都有效！
         LogUtil.i("SafeOutsideFragment onSupportInvisible");
+        pausePlay();
+        destroyDoorAccessManager();
 
         //如果是点击全屏导致fragment不显示，则不重置session有效性
-        if (inVisibleType != REQUEST_CODE_FULL_LIVE && inVisibleType != REQUEST_CODE_FULL_HISTORY) {
+//        if (inVisibleType != REQUEST_CODE_FULL_LIVE && inVisibleType != REQUEST_CODE_FULL_HISTORY) {
 
             //不可见时暂停回放
-            pausePlay();
-        }
+//            pausePlay();
+//        }
         if (!isEdit && null != btnEdit) {
             btnEdit.performClick();
         }
