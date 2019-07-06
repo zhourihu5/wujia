@@ -10,24 +10,29 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.intercom.sdk.IntercomConstants;
 import com.intercom.sdk.IntercomObserver;
 import com.jingxi.smartlife.pad.safe.R;
 import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.jingxi.smartlife.pad.sdk.doorAccess.DoorAccessManager;
+import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorDevice;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorEvent;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessConversationUI;
 import com.wujia.businesslib.Constants;
+import com.wujia.businesslib.base.DataManager;
+import com.wujia.businesslib.dialog.LoadingDialog;
+import com.wujia.businesslib.util.LoginUtil;
 import com.wujia.lib_common.base.BaseActivity;
 import com.wujia.lib_common.utils.LogUtil;
+
+import java.util.List;
 
 public class FullScreenActivity extends BaseActivity implements View.OnClickListener, SurfaceHolder.Callback, DoorAccessConversationUI, SeekBar.OnSeekBarChangeListener, IntercomObserver.OnPlaybackListener {
 
     private SurfaceView surfaceView;
-    private DoorAccessManager manager;
-    private String sessionId;
+    private DoorAccessManager mDoorAccessManager;
+    private String mSessionId;
     private ImageView btnVol, btnPlay, btnRefresh;
     private TextView tvPlaybackCurrentTime, tvPlaybackCountTime;
     private SeekBar seekBar;
@@ -39,6 +44,9 @@ public class FullScreenActivity extends BaseActivity implements View.OnClickList
 
     //是否在滑动进度条
     private boolean isTouchSeek = false;
+    private boolean isSeeeionIdValid;
+    private LoadingDialog loadingDialog;
+    private String familyID;
 
 
     @Override
@@ -60,8 +68,8 @@ public class FullScreenActivity extends BaseActivity implements View.OnClickList
         btnVol.setOnClickListener(this);
         btnRefresh.setOnClickListener(this);
 
-        manager = JXPadSdk.getDoorAccessManager();
-        sessionId = getIntent().getStringExtra(Constants.INTENT_KEY_1);
+        mDoorAccessManager = JXPadSdk.getDoorAccessManager();
+        mSessionId = getIntent().getStringExtra(Constants.INTENT_KEY_1);
         isPlayback = getIntent().getBooleanExtra(Constants.INTENT_KEY_2, false);
 
         if (isPlayback) {
@@ -73,7 +81,7 @@ public class FullScreenActivity extends BaseActivity implements View.OnClickList
             tvPlaybackCountTime = $(R.id.safe_progress_time_count_tv);
 
             btnPlay.setOnClickListener(this);
-            manager.addPlayBackListener(this);
+            mDoorAccessManager.addPlayBackListener(this);
 
             max = getIntent().getIntExtra(Constants.INTENT_KEY_3, 0);
             if (max > 0) {
@@ -87,25 +95,34 @@ public class FullScreenActivity extends BaseActivity implements View.OnClickList
                     btnPlay.setImageResource(R.mipmap.btn_safe_pause);
                 }
                 seekBar.setProgress(seek);
-//                manager.seekPlayBack(sessionId, seek * 100 / max);
+//                mDoorAccessManager.seekPlayBack(mSessionId, seek * 100 / max);
 //                if (max > seek) {
-//                    manager.startPlayBack(sessionId);
+//                    mDoorAccessManager.startPlayBack(mSessionId);
 //                }
                 tvPlaybackCurrentTime.setText(String.valueOf(format(seek)));
                 tvPlaybackCountTime.setText(String.valueOf(format(max)));
             }
-            manager.updatePlayBackWindow(sessionId, surfaceView);
+            mDoorAccessManager.updatePlayBackWindow(mSessionId, surfaceView);
 
         } else {
+            try {
+                familyID = DataManager.getDockKey();
+            } catch (Exception e) {
+                LoginUtil.toLoginActivity();
+                e.printStackTrace();
+                return;
+            }
             layoutLive.setVisibility(View.VISIBLE);
-            manager.addConversationUIListener(this);
-            surfaceView.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    manager.updateCallWindow(sessionId, surfaceView);
-                }
-            }, 500);
+            mDoorAccessManager.addConversationUIListener(this);
+            setVideo();
+//            surfaceView.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    mDoorAccessManager.updateCallWindow(mSessionId, surfaceView);
+//                }
+//            }, 500);
         }
+            surfaceView.getHolder().addCallback(this);
     }
 
     @Override
@@ -120,22 +137,51 @@ public class FullScreenActivity extends BaseActivity implements View.OnClickList
             if (isPause) {//开始
                 btnPlay.setImageResource(R.mipmap.btn_safe_pause);
                 seekBar.setOnSeekBarChangeListener(this);
-                manager.startPlayBack(sessionId);
-                manager.seekPlayBack(sessionId, seek * 100 / max);
-                manager.updatePlayBackWindow(sessionId, surfaceView);
+                mDoorAccessManager.startPlayBack(mSessionId);
+                mDoorAccessManager.seekPlayBack(mSessionId, seek * 100 / max);
+                mDoorAccessManager.updatePlayBackWindow(mSessionId, surfaceView);
             } else {//暂停
                 btnPlay.setImageResource(R.mipmap.btn_safe_full_play);
-                manager.pausePlayBack(sessionId);
+                mDoorAccessManager.pausePlayBack(mSessionId);
             }
             isPause = !isPause;
         } else if (v.getId() == R.id.btn9) {//刷新
-            manager.updateCallWindow(sessionId, surfaceView);
+//            mDoorAccessManager.updateCallWindow(mSessionId, surfaceView);
+            setVideo();
+        }
+    }
+    private void setVideo() {
+
+        if (null == loadingDialog) {
+            loadingDialog = new LoadingDialog(mContext);
+        }
+        loadingDialog.setCancelOnTouchOutside(true);
+        loadingDialog.setTitle("正在连接中...");
+        loadingDialog.show();
+        if (isSeeeionIdValid) {
+            mDoorAccessManager.updateCallWindow(mSessionId, surfaceView);
+            loadingDialog.dismiss();
+            return;
+        }
+        List<DoorDevice> list = mDoorAccessManager.getDevices(familyID);
+        for (DoorDevice device : list) {
+            if (DoorDevice.TYPE_UNIT == device.getMyDeviceType()) {
+                mSessionId = mDoorAccessManager.monitor(familyID, device);
+                LogUtil.i("SafeOutsideFragment mSessionId " + mSessionId);
+
+                mDoorAccessManager.updateCallWindow(mSessionId, surfaceView);
+                return;
+            }
         }
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-//        manager.updateCallWindow(sessionId, surfaceView);
+        if (isPlayback) {
+            mDoorAccessManager.updatePlayBackWindow(mSessionId, surfaceView);
+        } else {
+            mDoorAccessManager.updateCallWindow(mSessionId, surfaceView);
+        }
     }
 
     @Override
@@ -146,30 +192,35 @@ public class FullScreenActivity extends BaseActivity implements View.OnClickList
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
         if (isPlayback) {
-            manager.updatePlayBackWindow(sessionId, surfaceView);
+            mDoorAccessManager.updatePlayBackWindow(mSessionId, null);
         } else {
-            manager.updateCallWindow(sessionId, null);
+            mDoorAccessManager.updateCallWindow(mSessionId, null);
         }
     }
 
     @Override
     public void startTransPort(String sessionID) {
-        if (!TextUtils.equals(sessionId, sessionID)) {
+        if (!TextUtils.equals(sessionID, mSessionId)) {
             return;
         }
-        Toast.makeText(this, "开始传输视频", Toast.LENGTH_SHORT).show();
+        isSeeeionIdValid = true;
+        LogUtil.i("SafeOutsideFragment 开始传输视频 mSessionId " + mSessionId);
+        if (loadingDialog != null) {
+            loadingDialog.dismiss();
+        }
     }
 
     @Override
     public void refreshEvent(DoorEvent event) {
 
-        if (!TextUtils.equals(sessionId, event.sessionId)) {
+        if (!TextUtils.equals(mSessionId, event.sessionId)) {
             return;
         }
         if (TextUtils.equals(event.getCmd(), IntercomConstants.kIntercomCommandHangup)) {
             finish();
         } else if (TextUtils.equals(event.getCmd(), IntercomConstants.kIntercomCommandSessionTimeout)) {
-            finish();
+            isSeeeionIdValid=false;
+//            finish();
         } else if (TextUtils.equals(event.getCmd(), IntercomConstants.kIntercomCommandPickupByOther)) {
             finish();
         }
@@ -191,7 +242,7 @@ public class FullScreenActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         isTouchSeek = false;
-        manager.seekPlayBack(sessionId, seek * 100 / max);
+        mDoorAccessManager.seekPlayBack(mSessionId, seek * 100 / max);
     }
 
     @Override
@@ -215,7 +266,7 @@ public class FullScreenActivity extends BaseActivity implements View.OnClickList
             seekBar.setOnSeekBarChangeListener(null);
             seekBar.setProgress(max);
             seekBar.setOnSeekBarChangeListener(this);
-            manager.pausePlayBack(sessionId);
+            mDoorAccessManager.pausePlayBack(mSessionId);
         }
         LogUtil.i("FullScreenActivity onMediaPlayEvent event = " + event + "  value = " + value + "  seek = " + seek + "  max = " + max);
 
@@ -245,7 +296,14 @@ public class FullScreenActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        manager.pausePlayBack(sessionId);
+        if(isPlayback){
+            mDoorAccessManager.updatePlayBackWindow(mSessionId,null);
+            mDoorAccessManager.pausePlayBack(mSessionId);
+        }else {
+            mDoorAccessManager.updateCallWindow(mSessionId, null);
+            mDoorAccessManager.hangupCall(mSessionId);
+        }
+        surfaceView.getHolder().removeCallback(this);
         DoorAccessManager.getInstance().removeConversationUIListener(this);
         DoorAccessManager.getInstance().removePlayBackListener(this);
 

@@ -58,7 +58,7 @@ public class SafeOutsideFragment extends BaseFragment implements
     private int audioValue;
 
     private SurfaceView surfaceView;
-    private SurfaceView svPlayback;
+//    private SurfaceView svPlayback;
     private DoorAccessManager mDoorAccessManager;
     private String mSessionId, playBackSessionId;
 
@@ -117,7 +117,7 @@ public class SafeOutsideFragment extends BaseFragment implements
         audioValue = audioHelper.get100CurrentVolume();
 
         surfaceView = $(R.id.surface);
-        svPlayback = $(R.id.surface_playback);
+//        svPlayback = $(R.id.surface_playback);
         rvPlayBack = $(R.id.rv_play_back);
         btnEdit = $(R.id.safe_play_rec_edit_btn);
         seekBar = $(R.id.safe_seekbar);
@@ -148,7 +148,7 @@ public class SafeOutsideFragment extends BaseFragment implements
         btnFull.setOnClickListener(this);
         btnSos.setOnClickListener(this);
         btnEdit.setOnClickListener(this);
-
+        surfaceView.getHolder().addCallback(this);
 
     }
 
@@ -183,13 +183,11 @@ public class SafeOutsideFragment extends BaseFragment implements
         }
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 
     protected void destroyDoorAccessManager() {
         if (mDoorAccessManager != null) {
+            mDoorAccessManager.updateCallWindow(mSessionId,null);
+            mDoorAccessManager.hangupCall(mSessionId);
             mDoorAccessManager.setListUIListener(null);
             mDoorAccessManager.removeConversationUIListener(this);
             mDoorAccessManager.removePlayBackListener(this);
@@ -270,14 +268,12 @@ public class SafeOutsideFragment extends BaseFragment implements
         // 当对用户不可见时 回调
         // 不管是 父Fragment还是子Fragment 都有效！
         LogUtil.i("SafeOutsideFragment onSupportInvisible");
-        pausePlay();
-        destroyDoorAccessManager();
+
 
         //如果是点击全屏导致fragment不显示，则不重置session有效性
 //        if (inVisibleType != REQUEST_CODE_FULL_LIVE && inVisibleType != REQUEST_CODE_FULL_HISTORY) {
-
-            //不可见时暂停回放
-//            pausePlay();
+            pausePlay();
+            destroyDoorAccessManager();
 //        }
         if (!isEdit && null != btnEdit) {
             btnEdit.performClick();
@@ -295,8 +291,14 @@ public class SafeOutsideFragment extends BaseFragment implements
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
 //        surfaceView.setZOrderOnTop(true);
 //        surfaceView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
+        if (mDoorAccessManager != null) {
+            if (isPalyback) {
+                mDoorAccessManager.updatePlayBackWindow(playBackSessionId, surfaceView);
+            } else {
+                mDoorAccessManager.updateCallWindow(mSessionId, surfaceView);
+            }
 
-        mDoorAccessManager.updateCallWindow(mSessionId, surfaceView);
+        }
     }
 
     @Override
@@ -306,7 +308,14 @@ public class SafeOutsideFragment extends BaseFragment implements
 
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-        mDoorAccessManager.updateCallWindow(mSessionId, null);
+        if (mDoorAccessManager != null) {
+            if (isPalyback) {
+                mDoorAccessManager.updatePlayBackWindow(playBackSessionId, null);
+            } else {
+                mDoorAccessManager.updateCallWindow(mSessionId, null);
+            }
+
+        }
     }
 
     @Override
@@ -332,11 +341,15 @@ public class SafeOutsideFragment extends BaseFragment implements
 //            mDoorAccessManager.hangupCall(mSessionId);
 
         } else if (TextUtils.equals(event.getCmd(), IntercomConstants.kIntercomCommandSessionTimeout)) {
-            ToastUtil.showShort(mContext, "超时");
+            if(!isPalyback){
+                 ToastUtil.showShort(mContext, "超时");
+            }
             isSeeeionIdValid = false;
 //            mDoorAccessManager.hangupCall(mSessionId);
         } else if (TextUtils.equals(event.getCmd(), IntercomConstants.kIntercomCommandPickupByOther)) {
-            ToastUtil.showShort(mContext, "其他用户接听");
+            if(!isPalyback){
+                 ToastUtil.showShort(mContext, "其他用户接听");
+            }
 //            mDoorAccessManager.hangupCall(mSessionId);
         }
     }
@@ -372,7 +385,7 @@ public class SafeOutsideFragment extends BaseFragment implements
 //            seekBar.setOnSeekBarChangeListener(this);
             mDoorAccessManager.startPlayBack(playBackSessionId);
             mDoorAccessManager.seekPlayBack(playBackSessionId, tempSeek * 100 / max);
-            mDoorAccessManager.updatePlayBackWindow(playBackSessionId, svPlayback);
+            mDoorAccessManager.updatePlayBackWindow(playBackSessionId, surfaceView);
 
         } else if (v.getId() == R.id.safe_btn_pause) { //暂停
             isPause = true;
@@ -421,11 +434,6 @@ public class SafeOutsideFragment extends BaseFragment implements
             }
 
         } else if (v.getId() == R.id.safe_swich_live_btn) { //切回直播
-            isPalyback = false;
-            isPause = false;
-
-            surfaceView.setVisibility(View.VISIBLE);
-            svPlayback.setVisibility(View.INVISIBLE);
             startLive();
             setVideo();
 
@@ -494,21 +502,26 @@ public class SafeOutsideFragment extends BaseFragment implements
             inVisibleType = 0;
             switch (requestCode) {
                 case REQUEST_CODE_FULL_LIVE:
-                    mDoorAccessManager.updateCallWindow(mSessionId, surfaceView);
+                    if (mDoorAccessManager != null) {
+                         mDoorAccessManager.updateCallWindow(mSessionId, surfaceView);
+                    }
                     break;
                 case REQUEST_CODE_FULL_HISTORY:
-                    mDoorAccessManager.updatePlayBackWindow(playBackSessionId, svPlayback);
-                    if (data != null) {
-                        boolean isPause = data.getBooleanExtra(Constants.INTENT_KEY_1, false);
-                        {
-                            if (isPause) {
-                                btnPause.setVisibility(View.GONE);
-                                btnPlay.setVisibility(View.VISIBLE);
-                            } else {
-                                btnPause.setVisibility(View.VISIBLE);
-                                btnPlay.setVisibility(View.GONE);
+                    if (mDoorAccessManager != null) {
+                        mDoorAccessManager.updatePlayBackWindow(playBackSessionId, surfaceView);
+                        if (data != null) {
+                            boolean isPause = data.getBooleanExtra(Constants.INTENT_KEY_1, false);
+                            {
+                                if (isPause) {
+                                    btnPause.setVisibility(View.GONE);
+                                    btnPlay.setVisibility(View.VISIBLE);
+                                } else {
+                                    btnPause.setVisibility(View.VISIBLE);
+                                    btnPlay.setVisibility(View.GONE);
+                                }
                             }
                         }
+
                     }
 //                    mDoorAccessManager.addPlayBackListener(this);
 
@@ -546,6 +559,14 @@ public class SafeOutsideFragment extends BaseFragment implements
     }
 
     private void startLive() {
+        isPalyback = false;
+        isPause = false;
+
+//        surfaceView.setVisibility(View.VISIBLE);
+//            svPlayback.setVisibility(View.INVISIBLE);
+        mDoorAccessManager.updatePlayBackWindow(playBackSessionId,null);
+        mDoorAccessManager.updateCallWindow(mSessionId,surfaceView);
+
         $(R.id.safe_rec_seek_layout).setVisibility(View.GONE);
         btnPlay.setVisibility(View.GONE);
         btnPause.setVisibility(View.GONE);
@@ -571,9 +592,10 @@ public class SafeOutsideFragment extends BaseFragment implements
         playBackSessionId = record.session_id;
         mDoorAccessManager.startPlayBack(playBackSessionId);
 
-        surfaceView.setVisibility(View.INVISIBLE);
-        svPlayback.setVisibility(View.VISIBLE);
-        mDoorAccessManager.updatePlayBackWindow(playBackSessionId, svPlayback);
+//        surfaceView.setVisibility(View.INVISIBLE);
+//        svPlayback.setVisibility(View.VISIBLE);
+        mDoorAccessManager.updateCallWindow(mSessionId, null);
+        mDoorAccessManager.updatePlayBackWindow(playBackSessionId, surfaceView);
 
     }
 
@@ -588,7 +610,6 @@ public class SafeOutsideFragment extends BaseFragment implements
     public void onDestroyView() {
         super.onDestroyView();
         pausePlay();
-        isSeeeionIdValid = false;
         destroyDoorAccessManager();
         LogUtil.i("SafeOutsideFragment onDestroyView");
     }

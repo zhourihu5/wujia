@@ -101,6 +101,9 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
     BusModel busModel;
     private int currentTab;
 
+    String dockeKey = null;
+    String buttonKey = null;
+
     private void setMessagePoint() {
         if (busModel == null) {
             busModel = new BusModel();
@@ -290,8 +293,6 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
     private void initSDKManager() {
         manager = JXPadSdk.getDoorAccessManager();
         manager.setDoorAccessListener(this);
-        String dockeKey = null;
-        String buttonKey = null;
         try {
             dockeKey = DataManager.getDockKey();
             buttonKey = DataManager.getButtonKey();
@@ -495,6 +496,7 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
         super.onDestroy();
         EventBusUtil.unregister(eventMsg);
         manager.setDoorAccessListener(null);
+//        manager.stopFamily(dockeKey);
         manager = null;
     }
 }
