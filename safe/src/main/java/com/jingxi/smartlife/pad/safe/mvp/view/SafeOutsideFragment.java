@@ -25,26 +25,39 @@ import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessConversationUI;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListUI;
 import com.wujia.businesslib.Constants;
 import com.wujia.businesslib.base.DataManager;
+import com.wujia.businesslib.base.MvpFragment;
 import com.wujia.businesslib.dialog.LoadingDialog;
 import com.wujia.businesslib.util.LoginUtil;
 import com.wujia.lib.widget.WJButton;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.BaseFragment;
+import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
+import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
+import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.AudioMngHelper;
 import com.wujia.lib_common.utils.DoubleClickUtils;
 import com.wujia.lib_common.utils.LogUtil;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * author ：shenbingkai@163.com
  * date ：2019-01-12 20:06
  * description ：可视安防 外机
  */
-public class SafeOutsideFragment extends BaseFragment implements
+public class SafeOutsideFragment extends MvpFragment implements
         SurfaceHolder.Callback, DoorAccessConversationUI, DoorAccessListUI, View.OnClickListener, MultiItemTypeAdapter.OnRVItemClickListener, SeekBar.OnSeekBarChangeListener, IntercomObserver.OnPlaybackListener {
 
     private static final int REQUEST_CODE_FULL_LIVE = 10;
@@ -87,6 +100,7 @@ public class SafeOutsideFragment extends BaseFragment implements
     private DoorRecordBean recordBean;
     private LoadingDialog loadingDialog;
     private View safe_swich_live_btn;
+    private TextView safe_eq_title_tv;
 
     public SafeOutsideFragment() {
     }
@@ -111,6 +125,11 @@ public class SafeOutsideFragment extends BaseFragment implements
     }
 
     @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
+    @Override
     protected void interruptInject() {
         super.interruptInject();
         audioHelper = new AudioMngHelper(mContext);
@@ -132,6 +151,7 @@ public class SafeOutsideFragment extends BaseFragment implements
 
         tvPlaybackCurrentTime = $(R.id.safe_progress_time_current_tv);
         tvPlaybackCountTime = $(R.id.safe_progress_time_count_tv);
+        safe_eq_title_tv = $(R.id.safe_eq_title_tv);
 
         safe_swich_live_btn= $(R.id.safe_swich_live_btn);
         safe_swich_live_btn .setOnClickListener(this);
@@ -166,12 +186,32 @@ public class SafeOutsideFragment extends BaseFragment implements
             return;
         }
 
-
+        addSubscribe(Flowable.interval(0, 60 , TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        if(!isPalyback){
+                            setDate(System.currentTimeMillis());
+                        }
+                    }
+                }));
 
         setVideo();
 
         setHistoryList();
 
+    }
+
+    protected void setDate(long timeInmillis) {
+        SimpleDateFormat dateFormat=new SimpleDateFormat("MM.dd HH:mm");
+        String time= dateFormat.format(new Date(timeInmillis));
+        if(!isPalyback){
+            safe_eq_title_tv.setText(String.format("室外机 Live %s",time));
+        }else {
+            safe_eq_title_tv.setText(String.format("回放 %s",time));
+        }
     }
 
     protected void initDoorAccessManager() {
@@ -201,7 +241,7 @@ public class SafeOutsideFragment extends BaseFragment implements
     }
 
     private void setVideo() {
-
+        setDate(System.currentTimeMillis());
         if (null == loadingDialog) {
             loadingDialog = new LoadingDialog(mContext);
         }
@@ -399,10 +439,15 @@ public class SafeOutsideFragment extends BaseFragment implements
         } else if (v.getId() == R.id.safe_btn_refresh) {    //刷新
 //            mDoorAccessManager.updateCallWindow(mSessionId, surfaceView);
             setVideo();
-        } else if (v.getId() == R.id.safe_btn_mute) {   //静音
+        } else if (v.getId() == R.id.safe_btn_mute) {   //静音 todo????问一下这里的逻辑
             isMute = !isMute;
+//            if(isPalyback){
+//                mDoorAccessManager.enableRemoteToLocalAudio(familyID,playBackSessionId,isMute);//不起作用，
+//            }else {
+//                mDoorAccessManager.enableRemoteToLocalAudio(familyID,mSessionId,isMute);
+//            }
             if (isMute) {
-                audioHelper.setVoice100(0);
+                audioHelper.setVoice100(0);//todo 音量键对安防sdk的视频播放器不起作用
                 ToastUtil.showShort(mContext, "已静音");
                 btnMute.setBackgroundImage(R.mipmap.btn_safe_mutebig_pressed, R.mipmap.btn_safe_mutebig_pressed);
             } else {
@@ -534,6 +579,10 @@ public class SafeOutsideFragment extends BaseFragment implements
     public void onMediaPlayEvent(String session_id, int event, long value) {
         if (event == IntercomConstants.MediaPlayEvent.MediaPlayEventDuration) {
             max = (int) (value / unit);
+            if(max==0){
+                LogUtil.e("onMediaPlayEvent value="+value);
+                max=59;
+            }
             seekBar.setMax(max);
         } else if (event == IntercomConstants.MediaPlayEvent.MediaPlayEventProgress) {
             seek = (int) (value / unit);
@@ -580,6 +629,7 @@ public class SafeOutsideFragment extends BaseFragment implements
     }
 
     private void startPlayRec(DoorRecordBean record) {
+        setDate(record.startTime);
         $(R.id.safe_rec_seek_layout).setVisibility(View.VISIBLE);
         btnPause.setVisibility(View.VISIBLE);
         btnPlay.setVisibility(View.GONE);

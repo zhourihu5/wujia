@@ -20,8 +20,8 @@ public class DateUtil {
         return curDate;
     }
 
-    public static String formathhMMdd(long m) {
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:dd");
+    public static String formathhMMss(long m) {
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
         Date date = new Date(m);
         String curDate = formatter.format(date);
         return curDate;

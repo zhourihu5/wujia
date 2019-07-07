@@ -78,7 +78,7 @@ public class PlayBackAdapter extends CommonAdapter<DoorRecordBean> {
         }
 
         holder.setText(R.id.play_back_title, item.show_name);
-        holder.setText(R.id.play_back_time_tv, DateUtil.formathhMMdd(item.startTime));
+        holder.setText(R.id.play_back_time_tv, DateUtil.formathhMMss(item.startTime));
 
         holder.setVisible(R.id.play_back_save_state, !TextUtils.isEmpty(item.thumbPath));
     }
