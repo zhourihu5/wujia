@@ -513,9 +513,9 @@ public class SafeOutsideFragment extends MvpFragment implements
                 return;
             }
 
+            isPalyback = true;
             ToastUtil.showShort(mContext, "开始回放");
             startPlayRec(recordList.get(position));
-            isPalyback = true;
         } else {
             recAdapter.itemClick(position);
         }
