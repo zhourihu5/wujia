@@ -176,7 +176,6 @@ public class MyReceiver extends BroadcastReceiver {
                 break;
             case TYPE_SYS:
                 VersionBean.Version bean = GsonUtil.GsonToBean(message, VersionBean.Version.class);
-                ;
 
                 int versionId = VersionUtil.getVersionCode();
 
@@ -184,10 +183,12 @@ public class MyReceiver extends BroadcastReceiver {
                     DownloadUtil.download(bean.imageurl, new DownloadListener() {
                         @Override
                         public void onTaskStart() {
+                            LogUtil.i("download onTaskStart" );
                         }
 
                         @Override
                         public void onTaskProgress(int percent, long currentOffset, long totalLength) {
+                            LogUtil.i(String.format("download onTaskProgress percent=%d,currentOffset=%d,totalLength=%d" ,percent,currentOffset,totalLength));
                         }
 
                         @Override
