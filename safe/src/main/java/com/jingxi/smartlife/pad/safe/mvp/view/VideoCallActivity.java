@@ -88,16 +88,16 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
         loadingDialog.setTitle("正在连接中...");
         loadingDialog.show();
 
-        runnable = new Runnable() {//todo remove it,and add SurfaceHolder.Callback
-            @Override
-            public void run() {
-                updateSurface();
-                frore.setVisibility(View.GONE);
-                if (loadingDialog != null) {
-                    loadingDialog.dismiss();
-                }
-            }
-        };
+//        runnable = new Runnable() {//todo remove it,and add SurfaceHolder.Callback
+//            @Override
+//            public void run() {
+//                updateSurface();
+//                frore.setVisibility(View.GONE);
+//                if (loadingDialog != null) {
+//                    loadingDialog.dismiss();
+//                }
+//            }
+//        };
 
         mSoundPool = new SoundPool(1, AudioManager.STREAM_VOICE_CALL,0);
         mSoundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
@@ -173,10 +173,12 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
     protected void onDestroy() {
         LogUtil.i("onDestroy");
         super.onDestroy();
-        if (null != runnable && null != surfaceView) {
+        if ( null != surfaceView) {
             surfaceView.removeCallbacks(runnable);
+            surfaceView.getHolder().removeCallback(this);
         }
         DoorAccessManager.getInstance().removeConversationUIListener(this);
+        manager.hangupCall(sessionId);
         EventBusUtil.unregister(eventBaseButtonClick);
         if(mSoundPool!=null){
             stopRing();
@@ -202,11 +204,8 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         LogUtil.i("surfaceCreated");
-        frore.setVisibility(View.GONE);
-        if (loadingDialog != null) {
-            loadingDialog.dismiss();
-        }
         manager.updateCallWindow(sessionId, surfaceView);
+
     }
 
     @Override
@@ -220,12 +219,6 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
         manager.updateCallWindow(sessionId, null);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        updateSurface();
-//        surfaceView.postDelayed(runnable, 1000);
-    }
 
     public void updateSurface() {
         manager.updateCallWindow(sessionId, surfaceView);
@@ -237,7 +230,11 @@ public class VideoCallActivity extends BaseActivity implements View.OnClickListe
             return;
         }
         LogUtil.i("VideoCallActivity 开始传输视频 sessionId " + sessionId);
-        Toast.makeText(this, "开始传输视频", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "开始传输视频", Toast.LENGTH_SHORT).show();
+        frore.setVisibility(View.GONE);
+        if (loadingDialog != null) {
+            loadingDialog.dismiss();
+        }
         updateSurface();
     }
 
