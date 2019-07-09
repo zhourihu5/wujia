@@ -66,7 +66,7 @@ public class AddMemberDialog extends CommDialog {
     @Override
     public void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        HookUtil.fixInputMethodManagerLeak(getContext());
+        HookUtil.fixInputMethodManagerLeak(mContext);
     }
 
     public String getHeadUrl() {
