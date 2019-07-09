@@ -5,9 +5,10 @@ import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PersistableBundle;
+import android.os.PowerManager;
 import android.os.ServiceManager;
 import android.service.dreams.IDreamManager;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.intercom.sdk.IntercomConstants;
 import com.intercom.sdk.SecurityMessage;
 import com.intercom.sdk.SmartHomeManager;
 import com.jingxi.smartlife.pad.R;
@@ -37,6 +39,7 @@ import com.jingxi.smartlife.pad.sdk.doorAccess.DoorAccessManager;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.DoorSecurityUtil;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListener;
 import com.wujia.businesslib.HookUtil;
+import com.wujia.businesslib.TabFragment;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpActivity;
 import com.wujia.businesslib.data.ApiResponse;
@@ -54,7 +57,6 @@ import com.wujia.lib.widget.VerticalTabItem;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.BaseMainFragment;
 import com.wujia.lib_common.base.BasePresenter;
-import com.wujia.businesslib.TabFragment;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
 import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.LogUtil;
@@ -103,6 +105,7 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
 
     String dockeKey = null;
     String buttonKey = null;
+    private PowerManager.WakeLock mWakelock;
 
     private void setMessagePoint() {
         if (busModel == null) {
@@ -403,6 +406,29 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
             EventBusUtil.post(new EventBaseButtonClick(com.intercom.sdk.IntercomConstants.kButtonUnlock));
         }else if(com.intercom.sdk.IntercomConstants.kButtonPickup.equals(cmd)){
             EventBusUtil.post(new EventBaseButtonClick(com.intercom.sdk.IntercomConstants.kButtonPickup));
+        }else if(com.intercom.sdk.IntercomConstants.kButtonHumanNear.equals(cmd)){
+            initWakeLock();
+        }else if(IntercomConstants.kButtonHumanLeav.equals(cmd)){
+            releaseWakeLock();
+        }
+    }
+
+    protected void releaseWakeLock() {
+        if(mWakelock!=null){
+            mWakelock.release();
+            mWakelock=null;
+        }
+    }
+
+    protected void initWakeLock() {
+
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        if (Build.VERSION.SDK_INT >= 21 && powerManager != null && !powerManager.isInteractive()) {//灭屏时点亮
+            if (mWakelock == null) {
+                mWakelock = powerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP |
+                        PowerManager.SCREEN_DIM_WAKE_LOCK, getClass().getName()); // this target for tell OS which app
+            }
+            mWakelock.acquire();
         }
     }
 
@@ -498,5 +524,6 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
         manager.setDoorAccessListener(null);
 //        manager.stopFamily(dockeKey);
         manager = null;
+        releaseWakeLock();
     }
 }
