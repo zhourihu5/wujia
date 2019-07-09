@@ -1,5 +1,7 @@
 package com.wujia.businesslib.data;
 
+import com.wujia.lib_common.base.RootResponse;
+
 import java.io.Serializable;
 
 /**

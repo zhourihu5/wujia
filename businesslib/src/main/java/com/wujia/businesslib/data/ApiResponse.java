@@ -1,6 +1,6 @@
 package com.wujia.businesslib.data;
 
-import com.wujia.businesslib.Constants;
+import com.wujia.lib_common.base.Constants;
 import com.wujia.lib_common.data.network.BaseResponse;
 
 public class ApiResponse<T> extends BaseResponse {

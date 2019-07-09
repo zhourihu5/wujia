@@ -8,7 +8,7 @@ import com.jingxi.smartlife.pad.mvp.home.data.WeatherInfoBean;
 import com.wujia.businesslib.base.BaseModel;
 import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.CardDetailBean;
-import com.wujia.businesslib.data.RootResponse;
+import com.wujia.lib_common.base.RootResponse;
 import com.wujia.lib_common.data.network.RxUtil;
 
 import io.reactivex.Flowable;

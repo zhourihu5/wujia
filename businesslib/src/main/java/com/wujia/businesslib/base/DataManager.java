@@ -1,6 +1,6 @@
 package com.wujia.businesslib.base;
 
-import com.wujia.businesslib.Constants;
+import com.wujia.lib_common.base.Constants;
 import com.wujia.businesslib.data.LoginDTO;
 import com.wujia.lib_common.utils.AppContext;
 import com.wujia.lib_common.utils.SPHelper;

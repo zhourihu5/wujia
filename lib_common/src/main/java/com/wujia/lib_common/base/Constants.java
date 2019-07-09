@@ -1,4 +1,6 @@
-package com.wujia.businesslib;
+package com.wujia.lib_common.base;
+
+import com.wujia.lib_common.BuildConfig;
 
 /**
  * Created by xmren on 2018/5/4.

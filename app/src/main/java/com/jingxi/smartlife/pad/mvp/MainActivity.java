@@ -14,6 +14,7 @@ import android.service.dreams.IDreamManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -156,11 +157,7 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
         LogUtil.i("ScreenUtil.densityDpi()  " + ScreenUtil.densityDpi);
         LogUtil.i("ScreenUtil.scaleDensity()  " + ScreenUtil.scaleDensity);
 
-
-//        for (int i = 400; i <= 500; i++) {
-//            LogUtil.i("<dimen name=\"px"+i+"\">"+Math.round(i/1.5)+"dp</dimen>");
-//           LogUtil.i("<dimen name=\"text"+i+"\">"+Math.round(i/1.5)+"sp</dimen>");
-//        }
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//todo
 
         initTab();
 
@@ -407,8 +404,10 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
         }else if(com.intercom.sdk.IntercomConstants.kButtonPickup.equals(cmd)){
             EventBusUtil.post(new EventBaseButtonClick(com.intercom.sdk.IntercomConstants.kButtonPickup));
         }else if(com.intercom.sdk.IntercomConstants.kButtonHumanNear.equals(cmd)){
+            LogUtil.i("kButtonHumanNear");
             initWakeLock();
         }else if(IntercomConstants.kButtonHumanLeav.equals(cmd)){
+            LogUtil.i("kButtonHumanLeav");
             releaseWakeLock();
         }
     }
@@ -417,6 +416,7 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
         if(mWakelock!=null){
             mWakelock.release();
             mWakelock=null;
+            LogUtil.i("mWakelock.release");
         }
     }
 
@@ -429,6 +429,7 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
                         PowerManager.SCREEN_DIM_WAKE_LOCK, getClass().getName()); // this target for tell OS which app
             }
             mWakelock.acquire();
+            LogUtil.i("mWakelock.acquire");
         }
     }
 

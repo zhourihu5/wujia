@@ -3,7 +3,9 @@ package com.wujia.lib_common.data.network.exception;
 
 import android.net.ParseException;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
+import com.wujia.lib_common.base.RootResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +37,15 @@ public class ExceptionEngine {
 
         ApiException ex;
         if (e instanceof HttpException) {             //HTTP错误
+            String msg = "系统开小差，请稍后再试";
             HttpException httpException = (HttpException) e;
+            try {
+                String body = httpException.response().errorBody().string();
+                RootResponse response = new Gson().fromJson(body, RootResponse.class);
+                msg = response.message;
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
             switch (httpException.code()) {
                 case UNAUTHORIZED:
                 case FORBIDDEN:
@@ -46,7 +56,7 @@ public class ExceptionEngine {
                 case BAD_GATEWAY:
                 case SERVICE_UNAVAILABLE:
                 default:
-                    ex = new ApiException(e, ERROR.HTTP_ERROR, "系统开小差，请稍后再试");
+                    ex = new ApiException(e, ERROR.HTTP_ERROR, msg);
                     break;
             }
             return ex;

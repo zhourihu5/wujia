@@ -23,24 +23,20 @@ import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorEvent;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorRecordBean;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessConversationUI;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListUI;
-import com.wujia.businesslib.Constants;
+import com.wujia.lib_common.base.Constants;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpFragment;
 import com.wujia.businesslib.dialog.LoadingDialog;
 import com.wujia.businesslib.util.LoginUtil;
 import com.wujia.lib.widget.WJButton;
 import com.wujia.lib.widget.util.ToastUtil;
-import com.wujia.lib_common.base.BaseFragment;
 import com.wujia.lib_common.base.BasePresenter;
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter;
-import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
-import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.AudioMngHelper;
 import com.wujia.lib_common.utils.DoubleClickUtils;
 import com.wujia.lib_common.utils.LogUtil;
 
 import java.io.File;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -226,12 +222,13 @@ public class SafeOutsideFragment extends MvpFragment implements
 
     protected void destroyDoorAccessManager() {
         if (mDoorAccessManager != null) {
-            mDoorAccessManager.updateCallWindow(mSessionId,null);
             mDoorAccessManager.hangupCall(mSessionId);
+            mDoorAccessManager.updateCallWindow(mSessionId,null);
             mDoorAccessManager.setListUIListener(null);
             mDoorAccessManager.removeConversationUIListener(this);
             mDoorAccessManager.removePlayBackListener(this);
             mDoorAccessManager = null;
+            LogUtil.i("destroyDoorAccessManager");
         }
     }
 

@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.jingxi.smartlife.pad.market.mvp.MarketHomeFragment;
-import com.wujia.businesslib.Constants;
 import com.wujia.lib_common.base.BaseMainFragment;
 
 /**

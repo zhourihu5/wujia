@@ -8,7 +8,7 @@ import android.webkit.WebView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.wujia.businesslib.Constants;
+import com.wujia.lib_common.base.Constants;
 import com.wujia.businesslib.R;
 import com.wujia.lib_common.base.BaseActivity;
 import com.wujia.lib_common.utils.WebViewUtil;

@@ -16,7 +16,7 @@ import com.jingxi.smartlife.pad.mvp.home.contract.HomeContract;
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeModel;
 import com.jingxi.smartlife.pad.mvp.home.data.LockADBean;
 import com.jingxi.smartlife.pad.mvp.home.data.WeatherInfoBean;
-import com.wujia.businesslib.Constants;
+import com.wujia.lib_common.base.Constants;
 import com.wujia.businesslib.base.WebViewActivity;
 import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.MsgDto;

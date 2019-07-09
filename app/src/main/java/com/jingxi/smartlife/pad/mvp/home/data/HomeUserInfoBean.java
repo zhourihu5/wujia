@@ -1,6 +1,6 @@
 package com.jingxi.smartlife.pad.mvp.home.data;
 
-import com.wujia.businesslib.data.RootResponse;
+import com.wujia.lib_common.base.RootResponse;
 
 import java.util.List;
 

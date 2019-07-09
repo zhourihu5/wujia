@@ -1,6 +1,7 @@
 package com.wujia.businesslib.data;
 
 import com.google.gson.annotations.SerializedName;
+import com.wujia.lib_common.base.RootResponse;
 
 import java.io.Serializable;
 

@@ -9,7 +9,7 @@ import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.CardDetailBean;
 import com.wujia.businesslib.data.LoginDTO;
 import com.wujia.businesslib.data.MessageBean;
-import com.wujia.businesslib.data.RootResponse;
+import com.wujia.lib_common.base.RootResponse;
 
 import java.util.List;
 

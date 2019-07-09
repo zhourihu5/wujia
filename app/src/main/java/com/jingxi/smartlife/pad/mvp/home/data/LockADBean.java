@@ -1,7 +1,7 @@
 package com.jingxi.smartlife.pad.mvp.home.data;
 
 import com.google.gson.annotations.SerializedName;
-import com.wujia.businesslib.data.RootResponse;
+import com.wujia.lib_common.base.RootResponse;
 
 /**
  * author ：shenbingkai@163.com

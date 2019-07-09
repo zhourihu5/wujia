@@ -1,6 +1,6 @@
 package com.jingxi.smartlife.pad.market.mvp.data;
 
-import com.wujia.businesslib.data.RootResponse;
+import com.wujia.lib_common.base.RootResponse;
 
 import java.util.ArrayList;
 

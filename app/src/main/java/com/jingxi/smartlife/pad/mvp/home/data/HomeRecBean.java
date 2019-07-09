@@ -3,7 +3,7 @@ package com.jingxi.smartlife.pad.mvp.home.data;
 import android.text.TextUtils;
 
 import com.google.gson.annotations.SerializedName;
-import com.wujia.businesslib.data.RootResponse;
+import com.wujia.lib_common.base.RootResponse;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -4,7 +4,7 @@ import com.jingxi.smartlife.pad.mvp.login.contract.LoginContract;
 import com.jingxi.smartlife.pad.mvp.login.model.LoginModel;
 import com.wujia.businesslib.base.RxPresenter;
 import com.wujia.businesslib.data.LoginDTO;
-import com.wujia.businesslib.data.RootResponse;
+import com.wujia.lib_common.base.RootResponse;
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber;
 import com.wujia.lib_common.data.network.exception.ApiException;
 import com.wujia.lib_common.utils.DateUtil;

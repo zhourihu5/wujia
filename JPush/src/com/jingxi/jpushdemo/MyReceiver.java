@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.wujia.businesslib.Constants;
+import com.wujia.lib_common.base.Constants;
 import com.wujia.businesslib.DownloadUtil;
 import com.wujia.businesslib.base.BaseApplication;
 import com.wujia.businesslib.data.Advert;
