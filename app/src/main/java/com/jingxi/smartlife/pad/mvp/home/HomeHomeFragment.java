@@ -156,8 +156,8 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
                 @Override
                 public void onResponse(ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>> response) {
                     super.onResponse(response);
-                    memAdapter = new HomeMemberAdapter(mActivity, response.data);
-                    rvHomeMember.setAdapter(memAdapter);
+                    memAdapter.setmDatas( response.data);
+                    memAdapter.notifyDataSetChanged();
                 }
 
                 @Override
@@ -200,7 +200,9 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
         setState();
 
-
+        rvHomeMember.addItemDecoration(new HorizontalDecoration(10));
+        memAdapter=new HomeMemberAdapter(getContext(),new ArrayList<HomeUserInfoBean.DataBean.UserInfoListBean>());
+        rvHomeMember.setAdapter(memAdapter);
         mPresenter.getUserQuickCard();
         mPresenter.getHomeUserInfo(SystemUtil.getSerialNum());
         mPresenter.getWeather();
@@ -430,9 +432,8 @@ public class HomeHomeFragment extends MvpFragment<HomePresenter> implements Home
 
                 homeRoomTv.setText(homeUserInfoBean.getData().getCommuntity().getName());
 
-                rvHomeMember.addItemDecoration(new HorizontalDecoration(10));
-                memAdapter = new HomeMemberAdapter(mActivity, homeUserInfoBean.getData().getUserInfoList());
-                rvHomeMember.setAdapter(memAdapter);
+                memAdapter.setmDatas( homeUserInfoBean.getData().getUserInfoList());
+                memAdapter.notifyDataSetChanged();
 
                 break;
             case HomePresenter.REQUEST_CDOE_WEATHER:
