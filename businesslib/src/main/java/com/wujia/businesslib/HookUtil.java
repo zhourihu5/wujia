@@ -255,7 +255,7 @@ public class HookUtil {
     }
 
     public static void fixInputMethodManagerLeak(Context destContext) {//fixme not effect.
-        if (destContext == null) {
+        if (destContext == null||true) {
             return;
         }
 
