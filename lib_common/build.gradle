@@ -1,5 +1,8 @@
 apply plugin: 'com.android.library'
 
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion build_versions.target_sdk
@@ -31,6 +34,8 @@ android {
 }
 
 dependencies {
+    implementation "org.jetbrains.kotlin:$versions.kotlin_stdlib_jdk:$versions.kotlinVersion"
+
     api deps.support.app_compat
     api deps.support.cardview
     api deps.support.v4

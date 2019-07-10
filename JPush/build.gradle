@@ -10,7 +10,13 @@
 //apply plugin: 'com.android.application'
 apply plugin: 'com.android.library'
 
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
 dependencies {
+    implementation "org.jetbrains.kotlin:$versions.kotlin_stdlib_jdk:$versions.kotlinVersion"
+
     api fileTree(dir: 'libs', include: '*.jar')
     implementation project(':businesslib')
 }
