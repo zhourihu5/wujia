@@ -18,7 +18,7 @@ import retrofit2.http.Query;
 public interface BusApiService {
 
     @GET("/v1/message/findListByUserId")
-    Flowable<ApiResponse<MsgDto>> getMsg(@Query("type") String type, @Query("status") String status, @Query("pageNum") int pageNo, @Query("pageSize") int pageSize);
+    Flowable<ApiResponse<MsgDto>> getMsg(@Query("familyId") String familyId, @Query("type") String type, @Query("status") String status, @Query("pageNum") int pageNo, @Query("pageSize") int pageSize);
 
     @GET("/v1/message/findTopThreeByUserId")
     Flowable<ApiResponse<List<MsgDto.ContentBean>>> getTop3UnReadMsg();

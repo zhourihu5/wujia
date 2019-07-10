@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.jingxi.smartlife.pad.message.R;
 import com.jingxi.smartlife.pad.message.mvp.adapter.MessageAdapter;
+import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.base.MvpFragment;
 import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.MsgDto;
@@ -14,6 +15,7 @@ import com.wujia.businesslib.event.EventBusUtil;
 import com.wujia.businesslib.event.EventMsg;
 import com.wujia.businesslib.event.IMiessageInvoke;
 import com.wujia.businesslib.model.BusModel;
+import com.wujia.businesslib.util.LoginUtil;
 import com.wujia.lib.widget.HorizontalTabBar;
 import com.wujia.lib.widget.HorizontalTabItem;
 import com.wujia.lib_common.base.BasePresenter;
@@ -152,8 +154,15 @@ public class AllMsgFragment extends MvpFragment implements HorizontalTabBar.OnTa
                 status = "0";
                 break;
         }
-
-        addSubscribe(busModel.getMsg(type, status, page, pageSize).subscribeWith(new SimpleRequestSubscriber<ApiResponse<MsgDto>>(this, new SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        String familyId=null;
+        try {
+            familyId= DataManager.getFamilyId();
+        } catch (Exception e) {
+            e.printStackTrace();
+            LoginUtil.toLoginActivity();
+            return;
+        }
+        addSubscribe(busModel.getMsg(familyId,type, status, page, pageSize).subscribeWith(new SimpleRequestSubscriber<ApiResponse<MsgDto>>(this, new SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(ApiResponse<MsgDto> response) {
                 super.onResponse(response);

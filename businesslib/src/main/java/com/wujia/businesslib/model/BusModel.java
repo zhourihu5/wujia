@@ -19,8 +19,8 @@ import io.reactivex.Flowable;
 public class BusModel extends BaseModel {
 
 
-    public Flowable<ApiResponse<MsgDto>> getMsg(String type, String status, int pageNo, int pageSize) {
-        return mHttpHelper.create(BusApiService.class).getMsg(type, status, pageNo, pageSize).compose(RxUtil.<ApiResponse<MsgDto>>rxSchedulerHelper());
+    public Flowable<ApiResponse<MsgDto>> getMsg(String familyId, String type, String status, int pageNo, int pageSize) {
+        return mHttpHelper.create(BusApiService.class).getMsg(familyId,type, status, pageNo, pageSize).compose(RxUtil.<ApiResponse<MsgDto>>rxSchedulerHelper());
 
     }
 
