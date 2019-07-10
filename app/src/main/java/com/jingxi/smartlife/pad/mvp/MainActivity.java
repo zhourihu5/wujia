@@ -7,10 +7,11 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.PersistableBundle;
 import android.os.PowerManager;
-import android.os.ServiceManager;
-import android.service.dreams.IDreamManager;
+//import android.os.ServiceManager;
+//import android.service.dreams.IDreamManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
@@ -65,6 +66,7 @@ import com.wujia.lib_common.utils.ScreenUtil;
 import com.wujia.lib_common.utils.grant.PermissionsManager;
 import com.wujia.lib_common.utils.grant.PermissionsResultAction;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import me.yokeyword.fragmentation.SupportFragment;
@@ -157,7 +159,7 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
         LogUtil.i("ScreenUtil.densityDpi()  " + ScreenUtil.densityDpi);
         LogUtil.i("ScreenUtil.scaleDensity()  " + ScreenUtil.scaleDensity);
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//todo
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//todo
 
         initTab();
 
@@ -256,13 +258,30 @@ public class MainActivity extends MvpActivity implements DoorAccessListener, Doo
     }
 
     private void initLockService() {
+        //import android.os.ServiceManager;
+        //import android.service.dreams.IDreamManager;
         try {
-            IDreamManager mDreamManager = IDreamManager.Stub.asInterface(
-                    ServiceManager.getService("dreams"));
+//            IDreamManager mDreamManager = IDreamManager.Stub.asInterface(
+//                    ServiceManager.getService("dreams"));
+            Class ServiceManager=Class.forName("android.os.ServiceManager");
+            Method getService=ServiceManager.getDeclaredMethod("getService",String.class);
+            Object iBinder=getService.invoke(null,"dreams");
+
+            Class IDreamManager$Stub=Class.forName("android.service.dreams.IDreamManager$Stub");
+            Method asInterface=IDreamManager$Stub.getDeclaredMethod("asInterface", IBinder.class);
+            Object mDreamManager=asInterface.invoke(null,iBinder);
+
+
+
             LogUtil.i("main get pageage name =" + getPackageName() + "  name =" + LockService.class.getName());
             ComponentName componentName = new ComponentName(getPackageName(), LockService.class.getName());
             ComponentName[] componentNames = {componentName};
-            mDreamManager.setDreamComponents(componentNames);
+//            mDreamManager.setDreamComponents(componentNames);
+
+            Class IDreamManager=Class.forName("android.service.dreams.IDreamManager");
+            Method setDreamComponents=IDreamManager.getDeclaredMethod("setDreamComponents",ComponentName[].class);
+            setDreamComponents.invoke(mDreamManager,(Object) componentNames);
+            LogUtil.i("initLockService success");
         } catch (Exception e) {
             e.printStackTrace();
         }
