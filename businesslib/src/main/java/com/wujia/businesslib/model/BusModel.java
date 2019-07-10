@@ -2,10 +2,13 @@ package com.wujia.businesslib.model;
 
 import com.wujia.businesslib.BusApiService;
 import com.wujia.businesslib.base.BaseModel;
+import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.MsgDto;
 import com.wujia.businesslib.data.VersionBean;
+import com.wujia.businesslib.util.LoginUtil;
 import com.wujia.lib_common.data.network.RxUtil;
+import com.wujia.lib_common.utils.LogUtil;
 
 import java.util.List;
 
@@ -25,7 +28,15 @@ public class BusModel extends BaseModel {
     }
 
     public Flowable<ApiResponse<List<MsgDto.ContentBean>>> getTop3UnReadMsg() {
-        return mHttpHelper.create(BusApiService.class).getTop3UnReadMsg().compose(RxUtil.<ApiResponse<List<MsgDto.ContentBean>>>rxSchedulerHelper());
+        String familyId;
+        try {
+            familyId = DataManager.getFamilyId();
+        } catch (Exception e) {
+            e.printStackTrace();
+            LoginUtil.toLoginActivity();
+            return null;
+        }
+        return mHttpHelper.create(BusApiService.class).getTop3UnReadMsg(familyId).compose(RxUtil.<ApiResponse<List<MsgDto.ContentBean>>>rxSchedulerHelper());
 
     }
 

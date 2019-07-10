@@ -21,7 +21,7 @@ public interface BusApiService {
     Flowable<ApiResponse<MsgDto>> getMsg(@Query("familyId") String familyId, @Query("type") String type, @Query("status") String status, @Query("pageNum") int pageNo, @Query("pageSize") int pageSize);
 
     @GET("/v1/message/findTopThreeByUserId")
-    Flowable<ApiResponse<List<MsgDto.ContentBean>>> getTop3UnReadMsg();
+    Flowable<ApiResponse<List<MsgDto.ContentBean>>> getTop3UnReadMsg(@Query("familyId")String familyId);
 
     @GET("/v1/message/isUnRead")
     Flowable<ApiResponse<Boolean>> isUnReadMsg();
