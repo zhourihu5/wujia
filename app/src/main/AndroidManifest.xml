@@ -43,9 +43,6 @@
             <!--</intent-filter>-->
 
         </activity>
-        <activity
-            android:name=".mvp.login.LockActivity"
-            android:screenOrientation="landscape" />
 
         <activity
             android:name=".mvp.setting.view.CardManagerActivity"

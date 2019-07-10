@@ -1,0 +1,72 @@
+package com.jingxi.smartlife.pad.mvp.home.view
+
+import android.content.Context
+import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
+import android.view.View
+import android.widget.EditText
+
+import com.jingxi.smartlife.pad.R
+import com.jingxi.smartlife.pad.mvp.home.adapter.HomeInviteAdapter
+import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean
+import com.wujia.businesslib.HookUtil
+import com.wujia.businesslib.dialog.CommDialog
+import com.wujia.businesslib.listener.OnInputDialogListener
+import com.wujia.lib.widget.util.ToastUtil
+import com.wujia.lib_common.base.view.VerticallDecoration
+import kotlinx.android.synthetic.main.dialog_add_member_layout.*
+import kotlin.String.Companion
+
+/**
+ * Author: created by shenbingkai on 2019/2/11 14 48
+ * Email:  shenbingkai@gamil.com
+ * Description:
+ */
+class AddMemberDialog(context: Context, internal var datas: List<HomeUserInfoBean.DataBean.UserInfoListBean>) : CommDialog(context, R.style.dialogStyle) {
+
+    private var listener: OnInputDialogListener? = null
+
+
+    val headUrl: String
+        get() {
+            val num = (Math.random() * 6 + 1).toInt()
+            return String.format("file:///android_asset/img_default_head_%d.png", num)
+        }
+    init {
+        rv_dialog_invite!!.adapter = HomeInviteAdapter(context, datas)
+    }
+    override fun init(context: Context) {
+
+        rv_dialog_invite!!.addItemDecoration(VerticallDecoration(24))
+        rv_dialog_invite!!.adapter = HomeInviteAdapter(context, datas)
+
+        findViewById<View>(R.id.btn_send_invite).setOnClickListener(View.OnClickListener {
+            if (null != listener) {
+                val phone = dialog_input!!.text.toString().trim { it <= ' ' }
+                if (TextUtils.isEmpty(phone))
+                    return@OnClickListener
+                if (phone.length != 11) {
+                    ToastUtil.showShort(mContext, R.string.please_input_right_phone)
+                    return@OnClickListener
+                }
+                dismiss()
+                listener!!.dialogSureClick(phone)
+            }
+        })
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        HookUtil.fixInputMethodManagerLeak(mContext)
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.dialog_add_member_layout
+    }
+
+    fun setListener(listener: OnInputDialogListener): AddMemberDialog {
+        this.listener = listener
+        return this
+    }
+
+}
