@@ -1,9 +1,7 @@
 package com.jingxi.smartlife.pad.mvp.setting.view
 
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
-import android.widget.TextView
-
+import butterknife.OnClick
 import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean
 import com.jingxi.smartlife.pad.mvp.setting.adapter.SetMemberAdapter
@@ -20,13 +18,8 @@ import com.wujia.lib_common.base.view.VerticallDecoration
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
 import com.wujia.lib_common.data.network.exception.ApiException
 import com.wujia.lib_common.utils.LogUtil
-
-import java.util.ArrayList
-
-import butterknife.BindView
-import butterknife.OnClick
 import kotlinx.android.synthetic.main.fragment_member.*
-import kotlin.String.Companion
+import java.util.*
 
 /**
  * author ：shenbingkai@163.com

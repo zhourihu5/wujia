@@ -3,12 +3,8 @@ package com.jingxi.smartlife.pad.mvp
 import android.content.Context
 import android.content.Intent
 import android.service.dreams.DreamService
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-
 import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.mvp.home.adapter.HomeNotifyAdapter
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeContract
@@ -16,7 +12,6 @@ import com.jingxi.smartlife.pad.mvp.home.contract.HomeModel
 import com.jingxi.smartlife.pad.mvp.home.data.LockADBean
 import com.jingxi.smartlife.pad.mvp.home.data.WeatherInfoBean
 import com.wujia.businesslib.base.DataManager
-import com.wujia.lib_common.base.Constants
 import com.wujia.businesslib.base.WebViewActivity
 import com.wujia.businesslib.data.ApiResponse
 import com.wujia.businesslib.data.MsgDto
@@ -27,21 +22,19 @@ import com.wujia.businesslib.event.IMiessageInvoke
 import com.wujia.businesslib.model.BusModel
 import com.wujia.businesslib.util.LoginUtil
 import com.wujia.lib.imageloader.ImageLoaderManager
-import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter
+import com.wujia.lib_common.base.Constants
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
 import com.wujia.lib_common.data.network.exception.ApiException
 import com.wujia.lib_common.utils.DateUtil
 import com.wujia.lib_common.utils.FontUtils
 import com.wujia.lib_common.utils.StringUtil
-import java.util.concurrent.TimeUnit
-
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.activity_lock.*
+import java.util.concurrent.TimeUnit
 
 /**
  * author ：shenbingkai@163.com

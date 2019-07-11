@@ -19,11 +19,11 @@ import com.jingxi.smartlife.pad.sdk.doorAccess.DoorAccessManager;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorDevice;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorEvent;
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessConversationUI;
-import com.wujia.lib_common.base.Constants;
 import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.dialog.LoadingDialog;
 import com.wujia.businesslib.util.LoginUtil;
 import com.wujia.lib_common.base.BaseActivity;
+import com.wujia.lib_common.base.Constants;
 import com.wujia.lib_common.utils.LogUtil;
 
 import java.util.List;

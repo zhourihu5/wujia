@@ -3,18 +3,13 @@ package com.jingxi.smartlife.pad.mvp.login
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-
+import butterknife.OnClick
 import com.jingxi.smartlife.pad.R
-import com.wujia.lib_common.base.Constants
 import com.wujia.businesslib.base.WebViewActivity
 import com.wujia.businesslib.data.Advert
 import com.wujia.lib.imageloader.ImageLoaderManager
 import com.wujia.lib_common.base.BaseActivity
-
-import butterknife.BindView
-import butterknife.OnClick
+import com.wujia.lib_common.base.Constants
 import kotlinx.android.synthetic.main.activity_advert.*
 
 /**

@@ -2,29 +2,17 @@ package com.jingxi.smartlife.pad.mvp
 
 import android.app.ActivityManager
 import android.app.Service
-import android.app.usage.UsageStats
 import android.app.usage.UsageStatsManager
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.IBinder
 import android.provider.Settings
-import android.view.GestureDetector
-import android.view.Gravity
-import android.view.MotionEvent
-import android.view.View
-import android.view.WindowManager
-
+import android.view.*
 import com.jingxi.smartlife.pad.R
 import com.wujia.lib_common.utils.AppUtil
 import com.wujia.lib_common.utils.LogUtil
-
-import java.io.BufferedReader
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.lang.reflect.Method
 
 /**
  * Created by dongzhong on 2018/5/30.

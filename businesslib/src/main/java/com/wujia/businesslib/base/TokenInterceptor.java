@@ -2,8 +2,8 @@ package com.wujia.businesslib.base;
 
 import android.text.TextUtils;
 
-import com.wujia.lib_common.base.RootResponse;
 import com.wujia.businesslib.util.LoginUtil;
+import com.wujia.lib_common.base.RootResponse;
 import com.wujia.lib_common.data.network.exception.TokenException;
 import com.wujia.lib_common.utils.GsonUtil;
 

@@ -1,7 +1,5 @@
 package com.wujia.lib_common.base;
 
-import android.text.TextUtils;
-
 import com.wujia.lib_common.data.network.BaseResponse;
 
 import java.io.Serializable;

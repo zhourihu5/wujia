@@ -7,9 +7,9 @@ import android.support.annotation.Nullable;
 import com.jingxi.smartlife.pad.market.R;
 import com.jingxi.smartlife.pad.market.mvp.view.AllServiceFragment;
 import com.jingxi.smartlife.pad.market.mvp.view.FindServiceFragment;
+import com.wujia.businesslib.TabFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
-import com.wujia.businesslib.TabFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
 import me.yokeyword.fragmentation.SupportFragment;

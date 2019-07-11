@@ -1,8 +1,7 @@
 package com.jingxi.smartlife.pad.mvp
 
 import android.content.Context
-
-import com.jingxi.smartlife.pad.market.mvp.data.ServiceDto
+import com.jingxi.smartlife.pad.BuildConfig
 import com.wujia.businesslib.data.ApiResponse
 import com.wujia.businesslib.model.BusModel
 import com.wujia.lib_common.base.BaseView
@@ -11,7 +10,6 @@ import com.wujia.lib_common.data.network.exception.ApiException
 import com.wujia.lib_common.utils.LogUtil
 import com.wujia.lib_common.utils.SystemUtil
 import com.wujia.lib_common.utils.VersionUtil
-
 import io.reactivex.disposables.Disposable
 import org.json.JSONObject
 import xcrash.ICrashCallback
@@ -19,7 +17,7 @@ import xcrash.TombstoneParser
 import xcrash.XCrash
 import java.io.File
 import java.io.FileWriter
-import com.jingxi.smartlife.pad.BuildConfig
+
 object Util {
 
     val updateVesion: Disposable

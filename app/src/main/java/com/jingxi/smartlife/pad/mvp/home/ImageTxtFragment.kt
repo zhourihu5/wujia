@@ -6,7 +6,6 @@ import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.TextView
-
 import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.market.mvp.adapter.FindServiceChildAdapter
 import com.jingxi.smartlife.pad.market.mvp.view.ServiceBaseFragment
@@ -20,8 +19,7 @@ import com.wujia.lib_common.data.network.SimpleRequestSubscriber
 import com.wujia.lib_common.data.network.exception.ApiException
 import com.wujia.lib_common.utils.WebViewUtil
 import kotlinx.android.synthetic.main.fragment_img_txt.*
-
-import java.util.ArrayList
+import java.util.*
 
 
 /**

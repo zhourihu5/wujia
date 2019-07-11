@@ -4,13 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
-import android.util.SparseBooleanArray
 import android.view.SurfaceHolder
-import android.view.SurfaceView
 import android.view.View
 import android.widget.SeekBar
-import android.widget.TextView
-
 import com.intercom.sdk.IntercomConstants
 import com.intercom.sdk.IntercomObserver
 import com.jingxi.smartlife.pad.safe.R
@@ -22,31 +18,26 @@ import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorEvent
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorRecordBean
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessConversationUI
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListUI
-import com.wujia.lib_common.base.Constants
 import com.wujia.businesslib.base.DataManager
 import com.wujia.businesslib.base.MvpFragment
 import com.wujia.businesslib.dialog.LoadingDialog
 import com.wujia.businesslib.util.LoginUtil
-import com.wujia.lib.widget.WJButton
 import com.wujia.lib.widget.util.ToastUtil
 import com.wujia.lib_common.base.BasePresenter
 import com.wujia.lib_common.base.BaseView
+import com.wujia.lib_common.base.Constants
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter
 import com.wujia.lib_common.utils.AudioMngHelper
 import com.wujia.lib_common.utils.DoubleClickUtils
 import com.wujia.lib_common.utils.LogUtil
-
-import java.io.File
-import java.text.SimpleDateFormat
-import java.util.ArrayList
-import java.util.Date
-import java.util.concurrent.TimeUnit
-
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_safe_outside.*
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 /**
  * author ：shenbingkai@163.com
@@ -555,8 +546,6 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
         playBackSessionId = record.session_id
         mDoorAccessManager!!.startPlayBack(playBackSessionId)
 
-        //        surfaceView.setVisibility(View.INVISIBLE);
-        //        svPlayback.setVisibility(View.VISIBLE);
         mDoorAccessManager!!.updateCallWindow(mSessionId, null)
         mDoorAccessManager!!.updatePlayBackWindow(playBackSessionId, surfaceView)
 

@@ -7,7 +7,7 @@ import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
-
+import butterknife.OnClick
 import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.mvp.MainActivity
 import com.jingxi.smartlife.pad.mvp.home.adapter.HomeCardAdapter
@@ -15,6 +15,7 @@ import com.jingxi.smartlife.pad.mvp.home.adapter.HomeMemberAdapter
 import com.jingxi.smartlife.pad.mvp.home.adapter.HomeNotifyAdapter
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeContract
 import com.jingxi.smartlife.pad.mvp.home.contract.HomePresenter
+import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean
 import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean
 import com.jingxi.smartlife.pad.mvp.home.data.WeatherInfoBean
 import com.jingxi.smartlife.pad.mvp.home.view.AddMemberDialog
@@ -26,12 +27,7 @@ import com.wujia.businesslib.base.MvpFragment
 import com.wujia.businesslib.base.WebViewFragment
 import com.wujia.businesslib.data.ApiResponse
 import com.wujia.businesslib.data.MsgDto
-import com.wujia.businesslib.event.EventBusUtil
-import com.wujia.businesslib.event.EventCardChange
-import com.wujia.businesslib.event.EventMemberChange
-import com.wujia.businesslib.event.EventMsg
-import com.wujia.businesslib.event.EventSafeState
-import com.wujia.businesslib.event.IMiessageInvoke
+import com.wujia.businesslib.event.*
 import com.wujia.businesslib.listener.OnInputDialogListener
 import com.wujia.businesslib.model.BusModel
 import com.wujia.businesslib.util.LoginUtil
@@ -41,19 +37,9 @@ import com.wujia.lib_common.base.view.HomeCardDecoration
 import com.wujia.lib_common.base.view.HorizontalDecoration
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
 import com.wujia.lib_common.data.network.exception.ApiException
-import com.wujia.lib_common.utils.DateUtil
-import com.wujia.lib_common.utils.FontUtils
-import com.wujia.lib_common.utils.LogUtil
-import com.wujia.lib_common.utils.NetworkUtil
-import com.wujia.lib_common.utils.StringUtil
-import com.wujia.lib_common.utils.SystemUtil
-
-import java.util.ArrayList
-
-import butterknife.OnClick
-import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean
-
+import com.wujia.lib_common.utils.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.util.*
 
 /**
  * author ：shenbingkai@163.com

@@ -6,9 +6,9 @@ import android.support.annotation.Nullable;
 
 import com.jingxi.smartlife.pad.message.R;
 import com.jingxi.smartlife.pad.message.mvp.view.AllMsgFragment;
+import com.wujia.businesslib.TabFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
-import com.wujia.businesslib.TabFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
 import me.yokeyword.fragmentation.SupportFragment;

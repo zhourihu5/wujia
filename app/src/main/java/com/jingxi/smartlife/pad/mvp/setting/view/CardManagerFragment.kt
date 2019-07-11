@@ -2,10 +2,11 @@ package com.jingxi.smartlife.pad.mvp.setting.view
 
 import android.os.Bundle
 import android.view.View
-
+import butterknife.OnClick
 import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeContract
 import com.jingxi.smartlife.pad.mvp.home.contract.HomePresenter
+import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean
 import com.jingxi.smartlife.pad.mvp.setting.adapter.HomeCardManagerAdapter
 import com.wujia.businesslib.base.MvpFragment
 import com.wujia.businesslib.event.EventBusUtil
@@ -13,12 +14,8 @@ import com.wujia.businesslib.event.EventCardChange
 import com.wujia.businesslib.event.IMiessageInvoke
 import com.wujia.lib_common.base.view.VerticallDecoration
 import com.wujia.lib_common.data.network.exception.ApiException
-
-import java.util.ArrayList
-
-import butterknife.OnClick
-import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean
 import kotlinx.android.synthetic.main.activity_card_manager.*
+import java.util.*
 
 /**
  * author ：shenbingkai@163.com

@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 
 import com.jingxi.smartlife.pad.safe.R;
 import com.jingxi.smartlife.pad.safe.mvp.view.SafeOutsideFragment;
+import com.wujia.businesslib.TabFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
-import com.wujia.businesslib.TabFragment;
 import com.wujia.lib_common.utils.LogUtil;
 
 import me.yokeyword.fragmentation.SupportFragment;

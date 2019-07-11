@@ -2,10 +2,7 @@ package com.jingxi.smartlife.pad.mvp.setting.view
 
 import android.os.Bundle
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
-
+import butterknife.OnClick
 import com.jingxi.smartlife.pad.R
 import com.liulishuo.okdownload.DownloadTask
 import com.wujia.businesslib.DownloadUtil
@@ -15,18 +12,12 @@ import com.wujia.businesslib.listener.DownloadListener
 import com.wujia.lib.widget.util.ToastUtil
 import com.wujia.lib_common.utils.AppUtil
 import com.wujia.lib_common.utils.LogUtil
-
-import java.math.BigDecimal
-
-import butterknife.BindView
-import butterknife.OnClick
 import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_update.*
+import java.math.BigDecimal
 
 /**
  * author ：shenbingkai@163.com

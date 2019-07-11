@@ -1,9 +1,7 @@
 package com.jingxi.smartlife.pad.message.mvp.view
 
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
-
 import com.jingxi.smartlife.pad.message.R
 import com.jingxi.smartlife.pad.message.mvp.adapter.MessageAdapter
 import com.wujia.businesslib.base.DataManager
@@ -23,9 +21,7 @@ import com.wujia.lib_common.base.baseadapter.wrapper.LoadMoreWrapper
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
 import com.wujia.lib_common.data.network.exception.ApiException
 import kotlinx.android.synthetic.main.fragment_msg_all.*
-
-import java.util.ArrayList
-import java.util.HashMap
+import java.util.*
 
 /**
  * author ：shenbingkai@163.com

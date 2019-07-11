@@ -4,11 +4,10 @@ import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean
 import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean
 import com.jingxi.smartlife.pad.mvp.home.data.LockADBean
 import com.jingxi.smartlife.pad.mvp.home.data.WeatherInfoBean
-import com.wujia.lib_common.base.RootResponse
 import com.wujia.lib_common.base.BasePresenter
 import com.wujia.lib_common.base.CommonDataLoadView
 import com.wujia.lib_common.base.IBaseModle
-
+import com.wujia.lib_common.base.RootResponse
 import io.reactivex.Flowable
 
 /**

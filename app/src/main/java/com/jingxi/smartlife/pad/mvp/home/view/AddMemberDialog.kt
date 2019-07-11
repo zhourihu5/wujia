@@ -1,11 +1,8 @@
 package com.jingxi.smartlife.pad.mvp.home.view
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
-import android.widget.EditText
-
 import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.mvp.home.adapter.HomeInviteAdapter
 import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean
@@ -15,7 +12,6 @@ import com.wujia.businesslib.listener.OnInputDialogListener
 import com.wujia.lib.widget.util.ToastUtil
 import com.wujia.lib_common.base.view.VerticallDecoration
 import kotlinx.android.synthetic.main.dialog_add_member_layout.*
-import kotlin.String.Companion
 
 /**
  * Author: created by shenbingkai on 2019/2/11 14 48

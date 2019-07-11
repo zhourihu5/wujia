@@ -2,10 +2,6 @@ package com.jingxi.smartlife.pad.mvp.home.view
 
 import android.app.Dialog
 import android.content.Context
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-
 import com.jingxi.smartlife.pad.R
 import com.wujia.businesslib.data.MsgDto
 import kotlinx.android.synthetic.main.dialog_msg_layout.*

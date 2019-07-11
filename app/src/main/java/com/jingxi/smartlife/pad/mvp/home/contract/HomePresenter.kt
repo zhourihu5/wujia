@@ -7,12 +7,10 @@ import com.wujia.businesslib.base.RxPresenter
 import com.wujia.lib_common.base.RootResponse
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
 import com.wujia.lib_common.data.network.exception.ApiException
-
-import java.util.concurrent.TimeUnit
-
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 /**
  * author ：shenbingkai@163.com

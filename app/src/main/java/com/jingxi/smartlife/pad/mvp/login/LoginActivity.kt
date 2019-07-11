@@ -6,42 +6,28 @@ import android.text.TextUtils
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
-import android.widget.ImageView
-
+import butterknife.OnClick
+import butterknife.OnLongClick
 import com.jingxi.jpushdemo.TagAliasOperatorHelper
 import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.mvp.MainActivity
 import com.jingxi.smartlife.pad.mvp.login.contract.LoginContract
 import com.jingxi.smartlife.pad.mvp.login.presenter.LoginPresenter
-import com.wujia.lib_common.base.Constants
 import com.wujia.businesslib.HookUtil
 import com.wujia.businesslib.base.DataManager
 import com.wujia.businesslib.base.MvpActivity
 import com.wujia.businesslib.data.LoginDTO
 import com.wujia.businesslib.data.TokenBean
 import com.wujia.lib.widget.util.ToastUtil
+import com.wujia.lib_common.base.Constants
 import com.wujia.lib_common.data.network.exception.ApiException
-import com.wujia.lib_common.utils.AppUtil
-import com.wujia.lib_common.utils.DateUtil
-import com.wujia.lib_common.utils.FontUtils
-import com.wujia.lib_common.utils.LogUtil
-import com.wujia.lib_common.utils.SPHelper
-import com.wujia.lib_common.utils.StringUtil
-import com.wujia.lib_common.utils.SystemUtil
-import com.wujia.lib_common.utils.VerifyUtil
-
-import java.util.HashSet
-
-import butterknife.BindView
-import butterknife.OnClick
-import butterknife.OnLongClick
-import com.jingxi.smartlife.pad.mvp.Util
+import com.wujia.lib_common.utils.*
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-
 import kotlinx.android.synthetic.main.activity_login.*
+import java.util.*
 
 /**
  * author ：shenbingkai@163.com

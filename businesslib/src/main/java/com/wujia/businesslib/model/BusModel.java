@@ -2,14 +2,11 @@ package com.wujia.businesslib.model;
 
 import com.wujia.businesslib.BusApiService;
 import com.wujia.businesslib.base.BaseModel;
-import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.MsgDto;
 import com.wujia.businesslib.data.VersionBean;
 import com.wujia.businesslib.data.VersionUpdate;
-import com.wujia.businesslib.util.LoginUtil;
 import com.wujia.lib_common.data.network.RxUtil;
-import com.wujia.lib_common.utils.LogUtil;
 
 import java.util.List;
 

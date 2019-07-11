@@ -4,40 +4,28 @@ import android.app.WallpaperManager
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
-
+import butterknife.OnClick
+import butterknife.OnLongClick
+import com.jingxi.jpushdemo.MyReceiver
 import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.mvp.setting.contract.SettingContract
 import com.jingxi.smartlife.pad.mvp.setting.presenter.SettingPresenter
 import com.wujia.businesslib.base.MvpFragment
 import com.wujia.businesslib.data.VersionBean
 import com.wujia.businesslib.dialog.SimpleDialog
-import com.wujia.businesslib.listener.OnDialogListener
 import com.wujia.businesslib.util.LoginUtil
-import com.wujia.lib.widget.WjSwitch
 import com.wujia.lib.widget.util.ToastUtil
 import com.wujia.lib_common.data.network.exception.ApiException
-import com.wujia.lib_common.utils.AppContext
 import com.wujia.lib_common.utils.AppUtil
 import com.wujia.lib_common.utils.FileUtil
-import com.wujia.lib_common.utils.LogUtil
 import com.wujia.lib_common.utils.VersionUtil
-
-import java.io.File
-
-import butterknife.BindView
-import butterknife.OnClick
-import butterknife.OnLongClick
-import com.jingxi.jpushdemo.MyReceiver
 import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_setting_home.*
+
 //import kotlinx.android.synthetic.main.layout_title.view.*
 //import com.wujia.businesslib.R.id
 //import com.jingxi.smartlife.pad.R.layout.layout_title

@@ -1,8 +1,7 @@
 package com.jingxi.smartlife.pad.host
 
 import android.content.Intent
-import android.provider.Settings
-
+import cn.jpush.android.api.JPushInterface
 import com.jingxi.smartlife.pad.BuildConfig
 import com.jingxi.smartlife.pad.mvp.FloatingButtonService
 import com.jingxi.smartlife.pad.mvp.Util
@@ -10,17 +9,7 @@ import com.squareup.leakcanary.LeakCanary
 import com.umeng.commonsdk.UMConfigure
 import com.wujia.businesslib.HookUtil
 import com.wujia.businesslib.base.BaseApplication
-import com.wujia.lib_common.utils.LogUtil
 import com.wujia.lib_common.utils.NetworkUtil
-
-import org.json.JSONObject
-
-import java.io.File
-import java.io.FileWriter
-
-import cn.jpush.android.api.JPushInterface
-import xcrash.ICrashCallback
-import xcrash.XCrash
 
 /**
  * author ：shenbingkai

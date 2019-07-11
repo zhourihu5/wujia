@@ -6,15 +6,10 @@ import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import android.os.Bundle
-import android.os.IBinder
-import android.os.PersistableBundle
-import android.os.PowerManager
+import android.os.*
 import android.support.v4.app.ActivityCompat
 import android.view.View
 import android.widget.RelativeLayout
-
 import com.intercom.sdk.IntercomConstants
 import com.intercom.sdk.SecurityMessage
 import com.intercom.sdk.SmartHomeManager
@@ -22,8 +17,8 @@ import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.family.mvp.FamilyHomeFragment
 import com.jingxi.smartlife.pad.market.mvp.MarketHomeFragment
 import com.jingxi.smartlife.pad.message.mvp.MessageHomeFragment
-import com.jingxi.smartlife.pad.mvp.home.HomeHomeFragment
-import com.jingxi.smartlife.pad.mvp.setting.view.SettingHomeFragment
+import com.jingxi.smartlife.pad.mvp.home.HomeFragment
+import com.jingxi.smartlife.pad.property.ProperyFragment
 import com.jingxi.smartlife.pad.property.mvp.ProperyHomeFragment
 import com.jingxi.smartlife.pad.safe.mvp.SafeHomeFragment
 import com.jingxi.smartlife.pad.safe.mvp.view.VideoCallActivity
@@ -36,13 +31,7 @@ import com.wujia.businesslib.TabFragment
 import com.wujia.businesslib.base.DataManager
 import com.wujia.businesslib.base.MvpActivity
 import com.wujia.businesslib.data.ApiResponse
-import com.wujia.businesslib.event.EventBaseButtonClick
-import com.wujia.businesslib.event.EventBusUtil
-import com.wujia.businesslib.event.EventDoorDevice
-import com.wujia.businesslib.event.EventMsg
-import com.wujia.businesslib.event.EventSafeState
-import com.wujia.businesslib.event.EventWakeup
-import com.wujia.businesslib.event.IMiessageInvoke
+import com.wujia.businesslib.event.*
 import com.wujia.businesslib.model.BusModel
 import com.wujia.businesslib.util.LoginUtil
 import com.wujia.lib.widget.VerticalTabItem
@@ -56,10 +45,9 @@ import com.wujia.lib_common.utils.ScreenUtil
 import com.wujia.lib_common.utils.grant.PermissionsManager
 import com.wujia.lib_common.utils.grant.PermissionsResultAction
 import kotlinx.android.synthetic.main.activity_main.*
-
 import me.yokeyword.fragmentation.SupportFragment
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
-import me.yokeyword.fragmentation.anim.FragmentAnimator//import android.os.ServiceManager;
+import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 //import android.service.dreams.IDreamManager;
 
