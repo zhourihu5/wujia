@@ -64,7 +64,7 @@ public class SafeHomeFragment extends TabFragment {
 
         SupportFragment firstFragment = findFragment(SafeOutsideFragment.class);
         if (firstFragment == null) {
-            mFragments[0] = SafeOutsideFragment.newInstance();
+            mFragments[0] = SafeOutsideFragment.Companion.newInstance();
 //            mFragments[1] = SafeOtherFragment.newInstance();
 //            mFragments[2] = SafeOtherFragment.newInstance();
 //            mFragments[3] = SafeParkFragment.newInstance();
