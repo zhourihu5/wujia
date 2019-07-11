@@ -26,7 +26,7 @@
                 tools:src="@mipmap/icon_pop_property" />
 
             <TextView
-                android:id="@id/tv1"
+                android:id="@+id/tvType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="14dp"
@@ -40,7 +40,7 @@
         <View style="@style/ItemLineStyle" />
 
         <TextView
-            android:id="@id/tv2"
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="42dp"
@@ -50,7 +50,7 @@
             android:textSize="32sp" />
 
         <TextView
-            android:id="@id/tv3"
+            android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="42dp"
@@ -60,7 +60,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@id/tv4"
+            android:id="@+id/tvDesc"
             android:layout_width="wrap_content"
             android:layout_height="170dp"
             android:layout_marginLeft="42dp"
@@ -86,7 +86,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@id/btn1"
+                android:id="@+id/btnCall"
                 android:layout_width="117dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_rect_accent_border_empty"
@@ -100,7 +100,7 @@
                 android:visibility="gone" />
 
             <TextView
-                android:id="@id/btn2"
+                android:id="@+id/btnKnow"
                 android:layout_width="117dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="16dp"

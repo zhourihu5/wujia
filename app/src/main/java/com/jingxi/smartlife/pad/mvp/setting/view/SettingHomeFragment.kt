@@ -4,6 +4,7 @@ import android.app.WallpaperManager
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 
@@ -38,7 +39,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_setting_home.*
 //import kotlinx.android.synthetic.main.layout_title.view.*
 //import com.wujia.businesslib.R.id
-//import com.wujia.businesslib.R.layout.layout_title
+//import com.jingxi.smartlife.pad.R.layout.layout_title
 //import kotlinx.android.synthetic.main.layout_title.*
 
 /**
