@@ -2,7 +2,6 @@ package com.jingxi.smartlife.pad.mvp.setting.model;
 
 import com.jingxi.smartlife.pad.mvp.MainAppApiService;
 import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean;
-import com.jingxi.smartlife.pad.mvp.setting.contract.FamilyMemberContract;
 import com.wujia.businesslib.base.BaseModel;
 import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.lib_common.data.network.RxUtil;
@@ -16,7 +15,7 @@ import io.reactivex.Flowable;
  * date ：2019-01-26
  * description ：
  */
-public class FamilyMemberModel extends BaseModel implements FamilyMemberContract.Model {
+public class FamilyMemberModel extends BaseModel  {
 
     public Flowable<ApiResponse<String>> addFamilyMember(String userName, String familyId) {
         return mHttpHelper.create(MainAppApiService.class).addFamilyMember(userName, familyId).compose(RxUtil.<ApiResponse<String>>rxSchedulerHelper());
