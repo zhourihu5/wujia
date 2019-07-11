@@ -10,7 +10,7 @@ import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 import com.wujia.lib_common.base.baseadapter.utils.WrapperUtils;
 
 
-public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int ITEM_TYPE_LOAD_MORE = Integer.MAX_VALUE - 2;
 
     private RecyclerView.Adapter mInnerAdapter;

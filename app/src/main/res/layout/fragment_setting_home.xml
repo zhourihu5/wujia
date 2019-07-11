@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context=".mvp.SettingFragment">
 
-    <include layout="@layout/layout_title" />
+    <include android:id="@+id/layout_title" layout="@layout/layout_title" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -37,7 +37,7 @@ public class SettingFragment extends BaseMainFragment {
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
         if (findChildFragment(SettingHomeFragment.class) == null) {
-            loadRootFragment(R.id.fl_first_container, SettingHomeFragment.newInstance());
+            loadRootFragment(R.id.fl_first_container, SettingHomeFragment.Companion.newInstance());
         }
     }
 

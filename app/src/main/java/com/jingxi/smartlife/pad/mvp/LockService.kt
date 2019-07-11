@@ -38,22 +38,26 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.activity_lock.*
 
 /**
  * author ：shenbingkai@163.com
  * date ：2019-04-09
  * description ：
  */
-class LockService : DreamService(), HomeContract.View {
+class LockService : DreamService(), HomeContract.View ,LayoutContainer{
+    override val containerView: View?
+        get() =window.decorView
 
-    private var login_time_tv: TextView? = null
-    private var login_time_date_tv: TextView? = null
-    private var login_temperature_tv: TextView? = null
-    private var login_temperature_desc: TextView? = null
-    private var ivWeather: ImageView? = null
-    private var btn_details: TextView? = null
-    private var rv_home_msg: RecyclerView? = null
-    private var lock_img_bg: ImageView? = null
+//    private var login_time_tv: TextView? = null
+//    private var login_time_date_tv: TextView? = null
+//    private var login_temperature_tv: TextView? = null
+//    private var login_temperature_desc: TextView? = null
+//    private var ivWeather: ImageView? = null
+//    private var btn_details: TextView? = null
+//    private var rv_home_msg: RecyclerView? = null
+//    private var lock_img_bg: ImageView? = null
 
 
     private var model: HomeModel? = null
@@ -84,14 +88,14 @@ class LockService : DreamService(), HomeContract.View {
 
     private fun init() {
 
-        login_time_date_tv = findViewById(R.id.login_time_date_tv)
-        login_time_tv = findViewById(R.id.login_time_tv)
-        login_temperature_tv = findViewById(R.id.login_temperature_tv)
-        ivWeather = findViewById(R.id.ivWeather)
-        login_temperature_desc = findViewById(R.id.login_temperature_desc)
-        rv_home_msg = findViewById(R.id.rv_home_msg)
-        lock_img_bg = findViewById(R.id.lock_img_bg)
-        btn_details = findViewById(R.id.btn_details)
+//        login_time_date_tv = findViewById(R.id.login_time_date_tv)
+//        login_time_tv = findViewById(R.id.login_time_tv)
+//        login_temperature_tv = findViewById(R.id.login_temperature_tv)
+//        ivWeather = findViewById(R.id.ivWeather)
+//        login_temperature_desc = findViewById(R.id.login_temperature_desc)
+//        rv_home_msg = findViewById(R.id.rv_home_msg)
+//        lock_img_bg = findViewById(R.id.lock_img_bg)
+//        btn_details = findViewById(R.id.btn_details)
 
         lock_img_bg!!.setOnClickListener { wakeUp() }
 

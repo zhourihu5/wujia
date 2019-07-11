@@ -44,10 +44,6 @@
 
         </activity>
 
-        <activity
-            android:name=".mvp.setting.view.CardManagerActivity"
-            android:screenOrientation="landscape" />
-
         <service
             android:name=".mvp.LockService"
             android:exported="true"

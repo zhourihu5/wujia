@@ -56,7 +56,7 @@ public class MessageHomeFragment extends TabFragment {
 
         SupportFragment firstFragment = findFragment(AllMsgFragment.class);
         if (firstFragment == null) {
-            msgFragment = AllMsgFragment.newInstance();
+            msgFragment = AllMsgFragment.Companion.newInstance();
 //            msgFragment.setType(getType(currentTab));
             loadRootFragment(R.id.tab_content_container, msgFragment);
         } else {
