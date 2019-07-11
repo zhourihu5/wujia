@@ -20,7 +20,7 @@ versions.kotlinVersion = '1.3.40'
 versions.coroutinesVersion = "1.1.1"
 versions.navigationVersion = '2.0.0'
 
-ext.versions=versions
+ext.versions = versions
 
 
 def deps = [:]

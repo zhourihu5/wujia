@@ -178,17 +178,16 @@ public class MyReceiver extends BroadcastReceiver {
                 VersionBean.Version bean = GsonUtil.GsonToBean(message, VersionBean.Version.class);
 
                 boolean update = isUpdate(bean);
-                if (update )
-                 {
+                if (update) {
                     DownloadUtil.download(bean.imageurl, new DownloadListener() {
                         @Override
                         public void onTaskStart() {
-                            LogUtil.i("download onTaskStart" );
+                            LogUtil.i("download onTaskStart");
                         }
 
                         @Override
                         public void onTaskProgress(int percent, long currentOffset, long totalLength) {
-                            LogUtil.i(String.format("download onTaskProgress percent=%d,currentOffset=%d,totalLength=%d" ,percent,currentOffset,totalLength));
+                            LogUtil.i(String.format("download onTaskProgress percent=%d,currentOffset=%d,totalLength=%d", percent, currentOffset, totalLength));
                         }
 
                         @Override
@@ -228,9 +227,9 @@ public class MyReceiver extends BroadcastReceiver {
 
     public static boolean isUpdate(VersionBean.Version bean) {
         int versionId = VersionUtil.getVersionCode();
-        int versonCode= Integer.valueOf(bean.versionCode);
-        String versonName=VersionUtil.getVersionName();
-        return versonCode> versionId||
-                (versonCode==versionId&&!versonName.equals(bean.versionName));
+        int versonCode = Integer.valueOf(bean.versionCode);
+        String versonName = VersionUtil.getVersionName();
+        return versonCode > versionId ||
+                (versonCode == versionId && !versonName.equals(bean.versionName));
     }
 }

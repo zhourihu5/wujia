@@ -12,8 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:largeHeap="true"
-        android:persistent="true"
-        >
+        android:persistent="true">
         <activity
             android:name=".mvp.MainActivity"
             android:screenOrientation="landscape"
