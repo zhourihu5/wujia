@@ -153,14 +153,14 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
     private fun initTab() {
 
 //        val firstFragment = findFragment(HomeFragment::class.java)
-        val firstFragment = findFragment(HomeHomeFragment::class.java)
+        val firstFragment = findFragment(HomeFragment::class.java)
         if (firstFragment == null) {
-            mFragments[0] = HomeHomeFragment.newInstance()
-            mFragments[1] = SafeHomeFragment.newInstance(0)
-            mFragments[2] = FamilyHomeFragment.newInstance(0)
-            mFragments[3] = ProperyHomeFragment.newInstance(0)
-            mFragments[4] = MessageHomeFragment.newInstance(0)
-            mFragments[5] = MarketHomeFragment.newInstance(0)
+            mFragments[0] = HomeFragment.newInstance()
+            mFragments[1] = SafeFragment.newInstance()
+            mFragments[2] = FamilyFragment.newInstance()
+            mFragments[3] = ProperyFragment.newInstance()
+            mFragments[4] = MessageFragment.newInstance()
+            mFragments[5] = MarketFragment.newInstance()
             //            mFragments[6] = NeighborFragment.newInstance();
             mFragments[6] = SettingHomeFragment.newInstance()
 
@@ -340,6 +340,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
     }
 
     override fun onRinging(sessionId: String) {
+        initWakeLock()
         EventBusUtil.post(EventWakeup())
 
         val intent = Intent(this, VideoCallActivity::class.java)
@@ -359,12 +360,16 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
     override fun onBaseButtonClick(buttonKey: String, cmd: String, time: String) {//todo 底座按键回调
         LogUtil.i(String.format("buttonKey=%s,cmd=%s,time=%s", buttonKey, cmd, time))
         if (com.intercom.sdk.IntercomConstants.kButtonMonitor == cmd) {
+            initWakeLock()
             switchHomeTab(POSITION_SAFE, 0)
         } else if (com.intercom.sdk.IntercomConstants.kButtonUser == cmd) {
+            initWakeLock()
             switchHomeTab(POSITION_PROPERTY, 0)
         } else if (com.intercom.sdk.IntercomConstants.kButtonUnlock == cmd) {
+            initWakeLock()
             EventBusUtil.post(EventBaseButtonClick(com.intercom.sdk.IntercomConstants.kButtonUnlock))
         } else if (com.intercom.sdk.IntercomConstants.kButtonPickup == cmd) {
+            initWakeLock()
             EventBusUtil.post(EventBaseButtonClick(com.intercom.sdk.IntercomConstants.kButtonPickup))
         } else if (com.intercom.sdk.IntercomConstants.kButtonHumanNear == cmd) {
             LogUtil.i("kButtonHumanNear")
@@ -372,6 +377,8 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         } else if (IntercomConstants.kButtonHumanLeav == cmd) {
             LogUtil.i("kButtonHumanLeav")
             releaseWakeLock()
+        }else if (IntercomConstants.kButtonSOS == cmd) {
+            initWakeLock()
         }
     }
 
@@ -442,9 +449,20 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
 
     fun switchHomeTab(pos: Int, childPos: Int) {
         main_tab_bar.getChildAt(pos).performClick()
-        val tabFragment = mFragments[pos]
-        if (tabFragment is TabFragment)
+        var tabFragment: TabFragment? = null
+        when (pos) {
+            POSITION_MARKET -> tabFragment = mFragments[pos]!!.findChildFragment(MarketHomeFragment::class.java)
+            POSITION_PROPERTY -> tabFragment = mFragments[pos]!!.findChildFragment(ProperyHomeFragment::class.java)
+            POSITION_FAMILY -> tabFragment = mFragments[pos]!!.findChildFragment(FamilyHomeFragment::class.java)
+            POSITION_SAFE -> tabFragment = mFragments[pos]!!.findChildFragment(SafeHomeFragment::class.java)
+            POSITION_MESSAGE -> tabFragment = mFragments[pos]!!.findChildFragment(MessageHomeFragment::class.java)
+        }
+        if (null != tabFragment)
             tabFragment.switchTab(childPos)
+        else {
+            val fragment = mFragments[pos] as BaseMainFragment
+            fragment?.switchTab(childPos)
+        }
     }
 
     override fun createPresenter(): BasePresenter<BaseView>? {

@@ -62,7 +62,7 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
         layout_title_tv!!.setText(R.string.setting)
-        layout_title_tv!!.setOnLongClickListener {
+        layout_title!!.setOnLongClickListener {
             val versionCode = VersionUtil.getVersionCode()
             val versionName = VersionUtil.getVersionName()
 

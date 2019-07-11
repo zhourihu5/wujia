@@ -66,7 +66,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         addList = list
 
         //已添加
-        addedAdapter = HomeCardManagerAdapter(mContext, addList, HomeCardManagerAdapter.FORM_ADDED)
+        addedAdapter = HomeCardManagerAdapter(mContext, addList as ArrayList<HomeRecBean.Card>, HomeCardManagerAdapter.FORM_ADDED)
         rv_card_added!!.addItemDecoration(VerticallDecoration(24))
 
         rv_card_added!!.adapter = addedAdapter
@@ -97,7 +97,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         addList?.let { unaddList!!.removeAll(it) }
 
         //未添加
-        unaddAdapter = HomeCardManagerAdapter(mContext, unaddList, HomeCardManagerAdapter.FORM_UNADD)
+        unaddAdapter = HomeCardManagerAdapter(mContext, unaddList as ArrayList<HomeRecBean.Card>, HomeCardManagerAdapter.FORM_UNADD)
         rv_card_unadd!!.addItemDecoration(VerticallDecoration(24))
 
         rv_card_unadd!!.adapter = unaddAdapter
