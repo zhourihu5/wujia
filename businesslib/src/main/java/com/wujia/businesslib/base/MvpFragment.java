@@ -2,7 +2,10 @@ package com.wujia.businesslib.base;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.TextView;
 
+import com.wujia.businesslib.R;
 import com.wujia.businesslib.dialog.LoadingDialog;
 import com.wujia.lib.widget.util.ToastUtil;
 import com.wujia.lib_common.base.BaseFragment;
@@ -22,6 +25,11 @@ import io.reactivex.disposables.Disposable;
 public abstract class MvpFragment<T extends BasePresenter> extends BaseFragment implements BaseView {
 
     protected T mPresenter;
+    protected TextView layout_right_btn;
+    protected TextView layout_back_btn;
+    protected TextView layout_title_tv;
+
+
     private LoadingDialog mLoadingDialog;
 
 
@@ -45,6 +53,10 @@ public abstract class MvpFragment<T extends BasePresenter> extends BaseFragment 
 
     @Override
     protected void interruptInject() {
+        layout_right_btn=mView.findViewById(R.id.layout_right_btn);
+        layout_back_btn=mView.findViewById(R.id.layout_back_btn);
+        layout_title_tv=mView.findViewById(R.id.layout_title_tv);
+
         mPresenter = createPresenter();
         if (mPresenter != null)
             mPresenter.attachView(this);

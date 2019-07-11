@@ -392,10 +392,10 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
 
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
         if (Build.VERSION.SDK_INT >= 21 && powerManager != null && !powerManager.isInteractive) {//灭屏时点亮
-            if (mWakelock == null) {
-                mWakelock = powerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_DIM_WAKE_LOCK, javaClass.name) // this target for tell OS which app
-            }
-            mWakelock!!.acquire()
+//            if (mWakelock == null) {
+                mWakelock = powerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_DIM_WAKE_LOCK, packageName) // this target for tell OS which app
+//            }
+            mWakelock!!.acquire()//can not be reused,so create it every time
             LogUtil.i("mWakelock.acquire")
         }
     }

@@ -30,6 +30,7 @@ import java.io.File
 import butterknife.BindView
 import butterknife.OnClick
 import butterknife.OnLongClick
+import com.jingxi.jpushdemo.MyReceiver
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
@@ -158,7 +159,7 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
         //        String pname = "com.jingxi.smartlife.pad";
         val versionId = VersionUtil.getVersionCode()
 
-        if (Integer.valueOf(bean.data.versionCode) > versionId) {
+        if (MyReceiver.isUpdate(bean.data)) {
             start(UpdateFragment.newInstance(bean.data, bean.data.desc))
         } else {
             ToastUtil.showShort(mContext, "已是最新版本")

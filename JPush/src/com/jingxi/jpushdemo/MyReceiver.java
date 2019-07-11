@@ -177,9 +177,9 @@ public class MyReceiver extends BroadcastReceiver {
             case TYPE_SYS:
                 VersionBean.Version bean = GsonUtil.GsonToBean(message, VersionBean.Version.class);
 
-                int versionId = VersionUtil.getVersionCode();
-
-                if (Integer.valueOf(bean.versionCode) > versionId) {
+                boolean update = isUpdate(bean);
+                if (update )
+                 {
                     DownloadUtil.download(bean.imageurl, new DownloadListener() {
                         @Override
                         public void onTaskStart() {
@@ -224,5 +224,13 @@ public class MyReceiver extends BroadcastReceiver {
 
                 break;
         }
+    }
+
+    public static boolean isUpdate(VersionBean.Version bean) {
+        int versionId = VersionUtil.getVersionCode();
+        int versonCode= Integer.valueOf(bean.versionCode);
+        String versonName=VersionUtil.getVersionName();
+        return versonCode> versionId||
+                (versonCode==versionId&&!versonName.equals(bean.versionName));
     }
 }
