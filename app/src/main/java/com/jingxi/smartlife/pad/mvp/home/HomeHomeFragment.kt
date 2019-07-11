@@ -190,8 +190,14 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
             busModel = BusModel()
         }
 
-
-        addSubscribe(busModel!!.top3UnReadMsg!!.subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        var familyId = try {
+            DataManager.getFamilyId()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            LoginUtil.toLoginActivity()
+            return
+        }
+        addSubscribe(busModel!!.getTop3UnReadMsg(familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<List<MsgDto.ContentBean>>) {
                 super.onResponse(response)
                 val notifys = response.data

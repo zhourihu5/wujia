@@ -37,4 +37,8 @@ public interface BusApiService {
 
     @GET("/v1/system/version")
     Flowable<VersionBean> checkVersion();
+
+    @FormUrlEncoded
+    @POST("/v1/system/updateVer")
+    Flowable<ApiResponse<Object>> updateVer(@Field("versionName")String versionName,@Field("key") String key,@Field("versionCode") String versionCode);
 }

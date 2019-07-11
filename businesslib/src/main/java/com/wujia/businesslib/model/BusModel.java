@@ -27,15 +27,7 @@ public class BusModel extends BaseModel {
 
     }
 
-    public Flowable<ApiResponse<List<MsgDto.ContentBean>>> getTop3UnReadMsg() {
-        String familyId;
-        try {
-            familyId = DataManager.getFamilyId();
-        } catch (Exception e) {
-            e.printStackTrace();
-            LoginUtil.toLoginActivity();
-            return null;
-        }
+    public Flowable<ApiResponse<List<MsgDto.ContentBean>>> getTop3UnReadMsg(String familyId) {
         return mHttpHelper.create(BusApiService.class).getTop3UnReadMsg(familyId).compose(RxUtil.<ApiResponse<List<MsgDto.ContentBean>>>rxSchedulerHelper());
 
     }
@@ -47,6 +39,19 @@ public class BusModel extends BaseModel {
 
     public Flowable<ApiResponse<Boolean>> isUnReadMessage() {
         return mHttpHelper.create(BusApiService.class).isUnReadMsg().compose(RxUtil.<ApiResponse<Boolean>>rxSchedulerHelper());
+
+    }
+
+    /**
+     * /v1/system/updateVer
+     *
+     *  private String versionName;
+     *     private String key;
+     *     private String versionCode;
+     * @return
+     */
+    public Flowable<ApiResponse<Object>> updateVer(String versionName,String key,String versionCode) {
+        return mHttpHelper.create(BusApiService.class).updateVer(versionName,key,versionCode).compose(RxUtil.<ApiResponse<Object>>rxSchedulerHelper());
 
     }
 

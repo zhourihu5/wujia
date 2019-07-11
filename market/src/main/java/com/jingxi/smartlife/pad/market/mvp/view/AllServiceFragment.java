@@ -165,7 +165,8 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
 
     private void getList(boolean isShowLoadingDialog) {
         isLoading = true;
-        addSubscribe(marketModel.getServiceList(type, pageNo, pageSize).subscribeWith(new SimpleRequestSubscriber<ApiResponse<ServiceDto>>(this, new SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(marketModel.getServiceList(type, pageNo, pageSize).subscribeWith(new SimpleRequestSubscriber<ApiResponse<ServiceDto>>(this,
+                new SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             @Override
             public void onResponse(ApiResponse<ServiceDto> response) {
                 super.onResponse(response);

@@ -2,7 +2,7 @@
 
 adb disconnect
 #modify by your ip
-adb connect 192.168.1.44:5555
+#adb connect 192.168.1.44:5555
 
 adb root
 adb remount

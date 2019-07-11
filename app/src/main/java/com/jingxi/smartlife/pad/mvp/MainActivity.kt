@@ -13,8 +13,6 @@ import android.os.PersistableBundle
 import android.os.PowerManager
 import android.support.v4.app.ActivityCompat
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.ImageView
 import android.widget.RelativeLayout
 
 import com.intercom.sdk.IntercomConstants
@@ -27,7 +25,7 @@ import com.jingxi.smartlife.pad.market.MarketFragment
 import com.jingxi.smartlife.pad.market.mvp.MarketHomeFragment
 import com.jingxi.smartlife.pad.message.MessageFragment
 import com.jingxi.smartlife.pad.message.mvp.MessageHomeFragment
-import com.jingxi.smartlife.pad.mvp.home.HomeFragment
+import com.jingxi.smartlife.pad.mvp.home.HomeHomeFragment
 import com.jingxi.smartlife.pad.property.ProperyFragment
 import com.jingxi.smartlife.pad.property.mvp.ProperyHomeFragment
 import com.jingxi.smartlife.pad.safe.SafeFragment
@@ -51,7 +49,6 @@ import com.wujia.businesslib.event.EventWakeup
 import com.wujia.businesslib.event.IMiessageInvoke
 import com.wujia.businesslib.model.BusModel
 import com.wujia.businesslib.util.LoginUtil
-import com.wujia.lib.widget.VerticalTabBar
 import com.wujia.lib.widget.VerticalTabItem
 import com.wujia.lib.widget.util.ToastUtil
 import com.wujia.lib_common.base.BaseMainFragment
@@ -64,8 +61,6 @@ import com.wujia.lib_common.utils.ScreenUtil
 import com.wujia.lib_common.utils.grant.PermissionsManager
 import com.wujia.lib_common.utils.grant.PermissionsResultAction
 import kotlinx.android.synthetic.main.activity_main.*
-
-import java.lang.reflect.Method
 
 import me.yokeyword.fragmentation.SupportFragment
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
@@ -139,6 +134,8 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
 
         //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//todo
 
+//        addSubscribe(Util.getUpdateVesion())
+
         initTab()
 
         initLockService()
@@ -160,14 +157,15 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
 
     private fun initTab() {
 
-        val firstFragment = findFragment(HomeFragment::class.java)
+//        val firstFragment = findFragment(HomeFragment::class.java)
+        val firstFragment = findFragment(HomeHomeFragment::class.java)
         if (firstFragment == null) {
-            mFragments[0] = HomeFragment.newInstance()
-            mFragments[1] = SafeFragment.newInstance()
-            mFragments[2] = FamilyFragment.newInstance()
-            mFragments[3] = ProperyFragment.newInstance()
-            mFragments[4] = MessageFragment.newInstance()
-            mFragments[5] = MarketFragment.newInstance()
+            mFragments[0] = HomeHomeFragment.newInstance()
+            mFragments[1] = SafeHomeFragment.newInstance(0)
+            mFragments[2] = FamilyHomeFragment.newInstance(0)
+            mFragments[3] = ProperyHomeFragment.newInstance(0)
+            mFragments[4] = MessageHomeFragment.newInstance(0)
+            mFragments[5] = MarketHomeFragment.newInstance(0)
             //            mFragments[6] = NeighborFragment.newInstance();
             mFragments[6] = SettingFragment.newInstance()
 
@@ -449,20 +447,9 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
 
     fun switchHomeTab(pos: Int, childPos: Int) {
         main_tab_bar.getChildAt(pos).performClick()
-        var tabFragment: TabFragment? = null
-        when (pos) {
-            POSITION_MARKET -> tabFragment = mFragments[pos]!!.findChildFragment(MarketHomeFragment::class.java)
-            POSITION_PROPERTY -> tabFragment = mFragments[pos]!!.findChildFragment(ProperyHomeFragment::class.java)
-            POSITION_FAMILY -> tabFragment = mFragments[pos]!!.findChildFragment(FamilyHomeFragment::class.java)
-            POSITION_SAFE -> tabFragment = mFragments[pos]!!.findChildFragment(SafeHomeFragment::class.java)
-            POSITION_MESSAGE -> tabFragment = mFragments[pos]!!.findChildFragment(MessageHomeFragment::class.java)
-        }
-        if (null != tabFragment)
+        val tabFragment = mFragments[pos]
+        if (tabFragment is TabFragment)
             tabFragment.switchTab(childPos)
-        else {
-            val fragment = mFragments[pos] as BaseMainFragment
-            fragment?.switchTab(childPos)
-        }
     }
 
     override fun createPresenter(): BasePresenter<BaseView>? {

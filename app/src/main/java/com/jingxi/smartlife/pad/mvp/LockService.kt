@@ -15,6 +15,7 @@ import com.jingxi.smartlife.pad.mvp.home.contract.HomeContract
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeModel
 import com.jingxi.smartlife.pad.mvp.home.data.LockADBean
 import com.jingxi.smartlife.pad.mvp.home.data.WeatherInfoBean
+import com.wujia.businesslib.base.DataManager
 import com.wujia.lib_common.base.Constants
 import com.wujia.businesslib.base.WebViewActivity
 import com.wujia.businesslib.data.ApiResponse
@@ -24,6 +25,7 @@ import com.wujia.businesslib.event.EventMsg
 import com.wujia.businesslib.event.EventWakeup
 import com.wujia.businesslib.event.IMiessageInvoke
 import com.wujia.businesslib.model.BusModel
+import com.wujia.businesslib.util.LoginUtil
 import com.wujia.lib.imageloader.ImageLoaderManager
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
@@ -220,9 +222,15 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
         if (busModel == null) {
             busModel = BusModel()
         }
+        var familyId = try {
+            DataManager.getFamilyId()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            LoginUtil.toLoginActivity()
+            return
+        }
 
-
-        mCompositeDisposable.add(busModel!!.top3UnReadMsg!!.subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        mCompositeDisposable.add(busModel!!.getTop3UnReadMsg(familyId)!!.subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<List<MsgDto.ContentBean>>) {
                 super.onResponse(response)
                 val notifys = response.data

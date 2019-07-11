@@ -35,6 +35,7 @@ import java.util.HashSet
 import butterknife.BindView
 import butterknife.OnClick
 import butterknife.OnLongClick
+import com.jingxi.smartlife.pad.mvp.Util
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -59,7 +60,6 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
     }
 
     override fun initEventAndData(savedInstanceState: Bundle?) {
-
 
         FontUtils.changeFontTypeface(login_time_tv, FontUtils.Font_TYPE_EXTRA_LIGHT)
         FontUtils.changeFontTypeface(login_temperature_tv, FontUtils.Font_TYPE_EXTRA_LIGHT)
