@@ -5,6 +5,7 @@ import android.provider.Settings;
 
 import com.jingxi.smartlife.pad.BuildConfig;
 import com.jingxi.smartlife.pad.mvp.FloatingButtonService;
+import com.jingxi.smartlife.pad.mvp.Util;
 import com.squareup.leakcanary.LeakCanary;
 import com.umeng.commonsdk.UMConfigure;
 import com.wujia.businesslib.HookUtil;
@@ -49,7 +50,7 @@ public class HostApp extends BaseApplication {
 
         //方便错误统计，方便查看错误日志，便于修复bug
         UMConfigure.init(this, "5d0ddf284ca357c8dc000dd6", "mychanel", UMConfigure.DEVICE_TYPE_PHONE, null);//友盟统计，周日虎的账号
-
+        Util.getUpdateVesion();
 
         if(BuildConfig.DEBUG){
             // The callback when App process crashed.

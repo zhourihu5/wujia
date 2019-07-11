@@ -91,7 +91,6 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
                 }
             }
             R.id.login_verify_code_btn -> {
-                //TODO 验证手机号
                 val phone = login_account!!.text.toString()
                 if (!VerifyUtil.isPhone(phone)) {
                     login_phone_error!!.visibility = View.VISIBLE
@@ -156,7 +155,6 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 
     private fun login() {
 
-        //TODO 验证手机号
         val phone = login_account!!.text.toString()
         if (!VerifyUtil.isPhone(phone)) {
             login_phone_error!!.visibility = View.VISIBLE

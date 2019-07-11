@@ -34,7 +34,6 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
     private var mModel: HomeModel? = null
 
     private var datas: ArrayList<CardDetailBean.ServicesBean>? = null
-//    private var webview: WebView? = null
     private var mAdapter: FindServiceChildAdapter? = null
 
     internal lateinit var busModel: BusModel
@@ -48,7 +47,6 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
 
         val cardId = arguments!!.getString(KEY_TXT)
 
-//        webview = `$`(R.id.webview)
         val rv1 = `$`<RecyclerView>(R.id.rv1)
         val tvTitle = `$`<TextView>(R.id.layout_title_tv)
         val btnBack = `$`<TextView>(R.id.layout_back_btn)

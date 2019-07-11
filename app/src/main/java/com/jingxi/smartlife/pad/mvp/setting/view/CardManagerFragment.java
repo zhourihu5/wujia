@@ -42,9 +42,9 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
     @BindView(R.id.layout_right_btn)
     TextView layoutRightBtn;
     @BindView(R.id.rv_card_added)
-    RecyclerView rvCardAdded;
+    RecyclerView rv_card_added;
     @BindView(R.id.rv_card_unadd)
-    RecyclerView rvCardUnadd;
+    RecyclerView rv_card_unadd;
 
     private List<HomeRecBean.Card> addList, unaddList;
     private HomeCardManagerAdapter addedAdapter, unaddAdapter;
@@ -96,9 +96,9 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
 
         //已添加
         addedAdapter = new HomeCardManagerAdapter(mContext, addList, HomeCardManagerAdapter.FORM_ADDED);
-        rvCardAdded.addItemDecoration(new VerticallDecoration(24));
+        rv_card_added.addItemDecoration(new VerticallDecoration(24));
 
-        rvCardAdded.setAdapter(addedAdapter);
+        rv_card_added.setAdapter(addedAdapter);
 
         addedAdapter.setManagerCardListener(new HomeCardManagerAdapter.OnManagerCardListener() {
             @Override
@@ -129,9 +129,9 @@ public class CardManagerFragment extends MvpFragment<HomePresenter> implements H
 
         //未添加
         unaddAdapter = new HomeCardManagerAdapter(mContext, unaddList, HomeCardManagerAdapter.FORM_UNADD);
-        rvCardUnadd.addItemDecoration(new VerticallDecoration(24));
+        rv_card_unadd.addItemDecoration(new VerticallDecoration(24));
 
-        rvCardUnadd.setAdapter(unaddAdapter);
+        rv_card_unadd.setAdapter(unaddAdapter);
 
         unaddAdapter.setManagerCardListener(new HomeCardManagerAdapter.OnManagerCardListener() {
             @Override

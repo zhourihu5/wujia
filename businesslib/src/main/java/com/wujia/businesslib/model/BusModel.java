@@ -6,6 +6,7 @@ import com.wujia.businesslib.base.DataManager;
 import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.MsgDto;
 import com.wujia.businesslib.data.VersionBean;
+import com.wujia.businesslib.data.VersionUpdate;
 import com.wujia.businesslib.util.LoginUtil;
 import com.wujia.lib_common.data.network.RxUtil;
 import com.wujia.lib_common.utils.LogUtil;
@@ -51,7 +52,13 @@ public class BusModel extends BaseModel {
      * @return
      */
     public Flowable<ApiResponse<Object>> updateVer(String versionName,String key,String versionCode) {
+        VersionUpdate versionUpdate=new VersionUpdate();
+        versionUpdate.key=key;
+        versionUpdate.versionCode=versionCode;
+        versionUpdate.versionName=versionName;
+
         return mHttpHelper.create(BusApiService.class).updateVer(versionName,key,versionCode).compose(RxUtil.<ApiResponse<Object>>rxSchedulerHelper());
+//        return mHttpHelper.create(BusApiService.class).updateVer(versionUpdate).compose(RxUtil.<ApiResponse<Object>>rxSchedulerHelper());
 
     }
 

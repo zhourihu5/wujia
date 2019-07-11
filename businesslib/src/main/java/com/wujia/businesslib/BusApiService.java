@@ -4,10 +4,12 @@ package com.wujia.businesslib;
 import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.MsgDto;
 import com.wujia.businesslib.data.VersionBean;
+import com.wujia.businesslib.data.VersionUpdate;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -39,6 +41,7 @@ public interface BusApiService {
     Flowable<VersionBean> checkVersion();
 
     @FormUrlEncoded
-    @POST("/v1/system/updateVer")
+    @POST("/system/updateVer")
     Flowable<ApiResponse<Object>> updateVer(@Field("versionName")String versionName,@Field("key") String key,@Field("versionCode") String versionCode);
+//    Flowable<ApiResponse<Object>> updateVer(@Body VersionUpdate versionUpdate);
 }
