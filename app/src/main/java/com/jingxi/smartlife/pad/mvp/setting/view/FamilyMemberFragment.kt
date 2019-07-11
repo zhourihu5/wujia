@@ -35,10 +35,6 @@ import kotlin.String.Companion
  */
 class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
 
-//    @BindView(R.id.btn_add_member)
-//    internal var btn_add_member: TextView? = null
-//    @BindView(R.id.rv_member)
-//    internal var rv_member: RecyclerView? = null
 
 
     internal var mAdapter: SetMemberAdapter? = null
