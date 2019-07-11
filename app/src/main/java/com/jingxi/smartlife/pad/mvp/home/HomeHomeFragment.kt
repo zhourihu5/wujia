@@ -139,7 +139,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         setState()
 
         rv_home_member!!.addItemDecoration(HorizontalDecoration(10))
-        memAdapter = HomeMemberAdapter(context, ArrayList())
+        memAdapter = HomeMemberAdapter(context!!, ArrayList())
         rv_home_member!!.adapter = memAdapter
         mPresenter.getUserQuickCard()
         mPresenter.getHomeUserInfo(SystemUtil.getSerialNum())
@@ -155,7 +155,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
     private fun setCardView() {
 
         cards = ArrayList()
-        homeCardAdapter = HomeCardAdapter(mActivity, cards)
+        homeCardAdapter = HomeCardAdapter(mActivity, cards!!)
         rv_home_card!!.addItemDecoration(HomeCardDecoration(68))
         rv_home_card!!.adapter = homeCardAdapter
         homeCardAdapter!!.setOnItemClickListener { adapter, holder, position ->

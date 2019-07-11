@@ -19,16 +19,12 @@ import com.intercom.sdk.IntercomConstants
 import com.intercom.sdk.SecurityMessage
 import com.intercom.sdk.SmartHomeManager
 import com.jingxi.smartlife.pad.R
-import com.jingxi.smartlife.pad.family.FamilyFragment
 import com.jingxi.smartlife.pad.family.mvp.FamilyHomeFragment
-import com.jingxi.smartlife.pad.market.MarketFragment
 import com.jingxi.smartlife.pad.market.mvp.MarketHomeFragment
-import com.jingxi.smartlife.pad.message.MessageFragment
 import com.jingxi.smartlife.pad.message.mvp.MessageHomeFragment
 import com.jingxi.smartlife.pad.mvp.home.HomeHomeFragment
-import com.jingxi.smartlife.pad.property.ProperyFragment
+import com.jingxi.smartlife.pad.mvp.setting.view.SettingHomeFragment
 import com.jingxi.smartlife.pad.property.mvp.ProperyHomeFragment
-import com.jingxi.smartlife.pad.safe.SafeFragment
 import com.jingxi.smartlife.pad.safe.mvp.SafeHomeFragment
 import com.jingxi.smartlife.pad.safe.mvp.view.VideoCallActivity
 import com.jingxi.smartlife.pad.sdk.JXPadSdk
@@ -51,7 +47,6 @@ import com.wujia.businesslib.model.BusModel
 import com.wujia.businesslib.util.LoginUtil
 import com.wujia.lib.widget.VerticalTabItem
 import com.wujia.lib.widget.util.ToastUtil
-import com.wujia.lib_common.base.BaseMainFragment
 import com.wujia.lib_common.base.BasePresenter
 import com.wujia.lib_common.base.BaseView
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
@@ -167,7 +162,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
             mFragments[4] = MessageHomeFragment.newInstance(0)
             mFragments[5] = MarketHomeFragment.newInstance(0)
             //            mFragments[6] = NeighborFragment.newInstance();
-            mFragments[6] = SettingFragment.newInstance()
+            mFragments[6] = SettingHomeFragment.newInstance()
 
             loadMultipleRootFragment(R.id.container, currentTab,
                     mFragments[0],
@@ -183,13 +178,13 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
 
             // 这里我们需要拿到mFragments的引用
             mFragments[0] = firstFragment
-            mFragments[1] = findFragment(SafeFragment::class.java)
-            mFragments[2] = findFragment(FamilyFragment::class.java)
-            mFragments[3] = findFragment(ProperyFragment::class.java)
-            mFragments[4] = findFragment(MessageFragment::class.java)
-            mFragments[5] = findFragment(MarketFragment::class.java)
+            mFragments[1] = findFragment(SafeHomeFragment::class.java)
+            mFragments[2] = findFragment(FamilyHomeFragment::class.java)
+            mFragments[3] = findFragment(ProperyHomeFragment::class.java)
+            mFragments[4] = findFragment(MessageHomeFragment::class.java)
+            mFragments[5] = findFragment(MarketHomeFragment::class.java)
             //            mFragments[6] = findFragment(NeighborFragment.class);
-            mFragments[6] = findFragment(SettingFragment::class.java)
+            mFragments[6] = findFragment(SettingHomeFragment::class.java)
         }
 
         main_tab_bar.addItem(VerticalTabItem(this, R.mipmap.icon_leftnav_home_default, R.mipmap.icon_leftnav_home_selected, R.string.home))

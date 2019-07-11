@@ -60,9 +60,6 @@ public class SafeHomeFragment extends TabFragment {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        // 懒加载
-        // 同级Fragment场景、ViewPager场景均适用
-        getCurrentTab(savedInstanceState);
         mTabBar = $(R.id.tab_home_tab_bar);
 
         SupportFragment firstFragment = findFragment(SafeOutsideFragment.class);

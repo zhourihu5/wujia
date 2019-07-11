@@ -51,7 +51,6 @@ public class MessageHomeFragment extends TabFragment {
         // 同级Fragment场景、ViewPager场景均适用
         LogUtil.i("FamilyFragment onLazyInitView");
         mTabBar = $(R.id.tab_home_tab_bar);
-        getCurrentTab(savedInstanceState);
 
 
         SupportFragment firstFragment = findFragment(AllMsgFragment.class);

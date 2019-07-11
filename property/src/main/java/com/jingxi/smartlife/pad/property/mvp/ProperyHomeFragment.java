@@ -48,7 +48,6 @@ public class ProperyHomeFragment extends TabFragment {
         mTabBar = $(R.id.tab_home_tab_bar);
         mTabBar.addItem(new VerticalTabItem(mActivity, R.mipmap.icon_serve_leftnav_service_default, R.mipmap.icon_serve_leftnav_service_selected, R.string.propery_report_fix))
                 .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_serve_leftnav_phone_default, R.mipmap.icon_serve_leftnav_phone_highlight, R.string.tel_select));
-        getCurrentTab(savedInstanceState);
 
         if (currentTab >= mFragments.length) {
             currentTab = 0;

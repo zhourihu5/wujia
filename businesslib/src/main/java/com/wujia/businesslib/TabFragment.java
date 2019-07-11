@@ -29,6 +29,12 @@ public abstract class TabFragment extends BaseFragment {
     }
 
     @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        getCurrentTab(savedInstanceState);
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getCurrentTab(savedInstanceState);

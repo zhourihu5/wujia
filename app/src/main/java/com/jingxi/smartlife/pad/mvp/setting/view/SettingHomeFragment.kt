@@ -61,11 +61,6 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
-        // 懒加载
-        // 同级Fragment场景、ViewPager场景均适用
-//        val layout_title= view!!.findViewById<View>(R.id.layout_title)
-//        layout_title.layout_title_tv.setText(R.string.setting)
-        val layout_title_tv= view!!.findViewById<TextView>(R.id.layout_title_tv)
         layout_title_tv!!.setText(R.string.setting)
         layout_title_tv!!.setOnLongClickListener {
             val versionCode = VersionUtil.getVersionCode()
@@ -74,20 +69,6 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
             ToastUtil.showShort(mContext, "$versionName - $versionCode")
             true
         }
-
-    }
-
-    override fun onSupportVisible() {
-        super.onSupportVisible()
-        // 当对用户可见时 回调
-        // 不管是 父Fragment还是子Fragment 都有效！
-
-    }
-
-    override fun onSupportInvisible() {
-        super.onSupportInvisible()
-        // 当对用户不可见时 回调
-        // 不管是 父Fragment还是子Fragment 都有效！
 
     }
 
@@ -119,7 +100,7 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
 
                 mPresenter.checkVersion()
             }
-        }//                install();//todo test install
+        }
     }
 
     @OnLongClick(R.id.item_check_update, R.id.item_wifi_connection)
@@ -155,9 +136,6 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
         hideLoadingDialog()
         val bean = `object` as VersionBean
 
-        //        String pname = AppContext.get().getPackageName();
-        //        String pname = "com.jingxi.smartlife.pad";
-        val versionId = VersionUtil.getVersionCode()
 
         if (MyReceiver.isUpdate(bean.data)) {
             start(UpdateFragment.newInstance(bean.data, bean.data.desc))

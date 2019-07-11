@@ -43,7 +43,6 @@ public class FamilyHomeFragment extends TabFragment {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        getCurrentTab(savedInstanceState);
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
         LogUtil.i("FamilyFragment onLazyInitView");

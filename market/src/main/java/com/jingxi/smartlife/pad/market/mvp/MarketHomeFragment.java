@@ -57,7 +57,6 @@ public class MarketHomeFragment extends TabFragment {
                 .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_find_default, R.mipmap.icon_market_leftnav_my_highlight, R.string.find_service))
                 .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_government_default, R.mipmap.icon_market_leftnav_my_highlight, R.string.gov_service))
                 .addItem(new VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_all_default, R.mipmap.icon_market_leftnav_my_highlight, R.string.all_service));
-        getCurrentTab(savedInstanceState);
 
         if (currentTab >= mTabBar.getChildCount()) {
             currentTab = 0;
