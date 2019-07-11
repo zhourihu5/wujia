@@ -138,15 +138,19 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
                 if (bean.data != null) {
                     if (lock_img_bg != null) {
                         val ad = bean.data
-                        ImageLoaderManager.getInstance().loadImage(ad.image, R.mipmap.bg_lockscreen, lock_img_bg)
+                        if (ad != null) {
+                            ImageLoaderManager.getInstance().loadImage(ad.image, R.mipmap.bg_lockscreen, lock_img_bg)
+                        }
                         btn_details!!.visibility = View.VISIBLE
                         btn_details!!.setOnClickListener {
-                            if (!TextUtils.isEmpty(ad.url)) {
-                                val intent = Intent(this@LockService, WebViewActivity::class.java)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                intent.putExtra(Constants.INTENT_KEY_1, ad.url)
-                                startActivity(intent)
-                                wakeUp()
+                            if (ad != null) {
+                                if (!TextUtils.isEmpty(ad.url)) {
+                                    val intent = Intent(this@LockService, WebViewActivity::class.java)
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    intent.putExtra(Constants.INTENT_KEY_1, ad.url)
+                                    startActivity(intent)
+                                    wakeUp()
+                                }
                             }
                         }
                     }

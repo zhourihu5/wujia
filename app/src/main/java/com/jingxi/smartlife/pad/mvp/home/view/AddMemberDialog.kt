@@ -38,7 +38,7 @@ class AddMemberDialog(context: Context, internal var datas: List<HomeUserInfoBea
     override fun init(context: Context) {
 
         rv_dialog_invite!!.addItemDecoration(VerticallDecoration(24))
-        rv_dialog_invite!!.adapter = HomeInviteAdapter(context, datas)
+        datas?.let {rv_dialog_invite!!.adapter = HomeInviteAdapter(context, datas)  }
 
         findViewById<View>(R.id.btn_send_invite).setOnClickListener(View.OnClickListener {
             if (null != listener) {

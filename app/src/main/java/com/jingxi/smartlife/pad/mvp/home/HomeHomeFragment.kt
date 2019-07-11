@@ -5,11 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 
 import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.mvp.MainActivity
@@ -18,7 +15,6 @@ import com.jingxi.smartlife.pad.mvp.home.adapter.HomeMemberAdapter
 import com.jingxi.smartlife.pad.mvp.home.adapter.HomeNotifyAdapter
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeContract
 import com.jingxi.smartlife.pad.mvp.home.contract.HomePresenter
-import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean
 import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean
 import com.jingxi.smartlife.pad.mvp.home.data.WeatherInfoBean
 import com.jingxi.smartlife.pad.mvp.home.view.AddMemberDialog
@@ -40,9 +36,7 @@ import com.wujia.businesslib.listener.OnInputDialogListener
 import com.wujia.businesslib.model.BusModel
 import com.wujia.businesslib.util.LoginUtil
 import com.wujia.lib.imageloader.ImageLoaderManager
-import com.wujia.lib.widget.HomeArcView
 import com.wujia.lib.widget.util.ToastUtil
-import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter
 import com.wujia.lib_common.base.view.HomeCardDecoration
 import com.wujia.lib_common.base.view.HorizontalDecoration
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
@@ -56,8 +50,8 @@ import com.wujia.lib_common.utils.SystemUtil
 
 import java.util.ArrayList
 
-import butterknife.BindView
 import butterknife.OnClick
+import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean
 
 import kotlinx.android.synthetic.main.fragment_home.*
 

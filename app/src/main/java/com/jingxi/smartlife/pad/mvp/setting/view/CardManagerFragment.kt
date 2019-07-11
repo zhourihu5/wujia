@@ -1,14 +1,11 @@
 package com.jingxi.smartlife.pad.mvp.setting.view
 
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.TextView
 
 import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeContract
 import com.jingxi.smartlife.pad.mvp.home.contract.HomePresenter
-import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean
 import com.jingxi.smartlife.pad.mvp.setting.adapter.HomeCardManagerAdapter
 import com.wujia.businesslib.base.MvpFragment
 import com.wujia.businesslib.event.EventBusUtil
@@ -19,8 +16,8 @@ import com.wujia.lib_common.data.network.exception.ApiException
 
 import java.util.ArrayList
 
-import butterknife.BindView
 import butterknife.OnClick
+import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean
 import kotlinx.android.synthetic.main.activity_card_manager.*
 
 /**
@@ -105,7 +102,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         unaddAdapter!!.setManagerCardListener(object : HomeCardManagerAdapter.OnManagerCardListener {
             override fun addCard(pos: Int) {
                 isChanged = true
-                mPresenter.addUserQuickCard(unaddList!![pos].id)
+                unaddList!![pos].id?.let { mPresenter.addUserQuickCard(it) }
 
                 addList!!.add(unaddList!!.removeAt(pos))
                 unaddAdapter!!.notifyItemRemoved(pos)
@@ -162,7 +159,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         when (requestCode) {
             HomePresenter.REQUEST_CDOE_GET_CARD_OTHER -> {
                 val cards = `object` as HomeRecBean
-                if (cards.data != null && cards.data.size > 0) {
+                if (cards.data != null && cards.data!!.size > 0) {
                     val toAddList = ArrayList<HomeRecBean.Card>()
                     for (card in cards.data) {
                         if ("NO" == card.userCards[0].isShow) {
