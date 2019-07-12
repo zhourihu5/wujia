@@ -53,17 +53,12 @@ public class ProperyHomeFragment extends TabFragment {
             currentTab = 0;
         }
 
-        SupportFragment firstFragment = findFragment(SimpleFixFragment.class);
-        if (firstFragment == null) {
+        mFragments[0] = findChildFragment(SimpleFixFragment.class);
+            mFragments[1] = findChildFragment(SimpleTelFragment.class);
+        if (mFragments[0] == null) {
             mFragments[0] = SimpleFixFragment.newInstance();
             mFragments[1] = SimpleTelFragment.newInstance();
             loadMultipleRootFragment(R.id.tab_content_container, currentTab, mFragments[0], mFragments[1]);
-        } else {
-            // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
-
-            // 这里我们需要拿到mFragments的引用
-            mFragments[0] = firstFragment;
-            mFragments[1] = findChildFragment(SimpleTelFragment.class);
         }
 
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {

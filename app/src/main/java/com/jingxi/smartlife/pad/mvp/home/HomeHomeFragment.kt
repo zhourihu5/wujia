@@ -56,7 +56,9 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
     private var memAdapter: HomeMemberAdapter? = null
     private var cards: ArrayList<HomeRecBean.Card>? = null
 
-    private var isRefreshCard = false
+    private var isRefreshUserData=true
+    private var isRefreshCard = true
+    private var isRefreshWeather = true
 
     private val eventSafeState = EventSafeState(IMiessageInvoke { event ->
         home_arc_view!!.text = if (event.online) "正常\n" else "异常\n"
@@ -121,9 +123,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         rv_home_member!!.addItemDecoration(HorizontalDecoration(10))
         memAdapter = HomeMemberAdapter(context!!, ArrayList())
         rv_home_member!!.adapter = memAdapter
-        mPresenter.getUserQuickCard()
-        mPresenter.getHomeUserInfo(SystemUtil.getSerialNum())
-        mPresenter.getWeather()
+
 
 
         EventBusUtil.register(eventSafeState)
@@ -224,11 +224,14 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
     override fun onSupportVisible() {
         super.onSupportVisible()
-        if (null != homeCardAdapter && homeCardAdapter!!.datas.size == 0) {
-            isRefreshCard = true
-        }
         if (isRefreshCard) {
             mPresenter.getUserQuickCard()
+        }
+        if(isRefreshUserData){
+            mPresenter.getHomeUserInfo(SystemUtil.getSerialNum())
+        }
+        if(isRefreshWeather){
+            mPresenter.getWeather()
         }
     }
 
@@ -289,6 +292,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
             }
 
             HomePresenter.REQUEST_CDOE_HOME_USER -> {
+                isRefreshUserData=false
                 val homeUserInfoBean = `object` as HomeUserInfoBean
 
                 home_room_tv!!.text = homeUserInfoBean.data.communtity.name
@@ -297,6 +301,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
                 memAdapter!!.notifyDataSetChanged()
             }
             HomePresenter.REQUEST_CDOE_WEATHER -> {
+                isRefreshWeather=false
                 val weatherInfoBean = `object` as WeatherInfoBean
                 val dataBean = weatherInfoBean.data
                 val token = dataBean.token
