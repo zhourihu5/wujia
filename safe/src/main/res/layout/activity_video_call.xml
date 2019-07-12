@@ -62,14 +62,16 @@
                             android:id="@+id/btnCall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@mipmap/btn_safe_call" />
+                            android:background="@mipmap/btn_safe_call"
+                            android:onClick="onClick"/>
 
                         <ImageButton
                             android:id="@+id/btn_safe_open"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/px48"
-                            android:background="@mipmap/btn_safe_open" />
+                            android:background="@mipmap/btn_safe_open"
+                            android:onClick="onClick"/>
 
                         <ImageButton
                             android:id="@id/btn5"
@@ -88,7 +90,8 @@
                             android:id="@+id/btn_safe_refresh"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@mipmap/btn_safe_refresh" />
+                            android:background="@mipmap/btn_safe_refresh"
+                            android:onClick="onClick"/>
 
                         <ImageButton
                             android:id="@id/btn7"
@@ -194,7 +197,8 @@
                     android:layout_width="@dimen/px100"
                     android:layout_height="@dimen/px100"
                     android:layout_marginTop="@dimen/px72"
-                    android:src="@mipmap/btn_safe_hangup" />
+                    android:src="@mipmap/btn_safe_hangup"
+                    android:onClick="onClick"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -204,6 +208,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:background="@mipmap/btn_close_circle" />
+            android:background="@mipmap/btn_close_circle"
+            android:onClick="onClick"/>
     </FrameLayout>
 </com.wujia.lib.widget.StencilFrameLayout>

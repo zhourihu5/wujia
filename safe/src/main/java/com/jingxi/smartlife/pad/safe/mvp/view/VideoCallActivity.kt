@@ -83,16 +83,8 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener, SurfaceHolder.Ca
 
     override fun initEventAndData(savedInstanceState: Bundle?) {
 
-
-
         manager = JXPadSdk.getDoorAccessManager()
         manager!!.addConversationUIListener(this)
-
-        btn_close.setOnClickListener(this)
-        btnCall!!.setOnClickListener(this)
-        btn_safe_open!!.setOnClickListener(this)
-        btn_safe_refresh.setOnClickListener(this)
-        btn_safe_hangup.setOnClickListener(this)
 
         sessionId = intent.getStringExtra("sessionId")
         if (null == loadingDialog) {
