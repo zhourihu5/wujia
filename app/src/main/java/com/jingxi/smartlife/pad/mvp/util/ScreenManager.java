@@ -20,8 +20,8 @@ public class ScreenManager {
     @Retention(SOURCE)
     @IntDef({LIGHT_MODE_AUTO, LIGHT_MODE_MANUAL, })
     public @interface LightMode {}
-    public static final int LIGHT_MODE_AUTO = 0;
-    public static final int LIGHT_MODE_MANUAL = 1;
+    public static final int LIGHT_MODE_AUTO = 1;
+    public static final int LIGHT_MODE_MANUAL = 0;
 
 
     /**
