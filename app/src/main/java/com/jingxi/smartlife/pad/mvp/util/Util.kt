@@ -1,4 +1,4 @@
-package com.jingxi.smartlife.pad.mvp
+package com.jingxi.smartlife.pad.mvp.util
 
 import android.content.Context
 import com.jingxi.smartlife.pad.BuildConfig

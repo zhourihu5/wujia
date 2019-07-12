@@ -30,7 +30,7 @@ def support = [:]
 support.annotations = 'androidx.annotation:annotation:1.0.0'
 support.app_compat = 'androidx.appcompat:appcompat:1.0.0'
 support.cardview = "com.android.support:cardview:$versions.support"
-support.recyclerview = 'androidx.recyclerview:recyclerview:1.0.0'
+support.recyclerview = 'androidx.recyclerview:recyclerview:'
 support.cardview = 'androidx.cardview:cardview:1.0.0'
 support.v4 = 'androidx.legacy:legacy-support-v4:1.0.0'
 support.design = 'com.google.android.material:material:1.0.0'
@@ -74,7 +74,7 @@ ext.build_versions = build_versions
 
 def app_version = [:]
 app_version.versionCode = 1
-app_version.versionName = "1.0.1"
+app_version.versionName = "1.0.2"
 ext.app_version = app_version
 
 

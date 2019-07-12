@@ -11,6 +11,7 @@ import com.jingxi.jpushdemo.MyReceiver
 import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.mvp.setting.contract.SettingContract
 import com.jingxi.smartlife.pad.mvp.setting.presenter.SettingPresenter
+import com.jingxi.smartlife.pad.mvp.util.ScreenManager
 import com.wujia.businesslib.base.MvpFragment
 import com.wujia.businesslib.data.VersionBean
 import com.wujia.businesslib.dialog.SimpleDialog
@@ -19,6 +20,7 @@ import com.wujia.lib.widget.util.ToastUtil
 import com.wujia.lib_common.data.network.exception.ApiException
 import com.wujia.lib_common.utils.AppUtil
 import com.wujia.lib_common.utils.FileUtil
+import com.wujia.lib_common.utils.LogUtil
 import com.wujia.lib_common.utils.VersionUtil
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
@@ -91,13 +93,35 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
         }
     }
 
-    @OnLongClick(R.id.item_check_update, R.id.item_wifi_connection)
+    @OnLongClick(R.id.item_check_update, R.id.item_wifi_connection,R.id.item_clear_cache)
     fun onViewLongClicked(view: View): Boolean {//for developers
         when (view.id) {
             R.id.item_wifi_connection -> startAdbWifi()
             R.id.item_check_update -> LoginUtil.toLoginActivity()
+            R.id.item_clear_cache -> setBrightMode()
         }
         return true
+    }
+    internal fun setBrightMode() {
+       val mode= ScreenManager.getScreenMode()
+       val brightNess= ScreenManager.getScreenBrightness()
+        LogUtil.i("getScreenMode==$mode,getScreenBrightness=$brightNess")
+        when(mode){
+            1->{
+                ToastUtil.showShort(mContext, "1 为自动调节屏幕亮度")
+                ScreenManager.setScreenMode(0)
+                ScreenManager.setScreenBrightness(50)
+            }
+            0->{
+                ScreenManager.setScreenBrightness(255)
+                ToastUtil.showShort(mContext, "0 为手动调节屏幕亮度")
+                ScreenManager.setScreenMode(1)
+            }
+            -1->{
+                ToastUtil.showShort(mContext, "-1 获取失败")
+                ScreenManager.setScreenBrightness(100)
+            }
+        }
     }
 
     internal fun startAdbWifi() {

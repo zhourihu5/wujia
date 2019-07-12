@@ -23,6 +23,17 @@ public class ModeAdapter extends CommonAdapter<ModeBean> {
     protected void convert(ViewHolder holder, ModeBean item, int pos) {
 
         holder.setText(R.id.scene_in_mode_tv, item.title);
+        switch (pos){
+            case 0:
+                 holder.setImageResource(R.id.scene_in_img, R.mipmap.img_card_backhome_0);
+                break;
+            case 1:
+                 holder.setImageResource(R.id.scene_in_img, R.mipmap.img_card_backhome_1);
+                break;
+            case 2:
+                 holder.setImageResource(R.id.scene_in_img, R.mipmap.img_card_backhome_2);
+                break;
+        }
 
     }
 }

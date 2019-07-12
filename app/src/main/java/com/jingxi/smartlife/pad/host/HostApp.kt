@@ -4,7 +4,7 @@ import android.content.Intent
 import cn.jpush.android.api.JPushInterface
 import com.jingxi.smartlife.pad.BuildConfig
 import com.jingxi.smartlife.pad.mvp.FloatingButtonService
-import com.jingxi.smartlife.pad.mvp.Util
+import com.jingxi.smartlife.pad.mvp.util.Util
 import com.squareup.leakcanary.LeakCanary
 import com.umeng.commonsdk.UMConfigure
 import com.wujia.businesslib.HookUtil

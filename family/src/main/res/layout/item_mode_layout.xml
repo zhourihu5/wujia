@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/px274"
             android:scaleType="centerCrop"
-            android:src="@mipmap/img_card_backhome"
+            android:src="@mipmap/img_card_backhome_0"
             app:left_top_radius="@dimen/px8"
             app:right_top_radius="@dimen/px8" />
 

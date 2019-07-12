@@ -3,6 +3,8 @@
     package="com.jingxi.smartlife.pad"
     android:sharedUserId="android.uid.system">
     <!--android:sharedUserId="android.uid.system"-->
+
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <application
         android:name=".host.HostApp"
         android:allowBackup="true"
