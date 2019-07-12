@@ -88,8 +88,8 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
 
     private fun getData(cardId: String?) {
 
-        addSubscribe(cardId?.let {
-            mModel!!.getCardDetail(it).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<CardDetailBean>>(this, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(
+            mModel!!.getCardDetail(cardId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<CardDetailBean>>(this, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<CardDetailBean>) {
                 super.onResponse(response)
                 val txt = response.data.content
@@ -105,7 +105,7 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
                 super.onFailed(apiException)
             }
         })
-        })
+        )
 
     }
 
