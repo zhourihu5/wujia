@@ -109,6 +109,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
+        LogUtil.i("homehome onLazyInitView")
 
         FontUtils.changeFontTypeface(home_weather_num_tv, FontUtils.Font_TYPE_EXTRA_LIGHT)
 
@@ -123,8 +124,6 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         rv_home_member!!.addItemDecoration(HorizontalDecoration(10))
         memAdapter = HomeMemberAdapter(context!!, ArrayList())
         rv_home_member!!.adapter = memAdapter
-
-
 
         EventBusUtil.register(eventSafeState)
         EventBusUtil.register(eventMsg)
@@ -224,13 +223,18 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
     override fun onSupportVisible() {
         super.onSupportVisible()
+        LogUtil.i("Homehome onSupportVisible")
+        getDataIfNeeded()
+    }
+
+    private fun getDataIfNeeded() {
         if (isRefreshCard) {
             mPresenter.getUserQuickCard()
         }
-        if(isRefreshUserData){
+        if (isRefreshUserData) {
             mPresenter.getHomeUserInfo(SystemUtil.getSerialNum())
         }
-        if(isRefreshWeather){
+        if (isRefreshWeather) {
             mPresenter.getWeather()
         }
     }

@@ -7,6 +7,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.*
+import android.text.TextUtils
 import androidx.core.app.ActivityCompat
 import android.view.View
 import android.widget.RelativeLayout
@@ -40,6 +41,7 @@ import com.wujia.lib_common.base.BasePresenter
 import com.wujia.lib_common.base.BaseView
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
 import com.wujia.lib_common.data.network.exception.ApiException
+import com.wujia.lib_common.data.network.exception.TokenException
 import com.wujia.lib_common.utils.LogUtil
 import com.wujia.lib_common.utils.ScreenUtil
 import com.wujia.lib_common.utils.grant.PermissionsManager
@@ -96,10 +98,6 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         }
     }
 
-    override fun onRestart() {
-        super.onRestart()
-    }
-
     override fun getLayout(): Int {
         return R.layout.activity_main
     }
@@ -114,6 +112,13 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         LogUtil.i("ScreenUtil.density()  " + ScreenUtil.density)
         LogUtil.i("ScreenUtil.densityDpi()  " + ScreenUtil.densityDpi)
         LogUtil.i("ScreenUtil.scaleDensity()  " + ScreenUtil.scaleDensity)
+
+        val token = DataManager.getToken()
+        if (TextUtils.isEmpty(token)) {
+            LogUtil.i("before login")
+            LoginUtil.toLoginActivity()
+            return
+        }
 
         //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//todo
 
@@ -447,7 +452,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
     override fun onDestroy() {
         super.onDestroy()
         EventBusUtil.unregister(eventMsg)
-        manager!!.setDoorAccessListener(null)
+        manager?.setDoorAccessListener(null)
         //        manager.stopFamily(dockeKey);
         manager = null
         releaseWakeLock()

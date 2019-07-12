@@ -41,7 +41,7 @@ public abstract class BaseApplication extends Application {
 
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-
+                currentActivity = new WeakReference<>(activity);
             }
 
             @Override
@@ -50,7 +50,7 @@ public abstract class BaseApplication extends Application {
                 if (mFinalCount.incrementAndGet() == 1) {
                     runInForeGround();
                 }
-                currentActivity = new WeakReference<>(activity);
+
 
             }
 
