@@ -2,7 +2,7 @@
 
 adb disconnect
 #modify by your ip
-#adb connect 192.168.1.44:5555
+adb connect 192.168.1.117:5555
 
 adb root
 adb remount
@@ -24,5 +24,5 @@ adb push Whitelist.dat  /metadata/mConfig/properties/Whitelist.dat
 adb shell chmod 777 /metadata/mConfig/properties/Whitelist.dat
 
 #modify by your path
-adb install app/build/outputs/apk/release/wujia_release_v1.0.0-20190705_1637.apk
+adb install app/build/outputs/apk/release/wujia_release_c1_v1.0.2-20190712_1637.apk
 #pause
