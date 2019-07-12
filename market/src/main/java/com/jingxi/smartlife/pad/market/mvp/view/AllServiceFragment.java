@@ -55,8 +55,8 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
         this.type = type;
         if(mLoadMoreWrapper!=null){
             datas.clear();
-            mLoadMoreWrapper.setLoadMoreView(0);
             mLoadMoreWrapper.notifyDataSetChanged();
+            mLoadMoreWrapper.setLoadMoreView(0);
             pageNo = 1;
             getList(true);
         }

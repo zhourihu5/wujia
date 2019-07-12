@@ -61,26 +61,22 @@ public class MarketHomeFragment extends TabFragment {
         if (currentTab >= mTabBar.getChildCount()) {
             currentTab = 0;
         }
-        SupportFragment firstFragment = findFragment(AllServiceFragment.class);
-        if (firstFragment == null) {
+        mFragments[0] = findChildFragment(AllServiceFragment.class);
+        mFragments[1] = findChildFragment(FindServiceFragment.class);
+        if (mFragments[0] == null) {
             String type = getServiceType(currentTab);
             mFragments[0] = AllServiceFragment.newInstance(type);
             mFragments[1] = FindServiceFragment.newInstance();
 //            mFragments[2] = GovServiceFragment.newInstance();
 //            mFragments[2] = AllServiceFragment.newInstance(AllServiceFragment.TYPE_GOV);
 //            mFragments[3] = AllServiceFragment.newInstance(AllServiceFragment.TYPE_ALL);
-            int fPosition=currentTab%2;
-//            setFragmentType(currentTab);
+            int fPosition=0;
+            if(currentTab==1){
+                fPosition=1;
+            }
             loadMultipleRootFragment(R.id.tab_content_container, fPosition, mFragments[0], mFragments[1]);
         }
-        else {
-            // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
-            // 这里我们需要拿到mFragments的引用
-            mFragments[0] = firstFragment;
-            mFragments[1] = findChildFragment(FindServiceFragment.class);
-//            setFragmentType(currentTab);
-        }
         LogUtil.i("markethomefragment,currentTab=="+currentTab);
         mTabBar.setOnTabSelectedListener(new VerticalTabBar.OnTabSelectedListener() {
             @Override
@@ -90,8 +86,6 @@ public class MarketHomeFragment extends TabFragment {
                     showHideFragment(mFragments[1], mFragments[0]);
                 }else {
                     setFragmentType(position);
-                }
-                if(prePosition==1){
                     showHideFragment(mFragments[0], mFragments[1]);
                 }
                 parentSwitchTab();
