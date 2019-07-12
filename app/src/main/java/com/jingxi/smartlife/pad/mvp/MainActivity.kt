@@ -133,9 +133,15 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
 
     private fun initTab() {
 
-//        val firstFragment = findFragment(HomeFragment::class.java)
-        val firstFragment = findFragment(HomeFragment::class.java)
-        if (firstFragment == null) {
+        mFragments[0] = findFragment(HomeFragment::class.java)//restored from savedinstance
+        mFragments[1] = findFragment(SafeFragment::class.java)
+        mFragments[2] = findFragment(FamilyFragment::class.java)
+        mFragments[3] = findFragment(ProperyFragment::class.java)
+        mFragments[4] = findFragment(MessageFragment::class.java)
+        mFragments[5] = findFragment(MarketFragment::class.java)
+        //            mFragments[6] = findFragment(NeighborFragment.class);
+        mFragments[6] = findFragment(SettingFragment::class.java)
+        if (mFragments[0] == null) {
             mFragments[0] = HomeFragment.newInstance()
             mFragments[1] = SafeFragment.newInstance()
             mFragments[2] = FamilyFragment.newInstance()
@@ -152,20 +158,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
                     mFragments[3],
                     mFragments[4],
                     mFragments[5],
-                    //                    mFragments[6],
                     mFragments[6])
-        } else {
-            // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
-
-            // 这里我们需要拿到mFragments的引用
-            mFragments[0] = firstFragment
-            mFragments[1] = findFragment(SafeHomeFragment::class.java)
-            mFragments[2] = findFragment(FamilyHomeFragment::class.java)
-            mFragments[3] = findFragment(ProperyHomeFragment::class.java)
-            mFragments[4] = findFragment(MessageHomeFragment::class.java)
-            mFragments[5] = findFragment(MarketHomeFragment::class.java)
-            //            mFragments[6] = findFragment(NeighborFragment.class);
-            mFragments[6] = findFragment(SettingHomeFragment::class.java)
         }
 
         main_tab_bar.addItem(VerticalTabItem(this, R.mipmap.icon_leftnav_home_default, R.mipmap.icon_leftnav_home_selected, R.string.home))
