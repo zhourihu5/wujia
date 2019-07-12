@@ -1,7 +1,7 @@
 package com.jingxi.smartlife.pad.sdk.neighbor.ui.adapter;
 
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.Adapter;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.Adapter;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;

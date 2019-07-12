@@ -1,6 +1,6 @@
 package com.wujia.lib_common.base.baseadapter.base;
 
-import android.support.v4.util.SparseArrayCompat;
+import androidx.collection.SparseArrayCompat;
 
 public class ItemViewDelegateManager<T> {
     SparseArrayCompat<ItemViewDelegate<T>> delegates = new SparseArrayCompat();

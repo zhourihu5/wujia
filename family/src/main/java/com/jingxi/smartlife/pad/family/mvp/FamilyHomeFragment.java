@@ -1,7 +1,7 @@
 package com.jingxi.smartlife.pad.family.mvp;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.jingxi.smartlife.pad.family.R;
 import com.wujia.businesslib.TabFragment;

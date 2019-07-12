@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_white_radius_shape">
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@id/rv1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                 android:overScrollMode="never"
                 android:paddingLeft="49dp"
                 android:paddingRight="42dp"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_car_goods_group" />
         </FrameLayout>
     </com.wujia.lib.widget.ShadowContainer>

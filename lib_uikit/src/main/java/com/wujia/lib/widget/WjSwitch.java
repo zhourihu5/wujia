@@ -8,7 +8,7 @@ import android.util.AttributeSet;
  * date ：2019-01-23
  * description ：
  */
-public class WjSwitch extends android.support.v7.widget.SwitchCompat {
+public class WjSwitch extends androidx.appcompat.widget.SwitchCompat {
 
     public WjSwitch(Context context, AttributeSet attrs) {
         super(context, attrs);

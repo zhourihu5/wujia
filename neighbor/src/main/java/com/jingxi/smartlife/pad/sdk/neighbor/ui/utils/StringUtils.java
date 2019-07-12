@@ -2,8 +2,8 @@ package com.jingxi.smartlife.pad.sdk.neighbor.ui.utils;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.support.annotation.StringRes;
-import android.support.v4.util.ArrayMap;
+import androidx.annotation.StringRes;
+import androidx.collection.ArrayMap;
 import android.text.TextUtils;
 
 import com.jingxi.smartlife.pad.sdk.utils.JXContextWrapper;

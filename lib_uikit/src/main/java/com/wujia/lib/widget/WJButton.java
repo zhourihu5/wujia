@@ -12,7 +12,7 @@ import com.wujia.lib.uikit.R;
  * date ：2019-02-21
  * description ： 带pressed效果，四周drawable
  */
-public class WJButton extends android.support.v7.widget.AppCompatTextView {
+public class WJButton extends androidx.appcompat.widget.AppCompatTextView {
 
     private static final int BACKGROUND = 0;
     private static final int TOP = 1;

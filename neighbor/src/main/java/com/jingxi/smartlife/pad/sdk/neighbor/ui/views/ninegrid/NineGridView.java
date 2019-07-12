@@ -3,7 +3,7 @@ package com.jingxi.smartlife.pad.sdk.neighbor.ui.views.ninegrid;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;

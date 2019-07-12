@@ -1,6 +1,6 @@
 package com.jingxi.smartlife.pad.sdk.neighbor.ui.utils;
 
-import android.support.v4.util.ArrayMap;
+import androidx.collection.ArrayMap;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSONObject;

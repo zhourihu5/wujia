@@ -1,8 +1,8 @@
 package com.wujia.lib.widget;
 
 import android.content.Context;
-import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.Gravity;
 
@@ -13,7 +13,7 @@ import com.wujia.lib.uikit.R;
  * date ：2019-01-12
  * description ：
  */
-public class HorizontalTabItem extends android.support.v7.widget.AppCompatTextView {
+public class HorizontalTabItem extends androidx.appcompat.widget.AppCompatTextView {
 
     private int mTabPosition;
     private Context mContext;

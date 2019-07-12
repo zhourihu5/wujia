@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.jingxi.smartlife.pad.safe.mvp.view.VideoCallActivity;
 import com.wujia.lib.widget.util.ToastUtil;

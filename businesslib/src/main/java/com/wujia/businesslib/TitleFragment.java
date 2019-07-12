@@ -1,6 +1,6 @@
 package com.wujia.businesslib;
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 import android.view.View;
 import android.widget.TextView;
 

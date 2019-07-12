@@ -16,7 +16,7 @@ import android.graphics.Region;
 import android.graphics.SweepGradient;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.GestureDetector;

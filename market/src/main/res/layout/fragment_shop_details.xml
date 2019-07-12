@@ -54,7 +54,7 @@
 
     </LinearLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -199,29 +199,29 @@
                         android:layout_alignParentRight="true"
                         android:src="@mipmap/icon_chat_call" />
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@id/rv1"
                         android:layout_width="wrap_content"
                         android:layout_height="26dp"
                         android:layout_below="@id/img2"
                         android:layout_marginTop="11dp"
                         android:orientation="horizontal"
-                        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/item_tag" />
 
                 </RelativeLayout>
             </com.wujia.lib.widget.ShadowContainer>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@id/rv2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="45dp"
                 android:paddingTop="14dp"
                 android:paddingRight="30dp"
-                app:layoutManager="android.support.v7.widget.GridLayoutManager"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="4"
                 tools:listitem="@layout/item_goods_card" />
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

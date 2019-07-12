@@ -2,7 +2,7 @@ package com.wujia.lib_common.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * 懒加载

@@ -1,6 +1,6 @@
 package com.wujia.lib_common.data.network;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.wujia.lib_common.data.network.https.SslContextFactory;
 import com.wujia.lib_common.data.network.retrofit_url.RetrofitUrlManager;

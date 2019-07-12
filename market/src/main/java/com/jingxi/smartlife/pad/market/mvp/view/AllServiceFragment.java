@@ -1,9 +1,9 @@
 package com.jingxi.smartlife.pad.market.mvp.view;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jingxi.smartlife.pad.market.R;
 import com.jingxi.smartlife.pad.market.mvp.adapter.FindServiceChildAdapter;

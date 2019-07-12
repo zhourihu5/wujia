@@ -1,8 +1,8 @@
 package com.jingxi.smartlife.pad.sdk.neighbor.ui;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.jingxi.smartlife.pad.sdk.JXPadSdk;
 import com.jingxi.smartlife.pad.sdk.neighbor.ui.fragments.NeighborMainFragment;

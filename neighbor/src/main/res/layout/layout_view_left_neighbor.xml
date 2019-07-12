@@ -144,18 +144,18 @@
         android:text="加载失败，点击重试"
         android:visibility="gone" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/neighbor_detail_swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/re"
         android:clipChildren="false">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/neighbor_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipChildren="false" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </com.jingxi.smartlife.pad.app_neighborhood.view.NeighborLeftView>

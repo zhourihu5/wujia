@@ -1,7 +1,7 @@
 package com.wujia.businesslib.base;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.widget.TextView;
 
 import com.wujia.businesslib.R;

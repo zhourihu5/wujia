@@ -31,14 +31,14 @@
             android:textColor="@color/c3"
             android:textSize="@dimen/text48" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_home_member"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/px72"
             android:layout_alignBottom="@id/home_status_layout"
             android:layout_marginLeft="@dimen/px80"
             android:orientation="horizontal"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_home_head" />
 
         <ImageView
@@ -219,14 +219,14 @@
         android:background="@color/ceeeeef"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_home_card"
             android:layout_width="match_parent"
             android:layout_height="@dimen/px500"
             android:layout_marginTop="@dimen/px60"
             android:orientation="horizontal"
             android:overScrollMode="never"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_home_rec_layout_0_shadow" />
 
 
@@ -237,13 +237,13 @@
             android:layout_marginTop="@dimen/px50"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_home_msg"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_home_notify_layout" />
 
             <ImageView

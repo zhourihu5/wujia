@@ -2,8 +2,8 @@ package com.wujia.lib_common.utils;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringDef;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringDef;
 import android.widget.TextView;
 
 import java.lang.annotation.Retention;

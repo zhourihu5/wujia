@@ -1,7 +1,7 @@
 package com.jingxi.smartlife.pad.market.mvp.view;
 
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.jingxi.smartlife.pad.market.R;

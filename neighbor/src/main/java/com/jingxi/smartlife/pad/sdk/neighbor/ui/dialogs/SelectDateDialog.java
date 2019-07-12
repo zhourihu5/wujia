@@ -1,7 +1,7 @@
 package com.jingxi.smartlife.pad.sdk.neighbor.ui.dialogs;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;

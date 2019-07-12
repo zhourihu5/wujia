@@ -1,8 +1,8 @@
 package com.jingxi.smartlife.pad.property.mvp.view;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jingxi.smartlife.pad.property.R;
 import com.jingxi.smartlife.pad.property.mvp.adapter.WyOtherTelAdapter;

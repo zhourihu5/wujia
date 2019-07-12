@@ -1,6 +1,6 @@
 package com.jingxi.smartlife.pad.family.mvp.data;
 
-import android.support.annotation.IdRes;
+import androidx.annotation.IdRes;
 
 import java.util.ArrayList;
 import java.util.List;

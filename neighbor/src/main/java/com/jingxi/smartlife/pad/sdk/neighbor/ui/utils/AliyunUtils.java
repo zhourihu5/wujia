@@ -1,7 +1,7 @@
 package com.jingxi.smartlife.pad.sdk.neighbor.ui.utils;
 
 import android.content.Context;
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 import android.text.TextUtils;
 import android.view.View;
 

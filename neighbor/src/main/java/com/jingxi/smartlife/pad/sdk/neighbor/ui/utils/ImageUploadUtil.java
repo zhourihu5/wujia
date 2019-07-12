@@ -4,8 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.annotation.StringDef;
-import android.support.v4.util.ArrayMap;
+import androidx.annotation.StringDef;
+import androidx.collection.ArrayMap;
 import android.text.TextUtils;
 
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;

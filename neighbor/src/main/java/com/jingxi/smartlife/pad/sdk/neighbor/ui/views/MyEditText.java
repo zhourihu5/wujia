@@ -1,7 +1,7 @@
 package com.jingxi.smartlife.pad.sdk.neighbor.ui.views;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatEditText;
 import android.text.Layout;
 import android.util.AttributeSet;
 import android.view.MotionEvent;

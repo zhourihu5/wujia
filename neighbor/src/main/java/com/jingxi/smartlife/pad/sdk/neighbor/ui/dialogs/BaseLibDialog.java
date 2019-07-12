@@ -2,8 +2,8 @@ package com.jingxi.smartlife.pad.sdk.neighbor.ui.dialogs;
 
 import android.content.Context;
 import android.os.IBinder;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;

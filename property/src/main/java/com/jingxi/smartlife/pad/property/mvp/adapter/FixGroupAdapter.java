@@ -1,7 +1,7 @@
 package com.jingxi.smartlife.pad.property.mvp.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jingxi.smartlife.pad.property.R;
 import com.jingxi.smartlife.pad.property.mvp.data.WyFixBean;
