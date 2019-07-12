@@ -130,12 +130,9 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         setMessagePoint()
 
         EventBusUtil.register(eventMsg)
-        //        new Handler().postDelayed(new Runnable() {//todo test
-        //            @Override
-        //            public void run() {
-        //                onRinging("test");//todo test
-        //            }
-        //        },2000);
+//                Handler().postDelayed(Runnable() {//todo test
+//                    onRinging("test")
+//                },2000)
     }
 
     private fun initTab() {
@@ -328,6 +325,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
     }
 
     override fun onRinging(sessionId: String) {
+        LogUtil.i("onRinging")
         initWakeLock()
         EventBusUtil.post(EventWakeup())
 

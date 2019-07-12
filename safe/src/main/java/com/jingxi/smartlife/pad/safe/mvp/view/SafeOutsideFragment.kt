@@ -357,7 +357,6 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
         } else if (v.id == R.id.safe_btn_save) {   //保存
             //sdk自动保存
         } else if (v.id == R.id.safe_btn_refresh) {    //刷新
-            //            mDoorAccessManager.updateCallWindow(mSessionId, surfaceView);
             setVideo()
         } else if (v.id == R.id.safe_btn_mute) {   //静音 todo????问一下这里的逻辑
             isMute = !isMute
@@ -522,7 +521,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
         mDoorAccessManager!!.updatePlayBackWindow(playBackSessionId, null)
         mDoorAccessManager!!.updateCallWindow(mSessionId, surfaceView)
 
-        `$`<View>(R.id.safe_rec_seek_layout).visibility = View.GONE
+        safe_rec_seek_layout.visibility = View.GONE
         safe_btn_play!!.visibility = View.GONE
         safe_btn_pause!!.visibility = View.GONE
         safe_btn_save!!.visibility = View.GONE
