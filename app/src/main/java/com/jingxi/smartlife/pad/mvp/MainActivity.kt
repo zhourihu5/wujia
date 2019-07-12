@@ -117,22 +117,18 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
 
         //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//todo
 
-//        addSubscribe(Util.getUpdateVesion())
-
         initTab()
-
         initLockService()
-
         initSDKManager()
-
         initGrant()
-
         setMessagePoint()
+        EventBusUtil.register(eventMsg)
 
-//        EventBusUtil.register(eventMsg)
-//                Handler().postDelayed(Runnable() {//todo test
-//                    onRinging("test")
-//                },2000)
+
+//        Handler().postDelayed(Runnable() {
+//            //todo test
+//            onRinging("test")
+//        }, 2000)
     }
 
     private fun initTab() {
@@ -363,7 +359,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         } else if (IntercomConstants.kButtonHumanLeav == cmd) {
             LogUtil.i("kButtonHumanLeav")
             releaseWakeLock()
-        }else if (IntercomConstants.kButtonSOS == cmd) {
+        } else if (IntercomConstants.kButtonSOS == cmd) {
             initWakeLock()
         }
     }
@@ -381,7 +377,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
         if (Build.VERSION.SDK_INT >= 21 && powerManager != null && !powerManager.isInteractive) {//灭屏时点亮
 //            if (mWakelock == null) {
-                mWakelock = powerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_DIM_WAKE_LOCK, packageName) // this target for tell OS which app
+            mWakelock = powerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_DIM_WAKE_LOCK, packageName) // this target for tell OS which app
 //            }
             mWakelock!!.acquire()//can not be reused,so create it every time
             LogUtil.i("mWakelock.acquire")
