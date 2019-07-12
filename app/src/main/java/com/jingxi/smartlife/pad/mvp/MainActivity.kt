@@ -129,7 +129,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
 
         setMessagePoint()
 
-        EventBusUtil.register(eventMsg)
+//        EventBusUtil.register(eventMsg)
 //                Handler().postDelayed(Runnable() {//todo test
 //                    onRinging("test")
 //                },2000)
