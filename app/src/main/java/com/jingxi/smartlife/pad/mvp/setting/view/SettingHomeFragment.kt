@@ -45,10 +45,6 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
         return R.layout.fragment_setting_home
     }
 
-    override fun initEventAndData() {
-        super.initEventAndData()
-    }
-
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
         layout_title_tv!!.setText(R.string.setting)
@@ -103,23 +99,23 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
         return true
     }
     internal fun setBrightMode() {
-       val mode= ScreenManager.getScreenMode()
-       val brightNess= ScreenManager.getScreenBrightness()
+       val mode= ScreenManager.screenMode
+       val brightNess= ScreenManager.screenBrightness
         LogUtil.i("getScreenMode==$mode,getScreenBrightness=$brightNess")
         when(mode){
-            1->{
+            ScreenManager.LIGHT_MODE_AUTO->{
                 ToastUtil.showShort(mContext, "1 为自动调节屏幕亮度")
-                ScreenManager.setScreenMode(0)
-                ScreenManager.setScreenBrightness(50)
+                ScreenManager.screenMode = ScreenManager.LIGHT_MODE_MANUAL
+                ScreenManager.screenBrightness = 50
             }
-            0->{
-                ScreenManager.setScreenBrightness(255)
+            ScreenManager.LIGHT_MODE_MANUAL->{
+                ScreenManager.screenBrightness = 255
                 ToastUtil.showShort(mContext, "0 为手动调节屏幕亮度")
-                ScreenManager.setScreenMode(1)
+                ScreenManager.screenMode = ScreenManager.LIGHT_MODE_AUTO
             }
-            -1->{
+            ScreenManager.LIGHT_MODE_FAILED->{
                 ToastUtil.showShort(mContext, "-1 获取失败")
-                ScreenManager.setScreenBrightness(100)
+                ScreenManager.screenBrightness = 100
             }
         }
     }

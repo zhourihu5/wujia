@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 
 import com.jingxi.smartlife.pad.message.R;
 import com.jingxi.smartlife.pad.message.mvp.view.AllMsgFragment;
+import com.jingxi.smartlife.pad.message.mvp.view.MsgType;
 import com.wujia.businesslib.TabFragment;
 import com.wujia.lib.widget.VerticalTabBar;
 import com.wujia.lib.widget.VerticalTabItem;
@@ -85,17 +86,17 @@ public class MessageHomeFragment extends TabFragment {
     }
 
     @NonNull
-    protected String getType(int position) {
-        String type = "";
+    protected String getType(@MsgType int position) {
+        String type = AllMsgFragment.MSG_TYPE_ALL;
         switch (position) {
             case 1:
-                type = "1";
+                type =AllMsgFragment.MSG_TYPE_PROPERTY;
                 break;
             case 2:
-                type = "2";
+                type =AllMsgFragment.MSG_TYPE_COMMUNITY;
                 break;
             case 3:
-                type = "0";//系统消息
+                type = AllMsgFragment.MSG_TYPE_SYSTEM;//系统消息
                 break;
         }
         return type;

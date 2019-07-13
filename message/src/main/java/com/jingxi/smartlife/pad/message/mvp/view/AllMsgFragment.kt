@@ -2,6 +2,7 @@ package com.jingxi.smartlife.pad.message.mvp.view
 
 import android.os.Bundle
 import android.text.TextUtils
+import androidx.annotation.StringDef
 import com.jingxi.smartlife.pad.message.R
 import com.jingxi.smartlife.pad.message.mvp.adapter.MessageAdapter
 import com.wujia.businesslib.base.DataManager
@@ -21,6 +22,8 @@ import com.wujia.lib_common.base.baseadapter.wrapper.LoadMoreWrapper
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
 import com.wujia.lib_common.data.network.exception.ApiException
 import kotlinx.android.synthetic.main.fragment_msg_all.*
+import java.lang.annotation.Retention
+import java.lang.annotation.RetentionPolicy
 import java.util.*
 
 /**
@@ -30,6 +33,7 @@ import java.util.*
  */
 class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.OnTabSelectedListener, LoadMoreWrapper.OnLoadMoreListener, MessageAdapter.ReadMsgCallback {
 
+
     private var msgList: ArrayList<MsgDto.ContentBean>? = null
     private var mAdapter: MessageAdapter? = null
     private var currentState = 0
@@ -37,7 +41,7 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
     private var page = 1
     private val pageSize = 15
     //    private ArrayList<DBMessage> allList;//所有数据
-    private var type = ""//默认所有
+
 //    private var isVisible: Boolean = false
 
     private val eventMsg = EventMsg(IMiessageInvoke { event ->
@@ -54,34 +58,18 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
 
     internal var busModel: BusModel? = null
 
-    private val map: Map<String, Any>
-        get() {
-            val map = HashMap<String, Any>()
-            map["_read_state"] = 0
-            if (!TextUtils.isEmpty(type)) {
-                map["_type"] = type
+
+     var type: String = MSG_TYPE_ALL
+        set(@MsgType type){
+//            this.type=type//this is recursive invoke,stack trace error
+            field=type
+            if (tab_layout != null) {
+                reset()
+                getData(true)
+
             }
-            return map
         }
 
-    private val mapAll: Map<String, Any>
-        get() {
-            val map = HashMap<String, Any>()
-            if (!TextUtils.isEmpty(type)) {
-                map["_type"] = type
-            }
-            return map
-        }
-
-    fun setType(type: String) {
-        this.type = type
-        if (tab_layout != null) {
-            //        currentState = 0;
-            reset()
-            getData(true)
-
-        }
-    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -231,6 +219,10 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
 
     companion object {
 
+        const val MSG_TYPE_ALL: String=""
+        const val MSG_TYPE_PROPERTY: String="1"
+        const val MSG_TYPE_COMMUNITY: String="2"
+        const val  MSG_TYPE_SYSTEM: String = "0"
         private val KEY_TYPE = "type"
 
         fun newInstance(): AllMsgFragment {
@@ -241,3 +233,7 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
         }
     }
 }
+
+@StringDef(AllMsgFragment.MSG_TYPE_ALL, AllMsgFragment.MSG_TYPE_COMMUNITY, AllMsgFragment.MSG_TYPE_PROPERTY, AllMsgFragment.MSG_TYPE_SYSTEM)
+@Retention(RetentionPolicy.SOURCE)
+internal annotation class MsgType

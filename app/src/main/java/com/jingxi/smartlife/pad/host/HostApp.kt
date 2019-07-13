@@ -40,7 +40,7 @@ class HostApp : BaseApplication() {
         Util.updateVesion
 
         Util.initXcrash(this)
-        ScreenManager.setScreenMode(ScreenManager.LIGHT_MODE_AUTO)
+        ScreenManager.screenMode = ScreenManager.LIGHT_MODE_AUTO
     }
 
 
