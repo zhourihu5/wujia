@@ -85,8 +85,8 @@ public class MessageHomeFragment extends TabFragment {
 
     }
 
-    @NonNull
-    protected String getType(@MsgType int position) {
+    @MsgType
+    protected String getType( int position) {
         String type = AllMsgFragment.MSG_TYPE_ALL;
         switch (position) {
             case 1:
