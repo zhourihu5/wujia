@@ -1,15 +1,8 @@
 package com.jingxi.smartlife.pad.mvp.util
 
-import android.net.Uri
 import android.provider.Settings
 
-import androidx.annotation.IntDef
-
 import com.wujia.lib_common.utils.AppContext
-
-import java.lang.annotation.Retention
-
-import java.lang.annotation.RetentionPolicy.SOURCE
 
 /**
  * Created by asus on 2016/12/8.
@@ -85,8 +78,5 @@ object ScreenManager {
             AppContext.get().contentResolver.notifyChange(uri, null)
         }
 
-    @Retention(SOURCE)
-    @IntDef(LIGHT_MODE_AUTO, LIGHT_MODE_MANUAL, LIGHT_MODE_FAILED)
-    annotation class LightMode
 }
 

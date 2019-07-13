@@ -1,7 +1,6 @@
 package com.jingxi.smartlife.pad.message.mvp.view
 
 import android.os.Bundle
-import android.text.TextUtils
 import androidx.annotation.StringDef
 import com.jingxi.smartlife.pad.message.R
 import com.jingxi.smartlife.pad.message.mvp.adapter.MessageAdapter
@@ -70,7 +69,6 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
             }
         }
 
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(KEY_TYPE, type)
@@ -93,8 +91,6 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
         if (savedInstanceState != null) {
             type = savedInstanceState.getString(KEY_TYPE, type)
         }
-//        tab_layout = `$`(R.id.tab_layout)
-//        rv1 = `$`(R.id.rv1)
 
         tab_layout!!.addItem(HorizontalTabItem(mContext, R.string.all))
         tab_layout!!.addItem(HorizontalTabItem(mContext, R.string.readed))

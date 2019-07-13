@@ -9,6 +9,7 @@ import com.jingxi.smartlife.pad.market.R;
 import com.jingxi.smartlife.pad.market.mvp.adapter.FindServiceChildAdapter;
 import com.jingxi.smartlife.pad.market.mvp.data.ServiceDto;
 import com.jingxi.smartlife.pad.market.mvp.model.MarketModel;
+import com.jingxi.smartlife.pad.market.mvp.annotation.ServiceType;
 import com.wujia.businesslib.data.ApiResponse;
 import com.wujia.businesslib.data.CardDetailBean;
 import com.wujia.businesslib.event.EventBusUtil;
@@ -51,7 +52,7 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
 
     String type = TYPE_MY;
 
-    public void setType(String type) {
+    public void setType(@ServiceType String type) {
         this.type = type;
         if(mLoadMoreWrapper!=null){
             datas.clear();
@@ -230,4 +231,5 @@ public class AllServiceFragment extends ServiceBaseFragment implements Horizonta
     protected BasePresenter createPresenter() {
         return null;
     }
+
 }

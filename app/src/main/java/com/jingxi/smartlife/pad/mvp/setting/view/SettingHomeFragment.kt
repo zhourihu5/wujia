@@ -120,6 +120,8 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
         }
     }
 
+
+
     internal fun startAdbWifi() {
         addSubscribe(Observable.create(ObservableOnSubscribe<Boolean> { emitter ->
             val install = AppUtil.startAdbWifi()
@@ -166,3 +168,29 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
         }
     }
 }
+
+
+//----------------------------------------test code -------------------------------------------------------------------------------------------------------------------------
+
+//@KotlinAn
+//fun test(@KotlinAn mode:Int):Int{
+//    ScreenManager.screenMode=5
+//    test2(1)
+////        return  ScreenManager.screenMode
+//    return  1
+//}
+//@LightMode
+//fun test2(@LightMode mode:Int):Int{
+//    ScreenManager.screenMode=5
+//    when(ScreenManager.screenMode){
+//        1->{}
+//    }
+//
+//    test(1)
+////        return  ScreenManager.screenMode
+//    return  1
+//}
+//
+//@Retention(AnnotationRetention.SOURCE)
+//@IntDef(ScreenManager.LIGHT_MODE_AUTO, ScreenManager.LIGHT_MODE_MANUAL, ScreenManager.LIGHT_MODE_FAILED)
+//annotation class KotlinAn
