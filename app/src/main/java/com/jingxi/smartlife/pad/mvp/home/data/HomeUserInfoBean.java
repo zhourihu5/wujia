@@ -92,6 +92,7 @@ public class HomeUserInfoBean extends RootResponse {
             this.userInfoList = userInfoList;
         }
 
+        @SuppressWarnings("UnusedReturnValue")
         public static class CommuntityBean {
             /**
              * address : string
@@ -164,6 +165,7 @@ public class HomeUserInfoBean extends RootResponse {
         public static class WeatherBean {
         }
 
+        @SuppressWarnings("WeakerAccess")
         public static class BaseDeviceListBean {
             /**
              * buttonKey : string

@@ -67,7 +67,6 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
     })
     private val eventWakeup = EventWakeup(IMiessageInvoke { wakeUp() })
 
-    internal var busModel: BusModel? = null
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
@@ -113,19 +112,8 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
 
     }
 
-    private fun testWakeup() {//todo just for test
-        btn_details!!.visibility = View.VISIBLE
-        btn_details!!.setOnClickListener {
-            val intent = Intent(this@LockService, WebViewActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.putExtra(Constants.INTENT_KEY_1, "www.baidu.com")
-            startActivity(intent)
-            wakeUp()
-        }
-    }
-
     private fun setScreenBg() {
-        mCompositeDisposable.add(model!!.screenSaverByCommunityId.subscribeWith(object : SimpleRequestSubscriber<LockADBean>(this@LockService, SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        mCompositeDisposable.add(model!!.screenSaverByCommunityId.subscribeWith(object : SimpleRequestSubscriber<LockADBean>(this@LockService, ActionConfig(false, SHOWERRORMESSAGE)) {
             override fun onResponse(bean: LockADBean) {
                 super.onResponse(bean)
                 if (bean.data != null) {
@@ -179,7 +167,7 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    mCompositeDisposable.add(model!!.weather.subscribeWith(object : SimpleRequestSubscriber<WeatherInfoBean>(this@LockService, SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                    mCompositeDisposable.add(model!!.weather.subscribeWith(object : SimpleRequestSubscriber<WeatherInfoBean>(this@LockService, ActionConfig(false, SHOWERRORMESSAGE)) {
                         override fun onResponse(weatherInfoBean: WeatherInfoBean) {
                             super.onResponse(weatherInfoBean)
                             if (weatherInfoBean.isSuccess) {
@@ -216,10 +204,7 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
     //消息
     private fun setNotify() {
 
-        if (busModel == null) {
-            busModel = BusModel()
-        }
-        var familyId = try {
+        val familyId = try {
             DataManager.getFamilyId()
         } catch (e: Exception) {
             e.printStackTrace()
@@ -227,7 +212,7 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
             return
         }
 
-        mCompositeDisposable.add(busModel!!.getTop3UnReadMsg(familyId)!!.subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        mCompositeDisposable.add(BusModel().getTop3UnReadMsg(familyId)!!.subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, ActionConfig(false, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<List<MsgDto.ContentBean>>) {
                 super.onResponse(response)
                 val notifys = response.data

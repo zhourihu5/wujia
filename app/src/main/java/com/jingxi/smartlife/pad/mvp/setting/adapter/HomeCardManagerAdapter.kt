@@ -73,7 +73,7 @@ class HomeCardManagerAdapter(context: Context, datas: List<HomeRecBean.Card>, pr
 
     companion object {
 
-        val FORM_ADDED = 0
-        val FORM_UNADD = 1
+        const val FORM_ADDED = 0
+        const val FORM_UNADD = 1
     }
 }

@@ -14,16 +14,12 @@ import com.wujia.lib_common.data.network.exception.ApiException
  */
 class SettingPresenter : RxPresenter<SettingContract.View>(), SettingContract.Presenter {
 
-    private val mModel: BusModel
-
-    init {
-        this.mModel = BusModel()
-    }
+    private val mModel: BusModel = BusModel()
 
 
     override fun checkVersion() {
 
-        addSubscribe(mModel.checkVersion().subscribeWith(object : SimpleRequestSubscriber<VersionBean>(mView, SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(mModel.checkVersion().subscribeWith(object : SimpleRequestSubscriber<VersionBean>(mView, ActionConfig(false, SHOWERRORMESSAGE)) {
             override fun onResponse(response: VersionBean) {
                 super.onResponse(response)
                 mView.onDataLoadSucc(0, response)

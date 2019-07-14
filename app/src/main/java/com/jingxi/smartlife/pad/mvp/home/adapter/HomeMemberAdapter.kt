@@ -8,6 +8,7 @@ import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean
 import com.wujia.lib.imageloader.ImageLoaderManager
 import com.wujia.lib_common.base.baseadapter.CommonAdapter
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder
+import kotlin.math.min
 
 /**
  * Author: created by shenbingkai on 2018/12/11 11 24
@@ -27,7 +28,7 @@ class HomeMemberAdapter(context: Context, datas: List<HomeUserInfoBean.DataBean.
 
     override fun getItemCount(): Int {
 
-        return if (mDatas == null) 0 else Math.min(4, mDatas.size)
+        return if (mDatas == null) 0 else min(4, mDatas.size)
     }
 
 }

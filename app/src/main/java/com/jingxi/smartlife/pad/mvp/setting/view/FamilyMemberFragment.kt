@@ -16,7 +16,6 @@ import com.wujia.businesslib.listener.OnInputDialogListener
 import com.wujia.businesslib.util.LoginUtil
 import com.wujia.lib_common.base.view.VerticallDecoration
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
-import com.wujia.lib_common.data.network.exception.ApiException
 import com.wujia.lib_common.utils.LogUtil
 import kotlinx.android.synthetic.main.fragment_member.*
 import java.util.*
@@ -31,15 +30,6 @@ class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
 
 
     internal var mAdapter: SetMemberAdapter? = null
-
-    internal lateinit var familyMemberModel: FamilyMemberModel
-
-    val headUrl: String
-        get() {
-            val num = (Math.random() * 6 + 1).toInt()
-            return String.format("file:///android_asset/img_default_head_%d.png", num)
-        }
-
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_member
@@ -56,7 +46,6 @@ class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
 
         rv_member!!.addItemDecoration(VerticallDecoration(1))
 
-        familyMemberModel = FamilyMemberModel()
         var familyId: String? = null
         try {
             familyId = DataManager.getFamilyId()
@@ -66,7 +55,7 @@ class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
             return
         }
 
-        addSubscribe(familyMemberModel.getFamilyMemberList(familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(this, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(FamilyMemberModel().getFamilyMemberList(familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(this, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>) {
                 super.onResponse(response)
                 mAdapter = SetMemberAdapter(mContext, response.data)
@@ -99,7 +88,7 @@ class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
             return
         }
 
-        addSubscribe(familyMemberModel.addFamilyMember(input, familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<String>>(this, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(FamilyMemberModel().addFamilyMember(input, familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<String>>(this, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<String>) {
                 super.onResponse(response)
                 val userInfoListBean = HomeUserInfoBean.DataBean.UserInfoListBean()

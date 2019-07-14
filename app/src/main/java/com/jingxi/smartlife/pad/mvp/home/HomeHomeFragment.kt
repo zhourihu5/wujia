@@ -83,7 +83,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
             return@IMiessageInvoke
         }
 
-        addSubscribe(familyMemberModel!!.getFamilyMemberList(familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(this@HomeHomeFragment, SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(FamilyMemberModel().getFamilyMemberList(familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(this@HomeHomeFragment, ActionConfig(false, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>) {
                 super.onResponse(response)
                 memAdapter!!.setmDatas(response.data)
@@ -92,10 +92,6 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
         }))
     })
-
-    internal var busModel: BusModel? = null
-
-    internal var familyMemberModel: FamilyMemberModel? = null
 
 
     override fun getLayoutId(): Int {
@@ -160,18 +156,14 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
     }
 
     private fun setNotify(isShowLoadingDialog: Boolean) {
-        if (busModel == null) {
-            busModel = BusModel()
-        }
-
-        var familyId = try {
+        val familyId = try {
             DataManager.getFamilyId()
         } catch (e: Exception) {
             e.printStackTrace()
             LoginUtil.toLoginActivity()
             return
         }
-        addSubscribe(busModel!!.getTop3UnReadMsg(familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(BusModel().getTop3UnReadMsg(familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, ActionConfig(isShowLoadingDialog, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<List<MsgDto.ContentBean>>) {
                 super.onResponse(response)
                 val notifys = response.data
@@ -181,7 +173,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
                 notifyAdapter.setOnItemClickListener { adapter, holder, position ->
                     MessageDialog(mContext, notifys[position])
                             .setListener { item ->
-                                addSubscribe(busModel!!.readMsg(item.id.toString() + "").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@HomeHomeFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                                addSubscribe(BusModel().readMsg(item.id.toString() + "").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@HomeHomeFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
                                     override fun onResponse(response: ApiResponse<Any>) {
                                         super.onResponse(response)
                                         item.isRead = MsgDto.STATUS_READ
@@ -236,9 +228,6 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         when (view.id) {
             R.id.home_chat_btn -> ToastUtil.showShort(mContext, getString(R.string.chat_is_developing))
             R.id.home_member_add_btn -> AddMemberDialog(mActivity, memAdapter!!.datas).setListener(OnInputDialogListener { input ->
-                if (familyMemberModel == null) {
-                    familyMemberModel = FamilyMemberModel()
-                }
                 var familyId: String? = null
                 try {
                     familyId = DataManager.getFamilyId()
@@ -248,7 +237,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
                     return@OnInputDialogListener
                 }
 
-                addSubscribe(familyMemberModel!!.addFamilyMember(input, familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<String>>(this@HomeHomeFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                addSubscribe(FamilyMemberModel().addFamilyMember(input, familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<String>>(this@HomeHomeFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
                     override fun onResponse(response: ApiResponse<String>) {
                         super.onResponse(response)
                         val userInfoListBean = HomeUserInfoBean.DataBean.UserInfoListBean()

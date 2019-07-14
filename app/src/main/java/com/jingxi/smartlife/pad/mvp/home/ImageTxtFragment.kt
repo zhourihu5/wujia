@@ -1,22 +1,20 @@
 package com.jingxi.smartlife.pad.mvp.home
 
 import android.os.Bundle
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.market.mvp.adapter.FindServiceChildAdapter
 import com.jingxi.smartlife.pad.market.mvp.view.ServiceBaseFragment
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeModel
 import com.wujia.businesslib.data.ApiResponse
 import com.wujia.businesslib.data.CardDetailBean
-import com.wujia.businesslib.model.BusModel
 import com.wujia.lib_common.base.BasePresenter
 import com.wujia.lib_common.base.BaseView
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
-import com.wujia.lib_common.data.network.exception.ApiException
 import com.wujia.lib_common.utils.WebViewUtil
 import kotlinx.android.synthetic.main.fragment_img_txt.*
 import java.util.*
@@ -33,8 +31,6 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
 
     private var datas: ArrayList<CardDetailBean.ServicesBean>? = null
     private var mAdapter: FindServiceChildAdapter? = null
-
-    internal lateinit var busModel: BusModel
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_img_txt
@@ -76,7 +72,6 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
 
         datas = ArrayList()
 
-        busModel = BusModel()
         mAdapter = getAdapter(datas)
         rv1.adapter = mAdapter
 
@@ -89,7 +84,7 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
     private fun getData(cardId: String?) {
 
         addSubscribe(
-            mModel!!.getCardDetail(cardId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<CardDetailBean>>(this, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+            mModel!!.getCardDetail(cardId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<CardDetailBean>>(this, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<CardDetailBean>) {
                 super.onResponse(response)
                 val txt = response.data.content
@@ -121,9 +116,7 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
         }
     }
 
-    inner class WebChromeClient : android.webkit.WebChromeClient() {
-
-    }
+    inner class WebChromeClient : android.webkit.WebChromeClient()
 
     override fun createPresenter(): BasePresenter<BaseView>? {
         return null
@@ -131,7 +124,7 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
 
     companion object {
 
-        val KEY_TXT = "txt"
+        const val KEY_TXT = "txt"
 
         fun newInstance(cardId: String): ImageTxtFragment {
             val fragment = ImageTxtFragment()

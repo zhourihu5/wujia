@@ -174,7 +174,7 @@ class UpdateFragment : TitleFragment() {
 
             val megaByte = kiloByte / 1024
             if (megaByte < 1) {
-                val result1 = BigDecimal(java.lang.Double.toString(kiloByte))
+                val result1 = BigDecimal(kiloByte.toString())
                 return result1.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "KB"
             }
 

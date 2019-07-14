@@ -6,7 +6,6 @@ import com.wujia.businesslib.data.ApiResponse
 import com.wujia.businesslib.model.BusModel
 import com.wujia.lib_common.base.BaseView
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
-import com.wujia.lib_common.data.network.exception.ApiException
 import com.wujia.lib_common.utils.LogUtil
 import com.wujia.lib_common.utils.SystemUtil
 import com.wujia.lib_common.utils.VersionUtil

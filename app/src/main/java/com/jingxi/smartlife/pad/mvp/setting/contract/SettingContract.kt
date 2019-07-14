@@ -13,14 +13,10 @@ import io.reactivex.Flowable
  * description ：
  */
 interface SettingContract {
-    interface Model : IBaseModle {
-        fun checkVersion(): Flowable<VersionBean>
-
-    }
 
     interface View : CommonDataLoadView
 
-    interface Presenter : BasePresenter<SettingContract.View> {
+    interface Presenter : BasePresenter<View> {
 
         fun checkVersion()
 

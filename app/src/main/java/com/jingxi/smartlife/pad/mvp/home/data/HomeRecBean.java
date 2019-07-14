@@ -60,6 +60,7 @@ public class HomeRecBean extends RootResponse {
         @SerializedName("memo")
         private String explain;
 
+        @SuppressWarnings("UnusedReturnValue")
         public String getExplain() {
             if (!TextUtils.isEmpty(explain)) {
                 return explain.replaceAll("_", "\n");
@@ -84,23 +85,6 @@ public class HomeRecBean extends RootResponse {
 
     public static class UserCards {
         public String isShow;
-    }
-
-    public static class Subscriptions implements Serializable {
-        public String id;
-        public String quickCardId;
-        public String serviceId;
-        public String serviceImage;
-        public String serviceTitle;
-        public String servicePackage;
-        public String propertyCategoryId;
-        public String propertyProductId;
-        public String serviceUrl;
-        public String serviceDesc;
-        public String type;
-
-        public boolean _installed;
-
     }
 
 

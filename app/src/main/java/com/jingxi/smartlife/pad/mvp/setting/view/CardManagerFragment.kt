@@ -33,7 +33,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
     private val eventCardChange = EventCardChange(IMiessageInvoke { mPresenter.getUserQuickCard() })
 
     internal var isChanged = false
-    internal var isUnregistered = false
+    private var isUnregistered = false
 
     override fun getLayoutId(): Int {
         return R.layout.activity_card_manager
@@ -177,8 +177,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
     companion object {
 
-        val REQUEST_CODE_CARD_MANAGER = 0X1001
-        val REQUEST_CODE_CARD_MANAGER_COMPLETE = 0X1002
+        const val REQUEST_CODE_CARD_MANAGER = 0X1001
 
         fun newInstance(): CardManagerFragment {
             val fragment = CardManagerFragment()

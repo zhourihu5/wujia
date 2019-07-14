@@ -98,7 +98,7 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
         }
         return true
     }
-    internal fun setBrightMode() {
+    private fun setBrightMode() {
        val mode= ScreenManager.screenMode
        val brightNess= ScreenManager.screenBrightness
         LogUtil.i("getScreenMode==$mode,getScreenBrightness=$brightNess")
@@ -122,7 +122,7 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
 
 
 
-    internal fun startAdbWifi() {
+    private fun startAdbWifi() {
         addSubscribe(Observable.create(ObservableOnSubscribe<Boolean> { emitter ->
             val install = AppUtil.startAdbWifi()
             emitter.onNext(install)
