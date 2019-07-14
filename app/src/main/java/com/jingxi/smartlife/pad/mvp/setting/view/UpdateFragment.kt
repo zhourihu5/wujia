@@ -30,10 +30,6 @@ class UpdateFragment : TitleFragment() {
     private var mVersion: VersionBean.Version? = null
     private var mTask: DownloadTask? = null
 
-    override fun initEventAndData() {
-        super.initEventAndData()
-    }
-
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
 

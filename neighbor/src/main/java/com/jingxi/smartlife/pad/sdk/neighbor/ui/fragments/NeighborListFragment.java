@@ -68,22 +68,22 @@ public class NeighborListFragment extends Fragment implements INeighborhoodListV
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewPager = (ViewPager) view.findViewById(R.id.pager);
+        viewPager = view.findViewById(R.id.pager);
         viewPager.setOffscreenPageLimit(4);
         /**
          * 默认选中第一个
          */
         viewPager.setCurrentItem(0, true);
         viewPager.setPageTransformer(true, new ZoomOutTransformer());
-        myMsg = (TextView) view.findViewById(R.id.tv_neighbor_msg);
-        myPraise = (TextView) view.findViewById(R.id.tv_neighbor_mypraise);
-        myActivity = (TextView) view.findViewById(R.id.tv_neighbor_activity);
-        head = (RoundImageView) view.findViewById(R.id.iv_neighbor_head);
+        myMsg = view.findViewById(R.id.tv_neighbor_msg);
+        myPraise = view.findViewById(R.id.tv_neighbor_mypraise);
+        myActivity = view.findViewById(R.id.tv_neighbor_activity);
+        head = view.findViewById(R.id.iv_neighbor_head);
         head.setOnClickListener(this);
         myMsg.setOnClickListener(this);
         myPraise.setOnClickListener(this);
         myActivity.setOnClickListener(this);
-        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab_addlinliq);
+        floatingActionButton = view.findViewById(R.id.fab_addlinliq);
         floatingActionButton.setOnClickListener(this);
         presenter = new NeighborHoodListPresenter(this);
 //        String cache = SpUtil.getInstance().getNeighborhoodTypes();
@@ -263,7 +263,7 @@ public class NeighborListFragment extends Fragment implements INeighborhoodListV
             NeighborBoardTypeBean bean = neighborhoodTypeBeens.get(position);
             if (neighborhoodViews.get(bean.neighborBoardTypeId) == null) {
                 View v = LayoutInflater.from(container.getContext()).inflate(R.layout.layout_view_neighbor_item, null);
-                NeighborhoodView neighborhoodView = (NeighborhoodView) v.findViewById(R.id.neighborhood);
+                NeighborhoodView neighborhoodView = v.findViewById(R.id.neighborhood);
                 neighborhoodView.setType(bean.name, bean.neighborBoardTypeId);
                 neighborhoodView.init();
                 neighborhoodViews.put(bean.neighborBoardTypeId, v);

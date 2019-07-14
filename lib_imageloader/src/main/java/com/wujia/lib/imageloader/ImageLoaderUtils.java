@@ -75,7 +75,7 @@ public class ImageLoaderUtils {
         String type = options.outMimeType;
         if (!TextUtils.isEmpty(type)) {
             try {
-                type = type.substring(6, type.length());
+                type = type.substring(6);
                 if ("gif".equals(type)) {
                     return ".gif";
                 }
@@ -88,10 +88,7 @@ public class ImageLoaderUtils {
 
     public static boolean isSDCardExsit() {
         String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            return true;
-        }
-        return false;
+        return Environment.MEDIA_MOUNTED.equals(state);
     }
 
     /**

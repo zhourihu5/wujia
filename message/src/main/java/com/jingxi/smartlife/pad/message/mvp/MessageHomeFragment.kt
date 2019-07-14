@@ -45,7 +45,7 @@ class MessageHomeFragment : TabFragment() {
 
         mTabBar.setOnTabSelectedListener { position, prePosition ->
             val type = getType(position)
-            msgFragment!!.type = type
+            msgFragment.type = type
             currentTab = position
             parentSwitchTab()
         }

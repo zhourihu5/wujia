@@ -164,10 +164,6 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     private fun setVideo() {
         setDate(System.currentTimeMillis())
         if (null == loadingDialog) {

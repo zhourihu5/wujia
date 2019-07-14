@@ -71,11 +71,11 @@ public class EnrollPeopleAdapter extends RecyclerView.Adapter {
 
         public EnrollPeopleViewHolder(View itemView) {
             super(itemView);
-            riv_enrollPic = (RoundImageView) itemView.findViewById(R.id.riv_enrollPic);
-            tv_enrollName = (TextView) itemView.findViewById(R.id.tv_enrollName);
-            tv_enrollTime = (TextView) itemView.findViewById(R.id.tv_enrollTime);
-            tv_realName = (TextView) itemView.findViewById(R.id.tv_realName);
-            tv_enrollTel = (TextView) itemView.findViewById(R.id.tv_enrollTel);
+            riv_enrollPic = itemView.findViewById(R.id.riv_enrollPic);
+            tv_enrollName = itemView.findViewById(R.id.tv_enrollName);
+            tv_enrollTime = itemView.findViewById(R.id.tv_enrollTime);
+            tv_realName = itemView.findViewById(R.id.tv_realName);
+            tv_enrollTel = itemView.findViewById(R.id.tv_enrollTel);
         }
     }
 }

@@ -63,8 +63,8 @@ public class NeighborBoardTypeAdapter extends RecyclerView.Adapter {
 
         private NeighborBoardTypeViewHolder(View itemView) {
             super(itemView);
-            iv_boardType = (ImageView) itemView.findViewById(R.id.iv_boardType);
-            tv_boardType = (TextView) itemView.findViewById(R.id.tv_boardType);
+            iv_boardType = itemView.findViewById(R.id.iv_boardType);
+            tv_boardType = itemView.findViewById(R.id.tv_boardType);
         }
     }
 

@@ -82,8 +82,8 @@ public class BaseRequestBean {
         try {
             String firstLetter = fieldName.substring(0, 1).toUpperCase();
             String getter = "get" + firstLetter + fieldName.substring(1);
-            Method method = o.getClass().getMethod(getter, new Class[]{});
-            Object value = method.invoke(o, new Object[]{});
+            Method method = o.getClass().getMethod(getter);
+            Object value = method.invoke(o);
             return value;
         } catch (Exception e) {
             return null;

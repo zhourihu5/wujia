@@ -325,7 +325,7 @@ public class ArcSeekBar extends View {
         float stopPos = (CIRCLE_ANGLE - (mOpenAngle / 2)) / CIRCLE_ANGLE;
         int len = mArcColors.length - 1;
         float distance = (stopPos - startPos) / len;
-        float pos[] = new float[mArcColors.length];
+        float[] pos = new float[mArcColors.length];
         for (int i = 0; i < mArcColors.length; i++) {
             pos[i] = startPos + (distance * i);
         }
@@ -418,11 +418,7 @@ public class ArcSeekBar extends View {
     private void judgeCanDrag(MotionEvent event) {
         float[] pos = {event.getX(), event.getY()};
         mInvertMatrix.mapPoints(pos);
-        if (getDistance(pos[0], pos[1]) <= mThumbRadius * 3) {
-            mCanDrag = true;
-        } else {
-            mCanDrag = false;
-        }
+        mCanDrag = getDistance(pos[0], pos[1]) <= mThumbRadius * 3;
     }
 
     private class OnClickListener extends GestureDetector.SimpleOnGestureListener {

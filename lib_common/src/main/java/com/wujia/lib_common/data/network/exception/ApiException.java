@@ -14,7 +14,7 @@ public class ApiException extends Exception {
     }
 
     public boolean isNetworkConnectError() {
-        return code == ERROR.NETWORK_CONNECT_ERROR ? true : false;
+        return code == ERROR.NETWORK_CONNECT_ERROR;
     }
 
 }

@@ -40,46 +40,46 @@ public class MainActivity extends InstrumentedActivity implements OnClickListene
     }
 
     private void initView() {
-        TextView mImei = (TextView) findViewById(R.id.tv_imei);
+        TextView mImei = findViewById(R.id.tv_imei);
         String udid = ExampleUtil.getImei(getApplicationContext(), "");
         if (null != udid) mImei.setText("IMEI: " + udid);
 
-        TextView mAppKey = (TextView) findViewById(R.id.tv_appkey);
+        TextView mAppKey = findViewById(R.id.tv_appkey);
         String appKey = ExampleUtil.getAppKey(getApplicationContext());
         if (null == appKey) appKey = "AppKey异常";
         mAppKey.setText("AppKey: " + appKey);
 
-        mRegId = (TextView) findViewById(R.id.tv_regId);
+        mRegId = findViewById(R.id.tv_regId);
         mRegId.setText("RegId:");
 
         String packageName = getPackageName();
-        TextView mPackage = (TextView) findViewById(R.id.tv_package);
+        TextView mPackage = findViewById(R.id.tv_package);
         mPackage.setText("PackageName: " + packageName);
 
         String deviceId = ExampleUtil.getDeviceId(getApplicationContext());
-        TextView mDeviceId = (TextView) findViewById(R.id.tv_device_id);
+        TextView mDeviceId = findViewById(R.id.tv_device_id);
         mDeviceId.setText("deviceId:" + deviceId);
 
         String versionName = ExampleUtil.GetVersion(getApplicationContext());
-        TextView mVersion = (TextView) findViewById(R.id.tv_version);
+        TextView mVersion = findViewById(R.id.tv_version);
         mVersion.setText("Version: " + versionName);
 
-        mInit = (Button) findViewById(R.id.init);
+        mInit = findViewById(R.id.init);
         mInit.setOnClickListener(this);
 
-        mStopPush = (Button) findViewById(R.id.stopPush);
+        mStopPush = findViewById(R.id.stopPush);
         mStopPush.setOnClickListener(this);
 
-        mResumePush = (Button) findViewById(R.id.resumePush);
+        mResumePush = findViewById(R.id.resumePush);
         mResumePush.setOnClickListener(this);
 
-        mGetRid = (Button) findViewById(R.id.getRegistrationId);
+        mGetRid = findViewById(R.id.getRegistrationId);
         mGetRid.setOnClickListener(this);
 
-        mSetting = (Button) findViewById(R.id.setting);
+        mSetting = findViewById(R.id.setting);
         mSetting.setOnClickListener(this);
 
-        msgText = (EditText) findViewById(R.id.msg_rec);
+        msgText = findViewById(R.id.msg_rec);
     }
 
 

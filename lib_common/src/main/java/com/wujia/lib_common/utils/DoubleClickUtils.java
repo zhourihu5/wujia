@@ -13,12 +13,7 @@ public class DoubleClickUtils {
     public synchronized static boolean isDoubleClick() {
         long currentTime = System.currentTimeMillis();
         boolean isDoubleClick;
-        if (currentTime - lastClickTime >
-                SPACE_TIME) {
-            isDoubleClick = false;
-        } else {
-            isDoubleClick = true;
-        }
+        isDoubleClick = currentTime - lastClickTime <= SPACE_TIME;
         lastClickTime = currentTime;
         return isDoubleClick;
     }

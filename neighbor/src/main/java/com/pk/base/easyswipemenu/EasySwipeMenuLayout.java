@@ -539,12 +539,8 @@ public class EasySwipeMenuLayout extends ViewGroup {
     }
 
     private boolean isLeftToRight() {
-        if (distanceX < 0) {
-            //➡滑动
-            return true;
-        } else {
-            return false;
-        }
+        //➡滑动
+        return distanceX < 0;
 
     }
 

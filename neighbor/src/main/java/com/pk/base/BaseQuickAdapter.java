@@ -564,7 +564,7 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
                 baseViewHolder = createBaseViewHolder(mHeaderLayout);
                 break;
             case EMPTY_VIEW:
-                baseViewHolder = createBaseViewHolder(mEmptyView == mCopyEmptyLayout ? mCopyEmptyLayout : mEmptyView);
+                baseViewHolder = createBaseViewHolder(mEmptyView);
                 break;
             case FOOTER_VIEW:
                 baseViewHolder = createBaseViewHolder(mFooterLayout);

@@ -61,14 +61,14 @@ public class CurrencyBaseTitleBar extends FrameLayout implements View.OnClickLis
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.library_base_title_bar, this);
         view.findViewById(R.id.currency_bar).setBackgroundColor(background);
-        currencyClose = (TextView) view.findViewById(R.id.currency_close);
+        currencyClose = view.findViewById(R.id.currency_close);
         if (leftViewId != -1) {
-            ViewStub leftViewStub = (ViewStub) view.findViewById(R.id.leftView);
+            ViewStub leftViewStub = view.findViewById(R.id.leftView);
             leftViewStub.setLayoutResource(leftViewId);
             leftView = leftViewStub.inflate();
         }
         if (centerViewId != -1) {
-            ViewStub centerViewStub = (ViewStub) view.findViewById(R.id.centerView);
+            ViewStub centerViewStub = view.findViewById(R.id.centerView);
             centerViewStub.setLayoutResource(centerViewId);
             centerView = centerViewStub.inflate();
         }

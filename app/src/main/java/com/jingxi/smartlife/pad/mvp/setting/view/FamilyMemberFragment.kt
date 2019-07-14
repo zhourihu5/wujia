@@ -45,10 +45,6 @@ class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
         return R.layout.fragment_member
     }
 
-    override fun initEventAndData() {
-        super.initEventAndData()
-    }
-
     override fun getTitle(): Int {
         return R.string.set_family_member
     }
@@ -77,25 +73,8 @@ class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
                 rv_member!!.adapter = mAdapter
             }
 
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
-            }
         }))
 
-
-    }
-
-    override fun onSupportVisible() {
-        super.onSupportVisible()
-        // 当对用户可见时 回调
-        // 不管是 父Fragment还是子Fragment 都有效！
-
-    }
-
-    override fun onSupportInvisible() {
-        super.onSupportInvisible()
-        // 当对用户不可见时 回调
-        // 不管是 父Fragment还是子Fragment 都有效！
 
     }
 
@@ -135,9 +114,6 @@ class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
                 EventBusUtil.post(EventMemberChange())
             }
 
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
-            }
         }))
 
 

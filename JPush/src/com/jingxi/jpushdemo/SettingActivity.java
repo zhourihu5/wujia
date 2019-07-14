@@ -50,18 +50,18 @@ public class SettingActivity extends InstrumentedActivity implements OnClickList
     }
 
     private void init() {
-        startTime = (TimePicker) findViewById(R.id.start_time);
-        endTime = (TimePicker) findViewById(R.id.end_time);
+        startTime = findViewById(R.id.start_time);
+        endTime = findViewById(R.id.end_time);
         startTime.setIs24HourView(DateFormat.is24HourFormat(this));
         endTime.setIs24HourView(DateFormat.is24HourFormat(this));
-        mSetTime = (Button) findViewById(R.id.bu_setTime);
-        mMonday = (CheckBox) findViewById(R.id.cb_monday);
-        mTuesday = (CheckBox) findViewById(R.id.cb_tuesday);
-        mWednesday = (CheckBox) findViewById(R.id.cb_wednesday);
-        mThursday = (CheckBox) findViewById(R.id.cb_thursday);
-        mFriday = (CheckBox) findViewById(R.id.cb_friday);
-        mSaturday = (CheckBox) findViewById(R.id.cb_saturday);
-        mSunday = (CheckBox) findViewById(R.id.cb_sunday);
+        mSetTime = findViewById(R.id.bu_setTime);
+        mMonday = findViewById(R.id.cb_monday);
+        mTuesday = findViewById(R.id.cb_tuesday);
+        mWednesday = findViewById(R.id.cb_wednesday);
+        mThursday = findViewById(R.id.cb_thursday);
+        mFriday = findViewById(R.id.cb_friday);
+        mSaturday = findViewById(R.id.cb_saturday);
+        mSunday = findViewById(R.id.cb_sunday);
     }
 
     private void initListener() {

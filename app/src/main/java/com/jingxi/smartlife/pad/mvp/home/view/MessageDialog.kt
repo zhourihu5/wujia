@@ -35,7 +35,7 @@ class MessageDialog(context: Context, message: MsgDto.ContentBean) : Dialog(cont
         tvTitle.text = message.title
         //        tvTime.setText(DateUtil.formatMsgDate(message.createDate));
         tvTime.text = message.createDate
-        tvDesc.setText(message.content)
+        tvDesc.text = message.content
 
         if (message.isRead == MsgDto.STATUS_UNREAD) {//未读
             btnKnow.setBackgroundResource(R.drawable.btn_rect_accent_select)

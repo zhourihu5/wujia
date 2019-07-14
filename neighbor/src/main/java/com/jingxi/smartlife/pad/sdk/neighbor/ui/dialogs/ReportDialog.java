@@ -43,19 +43,19 @@ public class ReportDialog extends BaseLibDialog implements View.OnClickListener 
     }
 
     private void initView() {
-        garbage = (TextView) findViewById(R.id.garbage);
+        garbage = findViewById(R.id.garbage);
         garbage.setOnClickListener(this);
-        tort = (TextView) findViewById(R.id.tort);
+        tort = findViewById(R.id.tort);
         tort.setOnClickListener(this);
-        sham = (TextView) findViewById(R.id.sham);
+        sham = findViewById(R.id.sham);
         sham.setOnClickListener(this);
-        cheat = (TextView) findViewById(R.id.cheat);
+        cheat = findViewById(R.id.cheat);
         cheat.setOnClickListener(this);
-        pornographic = (TextView) findViewById(R.id.pornographic);
+        pornographic = findViewById(R.id.pornographic);
         pornographic.setOnClickListener(this);
-        reportBack = (TextView) findViewById(R.id.report_back);
+        reportBack = findViewById(R.id.report_back);
         reportBack.setOnClickListener(this);
-        reportNext = (TextView) findViewById(R.id.report_next);
+        reportNext = findViewById(R.id.report_next);
         reportNext.setOnClickListener(this);
     }
 

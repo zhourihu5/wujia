@@ -157,11 +157,11 @@ public class CommentAdapter extends RecyclerView.Adapter {
 
         public CommentViewHoler(View itemView) {
             super(itemView);
-            riv_commentPic = (RoundImageView) itemView.findViewById(R.id.riv_commentPic);
-            tv_commentName = (TextView) itemView.findViewById(R.id.tv_commentName);
-            tv_commentTime = (TextView) itemView.findViewById(R.id.tv_commentTime);
-            tv_commentContent = (TextView) itemView.findViewById(R.id.tv_commentContent);
-            rl_content = (RelativeLayout) itemView.findViewById(R.id.rl_content);
+            riv_commentPic = itemView.findViewById(R.id.riv_commentPic);
+            tv_commentName = itemView.findViewById(R.id.tv_commentName);
+            tv_commentTime = itemView.findViewById(R.id.tv_commentTime);
+            tv_commentContent = itemView.findViewById(R.id.tv_commentContent);
+            rl_content = itemView.findViewById(R.id.rl_content);
         }
     }
 
@@ -170,7 +170,7 @@ public class CommentAdapter extends RecyclerView.Adapter {
 
         public FooterViewHolder(View view) {
             super(view);
-            tv_footerView = (TextView) view.findViewById(R.id.tv_prompt);
+            tv_footerView = view.findViewById(R.id.tv_prompt);
         }
     }
 }

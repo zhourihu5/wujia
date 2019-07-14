@@ -257,9 +257,6 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
                         memAdapter!!.notifyDataSetChanged()
                     }
 
-                    override fun onFailed(apiException: ApiException) {
-                        super.onFailed(apiException)
-                    }
                 }))
             }).show()
             R.id.home_call_service_btn ->

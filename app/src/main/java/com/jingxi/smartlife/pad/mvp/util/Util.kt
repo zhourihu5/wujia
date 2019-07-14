@@ -46,17 +46,11 @@ object Util {
 
                 }
             }, ActionConfig(false, SHOWERRORMESSAGE)) {
-                override fun onResponse(response: ApiResponse<Any>) {
-                    super.onResponse(response)
 
-                }
-
-                override fun onFailed(apiException: ApiException) {
-                    super.onFailed(apiException)
-                }
             })
         }
-    public fun initXcrash(context: Context) {
+
+    fun initXcrash(context: Context) {
         if (BuildConfig.DEBUG) {
             // The callback when App process crashed.
             val callback = ICrashCallback { logPath, emergency ->

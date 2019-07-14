@@ -108,20 +108,20 @@ public class ReleaseActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onContentChanged() {
         super.onContentChanged();
-        ctb_release = (CurrencyEasyTitleBar) findViewById(R.id.ctb_release);
+        ctb_release = findViewById(R.id.ctb_release);
         ctb_release.setCurrencyEasyOnClickListener(this);
         ctb_release.inflate();
-        et_releaseContent = (MyEditText) findViewById(R.id.et_releaseContent);
+        et_releaseContent = findViewById(R.id.et_releaseContent);
         et_releaseContent.requestFocus();
-        et_originalPrice = (EditText) findViewById(R.id.et_originalPrice);
-        et_presentPrice = (EditText) findViewById(R.id.et_presentPrice);
-        tv_inputSize = (TextView) findViewById(R.id.tv_inputSize);
-        tv_deadlineTime = (TextView) findViewById(R.id.tv_deadlineTime);
-        tv_release = (TextView) findViewById(R.id.tv_release);
-        rl_deadlineTime = (RelativeLayout) findViewById(R.id.rl_deadlineTime);
-        ll_sellPrice = (LinearLayout) findViewById(R.id.ll_sellPrice);
-        ftl_addPhoto = (FlowTagLayout) findViewById(R.id.ftl_addPhoto);
-        iv_addPhoto = (ImageView) findViewById(R.id.iv_addPhoto);
+        et_originalPrice = findViewById(R.id.et_originalPrice);
+        et_presentPrice = findViewById(R.id.et_presentPrice);
+        tv_inputSize = findViewById(R.id.tv_inputSize);
+        tv_deadlineTime = findViewById(R.id.tv_deadlineTime);
+        tv_release = findViewById(R.id.tv_release);
+        rl_deadlineTime = findViewById(R.id.rl_deadlineTime);
+        ll_sellPrice = findViewById(R.id.ll_sellPrice);
+        ftl_addPhoto = findViewById(R.id.ftl_addPhoto);
+        iv_addPhoto = findViewById(R.id.iv_addPhoto);
         et_originalPrice.addTextChangedListener(watcher);
         et_presentPrice.addTextChangedListener(watcher);
         iv_addPhoto.setOnClickListener(this);
@@ -217,7 +217,7 @@ public class ReleaseActivity extends AppCompatActivity implements View.OnClickLi
             finish();
         } else if (v.getId() == R.id.iv_deletePhoto) {
             ftl_addPhoto.removeView((View) v.getParent());
-            imageViewList.remove((RelativeLayout) v.getParent());
+            imageViewList.remove(v.getParent());
             for (ArrayMap img : imagePrepareUpload) {
                 if (v.getTag().equals(img.get("name"))) {
                     /**
@@ -422,8 +422,8 @@ public class ReleaseActivity extends AppCompatActivity implements View.OnClickLi
              * 添加图片
              */
             RelativeLayout imageViews = (RelativeLayout) ReleaseActivity.this.getLayoutInflater().inflate(R.layout.item_add_photo, (FlowTagLayout) findViewById(R.id.ftl_addPhoto), false);
-            ImageView imageView = (ImageView) imageViews.findViewById(R.id.iv_photo);
-            ImageView iv_deletePhoto = (ImageView) imageViews.findViewById(R.id.iv_deletePhoto);
+            ImageView imageView = imageViews.findViewById(R.id.iv_photo);
+            ImageView iv_deletePhoto = imageViews.findViewById(R.id.iv_deletePhoto);
             Picasso.with(JXContextWrapper.context).load((Uri) newImagePrepareUpload.get(i).get("Uri"))
                     .placeholder(R.mipmap.ic_placeholderimg)
                     .error(R.mipmap.ic_placeholderimg)

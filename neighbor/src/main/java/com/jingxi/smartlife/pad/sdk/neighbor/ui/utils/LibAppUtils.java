@@ -191,7 +191,7 @@ public class LibAppUtils {
      */
     public static String twoAfterPoint(String price) {
         if (price.contains(".")) {
-            if (price.substring(price.indexOf("."), price.length()).length() >= 3) {
+            if (price.substring(price.indexOf(".")).length() >= 3) {
                 DecimalFormat df = new DecimalFormat("##0.00");
                 return df.format(Double.parseDouble(price));
             } else {
@@ -383,7 +383,7 @@ public class LibAppUtils {
         PackageManager pm = JXContextWrapper.context.getPackageManager();
         try {
             PackageInfo info = pm.getPackageInfo(JXContextWrapper.context.getPackageName(), 0);
-            return info.versionName + "." + String.valueOf(info.versionCode);
+            return info.versionName + "." + info.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return "";
@@ -718,7 +718,7 @@ public class LibAppUtils {
     public static String unitFormat(int i) {
         String retStr;
         if (i >= 0 && i < 10) {
-            retStr = "0" + Integer.toString(i);
+            retStr = "0" + i;
         } else {
             retStr = "" + i;
         }

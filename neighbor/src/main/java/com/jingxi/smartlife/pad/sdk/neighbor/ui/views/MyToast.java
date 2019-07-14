@@ -34,7 +34,7 @@ public class MyToast {
         mIsShow = false;
         mWdm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         mToastView = (ViewGroup) Toast.makeText(context, text, Toast.LENGTH_SHORT).getView();
-        textView = (TextView) mToastView.findViewById(android.R.id.message);
+        textView = mToastView.findViewById(android.R.id.message);
         if (textView == null) {
             textView = new TextView(context);
             return;

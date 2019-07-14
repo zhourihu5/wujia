@@ -45,10 +45,10 @@ public class SelectDateDialog extends BaseLibDialog implements View.OnClickListe
     }
 
     private void initDialog() {
-        tv_close = (TextView) findViewById(R.id.tv_close);
-        tv_comfire = (TextView) findViewById(R.id.tv_comfire);
-        dp_YMD = (DatePicker) findViewById(R.id.dp_YMD);
-        tp_HD = (TimePicker) findViewById(R.id.tp_HD);
+        tv_close = findViewById(R.id.tv_close);
+        tv_comfire = findViewById(R.id.tv_comfire);
+        dp_YMD = findViewById(R.id.dp_YMD);
+        tp_HD = findViewById(R.id.tp_HD);
         tp_HD.setIs24HourView(true);
         tv_close.setOnClickListener(this);
         tv_comfire.setOnClickListener(this);

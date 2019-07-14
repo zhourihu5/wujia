@@ -101,10 +101,7 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
                 mAdapter!!.notifyDataSetChanged()
             }
 
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
-            }
-        })
+            })
         )
 
     }
@@ -126,9 +123,6 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
 
     inner class WebChromeClient : android.webkit.WebChromeClient() {
 
-        override fun onProgressChanged(view: WebView, newProgress: Int) {
-            super.onProgressChanged(view, newProgress)
-        }
     }
 
     override fun createPresenter(): BasePresenter<BaseView>? {

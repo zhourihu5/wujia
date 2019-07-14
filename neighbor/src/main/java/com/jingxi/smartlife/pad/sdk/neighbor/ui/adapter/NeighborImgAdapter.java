@@ -65,7 +65,7 @@ public class NeighborImgAdapter extends Adapter {
 
         public NeighborImgViewHolder(View itemView) {
             super(itemView);
-            iv_neighborImg = (ImageView) itemView.findViewById(R.id.iv_neighborImg);
+            iv_neighborImg = itemView.findViewById(R.id.iv_neighborImg);
             llItem = itemView.findViewById(R.id.ll_item_neighbor);
         }
     }

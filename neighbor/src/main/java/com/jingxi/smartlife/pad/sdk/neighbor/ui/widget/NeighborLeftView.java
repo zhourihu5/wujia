@@ -75,19 +75,19 @@ public class NeighborLeftView extends RelativeLayout implements ILeftNeighborVie
         if (neighborBoadDetailPresenter == null) {
             neighborBoadDetailPresenter = new LeftNeighborBoardpresenter(this);
         }
-        tv_loadHttpFailed = (TextView) findViewById(R.id.tv_loadHttpFailed);
+        tv_loadHttpFailed = findViewById(R.id.tv_loadHttpFailed);
         tv_loadHttpFailed.setOnClickListener(this);
-        headImage = (RoundImageView) findViewById(R.id.headImage);
-        showName = (TextView) findViewById(R.id.showName);
-        statuCount = (TextView) findViewById(R.id.tv_movementCount);
-        favourCount = (TextView) findViewById(R.id.tv_favourCount);
-        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.neighbor_detail_swipeRefreshLayout);
+        headImage = findViewById(R.id.headImage);
+        showName = findViewById(R.id.showName);
+        statuCount = findViewById(R.id.tv_movementCount);
+        favourCount = findViewById(R.id.tv_favourCount);
+        refreshLayout = findViewById(R.id.neighbor_detail_swipeRefreshLayout);
         refreshLayout.setColorSchemeResources(
                 android.R.color.holo_red_light,
                 android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light);
-        recyclerView = (RecyclerView) findViewById(R.id.neighbor_recyclerview);
+        recyclerView = findViewById(R.id.neighbor_recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(null);
         linearLayoutManager = new LinearLayoutManager(getContext());

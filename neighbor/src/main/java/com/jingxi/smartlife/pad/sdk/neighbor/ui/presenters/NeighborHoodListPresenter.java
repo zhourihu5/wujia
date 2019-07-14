@@ -273,12 +273,12 @@ public class NeighborHoodListPresenter implements INeighborhoodListPresernter {
         String typeId = jsonObject.getString("neighborBoardTypeId");
         View all = views.get("all");
         if (all != null) {
-            NeighborhoodView neighborhoodView = (NeighborhoodView) all.findViewById(R.id.neighborhood);
+            NeighborhoodView neighborhoodView = all.findViewById(R.id.neighborhood);
             neighborhoodView.updateItem(jsonObject, type);
         }
         View child = views.get(typeId);
         if (child != null) {
-            NeighborhoodView neighborhoodView = (NeighborhoodView) child.findViewById(R.id.neighborhood);
+            NeighborhoodView neighborhoodView = child.findViewById(R.id.neighborhood);
             neighborhoodView.updateItem(jsonObject, type);
         }
     }

@@ -65,15 +65,15 @@ public class NeighborDetialFragment extends Fragment implements KeyboardStatusDe
         keyboardStatusDetector = new KeyboardStatusDetector()
                 .registerFragment(this)
                 .setmVisibilityListener(this);
-        tablayout = (TabLayout) view.findViewById(R.id.tablayout);
+        tablayout = view.findViewById(R.id.tablayout);
         line = view.findViewById(R.id.line);
         Bundle bundle = getArguments();
         nowNeighbor = (NeighborInfoBean) bundle.getSerializable("data");
         int detailtype = bundle.getInt("detailtype");
         neighborLeftView = (NeighborLeftView) LayoutInflater.from(getContext()).inflate(R.layout.neighbor_left_detail, null);
-        fl_left = (FrameLayout) view.findViewById(R.id.fl_left);
+        fl_left = view.findViewById(R.id.fl_left);
         fl_left.addView(neighborLeftView);
-        fl_right = (FrameLayout) view.findViewById(R.id.fl_right);
+        fl_right = view.findViewById(R.id.fl_right);
         neighborLeftView.initView(this);
         this.detailtype = detailtype;
         if (detailtype == -1) {
@@ -192,9 +192,9 @@ public class NeighborDetialFragment extends Fragment implements KeyboardStatusDe
         for (int i = 0; i < icons.length; i++) {
             TabLayout.Tab tab = tablayout.newTab();
             View view = LayoutInflater.from(getContext()).inflate(R.layout.item_tab, null);
-            TextView tv = (TextView) view.findViewById(R.id.title);
+            TextView tv = view.findViewById(R.id.title);
             tv.setText(titles[i]);
-            BGABadgeImageView iv = (BGABadgeImageView) view.findViewById(R.id.img);
+            BGABadgeImageView iv = view.findViewById(R.id.img);
             iv.setImageResource(icons[i]);
             tab.setCustomView(view);
             tablayout.addTab(tab);

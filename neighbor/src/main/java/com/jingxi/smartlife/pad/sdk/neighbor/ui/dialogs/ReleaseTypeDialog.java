@@ -38,8 +38,8 @@ public class ReleaseTypeDialog extends BaseLibDialog {
     }
 
     private void initDialog() {
-        iv_closeType = (ImageView) findViewById(R.id.iv_closeType);
-        rv_releaseType = (RecyclerView) findViewById(R.id.rv_releaseType);
+        iv_closeType = findViewById(R.id.iv_closeType);
+        rv_releaseType = findViewById(R.id.rv_releaseType);
         rv_releaseType.setMotionEventSplittingEnabled(false);
         rv_releaseType.setHasFixedSize(true);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);

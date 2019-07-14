@@ -73,7 +73,7 @@ public class NeighBorhoodNoticeView extends SwipeRefreshLayout implements
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.neighbor_notice_view, null);
         addView(view);
-        commit_comment = (TextView) findViewById(R.id.tv_commit_comment);
+        commit_comment = findViewById(R.id.tv_commit_comment);
         commit_comment.setOnClickListener(this);
         setColorSchemeResources(
                 android.R.color.holo_red_light,
@@ -82,10 +82,10 @@ public class NeighBorhoodNoticeView extends SwipeRefreshLayout implements
                 android.R.color.holo_orange_light);
         setOnRefreshListener(this);
         setRefreshing(false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.rv_notice);
+        recyclerView = view.findViewById(R.id.rv_notice);
         recyclerView.setLayoutManager(new MyLinearLayoutManager(context));
-        rl_noticeComment = (RelativeLayout) view.findViewById(R.id.rl_noticeComment);
-        et_noticeComment = (EditText) view.findViewById(R.id.et_noticeComment);
+        rl_noticeComment = view.findViewById(R.id.rl_noticeComment);
+        et_noticeComment = view.findViewById(R.id.et_noticeComment);
         et_noticeComment.setOnKeyListener(new OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {

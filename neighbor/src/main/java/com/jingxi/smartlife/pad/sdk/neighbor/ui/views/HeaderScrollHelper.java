@@ -79,9 +79,7 @@ public class HeaderScrollHelper {
             if (layoutManager instanceof LinearLayoutManager) {
                 int firstVisibleItemPosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
                 View childAt = recyclerView.getChildAt(0);
-                if (childAt == null || (firstVisibleItemPosition == 0 && childAt.getTop() == 0)) {
-                    return true;
-                }
+                return childAt == null || (firstVisibleItemPosition == 0 && childAt.getTop() == 0);
             }
         }
         return false;
@@ -91,9 +89,7 @@ public class HeaderScrollHelper {
         if (adapterView != null) {
             int firstVisiblePosition = adapterView.getFirstVisiblePosition();
             View childAt = adapterView.getChildAt(0);
-            if (childAt == null || (firstVisiblePosition == 0 && childAt.getTop() == 0)) {
-                return true;
-            }
+            return childAt == null || (firstVisiblePosition == 0 && childAt.getTop() == 0);
         }
         return false;
     }

@@ -26,10 +26,6 @@ public class MyScrollView extends ScrollView {
 
     @Override
     public boolean requestChildRectangleOnScreen(View child, Rect rectangle, boolean immediate) {
-        if (child instanceof EditText) {
-            return true;
-        } else {
-            return false;
-        }
+        return child instanceof EditText;
     }
 }

@@ -312,25 +312,25 @@ public class SocialAdapter extends RecyclerView.Adapter<SocialAdapter.ViewHolder
 
         SearchViewHolder(View itemView) {
             super(itemView);
-            status_tag = (TextView) itemView.findViewById(R.id.status_tag);
-            statu_iv_head = (RoundImageView) itemView.findViewById(R.id.statu_iv_head);
-            details_cv = (RelativeLayout) itemView.findViewById(R.id.details_cv);
-            neighbor_tv_name = (TextView) itemView.findViewById(R.id.neighbor_tv_name);
-            statu_tv_time = (TextView) itemView.findViewById(R.id.statu_tv_time);
-            statu_tv_content = (TextView) itemView.findViewById(R.id.statu_tv_content);
-            deleteItem = (TextView) itemView.findViewById(R.id.delete_item);
-            firstImg = (ImageView) itemView.findViewById(R.id.first_img);
-            secondImg = (ImageView) itemView.findViewById(R.id.second_img);
-            thirdImg = (ImageView) itemView.findViewById(R.id.third_img);
-            bottomBG = (RelativeLayout) itemView.findViewById(R.id.bottom_img);
-            moreImg = (TextView) itemView.findViewById(R.id.more_img);
-            comment_tv = (TextView) itemView.findViewById(R.id.commentView);
-            praise_tv = (TextView) itemView.findViewById(R.id.favourite);
-            rl_imags = (RelativeLayout) itemView.findViewById(R.id.rl_imags);
-            iv_big = (ImageView) itemView.findViewById(R.id.status_iv_big);
-            statu_rl_price = (RelativeLayout) itemView.findViewById(R.id.statu_rl_price);
-            originalPrice = (TextView) itemView.findViewById(R.id.statu_tv_originalPrice);
-            price = (TextView) itemView.findViewById(R.id.statu_tv_price);
+            status_tag = itemView.findViewById(R.id.status_tag);
+            statu_iv_head = itemView.findViewById(R.id.statu_iv_head);
+            details_cv = itemView.findViewById(R.id.details_cv);
+            neighbor_tv_name = itemView.findViewById(R.id.neighbor_tv_name);
+            statu_tv_time = itemView.findViewById(R.id.statu_tv_time);
+            statu_tv_content = itemView.findViewById(R.id.statu_tv_content);
+            deleteItem = itemView.findViewById(R.id.delete_item);
+            firstImg = itemView.findViewById(R.id.first_img);
+            secondImg = itemView.findViewById(R.id.second_img);
+            thirdImg = itemView.findViewById(R.id.third_img);
+            bottomBG = itemView.findViewById(R.id.bottom_img);
+            moreImg = itemView.findViewById(R.id.more_img);
+            comment_tv = itemView.findViewById(R.id.commentView);
+            praise_tv = itemView.findViewById(R.id.favourite);
+            rl_imags = itemView.findViewById(R.id.rl_imags);
+            iv_big = itemView.findViewById(R.id.status_iv_big);
+            statu_rl_price = itemView.findViewById(R.id.statu_rl_price);
+            originalPrice = itemView.findViewById(R.id.statu_tv_originalPrice);
+            price = itemView.findViewById(R.id.statu_tv_price);
         }
 
     }

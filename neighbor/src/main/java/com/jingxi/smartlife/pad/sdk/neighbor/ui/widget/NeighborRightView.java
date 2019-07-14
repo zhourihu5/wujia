@@ -120,25 +120,25 @@ public class NeighborRightView extends RelativeLayout implements IRightNeighborV
         this.neighBorDetialFragment = neighBorDetialFragment;
         setBackgroundResource(R.color.white);
         rl_neighborInfo = findViewById(R.id.rl_neighborInfo);
-        riv_neighborPic = (RoundImageView) findViewById(R.id.riv_neighborPic);
-        tv_neighborName = (TextView) findViewById(R.id.tv_neighborName);
-        tv_neighborDate = (TextView) findViewById(R.id.tv_neighborDate);
-        tv_neighborContent = (TextView) findViewById(R.id.tv_neighborContent);
-        tv_orginalPrice = (TextView) findViewById(R.id.tv_orginalPrice);
-        tv_neighborPrice = (TextView) findViewById(R.id.tv_neighborPrice);
-        tv_noComments = (TextView) findViewById(R.id.tv_noComments);
-        tv_hour = (TextView) findViewById(R.id.tv_hour);
-        tv_min = (TextView) findViewById(R.id.tv_min);
-        tv_sec = (TextView) findViewById(R.id.tv_sec);
-        tv_enrollEnd = (TextView) findViewById(R.id.tv_enrollEnd);
+        riv_neighborPic = findViewById(R.id.riv_neighborPic);
+        tv_neighborName = findViewById(R.id.tv_neighborName);
+        tv_neighborDate = findViewById(R.id.tv_neighborDate);
+        tv_neighborContent = findViewById(R.id.tv_neighborContent);
+        tv_orginalPrice = findViewById(R.id.tv_orginalPrice);
+        tv_neighborPrice = findViewById(R.id.tv_neighborPrice);
+        tv_noComments = findViewById(R.id.tv_noComments);
+        tv_hour = findViewById(R.id.tv_hour);
+        tv_min = findViewById(R.id.tv_min);
+        tv_sec = findViewById(R.id.tv_sec);
+        tv_enrollEnd = findViewById(R.id.tv_enrollEnd);
         view_liner = findViewById(R.id.view_liner);
         view_liner2 = findViewById(R.id.view_liner2);
         view_enrollPeople = findViewById(R.id.view_enrollPeople);
         view_commentCount = findViewById(R.id.view_commentCount);
-        rl_countdown = (RelativeLayout) findViewById(R.id.rl_countdown);
-        rl_sendMessage = (RelativeLayout) findViewById(R.id.rl_sendMessage);
-        swipe_refresh = (NeighborSwipeRefreshLayout) findViewById(R.id.swipe_refresh);
-        scrollableLayout = (HeaderLinearLayout) findViewById(R.id.scrollableLayout);
+        rl_countdown = findViewById(R.id.rl_countdown);
+        rl_sendMessage = findViewById(R.id.rl_sendMessage);
+        swipe_refresh = findViewById(R.id.swipe_refresh);
+        scrollableLayout = findViewById(R.id.scrollableLayout);
         scrollableLayout.canPtr();
         scrollableLayout.setOnScrollListener(this);
         scrollableLayout.post(new Runnable() {
@@ -148,20 +148,20 @@ public class NeighborRightView extends RelativeLayout implements IRightNeighborV
                         rl_sendMessage.getHeight() - JXContextWrapper.context.getResources().getDimension(R.dimen.dp_30)));
             }
         });
-        tv_enrollNumber = (TextView) findViewById(R.id.tv_enrollNumber);
-        tv_enroll = (TextView) findViewById(R.id.tv_enroll);
-        tv_neighborType = (TextView) findViewById(R.id.tv_neighborType);
-        tv_commentCount = (TextView) findViewById(R.id.tv_commentCount);
-        tv_enrollPeople = (TextView) findViewById(R.id.tv_enrollPeople);
-        tv_praiseCount = (TextView) findViewById(R.id.tv_praiseCount);
-        iv_warning = (ImageView) findViewById(R.id.iv_warning);
-        rl_price = (RelativeLayout) findViewById(R.id.rl_price);
-        rl_enroll = (RelativeLayout) findViewById(R.id.rl_enroll);
-        noContent = (TextView) findViewById(R.id.tv_nocontent);
-        commit_comment = (TextView) findViewById(R.id.tv_commit_comment);
+        tv_enrollNumber = findViewById(R.id.tv_enrollNumber);
+        tv_enroll = findViewById(R.id.tv_enroll);
+        tv_neighborType = findViewById(R.id.tv_neighborType);
+        tv_commentCount = findViewById(R.id.tv_commentCount);
+        tv_enrollPeople = findViewById(R.id.tv_enrollPeople);
+        tv_praiseCount = findViewById(R.id.tv_praiseCount);
+        iv_warning = findViewById(R.id.iv_warning);
+        rl_price = findViewById(R.id.rl_price);
+        rl_enroll = findViewById(R.id.rl_enroll);
+        noContent = findViewById(R.id.tv_nocontent);
+        commit_comment = findViewById(R.id.tv_commit_comment);
         verticalLinearLayoutManager = new LinearLayoutManager(getContext());
         horizentalLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        swipe_refresh = (NeighborSwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        swipe_refresh = findViewById(R.id.swipe_refresh);
         swipe_refresh.setProgressBackgroundColorSchemeResource(android.R.color.white);
         //设置刷新时动画的颜色，可以设置4个
         swipe_refresh.setColorSchemeResources(android.R.color.holo_red_light,
@@ -169,7 +169,7 @@ public class NeighborRightView extends RelativeLayout implements IRightNeighborV
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light);
         swipe_refresh.setProgressViewOffset(false, 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics()));
-        rv_neighborImgList = (RecyclerView) findViewById(R.id.rv_neighborImgList);
+        rv_neighborImgList = findViewById(R.id.rv_neighborImgList);
         rv_neighborImgList.setHasFixedSize(true);
         rv_neighborImgList.setMotionEventSplittingEnabled(false);
         rv_neighborImgList.addItemDecoration(new MyCustomItemDecoration((int) getResources().getDimension(R.dimen.dp_13),
@@ -177,12 +177,12 @@ public class NeighborRightView extends RelativeLayout implements IRightNeighborV
                 (int) getResources().getDimension(R.dimen.dp_0),
                 (int) getResources().getDimension(R.dimen.dp_0)));
         rv_neighborImgList.setLayoutManager(horizentalLinearLayoutManager);
-        rv_comment = (RecyclerView) findViewById(R.id.rv_comment);
+        rv_comment = findViewById(R.id.rv_comment);
         rv_comment.setHasFixedSize(true);
         rv_comment.setMotionEventSplittingEnabled(false);
         rv_comment.setLayoutManager(verticalLinearLayoutManager);
         view_whiteBg = findViewById(R.id.view_whiteBg);
-        et_comment = (EditText) findViewById(R.id.et_comment);
+        et_comment = findViewById(R.id.et_comment);
         /**
          * 过滤字符并最大长度为500
          */
@@ -207,7 +207,7 @@ public class NeighborRightView extends RelativeLayout implements IRightNeighborV
                 return false;
             }
         });
-        iv_praise = (ImageView) findViewById(R.id.iv_praise);
+        iv_praise = findViewById(R.id.iv_praise);
         swipe_refresh.setOnRefreshListener(this);
         rv_comment.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

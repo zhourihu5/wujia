@@ -51,27 +51,27 @@ public class NeighborhoodActivityDialog extends BaseLibDialog implements View.On
     }
 
     private void initView() {
-        cleanName = (ImageView) findViewById(R.id.cleanName);
+        cleanName = findViewById(R.id.cleanName);
         cleanName.setOnClickListener(this);
-        cleanPhone = (ImageView) findViewById(R.id.cleanPhone);
+        cleanPhone = findViewById(R.id.cleanPhone);
         cleanPhone.setOnClickListener(this);
-        neighborName = (EditText) findViewById(R.id.neighborName);
+        neighborName = findViewById(R.id.neighborName);
         neighborName.setOnFocusChangeListener(this);
         /**
          * 过滤字符并最大长度为8
          */
         neighborName.setFilters(new InputFilter[]{new NoEmojiInput(), new InputFilter.LengthFilter(10)});
-        neighborPhone = (EditText) findViewById(R.id.neighborPhone);
+        neighborPhone = findViewById(R.id.neighborPhone);
         neighborPhone.setOnFocusChangeListener(this);
         /**
          * todo
          */
 //        neighborPhone.setText(significanceData.ownerMobile);
-        neighborAdress = (TextView) findViewById(R.id.neighborAdress);
+        neighborAdress = findViewById(R.id.neighborAdress);
 //        neighborAdress.setText(TextUtils.concat(significanceData.houseNO));
-        neighborBack = (TextView) findViewById(R.id.neighborBack);
+        neighborBack = findViewById(R.id.neighborBack);
         neighborBack.setOnClickListener(this);
-        neighborNext = (TextView) findViewById(R.id.neighborNext);
+        neighborNext = findViewById(R.id.neighborNext);
         neighborNext.setOnClickListener(this);
     }
 

@@ -99,8 +99,8 @@ public class FullScreenActivity extends BaseActivity implements View.OnClickList
 //                if (max > seek) {
 //                    mDoorAccessManager.startPlayBack(mSessionId);
 //                }
-                tvPlaybackCurrentTime.setText(String.valueOf(format(seek)));
-                tvPlaybackCountTime.setText(String.valueOf(format(max)));
+                tvPlaybackCurrentTime.setText(format(seek));
+                tvPlaybackCountTime.setText(format(max));
             }
             mDoorAccessManager.updatePlayBackWindow(mSessionId, surfaceView);
 
@@ -259,8 +259,8 @@ public class FullScreenActivity extends BaseActivity implements View.OnClickList
             seekBar.setProgress(seek);
             seekBar.setOnSeekBarChangeListener(this);
 
-            tvPlaybackCurrentTime.setText(String.valueOf(format(seek)));
-            tvPlaybackCountTime.setText(String.valueOf(format(max)));
+            tvPlaybackCurrentTime.setText(format(seek));
+            tvPlaybackCountTime.setText(format(max));
         } else if (event == IntercomConstants.MediaPlayEvent.MediaPlayEventCompleted) {
             seek = max;
             seekBar.setOnSeekBarChangeListener(null);

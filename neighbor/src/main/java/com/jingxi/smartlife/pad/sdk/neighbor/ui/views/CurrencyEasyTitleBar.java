@@ -55,7 +55,7 @@ public class CurrencyEasyTitleBar extends CurrencyBaseTitleBar implements Curren
 
     @Override
     public void currencyinitView(View leftView, View centerView) {
-        this.leftView = (ImageView) leftView.findViewById(R.id.leftView);
+        this.leftView = leftView.findViewById(R.id.leftView);
         this.leftView.setImageResource(leftSrc);
         if (leftVisibilty) {
             this.leftView.setVisibility(View.VISIBLE);
@@ -63,7 +63,7 @@ public class CurrencyEasyTitleBar extends CurrencyBaseTitleBar implements Curren
         } else {
             this.leftView.setVisibility(View.GONE);
         }
-        this.centerView = (TextView) centerView.findViewById(R.id.centerView);
+        this.centerView = centerView.findViewById(R.id.centerView);
         this.centerView.post(new Runnable() {
             @Override
             public void run() {

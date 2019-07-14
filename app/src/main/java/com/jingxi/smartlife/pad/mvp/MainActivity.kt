@@ -369,7 +369,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
             tabFragment.switchTab(childPos)
         else {
             val fragment = mFragments[pos] as BaseMainFragment
-            fragment?.switchTab(childPos)
+            fragment.switchTab(childPos)
         }
     }
 

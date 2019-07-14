@@ -219,7 +219,7 @@ public class StringUtils {
         if (isEmpty(s) || !Character.isLowerCase(s.charAt(0))) {
             return s;
         }
-        return String.valueOf((char) (s.charAt(0) - 32)) + s.substring(1);
+        return (char) (s.charAt(0) - 32) + s.substring(1);
     }
 
     /**
@@ -232,7 +232,7 @@ public class StringUtils {
         if (isEmpty(s) || !Character.isUpperCase(s.charAt(0))) {
             return s;
         }
-        return String.valueOf((char) (s.charAt(0) + 32)) + s.substring(1);
+        return (char) (s.charAt(0) + 32) + s.substring(1);
     }
 
     /**
@@ -319,11 +319,7 @@ public class StringUtils {
         while (index < minLength && (buff = (Integer.parseInt(newVersionArray[index]) - Integer.parseInt(myVersionArray[index]))) == 0) {
             index++;
         }
-        if (buff > 0 || (buff == 0 && minLength == myVersionArray.length)) {
-            return true;
-        } else {
-            return false;
-        }
+        return buff > 0 || (buff == 0 && minLength == myVersionArray.length);
     }
 
     /**
@@ -514,11 +510,7 @@ public class StringUtils {
         while (index < minLength && (buff = (Integer.parseInt(newVersionArray[index]) - Integer.parseInt(myVersionArray[index]))) == 0) {
             index++;
         }
-        if (buff > 0 || (buff == 0 && minLength == myVersionArray.length)) {
-            return true;
-        } else {
-            return false;
-        }
+        return buff > 0 || (buff == 0 && minLength == myVersionArray.length);
     }
 
     /**

@@ -237,9 +237,6 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
                 notifyAdapter.setOnItemClickListener { adapter, holder, position -> wakeUp() }
             }
 
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
-            }
         }))
 
 
@@ -248,7 +245,7 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        mCompositeDisposable?.clear()
+        mCompositeDisposable.clear()
         EventBusUtil.unregister(eventMsg)
         EventBusUtil.unregister(eventWakeup)
     }

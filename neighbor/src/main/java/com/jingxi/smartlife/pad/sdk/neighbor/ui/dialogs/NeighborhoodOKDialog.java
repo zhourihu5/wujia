@@ -31,8 +31,8 @@ public class NeighborhoodOKDialog extends BaseLibDialog implements View.OnClickL
      */
     public NeighborhoodOKDialog(@NonNull Context context) {
         super(context);
-        neighbor_ok_title = (TextView) findViewById(R.id.neighbor_ok_title);
-        neighbor_ok_content = (TextView) findViewById(R.id.neighbor_ok_content);
+        neighbor_ok_title = findViewById(R.id.neighbor_ok_title);
+        neighbor_ok_content = findViewById(R.id.neighbor_ok_content);
         findViewById(R.id.report_ok).setOnClickListener(this);
     }
 

@@ -28,10 +28,8 @@ public class TokenInterceptor implements Interceptor {
 
     private boolean isInWhiteList(Request request) {
         String path = request.url().encodedPath();
-        if (!path.startsWith("/v1/")) {//服务器token filter(JwtFilter)拦截路径
-            return true;
-        }
-        return false;
+        //服务器token filter(JwtFilter)拦截路径
+        return !path.startsWith("/v1/");
     }
 
     @Override

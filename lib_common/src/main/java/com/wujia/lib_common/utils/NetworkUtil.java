@@ -77,7 +77,7 @@ public class NetworkUtil {
                                     && inetAddress instanceof Inet4Address) {
                                 // if (!inetAddress.isLoopbackAddress() && inetAddress
                                 // instanceof Inet6Address) {
-                                return inetAddress.getHostAddress().toString();
+                                return inetAddress.getHostAddress();
                             }
                         }
                     }

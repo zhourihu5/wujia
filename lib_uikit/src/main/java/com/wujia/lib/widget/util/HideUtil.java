@@ -57,7 +57,7 @@ public class HideUtil {
      */
     private HideUtil(final Activity activity, ViewGroup content) {
         if (content == null) {
-            content = (ViewGroup) activity.findViewById(android.R.id.content);
+            content = activity.findViewById(android.R.id.content);
         }
         getScrollView(content, activity);
         content.setOnTouchListener(new View.OnTouchListener() {
@@ -142,9 +142,7 @@ public class HideUtil {
         if (v instanceof EditText) {
             Rect rect = new Rect();
             v.getHitRect(rect);
-            if (rect.contains((int) event.getX(), (int) event.getY())) {
-                return false;
-            }
+            return !rect.contains((int) event.getX(), (int) event.getY());
         }
         return true;
     }

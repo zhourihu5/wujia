@@ -224,7 +224,7 @@ public class PushSetActivity extends InstrumentedActivity implements OnClickList
     }
 
     private void handleSetMobileNumber() {
-        EditText mobileEdit = (EditText) findViewById(R.id.et_mobilenumber);
+        EditText mobileEdit = findViewById(R.id.et_mobilenumber);
         String mobileNumber = mobileEdit.getText().toString().trim();
         if (TextUtils.isEmpty(mobileNumber)) {
             Toast.makeText(getApplicationContext(), R.string.mobilenumber_empty_guide, Toast.LENGTH_SHORT).show();
@@ -241,7 +241,7 @@ public class PushSetActivity extends InstrumentedActivity implements OnClickList
      * 获取输入的alias
      */
     private String getInPutAlias() {
-        EditText aliasEdit = (EditText) findViewById(R.id.et_alias);
+        EditText aliasEdit = findViewById(R.id.et_alias);
         String alias = aliasEdit.getText().toString().trim();
         if (TextUtils.isEmpty(alias)) {
             Toast.makeText(getApplicationContext(), R.string.error_alias_empty, Toast.LENGTH_SHORT).show();
@@ -258,7 +258,7 @@ public class PushSetActivity extends InstrumentedActivity implements OnClickList
      * 获取输入的tags
      */
     private Set<String> getInPutTags() {
-        EditText tagEdit = (EditText) findViewById(R.id.et_tag);
+        EditText tagEdit = findViewById(R.id.et_tag);
         String tag = tagEdit.getText().toString().trim();
         // 检查 tag 的有效性
         if (TextUtils.isEmpty(tag)) {

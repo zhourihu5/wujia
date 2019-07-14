@@ -160,9 +160,6 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
                 page++
             }
 
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
-            }
         }))
 
 
@@ -171,22 +168,6 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
     override fun onDestroyView() {
         super.onDestroyView()
         EventBusUtil.unregister(eventMsg)
-    }
-
-    override fun onSupportVisible() {
-        super.onSupportVisible()
-//        isVisible = true
-        //        if (null == msgList) {
-        //            msgList = new ArrayList();
-        //        }
-        //        if (null != mLoadMoreWrapper) {
-        //            getData();
-        //        }
-    }
-
-    override fun onSupportInvisible() {
-        super.onSupportInvisible()
-//        isVisible = false
     }
 
     override fun onLoadMoreRequested() {
@@ -205,9 +186,6 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
                 EventBusUtil.post(EventMsg(EventMsg.TYPE_READ))
             }
 
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
-            }
         }))
 
 

@@ -58,7 +58,7 @@ public class NeighborhoodView extends RelativeLayout
     }
 
     public void init() {
-        swipe_refresh = (SimpleSwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        swipe_refresh = findViewById(R.id.swipe_refresh);
         swipe_refresh.setOnRefreshListener(this);
         swipe_refresh.setProgressBackgroundColorSchemeResource(android.R.color.white);
         swipe_refresh.setColorSchemeResources(
@@ -66,7 +66,7 @@ public class NeighborhoodView extends RelativeLayout
                 android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        recyclerView = findViewById(R.id.recycler);
         noContent = findViewById(R.id.noContent);
         recyclerView.addOnScrollListener(scrollListener);
         recyclerView.setHasFixedSize(true);

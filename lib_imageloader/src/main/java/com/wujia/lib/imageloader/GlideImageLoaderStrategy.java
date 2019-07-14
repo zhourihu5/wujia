@@ -273,7 +273,7 @@ public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy {
 
             fromStream = new FileInputStream(cacheFile);
             toStream = new FileOutputStream(file);
-            byte length[] = new byte[1024];
+            byte[] length = new byte[1024];
             int count;
             while ((count = fromStream.read(length)) > 0) {
                 toStream.write(length, 0, count);
@@ -307,14 +307,14 @@ public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy {
     @Override
     public void loadRoundedCornersImage(Context context, String url, int placeholder, int roundRadius, ImageView imageView) {
         Glide.with(imageView.getContext()).load(url).placeholder(placeholder).dontAnimate()
-                .bitmapTransform(new RoundedCornersTransformation(context, ((int) DensityUtil.dp2px(imageView.getContext(), roundRadius)), 0))
+                .bitmapTransform(new RoundedCornersTransformation(context, DensityUtil.dp2px(imageView.getContext(), roundRadius), 0))
                 .diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView);
     }
 
     @Override
     public void loadRoundedCornersImage(Context context, String url, int placeholder, int errorHolder, int roundRadius, ImageView imageView) {
         Glide.with(imageView.getContext()).load(url).placeholder(placeholder).error(errorHolder).dontAnimate()
-                .bitmapTransform(new RoundedCornersTransformation(context, ((int) DensityUtil.dp2px(imageView.getContext(), roundRadius)), 0))
+                .bitmapTransform(new RoundedCornersTransformation(context, DensityUtil.dp2px(imageView.getContext(), roundRadius), 0))
                 .diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView);
     }
 

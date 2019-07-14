@@ -33,9 +33,9 @@ public class LibTipDialog extends BaseLibDialog implements View.OnClickListener 
     }
 
     private void initView() {
-        tvHintMsg = (TextView) findViewById(R.id.tv_hint_message);
-        tvAffirm = (TextView) findViewById(R.id.tv_affirm);
-        tvCancel = (TextView) findViewById(R.id.tv_cancel);
+        tvHintMsg = findViewById(R.id.tv_hint_message);
+        tvAffirm = findViewById(R.id.tv_affirm);
+        tvCancel = findViewById(R.id.tv_cancel);
         tvAffirm.setOnClickListener(this);
         tvCancel.setOnClickListener(this);
     }

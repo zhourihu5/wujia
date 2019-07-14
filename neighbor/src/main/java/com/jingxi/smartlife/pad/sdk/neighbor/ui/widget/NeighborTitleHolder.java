@@ -27,9 +27,9 @@ public class NeighborTitleHolder implements View.OnClickListener {
     }
 
     public NeighborTitleHolder(View view) {
-        tabLayout = (TabLayout) view.findViewById(R.id.titlebar_tab);
-        tvTitle = (TextView) view.findViewById(R.id.titlebar_title);
-        tvBack = (TextView) view.findViewById(R.id.titlebar_back);
+        tabLayout = view.findViewById(R.id.titlebar_tab);
+        tvTitle = view.findViewById(R.id.titlebar_title);
+        tvBack = view.findViewById(R.id.titlebar_back);
         tvBack.setOnClickListener(this);
     }
 
