@@ -65,9 +65,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         home_arc_view!!.setColor(if (event.online) R.color.colorAccent else R.color.cdd6767)
     })
     private val eventMsg = EventMsg(IMiessageInvoke {
-        //            if (event.type == EventMsg.TYPE_READ) {
         setNotify(false)
-        //            }
     })
     private val eventCardChange = EventCardChange(IMiessageInvoke {
         isRefreshCard = true
@@ -92,9 +90,6 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
                 memAdapter!!.notifyDataSetChanged()
             }
 
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
-            }
         }))
     })
 
