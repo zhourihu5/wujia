@@ -168,7 +168,6 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
             override fun onResponse(response: ApiResponse<List<MsgDto.ContentBean>>) {
                 super.onResponse(response)
                 val notifys = response.data
-                //        rv_home_msg.addItemDecoration(new HorizontalDecoration(25));
                 val notifyAdapter = HomeNotifyAdapter(mActivity, notifys)
                 rv_home_msg!!.adapter = notifyAdapter
                 notifyAdapter.setOnItemClickListener { adapter, holder, position ->
