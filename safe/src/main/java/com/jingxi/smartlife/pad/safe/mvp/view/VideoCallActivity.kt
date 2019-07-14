@@ -29,11 +29,9 @@ import kotlinx.android.synthetic.main.activity_video_call.*
  */
 class VideoCallActivity : BaseActivity(), View.OnClickListener, SurfaceHolder.Callback, DoorAccessConversationUI, TextureView.SurfaceTextureListener {
     override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture?, width: Int, height: Int) {
-//        updateSurface()
     }
 
     override fun onSurfaceTextureUpdated(surface: SurfaceTexture?) {
-//        updateSurface()
     }
 
     override fun onSurfaceTextureDestroyed(surface: SurfaceTexture?): Boolean {
@@ -86,7 +84,7 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener, SurfaceHolder.Ca
         manager = JXPadSdk.getDoorAccessManager()
         manager!!.addConversationUIListener(this)
 
-        sessionId = intent.getStringExtra("sessionId")
+        sessionId = intent.getStringExtra(SESSION_ID)
         if (null == loadingDialog) {
             loadingDialog = LoadingDialog(mContext)
         }
@@ -245,6 +243,11 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener, SurfaceHolder.Ca
             Toast.makeText(this, "其他用户接听", Toast.LENGTH_SHORT).show()
             finish()
         }
+    }
+
+
+    companion object{
+        const val SESSION_ID="sessionId"
     }
 }
 

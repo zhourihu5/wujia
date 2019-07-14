@@ -22,7 +22,6 @@ public class NetworkUtil {
     public static final int MOBILE = 0;
 
     public static int netStatus = NONE;
-    private static boolean hasNet = false;
 
     /**
      * @param context
@@ -34,7 +33,7 @@ public class NetworkUtil {
     public static boolean getNetWork(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netinfo = cm.getActiveNetworkInfo();
-        hasNet = !(null == netinfo);
+        boolean hasNet = !(null == netinfo);
         return hasNet;
     }
 

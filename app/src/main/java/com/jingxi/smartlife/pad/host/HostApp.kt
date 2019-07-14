@@ -10,8 +10,6 @@ import com.squareup.leakcanary.LeakCanary
 import com.umeng.commonsdk.UMConfigure
 import com.wujia.businesslib.HookUtil
 import com.wujia.businesslib.base.BaseApplication
-import com.wujia.lib_common.utils.NetworkUtil
-import com.wujia.lib_common.utils.ScreenUtil
 
 /**
  * author ：shenbingkai
@@ -29,7 +27,6 @@ class HostApp : BaseApplication() {
         }
         LeakCanary.install(this)
 
-        NetworkUtil.getNetWork(BaseApplication.instance)
         HookUtil.hookWebView()
         //        HookUtil.fixFocusedViewLeak(this);
         JPushInterface.setDebugMode(BuildConfig.DEBUG)    // 设置开启日志,发布时请关闭日志
