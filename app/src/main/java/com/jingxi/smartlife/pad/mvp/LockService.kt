@@ -1,5 +1,6 @@
 package com.jingxi.smartlife.pad.mvp
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.service.dreams.DreamService
@@ -168,6 +169,7 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     mCompositeDisposable.add(model!!.weather.subscribeWith(object : SimpleRequestSubscriber<WeatherInfoBean>(this@LockService, ActionConfig(false, SHOWERRORMESSAGE)) {
+                        @SuppressLint("SetTextI18n")
                         override fun onResponse(weatherInfoBean: WeatherInfoBean) {
                             super.onResponse(weatherInfoBean)
                             if (weatherInfoBean.isSuccess) {

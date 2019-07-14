@@ -19,11 +19,6 @@ object ScreenManager {
      *
      * @return 1 为自动调节屏幕亮度,0 为手动调节屏幕亮度,-1 获取失败
      */
-    /**
-     * 设置当前屏幕亮度的模式
-     *
-     * @param mode 1 为自动调节屏幕亮度,0 为手动调节屏幕亮度
-     */
 
     var screenMode: Int
         @LightMode
@@ -38,6 +33,11 @@ object ScreenManager {
 
             return mode
         }
+        /**
+         * 设置当前屏幕亮度的模式
+         *
+         * @param mode 1 为自动调节屏幕亮度,0 为手动调节屏幕亮度
+         */
         set(@LightMode mode) = try {
             Settings.System.putInt(AppContext.get().contentResolver,
                     Settings.System.SCREEN_BRIGHTNESS_MODE, mode)
@@ -53,11 +53,7 @@ object ScreenManager {
      *
      * @return 0--255
      */
-    /**
-     * 保存当前的屏幕亮度值，并使之生效
-     *
-     * @param paramInt 0-255
-     */
+
     var screenBrightness: Int
         get() {
             var screenBrightness = -1
@@ -70,6 +66,11 @@ object ScreenManager {
 
             return screenBrightness
         }
+        /**
+         * 保存当前的屏幕亮度值，并使之生效
+         *
+         * @param paramInt 0-255
+         */
         set(paramInt) {
             Settings.System.putInt(AppContext.get().contentResolver,
                     Settings.System.SCREEN_BRIGHTNESS, paramInt)

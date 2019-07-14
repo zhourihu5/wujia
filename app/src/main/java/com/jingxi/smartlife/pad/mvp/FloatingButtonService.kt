@@ -1,6 +1,5 @@
 package com.jingxi.smartlife.pad.mvp
 
-import android.app.ActivityManager
 import android.app.Service
 import android.app.usage.UsageStatsManager
 import android.content.Context
@@ -33,7 +32,7 @@ class FloatingButtonService : Service() {
     internal val topActivityPackage: String
         get() {
             var topActivity = ""
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 val m = getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
                 if (m != null) {
                     val now = System.currentTimeMillis()
@@ -52,11 +51,11 @@ class FloatingButtonService : Service() {
 
                     }
                 }
-            } else {
-                val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-                val cn = activityManager.getRunningTasks(1)[0].topActivity
-                topActivity = cn.packageName
-            }
+//            } else {
+//                val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+//                val cn = activityManager.getRunningTasks(1)[0].topActivity
+//                topActivity = cn.packageName
+//            }
             LogUtil.info(TAG, "top running app is : $topActivity")
             return topActivity
         }

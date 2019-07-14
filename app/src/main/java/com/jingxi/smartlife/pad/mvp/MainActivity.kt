@@ -5,7 +5,6 @@ import android.animation.ValueAnimator
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.os.PowerManager
@@ -311,9 +310,9 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
 
     private fun acquireWakeLock() {
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
-        if (Build.VERSION.SDK_INT >= 21 && powerManager != null && !powerManager.isInteractive) {//灭屏时点亮
+        if ( powerManager != null && !powerManager.isInteractive) {//灭屏时点亮
             mWakelock = powerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_DIM_WAKE_LOCK, packageName) // this target for tell OS which app
-            mWakelock?.acquire()//can not be reused,so create it every time
+            mWakelock?.acquire(10*60*1000L /*10 minutes*/)//can not be reused,so create it every time
             LogUtil.i("mWakelock.acquire")
         }
     }
@@ -392,13 +391,11 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
 
     companion object {
 
-        const val POSITION_HOME = 0
         const val POSITION_SAFE = 1
         const val POSITION_FAMILY = 2
         const val POSITION_PROPERTY = 3
         const val POSITION_MESSAGE = 4
         const val POSITION_MARKET = 5
-        const val POSITION_NEIGHBOR = 6
 
         // 再点一次退出程序时间设置
         private const val WAIT_TIME = 2000L

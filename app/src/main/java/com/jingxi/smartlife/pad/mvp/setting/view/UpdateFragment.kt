@@ -1,5 +1,6 @@
 package com.jingxi.smartlife.pad.mvp.setting.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import butterknife.OnClick
@@ -64,6 +65,7 @@ class UpdateFragment : TitleFragment() {
 
             }
 
+            @SuppressLint("SetTextI18n")
             override fun onTaskProgress(percent: Int, currentOffset: Long, totalLength: Long) {
                 if (null != progress_update) {
                     progress_update!!.progress = percent
@@ -118,30 +120,6 @@ class UpdateFragment : TitleFragment() {
         })
     }
 
-    //测试安装
-    private fun install() {
-        Observable.create(ObservableOnSubscribe<Boolean> { emitter ->
-            //                LogUtil.i("install " + mVersion.packageName);
-            val install = AppUtil.install("/storage/emulated/0/Android/data/com.jingxi.smartlife.pad/files/Download/apk/e4283230-33a9-47ce-9131-40b819538515.apk")
-            //                                    boolean install = true;
-            emitter.onNext(install)
-        }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { install ->
-                    if (install!!) {
-                        LogUtil.i("install 安装成功")
-
-                        ToastUtil.showShort(mContext, "安装完成")
-                        //安装成功，本地记录
-                        //                                            ThirdPermissionUtil.requestDefaultPermissions(mVersion.packageName);
-
-                    } else {
-                        ToastUtil.showShort(mContext, "安装失败")
-                        LogUtil.i("install 安装失败")
-                    }
-                }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         if (null != mTask) {
@@ -180,7 +158,7 @@ class UpdateFragment : TitleFragment() {
 
             val gigaByte = megaByte / 1024
             if (gigaByte < 1) {
-                val result2 = BigDecimal(java.lang.Double.toString(megaByte))
+                val result2 = BigDecimal(megaByte.toString())
                 return result2.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "MB"
             }
 

@@ -1,5 +1,6 @@
 package com.jingxi.smartlife.pad.mvp.home
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -257,6 +258,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onDataLoadSucc(requestCode: Int, `object`: Any) {
         when (requestCode) {
             HomePresenter.REQUEST_CDOE_GET_CARD_MY -> {

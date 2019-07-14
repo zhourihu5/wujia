@@ -1,5 +1,6 @@
 package com.jingxi.smartlife.pad.mvp.login
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.TextUtils
@@ -116,6 +117,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
         /** 倒计时60秒，一次1秒  */
         val text = getString(R.string.send_verify_code)
         codeCountDownTimer = object : CountDownTimer((60 * 1000).toLong(), 1000) {
+            @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
                 login_verify_code_btn!!.text = " (" + millisUntilFinished / 1000 + "s)"
             }
