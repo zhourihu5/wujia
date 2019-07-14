@@ -188,18 +188,10 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
                                         //                                                setNotify();//在消息里处理了
                                         EventBusUtil.post(EventMsg(EventMsg.TYPE_READ))
                                     }
-
-                                    override fun onFailed(apiException: ApiException) {
-                                        super.onFailed(apiException)
-                                    }
                                 }))
                             }
                             .show()
                 }
-            }
-
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
             }
         }))
 
