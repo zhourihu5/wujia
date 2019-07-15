@@ -22,6 +22,7 @@ import com.jingxi.smartlife.pad.market.mvp.MarketHomeFragment
 import com.jingxi.smartlife.pad.message.MessageFragment
 import com.jingxi.smartlife.pad.message.mvp.MessageHomeFragment
 import com.jingxi.smartlife.pad.mvp.home.HomeFragment
+import com.jingxi.smartlife.pad.mvp.setting.view.SettingHomeFragment
 import com.jingxi.smartlife.pad.property.ProperyFragment
 import com.jingxi.smartlife.pad.property.mvp.ProperyHomeFragment
 import com.jingxi.smartlife.pad.safe.SafeFragment
@@ -370,12 +371,13 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
             POSITION_SAFE -> tabFragment = mFragments[pos]!!.findChildFragment(SafeHomeFragment::class.java)
             POSITION_MESSAGE -> tabFragment = mFragments[pos]!!.findChildFragment(MessageHomeFragment::class.java)
         }
-        if (null != tabFragment)
-            tabFragment.switchTab(childPos)
-        else {
-            val fragment = mFragments[pos] as BaseMainFragment
-            fragment.switchTab(childPos)
-        }
+        tabFragment?.switchTab(childPos)?:(mFragments[pos] as BaseMainFragment?)?.switchTab(childPos)
+//        if (null != tabFragment)
+//            tabFragment.switchTab(childPos)
+//        else {
+//            val fragment = mFragments[pos] as BaseMainFragment
+//            fragment.switchTab(childPos)
+//        }
     }
 
     override fun createPresenter(): BasePresenter<BaseView>? {
