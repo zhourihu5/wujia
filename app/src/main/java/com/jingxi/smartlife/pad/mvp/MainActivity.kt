@@ -23,6 +23,7 @@ import com.jingxi.smartlife.pad.market.mvp.MarketHomeFragment
 import com.jingxi.smartlife.pad.message.MessageFragment
 import com.jingxi.smartlife.pad.message.mvp.MessageHomeFragment
 import com.jingxi.smartlife.pad.mvp.home.HomeFragment
+import com.jingxi.smartlife.pad.mvp.setting.view.SettingHomeFragment
 import com.jingxi.smartlife.pad.property.ProperyFragment
 import com.jingxi.smartlife.pad.property.mvp.ProperyHomeFragment
 import com.jingxi.smartlife.pad.safe.SafeFragment
