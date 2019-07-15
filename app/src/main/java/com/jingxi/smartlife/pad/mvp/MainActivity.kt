@@ -371,7 +371,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
             POSITION_SAFE -> tabFragment = mFragments[pos]!!.findChildFragment(SafeHomeFragment::class.java)
             POSITION_MESSAGE -> tabFragment = mFragments[pos]!!.findChildFragment(MessageHomeFragment::class.java)
         }
-        tabFragment?.switchTab(childPos)?:(mFragments[pos] as BaseMainFragment?)?.switchTab(childPos)
+        tabFragment?.switchTab(childPos)?:(mFragments[pos] as? BaseMainFragment)?.switchTab(childPos)
 //        if (null != tabFragment)
 //            tabFragment.switchTab(childPos)
 //        else {
