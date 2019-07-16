@@ -44,15 +44,17 @@ class FindServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Hori
     private var ivBanner: ImageView? = null
     private var tvBanner: TextView? = null
 
-    private val event = EventSubscription(IMiessageInvoke { event ->
-        if (event.type == EventSubscription.TYPE_FIND || event.type == EventSubscription.TYPE_NOTIFY) {//如果未 发现服务或者推送过来的通知服务就需要刷新界面
-            if (event.eventType == EventSubscription.PUSH_NOTIFY || !isVisible) {
-                pageNo = 1
-                getList(false)
-            } else {//非推送消息并且当前界面可见状态为本页面发送的消息
-                mLoadMoreWrapper!!.notifyDataSetChanged()
-            }
+    private val event = EventSubscription(object : IMiessageInvoke<EventSubscription> {
+        override fun eventBus(event: EventSubscription) {
+            if (event.type == EventSubscription.TYPE_FIND || event.type == EventSubscription.TYPE_NOTIFY) {//如果未 发现服务或者推送过来的通知服务就需要刷新界面
+                if (event.eventType == EventSubscription.PUSH_NOTIFY || !isVisible) {
+                    pageNo = 1
+                    getList(false)
+                } else {//非推送消息并且当前界面可见状态为本页面发送的消息
+                    mLoadMoreWrapper!!.notifyDataSetChanged()
+                }
 
+            }
         }
     })
 
@@ -105,9 +107,9 @@ class FindServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Hori
                 if (pageNo == 1)
                     datas!!.clear()
 
-                datas!!.addAll(response.data.page!!.content!!)
+                datas!!.addAll(response.data?.page!!.content!!)
 
-                if (response.data.page!!.last) {
+                if (response.data?.page!!.last) {
                     mLoadMoreWrapper!!.setLoadMoreView(0)
                 } else {
                     mLoadMoreWrapper!!.setLoadMoreView(R.layout.view_loadmore)
@@ -129,14 +131,14 @@ class FindServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Hori
     }
 
     protected fun setBanner(response: ApiResponse<ServiceDto>) {
-        val list = response.data.bannerList
+        val list = response.data?.bannerList
         if (null == list || list.isEmpty()) {
             return
         }
         val banner = list[0]
         ImageLoaderManager.getInstance().loadImage(banner.cover, ivBanner)
         //                tvBanner.setText(TextUtils.isEmpty(banner.title) ? "" : banner.title);
-        ivBanner!!.setOnClickListener { parentStart(WebViewFragment.newInstance(banner.url)) }
+        ivBanner!!.setOnClickListener { parentStart(banner.url?.let { it1 -> WebViewFragment.newInstance(it1) }) }
     }
 
     override fun onTabSelected(position: Int, prePosition: Int) {

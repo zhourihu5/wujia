@@ -61,12 +61,18 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
 
     private val mCompositeDisposable = CompositeDisposable()
 
-    private val eventMsg = EventMsg(IMiessageInvoke { event ->
-        if (event.type == EventMsg.TYPE_NEW_MSG) {
-            setNotify()
+    private val eventMsg = EventMsg(object : IMiessageInvoke<EventMsg> {
+        override fun eventBus(event: EventMsg) {
+            if (event.type == EventMsg.TYPE_NEW_MSG) {
+                setNotify()
+            }
         }
     })
-    private val eventWakeup = EventWakeup(IMiessageInvoke { wakeUp() })
+    private val eventWakeup = EventWakeup(object : IMiessageInvoke<EventWakeup> {
+        override fun eventBus(event: EventWakeup) {
+            wakeUp()
+        }
+    })
 
 
     override fun onAttachedToWindow() {
@@ -205,21 +211,21 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
     private fun setNotify() {
 
         val familyId = try {
-            DataManager.getFamilyId()
+            DataManager.familyId
         } catch (e: Exception) {
             e.printStackTrace()
             LoginUtil.toLoginActivity()
             return
         }
 
-        mCompositeDisposable.add(BusModel().getTop3UnReadMsg(familyId)!!.subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, ActionConfig(false, SHOWERRORMESSAGE)) {
+        mCompositeDisposable.add(BusModel().getTop3UnReadMsg(familyId!!)!!.subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, ActionConfig(false, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<List<MsgDto.ContentBean>>) {
                 super.onResponse(response)
                 val notifys = response.data
-                val notifyAdapter = HomeNotifyAdapter(this@LockService, notifys)
+                val notifyAdapter = notifys?.let { HomeNotifyAdapter(this@LockService, it) }
                 rv_home_msg!!.adapter = notifyAdapter
 
-                notifyAdapter.setOnItemClickListener { adapter, holder, position -> wakeUp() }
+                notifyAdapter?.setOnItemClickListener { adapter, holder, position -> wakeUp() }
             }
 
         }))

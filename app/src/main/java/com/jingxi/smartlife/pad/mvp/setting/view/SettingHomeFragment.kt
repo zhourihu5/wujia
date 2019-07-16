@@ -82,7 +82,7 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
             R.id.item_check_update -> {
                 showLoadingDialog(getString(R.string.check_update_ing))
 
-                mPresenter.checkVersion()
+                mPresenter?.checkVersion()
             }
         }
     }
@@ -143,13 +143,13 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
     override fun onDataLoadSucc(requestCode: Int, `object`: Any) {
         hideLoadingDialog()
         val bean = `object` as VersionBean
-
-
-        if (MyReceiver.isUpdate(bean.data)) {
-            start(UpdateFragment.newInstance(bean.data, bean.data.desc))
+        bean?.data?.let { if (MyReceiver.isUpdate(it)) {
+            start(UpdateFragment.newInstance(it, it.desc))
         } else {
             ToastUtil.showShort(mContext, "已是最新版本")
-        }
+        } }
+
+
     }
 
     override fun onDataLoadFailed(requestCode: Int, apiException: ApiException) {

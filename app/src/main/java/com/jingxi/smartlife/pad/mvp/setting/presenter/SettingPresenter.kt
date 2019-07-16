@@ -22,11 +22,11 @@ class SettingPresenter : RxPresenter<SettingContract.View>(), SettingContract.Pr
         addSubscribe(mModel.checkVersion().subscribeWith(object : SimpleRequestSubscriber<VersionBean>(mView, ActionConfig(false, SHOWERRORMESSAGE)) {
             override fun onResponse(response: VersionBean) {
                 super.onResponse(response)
-                mView.onDataLoadSucc(0, response)
+                mView?.onDataLoadSucc(0, response)
             }
 
             override fun onFailed(apiException: ApiException) {
-                mView.onDataLoadFailed(0, apiException)
+                mView?.onDataLoadFailed(0, apiException)
                 super.onFailed(apiException)
             }
         }))

@@ -43,22 +43,24 @@ class AllServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Horiz
     internal var type: String = TYPE_MY
 
 
-    private val event = EventSubscription(IMiessageInvoke { event ->
-        if (event.type == EventSubscription.TYPE_NOTIFY) {
-            pageNo = 1
-            getList(false)
-        } else if (isVisible && event.eventType != EventSubscription.PUSH_NOTIFY) {
-            mLoadMoreWrapper!!.notifyDataSetChanged()
-        } else {
-            when (event.type) {
-                EventSubscription.TYPE_GOV -> {
+    private val event = EventSubscription(object : IMiessageInvoke<EventSubscription> {
+        override fun eventBus(event: EventSubscription) {
+            if (event.type == EventSubscription.TYPE_NOTIFY) {
+                pageNo = 1
+                getList(false)
+            } else if (isVisible && event.eventType != EventSubscription.PUSH_NOTIFY) {
+                mLoadMoreWrapper!!.notifyDataSetChanged()
+            } else {
+                when (event.type) {
+                    EventSubscription.TYPE_GOV -> {
+                    }
+                    EventSubscription.TYPE_FIND -> if (type == TYPE_GOV) {
+                        return
+                    }
                 }
-                EventSubscription.TYPE_FIND -> if (type == TYPE_GOV) {
-                    return@IMiessageInvoke
-                }
+                pageNo = 1
+                getList(true)
             }
-            pageNo = 1
-            getList(true)
         }
     })
 
@@ -139,9 +141,9 @@ class AllServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Horiz
                 if (pageNo == 1)
                     datas!!.clear()
 
-                datas!!.addAll(response.data.page!!.content!!)
+                datas!!.addAll(response.data?.page!!.content!!)
 
-                if (response.data.page!!.last) {
+                if (response.data!!.page!!.last) {
                     mLoadMoreWrapper!!.setLoadMoreView(0)
                 } else {
                     mLoadMoreWrapper!!.setLoadMoreView(R.layout.view_loadmore)

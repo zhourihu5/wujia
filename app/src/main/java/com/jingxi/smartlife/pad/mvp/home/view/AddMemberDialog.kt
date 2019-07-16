@@ -19,7 +19,8 @@ import kotlinx.android.synthetic.main.dialog_add_member_layout.*
  * Description:
  */
 class AddMemberDialog(context: Context, internal var datas: List<HomeUserInfoBean.DataBean.UserInfoListBean>) : CommDialog(context, R.style.dialogStyle) {
-
+    override val layoutId: Int
+        get() = R.layout.dialog_add_member_layout
     private var listener: OnInputDialogListener? = null
 
 
@@ -51,9 +52,6 @@ class AddMemberDialog(context: Context, internal var datas: List<HomeUserInfoBea
         HookUtil.fixInputMethodManagerLeak(mContext)
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.dialog_add_member_layout
-    }
 
     fun setListener(listener: OnInputDialogListener): AddMemberDialog {
         this.listener = listener

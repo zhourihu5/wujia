@@ -107,7 +107,7 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener, SurfaceHolder.C
 
         } else {
             try {
-                familyID = DataManager.getDockKey()
+                familyID = DataManager.dockKey
             } catch (e: Exception) {
                 LoginUtil.toLoginActivity()
                 e.printStackTrace()

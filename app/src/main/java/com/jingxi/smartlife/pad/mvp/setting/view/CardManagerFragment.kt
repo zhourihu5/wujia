@@ -30,7 +30,11 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
     private var addedAdapter: HomeCardManagerAdapter? = null
     private var unaddAdapter: HomeCardManagerAdapter? = null
 
-    private val eventCardChange = EventCardChange(IMiessageInvoke { mPresenter.getUserQuickCard() })
+    private val eventCardChange = EventCardChange(object : IMiessageInvoke<EventCardChange> {
+        override fun eventBus(event: EventCardChange) {
+            mPresenter?.getUserQuickCard()
+        }
+    })
 
     internal var isChanged = false
     private var isUnregistered = false
@@ -50,7 +54,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         layout_title_tv!!.setText(R.string.manager_home_card)
 
         //        mPresenter.getUserQuickCard();
-        mPresenter.getQuickCard()
+        mPresenter?.getQuickCard()
         EventBusUtil.register(eventCardChange)
 
     }
@@ -72,7 +76,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
             override fun removeCard(pos: Int) {
                 isChanged = true
-                addList!![pos].id?.let { mPresenter.removeUserQuickCard(it) }
+                addList!![pos].id?.let { mPresenter?.removeUserQuickCard(it) }
 
                 unaddList!!.add(addList!!.removeAt(pos))
                 addedAdapter!!.notifyItemRemoved(pos)
@@ -99,7 +103,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         unaddAdapter!!.setManagerCardListener(object : HomeCardManagerAdapter.OnManagerCardListener {
             override fun addCard(pos: Int) {
                 isChanged = true
-                unaddList!![pos].id?.let { mPresenter.addUserQuickCard(it) }
+                unaddList!![pos].id?.let { mPresenter?.addUserQuickCard(it) }
 
                 addList!!.add(unaddList!!.removeAt(pos))
                 unaddAdapter!!.notifyItemRemoved(pos)

@@ -26,7 +26,8 @@ import java.math.BigDecimal
  * description ：检查更新
  */
 class UpdateFragment : TitleFragment() {
-
+    override val title: Int
+        get() = R.string.check_update
 
     private var mVersion: VersionBean.Version? = null
     private var mTask: DownloadTask? = null
@@ -45,10 +46,6 @@ class UpdateFragment : TitleFragment() {
         return R.layout.fragment_update
     }
 
-    override fun getTitle(): Int {
-        return R.string.check_update
-    }
-
     @OnClick(R.id.btn_update_now)
     fun onViewClicked() {
         update_check_layout!!.visibility = View.GONE
@@ -60,7 +57,8 @@ class UpdateFragment : TitleFragment() {
     }
 
     private fun download() {
-        mTask = DownloadUtil.download(mVersion!!.imageurl, object : DownloadListener {
+        mTask = mVersion?.imageurl?.let {
+            DownloadUtil.download(it, object : DownloadListener {
             override fun onTaskStart() {
 
             }
@@ -116,6 +114,7 @@ class UpdateFragment : TitleFragment() {
                 }
             }
         })
+        }
     }
 
     override fun onDestroyView() {
@@ -127,7 +126,7 @@ class UpdateFragment : TitleFragment() {
 
     companion object {
 
-        fun newInstance(version: VersionBean.Version, remark: String): UpdateFragment {
+        fun newInstance(version: VersionBean.Version, remark: String?): UpdateFragment {
             val fragment = UpdateFragment()
             val args = Bundle()
             args.putSerializable("version", version)

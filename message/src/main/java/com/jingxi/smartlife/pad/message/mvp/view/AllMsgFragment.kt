@@ -39,14 +39,16 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
     private var page = 1
     private val pageSize = 15
 
-    private val eventMsg = EventMsg(IMiessageInvoke { event ->
-        if (event.type == EventMsg.TYPE_NEW_MSG) {
-            reset()
-            getData(false)
-        } else if (event.type == EventMsg.TYPE_READ) {
-            if (!isVisible) {//本页也会发送TYPE_READ,adapter已处理，所以页面显示时不处理
+    private val eventMsg = EventMsg(object : IMiessageInvoke<EventMsg> {
+        override fun eventBus(event: EventMsg) {
+            if (event.type == EventMsg.TYPE_NEW_MSG) {
                 reset()
                 getData(false)
+            } else if (event.type == EventMsg.TYPE_READ) {
+                if (!isVisible) {//本页也会发送TYPE_READ,adapter已处理，所以页面显示时不处理
+                    reset()
+                    getData(false)
+                }
             }
         }
     })
@@ -124,25 +126,25 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
         }
         var familyId: String? = null
         try {
-            familyId = DataManager.getFamilyId()
+            familyId = DataManager.familyId
         } catch (e: Exception) {
             e.printStackTrace()
             LoginUtil.toLoginActivity()
             return
         }
 
-        addSubscribe(busModel!!.getMsg(familyId, type, status, page, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<MsgDto>>(this, SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(busModel!!.getMsg(familyId!!, type, status, page, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<MsgDto>>(this, SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<MsgDto>) {
                 super.onResponse(response)
 
-                val temp = response.data.content
+                val temp = response.data?.content
                 if (page == 1) {
                     msgList!!.clear()
                 }
                 if (temp != null && temp.size > 0) {
                     msgList!!.addAll(temp)
                 }
-                if (response.data.isLast) {
+                if (response.data?.isLast!!) {
                     mLoadMoreWrapper!!.setLoadMoreView(0)
                 } else {
                     mLoadMoreWrapper!!.setLoadMoreView(R.layout.view_loadmore)

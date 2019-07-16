@@ -90,7 +90,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
         super.onLazyInitView(savedInstanceState)
         LogUtil.i("SafeOutsideFragment onLazyInitView")
         try {
-            familyID = DataManager.getDockKey()
+            familyID = DataManager.dockKey
         } catch (e: Exception) {
             LoginUtil.toLoginActivity()
             LogUtil.t("get familyid failed", e)
@@ -153,15 +153,16 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
 
 
     protected fun destroyDoorAccessManager() {
-        if (mDoorAccessManager != null) {
-            mDoorAccessManager!!.hangupCall(mSessionId)
-            mDoorAccessManager!!.updateCallWindow(mSessionId, null)
-            mDoorAccessManager!!.setListUIListener(null)
-            mDoorAccessManager!!.removeConversationUIListener(this)
-            mDoorAccessManager!!.removePlayBackListener(this)
-            mDoorAccessManager = null
+        mDoorAccessManager?.apply {
+            hangupCall(mSessionId)
+            updateCallWindow(mSessionId, null)
+            setListUIListener(null)
+            removeConversationUIListener(this@SafeOutsideFragment)
+            removePlayBackListener(this@SafeOutsideFragment)
             LogUtil.i("destroyDoorAccessManager")
         }
+        mDoorAccessManager=null
+
     }
 
     private fun setVideo() {

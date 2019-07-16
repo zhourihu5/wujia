@@ -15,6 +15,7 @@ import com.wujia.businesslib.listener.DownloadListener
 import com.wujia.businesslib.model.BusModel
 import com.wujia.lib.widget.util.ToastUtil
 import com.wujia.lib_common.base.BasePresenter
+import com.wujia.lib_common.base.BaseView
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
 import com.wujia.lib_common.data.network.exception.ApiException
 import com.wujia.lib_common.utils.AppUtil
@@ -31,7 +32,7 @@ import io.reactivex.schedulers.Schedulers
  * date ：2019-02-17
  * description ：
  */
-abstract class ServiceBaseFragment<T : BasePresenter<*>> : MvpFragment<T>() {
+abstract class ServiceBaseFragment<T : BasePresenter<*>> : MvpFragment<BasePresenter<BaseView>>() {
     internal var mTask: DownloadTask? = null
 
     protected fun getAdapter(datas: List<CardDetailBean.ServicesBean>): FindServiceChildAdapter {
@@ -107,9 +108,9 @@ abstract class ServiceBaseFragment<T : BasePresenter<*>> : MvpFragment<T>() {
         }
         if (item.flag == CardDetailBean.TYPE_WEB) {
             if (this is FindServiceFragment || this is AllServiceFragment) {
-                parentStart(WebViewFragment.newInstance(item.url))
+                parentStart(item.url?.let { WebViewFragment.newInstance(it) })
             } else {
-                start(WebViewFragment.newInstance(item.url))
+                start(item.url?.let { WebViewFragment.newInstance(it) })
             }
         } else if (item.flag == CardDetailBean.TYPE_NATIVE) {
             val result = AppUtil.startAPPByPackageName(item.packageName)
@@ -128,58 +129,60 @@ abstract class ServiceBaseFragment<T : BasePresenter<*>> : MvpFragment<T>() {
             LogUtil.i("apk path = $apkPath")
 
             val loadDialog = LoadingProgressDialog(mContext)
-            mTask = DownloadUtil.download(item.url, object : DownloadListener {
-                override fun onTaskStart() {
+            mTask = item.url?.let {
+                DownloadUtil.download(it, object : DownloadListener {
+                    override fun onTaskStart() {
 
-                    loadDialog.show()
-                }
+                        loadDialog.show()
+                    }
 
-                override fun onTaskProgress(percent: Int, currentOffset: Long, totalLength: Long) {
-                    loadDialog?.updateProgress(percent)
-                }
+                    override fun onTaskProgress(percent: Int, currentOffset: Long, totalLength: Long) {
+                        loadDialog?.updateProgress(percent)
+                    }
 
-                override fun onTaskComplete(state: Int, filePath: String) {
+                    override fun onTaskComplete(state: Int, filePath: String) {
 
-                    when (state) {
+                        when (state) {
 
-                        DownloadUtil.STATE_COMPLETE -> {
-                            LogUtil.i("下载完成 $filePath")
-                            loadDialog?.setTvTitle("正在安装,请勿离开...")
-                            Observable.create(ObservableOnSubscribe<Boolean> { emitter ->
-                                LogUtil.i("install " + item.packageName)
-                                val install = AppUtil.install(filePath)
-                                //                                    boolean install = true;
-                                emitter.onNext(install)
-                            }).subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe { install ->
-                                        loadDialog?.dismiss()
-                                        if (install!!) {
-                                            ToastUtil.showShort(mContext, "安装完成")
-                                            //安装成功，本地记录
-                                            ThirdPermissionUtil.requestDefaultPermissions(item.packageName)
-                                        } else {
-                                            ToastUtil.showShort(mContext, "安装失败")
+                            DownloadUtil.STATE_COMPLETE -> {
+                                LogUtil.i("下载完成 $filePath")
+                                loadDialog?.setTvTitle("正在安装,请勿离开...")
+                                Observable.create(ObservableOnSubscribe<Boolean> { emitter ->
+                                    LogUtil.i("install " + item.packageName)
+                                    val install = AppUtil.install(filePath)
+                                    //                                    boolean install = true;
+                                    emitter.onNext(install)
+                                }).subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe { install ->
+                                            loadDialog?.dismiss()
+                                            if (install!!) {
+                                                ToastUtil.showShort(mContext, "安装完成")
+                                                //安装成功，本地记录
+                                                item.packageName?.let { ThirdPermissionUtil.requestDefaultPermissions(it) }
+                                            } else {
+                                                ToastUtil.showShort(mContext, "安装失败")
+                                            }
+                                            if (!AppUtil.startAPPByPackageName(item.packageName)) {
+                                                ToastUtil.showShort(mContext, "应用打开失败")
+                                            }
                                         }
-                                        if (!AppUtil.startAPPByPackageName(item.packageName)) {
-                                            ToastUtil.showShort(mContext, "应用打开失败")
-                                        }
-                                    }
-                        }
-                        DownloadUtil.STATE_CANCELED -> {
-                            LogUtil.i("download canceled")
-                            LogUtil.i("unknown cause")
-                            loadDialog?.dismiss()
-                            ToastUtil.showShort(mContext, "下载失败")
-                        }
-                        DownloadUtil.STATE_OTHER -> {
-                            LogUtil.i("unknown cause")
-                            loadDialog?.dismiss()
-                            ToastUtil.showShort(mContext, "下载失败")
+                            }
+                            DownloadUtil.STATE_CANCELED -> {
+                                LogUtil.i("download canceled")
+                                LogUtil.i("unknown cause")
+                                loadDialog?.dismiss()
+                                ToastUtil.showShort(mContext, "下载失败")
+                            }
+                            DownloadUtil.STATE_OTHER -> {
+                                LogUtil.i("unknown cause")
+                                loadDialog?.dismiss()
+                                ToastUtil.showShort(mContext, "下载失败")
+                            }
                         }
                     }
-                }
-            })
+                })
+            }
         }
 
     }

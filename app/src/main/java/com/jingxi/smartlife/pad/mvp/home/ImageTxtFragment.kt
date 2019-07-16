@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.market.mvp.adapter.FindServiceChildAdapter
 import com.jingxi.smartlife.pad.market.mvp.view.ServiceBaseFragment
@@ -41,13 +39,9 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
 
         val cardId = arguments!!.getString(KEY_TXT)
 
-        val rv1 = `$`<RecyclerView>(R.id.rv1)
-        val tvTitle = `$`<TextView>(R.id.layout_title_tv)
-        val btnBack = `$`<TextView>(R.id.layout_back_btn)
-
-        btnBack.visibility = View.VISIBLE
-        tvTitle.text = "详情"
-        btnBack.setOnClickListener { pop() }
+        layout_back_btn.visibility = View.VISIBLE
+        layout_title_tv.text = "详情"
+        layout_back_btn.setOnClickListener { pop() }
 
         webview!!.setBackgroundColor(0)
         webview!!.background.alpha = 0
@@ -87,12 +81,9 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
             mModel!!.getCardDetail(cardId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<CardDetailBean>>(this, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<CardDetailBean>) {
                 super.onResponse(response)
-                val txt = response.data.content
-                webview!!.loadData(txt, "text/html; charset=UTF-8", null)
+                response.data?.content?.let { webview!!.loadData(it, "text/html; charset=UTF-8", null) }
                 datas!!.clear()
-                if (response.data.services != null) {
-                    datas!!.addAll(response.data.services)
-                }
+                response.data?.services?.let { datas!!.addAll(it) }
                 mAdapter!!.notifyDataSetChanged()
             }
 

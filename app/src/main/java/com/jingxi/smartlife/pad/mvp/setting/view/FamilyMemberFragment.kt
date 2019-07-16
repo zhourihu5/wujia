@@ -26,18 +26,14 @@ import java.util.*
  * description ：
  */
 class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
-
-
-
+    override val title: Int
+        get() = R.string.set_family_member
     internal var mAdapter: SetMemberAdapter? = null
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_member
     }
 
-    override fun getTitle(): Int {
-        return R.string.set_family_member
-    }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
@@ -48,17 +44,17 @@ class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
 
         var familyId: String? = null
         try {
-            familyId = DataManager.getFamilyId()
+            familyId = DataManager.familyId
         } catch (e: Exception) {
             LogUtil.t("get familyId failed", e)
             LoginUtil.toLoginActivity()
             return
         }
 
-        addSubscribe(FamilyMemberModel().getFamilyMemberList(familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(this, ActionConfig(true, SHOWERRORMESSAGE)) {
+        addSubscribe(FamilyMemberModel().getFamilyMemberList(familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(this, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>) {
                 super.onResponse(response)
-                mAdapter = SetMemberAdapter(mContext, response.data)
+                mAdapter = response.data?.let { SetMemberAdapter(mContext, it) }
                 rv_member!!.adapter = mAdapter
             }
 
@@ -81,14 +77,14 @@ class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
     override fun dialogSureClick(input: String) {
         var familyId: String? = null
         try {
-            familyId = DataManager.getFamilyId()
+            familyId = DataManager.familyId
         } catch (e: Exception) {
             LoginUtil.toLoginActivity()
             LogUtil.t("get familyId failed", e)
             return
         }
 
-        addSubscribe(FamilyMemberModel().addFamilyMember(input, familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<String>>(this, ActionConfig(true, SHOWERRORMESSAGE)) {
+        addSubscribe(FamilyMemberModel().addFamilyMember(input, familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<String>>(this, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<String>) {
                 super.onResponse(response)
                 val userInfoListBean = HomeUserInfoBean.DataBean.UserInfoListBean()

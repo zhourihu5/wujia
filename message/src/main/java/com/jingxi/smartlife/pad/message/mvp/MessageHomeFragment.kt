@@ -16,10 +16,6 @@ import com.wujia.lib_common.utils.LogUtil
  */
 class MessageHomeFragment : TabFragment() {
 
-
-    private var msgFragment: AllMsgFragment? = null
-
-
     override fun getLayoutId(): Int {
         LogUtil.i("FamilyFragment getLayoutId")
 

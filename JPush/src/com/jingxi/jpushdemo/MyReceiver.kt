@@ -103,7 +103,7 @@ class MyReceiver : BroadcastReceiver() {
             }
             TYPE_ADV -> {
 
-                val currentActivity = BaseApplication.getCurrentAcitivity()
+                val currentActivity = BaseApplication.currentAcitivity
                 if (currentActivity != null && currentActivity.javaClass.name == "com.jingxi.smartlife.pad.safe.mvp.view.VideoCallActivity") {
                     return
                 }
@@ -122,32 +122,34 @@ class MyReceiver : BroadcastReceiver() {
 
                 val update = isUpdate(bean!!)
                 if (update) {
-                    DownloadUtil.download(bean.imageurl, object : DownloadListener {
-                        override fun onTaskStart() {
-                            LogUtil.i("download onTaskStart")
-                        }
-
-                        override fun onTaskProgress(percent: Int, currentOffset: Long, totalLength: Long) {
-                            LogUtil.i(String.format("download onTaskProgress percent=%d,currentOffset=%d,totalLength=%d", percent, currentOffset, totalLength))
-                        }
-
-                        override fun onTaskComplete(state: Int, filePath: String) {
-                            when (state) {
-
-                                DownloadUtil.STATE_COMPLETE -> {
-                                    LogUtil.i("download success,filepath:$filePath")
-                                    Observable.create(ObservableOnSubscribe<Boolean> { emitter ->
-                                        LogUtil.i("install $filePath")
-                                        val install = AppUtil.install(filePath)
-                                        emitter.onNext(install)
-                                    }).subscribeOn(Schedulers.io())
-                                            .observeOn(AndroidSchedulers.mainThread())
-                                            .subscribe { install -> LogUtil.i("install success:" + install!!) }
-                                }
-                                DownloadUtil.STATE_CANCELED, DownloadUtil.STATE_OTHER -> LogUtil.i("download error")
+                    bean.imageurl?.let {
+                        DownloadUtil.download(it, object : DownloadListener {
+                            override fun onTaskStart() {
+                                LogUtil.i("download onTaskStart")
                             }
-                        }
-                    })
+
+                            override fun onTaskProgress(percent: Int, currentOffset: Long, totalLength: Long) {
+                                LogUtil.i(String.format("download onTaskProgress percent=%d,currentOffset=%d,totalLength=%d", percent, currentOffset, totalLength))
+                            }
+
+                            override fun onTaskComplete(state: Int, filePath: String) {
+                                when (state) {
+
+                                    DownloadUtil.STATE_COMPLETE -> {
+                                        LogUtil.i("download success,filepath:$filePath")
+                                        Observable.create(ObservableOnSubscribe<Boolean> { emitter ->
+                                            LogUtil.i("install $filePath")
+                                            val install = AppUtil.install(filePath)
+                                            emitter.onNext(install)
+                                        }).subscribeOn(Schedulers.io())
+                                                .observeOn(AndroidSchedulers.mainThread())
+                                                .subscribe { install -> LogUtil.i("install success:" + install!!) }
+                                    }
+                                    DownloadUtil.STATE_CANCELED, DownloadUtil.STATE_OTHER -> LogUtil.i("download error")
+                                }
+                            }
+                        })
+                    }
                 }
             }
         }

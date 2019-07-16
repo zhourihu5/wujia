@@ -3,9 +3,6 @@ package com.jingxi.smartlife.pad.market.mvp.view
 import android.content.Context
 import android.view.Gravity
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
-
 import com.jingxi.smartlife.pad.market.R
 import com.wujia.businesslib.dialog.CommDialog
 import com.wujia.lib.imageloader.DensityUtil
@@ -17,6 +14,8 @@ import com.wujia.lib.widget.util.ToastUtil
  * Description:
  */
 class GoodsDetailsDialog(context: Context) : CommDialog(context, R.style.dialogStyle), View.OnClickListener {
+    override val layoutId: Int
+        get() = R.layout.dialog_goods_details
 
     override fun init(context: Context) {
 
@@ -24,10 +23,6 @@ class GoodsDetailsDialog(context: Context) : CommDialog(context, R.style.dialogS
 
         findViewById<View>(R.id.btn1).setOnClickListener(this)
 
-    }
-
-    override fun getLayoutId(): Int {
-        return R.layout.dialog_goods_details
     }
 
     private fun setSize() {

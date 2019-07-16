@@ -64,7 +64,11 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
     private var lastTop: Int = 0
     private var arrowLayoutParams: RelativeLayout.LayoutParams? = null
     private var manager: DoorAccessManager? = null
-    private val eventMsg = EventMsg(IMiessageInvoke { setMessagePoint() })
+    private val eventMsg = EventMsg(object : IMiessageInvoke<EventMsg> {
+        override fun eventBus(event: EventMsg) {
+            setMessagePoint()
+        }
+    })
     private var currentTab: Int = 0
     private var mWakelock: PowerManager.WakeLock? = null
 
@@ -73,7 +77,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
             override fun onResponse(response: ApiResponse<Boolean>) {
                 super.onResponse(response)
                 val tab = main_tab_bar.getChildAt(POSITION_MESSAGE) as VerticalTabItem
-                tab.setPoint(response.data)
+                response.data?.let { tab.setPoint(it) }
             }
         }))
     }
@@ -100,7 +104,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         LogUtil.i("ScreenUtil.densityDpi()  " + ScreenUtil.densityDpi)
         LogUtil.i("ScreenUtil.scaleDensity()  " + ScreenUtil.scaleDensity)
 
-        val token = DataManager.getToken()
+        val token = DataManager.token
         if (TextUtils.isEmpty(token)) {
             LogUtil.i("before login")
             LoginUtil.toLoginActivity()
@@ -214,8 +218,8 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         var dockeKey=""
         val buttonKey:String?
         try {
-             dockeKey = DataManager.getDockKey()
-            buttonKey= DataManager.getButtonKey()
+             dockeKey = DataManager.dockKey
+            buttonKey= DataManager.buttonKey
         } catch (e: Exception) {
             LogUtil.t("获取dockKey失败", e)
             LoginUtil.toLoginActivity()

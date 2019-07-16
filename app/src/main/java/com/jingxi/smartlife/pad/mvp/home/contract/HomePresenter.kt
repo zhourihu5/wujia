@@ -28,13 +28,13 @@ class HomePresenter : RxPresenter<HomeContract.View>(), HomeContract.Presenter {
             override fun onResponse(response: HomeRecBean) {
                 super.onResponse(response)
                 if (response.isSuccess) {
-                    mView.onDataLoadSucc(REQUEST_CDOE_GET_CARD_OTHER, response)
+                    mView?.onDataLoadSucc(REQUEST_CDOE_GET_CARD_OTHER, response)
                 }
             }
 
             override fun onFailed(apiException: ApiException) {
                 super.onFailed(apiException)
-                mView.onDataLoadFailed(REQUEST_CDOE_GET_CARD_OTHER, apiException)
+                mView?.onDataLoadFailed(REQUEST_CDOE_GET_CARD_OTHER, apiException)
             }
         }))
 
@@ -49,13 +49,13 @@ class HomePresenter : RxPresenter<HomeContract.View>(), HomeContract.Presenter {
                         override fun onResponse(response: WeatherInfoBean) {
                             super.onResponse(response)
                             if (response.isSuccess) {
-                                mView.onDataLoadSucc(REQUEST_CDOE_WEATHER, response)
+                                mView?.onDataLoadSucc(REQUEST_CDOE_WEATHER, response)
                             }
                         }
 
                         override fun onFailed(apiException: ApiException) {
                             super.onFailed(apiException)
-                            mView.onDataLoadFailed(REQUEST_CDOE_WEATHER, apiException)
+                            mView?.onDataLoadFailed(REQUEST_CDOE_WEATHER, apiException)
                         }
                     }))
                 })
@@ -67,13 +67,13 @@ class HomePresenter : RxPresenter<HomeContract.View>(), HomeContract.Presenter {
             override fun onResponse(response: HomeUserInfoBean) {
                 super.onResponse(response)
                 if (response.isSuccess) {
-                    mView.onDataLoadSucc(REQUEST_CDOE_HOME_USER, response)
+                    mView?.onDataLoadSucc(REQUEST_CDOE_HOME_USER, response)
                 }
             }
 
             override fun onFailed(apiException: ApiException) {
                 super.onFailed(apiException)
-                mView.onDataLoadFailed(REQUEST_CDOE_HOME_USER, apiException)
+                mView?.onDataLoadFailed(REQUEST_CDOE_HOME_USER, apiException)
             }
         }))
 
@@ -84,13 +84,13 @@ class HomePresenter : RxPresenter<HomeContract.View>(), HomeContract.Presenter {
             override fun onResponse(response: HomeRecBean) {
                 super.onResponse(response)
                 if (response.isSuccess) {
-                    mView.onDataLoadSucc(REQUEST_CDOE_GET_CARD_MY, response)
+                    mView?.onDataLoadSucc(REQUEST_CDOE_GET_CARD_MY, response)
                 }
             }
 
             override fun onFailed(apiException: ApiException) {
                 super.onFailed(apiException)
-                mView.onDataLoadFailed(REQUEST_CDOE_GET_CARD_MY, apiException)
+                mView?.onDataLoadFailed(REQUEST_CDOE_GET_CARD_MY, apiException)
             }
         }))
     }
@@ -100,13 +100,13 @@ class HomePresenter : RxPresenter<HomeContract.View>(), HomeContract.Presenter {
             override fun onResponse(response: RootResponse) {
                 super.onResponse(response)
                 if (response.isSuccess) {
-                    mView.onDataLoadSucc(REQUEST_CDOE_ADD_CARD, response)
+                    mView?.onDataLoadSucc(REQUEST_CDOE_ADD_CARD, response)
                 }
             }
 
             override fun onFailed(apiException: ApiException) {
                 super.onFailed(apiException)
-                mView.onDataLoadFailed(REQUEST_CDOE_ADD_CARD, apiException)
+                mView?.onDataLoadFailed(REQUEST_CDOE_ADD_CARD, apiException)
             }
         }))
     }
@@ -116,13 +116,13 @@ class HomePresenter : RxPresenter<HomeContract.View>(), HomeContract.Presenter {
             override fun onResponse(response: RootResponse) {
                 super.onResponse(response)
                 if (response.isSuccess) {
-                    mView.onDataLoadSucc(REQUEST_CDOE_REMOVE_CARD, response)
+                    mView?.onDataLoadSucc(REQUEST_CDOE_REMOVE_CARD, response)
                 }
             }
 
             override fun onFailed(apiException: ApiException) {
                 super.onFailed(apiException)
-                mView.onDataLoadFailed(REQUEST_CDOE_REMOVE_CARD, apiException)
+                mView?.onDataLoadFailed(REQUEST_CDOE_REMOVE_CARD, apiException)
             }
         }))
     }

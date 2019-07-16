@@ -29,21 +29,6 @@ class MessageFragment : BaseMainFragment() {
             loadRootFragment(R.id.fl_first_container, MessageHomeFragment.newInstance(currentTab))
         }
     }
-
-    override fun onSupportVisible() {
-        super.onSupportVisible()
-        // 当对用户可见时 回调
-        // 不管是 父Fragment还是子Fragment 都有效！
-
-    }
-
-    override fun onSupportInvisible() {
-        super.onSupportInvisible()
-        // 当对用户不可见时 回调
-        // 不管是 父Fragment还是子Fragment 都有效！
-
-    }
-
     companion object {
 
         fun newInstance(): MessageFragment {

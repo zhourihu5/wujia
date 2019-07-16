@@ -20,7 +20,7 @@ class LoginPresenter : RxPresenter<LoginContract.View>(), LoginContract.Presente
 
 
     override fun doTimeChange() {
-        mView.timeChange(DateUtil.getCurrentTimeHHMM())
+        mView?.timeChange(DateUtil.getCurrentTimeHHMM())
     }
 
     override fun doLogin(mobile: String, captcha: String, padSn: String) {
@@ -28,13 +28,13 @@ class LoginPresenter : RxPresenter<LoginContract.View>(), LoginContract.Presente
             override fun onResponse(response: LoginDTO) {
                 super.onResponse(response)
                 if (response.isSuccess) {
-                    mView.onDataLoadSucc(REQUEST_CDOE_LOGIN, response)
+                    mView?.onDataLoadSucc(REQUEST_CDOE_LOGIN, response)
                 }
             }
 
             override fun onFailed(apiException: ApiException) {
                 super.onFailed(apiException)
-                mView.onDataLoadFailed(REQUEST_CDOE_LOGIN, apiException)
+                mView?.onDataLoadFailed(REQUEST_CDOE_LOGIN, apiException)
             }
         }))
 
@@ -45,13 +45,13 @@ class LoginPresenter : RxPresenter<LoginContract.View>(), LoginContract.Presente
             override fun onResponse(response: RootResponse) {
                 super.onResponse(response)
                 if (response.isSuccess) {
-                    mView.onDataLoadSucc(REQUEST_CDOE_GET_CODE, response)
+                    mView?.onDataLoadSucc(REQUEST_CDOE_GET_CODE, response)
                 }
             }
 
             override fun onFailed(apiException: ApiException) {
                 super.onFailed(apiException)
-                mView.onDataLoadFailed(REQUEST_CDOE_GET_CODE, apiException)
+                mView?.onDataLoadFailed(REQUEST_CDOE_GET_CODE, apiException)
             }
         }))
 

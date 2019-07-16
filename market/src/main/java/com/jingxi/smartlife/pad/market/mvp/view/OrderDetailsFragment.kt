@@ -15,7 +15,8 @@ import java.util.*
  * Description:
  */
 class OrderDetailsFragment : TitleFragment(), PayTypeDialog.PayListener, View.OnClickListener {
-
+    override val title: Int
+        get() = R.string.family_order
     private var mAdapter: OrderGoodsAdapter? = null
 
     override fun getLayoutId(): Int {
@@ -54,9 +55,6 @@ class OrderDetailsFragment : TitleFragment(), PayTypeDialog.PayListener, View.On
         //        new PayQRcodeDialog(mContext).show();
     }
 
-    override fun getTitle(): Int {
-        return R.string.family_order
-    }
 
     override fun choosePayType(type: Int) {
 

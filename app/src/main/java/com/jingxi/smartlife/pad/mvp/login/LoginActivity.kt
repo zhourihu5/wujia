@@ -52,7 +52,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
         FontUtils.changeFontTypeface(login_temperature_tv, FontUtils.Font_TYPE_EXTRA_LIGHT)
 
         login_time_date_tv!!.text = StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay())
-        mPresenter.doTimeChange()
+        mPresenter?.doTimeChange()
 
     }
 
@@ -84,7 +84,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
                     return
                 }
                 login_phone_error!!.visibility = View.INVISIBLE
-                mPresenter.doGetCode(phone)
+                mPresenter?.doGetCode(phone)
             }
         }//                startTimer();
     }
@@ -155,7 +155,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 
         val sn = SystemUtil.getSerialNum()
         LogUtil.i("sn $sn")
-        mPresenter.doLogin(phone, pwd, sn)
+        mPresenter?.doLogin(phone, pwd, sn)
 
     }
 
@@ -177,19 +177,19 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
                 val userBean = `object` as LoginDTO
 
                 SPHelper.saveObject(this@LoginActivity, Constants.SP_KEY_USER, userBean.data)//todo 对象流兼容性不好，修改为json等格式保存。
-                DataManager.saveToken(userBean.data.token)
+                userBean.data?.token?.let { DataManager.saveToken(it) }
 
                 //set push alias
                 val tagAliasBean = TagAliasOperatorHelper.TagAliasBean()
                 tagAliasBean.isAliasAction = true
-                tagAliasBean.alias = userBean.data.userInfo.userName
+                tagAliasBean.alias = userBean.data?.userInfo?.userName
                 tagAliasBean.action = TagAliasOperatorHelper.ACTION_SET
                 TagAliasOperatorHelper.instance.handleAction(applicationContext, TagAliasOperatorHelper.sequence, tagAliasBean)
 
                 val tagAliasBeanTag = TagAliasOperatorHelper.TagAliasBean()
                 tagAliasBeanTag.isAliasAction = false
                 val tags = HashSet<String>()
-                tags.add("community_" + userBean.data.userInfo.communtityId)
+                tags.add("community_" + userBean.data?.userInfo?.communtityId)
 
                 tagAliasBeanTag.tags = tags
                 tagAliasBeanTag.action = TagAliasOperatorHelper.ACTION_SET
@@ -197,7 +197,8 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 
 
                 login_phone_error!!.visibility = View.INVISIBLE
-                login_welcom_name!!.append(userBean.data.userInfo.nickName)
+                userBean.data?.userInfo?.nickName?.let { login_welcom_name!!.append(it) }
+
                 login_layout_1!!.visibility = View.GONE
                 login_layout_2!!.visibility = View.VISIBLE
 
@@ -206,7 +207,8 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
             LoginPresenter.REQUEST_CDOE_TOKEN -> {
                 val bean = `object` as TokenBean
                 LogUtil.i(bean.toString())
-                DataManager.saveToken(bean.content)
+                bean.content?.let { DataManager.saveToken(it) }
+
             }
         }
     }

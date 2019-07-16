@@ -18,7 +18,8 @@ import java.util.*
  * Description:
  */
 class OrderListFragment : TitleFragment(), View.OnClickListener, HorizontalTabBar.OnTabSelectedListener {
-
+    override val title: Int
+        get() = R.string.family_order
     internal lateinit var mAdapter: EmptyWrapper
 
     override fun getLayoutId(): Int {
@@ -50,9 +51,6 @@ class OrderListFragment : TitleFragment(), View.OnClickListener, HorizontalTabBa
         adapter.setOnItemClickListener { adapter, holder, position -> start(OrderDetailsFragment.newInstance("id")) }
     }
 
-    override fun getTitle(): Int {
-        return R.string.family_order
-    }
 
     override fun onClick(v: View) {
         val id = v.id
