@@ -61,9 +61,7 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
     @OnClick(R.id.item_set_member, R.id.item_manager_card, R.id.item_set_lock_pic, R.id.item_wifi_connection, R.id.item_allow_look_door_num, R.id.item_clear_cache, R.id.item_check_update)
     fun onViewClicked(view: View) {
         when (view.id) {
-            R.id.item_set_member ->
-
-                start(FamilyMemberFragment.newInstance())
+            R.id.item_set_member -> start(FamilyMemberFragment.newInstance())
             R.id.item_manager_card -> startForResult(CardManagerFragment.newInstance(), CardManagerFragment.REQUEST_CODE_CARD_MANAGER)
             R.id.item_set_lock_pic -> {
                 //                startActivity(new Intent(Settings.ACTION_DISPLAY_SETTINGS));

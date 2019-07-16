@@ -22,7 +22,6 @@ import com.jingxi.smartlife.pad.market.mvp.MarketHomeFragment
 import com.jingxi.smartlife.pad.message.MessageFragment
 import com.jingxi.smartlife.pad.message.mvp.MessageHomeFragment
 import com.jingxi.smartlife.pad.mvp.home.HomeFragment
-import com.jingxi.smartlife.pad.mvp.setting.view.SettingHomeFragment
 import com.jingxi.smartlife.pad.property.ProperyFragment
 import com.jingxi.smartlife.pad.property.mvp.ProperyHomeFragment
 import com.jingxi.smartlife.pad.safe.SafeFragment
@@ -138,7 +137,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
             mFragments[4] = MessageFragment.newInstance()
             mFragments[5] = MarketFragment.newInstance()
             //            mFragments[6] = NeighborFragment.newInstance();
-            mFragments[6] = SettingHomeFragment.newInstance()
+            mFragments[6] = SettingFragment.newInstance()
 
             loadMultipleRootFragment(R.id.container, currentTab,
                     mFragments[0],

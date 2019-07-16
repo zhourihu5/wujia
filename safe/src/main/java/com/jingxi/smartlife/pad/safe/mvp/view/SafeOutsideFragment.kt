@@ -2,11 +2,11 @@ package com.jingxi.smartlife.pad.safe.mvp.view
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.view.SurfaceHolder
 import android.view.View
 import android.widget.SeekBar
+import androidx.recyclerview.widget.RecyclerView
 import com.intercom.sdk.IntercomConstants
 import com.intercom.sdk.IntercomObserver
 import com.jingxi.smartlife.pad.safe.R
@@ -190,17 +190,17 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
     }
 
     private fun setHistoryList() {
-
-        if (null == recordList) {
-            recordList = ArrayList()
-        }
+       recordList=recordList?:ArrayList()
+//        if (null == recordList) {
+//            recordList = ArrayList()
+//        }
 
         val recordBeans = mDoorAccessManager!!.getHistoryListByType(familyID, DoorRecordBean.RECORD_TYPE_DOOR, 0, 50)
         if (null != recordBeans && recordBeans.size > 0) {
             recordList!!.clear()
             recordList!!.addAll(recordBeans)
         }
-        recAdapter = PlayBackAdapter(mContext, recordList)
+        recAdapter = PlayBackAdapter(mContext, recordList!!)
         rv_play_back!!.adapter = recAdapter
         recAdapter!!.setOnItemClickListener(this)
 

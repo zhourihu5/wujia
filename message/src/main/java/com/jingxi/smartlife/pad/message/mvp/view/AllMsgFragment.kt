@@ -19,7 +19,6 @@ import com.wujia.lib_common.base.BasePresenter
 import com.wujia.lib_common.base.BaseView
 import com.wujia.lib_common.base.baseadapter.wrapper.LoadMoreWrapper
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
-import com.wujia.lib_common.data.network.exception.ApiException
 import kotlinx.android.synthetic.main.fragment_msg_all.*
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
@@ -33,15 +32,12 @@ import java.util.*
 class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.OnTabSelectedListener, LoadMoreWrapper.OnLoadMoreListener, MessageAdapter.ReadMsgCallback {
 
 
-    private var msgList: ArrayList<MsgDto.ContentBean>? = null
+    private lateinit var msgList: ArrayList<MsgDto.ContentBean>
     private var mAdapter: MessageAdapter? = null
     private var currentState = 0
     private var mLoadMoreWrapper: LoadMoreWrapper? = null
     private var page = 1
     private val pageSize = 15
-    //    private ArrayList<DBMessage> allList;//所有数据
-
-//    private var isVisible: Boolean = false
 
     private val eventMsg = EventMsg(IMiessageInvoke { event ->
         if (event.type == EventMsg.TYPE_NEW_MSG) {
@@ -76,10 +72,7 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
 
     private fun reset() {
         page = 1
-        if (msgList != null) {
-            msgList!!.clear()
-            mLoadMoreWrapper!!.notifyDataSetChanged()
-        }
+        msgList?.let { it.clear();mLoadMoreWrapper?.notifyDataSetChanged() }
     }
 
     override fun getLayoutId(): Int {

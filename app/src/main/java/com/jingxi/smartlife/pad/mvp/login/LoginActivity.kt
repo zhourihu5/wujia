@@ -184,7 +184,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
                 tagAliasBean.isAliasAction = true
                 tagAliasBean.alias = userBean.data.userInfo.userName
                 tagAliasBean.action = TagAliasOperatorHelper.ACTION_SET
-                TagAliasOperatorHelper.getInstance().handleAction(applicationContext, TagAliasOperatorHelper.sequence, tagAliasBean)
+                TagAliasOperatorHelper.instance.handleAction(applicationContext, TagAliasOperatorHelper.sequence, tagAliasBean)
 
                 val tagAliasBeanTag = TagAliasOperatorHelper.TagAliasBean()
                 tagAliasBeanTag.isAliasAction = false
@@ -193,7 +193,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 
                 tagAliasBeanTag.tags = tags
                 tagAliasBeanTag.action = TagAliasOperatorHelper.ACTION_SET
-                TagAliasOperatorHelper.getInstance().handleAction(applicationContext, TagAliasOperatorHelper.sequence, tagAliasBeanTag)
+                TagAliasOperatorHelper.instance.handleAction(applicationContext, TagAliasOperatorHelper.sequence, tagAliasBeanTag)
 
 
                 login_phone_error!!.visibility = View.INVISIBLE

@@ -177,11 +177,9 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
                                 val curdate = DateUtil.getCurrentyyyymmddhh() + "00"
                                 var weatherList: List<WeatherInfoBean.DataBean.WeatherBean.ShowapiResBodyBean.HourListBean>? = null
                                 try {
-                                    weatherList = weatherInfoBean.data.weather.showapi_res_body.hourList
+                                    weatherList = weatherInfoBean.data!!.weather!!.showapi_res_body!!.hourList
                                 } catch (e: Exception) {
-                                    //                    e.printStackTrace();
                                 }
-
                                 if (weatherList != null) {
                                     for (weather in weatherList) {
                                         if (weather.time == curdate) {

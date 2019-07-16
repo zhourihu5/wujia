@@ -2,15 +2,15 @@ package com.wujia.lib_common.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.reactivex.disposables.CompositeDisposable;
 import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -23,9 +23,6 @@ public abstract class BaseFragment extends SupportFragment {
     protected Context mContext;
     private Unbinder mUnBinder;
     protected View mView;
-
-    protected CompositeDisposable mCompositeDisposable;
-
 
     @Override
     public void onAttach(Context context) {
@@ -100,11 +97,4 @@ public abstract class BaseFragment extends SupportFragment {
         Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
     }
 
-//    @Override
-//    public boolean onBackPressedSupport() {
-//        if (mActivity.getSupportFragmentManager().getBackStackEntryCount() > 1) {
-//            pop();
-//        }
-//        return super.onBackPressedSupport();
-//    }
 }

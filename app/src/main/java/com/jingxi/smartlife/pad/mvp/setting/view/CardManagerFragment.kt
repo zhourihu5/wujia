@@ -72,7 +72,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
             override fun removeCard(pos: Int) {
                 isChanged = true
-                mPresenter.removeUserQuickCard(addList!![pos].id)
+                addList!![pos].id?.let { mPresenter.removeUserQuickCard(it) }
 
                 unaddList!!.add(addList!!.removeAt(pos))
                 addedAdapter!!.notifyItemRemoved(pos)
@@ -158,13 +158,13 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
                 val cards = `object` as HomeRecBean
                 if (cards.data != null && cards.data!!.size > 0) {
                     val toAddList = ArrayList<HomeRecBean.Card>()
-                    for (card in cards.data) {
-                        if ("NO" == card.userCards[0].isShow) {
+                    for (card in cards.data!!) {
+                        if ("NO" == card.userCards!![0].isShow) {
                             toAddList.add(card)
                         }
                     }
-                    cards.data.removeAll(toAddList)
-                    setUserCard(cards.data)
+                    cards.data!!.removeAll(toAddList)
+                    setUserCard(cards.data!!)
                     setOtherCard(toAddList)
                 }
             }

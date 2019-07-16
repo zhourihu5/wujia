@@ -72,7 +72,7 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
 
         datas = ArrayList()
 
-        mAdapter = getAdapter(datas)
+        mAdapter = getAdapter(datas!!)
         rv1.adapter = mAdapter
 
         mModel = HomeModel()

@@ -1,14 +1,15 @@
 package com.wujia.lib_common.base.baseadapter.wrapper;
 
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder;
 import com.wujia.lib_common.base.baseadapter.utils.WrapperUtils;
 
-public class EmptyWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class EmptyWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int ITEM_TYPE_EMPTY = Integer.MAX_VALUE - 1;
 
     private RecyclerView.Adapter mInnerAdapter;

@@ -134,9 +134,9 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
             when (card.type) {
                 HomeRecBean.TYPE_LINK -> start(WebViewFragment.newInstance(card.linkUrl))
 
-                HomeRecBean.TYPE_APP_PAGE -> parseLinkUrl(card.linkUrl)
+                HomeRecBean.TYPE_APP_PAGE -> card.linkUrl?.let { parseLinkUrl(it) }
 
-                HomeRecBean.TYPE_IMAGE -> start(ImageTxtFragment.newInstance(card.id))
+                HomeRecBean.TYPE_IMAGE -> start(card.id?.let { ImageTxtFragment.newInstance(it) })
 
                 HomeRecBean.TYPE_ADD -> start(CardManagerFragment.newInstance())
             }
@@ -264,7 +264,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
                 isRefreshCard = false
                 val homeRecBean = `object` as HomeRecBean
                 cards!!.clear()
-                cards!!.addAll(homeRecBean.data)
+                homeRecBean.data?.let { cards!!.addAll(it) }
                 cards!!.add(HomeRecBean.Card(HomeRecBean.TYPE_ADD))
                 homeCardAdapter!!.notifyDataSetChanged()
             }
@@ -273,20 +273,20 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
                 isRefreshUserData=false
                 val homeUserInfoBean = `object` as HomeUserInfoBean
 
-                home_room_tv!!.text = homeUserInfoBean.data.communtity.name
+                home_room_tv!!.text = homeUserInfoBean.data?.communtity?.name
 
-                memAdapter!!.setmDatas(homeUserInfoBean.data.userInfoList)
+                memAdapter!!.setmDatas(homeUserInfoBean.data?.userInfoList)
                 memAdapter!!.notifyDataSetChanged()
             }
             HomePresenter.REQUEST_CDOE_WEATHER -> {
                 isRefreshWeather=false
                 val weatherInfoBean = `object` as WeatherInfoBean
                 val dataBean = weatherInfoBean.data
-                val token = dataBean.token
+                val token = dataBean?.token
                 DataManager.saveToken(token)
 
                 try {
-                    home_car_num_tv!!.text = String.format("今日限行：%s", dataBean.restrict.num)
+                    home_car_num_tv!!.text = String.format("今日限行：%s", dataBean?.restrict?.num?:"暂无数据")
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -295,7 +295,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
                 var weatherList: List<WeatherInfoBean.DataBean.WeatherBean.ShowapiResBodyBean.HourListBean>? = null
                 try {
-                    weatherList = dataBean.weather.showapi_res_body.hourList
+                    weatherList = dataBean!!.weather!!.showapi_res_body!!.hourList
                 } catch (e: Exception) {
                     //                    e.printStackTrace();
                 }

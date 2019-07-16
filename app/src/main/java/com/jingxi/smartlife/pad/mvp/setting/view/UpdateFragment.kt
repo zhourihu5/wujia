@@ -108,12 +108,10 @@ class UpdateFragment : TitleFragment() {
                                 }
                     }
                     DownloadUtil.STATE_CANCELED, DownloadUtil.STATE_OTHER -> {
-                        update_check_layout!!.visibility = View.VISIBLE
-                        update_ing_layout!!.visibility = View.GONE
-                        if (null != tv_update_downloaded) {
-                            tv_update_downloaded!!.text = "安装失败"
-                        }
-                        ToastUtil.showShort(mContext, "安装失败")
+                        update_check_layout?.visibility = View.VISIBLE
+                        update_ing_layout?.visibility = View.GONE
+                        tv_update_downloaded?.text = "安装失败"
+                        mContext?.let { ToastUtil.showShort(mContext, "安装失败") }
                     }
                 }
             }
