@@ -32,7 +32,7 @@ class ImageLoaderManager {
      * @param imageView
      */
     fun loadImage(url: String?, placeholder: Int, imageView: ImageView) {
-        url?.let { mStrategy!!.loadImage(imageView.context, it, placeholder, imageView) }
+         mStrategy!!.loadImage(imageView.context, url, placeholder, imageView)
     }
 
     /**

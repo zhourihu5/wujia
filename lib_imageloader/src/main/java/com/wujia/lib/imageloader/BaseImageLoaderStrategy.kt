@@ -26,7 +26,7 @@ interface BaseImageLoaderStrategy {
 
     fun loadImage(url: Uri, placeholder: Int, imageView: ImageView)
 
-    fun loadImage(context: Context, url: String, placeholder: Int, imageView: ImageView)
+    fun loadImage(context: Context, url: String?, placeholder: Int, imageView: ImageView)
 
     fun loadCircleImage(url: String, placeholder: Int, imageView: ImageView)
 

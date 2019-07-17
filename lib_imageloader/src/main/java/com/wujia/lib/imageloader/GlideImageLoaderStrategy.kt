@@ -34,7 +34,7 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy {
         loadNormal(imageView.context, url, placeholder, imageView)
     }
 
-    override fun loadImage(context: Context, url: String, placeholder: Int, imageView: ImageView) {
+    override fun loadImage(context: Context, url: String?, placeholder: Int, imageView: ImageView) {
         loadNormal(context, url, placeholder, imageView)
     }
 
@@ -273,7 +273,7 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy {
     /**
      * load image with Glide
      */
-    private fun loadNormal(ctx: Context, url: String, placeholder: Int, imageView: ImageView) {
+    private fun loadNormal(ctx: Context, url: String?, placeholder: Int, imageView: ImageView) {
         /**
          * 为其添加缓存策略,其中缓存策略可以为:Source及None,None及为不缓存,Source缓存原型.如果为ALL和Result就不行.然后几个issue的连接:
          * https://github.com/bumptech/glide/issues/513
