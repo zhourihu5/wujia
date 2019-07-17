@@ -29,11 +29,11 @@ class OrderListFragment : TitleFragment(), View.OnClickListener, HorizontalTabBa
     override fun initEventAndData() {
         super.initEventAndData()
 
-        tab_layout.addItem(HorizontalTabItem(mContext, R.string.all_order))
-        tab_layout.addItem(HorizontalTabItem(mContext, R.string.wait_pay))
-        tab_layout.addItem(HorizontalTabItem(mContext, R.string.wait_send))
-        tab_layout.addItem(HorizontalTabItem(mContext, R.string.wait_receive))
-        tab_layout.addItem(HorizontalTabItem(mContext, R.string.wait_evaluate))
+        tab_layout.addItem(HorizontalTabItem(mContext!!, R.string.all_order))
+        tab_layout.addItem(HorizontalTabItem(mContext!!, R.string.wait_pay))
+        tab_layout.addItem(HorizontalTabItem(mContext!!, R.string.wait_send))
+        tab_layout.addItem(HorizontalTabItem(mContext!!, R.string.wait_receive))
+        tab_layout.addItem(HorizontalTabItem(mContext!!, R.string.wait_evaluate))
 
         tab_layout.setOnTabSelectedListener(this)
 

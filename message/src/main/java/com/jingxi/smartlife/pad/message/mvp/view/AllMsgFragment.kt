@@ -85,9 +85,9 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
             type = savedInstanceState.getString(KEY_TYPE, type)
         }
 
-        tab_layout!!.addItem(HorizontalTabItem(mContext, R.string.all))
-        tab_layout!!.addItem(HorizontalTabItem(mContext, R.string.readed))
-        tab_layout!!.addItem(HorizontalTabItem(mContext, R.string.unread))
+        tab_layout!!.addItem(HorizontalTabItem(mContext!!, R.string.all))
+        tab_layout!!.addItem(HorizontalTabItem(mContext!!, R.string.readed))
+        tab_layout!!.addItem(HorizontalTabItem(mContext!!, R.string.unread))
 
         tab_layout!!.setOnTabSelectedListener(this)
 

@@ -298,13 +298,13 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
 
         } else if (TextUtils.equals(event.getCmd(), IntercomConstants.kIntercomCommandSessionTimeout)) {
             if (!isPalyback) {
-                ToastUtil.showShort(mContext, "超时")
+                mContext?.let { ToastUtil.showShort(it, "超时") }
             }
             isSeeeionIdValid = false
             //            mDoorAccessManager.hangupCall(mSessionId);
         } else if (TextUtils.equals(event.getCmd(), IntercomConstants.kIntercomCommandPickupByOther)) {
             if (!isPalyback) {
-                ToastUtil.showShort(mContext, "其他用户接听")
+                ToastUtil.showShort(mContext!!, "其他用户接听")
             }
             //            mDoorAccessManager.hangupCall(mSessionId);
         }
@@ -362,7 +362,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
             //            }
             if (isMute) {
                 audioHelper!!.setVoice100(0)//todo 音量键对安防sdk的视频播放器不起作用
-                ToastUtil.showShort(mContext, "已静音")
+                ToastUtil.showShort(mContext!!, "已静音")
                 safe_btn_mute!!.setBackgroundImage(R.mipmap.btn_safe_mutebig_pressed, R.mipmap.btn_safe_mutebig_pressed)
             } else {
                 //                audioHelper.setVoice100(audioValue);
@@ -422,12 +422,12 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
         if (isEdit) {
             recordBean = recordList!![position]
             if (!File(recordBean!!.videoPath).exists()) {
-                ToastUtil.showShort(mContext, "该记录没有录制视频")
+                ToastUtil.showShort(mContext!!, "该记录没有录制视频")
                 return
             }
 
             isPalyback = true
-            ToastUtil.showShort(mContext, "开始回放")
+            ToastUtil.showShort(mContext!!, "开始回放")
             startPlayRec(recordList!![position])
         } else {
             recAdapter!!.itemClick(position)

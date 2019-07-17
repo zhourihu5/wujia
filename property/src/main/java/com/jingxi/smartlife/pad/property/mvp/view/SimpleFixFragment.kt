@@ -35,7 +35,7 @@ class SimpleFixFragment : BaseFragment(), View.OnClickListener {
         } else if (v.id == R.id.fix_public_btn) {
 
         } else if (v.id == R.id.fix_call_service_btn) {
-            ToastUtil.showShort(mContext, getString(R.string.not_join))
+            ToastUtil.showShort(mContext!!, getString(R.string.not_join))
         }
     }
 

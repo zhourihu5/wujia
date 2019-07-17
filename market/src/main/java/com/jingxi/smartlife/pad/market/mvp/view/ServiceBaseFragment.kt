@@ -161,14 +161,14 @@ abstract class ServiceBaseFragment<T : BasePresenter<*>> : MvpFragment<BasePrese
                                         .subscribe { install ->
                                             loadDialog?.dismiss()
                                             if (install!!) {
-                                                ToastUtil.showShort(mContext, "安装完成")
+                                                mContext?.let { it1 -> ToastUtil.showShort(it1, "安装完成") }
                                                 //安装成功，本地记录
                                                 item.packageName?.let { ThirdPermissionUtil.requestDefaultPermissions(it) }
                                             } else {
-                                                ToastUtil.showShort(mContext, "安装失败")
+                                                mContext?.let { it1 -> ToastUtil.showShort(it1, "安装失败") }
                                             }
                                             item.packageName?.let { if (!AppUtil.startAPPByPackageName(it)) {
-                                                ToastUtil.showShort(mContext, "应用打开失败")
+                                                mContext?.let { it1 -> ToastUtil.showShort(it1, "应用打开失败") }
                                             } }
 
                                         }
@@ -177,12 +177,12 @@ abstract class ServiceBaseFragment<T : BasePresenter<*>> : MvpFragment<BasePrese
                                 LogUtil.i("download canceled")
                                 LogUtil.i("unknown cause")
                                 loadDialog?.dismiss()
-                                ToastUtil.showShort(mContext, "下载失败")
+                                mContext?.let { it1 -> ToastUtil.showShort(it1, "下载失败") }
                             }
                             DownloadUtil.STATE_OTHER -> {
                                 LogUtil.i("unknown cause")
                                 loadDialog?.dismiss()
-                                ToastUtil.showShort(mContext, "下载失败")
+                                mContext?.let { it1 -> ToastUtil.showShort(it1, "下载失败") }
                             }
                         }
                     }
