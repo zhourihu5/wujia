@@ -286,15 +286,17 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy {
         //使用SOURCE 图片load结束再显示而不是先显示缩略图再显示最终的图片（导致图片大小不一致变化）
         Glide.with(ctx).load(url)
                 .placeholder(placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.RESULT).listener(object : RequestListener<String, GlideDrawable> {
-                    override fun onException(e: Exception, model: String, target: Target<GlideDrawable>, isFirstResource: Boolean): Boolean {
-                        return false
-                    }
-
-                    override fun onResourceReady(resource: GlideDrawable, model: String, target: Target<GlideDrawable>, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
-                        return false
-                    }
-                }).into(imageView)
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+//                .listener(object : RequestListener<String, GlideDrawable> {
+//                    override fun onException(e: Exception?, model: String, target: Target<GlideDrawable>, isFirstResource: Boolean): Boolean {
+//                        return false
+//                    }
+//
+//                    override fun onResourceReady(resource: GlideDrawable, model: String, target: Target<GlideDrawable>, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
+//                        return false
+//                    }
+//                })
+                .into(imageView)
     }
 
     /**
