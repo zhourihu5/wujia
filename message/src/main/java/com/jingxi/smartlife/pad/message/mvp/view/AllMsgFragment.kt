@@ -2,6 +2,7 @@ package com.jingxi.smartlife.pad.message.mvp.view
 
 import android.os.Bundle
 import androidx.annotation.StringDef
+import androidx.recyclerview.widget.RecyclerView
 import com.jingxi.smartlife.pad.message.R
 import com.jingxi.smartlife.pad.message.mvp.adapter.MessageAdapter
 import com.wujia.businesslib.base.DataManager
@@ -30,9 +31,9 @@ import java.util.*
  * description ：
  */
 class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.OnTabSelectedListener, LoadMoreWrapper.OnLoadMoreListener, MessageAdapter.ReadMsgCallback {
-
-
-    private lateinit var msgList: ArrayList<MsgDto.ContentBean>
+    override val layoutId: Int
+        get() = R.layout.fragment_msg_all
+    private  var msgList: ArrayList<MsgDto.ContentBean>?=null
     private var mAdapter: MessageAdapter? = null
     private var currentState = 0
     private var mLoadMoreWrapper: LoadMoreWrapper? = null
@@ -53,7 +54,7 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
         }
     })
 
-    internal var busModel: BusModel? = null
+//    internal var busModel: BusModel? = null
 
 
      var type: String = MSG_TYPE_ALL
@@ -77,9 +78,6 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
         msgList?.let { it.clear();mLoadMoreWrapper?.notifyDataSetChanged() }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_msg_all
-    }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
@@ -94,13 +92,10 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
         tab_layout!!.setOnTabSelectedListener(this)
 
         msgList = ArrayList()
-        mAdapter = MessageAdapter(mActivity, msgList, this)
-        mLoadMoreWrapper = LoadMoreWrapper(mAdapter)
+        mAdapter = MessageAdapter(mActivity, msgList!!, this)
+        mLoadMoreWrapper = LoadMoreWrapper(mAdapter as RecyclerView.Adapter<RecyclerView.ViewHolder>)
         rv1?.adapter = mLoadMoreWrapper
         mLoadMoreWrapper!!.setOnLoadMoreListener(this)
-        if (busModel == null) {
-            busModel = BusModel()
-        }
         getData(true)
 
         EventBusUtil.register(eventMsg)
@@ -133,7 +128,7 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
             return
         }
 
-        addSubscribe(busModel!!.getMsg(familyId!!, type, status, page, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<MsgDto>>(this, SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(BusModel().getMsg(familyId!!, type, status, page, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<MsgDto>>(this@AllMsgFragment, SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<MsgDto>) {
                 super.onResponse(response)
 
@@ -144,7 +139,7 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
                 if (temp != null && temp.size > 0) {
                     msgList!!.addAll(temp)
                 }
-                if (response.data?.isLast!!) {
+                if (response.data?.last!!) {
                     mLoadMoreWrapper!!.setLoadMoreView(0)
                 } else {
                     mLoadMoreWrapper!!.setLoadMoreView(R.layout.view_loadmore)
@@ -174,7 +169,7 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
     }
 
     override fun onMsgReadClick(item: MsgDto.ContentBean) {//todo
-        addSubscribe(busModel!!.readMsg(item.id.toString() + "").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(BusModel().readMsg(item.id.toString() + "").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@AllMsgFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<Any>) {
                 super.onResponse(response)
                 item.isRead = MsgDto.STATUS_READ

@@ -24,24 +24,22 @@ import java.util.*
  * description ：
  */
 class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
-    //    public static final String KEY_SUBCRIPTION = "subscriptions";
+    override val layoutId: Int
+        get() = R.layout.fragment_img_txt
     private var mModel: HomeModel? = null
 
     private var datas: ArrayList<CardDetailBean.ServicesBean>? = null
     private var mAdapter: FindServiceChildAdapter? = null
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_img_txt
-    }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
 
         val cardId = arguments!!.getString(KEY_TXT)
 
-        layout_back_btn.visibility = View.VISIBLE
-        layout_title_tv.text = "详情"
-        layout_back_btn.setOnClickListener { pop() }
+        layout_back_btn?.visibility = View.VISIBLE
+        layout_title_tv?.text = "详情"
+        layout_back_btn?.setOnClickListener { pop() }
 
         webview!!.setBackgroundColor(0)
         webview!!.background.alpha = 0
@@ -78,7 +76,7 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
     private fun getData(cardId: String?) {
 
         addSubscribe(
-            mModel!!.getCardDetail(cardId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<CardDetailBean>>(this, ActionConfig(true, SHOWERRORMESSAGE)) {
+            mModel!!.getCardDetail(cardId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<CardDetailBean>>(this@ImageTxtFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<CardDetailBean>) {
                 super.onResponse(response)
                 response.data?.content?.let { webview!!.loadData(it, "text/html; charset=UTF-8", null) }

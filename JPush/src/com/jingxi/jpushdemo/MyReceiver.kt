@@ -200,9 +200,9 @@ class MyReceiver : BroadcastReceiver() {
         }
 
         fun isUpdate(bean: VersionBean.Version): Boolean {
-            val versionId = VersionUtil.getVersionCode()
+            val versionId = VersionUtil.versionCode
             val versonCode = Integer.valueOf(bean.versionCode)
-            val versonName = VersionUtil.getVersionName()
+            val versonName = VersionUtil.versionName
             return versonCode > versionId || versonCode == versionId && versonName != bean.versionName
         }
     }

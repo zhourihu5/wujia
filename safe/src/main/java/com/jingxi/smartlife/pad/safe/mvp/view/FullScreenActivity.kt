@@ -27,7 +27,8 @@ import com.wujia.lib_common.base.Constants
 import com.wujia.lib_common.utils.LogUtil
 
 class FullScreenActivity : BaseActivity(), View.OnClickListener, SurfaceHolder.Callback, DoorAccessConversationUI, SeekBar.OnSeekBarChangeListener, IntercomObserver.OnPlaybackListener {
-
+    override val layout: Int
+        get() = R.layout.activity_safe_full
     private var surfaceView: SurfaceView? = null
     private var mDoorAccessManager: DoorAccessManager? = null
     private var mSessionId: String? = null
@@ -50,11 +51,6 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener, SurfaceHolder.C
     private var isSeeeionIdValid: Boolean = false
     private var loadingDialog: LoadingDialog? = null
     private var familyID: String? = null
-
-
-    override fun getLayout(): Int {
-        return R.layout.activity_safe_full
-    }
 
     override fun initEventAndData(savedInstanceState: Bundle?) {
 
@@ -155,7 +151,7 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener, SurfaceHolder.C
     private fun setVideo() {
 
         if (null == loadingDialog) {
-            loadingDialog = LoadingDialog(mContext)
+            loadingDialog = mContext?.let { LoadingDialog(it) }
         }
         loadingDialog!!.setCancelOnTouchOutside(true)
         loadingDialog!!.setTitle("正在连接中...")

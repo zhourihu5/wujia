@@ -20,7 +20,7 @@ class LoginPresenter : RxPresenter<LoginContract.View>(), LoginContract.Presente
 
 
     override fun doTimeChange() {
-        mView?.timeChange(DateUtil.getCurrentTimeHHMM())
+        mView?.timeChange(DateUtil.currentTimeHHMM)
     }
 
     override fun doLogin(mobile: String, captcha: String, padSn: String) {

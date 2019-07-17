@@ -21,10 +21,10 @@ object Util {
 
     val updateVesion: Disposable
         get() {
-            val versionName = VersionUtil.getVersionName()
+            val versionName = VersionUtil.versionName
             val key = SystemUtil.getSerialNum()
-            val versionCode = VersionUtil.getVersionCode()
-            return BusModel().updateVer(versionName, key, versionCode.toString() + "").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(object : BaseView {
+            val versionCode = VersionUtil.versionCode
+            return BusModel().updateVer(versionName, key!!, versionCode.toString() + "").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(object : BaseView {
                 override fun showErrorMsg(msg: String) {
 
                 }
@@ -37,9 +37,6 @@ object Util {
 
                 }
 
-                override fun getContext(): Context? {
-                    return null
-                }
 
                 override fun onLoginStatusError() {
 

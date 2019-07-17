@@ -13,11 +13,8 @@ import com.wujia.lib_common.base.BaseMainFragment
  * description ：物业服务 home
  */
 class SettingFragment : BaseMainFragment() {
-
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_setting
-    }
+    override val layoutId: Int
+        get() = R.layout.fragment_setting
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)

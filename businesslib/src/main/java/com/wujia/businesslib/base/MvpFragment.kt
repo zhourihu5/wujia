@@ -1,6 +1,5 @@
 package com.wujia.businesslib.base
 
-import android.content.Context
 import android.widget.TextView
 
 import com.wujia.businesslib.R
@@ -51,9 +50,9 @@ abstract class MvpFragment<T : BasePresenter<BaseView>> : BaseFragment(), BaseVi
     }
 
     override fun interruptInject() {
-        layout_right_btn = mView.findViewById(R.id.layout_right_btn)
-        layout_back_btn = mView.findViewById(R.id.layout_back_btn)
-        layout_title_tv = mView.findViewById(R.id.layout_title_tv)
+        layout_right_btn = mView?.findViewById(R.id.layout_right_btn)
+        layout_back_btn = mView?.findViewById(R.id.layout_back_btn)
+        layout_title_tv = mView?.findViewById(R.id.layout_title_tv)
 
         mPresenter = createPresenter()
         if (mPresenter != null)
@@ -89,7 +88,7 @@ abstract class MvpFragment<T : BasePresenter<BaseView>> : BaseFragment(), BaseVi
 
     private fun getLoadingDialog() {
         if (mLoadingDialog == null) {
-            mLoadingDialog = LoadingDialog(mContext)
+            mLoadingDialog = LoadingDialog(mContext!!)
         }
     }
 
@@ -101,10 +100,6 @@ abstract class MvpFragment<T : BasePresenter<BaseView>> : BaseFragment(), BaseVi
             if (mLoadingDialog != null)
                 mLoadingDialog!!.dismiss()
         }
-    }
-
-    override fun getContext(): Context? {
-        return mContext
     }
 
     override fun onLoginStatusError() {

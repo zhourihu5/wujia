@@ -30,7 +30,8 @@ import java.util.*
  * description ：
  */
 class AllServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), HorizontalTabBar.OnTabSelectedListener, LoadMoreWrapper.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, MultiItemTypeAdapter.OnRVItemClickListener {
-
+    override val layoutId: Int
+        get() = R.layout.fragment_service_all
     private var recyclerView: RecyclerView? = null
     private var mSwipeRefreshLayout: SwipeRefreshLayout? = null
     private var isLoading: Boolean = false
@@ -77,9 +78,6 @@ class AllServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Horiz
         }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_service_all
-    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -100,7 +98,7 @@ class AllServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Horiz
         datas = ArrayList()
 
         val mAdapter = getAdapter(datas!!)
-        mLoadMoreWrapper = LoadMoreWrapper(mAdapter)
+        mLoadMoreWrapper = LoadMoreWrapper(mAdapter as RecyclerView.Adapter<RecyclerView.ViewHolder>)
         recyclerView!!.adapter = mLoadMoreWrapper
         mLoadMoreWrapper!!.setOnLoadMoreListener(this)
         mSwipeRefreshLayout!!.setOnRefreshListener(this)
@@ -130,7 +128,7 @@ class AllServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Horiz
 
     private fun getList(isShowLoadingDialog: Boolean) {
         isLoading = true
-        addSubscribe(MarketModel().getServiceList(type, pageNo, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<ServiceDto>>(this,
+        addSubscribe(MarketModel().getServiceList(type, pageNo, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<ServiceDto>>(this@AllServiceFragment,
                 SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<ServiceDto>) {
                 super.onResponse(response)

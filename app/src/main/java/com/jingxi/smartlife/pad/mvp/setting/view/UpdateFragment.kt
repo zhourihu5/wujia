@@ -26,6 +26,8 @@ import java.math.BigDecimal
  * description ：检查更新
  */
 class UpdateFragment : TitleFragment() {
+    override val layoutId: Int
+        get() = R.layout.fragment_update
     override val title: Int
         get() = R.string.check_update
 
@@ -40,10 +42,6 @@ class UpdateFragment : TitleFragment() {
         tv_version_desc!!.text = remark
         tv_version!!.text = mVersion!!.versionName
 
-    }
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_update
     }
 
     @OnClick(R.id.btn_update_now)

@@ -1,5 +1,6 @@
 package com.wujia.businesslib.base
 
+import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -20,6 +21,8 @@ import com.wujia.lib_common.utils.WebViewUtil
  * Description: webview
  */
 class WebViewFragment : TitleFragment(), View.OnClickListener {
+    override val layoutId: Int
+        get() =  R.layout.layout_webview
 
     private var mWebView: WebView? = null
     private var progressBar: ProgressBar? = null
@@ -31,9 +34,6 @@ class WebViewFragment : TitleFragment(), View.OnClickListener {
         super.onCreate(savedInstanceState)
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.layout_webview
-    }
 
     override fun initEventAndData() {
         super.initEventAndData()

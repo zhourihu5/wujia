@@ -12,8 +12,6 @@ import com.wujia.lib_common.base.BaseView
  * description ：
  */
 abstract class TitleFragment : MvpFragment<BasePresenter<BaseView>>() {
-//    protected var mTitleTv: TextView
-//    protected var mBackBtn: TextView
     protected var showBack = true
 
 
@@ -39,13 +37,5 @@ abstract class TitleFragment : MvpFragment<BasePresenter<BaseView>>() {
             visibility = View.VISIBLE
             setOnClickListener{this@TitleFragment.pop()}
         }
-    }
-
-    fun hideBack() {
-
-    }
-
-    override fun onBackPressedSupport(): Boolean {
-        return super.onBackPressedSupport()
     }
 }

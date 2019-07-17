@@ -15,12 +15,8 @@ import com.wujia.lib_common.utils.LogUtil
  * description ：
  */
 class MessageHomeFragment : TabFragment() {
-
-    override fun getLayoutId(): Int {
-        LogUtil.i("FamilyFragment getLayoutId")
-
-        return R.layout.fragment_tab_home
-    }
+    override val layoutId: Int
+        get() = R.layout.fragment_tab_home
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)

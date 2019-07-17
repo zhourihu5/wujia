@@ -16,11 +16,9 @@ import java.util.*
  * description ：
  */
 class TelFragment : BaseFragment() {
+    override val layoutId: Int
+        get() = R.layout.fragment_propery_tel
 
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_propery_tel
-    }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)

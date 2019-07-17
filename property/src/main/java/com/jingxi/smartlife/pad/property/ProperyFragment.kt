@@ -12,12 +12,9 @@ import com.wujia.lib_common.utils.LogUtil
  * description ：物业服务 home
  */
 class ProperyFragment : BaseMainFragment() {
+    override val layoutId: Int
+        get() = R.layout.fragment_frame_layout
 
-
-    override fun getLayoutId(): Int {
-        LogUtil.i("ProperyFragment getLayoutId")
-        return R.layout.fragment_frame_layout
-    }
 
     override fun initEventAndData() {
 

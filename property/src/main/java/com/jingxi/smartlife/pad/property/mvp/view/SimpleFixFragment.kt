@@ -14,10 +14,8 @@ import com.wujia.lib_common.base.BaseFragment
  * description ：
  */
 class SimpleFixFragment : BaseFragment(), View.OnClickListener {
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_propery_fix_simple
-    }
+    override val layoutId: Int
+        get() = R.layout.fragment_propery_fix_simple
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)

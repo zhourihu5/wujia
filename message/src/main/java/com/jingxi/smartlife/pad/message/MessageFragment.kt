@@ -11,11 +11,8 @@ import com.wujia.lib_common.base.BaseMainFragment
  * description ：消息通知 home
  */
 class MessageFragment : BaseMainFragment() {
-
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_frame_layout
-    }
+    override val layoutId: Int
+        get() = R.layout.fragment_frame_layout
 
     override fun initEventAndData() {
 

@@ -31,7 +31,8 @@ import java.util.*
  * description ：全部设备
  */
 class AllFragment : BaseFragment() {
-
+    override val layoutId: Int
+        get() = R.layout.fragment_family_all
     private var rvUsually: RecyclerView? = null
     private var rvAll: RecyclerView? = null
     private var rvMode: RecyclerView? = null
@@ -44,9 +45,6 @@ class AllFragment : BaseFragment() {
     private var title: TextView? = null
 
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_family_all
-    }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)

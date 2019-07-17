@@ -2,6 +2,7 @@ package com.jingxi.smartlife.pad.market.mvp.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import com.jingxi.smartlife.pad.market.R
 import com.jingxi.smartlife.pad.market.mvp.adapter.OrderAdapter
 import com.jingxi.smartlife.pad.market.mvp.data.OrderBean
@@ -18,13 +19,12 @@ import java.util.*
  * Description:
  */
 class OrderListFragment : TitleFragment(), View.OnClickListener, HorizontalTabBar.OnTabSelectedListener {
+    override val layoutId: Int
+        get() = R.layout.fragment_market_order
     override val title: Int
         get() = R.string.family_order
     internal lateinit var mAdapter: EmptyWrapper
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_market_order
-    }
 
     override fun initEventAndData() {
         super.initEventAndData()
@@ -45,7 +45,7 @@ class OrderListFragment : TitleFragment(), View.OnClickListener, HorizontalTabBa
         datas.add(OrderBean())
 
         val adapter = OrderAdapter(mActivity, datas)
-        mAdapter = EmptyWrapper(adapter)
+        mAdapter = EmptyWrapper(adapter as RecyclerView.Adapter<RecyclerView.ViewHolder>)
         mAdapter.setEmptyView(R.layout.layout_empty)
         rv1.adapter = mAdapter
         adapter.setOnItemClickListener { adapter, holder, position -> start(OrderDetailsFragment.newInstance("id")) }

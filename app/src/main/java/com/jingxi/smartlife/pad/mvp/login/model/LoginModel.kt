@@ -23,7 +23,7 @@ class LoginModel : BaseModel(), LoginContract.Model {
     }
 
     override fun getCode(mobile: String): Flowable<RootResponse> {
-        return mHttpHelper.create(MainAppApiService::class.java)!!.getCode(mobile, SystemUtil.getSerialNum()).compose(RxUtil.rxSchedulerHelper())
+        return mHttpHelper.create(MainAppApiService::class.java)!!.getCode(mobile, SystemUtil.getSerialNum()!!).compose(RxUtil.rxSchedulerHelper())
     }
 
 

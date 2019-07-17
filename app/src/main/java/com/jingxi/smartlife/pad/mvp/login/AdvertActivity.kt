@@ -22,7 +22,8 @@ class AdvertActivity : BaseActivity() {
 
     private var advert: Advert? = null
 
-    override fun getLayout(): Int {
+    override val layout: Int
+        get() {
         return R.layout.activity_advert
     }
 

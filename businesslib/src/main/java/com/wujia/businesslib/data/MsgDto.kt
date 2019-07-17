@@ -17,7 +17,7 @@ class MsgDto {
      */
 
     var isFirst: Boolean = false
-    var isLast: Boolean = false
+    var last: Boolean = false
     var number: Int = 0
     var numberOfElements: Int = 0
     var pageable: PageableBean? = null

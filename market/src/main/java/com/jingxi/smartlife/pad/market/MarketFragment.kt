@@ -10,11 +10,9 @@ import com.wujia.lib_common.base.BaseMainFragment
  * description ：服务市场 home
  */
 class MarketFragment : BaseMainFragment() {
+    override val layoutId: Int
+        get() =R.layout.fragment_frame_layout
 
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_frame_layout
-    }
 
     override fun initEventAndData() {
 

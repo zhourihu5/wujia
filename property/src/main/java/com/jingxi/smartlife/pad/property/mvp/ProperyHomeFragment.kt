@@ -1,14 +1,11 @@
 package com.jingxi.smartlife.pad.property.mvp
 
 import android.os.Bundle
-
 import com.jingxi.smartlife.pad.property.R
 import com.jingxi.smartlife.pad.property.mvp.view.SimpleFixFragment
 import com.jingxi.smartlife.pad.property.mvp.view.SimpleTelFragment
 import com.wujia.businesslib.TabFragment
-import com.wujia.lib.widget.VerticalTabBar
 import com.wujia.lib.widget.VerticalTabItem
-
 import me.yokeyword.fragmentation.SupportFragment
 
 /**
@@ -17,15 +14,10 @@ import me.yokeyword.fragmentation.SupportFragment
  * description ：
  */
 class ProperyHomeFragment : TabFragment() {
-
+    override val layoutId: Int
+        get() = R.layout.fragment_tab_home
 
     private val mFragments = arrayOfNulls<SupportFragment>(6)
-
-
-    override fun getLayoutId(): Int {
-
-        return R.layout.fragment_tab_home
-    }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)

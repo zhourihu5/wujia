@@ -16,16 +16,11 @@ import me.yokeyword.fragmentation.SupportFragment
  * description ：
  */
 class MarketHomeFragment : TabFragment() {
-
+    override val layoutId: Int
+        get() = R.layout.fragment_tab_home
 
     private val mFragments = arrayOfNulls<SupportFragment>(2)
 
-
-    override fun getLayoutId(): Int {
-        LogUtil.i("MarketHomeFragment getLayoutId")
-
-        return R.layout.fragment_tab_home
-    }
 
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {

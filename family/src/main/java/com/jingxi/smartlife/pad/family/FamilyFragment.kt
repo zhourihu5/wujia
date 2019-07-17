@@ -12,13 +12,8 @@ import com.wujia.lib_common.utils.LogUtil
  * description ：智能家居 home
  */
 class FamilyFragment : BaseMainFragment() {
-
-
-    override fun getLayoutId(): Int {
-        LogUtil.i("FamilyFragment getLayoutId")
-
-        return R.layout.fragment_family
-    }
+    override val layoutId: Int
+        get() = R.layout.fragment_family
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)

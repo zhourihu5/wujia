@@ -1,7 +1,6 @@
 package com.jingxi.smartlife.pad.mvp
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.service.dreams.DreamService
 import android.text.TextUtils
@@ -154,16 +153,16 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
 
     //时间
     private fun setTime() {
-        login_time_date_tv!!.text = StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay())
-        login_time_tv!!.text = DateUtil.getCurrentTimeHHMM()
+        login_time_date_tv!!.text = StringUtil.format(getString(R.string.s_s), DateUtil.currentDate, DateUtil.currentWeekDay)
+        login_time_tv!!.text = DateUtil.currentTimeHHMM
 
         mCompositeDisposable.add(Observable.interval(10, 1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     if (null != login_time_date_tv && null != login_time_tv) {
-                        login_time_date_tv!!.text = StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay())
-                        login_time_tv!!.text = DateUtil.getCurrentTimeHHMM()
+                        login_time_date_tv!!.text = StringUtil.format(getString(R.string.s_s), DateUtil.currentDate, DateUtil.currentWeekDay)
+                        login_time_tv!!.text = DateUtil.currentTimeHHMM
                     }
                 })
     }
@@ -180,7 +179,7 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
                             super.onResponse(weatherInfoBean)
                             if (weatherInfoBean.isSuccess) {
 
-                                val curdate = DateUtil.getCurrentyyyymmddhh() + "00"
+                                val curdate = DateUtil.currentyyyymmddhh + "00"
                                 var weatherList: List<WeatherInfoBean.DataBean.WeatherBean.ShowapiResBodyBean.HourListBean>? = null
                                 try {
                                     weatherList = weatherInfoBean.data!!.weather!!.showapi_res_body!!.hourList
@@ -218,7 +217,7 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
             return
         }
 
-        mCompositeDisposable.add(BusModel().getTop3UnReadMsg(familyId!!)!!.subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, ActionConfig(false, SHOWERRORMESSAGE)) {
+        mCompositeDisposable.add(BusModel().getTop3UnReadMsg(familyId!!)!!.subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this@LockService, ActionConfig(false, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<List<MsgDto.ContentBean>>) {
                 super.onResponse(response)
                 val notifys = response.data
@@ -259,10 +258,6 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
 
     override fun hideLoadingDialog() {
 
-    }
-
-    override fun getContext(): Context? {
-        return null
     }
 
     override fun onLoginStatusError() {

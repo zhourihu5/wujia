@@ -14,13 +14,11 @@ import java.util.*
  * Description:
  */
 class CarFragment : TitleFragment() {
+    override val layoutId: Int
+        get() = R.layout.fragment_car
     override val title: Int
         get() = R.string.buy_car
     private var mAdapter: CarGroupAdapter? = null
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_car
-    }
 
     override fun initEventAndData() {
         super.initEventAndData()

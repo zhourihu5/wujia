@@ -16,9 +16,8 @@ class HomeCardAdapter(context: Context, datas: List<HomeRecBean.Card>) : MultiIt
     init {
 
         addItemViewDelegate(1, object : ItemViewDelegate<HomeRecBean.Card> {
-            override fun getItemViewLayoutId(): Int {
-                return R.layout.item_home_rec_layout_1_shadow
-            }
+            override val itemViewLayoutId: Int
+                get() = R.layout.item_home_rec_layout_1_shadow
 
             override fun isForViewType(item: HomeRecBean.Card, position: Int): Boolean {
                 return (item.type == HomeRecBean.TYPE_LINK || item.type == HomeRecBean.TYPE_APP_PAGE
@@ -35,9 +34,9 @@ class HomeCardAdapter(context: Context, datas: List<HomeRecBean.Card>) : MultiIt
         })
 
         addItemViewDelegate(10, object : ItemViewDelegate<HomeRecBean.Card> {
-            override fun getItemViewLayoutId(): Int {
-                return R.layout.item_home_rec_layout_add
-            }
+            override val itemViewLayoutId: Int
+                get() = R.layout.item_home_rec_layout_add
+
 
             override fun isForViewType(item: HomeRecBean.Card, position: Int): Boolean {
                 return item.type == HomeRecBean.TYPE_ADD

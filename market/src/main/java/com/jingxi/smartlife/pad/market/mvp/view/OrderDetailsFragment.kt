@@ -15,13 +15,12 @@ import java.util.*
  * Description:
  */
 class OrderDetailsFragment : TitleFragment(), PayTypeDialog.PayListener, View.OnClickListener {
+    override val layoutId: Int
+        get() = R.layout.fragment_order_details
     override val title: Int
         get() = R.string.family_order
     private var mAdapter: OrderGoodsAdapter? = null
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_order_details
-    }
 
     override fun initEventAndData() {
         super.initEventAndData()
@@ -64,9 +63,10 @@ class OrderDetailsFragment : TitleFragment(), PayTypeDialog.PayListener, View.On
         val id = v.id
         if (id == R.id.btn3) {
             //支付方式dialog
-            val payTypeDialog = PayTypeDialog(mContext)
-            payTypeDialog.setListener(this)
-            payTypeDialog.show()
+            mContext?.let { val payTypeDialog = PayTypeDialog(it)
+                payTypeDialog.setListener(this)
+                payTypeDialog.show()}
+
         }
     }
 

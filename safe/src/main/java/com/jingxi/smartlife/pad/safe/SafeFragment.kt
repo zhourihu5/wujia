@@ -12,12 +12,9 @@ import com.wujia.lib_common.utils.LogUtil
  * description ：可视安防 home
  */
 class SafeFragment : BaseMainFragment() {
+    override val layoutId: Int
+        get() = R.layout.fragment_safe
 
-
-    override fun getLayoutId(): Int {
-        LogUtil.i("SafeFragment getLayoutId")
-        return R.layout.fragment_safe
-    }
 
     override fun initEventAndData() {
 

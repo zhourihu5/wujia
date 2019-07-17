@@ -26,13 +26,11 @@ import java.util.*
  * description ：
  */
 class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
+    override val layoutId: Int
+        get() =  R.layout.fragment_member
     override val title: Int
         get() = R.string.set_family_member
     internal var mAdapter: SetMemberAdapter? = null
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_member
-    }
 
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
@@ -51,10 +49,10 @@ class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
             return
         }
 
-        addSubscribe(FamilyMemberModel().getFamilyMemberList(familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(this, ActionConfig(true, SHOWERRORMESSAGE)) {
+        addSubscribe(FamilyMemberModel().getFamilyMemberList(familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(this@FamilyMemberFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>) {
                 super.onResponse(response)
-                mAdapter = response.data?.let { SetMemberAdapter(mContext, it) }
+                mAdapter = response.data?.let { SetMemberAdapter(mContext!!, it) }
                 rv_member!!.adapter = mAdapter
             }
 
@@ -69,7 +67,7 @@ class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
                 .hint(getString(R.string.please_input_member_phone))
                 .confirm(getString(R.string.invite))
                 .listener(this)
-                .build(mContext)
+                .build(mContext!!)
 
         inputDialog.show()
     }
@@ -84,16 +82,16 @@ class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
             return
         }
 
-        addSubscribe(FamilyMemberModel().addFamilyMember(input, familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<String>>(this, ActionConfig(true, SHOWERRORMESSAGE)) {
+        addSubscribe(FamilyMemberModel().addFamilyMember(input, familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<String>>(this@FamilyMemberFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<String>) {
                 super.onResponse(response)
                 val userInfoListBean = HomeUserInfoBean.DataBean.UserInfoListBean()
                 userInfoListBean.userName = input
                 if (mAdapter == null) {
-                    mAdapter = SetMemberAdapter(mContext, ArrayList())
+                    mAdapter = SetMemberAdapter(mContext!!, ArrayList())
                     rv_member!!.adapter = mAdapter
                 }
-                mAdapter!!.datas.add(userInfoListBean)
+                (mAdapter!!.datas as MutableList).add(userInfoListBean)
                 mAdapter!!.notifyDataSetChanged()
 
                 EventBusUtil.post(EventMemberChange())

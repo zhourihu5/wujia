@@ -36,22 +36,19 @@ import java.util.*
  * description ： 登录
  */
 class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
-
-
+    override val layout: Int
+        get() = R.layout.activity_login
     private var codeCountDownTimer: CountDownTimer? = null
 
     private var isShowPassword: Boolean = false
 
-    override fun getLayout(): Int {
-        return R.layout.activity_login
-    }
 
     override fun initEventAndData(savedInstanceState: Bundle?) {
 
         FontUtils.changeFontTypeface(login_time_tv, FontUtils.Font_TYPE_EXTRA_LIGHT)
         FontUtils.changeFontTypeface(login_temperature_tv, FontUtils.Font_TYPE_EXTRA_LIGHT)
 
-        login_time_date_tv!!.text = StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay())
+        login_time_date_tv!!.text = StringUtil.format(getString(R.string.s_s), DateUtil.currentDate, DateUtil.currentWeekDay)
         mPresenter?.doTimeChange()
 
     }
@@ -155,7 +152,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 
         val sn = SystemUtil.getSerialNum()
         LogUtil.i("sn $sn")
-        mPresenter?.doLogin(phone, pwd, sn)
+        sn?.let { mPresenter?.doLogin(phone, pwd, it) }
 
     }
 
@@ -176,7 +173,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
             LoginPresenter.REQUEST_CDOE_LOGIN -> {
                 val userBean = `object` as LoginDTO
 
-                SPHelper.saveObject(this@LoginActivity, Constants.SP_KEY_USER, userBean.data)//todo 对象流兼容性不好，修改为json等格式保存。
+                userBean.data?.let { SPHelper.saveObject(this@LoginActivity, Constants.SP_KEY_USER, it) }//todo 对象流兼容性不好，修改为json等格式保存。
                 userBean.data?.token?.let { DataManager.saveToken(it) }
 
                 //set push alias

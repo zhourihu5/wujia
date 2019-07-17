@@ -19,15 +19,13 @@ import com.wujia.lib_common.utils.WebViewUtil
  * description ：
  */
 class WebViewActivity : BaseActivity(), View.OnClickListener {
-
+    override val layout: Int
+        get() = R.layout.layout_webview
     private var mWebView: WebView? = null
     private var progressBar: ProgressBar? = null
 
-    override fun getLayout(): Int {
-        return R.layout.layout_webview
-    }
 
-    override fun initEventAndData(savedInstanceState: Bundle) {
+    override fun initEventAndData(savedInstanceState: Bundle?) {
 
         val url = intent.getStringExtra(Constants.INTENT_KEY_1)
 

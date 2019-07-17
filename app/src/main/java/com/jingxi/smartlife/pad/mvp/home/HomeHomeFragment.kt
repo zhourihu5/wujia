@@ -49,7 +49,6 @@ import java.util.*
  */
 class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
-
     private var homeCardAdapter: HomeCardAdapter? = null
     private var batterReceiver: BatteryReceiver? = null
     private var networkReceiver: NetworkChangeReceiver? = null
@@ -94,7 +93,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
             addSubscribe(FamilyMemberModel().getFamilyMemberList(familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(this@HomeHomeFragment, ActionConfig(false, SHOWERRORMESSAGE)) {
                 override fun onResponse(response: ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>) {
                     super.onResponse(response)
-                    memAdapter!!.setmDatas(response.data)
+                    response.data?.let { memAdapter!!.setmDatas(it) }
                     memAdapter!!.notifyDataSetChanged()
                 }
 
@@ -102,10 +101,11 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         }
     })
 
+    override val layoutId: Int
+        get(){
+            return R.layout.fragment_home
+        }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_home
-    }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
@@ -113,7 +113,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
         FontUtils.changeFontTypeface(home_weather_num_tv, FontUtils.Font_TYPE_EXTRA_LIGHT)
 
-        home_date_tv!!.text = StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay())
+        home_date_tv!!.text = StringUtil.format(getString(R.string.s_s), DateUtil.currentDate, DateUtil.currentWeekDay)
 
         setCardView()
 
@@ -172,7 +172,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
             LoginUtil.toLoginActivity()
             return
         }
-        addSubscribe(BusModel().getTop3UnReadMsg(familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, ActionConfig(isShowLoadingDialog, SHOWERRORMESSAGE)) {
+        addSubscribe(BusModel().getTop3UnReadMsg(familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this@HomeHomeFragment, ActionConfig(isShowLoadingDialog, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<List<MsgDto.ContentBean>>) {
                 super.onResponse(response)
                 val notifys = response.data
@@ -180,7 +180,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
                     val notifyAdapter = HomeNotifyAdapter(mActivity, notifys)
                     rv_home_msg!!.adapter = notifyAdapter
                     notifyAdapter.setOnItemClickListener { adapter, holder, position ->
-                        MessageDialog(mContext, notifys[position])
+                        MessageDialog(mContext!!, notifys[position])
                                 .setListener { item ->
                                     addSubscribe(BusModel().readMsg(item.id.toString() + "").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@HomeHomeFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
                                         override fun onResponse(response: ApiResponse<Any>) {
@@ -221,7 +221,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
             mPresenter?.getUserQuickCard()
         }
         if (isRefreshUserData) {
-            mPresenter?.getHomeUserInfo(SystemUtil.getSerialNum())
+            mPresenter?.getHomeUserInfo(SystemUtil.getSerialNum()!!)
         }
         if (isRefreshWeather) {
             mPresenter?.getWeather()
@@ -237,29 +237,31 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
     fun onViewClicked(view: View) {
         when (view.id) {
             R.id.home_chat_btn -> ToastUtil.showShort(mContext, getString(R.string.chat_is_developing))
-            R.id.home_member_add_btn -> AddMemberDialog(mActivity, memAdapter!!.datas).setListener(object : OnInputDialogListener {
-                override fun dialogSureClick(input: String) {
-                    var familyId: String? = null
-                    try {
-                        familyId = DataManager.familyId
-                    } catch (e: Exception) {
-                        LoginUtil.toLoginActivity()
-                        LogUtil.t("get familyid failed", e)
-                        return
-                    }
-
-                    addSubscribe(FamilyMemberModel().addFamilyMember(input, familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<String>>(this@HomeHomeFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
-                        override fun onResponse(response: ApiResponse<String>) {
-                            super.onResponse(response)
-                            val userInfoListBean = HomeUserInfoBean.DataBean.UserInfoListBean()
-                            userInfoListBean.userName = input
-                            memAdapter!!.datas.add(userInfoListBean)
-                            memAdapter!!.notifyDataSetChanged()
+            R.id.home_member_add_btn -> memAdapter!!.datas?.let {
+                AddMemberDialog(mActivity, it).setListener(object : OnInputDialogListener {
+                    override fun dialogSureClick(input: String) {
+                        var familyId: String? = null
+                        try {
+                            familyId = DataManager.familyId
+                        } catch (e: Exception) {
+                            LoginUtil.toLoginActivity()
+                            LogUtil.t("get familyid failed", e)
+                            return
                         }
 
-                    }))
-                }
-            }).show()
+                        addSubscribe(FamilyMemberModel().addFamilyMember(input, familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<String>>(this@HomeHomeFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
+                            override fun onResponse(response: ApiResponse<String>) {
+                                super.onResponse(response)
+                                val userInfoListBean = HomeUserInfoBean.DataBean.UserInfoListBean()
+                                userInfoListBean.userName = input
+                                (memAdapter!!.datas as MutableList).add(userInfoListBean)
+                                memAdapter!!.notifyDataSetChanged()
+                            }
+
+                        }))
+                    }
+                }).show()
+            }
             R.id.home_call_service_btn ->
                 //                new CallDialog(mContext).show();
                 ToastUtil.showShort(mContext, getString(R.string.not_join))
@@ -287,7 +289,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
                 home_room_tv!!.text = homeUserInfoBean.data?.communtity?.name
 
-                memAdapter!!.setmDatas(homeUserInfoBean.data?.userInfoList)
+                homeUserInfoBean.data?.userInfoList?.let { memAdapter!!.setmDatas(it) }
                 memAdapter!!.notifyDataSetChanged()
             }
             HomePresenter.REQUEST_CDOE_WEATHER -> {
@@ -301,7 +303,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
                     e.printStackTrace()
                 }
 
-                val curdate = DateUtil.getCurrentyyyymmddhh() + "00"
+                val curdate = DateUtil.currentyyyymmddhh + "00"
 
                 var weatherList: List<WeatherInfoBean.DataBean.WeatherBean.ShowapiResBodyBean.HourListBean>? = null
                 try {
@@ -330,7 +332,10 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
 
     override fun onDestroyView() {
-        mActivity.apply { unregisterReceiver(batterReceiver) ;unregisterReceiver(networkReceiver) }
+        mActivity.apply {
+            batterReceiver?.let { unregisterReceiver(batterReceiver) }
+            networkReceiver?.let {unregisterReceiver(networkReceiver) }
+        }
         super.onDestroyView()
     }
 

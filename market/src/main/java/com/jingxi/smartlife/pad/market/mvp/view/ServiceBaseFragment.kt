@@ -37,14 +37,14 @@ abstract class ServiceBaseFragment<T : BasePresenter<*>> : MvpFragment<BasePrese
 
     protected fun getAdapter(datas: List<CardDetailBean.ServicesBean>): FindServiceChildAdapter {
         val busModel = BusModel()
-        val mAdapter = FindServiceChildAdapter(mContext, datas)
-        mAdapter.setSubsribeClickCallback(object : FindServiceChildAdapter.SubsribeClickCallback {
+        val mAdapter = mContext?.let { FindServiceChildAdapter(it, datas) }
+        mAdapter?.setSubsribeClickCallback(object : FindServiceChildAdapter.SubsribeClickCallback {
             override fun subscibe(item: CardDetailBean.ServicesBean) {
                 addSubscribe(busModel.subscribe(item.id.toString() + "", "1").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@ServiceBaseFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
                     override fun onResponse(response: ApiResponse<Any>) {
                         super.onResponse(response)
                         item.isSubscribe = 1
-                        mAdapter.notifyDataSetChanged()
+                        mAdapter?.notifyDataSetChanged()
                         EventBusUtil.post(EventSubscription(item.type))
                     }
 
@@ -59,7 +59,7 @@ abstract class ServiceBaseFragment<T : BasePresenter<*>> : MvpFragment<BasePrese
                     override fun onResponse(response: ApiResponse<Any>) {
                         super.onResponse(response)
                         item.isSubscribe = 0
-                        mAdapter.notifyDataSetChanged()
+                        mAdapter?.notifyDataSetChanged()
                         EventBusUtil.post(EventSubscription(item.type))
                         if (item.flag == CardDetailBean.TYPE_NATIVE) {
                             uninstall(item)
@@ -72,8 +72,8 @@ abstract class ServiceBaseFragment<T : BasePresenter<*>> : MvpFragment<BasePrese
                 }))
             }
         })
-        mAdapter.setOnItemClickListener { adapter, holder, position -> toTarget(datas[position]) }
-        return mAdapter
+        mAdapter?.setOnItemClickListener { adapter, holder, position -> toTarget(datas[position]) }
+        return mAdapter!!
     }
 
     private fun uninstall(item: CardDetailBean.ServicesBean) {
@@ -83,9 +83,10 @@ abstract class ServiceBaseFragment<T : BasePresenter<*>> : MvpFragment<BasePrese
         //        loadDialog.setTitle("正在卸载");
         addSubscribe(
                 Observable.create(ObservableOnSubscribe<Boolean> { emitter ->
-                    val uninstall = AppUtil.uninstall(item.packageName)
+                     item.packageName?.let { val uninstall =AppUtil.uninstall(it)
+                         emitter.onNext(uninstall)}
                     //                boolean uninstall = true;
-                    emitter.onNext(uninstall)
+
                 }).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe { uninstall ->
@@ -103,20 +104,23 @@ abstract class ServiceBaseFragment<T : BasePresenter<*>> : MvpFragment<BasePrese
     }
 
     protected fun toTarget(item: CardDetailBean.ServicesBean) {
-        if (DoubleClickUtils.isDoubleClick()) {
+        if (DoubleClickUtils.isDoubleClick) {
             return
         }
         if (item.flag == CardDetailBean.TYPE_WEB) {
             if (this is FindServiceFragment || this is AllServiceFragment) {
-                parentStart(item.url?.let { WebViewFragment.newInstance(it) })
+                item.url?.let {parentStart( WebViewFragment.newInstance(it)) }
             } else {
-                start(item.url?.let { WebViewFragment.newInstance(it) })
+                item.url?.let  { start(WebViewFragment.newInstance(it)) }
             }
         } else if (item.flag == CardDetailBean.TYPE_NATIVE) {
-            val result = AppUtil.startAPPByPackageName(item.packageName)
-            if (!result) {//未找到应用
-                downloadAndInstall(item)
+            item.packageName?.let {
+                val result =  AppUtil.startAPPByPackageName(it)
+                if (!result) {//未找到应用
+                    downloadAndInstall(item)
+                }
             }
+
         }
     }
 
@@ -125,15 +129,15 @@ abstract class ServiceBaseFragment<T : BasePresenter<*>> : MvpFragment<BasePrese
 
         if (item.flag == CardDetailBean.TYPE_NATIVE) {
 
-            val apkPath = FileUtil.getDowndloadApkPath(mContext)
+            val apkPath = mContext?.let { FileUtil.getDowndloadApkPath(it) }
             LogUtil.i("apk path = $apkPath")
 
-            val loadDialog = LoadingProgressDialog(mContext)
+            val loadDialog = mContext?.let { LoadingProgressDialog(it) }
             mTask = item.url?.let {
                 DownloadUtil.download(it, object : DownloadListener {
                     override fun onTaskStart() {
 
-                        loadDialog.show()
+                        loadDialog?.show()
                     }
 
                     override fun onTaskProgress(percent: Int, currentOffset: Long, totalLength: Long) {
@@ -163,9 +167,10 @@ abstract class ServiceBaseFragment<T : BasePresenter<*>> : MvpFragment<BasePrese
                                             } else {
                                                 ToastUtil.showShort(mContext, "安装失败")
                                             }
-                                            if (!AppUtil.startAPPByPackageName(item.packageName)) {
+                                            item.packageName?.let { if (!AppUtil.startAPPByPackageName(it)) {
                                                 ToastUtil.showShort(mContext, "应用打开失败")
-                                            }
+                                            } }
+
                                         }
                             }
                             DownloadUtil.STATE_CANCELED -> {

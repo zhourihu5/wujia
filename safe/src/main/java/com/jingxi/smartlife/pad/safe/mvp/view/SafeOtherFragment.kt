@@ -11,10 +11,8 @@ import com.wujia.lib_common.base.BaseFragment
  * description ：
  */
 class SafeOtherFragment : BaseFragment() {
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_safe_other
-    }
+    override val layoutId: Int
+        get() = R.layout.fragment_safe_other
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)

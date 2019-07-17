@@ -32,7 +32,8 @@ import java.util.*
  * description ：
  */
 class FindServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), HorizontalTabBar.OnTabSelectedListener, LoadMoreWrapper.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, MultiItemTypeAdapter.OnRVItemClickListener {
-
+    override val layoutId: Int
+        get() =R.layout.fragment_service_find
     private var recyclerView: RecyclerView? = null
     private var mSwipeRefreshLayout: SwipeRefreshLayout? = null
     private var isLoading: Boolean = false
@@ -60,9 +61,6 @@ class FindServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Hori
 
     internal lateinit var marketModel: MarketModel
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_service_find
-    }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
@@ -76,7 +74,7 @@ class FindServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Hori
         datas = ArrayList()
 
         val mAdapter = getAdapter(datas)
-        mLoadMoreWrapper = LoadMoreWrapper(mAdapter)
+        mLoadMoreWrapper = LoadMoreWrapper(mAdapter as RecyclerView.Adapter<RecyclerView.ViewHolder>)
         recyclerView!!.adapter = mLoadMoreWrapper
         mLoadMoreWrapper!!.setOnLoadMoreListener(this)
         mSwipeRefreshLayout!!.setOnRefreshListener(this)
@@ -94,7 +92,7 @@ class FindServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Hori
 
     private fun getList(isShowLoadingDialog: Boolean) {
         isLoading = true
-        addSubscribe(marketModel.getServiceList("2", pageNo, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<ServiceDto>>(this, SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(marketModel.getServiceList("2", pageNo, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<ServiceDto>>(this@FindServiceFragment, SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<ServiceDto>) {
                 super.onResponse(response)
                 isLoading = false
@@ -138,7 +136,7 @@ class FindServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Hori
         val banner = list[0]
         ImageLoaderManager.getInstance().loadImage(banner.cover, ivBanner)
         //                tvBanner.setText(TextUtils.isEmpty(banner.title) ? "" : banner.title);
-        ivBanner!!.setOnClickListener { parentStart(banner.url?.let { it1 -> WebViewFragment.newInstance(it1) }) }
+        ivBanner!!.setOnClickListener {banner.url?.let { it1 -> parentStart( WebViewFragment.newInstance(it1) )} }
     }
 
     override fun onTabSelected(position: Int, prePosition: Int) {

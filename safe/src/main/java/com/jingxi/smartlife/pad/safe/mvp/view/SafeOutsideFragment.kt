@@ -45,6 +45,8 @@ import java.util.concurrent.TimeUnit
  * description ：可视安防 外机
  */
 class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolder.Callback, DoorAccessConversationUI, DoorAccessListUI, View.OnClickListener, MultiItemTypeAdapter.OnRVItemClickListener, SeekBar.OnSeekBarChangeListener, IntercomObserver.OnPlaybackListener {
+    override val layoutId: Int
+        get() =  R.layout.fragment_safe_outside
     private var inVisibleType = 0//不可见时的状态，0是正常，10，20为全屏，全屏时不做复位操作；
     private var isSeeeionIdValid: Boolean = false//防止多次刷新创建多个会话，sessionId未超时即有效
     private var isPalyback: Boolean = false //true为回放，false为直播；
@@ -77,10 +79,6 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
     private var loadingDialog: LoadingDialog? = null
 
 
-    override fun getLayoutId(): Int {
-        LogUtil.i("SafeOutsideFragment getLayoutId")
-        return R.layout.fragment_safe_outside
-    }
 
     override fun createPresenter(): BasePresenter<BaseView>? {
         return null
@@ -97,8 +95,8 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
             return
         }
 
-        audioHelper = AudioMngHelper(mContext)
-        audioValue = audioHelper!!.get100CurrentVolume()
+        audioHelper = mContext?.let { AudioMngHelper(it) }
+        audioValue = audioHelper!!.currentVolumePercentage
 
 
         safe_swich_live_btn!!.setOnClickListener(this)
@@ -168,7 +166,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
     private fun setVideo() {
         setDate(System.currentTimeMillis())
         if (null == loadingDialog) {
-            loadingDialog = LoadingDialog(mContext)
+            loadingDialog = mContext?.let { LoadingDialog(it) }
         }
         loadingDialog!!.setCancelOnTouchOutside(true)
         loadingDialog!!.setTitle("正在连接中...")
@@ -201,7 +199,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
             recordList!!.clear()
             recordList!!.addAll(recordBeans)
         }
-        recAdapter = PlayBackAdapter(mContext, recordList!!)
+        recAdapter = mContext?.let { PlayBackAdapter(it, recordList!!) }
         rv_play_back!!.adapter = recAdapter
         recAdapter!!.setOnItemClickListener(this)
 
@@ -314,7 +312,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
 
     override fun onClick(v: View) {
 
-        if (DoubleClickUtils.isDoubleClick()) {
+        if (DoubleClickUtils.isDoubleClick) {
             return
         }
         if (v.id == R.id.safe_play_rec_edit_btn) {//编辑

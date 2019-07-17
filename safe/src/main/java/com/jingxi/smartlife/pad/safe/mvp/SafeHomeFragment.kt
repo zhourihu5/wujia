@@ -17,6 +17,8 @@ import me.yokeyword.fragmentation.SupportFragment
  * description ：智能家居 home
  */
 class SafeHomeFragment : TabFragment() {
+    override val layoutId: Int
+        get() = R.layout.fragment_tab_home
     private val mFragments = arrayOfNulls<SupportFragment>(4)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -28,11 +30,6 @@ class SafeHomeFragment : TabFragment() {
 
     }
 
-    override fun getLayoutId(): Int {
-        LogUtil.i("SafeHomeFragment getLayoutId")
-
-        return R.layout.fragment_tab_home
-    }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)

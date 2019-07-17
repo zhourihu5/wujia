@@ -1,19 +1,16 @@
 package com.jingxi.smartlife.pad.market.mvp.view
 
 import android.os.Bundle
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
-
+import androidx.recyclerview.widget.RecyclerView
 import com.jingxi.smartlife.pad.market.R
 import com.jingxi.smartlife.pad.market.mvp.adapter.MarketGoodsAdapter
 import com.jingxi.smartlife.pad.market.mvp.adapter.TagAdapter
 import com.jingxi.smartlife.pad.market.mvp.data.GoodsBean
 import com.jingxi.smartlife.pad.market.mvp.data.TagBean
 import com.wujia.lib_common.base.BaseFragment
-import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter
 import com.wujia.lib_common.base.view.HorizontalDecoration
-
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Author: created by shenbingkai on 2019/2/23 14 38
@@ -21,14 +18,12 @@ import java.util.ArrayList
  * Description:
  */
 class ShopDetailsFragment : BaseFragment(), View.OnClickListener {
-
+    override val layoutId: Int
+        get() = R.layout.fragment_shop_details
     private var rvTag: RecyclerView? = null
     private var rvGoods: RecyclerView? = null
     private var goodsAdapter: MarketGoodsAdapter? = null
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_shop_details
-    }
 
     override fun initEventAndData() {
         super.initEventAndData()

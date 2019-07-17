@@ -12,10 +12,8 @@ import com.wujia.lib_common.base.BaseFragment
  * description ：
  */
 class SimpleTelFragment : BaseFragment() {
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_propery_tel_simple
-    }
+    override val layoutId: Int
+        get() =  R.layout.fragment_propery_tel_simple
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)

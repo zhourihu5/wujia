@@ -55,6 +55,8 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 
 class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener, DoorSecurityUtil.OnSecurityChangedListener {
+    override val layout: Int
+        get() =  R.layout.activity_main
     private var touchTime: Long = 0  //点击返回键时间
 
 
@@ -73,7 +75,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
     private var mWakelock: PowerManager.WakeLock? = null
 
     private fun setMessagePoint() {
-        addSubscribe(BusModel().isUnReadMessage.subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Boolean>>(this, ActionConfig(false, SHOWERRORMESSAGE)) {
+        addSubscribe(BusModel().isUnReadMessage.subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Boolean>>(this@MainActivity, ActionConfig(false, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<Boolean>) {
                 super.onResponse(response)
                 val tab = main_tab_bar.getChildAt(POSITION_MESSAGE) as VerticalTabItem
@@ -89,17 +91,14 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         }
     }
 
-    override fun getLayout(): Int {
-        return R.layout.activity_main
-    }
 
     override fun initEventAndData(savedInstanceState: Bundle?) {
 
-        LogUtil.i("ScreenUtil.getDialogWidth()  " + ScreenUtil.getDialogWidth())
-        LogUtil.i("ScreenUtil.getLandscapeHeight()  " + ScreenUtil.getLandscapeHeight())
-        LogUtil.i("ScreenUtil.getLandscapeWidth()  " + ScreenUtil.getLandscapeWidth())
-        LogUtil.i("ScreenUtil.getDisplayHeight()  " + ScreenUtil.getDisplayHeight())
-        LogUtil.i("ScreenUtil.getDialogWidth()  " + ScreenUtil.getDialogWidth())
+        LogUtil.i("ScreenUtil.dialogWidth  " + ScreenUtil.dialogWidth)
+        LogUtil.i("ScreenUtil.landscapeHeight  " + ScreenUtil.landscapeHeight)
+        LogUtil.i("ScreenUtil.landscapeWidth  " + ScreenUtil.landscapeWidth)
+        LogUtil.i("ScreenUtil.displayHeight  " + ScreenUtil.displayHeight)
+        LogUtil.i("ScreenUtil.dialogWidth  " + ScreenUtil.dialogWidth)
         LogUtil.i("ScreenUtil.density()  " + ScreenUtil.density)
         LogUtil.i("ScreenUtil.densityDpi()  " + ScreenUtil.densityDpi)
         LogUtil.i("ScreenUtil.scaleDensity()  " + ScreenUtil.scaleDensity)
@@ -201,7 +200,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
     }
 
     private fun initGrant() {
-        PermissionsManager.getInstance().requestPermissionsIfNecessaryForResult(this@MainActivity,
+        PermissionsManager.instance.requestPermissionsIfNecessaryForResult(this@MainActivity,
                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE, Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA),
                 object : PermissionsResultAction() {
                     override fun onGranted() {

@@ -39,18 +39,15 @@ import kotlinx.android.synthetic.main.fragment_setting_home.*
  * description ：物业服务 home
  */
 class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.View {
-
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_setting_home
-    }
+    override val layoutId: Int
+        get() = R.layout.fragment_setting_home
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
         layout_title_tv!!.setText(R.string.setting)
         layout_title!!.setOnLongClickListener {
-            val versionCode = VersionUtil.getVersionCode()
-            val versionName = VersionUtil.getVersionName()
+            val versionCode = VersionUtil.versionCode
+            val versionName = VersionUtil.versionName
 
             ToastUtil.showShort(mContext, "$versionName - $versionCode")
             true
@@ -77,8 +74,8 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
             R.id.item_allow_look_door_num -> item_allow_look_door_num_switch!!.toggle()
             R.id.item_clear_cache -> SimpleDialog.Builder().title(getString(R.string.clear_cache)).listener {
                 ToastUtil.showShort(mContext, getString(R.string.cache_clear_ed))
-                FileUtil.deleteFile(FileUtil.getDowndloadApkPath(mContext))
-            }.build(mContext).show()
+                FileUtil.deleteFile(FileUtil.getDowndloadApkPath(mContext!!))
+            }.build(mContext!!).show()
             R.id.item_check_update -> {
                 showLoadingDialog(getString(R.string.check_update_ing))
 

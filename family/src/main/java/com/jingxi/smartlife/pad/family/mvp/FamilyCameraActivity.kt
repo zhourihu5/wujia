@@ -7,13 +7,11 @@ import com.jingxi.smartlife.pad.family.R
 import com.wujia.lib_common.base.BaseActivity
 
 class FamilyCameraActivity : BaseActivity(), View.OnClickListener {
+    override val layout: Int
+        get() =  R.layout.activity_framily_camera
 
 
-    override fun getLayout(): Int {
-        return R.layout.activity_framily_camera
-    }
-
-    override fun initEventAndData(savedInstanceState: Bundle) {
+    override fun initEventAndData(savedInstanceState: Bundle?) {
 
         findViewById<View>(R.id.img1).setOnClickListener(this)
     }

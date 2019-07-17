@@ -28,6 +28,8 @@ import kotlinx.android.synthetic.main.activity_video_call.*
  * description ：
  */
 class VideoCallActivity : BaseActivity(), View.OnClickListener, SurfaceHolder.Callback, DoorAccessConversationUI, TextureView.SurfaceTextureListener {
+    override val layout: Int
+        get() =  R.layout.activity_video_call
     override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture?, width: Int, height: Int) {
     }
 
@@ -77,9 +79,6 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener, SurfaceHolder.Ca
         super.setContentView()
     }
 
-    override fun getLayout(): Int {
-        return R.layout.activity_video_call
-    }
 
     override fun initEventAndData(savedInstanceState: Bundle?) {
 
@@ -88,7 +87,7 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener, SurfaceHolder.Ca
 
         sessionId = intent.getStringExtra(SESSION_ID)
         if (null == loadingDialog) {
-            loadingDialog = LoadingDialog(mContext)
+            loadingDialog = mContext?.let { LoadingDialog(it) }
         }
         loadingDialog!!.setCancelOnTouchOutside(true)
         loadingDialog!!.setTitle("正在连接中...")
