@@ -317,7 +317,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
                         if (weather.time == curdate) {
                             home_weather_num_tv!!.text = weather.temperature + "°"
                             home_weather_desc_tv!!.text = weather.weather
-                            ImageLoaderManager.getInstance().loadImage(weather.weather_code, ivWeather)
+                            ImageLoaderManager.instance.loadImage(weather.weather_code, ivWeather)
                         }
                     }
                 }

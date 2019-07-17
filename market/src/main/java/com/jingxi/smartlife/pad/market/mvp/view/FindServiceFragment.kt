@@ -134,7 +134,7 @@ class FindServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Hori
             return
         }
         val banner = list[0]
-        ImageLoaderManager.getInstance().loadImage(banner.cover, ivBanner)
+        ImageLoaderManager.instance.loadImage(banner.cover, ivBanner)
         //                tvBanner.setText(TextUtils.isEmpty(banner.title) ? "" : banner.title);
         ivBanner!!.setOnClickListener {banner.url?.let { it1 -> parentStart( WebViewFragment.newInstance(it1) )} }
     }

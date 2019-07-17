@@ -30,7 +30,7 @@ class AdvertActivity : BaseActivity() {
     override fun initEventAndData(savedInstanceState: Bundle?) {
         advert = intent.getSerializableExtra(Constants.INTENT_KEY_1) as Advert
         if (advert != null) {
-            ImageLoaderManager.getInstance().loadImage(advert!!.url, img_advert)
+            ImageLoaderManager.instance.loadImage(advert!!.url, img_advert)
             btn_details!!.visibility = View.VISIBLE
         }
     }

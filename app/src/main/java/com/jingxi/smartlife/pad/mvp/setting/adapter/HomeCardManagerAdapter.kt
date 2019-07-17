@@ -37,7 +37,7 @@ class HomeCardManagerAdapter(context: Context, datas: List<HomeRecBean.Card>, pr
                 desc.text = item.explain
 
                 val img = subview.findViewById<ImageView>(R.id.scene_in_img)
-                ImageLoaderManager.getInstance().loadImage(item.image, R.mipmap.default_loading, img)
+                ImageLoaderManager.instance.loadImage(item.image, R.mipmap.default_loading, img)
             }
         }
 

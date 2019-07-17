@@ -126,7 +126,7 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
                     if (lock_img_bg != null) {
                         val ad = bean.data
                         if (ad != null) {
-                            ImageLoaderManager.getInstance().loadImage(ad.image, R.mipmap.bg_lockscreen, lock_img_bg)
+                            ImageLoaderManager.instance.loadImage(ad.image, R.mipmap.bg_lockscreen, lock_img_bg)
                         }
                         btn_details!!.visibility = View.VISIBLE
                         btn_details!!.setOnClickListener {
@@ -190,7 +190,7 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
                                         if (weather.time == curdate) {
                                             login_temperature_tv!!.text = weather.temperature + "°"
                                             login_temperature_desc!!.text = weather.weather
-                                            ImageLoaderManager.getInstance().loadImage(weather.weather_code, ivWeather)
+                                            ImageLoaderManager.instance.loadImage(weather.weather_code, ivWeather)
                                         }
                                     }
                                 }

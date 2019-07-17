@@ -1,13 +1,10 @@
 package com.jingxi.smartlife.pad.market.mvp.adapter
 
 import android.content.Context
-import android.view.View
 import android.widget.ImageView
-
 import com.jingxi.smartlife.pad.market.R
 import com.wujia.businesslib.data.CardDetailBean
 import com.wujia.businesslib.dialog.SimpleDialog
-import com.wujia.businesslib.listener.OnDialogListener
 import com.wujia.lib.imageloader.ImageLoaderManager
 import com.wujia.lib_common.base.baseadapter.CommonAdapter
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder
@@ -43,7 +40,7 @@ class FindServiceChildAdapter : CommonAdapter<CardDetailBean.ServicesBean> {
     override fun convert(holder: ViewHolder, item: CardDetailBean.ServicesBean, pos: Int) {
 
         val img = holder.getView<ImageView>(R.id.img1)
-        ImageLoaderManager.getInstance().loadImage(item.cover, 0, img)//placeholder should be passed
+        item.cover?.let { ImageLoaderManager.instance.loadImage(it, 0, img) }//placeholder should be passed
         holder.setText(R.id.tv1, item.title)
         holder.setText(R.id.tv2, item.memo)
 

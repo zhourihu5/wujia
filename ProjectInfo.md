@@ -32,10 +32,10 @@ mvp + (retrofit + okhttp) + rxjava(异步+事件流)
 
 ```
 //ImageLoaderManager基本使用方式
-ImageLoaderManager.getInstance()
+ImageLoaderManager.instance
 	.loadImage(url, imageView);
 
-ImageLoaderManager.getInstance()
+ImageLoaderManager.instance
 	.loadImage(url, placeholder, imageView);
 ```
 
