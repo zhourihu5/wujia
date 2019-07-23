@@ -85,6 +85,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
                 addedAdapter!!.notifyItemRangeChanged(0, addList!!.size)
                 unaddAdapter!!.notifyItemRangeChanged(0, unaddList!!.size)
+                EventBusUtil.post(EventCardChange())
             }
         })
     }
@@ -112,7 +113,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
                 addedAdapter!!.notifyItemRangeChanged(0, addList!!.size)
                 unaddAdapter!!.notifyItemRangeChanged(0, unaddList!!.size)
-
+                EventBusUtil.post(EventCardChange())
             }
 
             override fun removeCard(pos: Int) {
@@ -135,9 +136,9 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
     override fun pop() {
         unRegisterCardChangeEvent()
-        if (isChanged) {
-            EventBusUtil.post(EventCardChange())
-        }
+//        if (isChanged) {
+//            EventBusUtil.post(EventCardChange())
+//        }
         super.pop()
     }
 

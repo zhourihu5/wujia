@@ -74,7 +74,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
     private val eventCardChange = EventCardChange(object : IMiessageInvoke<EventCardChange> {
         override fun eventBus(event: EventCardChange) {
             isRefreshCard = true
-            if (isVisible) {
+            if (isSupportVisible) {
                 mPresenter?.getUserQuickCard()
             }
         }

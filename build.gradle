@@ -7,6 +7,7 @@ buildscript {
         classpath deps.android_gradle_plugin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlinVersion"
 //        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.navigationVersion"
+
     }
     repositories {
         google()
