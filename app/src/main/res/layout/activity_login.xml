@@ -125,7 +125,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
-                    android:inputType="phone"
                     android:maxLength="11"
                     android:paddingLeft="@dimen/px150"
                     android:singleLine="true"
@@ -133,7 +132,8 @@
                     android:textColor="@color/c3"
                     android:textColorHint="@color/c3"
                     android:textSize="@dimen/text24" />
-
+                <!--android:inputType="phone"-->
+                <!--系统输入法不太好，设置了inputType不能关闭键盘-->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
