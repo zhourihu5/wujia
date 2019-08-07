@@ -3,8 +3,6 @@ package com.wujia.lib_common.utils
 import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.text.TextUtils
 import java.io.BufferedReader
 import java.io.IOException
@@ -21,48 +19,53 @@ object AppUtil {
 
     fun startAPPByPackageName(packagename: String): Boolean {
 
-        // 通过包名获取此APP详细信息，包括Activities、services、versioncode、name等等
-        var packageinfo: PackageInfo? = null
-        try {
-            packageinfo = AppContext.get().packageManager.getPackageInfo(packagename, 0)
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-        }
-
-        if (packageinfo == null) {
-            return false
-        }
+        // 通过包名获取此APP详细信息，包括Activities、services、versioncode、name等等 有版本兼容问题，getPackageInfo,所以不去校验
+//        var packageinfo: PackageInfo? = null
+//        try {
+//            packageinfo = AppContext.get().packageManager.getPackageInfo(packagename, 0)
+//        } catch (e: PackageManager.NameNotFoundException) {
+//            e.printStackTrace()
+//        }
+//
+//        if (packageinfo == null) {
+//            return false
+//        }
 
         // 创建一个类别为CATEGORY_LAUNCHER的该包名的Intent
-        val resolveIntent = Intent(Intent.ACTION_MAIN, null)
-        resolveIntent.addCategory(Intent.CATEGORY_LAUNCHER)
-        resolveIntent.setPackage(packageinfo.packageName)
+        try {
+            val resolveIntent = Intent(Intent.ACTION_MAIN, null)
+            resolveIntent.addCategory(Intent.CATEGORY_LAUNCHER)
+            resolveIntent.setPackage(packagename)
 
-        // 通过getPackageManager()的queryIntentActivities方法遍历
-        val resolveinfoList = AppContext.get().packageManager
-                .queryIntentActivities(resolveIntent, 0)
+            // 通过getPackageManager()的queryIntentActivities方法遍历
+            val resolveinfoList = AppContext.get().packageManager
+                    .queryIntentActivities(resolveIntent, 0)
 
-        val resolveinfo = resolveinfoList.iterator().next()
-        if (resolveinfo != null) {
-            // packagename = 参数packname
-            val packageName = resolveinfo.activityInfo.packageName
-            // 这个就是我们要找的该APP的LAUNCHER的Activity[组织形式：packagename.mainActivityname]
-            val className = resolveinfo.activityInfo.name
-            // LAUNCHER Intent
-            val intent = Intent(Intent.ACTION_MAIN)
-            intent.addCategory(Intent.CATEGORY_LAUNCHER)
-            //不保存历史记录
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS
-            // 设置ComponentName参数1:packagename参数2:MainActivity路径
-            val cn = ComponentName(packageName, className)
-            intent.component = cn
-            //            Activity activity = BaseApplication.baseApplication.getLastActivity();
-            //            if (activity == null || activity.isFinishing()) {
-            //                return false;
-            //            }
-            AppContext.get().startActivity(intent)
+            val resolveinfo = resolveinfoList.iterator().next()
+            if (resolveinfo != null) {
+                // packagename = 参数packname
+                val packageName = resolveinfo.activityInfo.packageName
+                // 这个就是我们要找的该APP的LAUNCHER的Activity[组织形式：packagename.mainActivityname]
+                val className = resolveinfo.activityInfo.name
+                // LAUNCHER Intent
+                val intent = Intent(Intent.ACTION_MAIN)
+                intent.addCategory(Intent.CATEGORY_LAUNCHER)
+                //不保存历史记录
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS
+                // 设置ComponentName参数1:packagename参数2:MainActivity路径
+                val cn = ComponentName(packageName, className)
+                intent.component = cn
+                //            Activity activity = BaseApplication.baseApplication.getLastActivity();
+                //            if (activity == null || activity.isFinishing()) {
+                //                return false;
+                //            }
+                AppContext.get().startActivity(intent)
+                return true
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-        return true
+        return false
     }
 
     fun startAdbWifi(): Boolean {
