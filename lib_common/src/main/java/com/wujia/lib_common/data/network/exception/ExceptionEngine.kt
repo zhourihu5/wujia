@@ -6,7 +6,6 @@ import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import com.wujia.lib_common.base.RootResponse
 import org.json.JSONException
-import org.json.JSONObject
 import retrofit2.HttpException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
@@ -48,16 +47,17 @@ object ExceptionEngine {
             }
             return ex
         } else if (e is ApiJsonFormateException) {
-            val originData = e.originData
-            try {
-                val jsonObject = JSONObject(originData)
-                val code = jsonObject.optString("code")
-                val msg = jsonObject.optString("msg")
-                ex = ApiException(e, code, msg)
-            } catch (e1: JSONException) {
-                e1.printStackTrace()
-                ex = ApiException(e, ERROR.PARSE_ERROR, "数据解析异常")
-            }
+//            val originData = e.originData
+//            try {
+//                val jsonObject = JSONObject(originData)
+//                val code = jsonObject.optString("code")
+//                val msg = jsonObject.optString("msg")
+//                ex = ApiException(e, code, msg)
+//            } catch (e1: JSONException) {
+//                e1.printStackTrace()
+//            }
+            e.printStackTrace()
+            ex = ApiException(e, ERROR.PARSE_ERROR, "数据解析异常")
 
             return ex
         } else if (e is JsonParseException

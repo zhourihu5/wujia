@@ -25,6 +25,9 @@ object DataManager {
     val familyId: String?
         @Throws(Exception::class)
         get() = user.userInfo!!.fid
+    val communtityId: Int?
+        @Throws(Exception::class)
+        get() = user.userInfo!!.communtityId
 
     // return "001901181CD10000";
     val dockKey: String

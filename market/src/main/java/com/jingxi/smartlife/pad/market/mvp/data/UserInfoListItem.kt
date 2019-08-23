@@ -1,0 +1,21 @@
+package com.jingxi.smartlife.pad.market.mvp.data
+
+data class UserInfoListItem(val birthday: String = "",
+                            val fid: String = "",
+                            val flag: String = "",
+                            val nickName: String = "",
+                            val wxOpenId: String = "",
+                            val sex: String = "",
+                            val icon: String = "",
+                            val identityCard: String = "",
+                            val userName: String = "",
+                            val realName: String = "",
+                            val userCards: List<UserCardsItem>?,
+                            val password: String = "",
+                            val wxNickName: String = "",
+                            val communtityId: String = "",
+                            val identity: String = "",
+                            val wxCover: String = "",
+                            val id: String = "",
+                            val createDate: String = "",
+                            val status: String = "")

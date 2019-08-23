@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<com.wujia.lib.widget.ShadowContainer -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:layout_width="468dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_radius_shape"
+        android:orientation="vertical">
+       <!-- <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vpBanner"
+            android:layout_width="351dp"
+            android:layout_height="212dp"
+            />-->
+        <ImageView android:id="@+id/ivCover"
+            android:layout_width="match_parent"
+            android:layout_height="283dp"
+            tools:src="@mipmap/btn_safe_hangup"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="27dp"
+            android:paddingRight="27dp"
+            android:paddingTop="21dp"
+            android:paddingBottom="21dp">
+            <TextView android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="颈枕/眼罩/收纳好物 早春出游 轻装上阵"
+                android:textColor="#ff333333"
+                android:textSize="16sp"
+                android:layout_marginBottom="12dp"/>
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/flowlayout"
+                app:max_select="0"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="11dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="¥"
+                            android:textColor="#ffc8ac88"
+                            android:textSize="16sp"
+                            />
+                        <TextView android:id="@+id/tvPriceInt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="19"
+                            android:textColor="#ffc8ac88"
+                            android:textSize="25sp"
+                            />
+                        <TextView android:id="@+id/tvFloat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text=".99"
+                            android:textColor="#ffc8ac88"
+                            android:textSize="19sp"
+                            />
+                        <TextView android:id="@+id/tvPriceOld"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="￥16.8"
+                            android:textColor="#ff888888"
+                            android:textSize="19sp"
+                            />
+                    </LinearLayout>
+                    <TextView android:id="@+id/tvSaleNum"
+                        android:layout_width="103dp"
+                        android:layout_height="22dp"
+                        tools:text="已抢购2550件"
+                        android:textColor="#ff888888"
+                        android:textSize="16sp"
+                        android:layout_marginTop="10dp"/>
+                </LinearLayout>
+                <Button android:id="@+id/btGo"
+                    android:layout_width="133dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/go_group_buy_bg"
+                    android:text="去参团"
+                    android:textColor="#ffffffff"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

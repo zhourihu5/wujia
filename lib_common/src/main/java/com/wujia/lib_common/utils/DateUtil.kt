@@ -108,5 +108,10 @@ object DateUtil {
         val date = Date(m)
         return formatter.format(date)
     }
+    fun getDate(date: String): Date {
+        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        return formatter.parse(date)
+    }
+
 
 }

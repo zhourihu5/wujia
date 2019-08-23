@@ -160,6 +160,7 @@
     <!--服务-->
     <string name="my_service">我的服务</string>
     <string name="find_service">发现服务</string>
+    <string name="group_buy_service">社区团购</string>
     <string name="gov_service">政务服务</string>
     <string name="all_service">全部服务</string>
     <string name="feature_service">特色服务</string>

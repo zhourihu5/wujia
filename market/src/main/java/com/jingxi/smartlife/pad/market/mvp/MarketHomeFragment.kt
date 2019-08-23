@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.jingxi.smartlife.pad.market.R
 import com.jingxi.smartlife.pad.market.mvp.annotation.ServiceType
 import com.jingxi.smartlife.pad.market.mvp.view.AllServiceFragment
-import com.jingxi.smartlife.pad.market.mvp.view.FindServiceFragment
+import com.jingxi.smartlife.pad.market.mvp.view.GroupBuyFragment
 import com.wujia.businesslib.TabFragment
 import com.wujia.lib.widget.VerticalTabItem
 import com.wujia.lib_common.utils.LogUtil
@@ -30,22 +30,22 @@ class MarketHomeFragment : TabFragment() {
         LogUtil.i("MarketHomeFragment onLazyInitView")
         mTabBar = `$`(R.id.tab_home_tab_bar)
         mTabBar.addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_my_default, R.mipmap.icon_market_leftnav_my_highlight, R.string.my_service))
-                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_find_default, R.mipmap.icon_market_leftnav_my_highlight, R.string.find_service))
-                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_government_default, R.mipmap.icon_market_leftnav_my_highlight, R.string.gov_service))
-                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_all_default, R.mipmap.icon_market_leftnav_my_highlight, R.string.all_service))
+//                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_find_default, R.mipmap.icon_market_leftnav_find_highlight, R.string.find_service))
+                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_find_default, R.mipmap.icon_market_leftnav_find_highlight, R.string.group_buy_service))
+                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_government_default, R.mipmap.icon_market_leftnav_government_highlight, R.string.gov_service))
+                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_all_default, R.mipmap.icon_market_leftnav_all_highlight, R.string.all_service))
 
         if (currentTab >= mTabBar.childCount) {
             currentTab = 0
         }
         mFragments[0] = findChildFragment(AllServiceFragment::class.java)
-        mFragments[1] = findChildFragment(FindServiceFragment::class.java)
+//        mFragments[1] = findChildFragment(FindServiceFragment::class.java)
+        mFragments[1] = findChildFragment(GroupBuyFragment::class.java)
         if (mFragments[0] == null) {
             val type = getServiceType(currentTab)
             mFragments[0] = AllServiceFragment.newInstance(type)
-            mFragments[1] = FindServiceFragment.newInstance()
-            //            mFragments[2] = GovServiceFragment.newInstance();
-            //            mFragments[2] = AllServiceFragment.newInstance(AllServiceFragment.TYPE_GOV);
-            //            mFragments[3] = AllServiceFragment.newInstance(AllServiceFragment.TYPE_ALL);
+//            mFragments[1] = FindServiceFragment.newInstance()
+            mFragments[1] = GroupBuyFragment.newInstance()
             var fPosition = 0
             if (currentTab == 1) {
                 fPosition = 1

@@ -11,8 +11,6 @@ object Constants {
 
     val HTTP_SUCESS = "200"
 
-    val APPID = "18bf4301ea0f42a08d96fc665a5c8c85"
-    val SECRET = "16f2e25f4fe94e6ea27e645a33313011"
     val COMMON_REQUEST_TOKEN = "accessToken"
 
 
@@ -27,11 +25,9 @@ object Constants {
 
     init {
         if (BuildConfig.DEBUG) {
-            //            BASE_URL = "http://api.home-guard.cn";
-            BASE_URL = "http://192.168.1.100:8081"
+            BASE_URL = "https://api.home-guard.cn"
         } else {
-            //            BASE_URL = "http://39.97.186.122:8081"
-            BASE_URL = "http://api.home-guard.cn"
+            BASE_URL = "https://api.home-guard.cn"
         }
     }
 }

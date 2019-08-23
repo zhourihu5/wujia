@@ -39,6 +39,7 @@ class CustomConverterFactory private constructor(private val gson: Gson) : Conve
                 try {
                     return adapter.fromJson(body)
                 } catch (e: JsonSyntaxException) {
+                    e.printStackTrace()
                     throw ApiJsonFormateException(body, e.message!!)
                 }
 
