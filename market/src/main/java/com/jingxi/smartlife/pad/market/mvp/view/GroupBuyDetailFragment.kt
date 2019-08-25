@@ -83,6 +83,11 @@ class GroupBuyDetailFragment : TitleFragment() {
                 })
 
                 tvUserNum.setText("…等${ac.commodity.salesNum}名用户已参与")
+                if(response!!.data!!.userInfoList!!.size<=0){
+                    llAvatar.visibility=View.GONE
+                }else{
+                    llAvatar.visibility=View.VISIBLE
+                }
                 if(!TextUtils.isEmpty(ac.saleTip)){
                     val saleTipArr=  ac.saleTip.split(',')
                     tvRejoinNum.setText(saleTipArr[0])
