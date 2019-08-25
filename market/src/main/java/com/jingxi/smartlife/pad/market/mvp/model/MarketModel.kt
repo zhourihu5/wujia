@@ -30,5 +30,9 @@ class MarketModel : BaseModel() {
 
     }
 
+    fun generateQrCode(id: String): Flowable<ApiResponse<String>>  {
+        return mHttpHelper.create(MarketApiService::class.java)!!.generateQrCode( id).compose(RxUtil.rxSchedulerHelper())
+    }
+
 
 }

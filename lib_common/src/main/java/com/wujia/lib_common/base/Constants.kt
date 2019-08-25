@@ -25,7 +25,8 @@ object Constants {
 
     init {
         if (BuildConfig.DEBUG) {
-            BASE_URL = "https://api.home-guard.cn"
+//            BASE_URL = "https://api.home-guard.cn"
+            BASE_URL = "http://192.168.250.6"
         } else {
             BASE_URL = "https://api.home-guard.cn"
         }

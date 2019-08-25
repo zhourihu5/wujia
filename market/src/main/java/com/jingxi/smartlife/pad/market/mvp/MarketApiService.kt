@@ -22,4 +22,7 @@ interface MarketApiService {
     @GET("/v1/activity/findByActivityId")
     fun getGroupBuyDetail(@Query("activityId")id: String?): Flowable<ApiResponse<GroupBuyDetailVo>>
 
+    @GET("/v1/activity/generateQrCode")
+    fun generateQrCode(@Query("activityId")id: String): Flowable<ApiResponse<String>>
+
 }
