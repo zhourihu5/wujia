@@ -14,10 +14,8 @@ import com.wujia.lib_common.base.BasePresenter
 import com.wujia.lib_common.base.BaseView
 import com.wujia.lib_common.base.baseadapter.MultiItemTypeAdapter
 import com.wujia.lib_common.base.baseadapter.wrapper.LoadMoreWrapper
-import com.wujia.lib_common.base.view.ServiceCardDecoration
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
 import com.wujia.lib_common.data.network.exception.ApiException
-import com.wujia.lib_common.utils.ScreenUtil
 import kotlinx.android.synthetic.main.fragment_group_buy.*
 import java.util.*
 
@@ -39,7 +37,7 @@ class GroupBuyFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Horizon
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
 
-        rvGroupBuy!!.addItemDecoration(ServiceCardDecoration(ScreenUtil.dip2px(12f)))
+//        rvGroupBuy!!.addItemDecoration(ServiceCardDecoration(ScreenUtil.dip2px(12f)))
 
         datas = ArrayList()
 

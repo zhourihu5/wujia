@@ -10,9 +10,10 @@
 
     <LinearLayout
         android:layout_width="468dp"
-        android:layout_height="wrap_content"
+        android:layout_height="462dp"
         android:background="@drawable/bg_white_radius_shape"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
        <!-- <androidx.viewpager.widget.ViewPager
             android:id="@+id/vpBanner"
             android:layout_width="351dp"
@@ -22,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="283dp"
             tools:src="@mipmap/btn_safe_hangup"
-            />
+            android:scaleType="centerCrop"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,14 +31,14 @@
             android:paddingLeft="27dp"
             android:paddingRight="27dp"
             android:paddingTop="21dp"
-            android:paddingBottom="21dp">
+            >
             <TextView android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="颈枕/眼罩/收纳好物 早春出游 轻装上阵"
                 android:textColor="#ff333333"
                 android:textSize="16sp"
-                android:layout_marginBottom="12dp"/>
+                />
             <com.zhy.view.flowlayout.TagFlowLayout
                 android:id="@+id/flowlayout"
                 app:max_select="0"
@@ -48,7 +49,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -58,7 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginTop="11dp">
+                        >
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

@@ -182,13 +182,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:layout_marginBottom="16dp"
+                            android:layout_marginBottom="10dp"
                             app:max_select="0" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:gravity="bottom">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -219,7 +220,8 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="#ff888888"
                                 android:textSize="19sp"
-                                tools:text="￥16.8" />
+                                tools:text="￥16.8"
+                                android:layout_marginLeft="13dp"/>
                         </LinearLayout>
 
                         <TextView
@@ -260,10 +262,11 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/tuan"
                                 android:gravity="center"
+                                android:padding="3dp"
+                                android:layout_marginRight="8dp"
                                 android:text="团"
                                 android:textColor="#ffffffff"
-                                android:textSize="15sp"
-                                android:padding="3dp"/>
+                                android:textSize="15sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -293,26 +296,26 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_marginTop="16dp"
-                            android:layout_marginBottom="16dp">
+                            android:layout_marginBottom="16dp"
+                            android:gravity="bottom">
 
-                            <LinearLayout android:id="@+id/avatarContainer"
+                            <com.wujia.lib.widget.PileAvartarLayout android:id="@+id/avatarContainer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
-                                android:layoutDirection="ltr"
                                 >
 
-                                <!--<ImageView-->
-                                    <!--android:layout_width="33dp"-->
-                                    <!--android:layout_height="33dp"-->
-                                    <!--android:scaleType="centerCrop"-->
-                                    <!--tools:src="@mipmap/img_details_banner"/>-->
+                                <ImageView
+                                    android:layout_width="33dp"
+                                    android:layout_height="33dp"
+                                    android:scaleType="centerCrop"
+                                    tools:src="@mipmap/img_details_banner"/>
                                 <!--<ImageView-->
                                     <!--android:layout_width="33dp"-->
                                     <!--android:layout_height="33dp"-->
                                     <!--android:scaleType="centerCrop"-->
                                     <!--tools:src="@mipmap/image_download_failed"/>-->
-                            </LinearLayout>
+                            </com.wujia.lib.widget.PileAvartarLayout>
 
                             <TextView android:id="@+id/tvUserNum"
                                 android:layout_width="wrap_content"

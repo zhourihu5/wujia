@@ -18,7 +18,9 @@ import com.jingxi.smartlife.pad.market.mvp.data.GroupBuyDetailVo
 import com.jingxi.smartlife.pad.market.mvp.model.MarketModel
 import com.wujia.businesslib.TitleFragment
 import com.wujia.businesslib.data.ApiResponse
+import com.wujia.lib.imageloader.DensityUtil.Companion.dp2px
 import com.wujia.lib.imageloader.ImageLoaderManager
+import com.wujia.lib.widget.PileAvartarLayout
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
 import com.wujia.lib_common.data.network.exception.ApiException
 import com.wujia.lib_common.utils.DateUtil
@@ -64,7 +66,22 @@ class GroupBuyDetailFragment : TitleFragment() {
                         }
                     }
                 }
-//                avatarContainer.add//todo
+                avatarContainer.setFlag(true)
+                avatarContainer.setSpWidth(dp2px(context!!,15f))
+                avatarContainer.setAdapter(object : PileAvartarLayout.Adapter {
+                    override fun getCount(): Int {
+                        return response!!.data!!.userInfoList!!.size
+                    }
+                    override fun getView( position: Int): View? {
+                        if(position<10){
+                            val imageView=LayoutInflater.from(context).inflate(R.layout.item_goods_avatar,avatarContainer,false)
+                            ImageLoaderManager.instance.loadCircleImage(response!!.data!!.userInfoList!![position].wxCover!!,0,imageView as ImageView)
+                            return imageView
+                        }
+                        return null
+                    }
+                })
+
                 tvUserNum.setText("…等${ac.commodity.salesNum}名用户已参与")
                 if(!TextUtils.isEmpty(ac.saleTip)){
                     val saleTipArr=  ac.saleTip.split(',')
@@ -74,9 +91,10 @@ class GroupBuyDetailFragment : TitleFragment() {
                 }else{
                     llRejoinNum.visibility=View.GONE
                 }
-                btGo.setOnClickListener({
-                    //todo 确认订单页面
-                })
+                btGo.setOnClickListener {
+                    val orderConfirmFragment=OrderConfirmFragment.newInstance(response.data!!  )
+                    start(orderConfirmFragment)
+                }
 
 
                 val priceArr=ac.price.split('.')
@@ -84,7 +102,7 @@ class GroupBuyDetailFragment : TitleFragment() {
                 if(priceArr.size>1){
                     tvFloat.setText(".${priceArr[1]}")
                 }
-                tvPriceOld.setText(ac.commodity.price)
+                tvPriceOld.setText("￥"+ac.commodity.price)
                 tvPriceOld.paint.flags= Paint.STRIKE_THRU_TEXT_FLAG
                 tvSaleNum.setText("已抢购${ac.commodity.salesNum}件")
                 tvDiscount.setText(ac.largeMoney)
@@ -178,7 +196,8 @@ class GroupBuyDetailFragment : TitleFragment() {
             return datas.size
         }
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            val imageView=ImageView(mContext)
+            val imageView=LayoutInflater.from(mContext).inflate(R.layout.item_goods_banner,container,false) as ImageView
+            imageView.scaleType=ImageView.ScaleType.CENTER_CROP
             ImageLoaderManager.instance.loadImage(datas[position].attaAddr, 0, imageView)
 
             container.addView(imageView)
