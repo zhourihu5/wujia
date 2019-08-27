@@ -1,9 +1,7 @@
 package com.jingxi.smartlife.pad.market.mvp
 
 
-import com.jingxi.smartlife.pad.market.mvp.data.GroupBuyDetailVo
-import com.jingxi.smartlife.pad.market.mvp.data.GroupBuyVo
-import com.jingxi.smartlife.pad.market.mvp.data.ServiceDto
+import com.jingxi.smartlife.pad.market.mvp.data.*
 import com.wujia.businesslib.data.ApiResponse
 import io.reactivex.Flowable
 import retrofit2.http.GET
@@ -25,5 +23,9 @@ interface MarketApiService {
     @GET("/v1/activity/generateQrCode")
 //    @GET("/test/generateQrCode")
     fun generateQrCode(@Query("activityId")id: String): Flowable<ApiResponse<String>>
+    @GET("/v1/order/findList")
+     fun getOrderList(@Query("status")status: String, @Query("pageNum")page: Int,@Query("pageSize") pageSize: Int): Flowable<ApiResponse<OrderVo>>
+    @GET("/v1/order/findOrderDetail")
+    fun getOrderDetail(@Query("orderId")id: String?): Flowable<ApiResponse<OrderDetailVo>>
 
 }

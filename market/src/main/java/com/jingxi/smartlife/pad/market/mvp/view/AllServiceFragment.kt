@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jingxi.smartlife.pad.market.R
-import com.jingxi.smartlife.pad.market.mvp.annotation.ServiceType
 import com.jingxi.smartlife.pad.market.mvp.data.ServiceDto
 import com.jingxi.smartlife.pad.market.mvp.model.MarketModel
 import com.wujia.businesslib.data.ApiResponse
@@ -29,7 +28,7 @@ import java.util.*
  * date ：2019-02-17
  * description ：
  */
-class AllServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), HorizontalTabBar.OnTabSelectedListener, LoadMoreWrapper.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, MultiItemTypeAdapter.OnRVItemClickListener {
+open class AllServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), HorizontalTabBar.OnTabSelectedListener, LoadMoreWrapper.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, MultiItemTypeAdapter.OnRVItemClickListener {
     override val layoutId: Int
         get() = R.layout.fragment_service_all
     private var recyclerView: RecyclerView? = null
@@ -41,8 +40,7 @@ class AllServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Horiz
     private var datas: ArrayList<CardDetailBean.ServicesBean>? = null
     private var mLoadMoreWrapper: LoadMoreWrapper? = null
 
-    internal var type: String = TYPE_MY
-
+     protected open var type: String= TYPE_ALL
 
     private val event = EventSubscription(object : IMiessageInvoke<EventSubscription> {
         override fun eventBus(event: EventSubscription) {
@@ -67,16 +65,7 @@ class AllServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Horiz
 
     internal var isVisible: Boolean = false
 
-    fun setType(@ServiceType type: String) {
-        this.type = type
-        if (mLoadMoreWrapper != null) {
-            datas!!.clear()
-            mLoadMoreWrapper!!.notifyDataSetChanged()
-            mLoadMoreWrapper!!.setLoadMoreView(0)
-            pageNo = 1
-            getList(true)
-        }
-    }
+
 
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -196,14 +185,6 @@ class AllServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Horiz
 
         private val KEY_TYPE = "type"
 
-        fun newInstance(type: String): AllServiceFragment {
-            val fragment = AllServiceFragment()
-            //        Bundle args = new Bundle();
-            //        args.putString(KEY_TYPE, type);
-            //        fragment.setArguments(args);
-            fragment.type = type
-            return fragment
-        }
     }
 
 }

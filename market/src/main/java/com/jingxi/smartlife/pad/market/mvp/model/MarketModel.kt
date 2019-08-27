@@ -1,9 +1,7 @@
 package com.jingxi.smartlife.pad.market.mvp.model
 
 import com.jingxi.smartlife.pad.market.mvp.MarketApiService
-import com.jingxi.smartlife.pad.market.mvp.data.GroupBuyDetailVo
-import com.jingxi.smartlife.pad.market.mvp.data.GroupBuyVo
-import com.jingxi.smartlife.pad.market.mvp.data.ServiceDto
+import com.jingxi.smartlife.pad.market.mvp.data.*
 import com.wujia.businesslib.base.BaseModel
 import com.wujia.businesslib.base.DataManager
 import com.wujia.businesslib.data.ApiResponse
@@ -34,5 +32,13 @@ class MarketModel : BaseModel() {
         return mHttpHelper.create(MarketApiService::class.java)!!.generateQrCode( id).compose(RxUtil.rxSchedulerHelper())
     }
 
+    fun getOrderList(status: String, page: Int, pageSize: Int): Flowable<ApiResponse<OrderVo>> {
+        return mHttpHelper.create(MarketApiService::class.java)!!.getOrderList( status,page,pageSize).compose(RxUtil.rxSchedulerHelper())
+    }
+
+    fun getOrderDetail(id: String?): Flowable<ApiResponse<OrderDetailVo>> {
+        return mHttpHelper.create(MarketApiService::class.java)!!
+                .getOrderDetail(id).compose(RxUtil.rxSchedulerHelper())
+    }
 
 }

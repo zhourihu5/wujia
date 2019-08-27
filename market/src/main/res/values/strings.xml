@@ -2,4 +2,5 @@
     <string name="app_name">market</string>
     <string name="group_buy_detail">商品详情</string>
     <string name="group_buy_confirm">确认订单</string>
+    <string name="order_detail">订单详情</string>
 </resources>
