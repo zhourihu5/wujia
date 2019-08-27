@@ -38,9 +38,8 @@ class OrderConfirmFragment : TitleFragment() {
         }
         tvPriceOld.setText(ac.commodity.price)
         tvPriceOld.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
-//        ivQrCode//todo 生成二维码
         addSubscribe(
-                MarketModel().generateQrCode(groupBuyDetailVo!!.activity.id)
+                MarketModel().generateOrderConfirmQrCode(groupBuyDetailVo!!.activity.id)
                         .subscribeWith(
                                 object : SimpleRequestSubscriber<ApiResponse<String>>(
                                         this@OrderConfirmFragment, ActionConfig(true, SHOWERRORMESSAGE)) {

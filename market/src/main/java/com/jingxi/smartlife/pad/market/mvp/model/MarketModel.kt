@@ -28,8 +28,11 @@ class MarketModel : BaseModel() {
 
     }
 
-    fun generateQrCode(id: String): Flowable<ApiResponse<String>>  {
-        return mHttpHelper.create(MarketApiService::class.java)!!.generateQrCode( id).compose(RxUtil.rxSchedulerHelper())
+    fun generateOrderConfirmQrCode(id: String): Flowable<ApiResponse<String>>  {
+        return mHttpHelper.create(MarketApiService::class.java)!!.generateQrCodeOrderConfirm( id).compose(RxUtil.rxSchedulerHelper())
+    }
+    fun generateOrderDetailQrCode(id: String): Flowable<ApiResponse<String>>  {
+        return mHttpHelper.create(MarketApiService::class.java)!!.generateQrCodeOrderDetail( id).compose(RxUtil.rxSchedulerHelper())
     }
 
     fun getOrderList(status: String, page: Int, pageSize: Int): Flowable<ApiResponse<OrderVo>> {
@@ -39,6 +42,17 @@ class MarketModel : BaseModel() {
     fun getOrderDetail(id: String?): Flowable<ApiResponse<OrderDetailVo>> {
         return mHttpHelper.create(MarketApiService::class.java)!!
                 .getOrderDetail(id).compose(RxUtil.rxSchedulerHelper())
+    }
+
+    fun rereiveOrder(id: String?): Flowable<ApiResponse<Any>> {
+        return mHttpHelper.create(MarketApiService::class.java)!!
+                .rereiveOrder(id).compose(RxUtil.rxSchedulerHelper())
+    }
+
+    fun cancelOrder(id: String?): Flowable<ApiResponse<Any>>
+    {
+        return mHttpHelper.create(MarketApiService::class.java)!!
+                .cancelOrder(id).compose(RxUtil.rxSchedulerHelper())
     }
 
 }
