@@ -77,8 +77,11 @@ class GroupBuyDetailFragment : TitleFragment() {
                         override fun getView( position: Int): View? {
                             if(position<10){
                                 val imageView=LayoutInflater.from(context).inflate(R.layout.item_goods_avatar,avatarContainer,false)
-                                ImageLoaderManager.instance.loadCircleImage(response!!.data!!.userInfoList!![position].wxCover!!,0,imageView as ImageView)
-                                return imageView
+                                 response!!.data!!.userInfoList?.get(position)?.wxCover?.let {
+                                     ImageLoaderManager.instance.loadCircleImage(it,0,imageView as ImageView)
+                                     return imageView
+                                 }
+
                             }
                             return null
                         }
