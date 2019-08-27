@@ -72,6 +72,7 @@ class OrderDetailFragment : TitleFragment() {
                 }
                 tvGoStroll.setOnClickListener {
                     (parentFragment as MarketHomeFragment).switchTab(MarketHomeFragment.TAB_GROUP_BUY)
+                    pop()
                 }
                 tvConfirmReceive.setOnClickListener {
                     addSubscribe(MarketModel().rereiveOrder(id).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@OrderDetailFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {

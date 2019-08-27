@@ -42,7 +42,7 @@ class GroupBuyDetailFragment : TitleFragment() {
         get() = com.jingxi.smartlife.pad.market.R.string.group_buy_detail
 
     var endDate:String?= null
-    lateinit var handler:Handler
+     var handler:Handler?= null
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
         val id= arguments?.getString(BUNDLE_KEY_ID,"")
@@ -66,28 +66,30 @@ class GroupBuyDetailFragment : TitleFragment() {
                         }
                     }
                 }
-                avatarContainer.setFlag(true)
-                avatarContainer.setSpWidth(dp2px(context!!,15f))
-                avatarContainer.setAdapter(object : PileAvartarLayout.Adapter {
-                    override fun getCount(): Int {
-                        return response!!.data!!.userInfoList!!.size
-                    }
-                    override fun getView( position: Int): View? {
-                        if(position<10){
-                            val imageView=LayoutInflater.from(context).inflate(R.layout.item_goods_avatar,avatarContainer,false)
-                            ImageLoaderManager.instance.loadCircleImage(response!!.data!!.userInfoList!![position].wxCover!!,0,imageView as ImageView)
-                            return imageView
+                llAvatar.visibility=View.GONE
+                response!!.data!!.userInfoList?.let {
+                    avatarContainer.setFlag(true)
+                    avatarContainer.setSpWidth(dp2px(context!!,15f))
+                    avatarContainer.setAdapter(object : PileAvartarLayout.Adapter {
+                        override fun getCount(): Int {
+                            return response!!.data!!.userInfoList!!.size
                         }
-                        return null
-                    }
-                })
+                        override fun getView( position: Int): View? {
+                            if(position<10){
+                                val imageView=LayoutInflater.from(context).inflate(R.layout.item_goods_avatar,avatarContainer,false)
+                                ImageLoaderManager.instance.loadCircleImage(response!!.data!!.userInfoList!![position].wxCover!!,0,imageView as ImageView)
+                                return imageView
+                            }
+                            return null
+                        }
+                    })
 
-                tvUserNum.setText("…等${ac.commodity.salesNum}名用户已参与")
-                if(response!!.data!!.userInfoList!!.size<=0){
-                    llAvatar.visibility=View.GONE
-                }else{
-                    llAvatar.visibility=View.VISIBLE
+                    tvUserNum.setText("…等${ac.commodity.salesNum}名用户已参与")
+                    if(response!!.data!!.userInfoList!!.size>0){
+                        llAvatar.visibility=View.VISIBLE
+                    }
                 }
+
                 if(!TextUtils.isEmpty(ac.saleTip)){
                     val saleTipArr=  ac.saleTip.split(',')
                     tvRejoinNum.setText(saleTipArr[0])
@@ -144,7 +146,7 @@ class GroupBuyDetailFragment : TitleFragment() {
                 setTimeRemain()
             }
         }
-        handler.sendEmptyMessage(0)
+        (handler as Handler).sendEmptyMessage(0)
     }
     fun setTimeRemain() {
         if(TextUtils.isEmpty(endDate)){
