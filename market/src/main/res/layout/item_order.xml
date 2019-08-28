@@ -21,26 +21,26 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical">
-            <TextView
+            <TextView android:id="@+id/tvToptitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="付款剩余时间："
+                tools:text="付款剩余时间："
                 android:textColor="#ff888888"
                 android:textSize="16sp"
                 />
-            <TextView
+            <TextView android:id="@+id/tvTimeToEnd"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="00:14:30"
+                tools:text="00:14:30"
                 android:textColor="#C8AC88"
                 android:textSize="16sp"
                 />
-            <TextView
+            <TextView android:id="@+id/tvOrderStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="待付款"
-                android:textColor="#ffba9c77"
+                tools:text="待付款"
+                android:textColor="@color/order_status"
                 android:textSize="16sp"
                 />
         </LinearLayout>
@@ -67,7 +67,7 @@
                 <TextView android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="颈枕/眼罩/收纳好物 早春出游 轻装上阵"
+                    tools:text="颈枕/眼罩/收纳好物 早春出游 轻装上阵"
                     android:textColor="#ff333333"
                     android:textSize="16sp"
                     android:layout_marginBottom="8dp"/>

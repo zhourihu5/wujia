@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="tv_status_expired">#888888</color>
+    <color name="order_status">#ffba9c77</color>
 </resources>
