@@ -75,7 +75,7 @@ class OrderFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.O
         mAdapter = OrderAdapter(mActivity, orderList!!)
         mAdapter.btnClickLisner={holder, t, position->
             when(t.status){
-                "1"->{//待付款 todo 弹小程序二维码框付款
+                "1"->{//待付款
                     addSubscribe(
                             MarketModel().generateOrderDetailQrCode(t.id)
                                     .subscribeWith(

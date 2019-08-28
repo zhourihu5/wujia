@@ -88,8 +88,17 @@ class OrderDetailFragment : TitleFragment() {
                 ImageLoaderManager.instance.loadImage(ac.cover, 0, ivCover)
                 tvGoodsTitle.setText(ac.title)
                 status = apiData.status
+
+
+                tvConfirmReceive.visibility = View.GONE
+                tvGoStroll.visibility = View.GONE
+                tvMoneyToPay.visibility = View.GONE
+                tvCancelOrder.visibility = View.GONE
+                llDilivery.visibility = View.GONE
+
                 apiData.deliveryPerson?.let {
                     tvDeliveryPerson.setText("送货员：${it}")
+                    llDilivery.visibility = View.VISIBLE
                 }
                 apiData.deliveryPhone?.let {
                     tvLinkPhone.setText("送货员联系方式：${it}")
@@ -100,12 +109,6 @@ class OrderDetailFragment : TitleFragment() {
                 apiData.receiveDate?.let {
                     tvdeliveryHour.setText("收货时间：${it}")
                 }
-
-                tvConfirmReceive.visibility = View.GONE
-                tvGoStroll.visibility = View.GONE
-                tvMoneyToPay.visibility = View.GONE
-                tvCancelOrder.visibility = View.GONE
-                llDilivery.visibility = View.GONE
 
                 when (status) {
                     "1" -> {//待付款
@@ -123,7 +126,7 @@ class OrderDetailFragment : TitleFragment() {
                         tvOrderStatus.setText("已收货")
                         tvTimeToEnd.setText("您的商品已收到～")
 
-                        llDilivery.visibility = View.VISIBLE
+
                         tvGoStroll.visibility = View.VISIBLE
                     }
                     "4" -> {//已过期
@@ -140,8 +143,6 @@ class OrderDetailFragment : TitleFragment() {
                     "5" -> {//配送中
                         tvOrderStatus.setText("待收货")
                         tvConfirmReceive.visibility = View.VISIBLE
-
-                        llDilivery.visibility = View.VISIBLE
 
                     }
 
