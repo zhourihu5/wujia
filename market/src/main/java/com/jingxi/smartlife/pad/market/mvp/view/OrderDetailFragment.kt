@@ -16,6 +16,8 @@ import com.jingxi.smartlife.pad.market.mvp.data.OrderDetailVo
 import com.jingxi.smartlife.pad.market.mvp.model.MarketModel
 import com.wujia.businesslib.TitleFragment
 import com.wujia.businesslib.data.ApiResponse
+import com.wujia.businesslib.event.EventBusUtil
+import com.wujia.businesslib.event.EventOrder
 import com.wujia.lib.imageloader.ImageLoaderManager
 import com.wujia.lib.widget.util.ToastUtil
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
@@ -66,6 +68,7 @@ class OrderDetailFragment : TitleFragment() {
                     addSubscribe(MarketModel().cancelOrder(id).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@OrderDetailFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
                         override fun onResponse(response: ApiResponse<Any>) {
                             ToastUtil.showShort(context, "订单已取消")
+                            EventBusUtil.post(EventOrder())
                             pop()
                         }
                     }))
@@ -78,6 +81,7 @@ class OrderDetailFragment : TitleFragment() {
                     addSubscribe(MarketModel().rereiveOrder(id).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@OrderDetailFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
                         override fun onResponse(response: ApiResponse<Any>) {
                             ToastUtil.showShort(context, "确认成功")
+                            EventBusUtil.post(EventOrder())
                             pop()
                         }
                     }))

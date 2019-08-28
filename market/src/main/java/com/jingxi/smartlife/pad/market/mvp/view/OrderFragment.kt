@@ -19,6 +19,9 @@ import com.jingxi.smartlife.pad.market.mvp.model.MarketModel
 import com.wujia.businesslib.base.DataManager
 import com.wujia.businesslib.base.MvpFragment
 import com.wujia.businesslib.data.ApiResponse
+import com.wujia.businesslib.event.EventBusUtil
+import com.wujia.businesslib.event.EventOrder
+import com.wujia.businesslib.event.IMiessageInvoke
 import com.wujia.businesslib.util.LoginUtil
 import com.wujia.lib.imageloader.ImageLoaderManager
 import com.wujia.lib.widget.HorizontalTabBar
@@ -63,6 +66,12 @@ class OrderFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.O
         }
     }
 
+    private val eventOrder = EventOrder(object : IMiessageInvoke<EventOrder> {
+        override fun eventBus(event: EventOrder) {
+            reset()
+            getData(false)
+        }
+    })
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
@@ -112,7 +121,7 @@ class OrderFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.O
         mLoadMoreWrapper!!.setOnLoadMoreListener(this)
         swipeRefreshLayout!!.setOnRefreshListener(this)
         getData(true)
-
+        EventBusUtil.register(eventOrder)
     }
     val handler:Handler=object:Handler(){
         override fun handleMessage(msg: Message?) {
@@ -138,6 +147,7 @@ class OrderFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.O
     override fun onDestroyView() {
         super.onDestroyView()
         handler?.removeCallbacksAndMessages(null)
+        EventBusUtil.unregister(eventOrder)
     }
 
     fun showQrCodeDialog(qrCodeImg: String) {
