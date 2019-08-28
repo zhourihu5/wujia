@@ -4,19 +4,20 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center">
+    android:gravity="center"
+    android:padding="32dp">
     <ImageView android:id="@+id/ivQrCode"
         android:layout_width="233dp"
         android:layout_height="233dp"
         tools:src="@mipmap/btn_safe_hangup"
-        android:layout_marginBottom="21dp"/>
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="快来扫我吧～"
         android:textColor="#ff222222"
         android:textSize="16sp"
-        />
+        android:layout_marginTop="8dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

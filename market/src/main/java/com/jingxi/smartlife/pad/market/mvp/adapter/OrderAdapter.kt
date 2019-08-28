@@ -1,7 +1,7 @@
 package com.jingxi.smartlife.pad.market.mvp.adapter
 
 import android.content.Context
-import android.graphics.Paint
+import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -31,6 +31,7 @@ class OrderAdapter(context: Context, datas: List<OrderItemVo>) : CommonAdapter<O
         val tvToptitle=holder.getView<TextView>(R.id.tvToptitle)
         val tvTimeToEnd=holder.getView<TextView>(R.id.tvTimeToEnd)
         val tvPriceOld=holder.getView<TextView>(R.id.tvPriceOld)
+        val tvMoney=holder.getView<TextView>(R.id.tvMoney)
         val tvName=holder.getView<TextView>(R.id.tvName)
         val tvPriceInt=holder.getView<TextView>(R.id.tvPriceInt)
         val tvFloat=holder.getView<TextView>(R.id.tvFloat)
@@ -48,26 +49,29 @@ class OrderAdapter(context: Context, datas: List<OrderItemVo>) : CommonAdapter<O
         tvGoStroll.setOnClickListener {
             btnClickLisner?.invoke(holder,t,position)
         }
-        tvAskDilivery.setOnClickListener {
-            btnClickLisner?.invoke(holder,t,position)
-        }
-
-        ImageLoaderManager.instance.loadImage(t.activity.cover, 0, ivCover)
-        tvPriceOld.setText("￥${t.commodity.price}")
-        tvPriceOld.paint.flags= Paint.STRIKE_THRU_TEXT_FLAG
+//        tvAskDilivery.setOnClickListener {
+//            btnClickLisner?.invoke(holder,t,position)
+//        }
 
         tvName.setText(t.activity.title)
-        val priceArr= t.activity.price.split('.')
-        tvPriceInt.setText(priceArr[0])
-        if(priceArr.size>1){
-            tvFloat.setText(".${priceArr[1]}")
-        }
+        ImageLoaderManager.instance.loadImage(t.activity.cover, 0, ivCover)
+
+//        tvPriceOld.setText("￥${t.commodity.price}")
+//        tvPriceOld.paint.flags= Paint.STRIKE_THRU_TEXT_FLAG
+//
+//        val priceArr= t.activity.price.split('.')
+//        tvPriceInt.setText(priceArr[0])
+//        if(priceArr.size>1){
+//            tvFloat.setText(".${priceArr[1]}")
+//        }
+        tvMoney.setText("￥${t.realPrice}")
 
         tvTimeToEnd.setText("")
-        tvOrderStatus.setTextColor(0xBA9C77)
-        tvPriceInt.setTextColor(0xC8AC88)
-        tvFloat.setTextColor(0xC8AC88)
-        tvName.setTextColor(0x333333)
+        tvOrderStatus.setTextColor(Color.parseColor("#BA9C77"))
+        tvMoney.setTextColor(Color.parseColor("#C8AC88"))
+        tvPriceInt.setTextColor(Color.parseColor("#C8AC88"))
+        tvFloat.setTextColor(Color.parseColor("#C8AC88"))
+        tvName.setTextColor(Color.parseColor("#333333"))
 
 
         when(t.status){
@@ -92,15 +96,17 @@ class OrderAdapter(context: Context, datas: List<OrderItemVo>) : CommonAdapter<O
                 tvGoStroll.visibility=View.VISIBLE
                 tvToptitle.setText("过期时间：${t.payEndDate}")
                 tvOrderStatus.setText("已过期")
-                tvOrderStatus.setTextColor(0x888888)
-                tvPriceInt.setTextColor(0x888888)
-                tvFloat.setTextColor(0x888888)
-                tvName.setTextColor(0x888888)
+                tvOrderStatus.setTextColor(Color.parseColor("#888888"))
+                tvMoney.setTextColor(Color.parseColor("#888888"))
+                tvPriceInt.setTextColor(Color.parseColor("#888888"))
+                tvFloat.setTextColor(Color.parseColor("#888888"))
+                tvName.setTextColor(Color.parseColor("#888888"))
             }
             "5"->{//配送中
                 tvAskDilivery.visibility=View.VISIBLE
                 tvToptitle.setText("送货人：${t.deliveryPerson}")
                 tvOrderStatus.setText("待收货")
+                tvAskDilivery.setText("送货人联系电话：${t.deliveryPhone}")
             }
 
         }

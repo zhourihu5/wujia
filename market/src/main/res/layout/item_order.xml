@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     >
-                    <TextView
+                    <TextView android:id="@+id/tvMoney"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="¥"
@@ -123,10 +123,9 @@
             android:textSize="13sp"
             android:gravity="center"/>
         <TextView android:id="@+id/tvAskDilivery"
-            android:layout_width="99dp"
-            android:layout_height="32dp"
-            android:background="@drawable/link_dilivery_bg"
-            android:text="联系送货人"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="联系送货人"
             android:textColor="#ffba9c77"
             android:textSize="13sp"
             android:gravity="center"/>

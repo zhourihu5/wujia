@@ -2,6 +2,8 @@ package com.jingxi.smartlife.pad.market.mvp.view
 
 import android.app.Dialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -108,6 +110,32 @@ class OrderFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.O
         getData(true)
 
     }
+    val handler:Handler=object:Handler(){
+        override fun handleMessage(msg: Message?) {
+            super.handleMessage(msg)
+            mLoadMoreWrapper?.notifyDataSetChanged()
+            if(isSupportVisible){
+                this.sendEmptyMessageDelayed(0,1000)
+            }else{
+                this.removeCallbacksAndMessages(null)
+            }
+        }
+    }
+    override fun onSupportVisible() {
+        super.onSupportVisible()
+        handler?.sendEmptyMessage(0)
+    }
+
+    override fun onSupportInvisible() {
+        super.onSupportInvisible()
+        handler?.removeCallbacksAndMessages(null)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        handler?.removeCallbacksAndMessages(null)
+    }
+
     fun showQrCodeDialog(qrCodeImg: String) {
         val dialog = Dialog(mActivity)
         val conv = LayoutInflater.from(mActivity).inflate(R.layout.dialog_wxapp_qrcode, null)
