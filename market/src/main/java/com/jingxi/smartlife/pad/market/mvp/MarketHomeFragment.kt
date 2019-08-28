@@ -3,7 +3,7 @@ package com.jingxi.smartlife.pad.market.mvp
 import android.os.Bundle
 import com.jingxi.smartlife.pad.market.R
 import com.jingxi.smartlife.pad.market.mvp.annotation.ServiceType
-import com.jingxi.smartlife.pad.market.mvp.view.*
+import com.jingxi.smartlife.pad.market.mvp.view.AllServiceFragment
 import com.wujia.businesslib.TabFragment
 import com.wujia.lib.widget.VerticalTabItem
 import com.wujia.lib_common.utils.LogUtil
@@ -38,20 +38,19 @@ class MarketHomeFragment : TabFragment() {
         if (currentTab >= mTabBar.childCount) {
             currentTab = 0
         }
-        mFragments[0] = findChildFragment(MyServiceFragment::class.java)
-        mFragments[1] = findChildFragment(FindServiceFragment::class.java)
-        mFragments[2] = findChildFragment(GovServiceFragment::class.java)
-        mFragments[3] = findChildFragment(AllServiceFragment::class.java)
-        mFragments[TAB_GROUP_BUY] = findChildFragment(GroupBuyFragment::class.java)
-        mFragments[5] = findChildFragment(OrderFragment::class.java)
+        mFragments[0] = findChildFragment(MyServiceBaseFragment::class.java)
+        mFragments[1] = findChildFragment(FindServiceBaseFragment::class.java)
+        mFragments[2] = findChildFragment(GovServiceBaseFragment::class.java)
+        mFragments[3] = findChildFragment(AllServiceBaseFragment::class.java)
+        mFragments[TAB_GROUP_BUY] = findChildFragment(GroupBuyServiceBaseFragment::class.java)
+        mFragments[5] = findChildFragment(OrderBaseFragment::class.java)
         if (mFragments[0] == null) {
-//            val type = getServiceType(currentTab)
-            mFragments[0] = MyServiceFragment()
-            mFragments[1] = FindServiceFragment.newInstance()
-            mFragments[2] = GovServiceFragment()
-            mFragments[3] = AllServiceFragment()
-            mFragments[TAB_GROUP_BUY] = GroupBuyFragment.newInstance()
-            mFragments[5] = OrderFragment()
+            mFragments[0] = MyServiceBaseFragment()
+            mFragments[1] = FindServiceBaseFragment.newInstance()
+            mFragments[2] = GovServiceBaseFragment()
+            mFragments[3] = AllServiceBaseFragment()
+            mFragments[TAB_GROUP_BUY] = GroupBuyServiceBaseFragment.newInstance()
+            mFragments[5] = OrderBaseFragment()
 
             loadMultipleRootFragment(R.id.tab_content_container, currentTab,
                     mFragments[0],

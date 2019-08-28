@@ -389,7 +389,8 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
     override fun onDestroy() {
         super.onDestroy()
         EventBusUtil.unregister(eventMsg)
-        manager?.setDoorAccessListener(null)
+//        manager?.setDoorAccessListener(null)
+        JXPadSdk.getDoorAccessManager().setDoorAccessListener(null)
         releaseWakeLock()
     }
 

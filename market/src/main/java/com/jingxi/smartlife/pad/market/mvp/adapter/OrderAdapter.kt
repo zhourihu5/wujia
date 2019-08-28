@@ -32,30 +32,22 @@ class OrderAdapter(context: Context, datas: List<OrderItemVo>) : CommonAdapter<O
         holder.getView<TextView>(R.id.tvPriceOld).paint.flags= Paint.STRIKE_THRU_TEXT_FLAG
 //        holder.setText(R.id.tvSaleNum,"已抢购${t.commodity.salesNum}件")
 
+        holder.setVisible(R.id.tvToPay,false)
+        holder.setVisible(R.id.tvGoStroll,false)
+        holder.setVisible(R.id.tvAskDilivery,false)
         when(t.status){
             "1"->{//待付款
                 holder.setVisible(R.id.tvToPay,true)
-                holder.setVisible(R.id.tvGoStroll,false)
-                holder.setVisible(R.id.tvAskDilivery,false)
             }
             "2"->{//待配送
-                holder.setVisible(R.id.tvToPay,false)
-                holder.setVisible(R.id.tvGoStroll,false)
-                holder.setVisible(R.id.tvAskDilivery,false)
             }
             "3"->{//已收货
-                holder.setVisible(R.id.tvToPay,false)
                 holder.setVisible(R.id.tvGoStroll,true)
-                holder.setVisible(R.id.tvAskDilivery,false)
             }
             "4"->{//已过期
-                holder.setVisible(R.id.tvToPay,false)
                 holder.setVisible(R.id.tvGoStroll,true)
-                holder.setVisible(R.id.tvAskDilivery,false)
             }
             "5"->{//配送中
-                holder.setVisible(R.id.tvToPay,false)
-                holder.setVisible(R.id.tvGoStroll,false)
                 holder.setVisible(R.id.tvAskDilivery,true)
             }
 

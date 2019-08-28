@@ -71,7 +71,7 @@ class OrderDetailFragment : TitleFragment() {
                     }))
                 }
                 tvGoStroll.setOnClickListener {
-                    (parentFragment as MarketHomeFragment).switchTab(MarketHomeFragment.TAB_GROUP_BUY)
+                    (parentFragment?.parentFragment as MarketHomeFragment).switchTab(MarketHomeFragment.TAB_GROUP_BUY)
                     pop()
                 }
                 tvConfirmReceive.setOnClickListener {

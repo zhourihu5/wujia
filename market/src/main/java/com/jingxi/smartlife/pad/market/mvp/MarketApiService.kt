@@ -27,7 +27,7 @@ interface MarketApiService {
 
     @GET("/v1/order/generateQrCode")
 //    @GET("/test/generateOrderConfirmQrCode")
-    fun generateQrCodeOrderDetail(@Query("activityId")id: String): Flowable<ApiResponse<String>>
+    fun generateQrCodeOrderDetail(@Query("id")id: String): Flowable<ApiResponse<String>>
 
 
     @GET("/v1/order/findList")

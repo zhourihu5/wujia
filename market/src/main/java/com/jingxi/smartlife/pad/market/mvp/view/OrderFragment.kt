@@ -1,6 +1,11 @@
 package com.jingxi.smartlife.pad.market.mvp.view
 
+import android.app.Dialog
 import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jingxi.smartlife.pad.market.R
@@ -13,6 +18,7 @@ import com.wujia.businesslib.base.DataManager
 import com.wujia.businesslib.base.MvpFragment
 import com.wujia.businesslib.data.ApiResponse
 import com.wujia.businesslib.util.LoginUtil
+import com.wujia.lib.imageloader.ImageLoaderManager
 import com.wujia.lib.widget.HorizontalTabBar
 import com.wujia.lib.widget.HorizontalTabItem
 import com.wujia.lib_common.base.BasePresenter
@@ -70,14 +76,24 @@ class OrderFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.O
         mAdapter.btnClickLisner={holder, t, position->
             when(t.status){
                 "1"->{//待付款 todo 弹小程序二维码框付款
+                    addSubscribe(
+                            MarketModel().generateOrderDetailQrCode(t.id)
+                                    .subscribeWith(
+                                            object : SimpleRequestSubscriber<ApiResponse<String>>(
+                                                    this@OrderFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
+                                                override fun onResponse(response: ApiResponse<String>) {
+                                                    showQrCodeDialog(response.data!!)
+                                                }
+                                            })
+                    )
                 }
                 "2"->{//待配送
                 }
                 "3"->{//已收货
-                    (parentFragment as MarketHomeFragment).switchTab(MarketHomeFragment.TAB_GROUP_BUY)
+                    (parentFragment?.parentFragment as MarketHomeFragment).switchTab(MarketHomeFragment.TAB_GROUP_BUY)
                 }
                 "4"->{//已过期
-                    (parentFragment as MarketHomeFragment).switchTab(MarketHomeFragment.TAB_GROUP_BUY)
+                    (parentFragment?.parentFragment as MarketHomeFragment).switchTab(MarketHomeFragment.TAB_GROUP_BUY)
                 }
                 "5"->{//配送中
                 }
@@ -92,7 +108,20 @@ class OrderFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.O
         getData(true)
 
     }
+    fun showQrCodeDialog(qrCodeImg: String) {
+        val dialog = Dialog(mActivity)
+        val conv = LayoutInflater.from(mActivity).inflate(R.layout.dialog_wxapp_qrcode, null)
 
+        val ivQrcode = conv.findViewById<ImageView>(R.id.ivQrCode)
+        ImageLoaderManager.instance.loadImage(qrCodeImg,0,ivQrcode)
+
+
+        dialog.setContentView(conv)
+        val dialogWindow = dialog.window
+        dialogWindow!!.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialogWindow.setGravity(Gravity.CENTER)
+        dialog.show()
+    }
     override fun onTabSelected(position: Int, prePosition: Int) {
         currentState = position
         reset()

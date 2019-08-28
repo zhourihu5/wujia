@@ -16,6 +16,7 @@ import com.wujia.businesslib.base.MvpFragment
 import com.wujia.businesslib.data.VersionBean
 import com.wujia.businesslib.dialog.SimpleDialog
 import com.wujia.businesslib.util.LoginUtil
+import com.wujia.lib.imageloader.ImageLoaderManager
 import com.wujia.lib.widget.util.ToastUtil
 import com.wujia.lib_common.data.network.exception.ApiException
 import com.wujia.lib_common.utils.AppUtil
@@ -74,6 +75,7 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
             R.id.item_allow_look_door_num -> item_allow_look_door_num_switch!!.toggle()
             R.id.item_clear_cache -> SimpleDialog.Builder().title(getString(R.string.clear_cache)).listener {
                 ToastUtil.showShort(mContext, getString(R.string.cache_clear_ed))
+                ImageLoaderManager.instance.clearImageAllCache(context!!)
                 FileUtil.deleteFile(FileUtil.getDowndloadApkPath(mContext!!))
             }.build(mContext!!).show()
             R.id.item_check_update -> {
