@@ -56,7 +56,11 @@ class OrderFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.O
 
     private fun reset() {
         pageNo = 1
-        orderList?.let { it.clear();mLoadMoreWrapper?.notifyDataSetChanged() }
+        orderList?.let {
+            orderList.clear();
+            mLoadMoreWrapper?.setLoadMoreView(0)
+            mLoadMoreWrapper?.notifyDataSetChanged()
+        }
     }
 
 
