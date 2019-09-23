@@ -108,11 +108,11 @@ abstract class ServiceBaseFragment<T : BasePresenter<*>> : MvpFragment<BasePrese
             return
         }
         if (item.flag == CardDetailBean.TYPE_WEB) {
-            if (this is FindServiceFragment || this is AllServiceFragment) {
-                item.url?.let {parentStart( WebViewFragment.newInstance(it)) }
-            } else {
+//            if (this is FindServiceFragment || this is AllServiceFragment) {
+//                item.url?.let {parentStart( WebViewFragment.newInstance(it)) }
+//            } else {
                 item.url?.let  { start(WebViewFragment.newInstance(it)) }
-            }
+//            }
         } else if (item.flag == CardDetailBean.TYPE_NATIVE) {
             item.packageName?.let {
                 val result =  AppUtil.startAPPByPackageName(it)

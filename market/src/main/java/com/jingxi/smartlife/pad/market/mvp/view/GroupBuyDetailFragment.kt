@@ -132,7 +132,7 @@ class GroupBuyDetailFragment : TitleFragment() {
                     llGoodsFormat.addView(item)
                 }
 
-                webView.loadData(response.data!!.activity.remark, "text/html; charset=UTF-8", null)
+                webView.loadData(response.data!!.activity.commodity.infos, "text/html; charset=UTF-8", null)
 
             }
 
