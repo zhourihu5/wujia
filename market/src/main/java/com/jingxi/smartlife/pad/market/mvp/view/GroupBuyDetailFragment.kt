@@ -18,6 +18,9 @@ import com.jingxi.smartlife.pad.market.mvp.data.GroupBuyDetailVo
 import com.jingxi.smartlife.pad.market.mvp.model.MarketModel
 import com.wujia.businesslib.TitleFragment
 import com.wujia.businesslib.data.ApiResponse
+import com.wujia.businesslib.event.EventBusUtil
+import com.wujia.businesslib.event.EventToGroupBuy
+import com.wujia.businesslib.event.IMiessageInvoke
 import com.wujia.lib.imageloader.DensityUtil.Companion.dp2px
 import com.wujia.lib.imageloader.ImageLoaderManager
 import com.wujia.lib.widget.PileAvartarLayout
@@ -43,6 +46,12 @@ class GroupBuyDetailFragment : TitleFragment() {
 
     var endDate:String?= null
      var handler:Handler?= null
+
+    private val eventGroupBuy = EventToGroupBuy(object : IMiessageInvoke<EventToGroupBuy> {
+        override fun eventBus(event: EventToGroupBuy) {
+            pop()
+        }
+    })
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
         val id= arguments?.getString(BUNDLE_KEY_ID,"")
@@ -140,8 +149,11 @@ class GroupBuyDetailFragment : TitleFragment() {
                 super.onFailed(apiException)
             }
         }))
-
+        EventBusUtil.register(eventGroupBuy)
     }
+
+
+
     fun initTimer(){
         handler=object :Handler(){
             override fun handleMessage(msg: Message?) {
@@ -184,6 +196,7 @@ class GroupBuyDetailFragment : TitleFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         handler?.removeCallbacksAndMessages(null)
+        EventBusUtil.unregister(eventGroupBuy)
     }
 
     companion object {

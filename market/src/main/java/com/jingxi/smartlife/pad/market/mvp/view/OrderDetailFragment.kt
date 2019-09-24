@@ -18,6 +18,7 @@ import com.wujia.businesslib.TitleFragment
 import com.wujia.businesslib.data.ApiResponse
 import com.wujia.businesslib.event.EventBusUtil
 import com.wujia.businesslib.event.EventOrder
+import com.wujia.businesslib.event.EventToGroupBuy
 import com.wujia.lib.imageloader.ImageLoaderManager
 import com.wujia.lib.widget.util.ToastUtil
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
@@ -75,6 +76,7 @@ class OrderDetailFragment : TitleFragment() {
                 }
                 tvGoStroll.setOnClickListener {
                     (parentFragment?.parentFragment as MarketHomeFragment).switchTab(MarketHomeFragment.TAB_GROUP_BUY)
+                    EventBusUtil.post(EventToGroupBuy())
                     pop()
                 }
                 tvConfirmReceive.setOnClickListener {

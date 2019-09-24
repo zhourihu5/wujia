@@ -21,6 +21,7 @@ import com.wujia.businesslib.base.MvpFragment
 import com.wujia.businesslib.data.ApiResponse
 import com.wujia.businesslib.event.EventBusUtil
 import com.wujia.businesslib.event.EventOrder
+import com.wujia.businesslib.event.EventToGroupBuy
 import com.wujia.businesslib.event.IMiessageInvoke
 import com.wujia.businesslib.util.LoginUtil
 import com.wujia.lib.imageloader.ImageLoaderManager
@@ -106,9 +107,11 @@ class OrderFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.O
                 }
                 "3"->{//已收货
                     (parentFragment?.parentFragment as MarketHomeFragment).switchTab(MarketHomeFragment.TAB_GROUP_BUY)
+                    EventBusUtil.post(EventToGroupBuy())
                 }
                 "4"->{//已过期
                     (parentFragment?.parentFragment as MarketHomeFragment).switchTab(MarketHomeFragment.TAB_GROUP_BUY)
+                    EventBusUtil.post(EventToGroupBuy())
                 }
                 "5"->{//配送中
                 }

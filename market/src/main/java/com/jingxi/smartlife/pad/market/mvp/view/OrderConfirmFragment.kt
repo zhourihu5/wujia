@@ -6,6 +6,9 @@ import com.jingxi.smartlife.pad.market.mvp.data.GroupBuyDetailVo
 import com.jingxi.smartlife.pad.market.mvp.model.MarketModel
 import com.wujia.businesslib.TitleFragment
 import com.wujia.businesslib.data.ApiResponse
+import com.wujia.businesslib.event.EventBusUtil
+import com.wujia.businesslib.event.EventToGroupBuy
+import com.wujia.businesslib.event.IMiessageInvoke
 import com.wujia.lib.imageloader.ImageLoaderManager
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
 import kotlinx.android.synthetic.main.fragment_group_buy_confirm.*
@@ -22,6 +25,12 @@ class OrderConfirmFragment : TitleFragment() {
     override val title: Int
         get() = com.jingxi.smartlife.pad.market.R.string.group_buy_confirm
     var groupBuyDetailVo: GroupBuyDetailVo? = null
+
+    private val eventGroupBuy = EventToGroupBuy(object : IMiessageInvoke<EventToGroupBuy> {
+        override fun eventBus(event: EventToGroupBuy) {
+            pop()
+        }
+    })
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
@@ -48,7 +57,13 @@ class OrderConfirmFragment : TitleFragment() {
                                     }
                                 })
         )
+        EventBusUtil.register(eventGroupBuy)
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        EventBusUtil.unregister(eventGroupBuy)
     }
 
 
