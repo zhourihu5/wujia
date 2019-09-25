@@ -46,7 +46,7 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
                 reset()
                 getData(false)
             } else if (event.type == EventMsg.TYPE_READ) {
-                if (!isVisible) {//本页也会发送TYPE_READ,adapter已处理，所以页面显示时不处理
+                if (!isSupportVisible) {//本页也会发送TYPE_READ,adapter已处理，所以页面显示时不处理
                     reset()
                     getData(false)
                 }

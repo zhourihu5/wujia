@@ -47,7 +47,7 @@ open class AllServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), 
             if (event.type == EventSubscription.TYPE_NOTIFY) {
                 pageNo = 1
                 getList(false)
-            } else if (isVisible && event.eventType != EventSubscription.PUSH_NOTIFY) {
+            } else if (isSupportVisible && event.eventType != EventSubscription.PUSH_NOTIFY) {
                 mLoadMoreWrapper!!.notifyDataSetChanged()
             } else {
                 pageNo = 1
