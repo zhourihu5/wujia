@@ -50,13 +50,6 @@ open class AllServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), 
             } else if (isVisible && event.eventType != EventSubscription.PUSH_NOTIFY) {
                 mLoadMoreWrapper!!.notifyDataSetChanged()
             } else {
-                when (event.type) {
-                    EventSubscription.TYPE_GOV -> {
-                    }
-                    EventSubscription.TYPE_FIND -> if (type == TYPE_GOV) {
-                        return
-                    }
-                }
                 pageNo = 1
                 getList(true)
             }

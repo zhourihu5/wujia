@@ -47,14 +47,14 @@ class FindServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Hori
 
     private val event = EventSubscription(object : IMiessageInvoke<EventSubscription> {
         override fun eventBus(event: EventSubscription) {
-            if (event.type == EventSubscription.TYPE_FIND || event.type == EventSubscription.TYPE_NOTIFY) {//如果未 发现服务或者推送过来的通知服务就需要刷新界面
-                if (event.eventType == EventSubscription.PUSH_NOTIFY || !isVisible) {
-                    pageNo = 1
-                    getList(false)
-                } else {//非推送消息并且当前界面可见状态为本页面发送的消息
-                    mLoadMoreWrapper!!.notifyDataSetChanged()
-                }
-
+            if (event.type == EventSubscription.TYPE_NOTIFY) {
+                pageNo = 1
+                getList(false)
+            } else if (isVisible && event.eventType != EventSubscription.PUSH_NOTIFY) {
+                mLoadMoreWrapper!!.notifyDataSetChanged()
+            } else {
+                pageNo = 1
+                getList(true)
             }
         }
     })
