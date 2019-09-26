@@ -52,6 +52,7 @@ class MessageHomeFragment : TabFragment() {
             1 -> type = AllMsgFragment.MSG_TYPE_PROPERTY
             2 -> type = AllMsgFragment.MSG_TYPE_COMMUNITY
             3 -> type = AllMsgFragment.MSG_TYPE_SYSTEM//系统消息
+            //todo 政务消息
         }
         return type
     }
