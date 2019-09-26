@@ -5,7 +5,6 @@ import android.animation.ValueAnimator
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.os.PowerManager
@@ -57,7 +56,9 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 
 class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener, DoorSecurityUtil.OnSecurityChangedListener {
-    private var TOUCH_TIME: Long = 0  //点击返回键时间
+    override val layout: Int
+        get() =  R.layout.activity_main
+    private var touchTime: Long = 0  //点击返回键时间
 
 
     private val mFragments = arrayOfNulls<SupportFragment>(8)
@@ -66,16 +67,20 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
     private var lastTop: Int = 0
     private var arrowLayoutParams: RelativeLayout.LayoutParams? = null
     private var manager: DoorAccessManager? = null
-    private val eventMsg = EventMsg(IMiessageInvoke { setMessagePoint() })
+    private val eventMsg = EventMsg(object : IMiessageInvoke<EventMsg> {
+        override fun eventBus(event: EventMsg) {
+            setMessagePoint()
+        }
+    })
     private var currentTab: Int = 0
     private var mWakelock: PowerManager.WakeLock? = null
 
     private fun setMessagePoint() {
-        addSubscribe(BusModel().isUnReadMessage.subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Boolean>>(this, SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(BusModel().isUnReadMessage.subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Boolean>>(this@MainActivity, ActionConfig(false, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<Boolean>) {
                 super.onResponse(response)
                 val tab = main_tab_bar.getChildAt(POSITION_MESSAGE) as VerticalTabItem
-                tab.setPoint(response.data)
+                response.data?.let { tab.setPoint(it) }
             }
         }))
     }
@@ -87,22 +92,19 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         }
     }
 
-    override fun getLayout(): Int {
-        return R.layout.activity_main
-    }
 
     override fun initEventAndData(savedInstanceState: Bundle?) {
 
-        LogUtil.i("ScreenUtil.getDialogWidth()  " + ScreenUtil.getDialogWidth())
-        LogUtil.i("ScreenUtil.getLandscapeHeight()  " + ScreenUtil.getLandscapeHeight())
-        LogUtil.i("ScreenUtil.getLandscapeWidth()  " + ScreenUtil.getLandscapeWidth())
-        LogUtil.i("ScreenUtil.getDisplayHeight()  " + ScreenUtil.getDisplayHeight())
-        LogUtil.i("ScreenUtil.getDialogWidth()  " + ScreenUtil.getDialogWidth())
+        LogUtil.i("ScreenUtil.dialogWidth  " + ScreenUtil.dialogWidth)
+        LogUtil.i("ScreenUtil.landscapeHeight  " + ScreenUtil.landscapeHeight)
+        LogUtil.i("ScreenUtil.landscapeWidth  " + ScreenUtil.landscapeWidth)
+        LogUtil.i("ScreenUtil.displayHeight  " + ScreenUtil.displayHeight)
+        LogUtil.i("ScreenUtil.dialogWidth  " + ScreenUtil.dialogWidth)
         LogUtil.i("ScreenUtil.density()  " + ScreenUtil.density)
         LogUtil.i("ScreenUtil.densityDpi()  " + ScreenUtil.densityDpi)
         LogUtil.i("ScreenUtil.scaleDensity()  " + ScreenUtil.scaleDensity)
 
-        val token = DataManager.getToken()
+        val token = DataManager.token
         if (TextUtils.isEmpty(token)) {
             LogUtil.i("before login")
             LoginUtil.toLoginActivity()
@@ -139,7 +141,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
             mFragments[4] = MessageFragment.newInstance()
             mFragments[5] = MarketFragment.newInstance()
             //            mFragments[6] = NeighborFragment.newInstance();
-            mFragments[6] = SettingHomeFragment.newInstance()
+            mFragments[6] = SettingFragment.newInstance()
 
             loadMultipleRootFragment(R.id.container, currentTab,
                     mFragments[0],
@@ -199,7 +201,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
     }
 
     private fun initGrant() {
-        PermissionsManager.getInstance().requestPermissionsIfNecessaryForResult(this@MainActivity,
+        PermissionsManager.instance.requestPermissionsIfNecessaryForResult(this@MainActivity,
                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE, Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA),
                 object : PermissionsResultAction() {
                     override fun onGranted() {
@@ -214,10 +216,10 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         manager = JXPadSdk.getDoorAccessManager()
         manager!!.setDoorAccessListener(this)
         var dockeKey=""
-        var buttonKey:String?
+        val buttonKey:String?
         try {
-             dockeKey = DataManager.getDockKey()
-            buttonKey= DataManager.getButtonKey()
+             dockeKey = DataManager.dockKey
+            buttonKey= DataManager.buttonKey
         } catch (e: Exception) {
             LogUtil.t("获取dockKey失败", e)
             LoginUtil.toLoginActivity()
@@ -246,10 +248,10 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         if (supportFragmentManager.backStackEntryCount > 1) {
             pop()
         } else {
-            if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
+            if (System.currentTimeMillis() - touchTime < WAIT_TIME) {
                 ActivityCompat.finishAfterTransition(this)
             } else {
-                TOUCH_TIME = System.currentTimeMillis()
+                touchTime = System.currentTimeMillis()
                 ToastUtil.showShort(this@MainActivity, getString(R.string.press_again_exit))
             }
         }
@@ -277,38 +279,44 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
 
     override fun onBaseButtonClick(buttonKey: String, cmd: String, time: String) {//todo 底座按键回调
         LogUtil.i(String.format("buttonKey=%s,cmd=%s,time=%s", buttonKey, cmd, time))
-        if (IntercomConstants.kButtonMonitor == cmd) {
-            acquireWakeLock()
-            switchHomeTab(POSITION_SAFE, 0)
-        } else if (com.intercom.sdk.IntercomConstants.kButtonUser == cmd) {
-            acquireWakeLock()
-            switchHomeTab(POSITION_PROPERTY, 0)
-        } else if (com.intercom.sdk.IntercomConstants.kButtonUnlock == cmd) {
-            acquireWakeLock()
-            EventBusUtil.post(EventBaseButtonClick(com.intercom.sdk.IntercomConstants.kButtonUnlock))
-        } else if (com.intercom.sdk.IntercomConstants.kButtonPickup == cmd) {
-            acquireWakeLock()
-            EventBusUtil.post(EventBaseButtonClick(com.intercom.sdk.IntercomConstants.kButtonPickup))
-        } else if (com.intercom.sdk.IntercomConstants.kButtonHumanNear == cmd) {
-            LogUtil.i("kButtonHumanNear")
-            acquireWakeLock()
-        } else if (IntercomConstants.kButtonHumanLeav == cmd) {
-            LogUtil.i("kButtonHumanLeav")
-            releaseWakeLock()
-        } else if (IntercomConstants.kButtonSOS == cmd) {
-            acquireWakeLock()
+        when (cmd) {
+            IntercomConstants.kButtonMonitor -> {
+                acquireWakeLock()
+                switchHomeTab(POSITION_SAFE, 0)
+            }
+            IntercomConstants.kButtonUser -> {
+                acquireWakeLock()
+                switchHomeTab(POSITION_PROPERTY, 0)
+            }
+            IntercomConstants.kButtonUnlock -> {
+                acquireWakeLock()
+                EventBusUtil.post(EventBaseButtonClick(IntercomConstants.kButtonUnlock))
+            }
+            IntercomConstants.kButtonPickup -> {
+                acquireWakeLock()
+                EventBusUtil.post(EventBaseButtonClick(IntercomConstants.kButtonPickup))
+            }
+            IntercomConstants.kButtonHumanNear -> {
+                LogUtil.i("kButtonHumanNear")
+                acquireWakeLock()
+            }
+            IntercomConstants.kButtonHumanLeav -> {
+                LogUtil.i("kButtonHumanLeav")
+                releaseWakeLock()
+            }
+            IntercomConstants.kButtonSOS -> acquireWakeLock()
         }
     }
 
-    protected fun releaseWakeLock() {
+    private fun releaseWakeLock() {
         mWakelock?.release()
     }
 
-    protected fun acquireWakeLock() {
+    private fun acquireWakeLock() {
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
-        if (Build.VERSION.SDK_INT >= 21 && powerManager != null && !powerManager.isInteractive) {//灭屏时点亮
+        if ( powerManager != null && !powerManager.isInteractive) {//灭屏时点亮
             mWakelock = powerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_DIM_WAKE_LOCK, packageName) // this target for tell OS which app
-            mWakelock?.acquire()//can not be reused,so create it every time
+            mWakelock?.acquire(10*60*1000L /*10 minutes*/)//can not be reused,so create it every time
             LogUtil.i("mWakelock.acquire")
         }
     }
@@ -366,12 +374,13 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
             POSITION_SAFE -> tabFragment = mFragments[pos]!!.findChildFragment(SafeHomeFragment::class.java)
             POSITION_MESSAGE -> tabFragment = mFragments[pos]!!.findChildFragment(MessageHomeFragment::class.java)
         }
-        if (null != tabFragment)
-            tabFragment.switchTab(childPos)
-        else {
-            val fragment = mFragments[pos] as BaseMainFragment
-            fragment?.switchTab(childPos)
-        }
+        tabFragment?.switchTab(childPos)?:(mFragments[pos] as? BaseMainFragment)?.switchTab(childPos)
+//        if (null != tabFragment)
+//            tabFragment.switchTab(childPos)
+//        else {
+//            val fragment = mFragments[pos] as BaseMainFragment
+//            fragment.switchTab(childPos)
+//        }
     }
 
     override fun createPresenter(): BasePresenter<BaseView>? {
@@ -381,23 +390,21 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
     override fun onDestroy() {
         super.onDestroy()
         EventBusUtil.unregister(eventMsg)
-        manager?.setDoorAccessListener(null)
+//        manager?.setDoorAccessListener(null)
+        JXPadSdk.getDoorAccessManager().setDoorAccessListener(null)
         releaseWakeLock()
     }
 
     companion object {
 
-        val POSITION_HOME = 0
-        val POSITION_SAFE = 1
-        val POSITION_FAMILY = 2
-        val POSITION_PROPERTY = 3
-        val POSITION_MESSAGE = 4
-        val POSITION_MARKET = 5
-        val POSITION_NEIGHBOR = 6
-        val POSITION_SETTING = 7
+        const val POSITION_SAFE = 1
+        const val POSITION_FAMILY = 2
+        const val POSITION_PROPERTY = 3
+        const val POSITION_MESSAGE = 4
+        const val POSITION_MARKET = 5
 
         // 再点一次退出程序时间设置
-        private val WAIT_TIME = 2000L
-        internal val POSITION_KEY = "position"
+        private const val WAIT_TIME = 2000L
+        internal const val POSITION_KEY = "position"
     }
 }

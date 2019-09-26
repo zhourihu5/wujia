@@ -16,6 +16,7 @@ import com.wujia.businesslib.base.MvpFragment
 import com.wujia.businesslib.data.VersionBean
 import com.wujia.businesslib.dialog.SimpleDialog
 import com.wujia.businesslib.util.LoginUtil
+import com.wujia.lib.imageloader.ImageLoaderManager
 import com.wujia.lib.widget.util.ToastUtil
 import com.wujia.lib_common.data.network.exception.ApiException
 import com.wujia.lib_common.utils.AppUtil
@@ -39,18 +40,15 @@ import kotlinx.android.synthetic.main.fragment_setting_home.*
  * description ：物业服务 home
  */
 class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.View {
-
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_setting_home
-    }
+    override val layoutId: Int
+        get() = R.layout.fragment_setting_home
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
         layout_title_tv!!.setText(R.string.setting)
         layout_title!!.setOnLongClickListener {
-            val versionCode = VersionUtil.getVersionCode()
-            val versionName = VersionUtil.getVersionName()
+            val versionCode = VersionUtil.versionCode
+            val versionName = VersionUtil.versionName
 
             ToastUtil.showShort(mContext, "$versionName - $versionCode")
             true
@@ -61,9 +59,7 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
     @OnClick(R.id.item_set_member, R.id.item_manager_card, R.id.item_set_lock_pic, R.id.item_wifi_connection, R.id.item_allow_look_door_num, R.id.item_clear_cache, R.id.item_check_update)
     fun onViewClicked(view: View) {
         when (view.id) {
-            R.id.item_set_member ->
-
-                start(FamilyMemberFragment.newInstance())
+            R.id.item_set_member -> start(FamilyMemberFragment.newInstance())
             R.id.item_manager_card -> startForResult(CardManagerFragment.newInstance(), CardManagerFragment.REQUEST_CODE_CARD_MANAGER)
             R.id.item_set_lock_pic -> {
                 //                startActivity(new Intent(Settings.ACTION_DISPLAY_SETTINGS));
@@ -79,12 +75,13 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
             R.id.item_allow_look_door_num -> item_allow_look_door_num_switch!!.toggle()
             R.id.item_clear_cache -> SimpleDialog.Builder().title(getString(R.string.clear_cache)).listener {
                 ToastUtil.showShort(mContext, getString(R.string.cache_clear_ed))
-                FileUtil.deleteFile(FileUtil.getDowndloadApkPath(mContext))
-            }.build(mContext).show()
+                ImageLoaderManager.instance.clearImageAllCache(context!!)
+                FileUtil.deleteFile(FileUtil.getDowndloadApkPath(mContext!!))
+            }.build(mContext!!).show()
             R.id.item_check_update -> {
                 showLoadingDialog(getString(R.string.check_update_ing))
 
-                mPresenter.checkVersion()
+                mPresenter?.checkVersion()
             }
         }
     }
@@ -98,7 +95,7 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
         }
         return true
     }
-    internal fun setBrightMode() {
+    private fun setBrightMode() {
        val mode= ScreenManager.screenMode
        val brightNess= ScreenManager.screenBrightness
         LogUtil.i("getScreenMode==$mode,getScreenBrightness=$brightNess")
@@ -122,7 +119,7 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
 
 
 
-    internal fun startAdbWifi() {
+    private fun startAdbWifi() {
         addSubscribe(Observable.create(ObservableOnSubscribe<Boolean> { emitter ->
             val install = AppUtil.startAdbWifi()
             emitter.onNext(install)
@@ -145,13 +142,13 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
     override fun onDataLoadSucc(requestCode: Int, `object`: Any) {
         hideLoadingDialog()
         val bean = `object` as VersionBean
-
-
-        if (MyReceiver.isUpdate(bean.data)) {
-            start(UpdateFragment.newInstance(bean.data, bean.data.desc))
+        bean?.data?.let { if (MyReceiver.isUpdate(it)) {
+            start(UpdateFragment.newInstance(it, it.desc))
         } else {
             ToastUtil.showShort(mContext, "已是最新版本")
-        }
+        } }
+
+
     }
 
     override fun onDataLoadFailed(requestCode: Int, apiException: ApiException) {

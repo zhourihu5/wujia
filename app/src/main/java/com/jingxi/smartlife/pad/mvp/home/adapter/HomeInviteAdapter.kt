@@ -20,6 +20,6 @@ class HomeInviteAdapter(context: Context, datas: List<HomeUserInfoBean.DataBean.
 
         holder.setText(R.id.tv1, item.userName)
         val img = holder.getView<ImageView>(com.jingxi.smartlife.pad.market.R.id.img1)
-        ImageLoaderManager.getInstance().loadImage(item.icon, R.mipmap.icon_head_default, img)
+        ImageLoaderManager.instance.loadImage(item.icon, R.mipmap.icon_head_default, img)
     }
 }

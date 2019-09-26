@@ -20,7 +20,7 @@ class FamilyMemberModel : BaseModel() {
     }
 
     fun getFamilyMemberList(familyId: String): Flowable<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>> {
-        return mHttpHelper.create(MainAppApiService::class.java)!!.getFamilyMemberList(familyId).compose<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(RxUtil.rxSchedulerHelper())
+        return mHttpHelper.create(MainAppApiService::class.java)!!.getFamilyMemberList(familyId).compose(RxUtil.rxSchedulerHelper())
     }
 
 

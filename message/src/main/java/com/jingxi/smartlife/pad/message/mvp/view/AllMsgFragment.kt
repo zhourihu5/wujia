@@ -2,6 +2,7 @@ package com.jingxi.smartlife.pad.message.mvp.view
 
 import android.os.Bundle
 import androidx.annotation.StringDef
+import androidx.recyclerview.widget.RecyclerView
 import com.jingxi.smartlife.pad.message.R
 import com.jingxi.smartlife.pad.message.mvp.adapter.MessageAdapter
 import com.wujia.businesslib.base.DataManager
@@ -19,7 +20,6 @@ import com.wujia.lib_common.base.BasePresenter
 import com.wujia.lib_common.base.BaseView
 import com.wujia.lib_common.base.baseadapter.wrapper.LoadMoreWrapper
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
-import com.wujia.lib_common.data.network.exception.ApiException
 import kotlinx.android.synthetic.main.fragment_msg_all.*
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
@@ -31,31 +31,30 @@ import java.util.*
  * description ：
  */
 class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.OnTabSelectedListener, LoadMoreWrapper.OnLoadMoreListener, MessageAdapter.ReadMsgCallback {
-
-
-    private var msgList: ArrayList<MsgDto.ContentBean>? = null
+    override val layoutId: Int
+        get() = R.layout.fragment_msg_all
+    private  var msgList: ArrayList<MsgDto.ContentBean>?=null
     private var mAdapter: MessageAdapter? = null
     private var currentState = 0
     private var mLoadMoreWrapper: LoadMoreWrapper? = null
     private var page = 1
     private val pageSize = 15
-    //    private ArrayList<DBMessage> allList;//所有数据
 
-//    private var isVisible: Boolean = false
-
-    private val eventMsg = EventMsg(IMiessageInvoke { event ->
-        if (event.type == EventMsg.TYPE_NEW_MSG) {
-            reset()
-            getData(false)
-        } else if (event.type == EventMsg.TYPE_READ) {
-            if (!isVisible) {//本页也会发送TYPE_READ,adapter已处理，所以页面显示时不处理
+    private val eventMsg = EventMsg(object : IMiessageInvoke<EventMsg> {
+        override fun eventBus(event: EventMsg) {
+            if (event.type == EventMsg.TYPE_NEW_MSG) {
                 reset()
                 getData(false)
+            } else if (event.type == EventMsg.TYPE_READ) {
+                if (!isSupportVisible) {//本页也会发送TYPE_READ,adapter已处理，所以页面显示时不处理
+                    reset()
+                    getData(false)
+                }
             }
         }
     })
 
-    internal var busModel: BusModel? = null
+//    internal var busModel: BusModel? = null
 
 
      var type: String = MSG_TYPE_ALL
@@ -76,15 +75,9 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
 
     private fun reset() {
         page = 1
-        if (msgList != null) {
-            msgList!!.clear()
-            mLoadMoreWrapper!!.notifyDataSetChanged()
-        }
+        msgList?.let { it.clear();mLoadMoreWrapper?.notifyDataSetChanged() }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_msg_all
-    }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
@@ -92,20 +85,17 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
             type = savedInstanceState.getString(KEY_TYPE, type)
         }
 
-        tab_layout!!.addItem(HorizontalTabItem(mContext, R.string.all))
-        tab_layout!!.addItem(HorizontalTabItem(mContext, R.string.readed))
-        tab_layout!!.addItem(HorizontalTabItem(mContext, R.string.unread))
+        tab_layout!!.addItem(HorizontalTabItem(mContext!!, R.string.all))
+        tab_layout!!.addItem(HorizontalTabItem(mContext!!, R.string.readed))
+        tab_layout!!.addItem(HorizontalTabItem(mContext!!, R.string.unread))
 
         tab_layout!!.setOnTabSelectedListener(this)
 
         msgList = ArrayList()
-        mAdapter = MessageAdapter(mActivity, msgList, this)
-        mLoadMoreWrapper = LoadMoreWrapper(mAdapter)
+        mAdapter = MessageAdapter(mActivity, msgList!!, this)
+        mLoadMoreWrapper = LoadMoreWrapper(mAdapter as RecyclerView.Adapter<RecyclerView.ViewHolder>)
         rv1?.adapter = mLoadMoreWrapper
         mLoadMoreWrapper!!.setOnLoadMoreListener(this)
-        if (busModel == null) {
-            busModel = BusModel()
-        }
         getData(true)
 
         EventBusUtil.register(eventMsg)
@@ -131,25 +121,25 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
         }
         var familyId: String? = null
         try {
-            familyId = DataManager.getFamilyId()
+            familyId = DataManager.familyId
         } catch (e: Exception) {
             e.printStackTrace()
             LoginUtil.toLoginActivity()
             return
         }
 
-        addSubscribe(busModel!!.getMsg(familyId, type, status, page, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<MsgDto>>(this, SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(BusModel().getMsg(familyId!!, type, status, page, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<MsgDto>>(this@AllMsgFragment, SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<MsgDto>) {
                 super.onResponse(response)
 
-                val temp = response.data.content
+                val temp = response.data?.content
                 if (page == 1) {
                     msgList!!.clear()
                 }
                 if (temp != null && temp.size > 0) {
                     msgList!!.addAll(temp)
                 }
-                if (response.data.isLast) {
+                if (response.data?.last!!) {
                     mLoadMoreWrapper!!.setLoadMoreView(0)
                 } else {
                     mLoadMoreWrapper!!.setLoadMoreView(R.layout.view_loadmore)
@@ -160,9 +150,6 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
                 page++
             }
 
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
-            }
         }))
 
 
@@ -171,22 +158,6 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
     override fun onDestroyView() {
         super.onDestroyView()
         EventBusUtil.unregister(eventMsg)
-    }
-
-    override fun onSupportVisible() {
-        super.onSupportVisible()
-//        isVisible = true
-        //        if (null == msgList) {
-        //            msgList = new ArrayList();
-        //        }
-        //        if (null != mLoadMoreWrapper) {
-        //            getData();
-        //        }
-    }
-
-    override fun onSupportInvisible() {
-        super.onSupportInvisible()
-//        isVisible = false
     }
 
     override fun onLoadMoreRequested() {
@@ -198,16 +169,13 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
     }
 
     override fun onMsgReadClick(item: MsgDto.ContentBean) {//todo
-        addSubscribe(busModel!!.readMsg(item.id.toString() + "").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(BusModel().readMsg(item.id.toString() + "").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@AllMsgFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<Any>) {
                 super.onResponse(response)
                 item.isRead = MsgDto.STATUS_READ
                 EventBusUtil.post(EventMsg(EventMsg.TYPE_READ))
             }
 
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
-            }
         }))
 
 

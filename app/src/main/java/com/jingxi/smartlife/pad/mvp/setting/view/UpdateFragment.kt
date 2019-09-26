@@ -1,5 +1,6 @@
 package com.jingxi.smartlife.pad.mvp.setting.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import butterknife.OnClick
@@ -25,14 +26,13 @@ import java.math.BigDecimal
  * description ：检查更新
  */
 class UpdateFragment : TitleFragment() {
-
+    override val layoutId: Int
+        get() = R.layout.fragment_update
+    override val title: Int
+        get() = R.string.check_update
 
     private var mVersion: VersionBean.Version? = null
     private var mTask: DownloadTask? = null
-
-    override fun initEventAndData() {
-        super.initEventAndData()
-    }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
@@ -42,14 +42,6 @@ class UpdateFragment : TitleFragment() {
         tv_version_desc!!.text = remark
         tv_version!!.text = mVersion!!.versionName
 
-    }
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_update
-    }
-
-    override fun getTitle(): Int {
-        return R.string.check_update
     }
 
     @OnClick(R.id.btn_update_now)
@@ -63,11 +55,13 @@ class UpdateFragment : TitleFragment() {
     }
 
     private fun download() {
-        mTask = DownloadUtil.download(mVersion!!.imageurl, object : DownloadListener {
+        mTask = mVersion?.imageurl?.let {
+            DownloadUtil.download(it, object : DownloadListener {
             override fun onTaskStart() {
 
             }
 
+            @SuppressLint("SetTextI18n")
             override fun onTaskProgress(percent: Int, currentOffset: Long, totalLength: Long) {
                 if (null != progress_update) {
                     progress_update!!.progress = percent
@@ -110,40 +104,15 @@ class UpdateFragment : TitleFragment() {
                                 }
                     }
                     DownloadUtil.STATE_CANCELED, DownloadUtil.STATE_OTHER -> {
-                        update_check_layout!!.visibility = View.VISIBLE
-                        update_ing_layout!!.visibility = View.GONE
-                        if (null != tv_update_downloaded) {
-                            tv_update_downloaded!!.text = "安装失败"
-                        }
-                        ToastUtil.showShort(mContext, "安装失败")
+                        update_check_layout?.visibility = View.VISIBLE
+                        update_ing_layout?.visibility = View.GONE
+                        tv_update_downloaded?.text = "安装失败"
+                        mContext?.let { ToastUtil.showShort(mContext, "安装失败") }
                     }
                 }
             }
         })
-    }
-
-    //测试安装
-    private fun install() {
-        Observable.create(ObservableOnSubscribe<Boolean> { emitter ->
-            //                LogUtil.i("install " + mVersion.packageName);
-            val install = AppUtil.install("/storage/emulated/0/Android/data/com.jingxi.smartlife.pad/files/Download/apk/e4283230-33a9-47ce-9131-40b819538515.apk")
-            //                                    boolean install = true;
-            emitter.onNext(install)
-        }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { install ->
-                    if (install!!) {
-                        LogUtil.i("install 安装成功")
-
-                        ToastUtil.showShort(mContext, "安装完成")
-                        //安装成功，本地记录
-                        //                                            ThirdPermissionUtil.requestDefaultPermissions(mVersion.packageName);
-
-                    } else {
-                        ToastUtil.showShort(mContext, "安装失败")
-                        LogUtil.i("install 安装失败")
-                    }
-                }
+        }
     }
 
     override fun onDestroyView() {
@@ -155,7 +124,7 @@ class UpdateFragment : TitleFragment() {
 
     companion object {
 
-        fun newInstance(version: VersionBean.Version, remark: String): UpdateFragment {
+        fun newInstance(version: VersionBean.Version, remark: String?): UpdateFragment {
             val fragment = UpdateFragment()
             val args = Bundle()
             args.putSerializable("version", version)
@@ -178,13 +147,13 @@ class UpdateFragment : TitleFragment() {
 
             val megaByte = kiloByte / 1024
             if (megaByte < 1) {
-                val result1 = BigDecimal(java.lang.Double.toString(kiloByte))
+                val result1 = BigDecimal(kiloByte.toString())
                 return result1.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "KB"
             }
 
             val gigaByte = megaByte / 1024
             if (gigaByte < 1) {
-                val result2 = BigDecimal(java.lang.Double.toString(megaByte))
+                val result2 = BigDecimal(megaByte.toString())
                 return result2.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "MB"
             }
 

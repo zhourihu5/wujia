@@ -1,5 +1,6 @@
 package com.jingxi.smartlife.pad.mvp.home
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -48,7 +49,6 @@ import java.util.*
  */
 class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
-
     private var homeCardAdapter: HomeCardAdapter? = null
     private var batterReceiver: BatteryReceiver? = null
     private var networkReceiver: NetworkChangeReceiver? = null
@@ -60,47 +60,52 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
     private var isRefreshCard = true
     private var isRefreshWeather = true
 
-    private val eventSafeState = EventSafeState(IMiessageInvoke { event ->
-        home_arc_view!!.text = if (event.online) "正常\n" else "异常\n"
-        home_arc_view!!.setColor(if (event.online) R.color.colorAccent else R.color.cdd6767)
-    })
-    private val eventMsg = EventMsg(IMiessageInvoke {
-        setNotify(false)
-    })
-    private val eventCardChange = EventCardChange(IMiessageInvoke {
-        isRefreshCard = true
-        if (isVisible) {
-            mPresenter.getUserQuickCard()
+    private val eventSafeState = EventSafeState(object : IMiessageInvoke<EventSafeState> {
+        override fun eventBus(event: EventSafeState) {
+            home_arc_view!!.text = if (event.online) "正常\n" else "异常\n"
+            home_arc_view!!.setColor(if (event.online) R.color.colorAccent else R.color.cdd6767)
         }
     })
-    private val eventMemberChange = EventMemberChange(IMiessageInvoke {
-        var familyId: String? = null
-        try {
-            familyId = DataManager.getFamilyId()
-        } catch (e: Exception) {
-            LogUtil.t("get familyId failed", e)
-            LoginUtil.toLoginActivity()
-            return@IMiessageInvoke
+    private val eventMsg = EventMsg(object : IMiessageInvoke<EventMsg> {
+        override fun eventBus(event: EventMsg) {
+            setNotify(false)
         }
-
-        addSubscribe(familyMemberModel!!.getFamilyMemberList(familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(this@HomeHomeFragment, SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
-            override fun onResponse(response: ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>) {
-                super.onResponse(response)
-                memAdapter!!.setmDatas(response.data)
-                memAdapter!!.notifyDataSetChanged()
+    })
+    private val eventCardChange = EventCardChange(object : IMiessageInvoke<EventCardChange> {
+        override fun eventBus(event: EventCardChange) {
+            isRefreshCard = true
+            if (isSupportVisible) {
+                mPresenter?.getUserQuickCard()
+            }
+        }
+    })
+    private val eventMemberChange = EventMemberChange(object : IMiessageInvoke<EventMemberChange> {
+        override fun eventBus(event: EventMemberChange) {
+            var familyId: String? = null
+            try {
+                familyId = DataManager.familyId
+            } catch (e: Exception) {
+                LogUtil.t("get familyId failed", e)
+                LoginUtil.toLoginActivity()
+                return
             }
 
-        }))
+            addSubscribe(FamilyMemberModel().getFamilyMemberList(familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(this@HomeHomeFragment, ActionConfig(false, SHOWERRORMESSAGE)) {
+                override fun onResponse(response: ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>) {
+                    super.onResponse(response)
+                    response.data?.let { memAdapter!!.setmDatas(it) }
+                    memAdapter!!.notifyDataSetChanged()
+                }
+
+            }))
+        }
     })
 
-    internal var busModel: BusModel? = null
+    override val layoutId: Int
+        get(){
+            return R.layout.fragment_home
+        }
 
-    internal var familyMemberModel: FamilyMemberModel? = null
-
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_home
-    }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
@@ -108,7 +113,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
         FontUtils.changeFontTypeface(home_weather_num_tv, FontUtils.Font_TYPE_EXTRA_LIGHT)
 
-        home_date_tv!!.text = StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay())
+        home_date_tv!!.text = StringUtil.format(getString(R.string.s_s), DateUtil.currentDate, DateUtil.currentWeekDay)
 
         setCardView()
 
@@ -135,11 +140,11 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         homeCardAdapter!!.setOnItemClickListener { adapter, holder, position ->
             val card = cards!![position]
             when (card.type) {
-                HomeRecBean.TYPE_LINK -> start(WebViewFragment.newInstance(card.linkUrl))
+                HomeRecBean.TYPE_LINK -> card.linkUrl?.let { start(WebViewFragment.newInstance(it)) }
 
-                HomeRecBean.TYPE_APP_PAGE -> parseLinkUrl(card.linkUrl)
+                HomeRecBean.TYPE_APP_PAGE -> card.linkUrl?.let { parseLinkUrl(it) }
 
-                HomeRecBean.TYPE_IMAGE -> start(ImageTxtFragment.newInstance(card.id))
+                HomeRecBean.TYPE_IMAGE -> start(card.id?.let { ImageTxtFragment.newInstance(it) })
 
                 HomeRecBean.TYPE_ADD -> start(CardManagerFragment.newInstance())
             }
@@ -160,38 +165,35 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
     }
 
     private fun setNotify(isShowLoadingDialog: Boolean) {
-        if (busModel == null) {
-            busModel = BusModel()
-        }
-
-        var familyId = try {
-            DataManager.getFamilyId()
+        val familyId = try {
+            DataManager.familyId
         } catch (e: Exception) {
             e.printStackTrace()
             LoginUtil.toLoginActivity()
             return
         }
-        addSubscribe(busModel!!.getTop3UnReadMsg(familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(BusModel().getTop3UnReadMsg(familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this@HomeHomeFragment, ActionConfig(isShowLoadingDialog, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<List<MsgDto.ContentBean>>) {
                 super.onResponse(response)
                 val notifys = response.data
-                //        rv_home_msg.addItemDecoration(new HorizontalDecoration(25));
-                val notifyAdapter = HomeNotifyAdapter(mActivity, notifys)
-                rv_home_msg!!.adapter = notifyAdapter
-                notifyAdapter.setOnItemClickListener { adapter, holder, position ->
-                    MessageDialog(mContext, notifys[position])
-                            .setListener { item ->
-                                addSubscribe(busModel!!.readMsg(item.id.toString() + "").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@HomeHomeFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
-                                    override fun onResponse(response: ApiResponse<Any>) {
-                                        super.onResponse(response)
-                                        item.isRead = MsgDto.STATUS_READ
-                                        //                                                setNotify();//在消息里处理了
-                                        EventBusUtil.post(EventMsg(EventMsg.TYPE_READ))
-                                    }
-                                }))
-                            }
-                            .show()
-                }
+                notifys?.let {
+                    val notifyAdapter = HomeNotifyAdapter(mActivity, notifys)
+                    rv_home_msg!!.adapter = notifyAdapter
+                    notifyAdapter.setOnItemClickListener { adapter, holder, position ->
+                        MessageDialog(mContext!!, notifys[position])
+                                .setListener { item ->
+                                    addSubscribe(BusModel().readMsg(item.id.toString() + "").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@HomeHomeFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
+                                        override fun onResponse(response: ApiResponse<Any>) {
+                                            super.onResponse(response)
+                                            item.isRead = MsgDto.STATUS_READ
+                                            //                                                setNotify();//在消息里处理了
+                                            EventBusUtil.post(EventMsg(EventMsg.TYPE_READ))
+                                        }
+                                    }))
+                                }
+                                .show()
+                    } }
+
             }
         }))
 
@@ -216,13 +218,13 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
     private fun getDataIfNeeded() {
         if (isRefreshCard) {
-            mPresenter.getUserQuickCard()
+            mPresenter?.getUserQuickCard()
         }
         if (isRefreshUserData) {
-            mPresenter.getHomeUserInfo(SystemUtil.getSerialNum())
+            mPresenter?.getHomeUserInfo(SystemUtil.getSerialNum()!!)
         }
         if (isRefreshWeather) {
-            mPresenter.getWeather()
+            mPresenter?.getWeather()
         }
     }
 
@@ -235,33 +237,31 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
     fun onViewClicked(view: View) {
         when (view.id) {
             R.id.home_chat_btn -> ToastUtil.showShort(mContext, getString(R.string.chat_is_developing))
-            R.id.home_member_add_btn -> AddMemberDialog(mActivity, memAdapter!!.datas).setListener(OnInputDialogListener { input ->
-                if (familyMemberModel == null) {
-                    familyMemberModel = FamilyMemberModel()
-                }
-                var familyId: String? = null
-                try {
-                    familyId = DataManager.getFamilyId()
-                } catch (e: Exception) {
-                    LoginUtil.toLoginActivity()
-                    LogUtil.t("get familyid failed", e)
-                    return@OnInputDialogListener
-                }
+            R.id.home_member_add_btn -> memAdapter!!.datas?.let {
+                AddMemberDialog(mActivity, it).setListener(object : OnInputDialogListener {
+                    override fun dialogSureClick(input: String) {
+                        var familyId: String? = null
+                        try {
+                            familyId = DataManager.familyId
+                        } catch (e: Exception) {
+                            LoginUtil.toLoginActivity()
+                            LogUtil.t("get familyid failed", e)
+                            return
+                        }
 
-                addSubscribe(familyMemberModel!!.addFamilyMember(input, familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<String>>(this@HomeHomeFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
-                    override fun onResponse(response: ApiResponse<String>) {
-                        super.onResponse(response)
-                        val userInfoListBean = HomeUserInfoBean.DataBean.UserInfoListBean()
-                        userInfoListBean.userName = input
-                        memAdapter!!.datas.add(userInfoListBean)
-                        memAdapter!!.notifyDataSetChanged()
-                    }
+                        addSubscribe(FamilyMemberModel().addFamilyMember(input, familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<String>>(this@HomeHomeFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
+                            override fun onResponse(response: ApiResponse<String>) {
+                                super.onResponse(response)
+                                val userInfoListBean = HomeUserInfoBean.DataBean.UserInfoListBean()
+                                userInfoListBean.userName = input
+                                (memAdapter!!.datas as MutableList).add(userInfoListBean)
+                                memAdapter!!.notifyDataSetChanged()
+                            }
 
-                    override fun onFailed(apiException: ApiException) {
-                        super.onFailed(apiException)
+                        }))
                     }
-                }))
-            }).show()
+                }).show()
+            }
             R.id.home_call_service_btn ->
                 //                new CallDialog(mContext).show();
                 ToastUtil.showShort(mContext, getString(R.string.not_join))
@@ -271,13 +271,14 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onDataLoadSucc(requestCode: Int, `object`: Any) {
         when (requestCode) {
             HomePresenter.REQUEST_CDOE_GET_CARD_MY -> {
                 isRefreshCard = false
                 val homeRecBean = `object` as HomeRecBean
                 cards!!.clear()
-                cards!!.addAll(homeRecBean.data)
+                homeRecBean.data?.let { cards!!.addAll(it) }
                 cards!!.add(HomeRecBean.Card(HomeRecBean.TYPE_ADD))
                 homeCardAdapter!!.notifyDataSetChanged()
             }
@@ -286,29 +287,27 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
                 isRefreshUserData=false
                 val homeUserInfoBean = `object` as HomeUserInfoBean
 
-                home_room_tv!!.text = homeUserInfoBean.data.communtity.name
+                home_room_tv!!.text = homeUserInfoBean.data?.communtity?.name
 
-                memAdapter!!.setmDatas(homeUserInfoBean.data.userInfoList)
+                homeUserInfoBean.data?.userInfoList?.let { memAdapter!!.setmDatas(it) }
                 memAdapter!!.notifyDataSetChanged()
             }
             HomePresenter.REQUEST_CDOE_WEATHER -> {
                 isRefreshWeather=false
                 val weatherInfoBean = `object` as WeatherInfoBean
                 val dataBean = weatherInfoBean.data
-                val token = dataBean.token
-                DataManager.saveToken(token)
-
+                dataBean?.token?.let { DataManager.saveToken(it) }
                 try {
-                    home_car_num_tv!!.text = String.format("今日限行：%s", dataBean.restrict.num)
+                    home_car_num_tv!!.text = String.format("今日限行：%s", dataBean?.restrict?.num?:"暂无数据")
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
-                val curdate = DateUtil.getCurrentyyyymmddhh() + "00"
+                val curdate = DateUtil.currentyyyymmddhh + "00"
 
                 var weatherList: List<WeatherInfoBean.DataBean.WeatherBean.ShowapiResBodyBean.HourListBean>? = null
                 try {
-                    weatherList = dataBean.weather.showapi_res_body.hourList
+                    weatherList = dataBean!!.weather!!.showapi_res_body!!.hourList
                 } catch (e: Exception) {
                     //                    e.printStackTrace();
                 }
@@ -318,7 +317,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
                         if (weather.time == curdate) {
                             home_weather_num_tv!!.text = weather.temperature + "°"
                             home_weather_desc_tv!!.text = weather.weather
-                            ImageLoaderManager.getInstance().loadImage(weather.weather_code, ivWeather)
+                            ImageLoaderManager.instance.loadImage(weather.weather_code, ivWeather)
                         }
                     }
                 }
@@ -333,14 +332,9 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
 
     override fun onDestroyView() {
-        //销毁广播
-        if (null != batterReceiver) {
-            mActivity.unregisterReceiver(batterReceiver)
-            batterReceiver = null
-        }
-        if (null != networkReceiver) {
-            mActivity.unregisterReceiver(networkReceiver)
-            networkReceiver = null
+        mActivity.apply {
+            batterReceiver?.let { unregisterReceiver(batterReceiver) }
+            networkReceiver?.let {unregisterReceiver(networkReceiver) }
         }
         super.onDestroyView()
     }
@@ -355,26 +349,15 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
             val current = intent.extras!!.getInt("level")// 获得当前电量
             val total = intent.extras!!.getInt("scale")// 获得总电量
             val percent = current * 100 / total
-
-            if (percent < 20) {
-                icon.drawable.level = 1
-            } else {
-                icon.drawable.level = 0
-            }
-
+            icon.drawable.level = if (percent < 20) 1 else 0
             LogUtil.i(" == level == $current")
             LogUtil.i(" == scale == $total")
         }
     }
 
     internal inner class NetworkChangeReceiver(private val icon: ImageView) : BroadcastReceiver() {
-
         override fun onReceive(context: Context, intent: Intent) {
-            if (NetworkUtil.getNetWork(context)) {
-                icon.drawable.level = 0
-            } else {
-                icon.drawable.level = 1
-            }
+            icon.drawable.level=if (NetworkUtil.getNetWork(context))  0 else  1
         }
     }
 

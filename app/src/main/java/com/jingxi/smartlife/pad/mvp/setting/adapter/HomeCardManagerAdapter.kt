@@ -3,10 +3,10 @@ package com.jingxi.smartlife.pad.mvp.setting.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-
 import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.mvp.home.data.HomeRecBean
 import com.wujia.lib.imageloader.ImageLoaderManager
@@ -31,13 +31,13 @@ class HomeCardManagerAdapter(context: Context, datas: List<HomeRecBean.Card>, pr
                 //                subview = LayoutInflater.from(mContext).inflate(R.layout.item_home_rec_layout_0, null);
                 //                break;
             HomeRecBean.TYPE_IMAGE, HomeRecBean.TYPE_LINK -> {
-                subview = LayoutInflater.from(mContext).inflate(R.layout.item_home_rec_layout_1, null)
+                subview = LayoutInflater.from(mContext).inflate(R.layout.item_home_rec_layout_1, holder.itemView as ViewGroup,false)
 
                 val desc = subview!!.findViewById<TextView>(R.id.scene_in_mode_status_tv)
                 desc.text = item.explain
 
                 val img = subview.findViewById<ImageView>(R.id.scene_in_img)
-                ImageLoaderManager.getInstance().loadImage(item.image, R.mipmap.default_loading, img)
+                ImageLoaderManager.instance.loadImage(item.image, R.mipmap.default_loading, img)
             }
         }
 
@@ -73,7 +73,7 @@ class HomeCardManagerAdapter(context: Context, datas: List<HomeRecBean.Card>, pr
 
     companion object {
 
-        val FORM_ADDED = 0
-        val FORM_UNADD = 1
+        const val FORM_ADDED = 0
+        const val FORM_UNADD = 1
     }
 }

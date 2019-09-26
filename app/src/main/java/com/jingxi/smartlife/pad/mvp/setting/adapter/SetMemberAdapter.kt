@@ -21,7 +21,7 @@ class SetMemberAdapter(context: Context, datas: List<HomeUserInfoBean.DataBean.U
         holder.setText(R.id.name_member_set_item, item.userName)
 
         val img = holder.getView<ImageView>(R.id.icon_member_set_item)
-        ImageLoaderManager.getInstance().loadImage(item.icon, R.mipmap.icon_head_default, img)
+        ImageLoaderManager.instance.loadImage(item.icon, R.mipmap.icon_head_default, img)
 
 
     }

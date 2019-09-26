@@ -22,14 +22,15 @@ class AdvertActivity : BaseActivity() {
 
     private var advert: Advert? = null
 
-    override fun getLayout(): Int {
+    override val layout: Int
+        get() {
         return R.layout.activity_advert
     }
 
     override fun initEventAndData(savedInstanceState: Bundle?) {
         advert = intent.getSerializableExtra(Constants.INTENT_KEY_1) as Advert
         if (advert != null) {
-            ImageLoaderManager.getInstance().loadImage(advert!!.url, img_advert)
+            ImageLoaderManager.instance.loadImage(advert!!.url, img_advert)
             btn_details!!.visibility = View.VISIBLE
         }
     }

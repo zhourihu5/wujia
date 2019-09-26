@@ -16,7 +16,6 @@ import com.wujia.businesslib.listener.OnInputDialogListener
 import com.wujia.businesslib.util.LoginUtil
 import com.wujia.lib_common.base.view.VerticallDecoration
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
-import com.wujia.lib_common.data.network.exception.ApiException
 import com.wujia.lib_common.utils.LogUtil
 import kotlinx.android.synthetic.main.fragment_member.*
 import java.util.*
@@ -27,31 +26,12 @@ import java.util.*
  * description ：
  */
 class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
-
-
-
+    override val layoutId: Int
+        get() =  R.layout.fragment_member
+    override val title: Int
+        get() = R.string.set_family_member
     internal var mAdapter: SetMemberAdapter? = null
 
-    internal lateinit var familyMemberModel: FamilyMemberModel
-
-    val headUrl: String
-        get() {
-            val num = (Math.random() * 6 + 1).toInt()
-            return String.format("file:///android_asset/img_default_head_%d.png", num)
-        }
-
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_member
-    }
-
-    override fun initEventAndData() {
-        super.initEventAndData()
-    }
-
-    override fun getTitle(): Int {
-        return R.string.set_family_member
-    }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
@@ -60,42 +40,24 @@ class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
 
         rv_member!!.addItemDecoration(VerticallDecoration(1))
 
-        familyMemberModel = FamilyMemberModel()
         var familyId: String? = null
         try {
-            familyId = DataManager.getFamilyId()
+            familyId = DataManager.familyId
         } catch (e: Exception) {
             LogUtil.t("get familyId failed", e)
             LoginUtil.toLoginActivity()
             return
         }
 
-        addSubscribe(familyMemberModel.getFamilyMemberList(familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(this, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(FamilyMemberModel().getFamilyMemberList(familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>>(this@FamilyMemberFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<List<HomeUserInfoBean.DataBean.UserInfoListBean>>) {
                 super.onResponse(response)
-                mAdapter = SetMemberAdapter(mContext, response.data)
+                mAdapter = response.data?.let { SetMemberAdapter(mContext!!, it) }
                 rv_member!!.adapter = mAdapter
             }
 
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
-            }
         }))
 
-
-    }
-
-    override fun onSupportVisible() {
-        super.onSupportVisible()
-        // 当对用户可见时 回调
-        // 不管是 父Fragment还是子Fragment 都有效！
-
-    }
-
-    override fun onSupportInvisible() {
-        super.onSupportInvisible()
-        // 当对用户不可见时 回调
-        // 不管是 父Fragment还是子Fragment 都有效！
 
     }
 
@@ -105,7 +67,7 @@ class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
                 .hint(getString(R.string.please_input_member_phone))
                 .confirm(getString(R.string.invite))
                 .listener(this)
-                .build(mContext)
+                .build(mContext!!)
 
         inputDialog.show()
     }
@@ -113,31 +75,28 @@ class FamilyMemberFragment : TitleFragment(), OnInputDialogListener {
     override fun dialogSureClick(input: String) {
         var familyId: String? = null
         try {
-            familyId = DataManager.getFamilyId()
+            familyId = DataManager.familyId
         } catch (e: Exception) {
             LoginUtil.toLoginActivity()
             LogUtil.t("get familyId failed", e)
             return
         }
 
-        addSubscribe(familyMemberModel.addFamilyMember(input, familyId).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<String>>(this, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(FamilyMemberModel().addFamilyMember(input, familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<String>>(this@FamilyMemberFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<String>) {
                 super.onResponse(response)
                 val userInfoListBean = HomeUserInfoBean.DataBean.UserInfoListBean()
                 userInfoListBean.userName = input
                 if (mAdapter == null) {
-                    mAdapter = SetMemberAdapter(mContext, ArrayList())
+                    mAdapter = SetMemberAdapter(mContext!!, ArrayList())
                     rv_member!!.adapter = mAdapter
                 }
-                mAdapter!!.datas.add(userInfoListBean)
+                (mAdapter!!.datas as MutableList).add(userInfoListBean)
                 mAdapter!!.notifyDataSetChanged()
 
                 EventBusUtil.post(EventMemberChange())
             }
 
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
-            }
         }))
 
 

@@ -30,12 +30,17 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
     private var addedAdapter: HomeCardManagerAdapter? = null
     private var unaddAdapter: HomeCardManagerAdapter? = null
 
-    private val eventCardChange = EventCardChange(IMiessageInvoke { mPresenter.getUserQuickCard() })
+    private val eventCardChange = EventCardChange(object : IMiessageInvoke<EventCardChange> {
+        override fun eventBus(event: EventCardChange) {
+            mPresenter?.getUserQuickCard()
+        }
+    })
 
     internal var isChanged = false
-    internal var isUnregistered = false
+    private var isUnregistered = false
 
-    override fun getLayoutId(): Int {
+    override val layoutId: Int
+        get() {
         return R.layout.activity_card_manager
     }
 
@@ -50,7 +55,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         layout_title_tv!!.setText(R.string.manager_home_card)
 
         //        mPresenter.getUserQuickCard();
-        mPresenter.getQuickCard()
+        mPresenter?.getQuickCard()
         EventBusUtil.register(eventCardChange)
 
     }
@@ -60,7 +65,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         addList = list
 
         //已添加
-        addedAdapter = HomeCardManagerAdapter(mContext, addList as ArrayList<HomeRecBean.Card>, HomeCardManagerAdapter.FORM_ADDED)
+        addedAdapter = HomeCardManagerAdapter(mContext!!, addList as ArrayList<HomeRecBean.Card>, HomeCardManagerAdapter.FORM_ADDED)
         rv_card_added!!.addItemDecoration(VerticallDecoration(24))
 
         rv_card_added!!.adapter = addedAdapter
@@ -72,7 +77,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
             override fun removeCard(pos: Int) {
                 isChanged = true
-                mPresenter.removeUserQuickCard(addList!![pos].id)
+                addList!![pos].id?.let { mPresenter?.removeUserQuickCard(it) }
 
                 unaddList!!.add(addList!!.removeAt(pos))
                 addedAdapter!!.notifyItemRemoved(pos)
@@ -80,6 +85,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
                 addedAdapter!!.notifyItemRangeChanged(0, addList!!.size)
                 unaddAdapter!!.notifyItemRangeChanged(0, unaddList!!.size)
+                EventBusUtil.post(EventCardChange())
             }
         })
     }
@@ -91,7 +97,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         addList?.let { unaddList!!.removeAll(it) }
 
         //未添加
-        unaddAdapter = HomeCardManagerAdapter(mContext, unaddList as ArrayList<HomeRecBean.Card>, HomeCardManagerAdapter.FORM_UNADD)
+        unaddAdapter = HomeCardManagerAdapter(mContext!!, unaddList as ArrayList<HomeRecBean.Card>, HomeCardManagerAdapter.FORM_UNADD)
         rv_card_unadd!!.addItemDecoration(VerticallDecoration(24))
 
         rv_card_unadd!!.adapter = unaddAdapter
@@ -99,7 +105,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
         unaddAdapter!!.setManagerCardListener(object : HomeCardManagerAdapter.OnManagerCardListener {
             override fun addCard(pos: Int) {
                 isChanged = true
-                unaddList!![pos].id?.let { mPresenter.addUserQuickCard(it) }
+                unaddList!![pos].id?.let { mPresenter?.addUserQuickCard(it) }
 
                 addList!!.add(unaddList!!.removeAt(pos))
                 unaddAdapter!!.notifyItemRemoved(pos)
@@ -107,7 +113,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
                 addedAdapter!!.notifyItemRangeChanged(0, addList!!.size)
                 unaddAdapter!!.notifyItemRangeChanged(0, unaddList!!.size)
-
+                EventBusUtil.post(EventCardChange())
             }
 
             override fun removeCard(pos: Int) {
@@ -130,9 +136,9 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
     override fun pop() {
         unRegisterCardChangeEvent()
-        if (isChanged) {
-            EventBusUtil.post(EventCardChange())
-        }
+//        if (isChanged) {
+//            EventBusUtil.post(EventCardChange())
+//        }
         super.pop()
     }
 
@@ -158,13 +164,13 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
                 val cards = `object` as HomeRecBean
                 if (cards.data != null && cards.data!!.size > 0) {
                     val toAddList = ArrayList<HomeRecBean.Card>()
-                    for (card in cards.data) {
-                        if ("NO" == card.userCards[0].isShow) {
+                    for (card in cards.data!!) {
+                        if ("NO" == card.userCards!![0].isShow) {
                             toAddList.add(card)
                         }
                     }
-                    cards.data.removeAll(toAddList)
-                    setUserCard(cards.data)
+                    cards.data!!.removeAll(toAddList)
+                    setUserCard(cards.data!!)
                     setOtherCard(toAddList)
                 }
             }
@@ -177,8 +183,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
 
     companion object {
 
-        val REQUEST_CODE_CARD_MANAGER = 0X1001
-        val REQUEST_CODE_CARD_MANAGER_COMPLETE = 0X1002
+        const val REQUEST_CODE_CARD_MANAGER = 0X1001
 
         fun newInstance(): CardManagerFragment {
             val fragment = CardManagerFragment()

@@ -12,11 +12,8 @@ import com.wujia.lib_common.base.BaseMainFragment
  * description ： home
  */
 class HomeFragment : BaseMainFragment() {
-
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_frame_layout
-    }
+    override val layoutId: Int
+        get() = R.layout.fragment_frame_layout
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
@@ -26,6 +23,7 @@ class HomeFragment : BaseMainFragment() {
             loadRootFragment(R.id.fl_first_container, HomeHomeFragment.newInstance())
         }
     }
+
 
     companion object {
 

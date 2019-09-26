@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.jingxi.smartlife.pad.market.R
 import com.jingxi.smartlife.pad.market.mvp.annotation.ServiceType
 import com.jingxi.smartlife.pad.market.mvp.view.AllServiceFragment
-import com.jingxi.smartlife.pad.market.mvp.view.FindServiceFragment
 import com.wujia.businesslib.TabFragment
 import com.wujia.lib.widget.VerticalTabItem
 import com.wujia.lib_common.utils.LogUtil
@@ -16,16 +15,11 @@ import me.yokeyword.fragmentation.SupportFragment
  * description ：
  */
 class MarketHomeFragment : TabFragment() {
+    override val layoutId: Int
+        get() = R.layout.fragment_tab_home
 
+    private val mFragments = arrayOfNulls<SupportFragment>(6)
 
-    private val mFragments = arrayOfNulls<SupportFragment>(2)
-
-
-    override fun getLayoutId(): Int {
-        LogUtil.i("MarketHomeFragment getLayoutId")
-
-        return R.layout.fragment_tab_home
-    }
 
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
@@ -34,49 +28,49 @@ class MarketHomeFragment : TabFragment() {
         // 同级Fragment场景、ViewPager场景均适用
         LogUtil.i("MarketHomeFragment onLazyInitView")
         mTabBar = `$`(R.id.tab_home_tab_bar)
-        mTabBar.addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_my_default, R.mipmap.icon_market_leftnav_my_highlight, R.string.my_service))
-                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_find_default, R.mipmap.icon_market_leftnav_my_highlight, R.string.find_service))
-                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_government_default, R.mipmap.icon_market_leftnav_my_highlight, R.string.gov_service))
-                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_all_default, R.mipmap.icon_market_leftnav_my_highlight, R.string.all_service))
 
+        mTabBar.addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_my_default, R.mipmap.icon_market_leftnav_my_highlight, R.string.my_service))
+                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_find_default, R.mipmap.icon_market_leftnav_find_highlight, R.string.find_service))
+                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_government_default, R.mipmap.icon_market_leftnav_government_highlight, R.string.gov_service))
+                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_all_default, R.mipmap.icon_market_leftnav_all_highlight, R.string.all_service))
+                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_find_default, R.mipmap.icon_market_leftnav_find_highlight, R.string.group_buy_service))
+                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_find_default, R.mipmap.icon_market_leftnav_find_highlight, R.string.order_service))
         if (currentTab >= mTabBar.childCount) {
             currentTab = 0
         }
-        mFragments[0] = findChildFragment(AllServiceFragment::class.java)
-        mFragments[1] = findChildFragment(FindServiceFragment::class.java)
+        mFragments[0] = findChildFragment(MyServiceBaseFragment::class.java)
+        mFragments[1] = findChildFragment(FindServiceBaseFragment::class.java)
+        mFragments[2] = findChildFragment(GovServiceBaseFragment::class.java)
+        mFragments[3] = findChildFragment(AllServiceBaseFragment::class.java)
+        mFragments[TAB_GROUP_BUY] = findChildFragment(GroupBuyServiceBaseFragment::class.java)
+        mFragments[5] = findChildFragment(OrderBaseFragment::class.java)
         if (mFragments[0] == null) {
-            val type = getServiceType(currentTab)
-            mFragments[0] = AllServiceFragment.newInstance(type)
-            mFragments[1] = FindServiceFragment.newInstance()
-            //            mFragments[2] = GovServiceFragment.newInstance();
-            //            mFragments[2] = AllServiceFragment.newInstance(AllServiceFragment.TYPE_GOV);
-            //            mFragments[3] = AllServiceFragment.newInstance(AllServiceFragment.TYPE_ALL);
-            var fPosition = 0
-            if (currentTab == 1) {
-                fPosition = 1
-            }
-            loadMultipleRootFragment(R.id.tab_content_container, fPosition, mFragments[0], mFragments[1])
+            mFragments[0] = MyServiceBaseFragment()
+            mFragments[1] = FindServiceBaseFragment.newInstance()
+            mFragments[2] = GovServiceBaseFragment()
+            mFragments[3] = AllServiceBaseFragment()
+            mFragments[TAB_GROUP_BUY] = GroupBuyServiceBaseFragment.newInstance()
+            mFragments[5] = OrderBaseFragment()
+
+            loadMultipleRootFragment(R.id.tab_content_container, currentTab,
+                    mFragments[0],
+                    mFragments[1],
+                    mFragments[2],
+                    mFragments[3],
+                    mFragments[4],
+                    mFragments[5]
+            )
         }
 
         LogUtil.i("markethomefragment,currentTab==$currentTab")
         mTabBar.setOnTabSelectedListener { position, prePosition ->
             currentTab = position
-            if (position == 1) {
-                showHideFragment(mFragments[1], mFragments[0])
-            } else {
-                setFragmentType(position)
-                showHideFragment(mFragments[0], mFragments[1])
-            }
+            showHideFragment(mFragments[position], mFragments[prePosition])
             parentSwitchTab()
         }
         switchTab(currentTab)
     }
 
-    protected fun setFragmentType(position: Int) {
-        val allServiceFragment = mFragments[0] as AllServiceFragment
-        val type = getServiceType(position)
-        allServiceFragment.setType(type)
-    }
 
     @ServiceType
     protected fun getServiceType(position: Int): String {
@@ -99,6 +93,7 @@ class MarketHomeFragment : TabFragment() {
             //        fragment.setArguments(args);
             return fragment
         }
+        val TAB_GROUP_BUY:Int=4
     }
 
     //    @Override

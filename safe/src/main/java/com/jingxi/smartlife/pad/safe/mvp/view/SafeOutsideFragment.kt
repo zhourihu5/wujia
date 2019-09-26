@@ -2,11 +2,11 @@ package com.jingxi.smartlife.pad.safe.mvp.view
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.view.SurfaceHolder
 import android.view.View
 import android.widget.SeekBar
+import androidx.recyclerview.widget.RecyclerView
 import com.intercom.sdk.IntercomConstants
 import com.intercom.sdk.IntercomObserver
 import com.jingxi.smartlife.pad.safe.R
@@ -45,6 +45,8 @@ import java.util.concurrent.TimeUnit
  * description ：可视安防 外机
  */
 class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolder.Callback, DoorAccessConversationUI, DoorAccessListUI, View.OnClickListener, MultiItemTypeAdapter.OnRVItemClickListener, SeekBar.OnSeekBarChangeListener, IntercomObserver.OnPlaybackListener {
+    override val layoutId: Int
+        get() =  R.layout.fragment_safe_outside
     private var inVisibleType = 0//不可见时的状态，0是正常，10，20为全屏，全屏时不做复位操作；
     private var isSeeeionIdValid: Boolean = false//防止多次刷新创建多个会话，sessionId未超时即有效
     private var isPalyback: Boolean = false //true为回放，false为直播；
@@ -77,10 +79,6 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
     private var loadingDialog: LoadingDialog? = null
 
 
-    override fun getLayoutId(): Int {
-        LogUtil.i("SafeOutsideFragment getLayoutId")
-        return R.layout.fragment_safe_outside
-    }
 
     override fun createPresenter(): BasePresenter<BaseView>? {
         return null
@@ -90,15 +88,15 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
         super.onLazyInitView(savedInstanceState)
         LogUtil.i("SafeOutsideFragment onLazyInitView")
         try {
-            familyID = DataManager.getDockKey()
+            familyID = DataManager.dockKey
         } catch (e: Exception) {
             LoginUtil.toLoginActivity()
             LogUtil.t("get familyid failed", e)
             return
         }
 
-        audioHelper = AudioMngHelper(mContext)
-        audioValue = audioHelper!!.get100CurrentVolume()
+        audioHelper = mContext?.let { AudioMngHelper(it) }
+        audioValue = audioHelper!!.currentVolumePercentage
 
 
         safe_swich_live_btn!!.setOnClickListener(this)
@@ -153,25 +151,22 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
 
 
     protected fun destroyDoorAccessManager() {
-        if (mDoorAccessManager != null) {
-            mDoorAccessManager!!.hangupCall(mSessionId)
-            mDoorAccessManager!!.updateCallWindow(mSessionId, null)
-            mDoorAccessManager!!.setListUIListener(null)
-            mDoorAccessManager!!.removeConversationUIListener(this)
-            mDoorAccessManager!!.removePlayBackListener(this)
-            mDoorAccessManager = null
+        mDoorAccessManager?.apply {
+            hangupCall(mSessionId)
+            updateCallWindow(mSessionId, null)
+            setListUIListener(null)
+            removeConversationUIListener(this@SafeOutsideFragment)
+            removePlayBackListener(this@SafeOutsideFragment)
             LogUtil.i("destroyDoorAccessManager")
         }
-    }
+        mDoorAccessManager=null
 
-    override fun onResume() {
-        super.onResume()
     }
 
     private fun setVideo() {
         setDate(System.currentTimeMillis())
         if (null == loadingDialog) {
-            loadingDialog = LoadingDialog(mContext)
+            loadingDialog = mContext?.let { LoadingDialog(it) }
         }
         loadingDialog!!.setCancelOnTouchOutside(true)
         loadingDialog!!.setTitle("正在连接中...")
@@ -194,17 +189,17 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
     }
 
     private fun setHistoryList() {
-
-        if (null == recordList) {
-            recordList = ArrayList()
-        }
+       recordList=recordList?:ArrayList()
+//        if (null == recordList) {
+//            recordList = ArrayList()
+//        }
 
         val recordBeans = mDoorAccessManager!!.getHistoryListByType(familyID, DoorRecordBean.RECORD_TYPE_DOOR, 0, 50)
         if (null != recordBeans && recordBeans.size > 0) {
             recordList!!.clear()
             recordList!!.addAll(recordBeans)
         }
-        recAdapter = PlayBackAdapter(mContext, recordList)
+        recAdapter = mContext?.let { PlayBackAdapter(it, recordList!!) }
         rv_play_back!!.adapter = recAdapter
         recAdapter!!.setOnItemClickListener(this)
 
@@ -303,13 +298,13 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
 
         } else if (TextUtils.equals(event.getCmd(), IntercomConstants.kIntercomCommandSessionTimeout)) {
             if (!isPalyback) {
-                ToastUtil.showShort(mContext, "超时")
+                mContext?.let { ToastUtil.showShort(it, "超时") }
             }
             isSeeeionIdValid = false
             //            mDoorAccessManager.hangupCall(mSessionId);
         } else if (TextUtils.equals(event.getCmd(), IntercomConstants.kIntercomCommandPickupByOther)) {
             if (!isPalyback) {
-                ToastUtil.showShort(mContext, "其他用户接听")
+                ToastUtil.showShort(mContext!!, "其他用户接听")
             }
             //            mDoorAccessManager.hangupCall(mSessionId);
         }
@@ -317,7 +312,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
 
     override fun onClick(v: View) {
 
-        if (DoubleClickUtils.isDoubleClick()) {
+        if (DoubleClickUtils.isDoubleClick) {
             return
         }
         if (v.id == R.id.safe_play_rec_edit_btn) {//编辑
@@ -367,7 +362,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
             //            }
             if (isMute) {
                 audioHelper!!.setVoice100(0)//todo 音量键对安防sdk的视频播放器不起作用
-                ToastUtil.showShort(mContext, "已静音")
+                ToastUtil.showShort(mContext!!, "已静音")
                 safe_btn_mute!!.setBackgroundImage(R.mipmap.btn_safe_mutebig_pressed, R.mipmap.btn_safe_mutebig_pressed)
             } else {
                 //                audioHelper.setVoice100(audioValue);
@@ -427,12 +422,12 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>(), SurfaceHolde
         if (isEdit) {
             recordBean = recordList!![position]
             if (!File(recordBean!!.videoPath).exists()) {
-                ToastUtil.showShort(mContext, "该记录没有录制视频")
+                ToastUtil.showShort(mContext!!, "该记录没有录制视频")
                 return
             }
 
             isPalyback = true
-            ToastUtil.showShort(mContext, "开始回放")
+            ToastUtil.showShort(mContext!!, "开始回放")
             startPlayRec(recordList!![position])
         } else {
             recAdapter!!.itemClick(position)

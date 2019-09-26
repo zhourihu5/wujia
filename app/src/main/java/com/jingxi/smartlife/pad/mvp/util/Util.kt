@@ -6,7 +6,6 @@ import com.wujia.businesslib.data.ApiResponse
 import com.wujia.businesslib.model.BusModel
 import com.wujia.lib_common.base.BaseView
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
-import com.wujia.lib_common.data.network.exception.ApiException
 import com.wujia.lib_common.utils.LogUtil
 import com.wujia.lib_common.utils.SystemUtil
 import com.wujia.lib_common.utils.VersionUtil
@@ -22,10 +21,10 @@ object Util {
 
     val updateVesion: Disposable
         get() {
-            val versionName = VersionUtil.getVersionName()
+            val versionName = VersionUtil.versionName
             val key = SystemUtil.getSerialNum()
-            val versionCode = VersionUtil.getVersionCode()
-            return BusModel().updateVer(versionName, key, versionCode.toString() + "").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(object : BaseView {
+            val versionCode = VersionUtil.versionCode
+            return BusModel().updateVer(versionName, key!!, versionCode.toString() + "").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(object : BaseView {
                 override fun showErrorMsg(msg: String) {
 
                 }
@@ -38,25 +37,16 @@ object Util {
 
                 }
 
-                override fun getContext(): Context? {
-                    return null
-                }
 
                 override fun onLoginStatusError() {
 
                 }
             }, ActionConfig(false, SHOWERRORMESSAGE)) {
-                override fun onResponse(response: ApiResponse<Any>) {
-                    super.onResponse(response)
 
-                }
-
-                override fun onFailed(apiException: ApiException) {
-                    super.onFailed(apiException)
-                }
             })
         }
-    public fun initXcrash(context: Context) {
+
+    fun initXcrash(context: Context) {
         if (BuildConfig.DEBUG) {
             // The callback when App process crashed.
             val callback = ICrashCallback { logPath, emergency ->

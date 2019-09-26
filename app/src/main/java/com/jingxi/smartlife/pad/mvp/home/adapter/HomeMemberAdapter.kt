@@ -8,6 +8,7 @@ import com.jingxi.smartlife.pad.mvp.home.data.HomeUserInfoBean
 import com.wujia.lib.imageloader.ImageLoaderManager
 import com.wujia.lib_common.base.baseadapter.CommonAdapter
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder
+import kotlin.math.min
 
 /**
  * Author: created by shenbingkai on 2018/12/11 11 24
@@ -21,13 +22,13 @@ class HomeMemberAdapter(context: Context, datas: List<HomeUserInfoBean.DataBean.
         //        holder.setText(R.id.scene_in_mode_tv,item.title);
 
         val img = holder.getView<ImageView>(com.jingxi.smartlife.pad.market.R.id.img1)
-        ImageLoaderManager.getInstance().loadImage(item.icon, R.mipmap.icon_head_default, img)
+        ImageLoaderManager.instance.loadImage(item.icon, R.mipmap.icon_head_default, img)
 
     }
 
     override fun getItemCount(): Int {
 
-        return if (mDatas == null) 0 else Math.min(4, mDatas.size)
+        return if (datas == null) 0 else min(4, datas!!.size)
     }
 
 }

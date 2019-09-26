@@ -1,6 +1,5 @@
 package com.jingxi.smartlife.pad.mvp
 
-import android.app.ActivityManager
 import android.app.Service
 import android.app.usage.UsageStatsManager
 import android.content.Context
@@ -28,18 +27,18 @@ class FloatingButtonService : Service() {
 
     private var floatingView: View? = null
     private var startTime: Long = 0
-    internal var isAdded = false
+    private var isAdded = false
 
     internal val topActivityPackage: String
         get() {
             var topActivity = ""
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 val m = getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
                 if (m != null) {
                     val now = System.currentTimeMillis()
                     val stats = m.queryUsageStats(UsageStatsManager.INTERVAL_BEST, startTime - 50 * 1000, now)
                     LogUtil.info(TAG, "Running app number in last 60 seconds : " + stats!!.size)
-                    if (stats != null && !stats.isEmpty()) {
+                    if (stats != null && stats.isNotEmpty()) {
                         var j = 0
                         for (i in stats.indices) {
                             if (stats[i].lastTimeUsed > stats[j].lastTimeUsed) {
@@ -52,11 +51,11 @@ class FloatingButtonService : Service() {
 
                     }
                 }
-            } else {
-                val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-                val cn = activityManager.getRunningTasks(1)[0].topActivity
-                topActivity = cn.packageName
-            }
+//            } else {
+//                val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+//                val cn = activityManager.getRunningTasks(1)[0].topActivity
+//                topActivity = cn.packageName
+//            }
             LogUtil.info(TAG, "top running app is : $topActivity")
             return topActivity
         }
@@ -96,7 +95,7 @@ class FloatingButtonService : Service() {
         return resutl
     }
 
-    internal fun removeFloatingWindow() {
+    private fun removeFloatingWindow() {
         if (isAdded) {
             windowManager!!.removeView(floatingView)
             isAdded = false
@@ -178,7 +177,7 @@ class FloatingButtonService : Service() {
         }
     }
 
-    protected fun stopIfCurrentApp(): Boolean {
+    private fun stopIfCurrentApp(): Boolean {
         if (packageName == topActivityPackage) {
             stopSelf()
             return true
@@ -187,7 +186,7 @@ class FloatingButtonService : Service() {
     }
 
     companion object {
-        private val TAG = "FloatingButtonService"
+        private const val TAG = "FloatingButtonService"
         fun stopApp(packageName: String) {
             val command = "am force-stop $packageName all\n"
             AppUtil.execCmd(command)

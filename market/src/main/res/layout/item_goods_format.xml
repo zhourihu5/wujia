@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/table_cell"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="13dp">
+    <!--android:background="@drawable/table_cell"-->
+    <TextView
+        android:id="@+id/tvFormatName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="121dp"
+        android:textColor="#ff888888"
+        android:textSize="15sp"
+        tools:text="产地" />
+
+    <TextView
+        android:id="@+id/tvFormatDes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="#ff222222"
+        android:textSize="15sp"
+        tools:text="中国" />
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.jingxi.smartlife.pad.mvp.login
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.TextUtils
@@ -35,23 +36,20 @@ import java.util.*
  * description ： 登录
  */
 class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
-
-
+    override val layout: Int
+        get() = R.layout.activity_login
     private var codeCountDownTimer: CountDownTimer? = null
 
     private var isShowPassword: Boolean = false
 
-    override fun getLayout(): Int {
-        return R.layout.activity_login
-    }
 
     override fun initEventAndData(savedInstanceState: Bundle?) {
 
         FontUtils.changeFontTypeface(login_time_tv, FontUtils.Font_TYPE_EXTRA_LIGHT)
         FontUtils.changeFontTypeface(login_temperature_tv, FontUtils.Font_TYPE_EXTRA_LIGHT)
 
-        login_time_date_tv!!.text = StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay())
-        mPresenter.doTimeChange()
+        login_time_date_tv!!.text = StringUtil.format(getString(R.string.s_s), DateUtil.currentDate, DateUtil.currentWeekDay)
+        mPresenter?.doTimeChange()
 
     }
 
@@ -83,7 +81,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
                     return
                 }
                 login_phone_error!!.visibility = View.INVISIBLE
-                mPresenter.doGetCode(phone)
+                mPresenter?.doGetCode(phone)
             }
         }//                startTimer();
     }
@@ -96,7 +94,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
         return true
     }
 
-    internal fun startAdbWifi() {
+    private fun startAdbWifi() {
         addSubscribe(Observable.create(ObservableOnSubscribe<Boolean> { emitter ->
             val install = AppUtil.startAdbWifi()
             emitter.onNext(install)
@@ -111,11 +109,12 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
                 })
     }
 
-    protected fun startTimer() {
+    private fun startTimer() {
         login_verify_code_btn!!.isEnabled = false
         /** 倒计时60秒，一次1秒  */
         val text = getString(R.string.send_verify_code)
         codeCountDownTimer = object : CountDownTimer((60 * 1000).toLong(), 1000) {
+            @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
                 login_verify_code_btn!!.text = " (" + millisUntilFinished / 1000 + "s)"
             }
@@ -153,7 +152,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 
         val sn = SystemUtil.getSerialNum()
         LogUtil.i("sn $sn")
-        mPresenter.doLogin(phone, pwd, sn)
+        sn?.let { mPresenter?.doLogin(phone, pwd, it) }
 
     }
 
@@ -169,42 +168,45 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 
     override fun onDataLoadSucc(requestCode: Int, `object`: Any) {
 
-        if (requestCode == LoginPresenter.REQUEST_CDOE_GET_CODE) {
-            startTimer()
+        when (requestCode) {
+            LoginPresenter.REQUEST_CDOE_GET_CODE -> startTimer()
+            LoginPresenter.REQUEST_CDOE_LOGIN -> {
+                val userBean = `object` as LoginDTO
 
-        } else if (requestCode == LoginPresenter.REQUEST_CDOE_LOGIN) {
-            val userBean = `object` as LoginDTO
+                userBean.data?.let { SPHelper.saveObject(this@LoginActivity, Constants.SP_KEY_USER, it) }//todo 对象流兼容性不好，修改为json等格式保存。
+                userBean.data?.token?.let { DataManager.saveToken(it) }
 
-            SPHelper.saveObject(this@LoginActivity, Constants.SP_KEY_USER, userBean.data)//todo 对象流兼容性不好，修改为json等格式保存。
-            DataManager.saveToken(userBean.data.token)
+                //set push alias
+                val tagAliasBean = TagAliasOperatorHelper.TagAliasBean()
+                tagAliasBean.isAliasAction = true
+                tagAliasBean.alias = userBean.data?.userInfo?.userName
+                tagAliasBean.action = TagAliasOperatorHelper.ACTION_SET
+                TagAliasOperatorHelper.instance.handleAction(applicationContext, TagAliasOperatorHelper.sequence, tagAliasBean)
 
-            //set push alias
-            val tagAliasBean = TagAliasOperatorHelper.TagAliasBean()
-            tagAliasBean.isAliasAction = true
-            tagAliasBean.alias = userBean.data.userInfo.userName
-            tagAliasBean.action = TagAliasOperatorHelper.ACTION_SET
-            TagAliasOperatorHelper.getInstance().handleAction(applicationContext, TagAliasOperatorHelper.sequence, tagAliasBean)
+                val tagAliasBeanTag = TagAliasOperatorHelper.TagAliasBean()
+                tagAliasBeanTag.isAliasAction = false
+                val tags = HashSet<String>()
+                tags.add("community_" + userBean.data?.userInfo?.communtityId)
 
-            val tagAliasBeanTag = TagAliasOperatorHelper.TagAliasBean()
-            tagAliasBeanTag.isAliasAction = false
-            val tags = HashSet<String>()
-            tags.add("community_" + userBean.data.userInfo.communtityId)
-
-            tagAliasBeanTag.tags = tags
-            tagAliasBeanTag.action = TagAliasOperatorHelper.ACTION_SET
-            TagAliasOperatorHelper.getInstance().handleAction(applicationContext, TagAliasOperatorHelper.sequence, tagAliasBeanTag)
-
-
-            login_phone_error!!.visibility = View.INVISIBLE
-            login_welcom_name!!.append(userBean.data.userInfo.nickName)
-            login_layout_1!!.visibility = View.GONE
-            login_layout_2!!.visibility = View.VISIBLE
+                tagAliasBeanTag.tags = tags
+                tagAliasBeanTag.action = TagAliasOperatorHelper.ACTION_SET
+                TagAliasOperatorHelper.instance.handleAction(applicationContext, TagAliasOperatorHelper.sequence, tagAliasBeanTag)
 
 
-        } else if (requestCode == LoginPresenter.REQUEST_CDOE_TOKEN) {
-            val bean = `object` as TokenBean
-            LogUtil.i(bean.toString())
-            DataManager.saveToken(bean.content)
+                login_phone_error!!.visibility = View.INVISIBLE
+                userBean.data?.userInfo?.nickName?.let { login_welcom_name!!.append(it) }
+
+                login_layout_1!!.visibility = View.GONE
+                login_layout_2!!.visibility = View.VISIBLE
+
+
+            }
+            LoginPresenter.REQUEST_CDOE_TOKEN -> {
+                val bean = `object` as TokenBean
+                LogUtil.i(bean.toString())
+                bean.content?.let { DataManager.saveToken(it) }
+
+            }
         }
     }
 

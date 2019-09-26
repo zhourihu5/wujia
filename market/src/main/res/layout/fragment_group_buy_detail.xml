@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/layout_title" />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EEEEEF"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingLeft="43dp"
+            android:paddingRight="43dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="99dp"
+                android:paddingRight="99dp"
+                android:paddingTop="22dp"
+                android:paddingBottom="22dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="33dp"
+                    android:minHeight="33dp"
+                    android:layout_marginRight="17dp"
+                    android:background="@drawable/step_round_bg_selected"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textAlignment="center"
+                    android:textColor="#ffffffff"
+                    android:textSize="21sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="参与活动"
+                    android:textColor="#ff222222"
+                    android:textSize="21sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="4dp"
+                    android:background="@drawable/dash_line_gray"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="33dp"
+                    android:minHeight="33dp"
+                    android:layout_marginRight="17dp"
+                    android:background="@drawable/step_round_bg_unselected"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textAlignment="center"
+                    android:textColor="#ffffffff"
+                    android:textSize="21sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="确认订单"
+                    android:textColor="#ff888888"
+                    android:textSize="21sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="4dp"
+                    android:background="@drawable/dash_line_gray"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="33dp"
+                    android:minHeight="33dp"
+                    android:layout_marginRight="17dp"
+                    android:background="@drawable/step_round_bg_unselected"
+                    android:gravity="center"
+                    android:text="3"
+                    android:textAlignment="center"
+                    android:textColor="#ffffffff"
+                    android:textSize="21sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="团购成功"
+                    android:textColor="#ff888888"
+                    android:textSize="21sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="434dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="434dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp">
+
+                    <ImageView android:id="@+id/ivCover"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                         android:visibility="gone"/>
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/time_remain_bg"
+                        android:gravity="center"
+                        android:padding="18dp"
+                        android:layout_alignParentBottom="true">
+
+                        <TextView android:id="@+id/tvTimeToEnd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="距结束截止仅剩："
+                            android:textColor="#ffffffff"
+                            android:textSize="16sp" />
+                        <TextView android:id="@+id/tvTimeToEndSeconde"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="30dp"
+                            android:textColor="#ffffffff"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_white_radius_shape"
+                        android:orientation="vertical"
+                        android:paddingLeft="27dp"
+                        android:paddingTop="21dp"
+                        android:paddingRight="27dp"
+                        android:paddingBottom="21dp">
+
+                        <TextView android:id="@+id/tvGoodsTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#ff333333"
+                            android:textSize="21sp"
+                            tools:text="颈枕/眼罩/收纳好物 早春出游 轻装上阵" />
+
+                        <com.zhy.view.flowlayout.TagFlowLayout
+                            android:id="@+id/flowlayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="10dp"
+                            app:max_select="0" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="bottom">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="¥"
+                                android:textColor="#ffc8ac88"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tvPriceInt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#ffc8ac88"
+                                android:textSize="25sp"
+                                tools:text="19" />
+
+                            <TextView
+                                android:id="@+id/tvFloat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#ffc8ac88"
+                                android:textSize="19sp"
+                                tools:text=".99" />
+
+                            <TextView
+                                android:id="@+id/tvPriceOld"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#ff888888"
+                                android:textSize="19sp"
+                                tools:text="￥16.8"
+                                android:layout_marginLeft="13dp"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvSaleNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:textColor="#ff888888"
+                            android:textSize="16sp"
+                            tools:text="已抢购2550件" />
+                    </LinearLayout>
+                    <View android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_white_radius_shape"
+                        android:orientation="vertical"
+                        android:paddingLeft="27dp"
+                        android:paddingTop="21dp"
+                        android:paddingRight="27dp"
+                        android:paddingBottom="21dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/minus_max_bg"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingLeft="13dp"
+                            android:paddingTop="7dp"
+                            android:paddingRight="13dp"
+                            android:paddingBottom="7dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/tuan"
+                                android:gravity="center"
+                                android:padding="3dp"
+                                android:layout_marginRight="8dp"
+                                android:text="团"
+                                android:textColor="#ffffffff"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="参团每件最高可减"
+                                android:textColor="#ff555555"
+                                android:textSize="17sp" />
+
+                            <TextView android:id="@+id/tvDiscount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#ffc8ac88"
+                                android:textSize="27sp"
+                                tools:text="8"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="元"
+                                android:textColor="#ff555555"
+                                android:textSize="17sp" />
+                        </LinearLayout>
+
+                        <LinearLayout android:id="@+id/llAvatar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="16dp"
+                            android:gravity="bottom">
+
+                            <com.wujia.lib.widget.PileAvartarLayout android:id="@+id/avatarContainer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                >
+
+                                <ImageView
+                                    android:layout_width="33dp"
+                                    android:layout_height="33dp"
+                                    android:scaleType="centerCrop"
+                                    tools:src="@mipmap/img_details_banner"/>
+                                <!--<ImageView-->
+                                    <!--android:layout_width="33dp"-->
+                                    <!--android:layout_height="33dp"-->
+                                    <!--android:scaleType="centerCrop"-->
+                                    <!--tools:src="@mipmap/image_download_failed"/>-->
+                            </com.wujia.lib.widget.PileAvartarLayout>
+
+                            <TextView android:id="@+id/tvUserNum"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="…等100名用户已参与"
+                                android:textColor="#ff888888"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout android:id="@+id/llRejoinNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="再来"
+                                android:textColor="#ff555555"
+                                android:textSize="16sp" />
+                            <TextView android:id="@+id/tvRejoinNum"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="1"
+                                android:textColor="#ff555555"
+                                android:textSize="16sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="人参团该活动商品立减"
+                                android:textColor="#ff555555"
+                                android:textSize="16sp" />
+                            <TextView android:id="@+id/tvRejoinMoney"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#ffc8ac88"
+                                android:textSize="24sp"
+                                tools:text="2" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="元"
+                                android:textColor="#ff555555"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:gravity="right">
+
+                            <TextView android:id="@+id/btGo"
+                                android:layout_width="133dp"
+                                android:layout_height="47dp"
+                                android:textAlignment="center"
+                                android:gravity="center"
+                                android:background="@drawable/go_group_buy_bg"
+                                android:text="去参团"
+                                android:textColor="#ffffffff"
+                                android:textSize="16sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_white_radius_shape"
+                android:padding="27dp"
+                android:layout_marginTop="16dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商品详情"
+                    android:textColor="#ff222222"
+                    android:textSize="21sp"
+                    android:layout_marginBottom="16dp"/>
+                <LinearLayout android:id="@+id/llGoodsFormat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <include layout="@layout/item_goods_format"/>
+                    <include layout="@layout/item_goods_format"/>
+                    <include layout="@layout/item_goods_format"/>
+                    <include layout="@layout/item_goods_format"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <com.wujia.lib.widget.NoScrollWebview
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.wujia.lib.widget.NoScrollWebview>
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</LinearLayout>

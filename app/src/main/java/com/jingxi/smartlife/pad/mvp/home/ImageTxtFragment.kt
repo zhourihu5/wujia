@@ -1,22 +1,18 @@
 package com.jingxi.smartlife.pad.mvp.home
 
 import android.os.Bundle
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
-import android.widget.TextView
 import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.market.mvp.adapter.FindServiceChildAdapter
 import com.jingxi.smartlife.pad.market.mvp.view.ServiceBaseFragment
 import com.jingxi.smartlife.pad.mvp.home.contract.HomeModel
 import com.wujia.businesslib.data.ApiResponse
 import com.wujia.businesslib.data.CardDetailBean
-import com.wujia.businesslib.model.BusModel
 import com.wujia.lib_common.base.BasePresenter
 import com.wujia.lib_common.base.BaseView
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
-import com.wujia.lib_common.data.network.exception.ApiException
 import com.wujia.lib_common.utils.WebViewUtil
 import kotlinx.android.synthetic.main.fragment_img_txt.*
 import java.util.*
@@ -28,30 +24,22 @@ import java.util.*
  * description ：
  */
 class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
-    //    public static final String KEY_SUBCRIPTION = "subscriptions";
+    override val layoutId: Int
+        get() = R.layout.fragment_img_txt
     private var mModel: HomeModel? = null
 
     private var datas: ArrayList<CardDetailBean.ServicesBean>? = null
     private var mAdapter: FindServiceChildAdapter? = null
 
-    internal lateinit var busModel: BusModel
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_img_txt
-    }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
 
         val cardId = arguments!!.getString(KEY_TXT)
 
-        val rv1 = `$`<RecyclerView>(R.id.rv1)
-        val tvTitle = `$`<TextView>(R.id.layout_title_tv)
-        val btnBack = `$`<TextView>(R.id.layout_back_btn)
-
-        btnBack.visibility = View.VISIBLE
-        tvTitle.text = "详情"
-        btnBack.setOnClickListener { pop() }
+        layout_back_btn?.visibility = View.VISIBLE
+        layout_title_tv?.text = "详情"
+        layout_back_btn?.setOnClickListener { pop() }
 
         webview!!.setBackgroundColor(0)
         webview!!.background.alpha = 0
@@ -76,8 +64,7 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
 
         datas = ArrayList()
 
-        busModel = BusModel()
-        mAdapter = getAdapter(datas)
+        mAdapter = getAdapter(datas!!)
         rv1.adapter = mAdapter
 
         mModel = HomeModel()
@@ -89,22 +76,16 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
     private fun getData(cardId: String?) {
 
         addSubscribe(
-            mModel!!.getCardDetail(cardId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<CardDetailBean>>(this, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+            mModel!!.getCardDetail(cardId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<CardDetailBean>>(this@ImageTxtFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<CardDetailBean>) {
                 super.onResponse(response)
-                val txt = response.data.content
-                webview!!.loadData(txt, "text/html; charset=UTF-8", null)
+                response.data?.content?.let { webview!!.loadData(it, "text/html; charset=UTF-8", null) }
                 datas!!.clear()
-                if (response.data.services != null) {
-                    datas!!.addAll(response.data.services)
-                }
+                response.data?.services?.let { datas!!.addAll(it) }
                 mAdapter!!.notifyDataSetChanged()
             }
 
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
-            }
-        })
+            })
         )
 
     }
@@ -124,12 +105,7 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
         }
     }
 
-    inner class WebChromeClient : android.webkit.WebChromeClient() {
-
-        override fun onProgressChanged(view: WebView, newProgress: Int) {
-            super.onProgressChanged(view, newProgress)
-        }
-    }
+    inner class WebChromeClient : android.webkit.WebChromeClient()
 
     override fun createPresenter(): BasePresenter<BaseView>? {
         return null
@@ -137,7 +113,7 @@ class ImageTxtFragment : ServiceBaseFragment<BasePresenter<BaseView>>() {
 
     companion object {
 
-        val KEY_TXT = "txt"
+        const val KEY_TXT = "txt"
 
         fun newInstance(cardId: String): ImageTxtFragment {
             val fragment = ImageTxtFragment()

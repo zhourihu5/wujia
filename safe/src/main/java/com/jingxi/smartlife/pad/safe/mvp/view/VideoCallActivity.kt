@@ -28,6 +28,8 @@ import kotlinx.android.synthetic.main.activity_video_call.*
  * description ：
  */
 class VideoCallActivity : BaseActivity(), View.OnClickListener, SurfaceHolder.Callback, DoorAccessConversationUI, TextureView.SurfaceTextureListener {
+    override val layout: Int
+        get() =  R.layout.activity_video_call
     override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture?, width: Int, height: Int) {
     }
 
@@ -58,12 +60,14 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener, SurfaceHolder.Ca
     private var sampleId: Int = 0
     private var mCurrentId: Int = 0
 
-    private val eventBaseButtonClick = EventBaseButtonClick(IMiessageInvoke { event ->
-        if (com.intercom.sdk.IntercomConstants.kButtonUnlock == event.keyCmd) {
-            onClick(btn_safe_open)
-        } else if (com.intercom.sdk.IntercomConstants.kButtonPickup == event.keyCmd) {
-            if (!btnCallFlag) {
-                onClick(btnCall)
+    private val eventBaseButtonClick = EventBaseButtonClick(object : IMiessageInvoke<EventBaseButtonClick> {
+        override fun eventBus(event: EventBaseButtonClick) {
+            if (IntercomConstants.kButtonUnlock == event.keyCmd) {
+                onClick(btn_safe_open)
+            } else if (IntercomConstants.kButtonPickup == event.keyCmd) {
+                if (!btnCallFlag) {
+                    onClick(btnCall)
+                }
             }
         }
     })
@@ -75,9 +79,6 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener, SurfaceHolder.Ca
         super.setContentView()
     }
 
-    override fun getLayout(): Int {
-        return R.layout.activity_video_call
-    }
 
     override fun initEventAndData(savedInstanceState: Bundle?) {
 
@@ -86,7 +87,7 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener, SurfaceHolder.Ca
 
         sessionId = intent.getStringExtra(SESSION_ID)
         if (null == loadingDialog) {
-            loadingDialog = LoadingDialog(mContext)
+            loadingDialog = mContext?.let { LoadingDialog(it) }
         }
         loadingDialog!!.setCancelOnTouchOutside(true)
         loadingDialog!!.setTitle("正在连接中...")
@@ -163,31 +164,15 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener, SurfaceHolder.Ca
     override fun onDestroy() {
         LogUtil.i("onDestroy")
         super.onDestroy()
-//        if (null != surfaceView) {
-//            surfaceView!!.holder.removeCallback(this)
-//        }
-        DoorAccessManager.getInstance().removeConversationUIListener(this)
-        manager!!.hangupCall(sessionId)
+        manager?.apply{
+            removeConversationUIListener(this@VideoCallActivity)
+            hangupCall(sessionId)
+        }
         EventBusUtil.unregister(eventBaseButtonClick)
-        if (mSoundPool != null) {
+        mSoundPool?.apply {
             stopRing()
-            mSoundPool!!.setOnLoadCompleteListener(null)
-            try {
-                mSoundPool!!.release()//fixme
-                //06-26 20:02:31.900 10264-10272/com.jingxi.smartlife.pad E/System: Uncaught exception thrown by finalizer
-                //                06-26 20:02:31.901 10264-10272/com.jingxi.smartlife.pad E/System: java.lang.NullPointerException: Attempt to invoke interface method 'android.os.IBinder com.android.internal.app.IAppOpsCallback.asBinder()' on a null object reference
-                //                at android.os.Parcel.readException(Parcel.java:1626)
-                //                at android.os.Parcel.readException(Parcel.java:1573)
-                //                at com.android.internal.app.IAppOpsService$Stub$Proxy.stopWatchingMode(IAppOpsService.java:420)
-                //                at android.media.SoundPool.release(SoundPool.java:194)
-                //                at android.media.SoundPool.finalize(SoundPool.java:203)
-                //                at java.lang.Daemons$FinalizerDaemon.doFinalize(Daemons.java:202)
-                //                at java.lang.Daemons$FinalizerDaemon.run(Daemons.java:185)
-                //                at java.lang.Thread.run(Thread.java:818)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-
+            setOnLoadCompleteListener(null)
+            release()
         }
     }
 
@@ -252,10 +237,6 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener, SurfaceHolder.Ca
 }
 
 private fun DoorAccessManager.updateCallWindow(sessionId: String?, surface: Surface?) {
-//    DoorManagerUtil.updateRemoteSurface(
-//            DoorSessionManager.getCurrentIntercom(sessionId),
-//            sessionId,
-//            surfaceView);
     val intercom=DoorSessionManager.getCurrentIntercom(sessionId)
     if (intercom == null) {
         return

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/layout_title" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="99dp"
+        android:paddingRight="99dp"
+        android:paddingTop="22dp"
+        android:paddingBottom="22dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="33dp"
+            android:minHeight="33dp"
+            android:layout_marginRight="17dp"
+            android:background="@drawable/step_round_bg_selected"
+            android:gravity="center"
+            android:text="1"
+            android:textAlignment="center"
+            android:textColor="#ffffffff"
+            android:textSize="21sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="参与活动"
+            android:textColor="#ff222222"
+            android:textSize="21sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="4dp"
+            android:background="@drawable/dash_line_selected"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="33dp"
+            android:minHeight="33dp"
+            android:layout_marginRight="17dp"
+            android:background="@drawable/step_round_bg_selected"
+            android:gravity="center"
+            android:text="2"
+            android:textAlignment="center"
+            android:textColor="#ffffffff"
+            android:textSize="21sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确认订单"
+            android:textColor="#ff222222"
+            android:textSize="21sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="4dp"
+            android:background="@drawable/dash_line_gray"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="33dp"
+            android:minHeight="33dp"
+            android:layout_marginRight="17dp"
+            android:background="@drawable/step_round_bg_unselected"
+            android:gravity="center"
+            android:text="3"
+            android:textAlignment="center"
+            android:textColor="#ffffffff"
+            android:textSize="21sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="团购成功"
+            android:textColor="#ff888888"
+            android:textSize="21sp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_radius_shape"
+        android:orientation="vertical"
+        android:layout_marginLeft="43dp"
+        android:layout_marginRight="43dp"
+        android:paddingLeft="43dp"
+        android:paddingRight="43dp"
+        android:paddingTop="43dp"
+        android:paddingBottom="60dp"
+        android:gravity="center_horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <ImageView android:id="@+id/ivCover"
+                    android:layout_width="77dp"
+                    android:layout_height="77dp"
+                    tools:src="@mipmap/btn_safe_hangup"
+                    android:layout_marginRight="15dp"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView android:id="@+id/tvGoodsTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="颈枕/眼罩/收纳好物 早春出游 轻装上阵"
+                        android:textColor="#ff333333"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="bottom">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="¥"
+                            android:textColor="#ffc8ac88"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tvPriceInt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#ffc8ac88"
+                            android:textSize="25sp"
+                            tools:text="19" />
+
+                        <TextView
+                            android:id="@+id/tvFloat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#ffc8ac88"
+                            android:textSize="19sp"
+                            tools:text=".99" />
+
+                        <TextView
+                            android:id="@+id/tvPriceOld"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#ff888888"
+                            android:textSize="19sp"
+                            tools:text="￥16.8"
+                            android:layout_marginLeft="13dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="x 1"
+                android:textColor="#ff535353"
+                android:textSize="13sp"
+                />
+        </LinearLayout>
+        <ImageView android:id="@+id/ivQrCode"
+            android:layout_width="233dp"
+            android:layout_height="233dp"
+            tools:src="@mipmap/btn_safe_hangup"
+            android:layout_marginTop="45dp"
+            android:layout_marginBottom="21dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="快来扫我吧～"
+            android:textColor="#ff222222"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="小生差一步就拼团成功啦~"
+            android:textColor="#ff222222"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            />
+    </LinearLayout>
+</LinearLayout>

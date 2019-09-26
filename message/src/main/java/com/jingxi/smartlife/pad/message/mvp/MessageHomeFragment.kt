@@ -15,16 +15,8 @@ import com.wujia.lib_common.utils.LogUtil
  * description ：
  */
 class MessageHomeFragment : TabFragment() {
-
-
-    private var msgFragment: AllMsgFragment? = null
-
-
-    override fun getLayoutId(): Int {
-        LogUtil.i("FamilyFragment getLayoutId")
-
-        return R.layout.fragment_tab_home
-    }
+    override val layoutId: Int
+        get() = R.layout.fragment_tab_home
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
@@ -45,7 +37,7 @@ class MessageHomeFragment : TabFragment() {
 
         mTabBar.setOnTabSelectedListener { position, prePosition ->
             val type = getType(position)
-            msgFragment!!.type = type
+            msgFragment.type = type
             currentTab = position
             parentSwitchTab()
         }
@@ -60,6 +52,8 @@ class MessageHomeFragment : TabFragment() {
             1 -> type = AllMsgFragment.MSG_TYPE_PROPERTY
             2 -> type = AllMsgFragment.MSG_TYPE_COMMUNITY
             3 -> type = AllMsgFragment.MSG_TYPE_SYSTEM//系统消息
+            //todo 政务消息
+
         }
         return type
     }

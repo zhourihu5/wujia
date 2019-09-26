@@ -1,6 +1,6 @@
 package com.jingxi.smartlife.pad.mvp
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.service.dreams.DreamService
 import android.text.TextUtils
@@ -60,14 +60,19 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
 
     private val mCompositeDisposable = CompositeDisposable()
 
-    private val eventMsg = EventMsg(IMiessageInvoke { event ->
-        if (event.type == EventMsg.TYPE_NEW_MSG) {
-            setNotify()
+    private val eventMsg = EventMsg(object : IMiessageInvoke<EventMsg> {
+        override fun eventBus(event: EventMsg) {
+            if (event.type == EventMsg.TYPE_NEW_MSG) {
+                setNotify()
+            }
         }
     })
-    private val eventWakeup = EventWakeup(IMiessageInvoke { wakeUp() })
+    private val eventWakeup = EventWakeup(object : IMiessageInvoke<EventWakeup> {
+        override fun eventBus(event: EventWakeup) {
+            wakeUp()
+        }
+    })
 
-    internal var busModel: BusModel? = null
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
@@ -113,26 +118,15 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
 
     }
 
-    private fun testWakeup() {//todo just for test
-        btn_details!!.visibility = View.VISIBLE
-        btn_details!!.setOnClickListener {
-            val intent = Intent(this@LockService, WebViewActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.putExtra(Constants.INTENT_KEY_1, "www.baidu.com")
-            startActivity(intent)
-            wakeUp()
-        }
-    }
-
     private fun setScreenBg() {
-        mCompositeDisposable.add(model!!.screenSaverByCommunityId.subscribeWith(object : SimpleRequestSubscriber<LockADBean>(this@LockService, SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        mCompositeDisposable.add(model!!.screenSaverByCommunityId.subscribeWith(object : SimpleRequestSubscriber<LockADBean>(this@LockService, ActionConfig(false, SHOWERRORMESSAGE)) {
             override fun onResponse(bean: LockADBean) {
                 super.onResponse(bean)
                 if (bean.data != null) {
                     if (lock_img_bg != null) {
                         val ad = bean.data
                         if (ad != null) {
-                            ImageLoaderManager.getInstance().loadImage(ad.image, R.mipmap.bg_lockscreen, lock_img_bg)
+                            ImageLoaderManager.instance.loadImage(ad.image, R.mipmap.bg_lockscreen, lock_img_bg)
                         }
                         btn_details!!.visibility = View.VISIBLE
                         btn_details!!.setOnClickListener {
@@ -159,16 +153,16 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
 
     //时间
     private fun setTime() {
-        login_time_date_tv!!.text = StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay())
-        login_time_tv!!.text = DateUtil.getCurrentTimeHHMM()
+        login_time_date_tv!!.text = StringUtil.format(getString(R.string.s_s), DateUtil.currentDate, DateUtil.currentWeekDay)
+        login_time_tv!!.text = DateUtil.currentTimeHHMM
 
         mCompositeDisposable.add(Observable.interval(10, 1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     if (null != login_time_date_tv && null != login_time_tv) {
-                        login_time_date_tv!!.text = StringUtil.format(getString(R.string.s_s), DateUtil.getCurrentDate(), DateUtil.getCurrentWeekDay())
-                        login_time_tv!!.text = DateUtil.getCurrentTimeHHMM()
+                        login_time_date_tv!!.text = StringUtil.format(getString(R.string.s_s), DateUtil.currentDate, DateUtil.currentWeekDay)
+                        login_time_tv!!.text = DateUtil.currentTimeHHMM
                     }
                 })
     }
@@ -179,25 +173,24 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    mCompositeDisposable.add(model!!.weather.subscribeWith(object : SimpleRequestSubscriber<WeatherInfoBean>(this@LockService, SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                    mCompositeDisposable.add(model!!.weather.subscribeWith(object : SimpleRequestSubscriber<WeatherInfoBean>(this@LockService, ActionConfig(false, SHOWERRORMESSAGE)) {
+                        @SuppressLint("SetTextI18n")
                         override fun onResponse(weatherInfoBean: WeatherInfoBean) {
                             super.onResponse(weatherInfoBean)
                             if (weatherInfoBean.isSuccess) {
 
-                                val curdate = DateUtil.getCurrentyyyymmddhh() + "00"
+                                val curdate = DateUtil.currentyyyymmddhh + "00"
                                 var weatherList: List<WeatherInfoBean.DataBean.WeatherBean.ShowapiResBodyBean.HourListBean>? = null
                                 try {
-                                    weatherList = weatherInfoBean.data.weather.showapi_res_body.hourList
+                                    weatherList = weatherInfoBean.data!!.weather!!.showapi_res_body!!.hourList
                                 } catch (e: Exception) {
-                                    //                    e.printStackTrace();
                                 }
-
                                 if (weatherList != null) {
                                     for (weather in weatherList) {
                                         if (weather.time == curdate) {
                                             login_temperature_tv!!.text = weather.temperature + "°"
                                             login_temperature_desc!!.text = weather.weather
-                                            ImageLoaderManager.getInstance().loadImage(weather.weather_code, ivWeather)
+                                            ImageLoaderManager.instance.loadImage(weather.weather_code, ivWeather)
                                         }
                                     }
                                 }
@@ -216,30 +209,24 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
     //消息
     private fun setNotify() {
 
-        if (busModel == null) {
-            busModel = BusModel()
-        }
-        var familyId = try {
-            DataManager.getFamilyId()
+        val familyId = try {
+            DataManager.familyId
         } catch (e: Exception) {
             e.printStackTrace()
             LoginUtil.toLoginActivity()
             return
         }
 
-        mCompositeDisposable.add(busModel!!.getTop3UnReadMsg(familyId)!!.subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this, SimpleRequestSubscriber.ActionConfig(false, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        mCompositeDisposable.add(BusModel().getTop3UnReadMsg(familyId!!)!!.subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this@LockService, ActionConfig(false, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<List<MsgDto.ContentBean>>) {
                 super.onResponse(response)
                 val notifys = response.data
-                val notifyAdapter = HomeNotifyAdapter(this@LockService, notifys)
+                val notifyAdapter = notifys?.let { HomeNotifyAdapter(this@LockService, it) }
                 rv_home_msg!!.adapter = notifyAdapter
 
-                notifyAdapter.setOnItemClickListener { adapter, holder, position -> wakeUp() }
+                notifyAdapter?.setOnItemClickListener { adapter, holder, position -> wakeUp() }
             }
 
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
-            }
         }))
 
 
@@ -248,7 +235,7 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        mCompositeDisposable?.clear()
+        mCompositeDisposable.clear()
         EventBusUtil.unregister(eventMsg)
         EventBusUtil.unregister(eventWakeup)
     }
@@ -271,10 +258,6 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
 
     override fun hideLoadingDialog() {
 
-    }
-
-    override fun getContext(): Context? {
-        return null
     }
 
     override fun onLoginStatusError() {
