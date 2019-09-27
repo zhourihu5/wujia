@@ -90,7 +90,10 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
     fun onViewLongClicked(view: View): Boolean {//for developers
         when (view.id) {
             R.id.item_wifi_connection -> startAdbWifi()
-            R.id.item_check_update -> LoginUtil.toLoginActivity()
+            R.id.item_check_update ->{
+                LoginUtil.toLoginActivity()
+                context?.stopService(Intent(Intent.ACTION_MAIN).setClassName(context,"com.sipphone.sdk.SipService"))
+            }
             R.id.item_clear_cache -> setBrightMode()
         }
         return true

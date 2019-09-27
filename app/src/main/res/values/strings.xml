@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">吾家</string>
+
+    <string name="error_unknown">未知错误</string>
+    <string name="error_call_declined">对方拒接</string>
+    <string name="error_user_not_found">用户未找到</string>
+    <string name="error_incompatible_media">不兼容的媒体参数</string>
+    <string name="error_low_bandwidth">低带宽网络，不能启用视频</string>
+    <string name="error_network_unreachable">网络不可用</string>
+    <string name="error_bad_credentials">认证证书错误</string>
+    <string name="error_unauthorized">未授权</string>
+    <string name="error_io_error">网络错误</string>
 </resources>

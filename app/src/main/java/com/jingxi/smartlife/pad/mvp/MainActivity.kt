@@ -10,6 +10,7 @@ import android.os.IBinder
 import android.os.PowerManager
 import android.text.TextUtils
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.intercom.sdk.IntercomConstants
 import com.intercom.sdk.SecurityMessage
@@ -31,6 +32,8 @@ import com.jingxi.smartlife.pad.sdk.JXPadSdk
 import com.jingxi.smartlife.pad.sdk.doorAccess.DoorAccessManager
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.DoorSecurityUtil
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListener
+import com.sipphone.sdk.SipCoreManager
+import com.sipphone.sdk.SipService
 import com.wujia.businesslib.TabFragment
 import com.wujia.businesslib.base.DataManager
 import com.wujia.businesslib.base.MvpActivity
@@ -52,6 +55,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import me.yokeyword.fragmentation.SupportFragment
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
 import me.yokeyword.fragmentation.anim.FragmentAnimator
+import org.linphone.core.*
 
 
 class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener, DoorSecurityUtil.OnSecurityChangedListener {
@@ -119,8 +123,100 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
 
 //        Handler().postDelayed(Runnable() {
 //            //todo test
-//            onRinging("test")
+////            onRinging("test")
+//            startActivity(Intent(this,VideoCallActivity::class.java))
 //        }, 2000)
+
+        if(SipService.isReady()) {
+			onServiceReady()
+		} else {
+			// 启动SipService
+			startService( Intent(android.content.Intent.ACTION_MAIN).setClass(
+					this, SipService::class.java))
+			 ServiceWaitThread().start()
+		}
+    }
+    /**
+     * SipService启动之后，设置有呼叫时，启动的Activity，并启动应用程序主界面
+     */
+    private fun onServiceReady() {
+        SipService.instance().setActivityToLaunchOnIncomingReceived(this::class.java)
+        // 创建Native层状态监听器对象
+        var mListener = object : LinphoneCoreListenerBase() {
+            override fun registrationState(lc: LinphoneCore?, proxy: LinphoneProxyConfig?,
+                                           state: LinphoneCore.RegistrationState?, smessage: String?) {
+                LogUtil.e( "registrationState state = " + state!!.toString() + " message = " + smessage)
+                // 清除账号的注册状态，显示未注册?
+                if (state == LinphoneCore.RegistrationState.RegistrationCleared) {
+                    if (lc != null) {
+                        // 查找该账号的授权信息对象
+                        val authInfo = lc.findAuthInfo(proxy!!.identity, proxy.realm, proxy.domain)
+                        // 删除其授权信息对象
+                        if (authInfo != null)
+                            lc.removeAuthInfo(authInfo)
+                    }
+                }
+
+                // 如果是新配置的Proxy，并且使用这个proxy注册失败了，那么这里会给出失败的原因
+                if (state == LinphoneCore.RegistrationState.RegistrationFailed ) {
+                    if (proxy!!.error === Reason.BadCredentials) {
+                        displayCustomToast(getString(R.string.error_bad_credentials), Toast.LENGTH_LONG)
+                    }
+                    if (proxy!!.error === Reason.Unauthorized) {
+                        displayCustomToast(getString(R.string.error_unauthorized), Toast.LENGTH_LONG)
+                    }
+                    if (proxy!!.error === Reason.IOError) {
+                        displayCustomToast(getString(R.string.error_io_error), Toast.LENGTH_LONG)
+                    }
+                }
+            }
+
+            override fun callState(lc: LinphoneCore?, call: LinphoneCall?, state: LinphoneCall.State?, message: String?) {
+                LogUtil.e( " callState = " + state!!)
+                if (state === LinphoneCall.State.IncomingReceived) {    // 启动CallIncomingActivity
+                    startActivity(Intent(this@MainActivity, VideoCallActivity::class.java))
+                } else if (state === LinphoneCall.State.OutgoingInit || state === LinphoneCall.State.OutgoingProgress) {
+                    // 启动CallOutgoingActivity
+//                    startActivity(Intent(this@MainActivity, CallOutgoingActivity::class.java))
+                } else if (state === LinphoneCall.State.CallEnd || state === LinphoneCall.State.Error || state === LinphoneCall.State.CallReleased) {
+                    if (message != null && call!!.errorInfo.reason === Reason.Declined) {    // 拒接
+                        displayCustomToast(getString(R.string.error_call_declined), Toast.LENGTH_SHORT)
+                    } else if (message != null && call!!.reason === Reason.NotFound) {    // 呼叫用户不存在
+                        displayCustomToast(getString(R.string.error_user_not_found), Toast.LENGTH_SHORT)
+                    } else if (message != null && call!!.reason === Reason.Media) {    // 媒体不兼容，不能建立会话
+                        displayCustomToast(getString(R.string.error_incompatible_media), Toast.LENGTH_SHORT)
+                    } else if (message != null && state === LinphoneCall.State.Error) {    // 未知的错误
+                        displayCustomToast(getString(R.string.error_unknown) + " - " + message, Toast.LENGTH_SHORT)
+                    }
+                }
+            }
+        }
+
+        // 添加监听器对象到Native层的LinhoneCore监听器对象接口
+        val lc = SipCoreManager.getLcIfManagerNotDestroyedOrNull()
+        lc?.addListener(mListener)
+    }
+
+    private fun displayCustomToast(string: String, lengthLong: Int) {
+        ToastUtil.showShort(this,string)
+    }
+
+    /**
+     * 等待SipService启动的线程，SipService的启动可能需要几秒的时间
+     * @author Administrator
+     */
+    private inner class ServiceWaitThread : Thread() {
+        override fun run() {
+            while (!SipService.isReady()) {
+                try {
+                    Thread.sleep(30)
+                } catch (e: InterruptedException) {
+                    throw RuntimeException("waiting thread sleep() " + "has been interrupted")
+                }
+
+            }
+           runOnUiThread { onServiceReady() }
+        }
     }
 
     private fun initTab() {
@@ -262,11 +358,11 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
 
     override fun onRinging(sessionId: String) {
         LogUtil.i("onRinging")
-        acquireWakeLock()
-        EventBusUtil.post(EventWakeup())
-        val intent = Intent(this, VideoCallActivity::class.java)
-        intent.putExtra(VideoCallActivity.SESSION_ID, sessionId)
-        startActivity(intent)
+//        acquireWakeLock()
+//        EventBusUtil.post(EventWakeup())
+//        val intent = Intent(this, VideoCallActivity::class.java)
+//        intent.putExtra(VideoCallActivity.SESSION_ID, sessionId)
+//        startActivity(intent)
     }
 
     override fun onUnLock(sessionID: String) {

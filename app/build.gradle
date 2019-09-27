@@ -88,7 +88,8 @@ dependencies {
     kapt deps.butterknife.compiler
     implementation project(':family')
     implementation project(':property')
-    implementation project(':safe')
+//    implementation project(':safe')
+    api project(':qst')
     implementation project(':market')
     implementation project(':message')
 //    implementation project(':neighbor')
