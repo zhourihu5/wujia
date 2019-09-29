@@ -5,12 +5,14 @@ import android.opengl.GLSurfaceView
 import android.os.Bundle
 import android.view.SurfaceView
 import android.view.View
+import com.intercom.base.ThreadUtils.runOnUiThread
 import com.jingxi.smartlife.pad.safe.R
 import com.jingxi.smartlife.pad.safe.mvp.adapter.PlayBackAdapter
 import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorRecordBean
 import com.sipphone.sdk.SipCoreManager
 import com.sipphone.sdk.SipCorePreferences
 import com.sipphone.sdk.SipCoreUtils
+import com.sipphone.sdk.SipService
 import com.wujia.businesslib.base.DataManager
 import com.wujia.businesslib.base.MvpFragment
 import com.wujia.businesslib.dialog.LoadingDialog
@@ -257,6 +259,13 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
             loadingDialog!!.setTitle("正在连接中...")
             loadingDialog!!.show()
 
+            if(!SipService.isReady()) {
+                // 启动SipService
+                context?.startService( Intent(android.content.Intent.ACTION_MAIN).setClass(
+                        context, SipService::class.java))
+                ServiceWaitThread().start()
+                return
+            }
             lockNumber="D58-11-1" //todo test
 //        lockDisplayName="D58-11-1" //todo test
             lockDisplayName=null//todo test
@@ -331,6 +340,13 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         videoVisible()
     }
     fun videoVisible(){
+        if(!SipService.isReady()) {
+            // 启动SipService
+//            context?.startService( Intent(android.content.Intent.ACTION_MAIN).setClass(
+//                    context, SipService::class.java))
+//            ServiceWaitThread().start()
+            return
+        }
 
         val lc = SipCoreManager.getLcIfManagerNotDestroyedOrNull()
         lc?.addListener(mListener)
@@ -353,12 +369,39 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
             e.printStackTrace()
         }
     }
+    /**
+     * 等待SipService启动的线程，SipService的启动可能需要几秒的时间
+     * @author Administrator
+     */
+    private inner class ServiceWaitThread : Thread() {
+        override fun run() {
+            while (!SipService.isReady()) {
+                try {
+                    Thread.sleep(30)
+                } catch (e: InterruptedException) {
+                    throw RuntimeException("waiting thread sleep() " + "has been interrupted")
+                }
 
+            }
+            runOnUiThread { if(isSupportVisible){
+                videoVisible()
+                setVideo()
+            }
+            }
+        }
+    }
     private fun videoPrepared() {
 //        if(true){
 //            LogUtil.e("videoPrepared")
 //            return
 //        }
+        if(!SipService.isReady()) {
+            // 启动SipService
+//            context?.startService( Intent(android.content.Intent.ACTION_MAIN).setClass(
+//                    context, SipService::class.java))
+//            ServiceWaitThread().start()
+            return
+        }
         try {
             if (mVideoView != null) {
                 (mVideoView as? GLSurfaceView)?.onResume()
@@ -414,7 +457,12 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         // 当对用户不可见时 回调
         // 不管是 父Fragment还是子Fragment 都有效！
         LogUtil.i("SafeOutsideFragment onSupportInvisible")
-
+        if(!SipService.isReady()) {
+            // 启动SipService
+//            context?.startService( Intent(android.content.Intent.ACTION_MAIN).setClass(
+//                    context, SipService::class.java))
+            return
+        }
 
         //如果是点击全屏导致fragment不显示，则不重置session有效性
         //        if (inVisibleType != REQUEST_CODE_FULL_LIVE && inVisibleType != REQUEST_CODE_FULL_HISTORY) {

@@ -13,6 +13,7 @@ import com.jingxi.smartlife.pad.safe.R
 import com.sipphone.sdk.SipCoreManager
 import com.sipphone.sdk.SipCorePreferences
 import com.sipphone.sdk.SipCoreUtils
+import com.sipphone.sdk.SipService
 import com.wujia.businesslib.base.DataManager
 import com.wujia.businesslib.dialog.LoadingDialog
 import com.wujia.businesslib.util.LoginUtil
@@ -207,7 +208,12 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
         preview?.setZOrderMediaOverlay(true) // Needed to be able to display control layout over
     }
     fun videoVisible(){
-
+        if(!SipService.isReady()) {
+            // 启动SipService
+//            context?.startService( Intent(android.content.Intent.ACTION_MAIN).setClass(
+//                    context, SipService::class.java))
+            return
+        }
         val lc = SipCoreManager.getLcIfManagerNotDestroyedOrNull()
         lc?.addListener(mListener)
 
@@ -229,13 +235,21 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
             e.printStackTrace()
         }
     }
-
+    var isOnResume:Boolean=false
     override fun onResume() {
         super.onResume()
+        isOnResume=true
         videoVisible()
     }
     override fun onPause() {
         super.onPause()
+        isOnResume=false
+        if(!SipService.isReady()) {
+            // 启动SipService
+//            context?.startService( Intent(android.content.Intent.ACTION_MAIN).setClass(
+//                    context, SipService::class.java))
+            return
+        }
         val lc = SipCoreManager.getLcIfManagerNotDestroyedOrNull()
         lc?.removeListener(mListener)
 
@@ -269,6 +283,12 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
 //            LogUtil.e("videoPrepared")
 //            return
 //        }
+        if(!SipService.isReady()) {
+            // 启动SipService
+//            context?.startService( Intent(android.content.Intent.ACTION_MAIN).setClass(
+//                    context, SipService::class.java))
+            return
+        }
         try {
             if (mVideoView != null) {
                 (mVideoView as? GLSurfaceView)?.onResume()
@@ -344,7 +364,28 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
             setVideo()
         }
     }
+    /**
+     * 等待SipService启动的线程，SipService的启动可能需要几秒的时间
+     * @author Administrator
+     */
+    private inner class ServiceWaitThread : Thread() {
+        override fun run() {
+            while (!SipService.isReady()) {
+                try {
+                    Thread.sleep(30)
+                } catch (e: InterruptedException) {
+                    throw RuntimeException("waiting thread sleep() " + "has been interrupted")
+                }
 
+            }
+            runOnUiThread {
+                if (isOnResume) {
+                    videoVisible()
+                    setVideo()
+                }
+            }
+        }
+    }
     private fun setVideo() {
 
         if (null == loadingDialog) {
@@ -353,7 +394,13 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
         loadingDialog!!.setCancelOnTouchOutside(true)
         loadingDialog!!.setTitle("正在连接中...")
         loadingDialog!!.show()
-
+        if(!SipService.isReady()) {
+            // 启动SipService
+            startService( Intent(android.content.Intent.ACTION_MAIN).setClass(
+                    this, SipService::class.java))
+            ServiceWaitThread().start()
+            return
+        }
         lockNumber="D58-11-1" //todo test
 //        lockDisplayName="D58-11-1" //todo test
         lockDisplayName=null//todo test
