@@ -21,6 +21,7 @@ import com.wujia.businesslib.util.LoginUtil
 import com.wujia.lib_common.base.BaseActivity
 import com.wujia.lib_common.base.Constants
 import com.wujia.lib_common.utils.LogUtil
+import org.linphone.core.CallDirection
 import org.linphone.core.LinphoneCall
 import org.linphone.core.LinphoneCore
 import org.linphone.core.LinphoneCoreListenerBase
@@ -282,15 +283,22 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
     }
     private fun hangUp() {
         val lc = SipCoreManager.getLc()
-        val currentCall = lc.currentCall
-
-        if (currentCall != null) {
-            lc.terminateCall(currentCall)
-        } else if (lc.isInConference) {
-            lc.terminateConference()
-        } else {
-            lc.terminateAllCalls()
+        val calls = SipCoreUtils.getLinphoneCalls(SipCoreManager.getLc())
+        for (call in calls) {
+            if(call.direction== CallDirection.Outgoing) {
+                lc.terminateCall(call)
+            }
         }
+//        val lc = SipCoreManager.getLc()
+//        val currentCall = lc.currentCall
+//
+//        if (currentCall != null) {
+//            lc.terminateCall(currentCall)
+//        } else if (lc.isInConference) {
+//            lc.terminateConference()
+//        } else {
+//            lc.terminateAllCalls()
+//        }
     }
     private fun videoPrepared() {
 //        if(true){

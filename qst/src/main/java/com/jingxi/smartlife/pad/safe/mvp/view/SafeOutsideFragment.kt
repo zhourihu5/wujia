@@ -31,10 +31,7 @@ import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_safe_outside.*
-import org.linphone.core.LinphoneCall
-import org.linphone.core.LinphoneCore
-import org.linphone.core.LinphoneCoreException
-import org.linphone.core.LinphoneCoreListenerBase
+import org.linphone.core.*
 import org.linphone.mediastream.video.AndroidVideoWindowImpl
 import java.text.SimpleDateFormat
 import java.util.*
@@ -103,6 +100,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
             override fun callState(lc: LinphoneCore?, call: LinphoneCall?, state: LinphoneCall.State?, message: String?) {
                 LogUtil.e( "safeOutsideFragment registrationState state = " + state!!.toString() + " message = " + message)
                 if (call === mCall && LinphoneCall.State.Connected === state || LinphoneCall.State.StreamsRunning === state) {
+                   LogUtil.e("mCall=="+mCall)
                     val remoteParams = mCall?.getRemoteParams()
                     if (remoteParams != null && remoteParams!!.getVideoEnabled() &&
                             SipCorePreferences.instance().shouldAutomaticallyAcceptVideoRequests()) {
@@ -253,15 +251,26 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
     }
     private fun hangUp() {
         val lc = SipCoreManager.getLc()
-        val currentCall = lc.currentCall
-
-        if (currentCall != null) {
-            lc.terminateCall(currentCall)
-        } else if (lc.isInConference) {
-            lc.terminateConference()
-        } else {
-            lc.terminateAllCalls()
+        val calls = SipCoreUtils.getLinphoneCalls(SipCoreManager.getLc())
+        for (call in calls) {
+              if(call.direction== CallDirection.Outgoing) {
+                lc.terminateCall(call)
+//                mCall = call
+//                break
+            }
         }
+
+
+
+//        val currentCall = lc.currentCall
+//        if (currentCall != null ) {
+//            lc.terminateCall(currentCall)
+//        } else if (lc.isInConference) {
+//            lc.terminateConference()
+//        }
+//        else {
+//            lc.terminateAllCalls()
+//        }
     }
     private fun setVideo() {
         videoVisible()
@@ -295,6 +304,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                 SipCoreManager.getInstance().newOutgoingCall(lockNumber,lockDisplayName)
             } catch (e: LinphoneCoreException) {
                 SipCoreManager.getInstance().terminateCall()
+                LogUtil.e("呼出时异常")
                 e.printStackTrace()
             }
         } catch (e: Exception) {
