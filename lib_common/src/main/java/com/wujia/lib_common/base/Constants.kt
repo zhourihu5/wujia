@@ -27,10 +27,11 @@ object Constants {
         if (BuildConfig.DEBUG) {
 //            BASE_URL = "https://api.home-guard.cn"
 //            BASE_URL = "http://192.168.250.6:8081"
-//            BASE_URL = "http://192.168.250.16:8181"
-            BASE_URL = "http://testapi.home-guard.cn"
+            BASE_URL = "http://192.168.250.16:8181"
+//            BASE_URL = "http://testapi.home-guard.cn"
         } else {
             BASE_URL = "https://api.home-guard.cn"
+//            BASE_URL = "http://192.168.250.16:8181"
         }
     }
 }

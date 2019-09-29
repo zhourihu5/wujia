@@ -56,6 +56,15 @@ object DataManager {
             }
             throw Exception("no dock key,please relogin to get dockkey")
         }
+    val sip: LoginDTO.DataBean.SipDTO?
+        @Throws(Exception::class)
+        get() {
+            val user = user
+            if (null != user) {
+                return user.sip
+            }
+            throw Exception("no dock key,please relogin to get dockkey")
+        }
 
     val token: String
         get() = SPHelper.get(AppContext.get(), Constants.COMMON_REQUEST_TOKEN, "") as String

@@ -39,6 +39,7 @@ class LoginDTO : RootResponse() {
         //        private List<AuthorityListBean> authorityList;
 
         var device: DeviceBean? = null
+        var sip: SipDTO? = null
         var token: String? = null
         var userInfo: UserInfoBean? = null
 
@@ -59,6 +60,16 @@ class LoginDTO : RootResponse() {
             var buttonKey: String? = null
             var deviceKey: String? = null
         }
+        class SipDTO : Serializable {
+            /**
+             * buttonKey : string
+             * deviceKey : string
+             */
+
+            var sipAddr: String? = null
+            var sipDisplayname: String? = null
+        }
+
 
         class UserInfoBean : Serializable {
 

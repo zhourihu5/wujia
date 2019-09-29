@@ -204,6 +204,13 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
                 SipCoreManager.getLc().setPreviewWindow(null)
             }
         })
+        try {
+            lockNumber=DataManager.sip!!.sipAddr
+            lockDisplayName=DataManager.sip!!.sipDisplayname
+        } catch (e: Exception) {
+            LoginUtil.toLoginActivity()
+            e.printStackTrace()
+        }
 //        try {
 //            videoPrepared()
 //        } catch (e: Exception) {
@@ -423,9 +430,9 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
             ServiceWaitThread().start()
             return
         }
-        lockNumber="D58-11-1" //todo test
+//        lockNumber="D58-11-1" //todo test
 //        lockDisplayName="D58-11-1" //todo test
-        lockDisplayName=null//todo test
+//        lockDisplayName=null//todo test
 
         try {
            hangUp()

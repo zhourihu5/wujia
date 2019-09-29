@@ -206,7 +206,13 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                 })
 
 
-
+        try {
+            lockNumber=DataManager.sip!!.sipAddr
+            lockDisplayName=DataManager.sip!!.sipDisplayname
+        } catch (e: Exception) {
+            LoginUtil.toLoginActivity()
+            e.printStackTrace()
+        }
 
         setVideo()
 
@@ -290,9 +296,9 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                 ServiceWaitThread().start()
                 return
             }
-            lockNumber="D58-11-1" //todo test
+//            lockNumber="D58-11-1" //todo test
 //        lockDisplayName="D58-11-1" //todo test
-            lockDisplayName=null//todo test
+//            lockDisplayName=null//todo test
 
             try {
                 hangUp()
