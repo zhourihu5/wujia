@@ -28,6 +28,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_safe_outside.*
 import org.linphone.core.LinphoneCall
 import org.linphone.core.LinphoneCore
+import org.linphone.core.LinphoneCoreException
 import org.linphone.core.LinphoneCoreListenerBase
 import org.linphone.mediastream.video.AndroidVideoWindowImpl
 import java.text.SimpleDateFormat
@@ -260,7 +261,19 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 //        lockDisplayName="D58-11-1" //todo test
             lockDisplayName=null//todo test
 
-            SipCoreManager.getInstance().newOutgoingCall(lockNumber,lockDisplayName)
+            try {
+                val lc = SipCoreManager.getLc()
+                mCall?.let { lc.terminateCall(mCall) }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            try {
+                SipCoreManager.getInstance().newOutgoingCall(lockNumber,lockDisplayName)
+            } catch (e: LinphoneCoreException) {
+                SipCoreManager.getInstance().terminateCall()
+                e.printStackTrace()
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -383,6 +396,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         } else {
             //			SipCoreManager.startProximitySensorForActivity(this);
             SipCoreManager.getInstance().enableProximitySensing(true)
+            LogUtil.e("SipCoreManager.getInstance().enableProximitySensing(true)")
         }
     }
 
@@ -427,6 +441,12 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
             if (mVideoView != null) {
                 (mVideoView as? GLSurfaceView)?.onPause()
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        try {
+            val lc = SipCoreManager.getLc()
+            mCall?.let { lc.terminateCall(mCall) }
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -562,27 +582,27 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                 safe_btn_mute!!.setBackgroundImage(R.mipmap.btn_safe_mutebig, R.mipmap.btn_safe_mutebig_pressed)
             }
         } else if (v.id == R.id.safe_btn_full) {   //全屏
-            if (isPalyback) {//回放
-                val playbackIntent = Intent(mActivity, FullScreenActivity::class.java)
-                playbackIntent.putExtra(Constants.INTENT_KEY_1, playBackSessionId)
-                playbackIntent.putExtra(Constants.INTENT_KEY_2, isPalyback)
-                playbackIntent.putExtra(Constants.INTENT_KEY_3, max)
-                playbackIntent.putExtra(Constants.INTENT_KEY_4, seek)
-                playbackIntent.putExtra(Constants.INTENT_KEY_5, isPause)
-
-                startActivityForResult(playbackIntent, REQUEST_CODE_FULL_HISTORY)
-                inVisibleType = REQUEST_CODE_FULL_HISTORY
-
-            } else {//直播
-                if (!isSeeeionIdValid) {//直播会话无效时不能全屏
-                    return
-                }
+//            if (isPalyback) {//回放
+//                val playbackIntent = Intent(mActivity, FullScreenActivity::class.java)
+//                playbackIntent.putExtra(Constants.INTENT_KEY_1, playBackSessionId)
+//                playbackIntent.putExtra(Constants.INTENT_KEY_2, isPalyback)
+//                playbackIntent.putExtra(Constants.INTENT_KEY_3, max)
+//                playbackIntent.putExtra(Constants.INTENT_KEY_4, seek)
+//                playbackIntent.putExtra(Constants.INTENT_KEY_5, isPause)
+//
+//                startActivityForResult(playbackIntent, REQUEST_CODE_FULL_HISTORY)
+//                inVisibleType = REQUEST_CODE_FULL_HISTORY
+//
+//            } else {//直播
+//                if (!isSeeeionIdValid) {//直播会话无效时不能全屏
+//                    return
+//                }
                 val liveIntent = Intent(mActivity, FullScreenActivity::class.java)
                 liveIntent.putExtra(Constants.INTENT_KEY_1, mSessionId)
                 liveIntent.putExtra(Constants.INTENT_KEY_2, isPalyback)
-                startActivityForResult(liveIntent, REQUEST_CODE_FULL_LIVE)
+                startActivity(liveIntent)
                 inVisibleType = REQUEST_CODE_FULL_LIVE
-            }
+//            }
 
         } else if (v.id == R.id.safe_swich_live_btn) { //切回直播
 //            startLive()
