@@ -481,7 +481,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 
         videoInvisible()
     }
-
+    var isToFullScreen:Boolean=false
     private fun videoInvisible() {
         if(!SipService.isReady()) {
             // 启动SipService
@@ -516,6 +516,10 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
             }
         } catch (e: Exception) {
             e.printStackTrace()
+        }
+        if(isToFullScreen){
+            isToFullScreen=false
+            return
         }
         try {
             hangUp()
@@ -669,7 +673,8 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 //                if (!isSeeeionIdValid) {//直播会话无效时不能全屏
 //                    return
 //                }
-                videoInvisible()
+                isToFullScreen=true
+//                videoInvisible()
                 val liveIntent = Intent(mActivity, FullScreenActivity::class.java)
                 liveIntent.putExtra(Constants.INTENT_KEY_1, mSessionId)
                 liveIntent.putExtra(Constants.INTENT_KEY_2, isPalyback)

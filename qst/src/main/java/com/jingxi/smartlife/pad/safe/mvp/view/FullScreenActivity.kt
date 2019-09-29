@@ -5,6 +5,7 @@ import android.opengl.GLSurfaceView
 import android.os.Bundle
 import android.view.SurfaceView
 import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.SeekBar
@@ -60,6 +61,10 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
     private var loadingDialog: LoadingDialog? = null
     private var familyID: String? = null
 
+    override fun setContentView() {
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        super.setContentView()
+    }
     override fun initEventAndData(savedInstanceState: Bundle?) {
 
         layoutPlaybackl = findViewById(R.id.l1)
@@ -198,9 +203,14 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
                 SipCoreManager.getLc().setPreviewWindow(null)
             }
         })
-//        videoVisible()
+//        try {
+//            videoPrepared()
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
 
     }
+
     private fun fixZOrder(video: SurfaceView?, preview: SurfaceView?) {
         video?.setZOrderOnTop(false)
         preview?.setZOrderOnTop(true)
@@ -228,11 +238,6 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
             }
         }
 
-        try {
-            videoPrepared()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
     }
     var isOnResume:Boolean=false
     override fun onResume() {
