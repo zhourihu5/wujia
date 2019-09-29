@@ -22,7 +22,6 @@ import com.wujia.lib_common.base.Constants
 import com.wujia.lib_common.utils.LogUtil
 import org.linphone.core.LinphoneCall
 import org.linphone.core.LinphoneCore
-import org.linphone.core.LinphoneCoreException
 import org.linphone.core.LinphoneCoreListenerBase
 import org.linphone.mediastream.video.AndroidVideoWindowImpl
 
@@ -121,8 +120,8 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
 
             layoutLive!!.visibility = View.VISIBLE
 //            mDoorAccessManager!!.addConversationUIListener(this)
-            videoVisible()
-            setVideo()
+//            videoVisible()
+//            setVideo()
             //            surfaceView.postDelayed(new Runnable() {
             //                @Override
             //                public void run() {
@@ -239,7 +238,7 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
     override fun onResume() {
         super.onResume()
         isOnResume=true
-        videoVisible()
+        setVideo()
     }
     override fun onPause() {
         super.onPause()
@@ -271,13 +270,23 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
             e.printStackTrace()
         }
         try {
-            val lc = SipCoreManager.getLc()
-            mCall?.let { lc.terminateCall(mCall) }
+            hangUp()
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
+    private fun hangUp() {
+        val lc = SipCoreManager.getLc()
+        val currentCall = lc.currentCall
 
+        if (currentCall != null) {
+            lc.terminateCall(currentCall)
+        } else if (lc.isInConference) {
+            lc.terminateConference()
+        } else {
+            lc.terminateAllCalls()
+        }
+    }
     private fun videoPrepared() {
 //        if(true){
 //            LogUtil.e("videoPrepared")
@@ -380,14 +389,14 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
             }
             runOnUiThread {
                 if (isOnResume) {
-                    videoVisible()
+//                    videoVisible()
                     setVideo()
                 }
             }
         }
     }
     private fun setVideo() {
-
+        videoVisible()
         if (null == loadingDialog) {
             loadingDialog = mContext?.let { LoadingDialog(it) }
         }
@@ -406,15 +415,14 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
         lockDisplayName=null//todo test
 
         try {
-            val lc = SipCoreManager.getLc()
-            mCall?.let { lc.terminateCall(mCall) }
+           hangUp()
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
         try {
             SipCoreManager.getInstance().newOutgoingCall(lockNumber,lockDisplayName)
-        } catch (e: LinphoneCoreException) {
+        } catch (e: Exception) {
             SipCoreManager.getInstance().terminateCall()
             e.printStackTrace()
         }

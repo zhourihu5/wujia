@@ -1,8 +1,11 @@
 package com.jingxi.smartlife.pad.safe.mvp.view
 
+import android.annotation.SuppressLint
+import android.content.Context.POWER_SERVICE
 import android.content.Intent
 import android.opengl.GLSurfaceView
 import android.os.Bundle
+import android.os.PowerManager
 import android.view.SurfaceView
 import android.view.View
 import com.intercom.base.ThreadUtils.runOnUiThread
@@ -47,6 +50,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         , View.OnClickListener
 //        , MultiItemTypeAdapter.OnRVItemClickListener, SeekBar.OnSeekBarChangeListener, IntercomObserver.OnPlaybackListener
 {
+    private var mWakeLock: PowerManager.WakeLock?=null
     private var mCall: LinphoneCall?=null
     private  var mListener: LinphoneCoreListenerBase?=null
     private var mCaptureView: SurfaceView?=null
@@ -161,7 +165,6 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                 SipCoreManager.getLc().setPreviewWindow(null)
             }
         })
-        videoVisible()
     }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
@@ -248,8 +251,20 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 //        mDoorAccessManager=null
 
     }
+    private fun hangUp() {
+        val lc = SipCoreManager.getLc()
+        val currentCall = lc.currentCall
 
+        if (currentCall != null) {
+            lc.terminateCall(currentCall)
+        } else if (lc.isInConference) {
+            lc.terminateConference()
+        } else {
+            lc.terminateAllCalls()
+        }
+    }
     private fun setVideo() {
+        videoVisible()
         try {
             setDate(System.currentTimeMillis())
             if (null == loadingDialog) {
@@ -271,8 +286,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
             lockDisplayName=null//todo test
 
             try {
-                val lc = SipCoreManager.getLc()
-                mCall?.let { lc.terminateCall(mCall) }
+                hangUp()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -320,8 +334,13 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 //
 //    }
 
+    @SuppressLint("InvalidWakeLockTag")
     override fun onSupportVisible() {
         super.onSupportVisible()
+        var pManager = context!!.getSystemService(POWER_SERVICE) as PowerManager
+        mWakeLock = pManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK
+                or PowerManager.ON_AFTER_RELEASE, javaClass.name)
+        mWakeLock?.acquire()
         initDoorAccessManager()
         safe_swich_live_btn!!.performClick()
         // 当对用户可见时 回调
@@ -337,7 +356,6 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 //                recAdapter!!.notifyDataSetChanged()
 //            }
 //        }
-        videoVisible()
     }
     fun videoVisible(){
         if(!SipService.isReady()) {
@@ -363,11 +381,11 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
             }
         }
 
-        try {
-            videoPrepared()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+//        try {
+//            videoPrepared()
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
     }
     /**
      * 等待SipService启动的线程，SipService的启动可能需要几秒的时间
@@ -384,7 +402,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 
             }
             runOnUiThread { if(isSupportVisible){
-                videoVisible()
+
                 setVideo()
             }
             }
@@ -415,12 +433,13 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                 SipCoreManager.getLc().setVideoWindow(androidVideoWindowImpl)
             }
         }
+        loadingDialog?.dismiss()
         // 设置一个当前Call对象视频第一帧解码完成监听器，收到回调之后，隐藏加载的UI界面
         // 这里仅提供一个简单的实例，避免网络视频太慢而现实黑屏
         if (SipCoreManager.getLc().currentCall != null) {
             SipCoreManager.getLc().currentCall.setListener(object : LinphoneCall.LinphoneCallListener {
                 override fun onNextVideoFrameDecoded(linphoneCall: LinphoneCall) {
-                    loadingDialog?.dismiss()
+//                    loadingDialog?.dismiss()
                     // 第一帧视频解码成功后，可以调用下面的接口，停止本地视频的发送
                     //					SipCoreManager.getInstance().stopLocalVideo(true);
                 }
@@ -454,33 +473,39 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 
     override fun onSupportInvisible() {
         super.onSupportInvisible()
+        mWakeLock?.release()
         // 当对用户不可见时 回调
         // 不管是 父Fragment还是子Fragment 都有效！
         LogUtil.i("SafeOutsideFragment onSupportInvisible")
+
+
+        videoInvisible()
+    }
+
+    private fun videoInvisible() {
         if(!SipService.isReady()) {
             // 启动SipService
 //            context?.startService( Intent(android.content.Intent.ACTION_MAIN).setClass(
 //                    context, SipService::class.java))
             return
         }
-
         //如果是点击全屏导致fragment不显示，则不重置session有效性
         //        if (inVisibleType != REQUEST_CODE_FULL_LIVE && inVisibleType != REQUEST_CODE_FULL_HISTORY) {
         pausePlay()
         destroyDoorAccessManager()
         //        }
-//        if (!isEdit && null != safe_play_rec_edit_btn) {
-//            safe_play_rec_edit_btn!!.performClick()
-//        }
+        //        if (!isEdit && null != safe_play_rec_edit_btn) {
+        //            safe_play_rec_edit_btn!!.performClick()
+        //        }
         val lc = SipCoreManager.getLcIfManagerNotDestroyedOrNull()
         lc?.removeListener(mListener)
 
         if (androidVideoWindowImpl != null) {
             synchronized(androidVideoWindowImpl!!) {
                 /*
-				 * this call will destroy native opengl renderer which is used by
-				 * androidVideoWindowImpl
-				 */
+                 * this call will destroy native opengl renderer which is used by
+                 * androidVideoWindowImpl
+                 */
                 SipCoreManager.getLc().setVideoWindow(null)
             }
         }
@@ -493,8 +518,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
             e.printStackTrace()
         }
         try {
-            val lc = SipCoreManager.getLc()
-            mCall?.let { lc.terminateCall(mCall) }
+            hangUp()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -645,6 +669,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 //                if (!isSeeeionIdValid) {//直播会话无效时不能全屏
 //                    return
 //                }
+                videoInvisible()
                 val liveIntent = Intent(mActivity, FullScreenActivity::class.java)
                 liveIntent.putExtra(Constants.INTENT_KEY_1, mSessionId)
                 liveIntent.putExtra(Constants.INTENT_KEY_2, isPalyback)

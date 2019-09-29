@@ -168,7 +168,8 @@
                 android:text="@string/mute"
                 app:button_mode="TOP"
                 app:button_normal="@mipmap/btn_safe_mutebig"
-                app:button_press="@mipmap/btn_safe_mutebig_pressed" />
+                app:button_press="@mipmap/btn_safe_mutebig_pressed"
+                android:visibility="gone"/>
 
             <com.wujia.lib.widget.WJButton
                 android:id="@+id/safe_btn_full"
