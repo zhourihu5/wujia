@@ -99,6 +99,29 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         mListener = object : LinphoneCoreListenerBase() {
             override fun callState(lc: LinphoneCore?, call: LinphoneCall?, state: LinphoneCall.State?, message: String?) {
                 LogUtil.e( "safeOutsideFragment registrationState state = " + state!!.toString() + " message = " + message)
+                if(call?.direction=== CallDirection.Outgoing&&state=== LinphoneCall.State.CallEnd
+                        &&isSupportVisible
+                        ){
+
+                    var isCalling=false
+                    val lc = SipCoreManager.getLc()
+                    val calls = SipCoreUtils.getLinphoneCalls(SipCoreManager.getLc())
+                    for (call in calls) {
+                        if (LinphoneCall.State.OutgoingInit === call.state || LinphoneCall.State.OutgoingProgress === call.state ||
+                                LinphoneCall.State.OutgoingRinging === call.state || LinphoneCall.State.OutgoingEarlyMedia === call.state) {
+                            mCall = call
+                            isCalling=true
+                            break
+                        }
+                    }
+                    LogUtil.e("isCalling=${isCalling},VideoCallActivity.isStarted=${VideoCallActivity.isStarted}")
+                    if(!isCalling ){
+                        if(!VideoCallActivity.isStarted){
+                            setVideo(true)//fixme 被挂断后重播就crash？这里会一直被回调，是递归调用了？
+                        }
+
+                    }
+                }
                 if (call === mCall && LinphoneCall.State.Connected === state || LinphoneCall.State.StreamsRunning === state) {
                    LogUtil.e("mCall=="+mCall)
                     val remoteParams = mCall?.getRemoteParams()
@@ -278,7 +301,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 //            lc.terminateAllCalls()
 //        }
     }
-    private fun setVideo() {
+    private fun setVideo(isHangup: Boolean =true) {
         videoVisible()
         try {
             setDate(System.currentTimeMillis())
@@ -299,15 +322,18 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 //            lockNumber="D58-11-1" //todo test
 //        lockDisplayName="D58-11-1" //todo test
 //            lockDisplayName=null//todo test
-
-            try {
-                hangUp()
-            } catch (e: Exception) {
-                e.printStackTrace()
+            if(isHangup){
+                try {
+                    hangUp()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
-
+            LogUtil.e("safeoutsidefragment setvideo VideoCallActivity.isStarted=${VideoCallActivity.isStarted}")
             try {
-                SipCoreManager.getInstance().newOutgoingCall(lockNumber,lockDisplayName)
+                if(!VideoCallActivity.isStarted){
+                    SipCoreManager.getInstance().newOutgoingCall(lockNumber,lockDisplayName)
+                }
             } catch (e: LinphoneCoreException) {
                 SipCoreManager.getInstance().terminateCall()
                 LogUtil.e("呼出时异常")
@@ -383,6 +409,8 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         }
 
         val lc = SipCoreManager.getLcIfManagerNotDestroyedOrNull()
+
+        lc?.removeListener(mListener)
         lc?.addListener(mListener)
 
         // Only one call ringing at a time is allowed

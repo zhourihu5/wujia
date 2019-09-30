@@ -18,6 +18,7 @@ import android.view.WindowManager
 import com.intercom.sdk.IntercomConstants
 import com.jingxi.smartlife.pad.safe.R
 import com.sipphone.sdk.SipCoreManager
+import com.sipphone.sdk.SipCoreUtils
 import com.wujia.businesslib.dialog.LoadingDialog
 import com.wujia.businesslib.event.EventBaseButtonClick
 import com.wujia.businesslib.event.EventBusUtil
@@ -25,8 +26,10 @@ import com.wujia.businesslib.event.IMiessageInvoke
 import com.wujia.lib_common.base.BaseActivity
 import com.wujia.lib_common.utils.LogUtil
 import kotlinx.android.synthetic.main.activity_video_call.*
+import org.linphone.core.CallDirection
 import org.linphone.core.LinphoneCall
-import org.linphone.core.LinphoneCoreException
+import org.linphone.core.LinphoneCore
+import org.linphone.core.LinphoneCoreListenerBase
 import org.linphone.mediastream.video.AndroidVideoWindowImpl
 
 /**
@@ -36,6 +39,7 @@ import org.linphone.mediastream.video.AndroidVideoWindowImpl
  */
 class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.Callback
 {
+    private  var mListener: LinphoneCoreListenerBase?=null
     private  var androidVideoWindowImpl: AndroidVideoWindowImpl?=null
     private var mCaptureView: SurfaceView?=null
     private var mVideoView: SurfaceView?=null
@@ -92,7 +96,7 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
 
 
     override fun initEventAndData(savedInstanceState: Bundle?) {
-
+        isStarted=true
 //        manager = JXPadSdk.getDoorAccessManager()
 //        manager!!.addConversationUIListener(this)
 
@@ -118,6 +122,14 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
         LogUtil.i("initEventAndData")
         EventBusUtil.register(eventBaseButtonClick)
 
+        mListener = object : LinphoneCoreListenerBase() {
+            override fun callState(lc: LinphoneCore?, call: LinphoneCall?, state: LinphoneCall.State?, message: String?) {
+                LogUtil.e( "${javaClass.simpleName} registrationState state = " + state!!.toString() + " message = " + message)
+                if(call?.direction=== CallDirection.Incoming&&state=== LinphoneCall.State.CallEnd) {
+                    finish()
+                }
+            }
+        }
 
         mVideoView =surfaceView
 //		mCaptureView = (SurfaceView) view.findViewById(R.id.videoCaptureSurface);
@@ -155,6 +167,9 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
     }
     public override fun onResume() {
         super.onResume()
+        val lc = SipCoreManager.getLcIfManagerNotDestroyedOrNull()
+        lc?.removeListener(mListener)
+        lc?.addListener(mListener)
         if (mVideoView != null) {
             (mVideoView as? GLSurfaceView)?.onResume()
         }
@@ -201,6 +216,8 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
         return call?.currentParamsCopy?.videoEnabled ?: false
     }
     public override fun onPause() {
+//        val lc = SipCoreManager.getLcIfManagerNotDestroyedOrNull()
+//        lc?.removeListener(mListener)
         if (androidVideoWindowImpl != null) {
             synchronized(androidVideoWindowImpl!!) {
                 /*
@@ -276,28 +293,47 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
     }
     private fun hangUp() {
         val lc = SipCoreManager.getLc()
-        val currentCall = lc.currentCall
-
-        if (currentCall != null) {
-            lc.terminateCall(currentCall)
-        } else if (lc.isInConference) {
-            lc.terminateConference()
-        } else {
-            lc.terminateAllCalls()
+        val calls = SipCoreUtils.getLinphoneCalls(SipCoreManager.getLc())
+        for (call in calls) {
+            if(call.direction== CallDirection.Incoming) {
+                lc.terminateCall(call)
+//                mCall = call
+//                break
+            }
         }
+//        val lc = SipCoreManager.getLc()
+//        val currentCall = lc.currentCall
+//
+//        if (currentCall != null) {
+//            lc.terminateCall(currentCall)
+//        } else if (lc.isInConference) {
+//            lc.terminateConference()
+//        } else {
+//            lc.terminateAllCalls()
+//        }
     }
 
     private fun accept() {
         val lCore = SipCoreManager.getLc()
-        val currentCall = lCore.currentCall
-        if (currentCall != null) {
-            try {
-                lCore.acceptCall(currentCall)
-            } catch (e: LinphoneCoreException) {
-                e.printStackTrace()
-            }
 
+        val calls = SipCoreUtils.getLinphoneCalls(SipCoreManager.getLc())
+        for (call in calls) {
+            if(call.direction== CallDirection.Incoming) {
+                lCore.acceptCall(call)
+//                mCall = call
+//                break
+            }
         }
+
+//        val currentCall = lCore.currentCall
+//        if (currentCall != null) {
+//            try {
+//                lCore.acceptCall(currentCall)
+//            } catch (e: LinphoneCoreException) {
+//                e.printStackTrace()
+//            }
+//
+//        }
     }
 
     override fun finish() {
@@ -306,9 +342,11 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
 //        manager!!.hangupCall(sessionId)
         hangUp()
         super.finish()
+        isStarted=false
     }
 
     override fun onDestroy() {
+        isStarted=false
         LogUtil.i("onDestroy")
         super.onDestroy()
 //        manager?.apply{
@@ -385,6 +423,8 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
 
     companion object{
         const val SESSION_ID="sessionId"
+        @Volatile
+        var isStarted:Boolean=false
     }
 }
 

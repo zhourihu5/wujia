@@ -172,9 +172,13 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
             }
 
             override fun callState(lc: LinphoneCore?, call: LinphoneCall?, state: LinphoneCall.State?, message: String?) {
-                LogUtil.e( " callState = " + state!!)
+                LogUtil.e( " callState = ${state},message=${message}" )
                 if (state === LinphoneCall.State.IncomingReceived) {    // 启动CallIncomingActivity
-                    startActivity(Intent(this@MainActivity, VideoCallActivity::class.java))
+                    if(!VideoCallActivity.isStarted){
+                        VideoCallActivity.isStarted=true
+                        startActivity(Intent(this@MainActivity, VideoCallActivity::class.java))
+                    }
+
                 } else if (state === LinphoneCall.State.OutgoingInit || state === LinphoneCall.State.OutgoingProgress) {
                     // 启动CallOutgoingActivity
 //                    startActivity(Intent(this@MainActivity, CallOutgoingActivity::class.java))

@@ -141,6 +141,9 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
         mListener = object : LinphoneCoreListenerBase() {
             override fun callState(lc: LinphoneCore?, call: LinphoneCall?, state: LinphoneCall.State?, message: String?) {
                 LogUtil.e( "safeOutsideFragment registrationState state = " + state!!.toString() + " message = " + message)
+//                if(call?.direction== CallDirection.Outgoing&&state== LinphoneCall.State.CallEnd&&isOnResume){
+//                    setVideo()
+//                }
                 if (call === mCall && LinphoneCall.State.Connected === state || LinphoneCall.State.StreamsRunning === state) {
                     val remoteParams = mCall?.getRemoteParams()
                     if (remoteParams != null && remoteParams!!.getVideoEnabled() &&
