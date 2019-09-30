@@ -96,7 +96,7 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
 
 
     override fun initEventAndData(savedInstanceState: Bundle?) {
-        isStarted=true
+        started=true
 //        manager = JXPadSdk.getDoorAccessManager()
 //        manager!!.addConversationUIListener(this)
 
@@ -342,11 +342,11 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
 //        manager!!.hangupCall(sessionId)
         hangUp()
         super.finish()
-        isStarted=false
+        started=false
     }
 
     override fun onDestroy() {
-        isStarted=false
+        started=false
         LogUtil.i("onDestroy")
         super.onDestroy()
 //        manager?.apply{
@@ -424,7 +424,7 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
     companion object{
         const val SESSION_ID="sessionId"
         @Volatile
-        var isStarted:Boolean=false
+        var started:Boolean=false
     }
 }
 

@@ -88,7 +88,7 @@ class FloatingButtonService : Service() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         startTime = System.currentTimeMillis()
-        //        isStarted = true;
+        //        started = true;
         showFloatingWindow()
         val resutl = super.onStartCommand(intent, flags, startId)
         stopIfCurrentApp()

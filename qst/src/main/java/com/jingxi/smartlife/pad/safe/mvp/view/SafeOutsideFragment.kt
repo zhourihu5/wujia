@@ -5,6 +5,8 @@ import android.content.Context.POWER_SERVICE
 import android.content.Intent
 import android.opengl.GLSurfaceView
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.PowerManager
 import android.view.SurfaceView
 import android.view.View
@@ -93,12 +95,18 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
     override fun createPresenter(): BasePresenter<BaseView>? {
         return null
     }
-
+    val handler:Handler= Handler(Looper.getMainLooper())
     override fun interruptInject() {
         super.interruptInject()
         mListener = object : LinphoneCoreListenerBase() {
             override fun callState(lc: LinphoneCore?, call: LinphoneCall?, state: LinphoneCall.State?, message: String?) {
                 LogUtil.e( "safeOutsideFragment registrationState state = " + state!!.toString() + " message = " + message)
+                if (state === LinphoneCall.State.IncomingReceived) {    // 启动CallIncomingActivity
+                    if (!VideoCallActivity.started) {
+                        VideoCallActivity.started = true
+                        startActivity(Intent(context, VideoCallActivity::class.java))
+                    }
+                }
                 if(call?.direction=== CallDirection.Outgoing&&state=== LinphoneCall.State.CallEnd
                         &&isSupportVisible
                         ){
@@ -107,17 +115,26 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                     val lc = SipCoreManager.getLc()
                     val calls = SipCoreUtils.getLinphoneCalls(SipCoreManager.getLc())
                     for (call in calls) {
-                        if (LinphoneCall.State.OutgoingInit === call.state || LinphoneCall.State.OutgoingProgress === call.state ||
-                                LinphoneCall.State.OutgoingRinging === call.state || LinphoneCall.State.OutgoingEarlyMedia === call.state) {
+                        if (LinphoneCall.State.OutgoingInit === call.state
+                                || LinphoneCall.State.OutgoingProgress === call.state
+                                || LinphoneCall.State.OutgoingRinging === call.state
+                                || LinphoneCall.State.OutgoingEarlyMedia === call.state
+//                                ||LinphoneCall.State.IncomingReceived === call.state
+                        ) {
                             mCall = call
                             isCalling=true
                             break
                         }
                     }
-                    LogUtil.e("isCalling=${isCalling},VideoCallActivity.isStarted=${VideoCallActivity.isStarted}")
+                    LogUtil.e("isCalling=${isCalling},VideoCallActivity.started=${VideoCallActivity.started}")
                     if(!isCalling ){
-                        if(!VideoCallActivity.isStarted){
-                            setVideo(true)//fixme 被挂断后重播就crash？这里会一直被回调，是递归调用了？
+                        if(!VideoCallActivity.started){
+                            handler.postDelayed({
+                                if(isSupportVisible&&!VideoCallActivity.started){
+                                    setVideo(true)//fixme 被挂断后重播就crash？这里会一直被回调，是递归调用了？
+                                }
+                            },1000)
+
                         }
 
                     }
@@ -329,15 +346,32 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                     e.printStackTrace()
                 }
             }
-            LogUtil.e("safeoutsidefragment setvideo VideoCallActivity.isStarted=${VideoCallActivity.isStarted}")
-            try {
-                if(!VideoCallActivity.isStarted){
-                    SipCoreManager.getInstance().newOutgoingCall(lockNumber,lockDisplayName)
+            LogUtil.e("safeoutsidefragment setvideo VideoCallActivity.started=${VideoCallActivity.started}")
+            var isCalling = false
+            val lc = SipCoreManager.getLc()
+            val calls = SipCoreUtils.getLinphoneCalls(SipCoreManager.getLc())
+            for (call in calls) {
+                if (LinphoneCall.State.OutgoingInit === call.state
+                        || LinphoneCall.State.OutgoingProgress === call.state
+                        || LinphoneCall.State.OutgoingRinging === call.state
+                        || LinphoneCall.State.OutgoingEarlyMedia === call.state
+//                        ||LinphoneCall.State.IncomingReceived === call.state
+                ) {
+                    mCall = call
+                    isCalling = true
+                    break
                 }
-            } catch (e: LinphoneCoreException) {
-                SipCoreManager.getInstance().terminateCall()
-                LogUtil.e("呼出时异常")
-                e.printStackTrace()
+            }
+            if(!isCalling){
+                try {
+                    if(!VideoCallActivity.started){
+                        SipCoreManager.getInstance().newOutgoingCall(lockNumber,lockDisplayName)
+                    }
+                } catch (e: LinphoneCoreException) {
+                    SipCoreManager.getInstance().terminateCall()
+                    LogUtil.e("呼出时异常")
+                    e.printStackTrace()
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -465,7 +499,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
             return
         }
         try {
-            if (mVideoView != null) {
+            if (mVideoView != null&&isSupportVisible) {
                 (mVideoView as? GLSurfaceView)?.onResume()
             }
         } catch (e: Exception) {
@@ -522,7 +556,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         // 不管是 父Fragment还是子Fragment 都有效！
         LogUtil.i("SafeOutsideFragment onSupportInvisible")
 
-
+        handler.removeCallbacksAndMessages(null)
         videoInvisible()
     }
     var isToFullScreen:Boolean=false
@@ -892,6 +926,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         pausePlay()
         destroyDoorAccessManager()
         LogUtil.i("SafeOutsideFragment onDestroyView")
+        handler.removeCallbacksAndMessages(null)
     }
 
 //    private fun format(time: Int): String {
