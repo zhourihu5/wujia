@@ -29,11 +29,14 @@ class MessageHomeFragment : TabFragment() {
             msgFragment = AllMsgFragment.newInstance()
             loadRootFragment(R.id.tab_content_container, msgFragment)
         }
-
         mTabBar.addItem(VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_all_default, R.mipmap.icon_news_leftnav_all_highlight, R.string.all_msg))
                 .addItem(VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_property_default, R.mipmap.icon_news_leftnav_property_highlight, R.string.wuye_notify))
                 .addItem(VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_community_default, R.mipmap.icon_news_leftnav_community_highlight, R.string.shequ_notify))
                 .addItem(VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_system_default, R.mipmap.icon_news_leftnav_system_highlight, R.string.app_notify))
+                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_gov, R.mipmap.icon_news_leftnav_gov_highlight, R.string.gov_notify))
+                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_news_leftnav_order, R.mipmap.icon_news_leftnav_order_highlight, R.string.order_notify))
+
+
 
         mTabBar.setOnTabSelectedListener { position, prePosition ->
             val type = getType(position)
@@ -52,7 +55,8 @@ class MessageHomeFragment : TabFragment() {
             1 -> type = AllMsgFragment.MSG_TYPE_PROPERTY
             2 -> type = AllMsgFragment.MSG_TYPE_COMMUNITY
             3 -> type = AllMsgFragment.MSG_TYPE_SYSTEM//系统消息
-            //todo 政务消息
+            4 -> type = AllMsgFragment.MSG_TYPE_GOV
+            5 -> type = AllMsgFragment.MSG_TYPE_ORDER
 
         }
         return type

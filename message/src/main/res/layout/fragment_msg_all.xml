@@ -42,16 +42,16 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_msg" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginRight="60dp"
-        android:gravity="center"
-        android:layout_marginBottom="28dp"
-        android:drawableLeft="@mipmap/btn_contact_small_normal"
-        android:drawablePadding="16dp"
-        android:text="0755-86398008    北区客服电话                    0755-86398088    南区客服电话"
-        android:textColor="#ff999999"
-        android:textSize="15sp" />
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="right"-->
+<!--        android:layout_marginRight="60dp"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_marginBottom="28dp"-->
+<!--        android:drawableLeft="@mipmap/btn_contact_small_normal"-->
+<!--        android:drawablePadding="16dp"-->
+<!--        android:text="0755-86398008    北区客服电话                    0755-86398088    南区客服电话"-->
+<!--        android:textColor="#ff999999"-->
+<!--        android:textSize="15sp" />-->
 </LinearLayout>

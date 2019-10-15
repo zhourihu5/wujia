@@ -28,6 +28,8 @@ class MessageDialog(context: Context, message: MsgDto.ContentBean) : Dialog(cont
             message.type == MsgDto.TYPE_NOTIFY -> img1.setImageResource(R.mipmap.ic_msg_label_neighbour2)
             message.type == MsgDto.TYPE_PROPERTY -> img1.setImageResource(R.mipmap.ic_msg_label_serve2)
             message.type == MsgDto.TYPE_SYSTEM -> img1.setImageResource(R.mipmap.icon_msg_label_system)
+            message.type == MsgDto.TYPE_ORDER -> img1.setImageResource(R.mipmap.icon_msg_label_system)
+            message.type == MsgDto.TYPE_GOV -> img1.setImageResource(R.mipmap.icon_msg_label_system)
         }
 
         tvType.text = MsgDto.getTypeText(message)

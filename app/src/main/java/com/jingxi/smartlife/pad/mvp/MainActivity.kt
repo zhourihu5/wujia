@@ -19,6 +19,7 @@ import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.family.FamilyFragment
 import com.jingxi.smartlife.pad.family.mvp.FamilyHomeFragment
 import com.jingxi.smartlife.pad.market.MarketFragment
+import com.jingxi.smartlife.pad.market.PromoteFragment
 import com.jingxi.smartlife.pad.market.mvp.MarketHomeFragment
 import com.jingxi.smartlife.pad.message.MessageFragment
 import com.jingxi.smartlife.pad.message.mvp.MessageHomeFragment
@@ -231,33 +232,38 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         mFragments[3] = findFragment(ProperyFragment::class.java)
         mFragments[4] = findFragment(MessageFragment::class.java)
         mFragments[5] = findFragment(MarketFragment::class.java)
-        mFragments[6] = findFragment(SettingFragment::class.java)
+        mFragments[6] = findFragment(PromoteFragment::class.java)
+        mFragments[7] = findFragment(SettingFragment::class.java)
         if (mFragments[0] == null) {
             mFragments[0] = HomeFragment.newInstance()
             mFragments[1] = SafeFragment.newInstance()
-            mFragments[2] = FamilyFragment.newInstance()
-            mFragments[3] = ProperyFragment.newInstance()
+//            mFragments[2] = FamilyFragment.newInstance()
+            mFragments[2] = ProperyFragment.newInstance()
+            mFragments[3] = PromoteFragment.newInstance()
             mFragments[4] = MessageFragment.newInstance()
-            mFragments[5] = MarketFragment.newInstance()
-            //            mFragments[6] = NeighborFragment.newInstance();
-            mFragments[6] = SettingFragment.newInstance()
+//            mFragments[6] = MarketFragment.newInstance()
+            mFragments[5] = SettingFragment.newInstance()
 
             loadMultipleRootFragment(R.id.container, currentTab,
                     mFragments[0],
                     mFragments[1],
+//                    mFragments[2],只能家居
                     mFragments[2],
                     mFragments[3],
                     mFragments[4],
-                    mFragments[5],
-                    mFragments[6])
+//                    mFragments[6], 服务市场
+                    mFragments[5]
+            )
         }
 
         main_tab_bar.addItem(VerticalTabItem(this, R.mipmap.icon_leftnav_home_default, R.mipmap.icon_leftnav_home_selected, R.string.home))
                 .addItem(VerticalTabItem(this, R.mipmap.icon_leftnav_safe_default, R.mipmap.icon_leftnav_safe_selected, R.string.visual_security))
-                .addItem(VerticalTabItem(this, R.mipmap.icon_leftnav_smart_default, R.mipmap.icon_leftnav_smart_selected, R.string.intelligent_home))
+//                .addItem(VerticalTabItem(this, R.mipmap.icon_leftnav_smart_default, R.mipmap.icon_leftnav_smart_selected, R.string.intelligent_home))
                 .addItem(VerticalTabItem(this, R.mipmap.icon_leftnav_serve_default, R.mipmap.icon_leftnav_serve_selected, R.string.property_service))
+
+                .addItem(VerticalTabItem(this, R.mipmap.promotion, R.mipmap.promotion_highlight, R.string.message_promote))
                 .addItem(VerticalTabItem(this, R.mipmap.icon_leftnav_news_deafult, R.mipmap.icon_leftnav_news_selected, R.string.message_notify))
-                .addItem(VerticalTabItem(this, R.mipmap.icon_leftnav_market_default, R.mipmap.icon_leftnav_market_selected, R.string.market_service))
+//                .addItem(VerticalTabItem(this, R.mipmap.icon_leftnav_market_default, R.mipmap.icon_leftnav_market_selected, R.string.market_service))
                 .addItem(VerticalTabItem(this, R.mipmap.icon_leftnav_set_default, R.mipmap.icon_leftnav_set_selected, R.string.setting))
 
         main_tab_bar.setOnTabSelectedListener { position, prePosition ->

@@ -100,6 +100,8 @@ class MsgDto {
         val TYPE_PROPERTY = "1"//物业消息
         val TYPE_NOTIFY = "2"//社区公告
         val TYPE_SYSTEM = "0"//系统通知
+        val TYPE_ORDER = "3"
+        val TYPE_GOV = "4"
 
         //    SY("系统通知"),
         //    WY("物业通知"),

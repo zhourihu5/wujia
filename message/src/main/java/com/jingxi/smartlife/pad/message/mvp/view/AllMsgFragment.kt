@@ -187,6 +187,8 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
         const val MSG_TYPE_PROPERTY: String="1"
         const val MSG_TYPE_COMMUNITY: String="2"
         const val  MSG_TYPE_SYSTEM: String = "0"
+        const val  MSG_TYPE_ORDER: String = "4"
+        const val  MSG_TYPE_GOV: String = "3"
         private val KEY_TYPE = "type"
 
         fun newInstance(): AllMsgFragment {

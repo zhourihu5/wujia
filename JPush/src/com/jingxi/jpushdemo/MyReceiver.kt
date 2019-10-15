@@ -152,6 +152,9 @@ class MyReceiver : BroadcastReceiver() {
                     }
                 }
             }
+            TYPE_GRB->{//团购
+                EventBusUtil.post(EventGroupBuy())
+            }
         }
     }
 
@@ -162,6 +165,7 @@ class MyReceiver : BroadcastReceiver() {
         val TYPE_ADV = "ADV"
         val TYPE_SYS = "SYS"
         val TYPE_MARKET = "MARKET"//TODO 服务
+        val TYPE_GRB="GRB"//团购
 
         private val TAG = "JIGUANG-Example"
 

@@ -43,6 +43,7 @@
     <string name="property_service">物业服务</string>
     <string name="market_service">服务市场</string>
     <string name="message_notify">消息通知</string>
+    <string name="message_promote">促销活动</string>
     <string name="neighbor">邻里</string>
     <string name="setting">设置</string>
     <string name="press_again_exit">再按一次退出应用</string>
@@ -152,6 +153,8 @@
     <string name="connection_service">联系物业</string>
     <string name="shequ_notify">社区公告</string>
     <string name="app_notify">应用提醒</string>
+    <string name="gov_notify">政务通知</string>
+    <string name="order_notify">订单消息</string>
     <string name="readed">已读</string>
     <string name="unread">未读</string>
     <string name="i_know">我知道了</string>
@@ -194,6 +197,7 @@
 
     <!--物业-->
     <string name="propery_report_fix">报事报修</string>
+    <string name="community_yellow_page">社区黄页</string>
     <string name="tel_select">电话查询</string>
     <string name="send_verify_code">发送验证码</string>
 

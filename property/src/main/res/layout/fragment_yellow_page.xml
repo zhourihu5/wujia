@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="社区黄页"
+            android:textColor="#ff333333"
+            android:textSize="16sp"
+            android:paddingTop="43dp"
+            android:paddingLeft="43dp"
+            android:paddingBottom="21dp"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvYellowPg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="43dp"
+            android:layout_marginRight="43dp"
+            android:background="@drawable/bg_white_radius_shape"
+
+            />
+
+
+</LinearLayout>

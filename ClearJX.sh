@@ -2,8 +2,8 @@
 
 adb disconnect
 #modify by your ip
-adb connect 192.168.1.117:5555
-
+adb connect 192.168.250.89:5555
+#
 adb root
 adb remount
 adb shell rm -rf system/app/kxlaucher
@@ -24,5 +24,5 @@ adb push Whitelist.dat  /metadata/mConfig/properties/Whitelist.dat
 adb shell chmod 777 /metadata/mConfig/properties/Whitelist.dat
 
 #modify by your path
-adb install app/build/outputs/apk/release/wujia_release_c1_v1.0.2-20190712_1637.apk
+adb install app/build/outputs/apk/release/wujia_release_c2_v1.2.9-20191010_1850.apk
 #pause

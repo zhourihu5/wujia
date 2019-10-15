@@ -31,6 +31,8 @@ class HomeNotifyAdapter(context: Context, datas: List<MsgDto.ContentBean>) : Com
             item.type == MsgDto.TYPE_NOTIFY -> res = R.mipmap.ic_msg_label_neighbour2
             item.type == MsgDto.TYPE_PROPERTY -> res = R.mipmap.ic_msg_label_serve2
             item.type == MsgDto.TYPE_SYSTEM -> res = R.mipmap.icon_msg_label_system
+            item.type == MsgDto.TYPE_ORDER -> res = R.mipmap.icon_msg_label_order
+            item.type == MsgDto.TYPE_GOV -> res = R.mipmap.icon_msg_label_gov
         }
         titleTv.setCompoundDrawablesWithIntrinsicBounds(0, 0, res, 0)
     }
