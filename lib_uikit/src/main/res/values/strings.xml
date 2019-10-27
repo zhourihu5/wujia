@@ -152,7 +152,7 @@
     <string name="wuye_notify">物业通知</string>
     <string name="connection_service">联系物业</string>
     <string name="shequ_notify">社区公告</string>
-    <string name="app_notify">应用提醒</string>
+    <string name="app_notify">系统通知</string>
     <string name="gov_notify">政务通知</string>
     <string name="order_notify">订单消息</string>
     <string name="readed">已读</string>

@@ -24,8 +24,5 @@ object LoginUtil {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
-
-
 }

@@ -128,7 +128,7 @@
                     android:maxLength="11"
                     android:paddingLeft="@dimen/px150"
                     android:singleLine="true"
-                    tools:text="17712239874"
+                    android:text="15010778077"
                     android:textColor="@color/c3"
                     android:textColorHint="@color/c3"
                     android:textSize="@dimen/text24" />
@@ -180,7 +180,7 @@
                     android:maxLength="20"
                     android:paddingLeft="@dimen/px150"
                     android:singleLine="true"
-                    tools:text="jingxikeji"
+                    android:text="111111"
                     android:textColor="@color/c3"
                     android:textColorHint="@color/c3"
                     android:textSize="@dimen/text24" />

@@ -6,15 +6,13 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.os.IBinder
 import android.os.PowerManager
 import android.text.TextUtils
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.intercom.sdk.IntercomConstants
-import com.intercom.sdk.SecurityMessage
-import com.intercom.sdk.SmartHomeManager
 import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.family.FamilyFragment
 import com.jingxi.smartlife.pad.family.mvp.FamilyHomeFragment
@@ -29,17 +27,16 @@ import com.jingxi.smartlife.pad.property.mvp.ProperyHomeFragment
 import com.jingxi.smartlife.pad.safe.SafeFragment
 import com.jingxi.smartlife.pad.safe.mvp.SafeHomeFragment
 import com.jingxi.smartlife.pad.safe.mvp.view.VideoCallActivity
-import com.jingxi.smartlife.pad.sdk.JXPadSdk
-import com.jingxi.smartlife.pad.sdk.doorAccess.DoorAccessManager
-import com.jingxi.smartlife.pad.sdk.doorAccess.base.DoorSecurityUtil
-import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessListener
 import com.sipphone.sdk.SipCoreManager
 import com.sipphone.sdk.SipService
 import com.wujia.businesslib.TabFragment
 import com.wujia.businesslib.base.DataManager
 import com.wujia.businesslib.base.MvpActivity
 import com.wujia.businesslib.data.ApiResponse
-import com.wujia.businesslib.event.*
+import com.wujia.businesslib.event.EventBusUtil
+import com.wujia.businesslib.event.EventMsg
+import com.wujia.businesslib.event.EventWakeup
+import com.wujia.businesslib.event.IMiessageInvoke
 import com.wujia.businesslib.model.BusModel
 import com.wujia.businesslib.util.LoginUtil
 import com.wujia.lib.widget.VerticalTabItem
@@ -59,9 +56,9 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
 import org.linphone.core.*
 
 
-class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener, DoorSecurityUtil.OnSecurityChangedListener {
+class MainActivity : MvpActivity<BasePresenter<BaseView>>() {
     override val layout: Int
-        get() =  R.layout.activity_main
+        get() = R.layout.activity_main
     private var touchTime: Long = 0  //点击返回键时间
 
 
@@ -70,7 +67,6 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
     private var arrowHeight: Int = 0
     private var lastTop: Int = 0
     private var arrowLayoutParams: RelativeLayout.LayoutParams? = null
-    private var manager: DoorAccessManager? = null
     private val eventMsg = EventMsg(object : IMiessageInvoke<EventMsg> {
         override fun eventBus(event: EventMsg) {
             setMessagePoint()
@@ -96,8 +92,8 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         }
     }
 
-
     override fun initEventAndData(savedInstanceState: Bundle?) {
+
 
         LogUtil.i("ScreenUtil.dialogWidth  " + ScreenUtil.dialogWidth)
         LogUtil.i("ScreenUtil.landscapeHeight  " + ScreenUtil.landscapeHeight)
@@ -116,7 +112,9 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         }
         initTab()
         initLockService()
-        initSDKManager()
+//        initSDKManager()
+
+
         initGrant()
         setMessagePoint()
         EventBusUtil.register(eventMsg)
@@ -128,15 +126,26 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
 //            startActivity(Intent(this,VideoCallActivity::class.java))
 //        }, 2000)
 
-        if(SipService.isReady()) {
-			onServiceReady()
-		} else {
-			// 启动SipService
-			startService( Intent(android.content.Intent.ACTION_MAIN).setClass(
-					this, SipService::class.java))
-			 ServiceWaitThread().start()
-		}
+        if (SipService.isReady()) {
+            onServiceReady()
+        } else {
+            // 启动SipService
+            startService(Intent(android.content.Intent.ACTION_MAIN).setClass(
+                    this, SipService::class.java))
+            ServiceWaitThread().start()
+        }
+//        var lockNumber: String? = DataManager.sip!!.sipAddr
+//        var lockDisplayName: String? = DataManager.sip!!.sipDisplayname
+//
+//        try {
+//            SipCoreManager.getInstance().newOutgoingCall(lockNumber, lockDisplayName)
+//        } catch (e: LinphoneCoreException) {
+//            SipCoreManager.getInstance().terminateCall()
+//            LogUtil.e("呼出时异常")
+//            e.printStackTrace()
+//        }
     }
+
     /**
      * SipService启动之后，设置有呼叫时，启动的Activity，并启动应用程序主界面
      */
@@ -146,7 +155,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         var mListener = object : LinphoneCoreListenerBase() {
             override fun registrationState(lc: LinphoneCore?, proxy: LinphoneProxyConfig?,
                                            state: LinphoneCore.RegistrationState?, smessage: String?) {
-                LogUtil.e( "registrationState state = " + state!!.toString() + " message = " + smessage)
+                LogUtil.e("onServiceReady registrationState state = " + state!!.toString() + " message = " + smessage)
                 // 清除账号的注册状态，显示未注册?
                 if (state == LinphoneCore.RegistrationState.RegistrationCleared) {
                     if (lc != null) {
@@ -159,7 +168,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
                 }
 
                 // 如果是新配置的Proxy，并且使用这个proxy注册失败了，那么这里会给出失败的原因
-                if (state == LinphoneCore.RegistrationState.RegistrationFailed ) {
+                if (state == LinphoneCore.RegistrationState.RegistrationFailed) {
                     if (proxy!!.error === Reason.BadCredentials) {
                         displayCustomToast(getString(R.string.error_bad_credentials), Toast.LENGTH_LONG)
                     }
@@ -173,10 +182,13 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
             }
 
             override fun callState(lc: LinphoneCore?, call: LinphoneCall?, state: LinphoneCall.State?, message: String?) {
-                LogUtil.e( " callState = ${state},message=${message}" )
+                LogUtil.e("onServiceReady callState = ${state},message=${message}")
                 if (state === LinphoneCall.State.IncomingReceived) {    // 启动CallIncomingActivity
-                    if(!VideoCallActivity.started){
-                        VideoCallActivity.started=true
+                    if (!VideoCallActivity.started) {
+                        VideoCallActivity.started = true
+//                        EventBusUtil.post(EventWakeup())
+                        acquireWakeLock()
+                        releaseWakeLock()
                         startActivity(Intent(this@MainActivity, VideoCallActivity::class.java))
                     }
 
@@ -185,7 +197,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
 //                    startActivity(Intent(this@MainActivity, CallOutgoingActivity::class.java))
                 } else if (state === LinphoneCall.State.CallEnd || state === LinphoneCall.State.Error || state === LinphoneCall.State.CallReleased) {
                     if (message != null && call!!.errorInfo.reason === Reason.Declined) {    // 拒接
-                        displayCustomToast(getString(R.string.error_call_declined), Toast.LENGTH_SHORT)
+//                        displayCustomToast(getString(R.string.error_call_declined), Toast.LENGTH_SHORT)
                     } else if (message != null && call!!.reason === Reason.NotFound) {    // 呼叫用户不存在
                         displayCustomToast(getString(R.string.error_user_not_found), Toast.LENGTH_SHORT)
                     } else if (message != null && call!!.reason === Reason.Media) {    // 媒体不兼容，不能建立会话
@@ -203,7 +215,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
     }
 
     private fun displayCustomToast(string: String, lengthLong: Int) {
-        ToastUtil.showShort(this,string)
+        ToastUtil.showShort(this, string)
     }
 
     /**
@@ -220,7 +232,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
                 }
 
             }
-           runOnUiThread { onServiceReady() }
+            runOnUiThread { onServiceReady() }
         }
     }
 
@@ -311,29 +323,13 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
                 object : PermissionsResultAction() {
                     override fun onGranted() {
                     }
+
                     override fun onDenied(permission: String) {
                         showToast("未获得相应权限")
                     }
                 })
     }
 
-    private fun initSDKManager() {
-        manager = JXPadSdk.getDoorAccessManager()
-        manager!!.setDoorAccessListener(this)
-        var dockeKey=""
-        val buttonKey:String?
-        try {
-             dockeKey = DataManager.dockKey
-            buttonKey= DataManager.buttonKey
-        } catch (e: Exception) {
-            LogUtil.t("获取dockKey失败", e)
-            LoginUtil.toLoginActivity()
-            return
-        }
-        manager!!.startFamily(dockeKey, buttonKey)
-        //        manager.addSecurityListener(this);
-        //        manager.querySecurityStatus(DataManager.getFid());
-    }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(POSITION_KEY, currentTab)
@@ -349,6 +345,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         animator.start()
         lastTop = newTop
     }
+
     override fun onBackPressedSupport() {
         if (supportFragmentManager.backStackEntryCount > 1) {
             pop()
@@ -366,108 +363,19 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
         return DefaultHorizontalAnimator()
     }
 
-    override fun onRinging(sessionId: String) {
-        LogUtil.i("onRinging")
-//        acquireWakeLock()
-//        EventBusUtil.post(EventWakeup())
-//        val intent = Intent(this, VideoCallActivity::class.java)
-//        intent.putExtra(VideoCallActivity.SESSION_ID, sessionId)
-//        startActivity(intent)
-    }
-
-    override fun onUnLock(sessionID: String) {
-    }
-
-    override fun onDeviceChanged(familyID: String, isDoorDeviceOnLine: Boolean, isUnitDeviceOnline: Boolean, isPropertyDeviceOnLine: Boolean) {
-        LogUtil.i("doorOnline $isDoorDeviceOnLine unitOnline = $isUnitDeviceOnline isPropertyDeviceOnLine = $isPropertyDeviceOnLine")
-    }
-
-    override fun onBaseButtonClick(buttonKey: String, cmd: String, time: String) {//todo 底座按键回调
-        LogUtil.i(String.format("buttonKey=%s,cmd=%s,time=%s", buttonKey, cmd, time))
-        when (cmd) {
-            IntercomConstants.kButtonMonitor -> {
-                acquireWakeLock()
-                switchHomeTab(POSITION_SAFE, 0)
-            }
-            IntercomConstants.kButtonUser -> {
-                acquireWakeLock()
-                switchHomeTab(POSITION_PROPERTY, 0)
-            }
-            IntercomConstants.kButtonUnlock -> {
-                acquireWakeLock()
-                EventBusUtil.post(EventBaseButtonClick(IntercomConstants.kButtonUnlock))
-            }
-            IntercomConstants.kButtonPickup -> {
-                acquireWakeLock()
-                EventBusUtil.post(EventBaseButtonClick(IntercomConstants.kButtonPickup))
-            }
-            IntercomConstants.kButtonHumanNear -> {
-                LogUtil.i("kButtonHumanNear")
-                acquireWakeLock()
-            }
-            IntercomConstants.kButtonHumanLeav -> {
-                LogUtil.i("kButtonHumanLeav")
-                releaseWakeLock()
-            }
-            IntercomConstants.kButtonSOS -> acquireWakeLock()
-        }
-    }
-
     private fun releaseWakeLock() {
         mWakelock?.release()
     }
 
     private fun acquireWakeLock() {
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
-        if ( powerManager != null && !powerManager.isInteractive) {//灭屏时点亮
+        LogUtil.i("powerManager.isInteractive " + powerManager.isInteractive)
+        if (powerManager != null && powerManager.isInteractive) {//灭屏时点亮
             mWakelock = powerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_DIM_WAKE_LOCK, packageName) // this target for tell OS which app
-            mWakelock?.acquire(10*60*1000L /*10 minutes*/)//can not be reused,so create it every time
+            mWakelock?.acquire(10 * 60 * 1000L /*10 minutes*/)//can not be reused,so create it every time
             LogUtil.i("mWakelock.acquire")
         }
     }
-
-    override fun onProxyOnlineStateChanged(familyID: String, proxyId: String, router: Int, online: Boolean) {
-        LogUtil.i("onProxyOnlineStateChanged  familyID $familyID proxyId = $proxyId router = $router online = $online")
-        EventBusUtil.post(EventSafeState(online))
-    }
-
-    override fun onSnapshotReady(familyID: String, sessionID: String, filePath: String) {
-    }
-
-    /**
-     * 安防状态变更
-     *
-     * @param familyDockSn
-     * @param state
-     * @param isFromQuery
-     */
-    override fun onStateChanged(familyDockSn: String, state: Int, isFromQuery: Boolean) {
-        LogUtil.i("安防状态变更： $familyDockSn 状态 ： $state isFromQuery = $isFromQuery")
-        EventBusUtil.post(EventDoorDevice())
-    }
-
-    /**
-     * 安防设备报警
-     *
-     * @param familyDockSn
-     * @param stateBeans
-     * @param device
-     */
-    override fun onAlarm(familyDockSn: String, stateBeans: List<SecurityMessage.StateBean>, device: SmartHomeManager.SecurityDevice) {
-        LogUtil.i("安防设备报警 ： " + familyDockSn + " 设备 " + stateBeans[0].alias)
-
-    }
-
-    /**
-     * 安防取消报警回调
-     *
-     * @param familyDockSn
-     * @param device
-     */
-    override fun onCancelAlarm(familyDockSn: String, device: SmartHomeManager.SecurityDevice) {
-        LogUtil.i("防区解除报警 ： $familyDockSn")
-    }
-
 
     fun switchHomeTab(pos: Int, childPos: Int) {
         main_tab_bar.getChildAt(pos).performClick()
@@ -479,7 +387,8 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
             POSITION_SAFE -> tabFragment = mFragments[pos]!!.findChildFragment(SafeHomeFragment::class.java)
             POSITION_MESSAGE -> tabFragment = mFragments[pos]!!.findChildFragment(MessageHomeFragment::class.java)
         }
-        tabFragment?.switchTab(childPos)?:(mFragments[pos] as? BaseMainFragment)?.switchTab(childPos)
+        tabFragment?.switchTab(childPos)
+                ?: (mFragments[pos] as? BaseMainFragment)?.switchTab(childPos)
 //        if (null != tabFragment)
 //            tabFragment.switchTab(childPos)
 //        else {
@@ -495,8 +404,6 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
     override fun onDestroy() {
         super.onDestroy()
         EventBusUtil.unregister(eventMsg)
-//        manager?.setDoorAccessListener(null)
-        JXPadSdk.getDoorAccessManager().setDoorAccessListener(null)
         releaseWakeLock()
     }
 
@@ -504,7 +411,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>(), DoorAccessListener,
 
         const val POSITION_SAFE = 1
         const val POSITION_FAMILY = 2
-        const val POSITION_PROPERTY = 3
+        const val POSITION_PROPERTY = 2
         const val POSITION_MESSAGE = 4
         const val POSITION_MARKET = 5
 

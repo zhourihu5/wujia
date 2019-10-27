@@ -92,6 +92,7 @@ dependencies {
     implementation project(':property')
 //    implementation project(':safe')
     api project(':qst')
+//    api project(':newsafe')
     implementation project(':market')
     implementation project(':message')
 //    implementation project(':neighbor')

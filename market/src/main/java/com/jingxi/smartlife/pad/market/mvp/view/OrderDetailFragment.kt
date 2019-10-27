@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.jingxi.smartlife.pad.market.R
-import com.jingxi.smartlife.pad.market.mvp.MarketHomeFragment
+import com.jingxi.smartlife.pad.market.mvp.PromoteHomeFragment
 import com.jingxi.smartlife.pad.market.mvp.data.OrderDetailVo
 import com.jingxi.smartlife.pad.market.mvp.model.MarketModel
 import com.wujia.businesslib.TitleFragment
@@ -75,7 +75,7 @@ class OrderDetailFragment : TitleFragment() {
                     }))
                 }
                 tvGoStroll.setOnClickListener {
-                    (parentFragment?.parentFragment as MarketHomeFragment).switchTab(MarketHomeFragment.TAB_GROUP_BUY)
+                    (parentFragment?.parentFragment as PromoteHomeFragment).switchTab(0)
                     EventBusUtil.post(EventToGroupBuy())
                     pop()
                 }

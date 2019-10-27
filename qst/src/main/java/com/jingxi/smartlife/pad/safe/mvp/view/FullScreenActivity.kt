@@ -443,12 +443,14 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
             e.printStackTrace()
         }
 
-        try {
-            SipCoreManager.getInstance().newOutgoingCall(lockNumber,lockDisplayName)
-        } catch (e: Exception) {
-            SipCoreManager.getInstance().terminateCall()
-            e.printStackTrace()
-        }
+//        try {
+//            SipCoreManager.getInstance().newOutgoingCall(lockNumber,lockDisplayName)
+//        } catch (e: Exception) {
+//            SipCoreManager.getInstance().terminateCall()
+//            e.printStackTrace()
+//        }
+
+
 //        if (isSeeeionIdValid) {
 //            mDoorAccessManager!!.updateCallWindow(mSessionId, surfaceView)
 //            loadingDialog!!.dismiss()

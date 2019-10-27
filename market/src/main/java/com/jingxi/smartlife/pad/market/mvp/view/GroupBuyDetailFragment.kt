@@ -9,6 +9,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
@@ -141,8 +142,8 @@ class GroupBuyDetailFragment : TitleFragment() {
                     llGoodsFormat.addView(item)
                 }
 
+                webView.settings.layoutAlgorithm= WebSettings.LayoutAlgorithm.SINGLE_COLUMN
                 webView.loadData(response.data!!.activity.commodity.infos, "text/html; charset=UTF-8", null)
-
             }
 
             override fun onFailed(apiException: ApiException) {

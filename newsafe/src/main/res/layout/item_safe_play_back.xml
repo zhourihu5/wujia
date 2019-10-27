@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/px40"
+    android:paddingRight="@dimen/px40">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/px15"
+            android:layout_height="@dimen/px15"
+            android:visibility="gone"
+            android:background="@drawable/bg_point_red" />
+
+        <TextView
+            android:id="@+id/play_back_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px16"
+            android:text="12:00:08"
+            android:textColor="@color/c8"
+            android:textSize="@dimen/text20" />
+
+        <ImageView
+            android:id="@+id/play_back_save_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px16"
+            android:src="@mipmap/icon_save_marksmall" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/px16"
+        android:layout_marginBottom="@dimen/px35"
+        android:layout_marginLeft="@dimen/px32"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/play_back_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开门"
+            android:textColor="@color/c3"
+            android:textSize="@dimen/text24" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px20"
+            android:layout_marginRight="@dimen/px20"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="自动录像片段"
+            android:textColor="@color/c8"
+            android:textSize="@dimen/text20" />
+
+        <TextView
+            android:id="@+id/play_back_checkbox"
+            android:layout_width="@dimen/px32"
+            android:layout_height="@dimen/px32"
+            android:background="@drawable/checkbox_style"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/play_back_video_btn"
+            android:layout_width="@dimen/px32"
+            android:layout_height="@dimen/px32"
+            android:background="@mipmap/icon_save_replay" />
+    </LinearLayout>
+
+
+</LinearLayout>

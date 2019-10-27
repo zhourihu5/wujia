@@ -1,7 +1,6 @@
 package com.wujia.lib_common.base
 
 import android.app.Activity
-import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -10,7 +9,6 @@ import android.os.PowerManager
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-
 import butterknife.ButterKnife
 import butterknife.Unbinder
 import me.yokeyword.fragmentation.SupportActivity
@@ -37,7 +35,7 @@ abstract class BaseActivity : SupportActivity() {
         super.onCreate(savedInstanceState)
         currentName = javaClass.simpleName
         if (intent != null) {
-            onPrepareIntent(intent)
+//            onPrepareIntent(intent)
         }
 
         setContentView()
@@ -55,7 +53,7 @@ abstract class BaseActivity : SupportActivity() {
     }
 
 
-    protected fun onPrepareIntent(intent: Intent) {}
+//    protected fun onPrepareIntent(intent: Intent) {}
 
     protected open fun onViewCreated() {
 
@@ -97,11 +95,11 @@ abstract class BaseActivity : SupportActivity() {
 
     }
 
-    protected fun isActivityTop(cls: Class<*>, context: Context): Boolean {
-        val manager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        val name = manager.getRunningTasks(1)[0].topActivity.className
-        return name == cls.name
-    }
+//    protected fun isActivityTop(cls: Class<*>, context: Context): Boolean {
+//        val manager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+//        val name = manager.getRunningTasks(1)[0].topActivity.className
+//        return name == cls.name
+//    }
 
     protected fun <T : View> `$`(resId: Int): T {
         return super.findViewById<View>(resId) as T

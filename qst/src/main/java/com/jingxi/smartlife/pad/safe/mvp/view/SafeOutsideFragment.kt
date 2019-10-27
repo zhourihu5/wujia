@@ -10,10 +10,7 @@ import android.os.Looper
 import android.os.PowerManager
 import android.view.SurfaceView
 import android.view.View
-import com.intercom.base.ThreadUtils.runOnUiThread
 import com.jingxi.smartlife.pad.safe.R
-import com.jingxi.smartlife.pad.safe.mvp.adapter.PlayBackAdapter
-import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorRecordBean
 import com.sipphone.sdk.SipCoreManager
 import com.sipphone.sdk.SipCorePreferences
 import com.sipphone.sdk.SipCoreUtils
@@ -73,7 +70,6 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 
 
     private var isEdit = true
-    private var recAdapter: PlayBackAdapter? = null
     private var seek: Int = 0
     private var max: Int = 0
     /**
@@ -86,8 +82,8 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
      */
     private var isTouchSeek = false
     private var familyID: String? = null
-    private var recordList: MutableList<DoorRecordBean>? = null
-    private var recordBean: DoorRecordBean? = null
+//    private var recordList: MutableList<DoorRecordBean>? = null
+//    private var recordBean: DoorRecordBean? = null
     private var loadingDialog: LoadingDialog? = null
 
 
@@ -126,7 +122,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                             break
                         }
                     }
-                    LogUtil.e("isCalling=${isCalling},VideoCallActivity.started=${VideoCallActivity.started}")
+                    LogUtil.e("safeOutsideFragment isCalling=${isCalling},VideoCallActivity.started=${VideoCallActivity.started}")
                     if(!isCalling ){
                         if(!VideoCallActivity.started){
                             handler.postDelayed({
@@ -140,7 +136,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                     }
                 }
                 if (call === mCall && LinphoneCall.State.Connected === state || LinphoneCall.State.StreamsRunning === state) {
-                   LogUtil.e("mCall=="+mCall)
+                   LogUtil.e("safeOutsideFragment mCall=="+mCall)
                     val remoteParams = mCall?.getRemoteParams()
                     if (remoteParams != null && remoteParams!!.getVideoEnabled() &&
                             SipCorePreferences.instance().shouldAutomaticallyAcceptVideoRequests()) {
@@ -148,7 +144,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 
                     } else {
 //                        SPhoneHome.instance().startIncallActivity(mCall)
-                        LogUtil.e("语音电话，暂未实现")
+                        LogUtil.e("safeOutsideFragment 语音电话，暂未实现")
                     }
                     // Resume CALL状态
                     if (state === LinphoneCall.State.Resuming) {
@@ -273,28 +269,6 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         }
     }
 
-    protected fun initDoorAccessManager() {
-//        if (mDoorAccessManager == null) {
-//            mDoorAccessManager = JXPadSdk.getDoorAccessManager()
-//            mDoorAccessManager!!.setListUIListener(this)
-//            mDoorAccessManager!!.addConversationUIListener(this)
-//            mDoorAccessManager!!.addPlayBackListener(this)
-//        }
-    }
-
-
-    protected fun destroyDoorAccessManager() {
-//        mDoorAccessManager?.apply {
-//            hangupCall(mSessionId)
-//            updateCallWindow(mSessionId, null)
-//            setListUIListener(null)
-//            removeConversationUIListener(this@SafeOutsideFragment)
-//            removePlayBackListener(this@SafeOutsideFragment)
-//            LogUtil.i("destroyDoorAccessManager")
-//        }
-//        mDoorAccessManager=null
-
-    }
     private fun hangUp() {
         val lc = SipCoreManager.getLc()
         val calls = SipCoreUtils.getLinphoneCalls(SipCoreManager.getLc())
@@ -363,6 +337,8 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                 }
             }
             if(!isCalling){
+
+                //by shenbingkai
                 try {
                     if(!VideoCallActivity.started){
                         SipCoreManager.getInstance().newOutgoingCall(lockNumber,lockDisplayName)
@@ -376,39 +352,8 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         } catch (e: Exception) {
             e.printStackTrace()
         }
-//        if (isSeeeionIdValid) {
-//            mDoorAccessManager!!.updateCallWindow(mSessionId, surfaceView)
-//            loadingDialog!!.dismiss()
-//            return
-//        }
-//        val list = mDoorAccessManager!!.getDevices(familyID)
-//        for (device in list) {
-//            if (DoorDevice.TYPE_UNIT == device.myDeviceType) {
-//                mSessionId = mDoorAccessManager!!.monitor(familyID, device)
-//                LogUtil.i("SafeOutsideFragment mSessionId " + mSessionId!!)
-//
-//                mDoorAccessManager!!.updateCallWindow(mSessionId, surfaceView)
-//                return
-//            }
-//        }
     }
 
-//    private fun setHistoryList() {
-//       recordList=recordList?:ArrayList()
-////        if (null == recordList) {
-////            recordList = ArrayList()
-////        }
-//
-//        val recordBeans = mDoorAccessManager!!.getHistoryListByType(familyID, DoorRecordBean.RECORD_TYPE_DOOR, 0, 50)
-//        if (null != recordBeans && recordBeans.size > 0) {
-//            recordList!!.clear()
-//            recordList!!.addAll(recordBeans)
-//        }
-//        recAdapter = mContext?.let { PlayBackAdapter(it, recordList!!) }
-//        rv_play_back!!.adapter = recAdapter
-//        recAdapter!!.setOnItemClickListener(this)
-//
-//    }
 
     @SuppressLint("InvalidWakeLockTag")
     override fun onSupportVisible() {
@@ -417,7 +362,6 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         mWakeLock = pManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK
                 or PowerManager.ON_AFTER_RELEASE, javaClass.name)
         mWakeLock?.acquire()
-        initDoorAccessManager()
         safe_swich_live_btn!!.performClick()
         // 当对用户可见时 回调
         // 不管是 父Fragment还是子Fragment 都有效！
@@ -479,7 +423,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                 }
 
             }
-            runOnUiThread { if(isSupportVisible){
+            mActivity.runOnUiThread { if(isSupportVisible){
 
                 setVideo()
             }
@@ -570,7 +514,6 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         //如果是点击全屏导致fragment不显示，则不重置session有效性
         //        if (inVisibleType != REQUEST_CODE_FULL_LIVE && inVisibleType != REQUEST_CODE_FULL_HISTORY) {
         pausePlay()
-        destroyDoorAccessManager()
         //        }
         //        if (!isEdit && null != safe_play_rec_edit_btn) {
         //            safe_play_rec_edit_btn!!.performClick()
@@ -924,7 +867,6 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
     override fun onDestroyView() {
         super.onDestroyView()
         pausePlay()
-        destroyDoorAccessManager()
         LogUtil.i("SafeOutsideFragment onDestroyView")
         handler.removeCallbacksAndMessages(null)
     }

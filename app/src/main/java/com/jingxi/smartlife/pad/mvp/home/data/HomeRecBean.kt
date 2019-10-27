@@ -31,7 +31,7 @@ class HomeRecBean : RootResponse() {
         //        public String headImage;
 
         //        public String isShow;
-        var userCards: List<UserCards>? = null
+        var isShow: String? = null
 
         var type: String?=null
         @SerializedName("memo")
@@ -61,7 +61,6 @@ class HomeRecBean : RootResponse() {
     }
 
     class UserCards {
-        var isShow: String? = null
     }
 
     companion object {

@@ -5,7 +5,6 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 
-import com.jingxi.smartlife.pad.sdk.JXPadSdk
 import com.wujia.lib_common.utils.AppContext
 import com.wujia.lib_common.utils.SystemUtil
 
@@ -73,8 +72,8 @@ abstract class BaseApplication : Application() {
     //    }
 
     private fun initSDKManager() {
-        JXPadSdk.init(instance)
-        JXPadSdk.initDoorAccess()
+//        JXPadSdk.init(instance)
+//        JXPadSdk.initDoorAccess()
         //        JXPadSdk.initPushManager();//todo replace it by our push，原来的push APPkey等信息是写在manifest里的，
 
 

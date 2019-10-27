@@ -1,29 +1,28 @@
 package com.jingxi.smartlife.pad.safe.mvp.view
 
-//import com.jingxi.smartlife.pad.sdk.JXPadSdk
-//import com.jingxi.smartlife.pad.sdk.doorAccess.DoorAccessManager
-//import com.jingxi.smartlife.pad.sdk.doorAccess.base.DoorSessionManager
-//import com.jingxi.smartlife.pad.sdk.doorAccess.base.bean.DoorEvent
-//import com.jingxi.smartlife.pad.sdk.doorAccess.base.ui.DoorAccessConversationUI
-
-
 import android.media.AudioManager
 import android.media.SoundPool
 import android.opengl.GLSurfaceView
 import android.os.Bundle
-import android.view.Surface
+import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.View
 import android.view.WindowManager
-import com.intercom.sdk.IntercomConstants
+import android.widget.ImageView
+import android.widget.Toast
+import com.jingxi.smartlife.pad.mvp.home.contract.SafeContract
+import com.jingxi.smartlife.pad.mvp.home.contract.SafePresenter
 import com.jingxi.smartlife.pad.safe.R
 import com.sipphone.sdk.SipCoreManager
 import com.sipphone.sdk.SipCoreUtils
+import com.sipphone.sdk.access.WebKeyCaseApi
+import com.wujia.businesslib.base.DataManager
+import com.wujia.businesslib.base.MvpActivity
 import com.wujia.businesslib.dialog.LoadingDialog
 import com.wujia.businesslib.event.EventBaseButtonClick
 import com.wujia.businesslib.event.EventBusUtil
 import com.wujia.businesslib.event.IMiessageInvoke
-import com.wujia.lib_common.base.BaseActivity
+import com.wujia.lib_common.data.network.exception.ApiException
 import com.wujia.lib_common.utils.LogUtil
 import kotlinx.android.synthetic.main.activity_video_call.*
 import org.linphone.core.CallDirection
@@ -37,36 +36,38 @@ import org.linphone.mediastream.video.AndroidVideoWindowImpl
  * date ：2019-03-21
  * description ：
  */
-class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.Callback
+class VideoCallActivity : MvpActivity<SafePresenter>(), SafeContract.View, View.OnClickListener//, SurfaceHolder.Callback
 {
-    private  var mListener: LinphoneCoreListenerBase?=null
-    private  var androidVideoWindowImpl: AndroidVideoWindowImpl?=null
-    private var mCaptureView: SurfaceView?=null
-    private var mVideoView: SurfaceView?=null
+    override fun onDataLoadFailed(requestCode: Int, apiException: ApiException) {
+        if (requestCode == 100) {
+            Toast.makeText(this@VideoCallActivity, "开锁失败", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onDataLoadSucc(requestCode: Int, `object`: Any) {
+        if (requestCode == 100) {
+            SipCoreManager.getLc().sendDtmf('#')
+            hangUp()
+            Toast.makeText(this@VideoCallActivity, "开锁成功", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun createPresenter(): SafePresenter? {
+        return SafePresenter()
+    }
+
+    private var mListener: LinphoneCoreListenerBase? = null
+    private var androidVideoWindowImpl: AndroidVideoWindowImpl? = null
+    private var mCaptureView: SurfaceView? = null
+    private var mVideoView: SurfaceView? = null
+    private var mDefaultVideo: ImageView? = null
     override val layout: Int
-        get() =  R.layout.activity_video_call
-//    override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture?, width: Int, height: Int) {
-//    }
-//
-//    override fun onSurfaceTextureUpdated(surface: SurfaceTexture?) {
-//    }
-//
-//    override fun onSurfaceTextureDestroyed(surface: SurfaceTexture?): Boolean {
-//        this.surface=null
-//        manager?.updateCallWindow(sessionId,null)
-//        return true
-//    }
-//
-//    override fun onSurfaceTextureAvailable(surface: SurfaceTexture?, width: Int, height: Int) {
-//        this.surface=Surface(surface)
-//        updateSurface()
-//    }
-    var surface:Surface?=null
+        get() = R.layout.activity_video_call
+
 
     private var sessionId: String? = null
-//    private var manager: DoorAccessManager? = null
+    //    private var manager: DoorAccessManager? = null
     private var loadingDialog: LoadingDialog? = null
-
 
 
     private var btnCallFlag: Boolean = false
@@ -74,16 +75,18 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
     private var mSoundPool: SoundPool? = null
     private var sampleId: Int = 0
     private var mCurrentId: Int = 0
+    private var mWebKeyCaseApi: WebKeyCaseApi? = null
+
 
     private val eventBaseButtonClick = EventBaseButtonClick(object : IMiessageInvoke<EventBaseButtonClick> {
         override fun eventBus(event: EventBaseButtonClick) {
-            if (IntercomConstants.kButtonUnlock == event.keyCmd) {
-                onClick(btn_safe_open)
-            } else if (IntercomConstants.kButtonPickup == event.keyCmd) {
-                if (!btnCallFlag) {
-                    onClick(btnCall)
-                }
-            }
+//            if (IntercomConstants.kButtonUnlock == event.keyCmd) {
+//                onClick(btn_safe_open)
+//            } else if (IntercomConstants.kButtonPickup == event.keyCmd) {
+//                if (!btnCallFlag) {
+//                    onClick(btnCall)
+//                }
+//            }
         }
     })
     private var accepted = false
@@ -96,17 +99,17 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
 
 
     override fun initEventAndData(savedInstanceState: Bundle?) {
-        started=true
+        started = true
 //        manager = JXPadSdk.getDoorAccessManager()
 //        manager!!.addConversationUIListener(this)
 
         sessionId = intent.getStringExtra(SESSION_ID)
-        if (null == loadingDialog) {
-            loadingDialog = mContext?.let { LoadingDialog(it) }
-        }
-        loadingDialog!!.setCancelOnTouchOutside(true)
-        loadingDialog!!.setTitle("正在连接中...")
-        loadingDialog!!.show()
+//        if (null == loadingDialog) {
+//            loadingDialog = mContext?.let { LoadingDialog(it) }
+//        }
+//        loadingDialog!!.setCancelOnTouchOutside(true)
+//        loadingDialog!!.setTitle("正在连接中...")
+//        loadingDialog!!.show()
 
 
         mSoundPool = SoundPool(1, AudioManager.STREAM_VOICE_CALL, 0)
@@ -124,19 +127,20 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
 
         mListener = object : LinphoneCoreListenerBase() {
             override fun callState(lc: LinphoneCore?, call: LinphoneCall?, state: LinphoneCall.State?, message: String?) {
-                LogUtil.e( "${javaClass.simpleName} registrationState state = " + state!!.toString() + " message = " + message)
-                if(call?.direction=== CallDirection.Incoming&&state=== LinphoneCall.State.CallEnd) {
+                LogUtil.e("${javaClass.simpleName} registrationState state = " + state!!.toString() + " message = " + message)
+                if (call?.direction === CallDirection.Incoming && state === LinphoneCall.State.CallEnd) {
                     finish()
                 }
             }
         }
 
-        mVideoView =surfaceView
-//		mCaptureView = (SurfaceView) view.findViewById(R.id.videoCaptureSurface);
-//		mCaptureView.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS); // Warning useless because value is ignored and automatically set by new APIs.
+        mVideoView = surfaceView
+        mCaptureView = preview
+        mCaptureView!!.holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS) // Warning useless because value is ignored and automatically set by new APIs.
+        mDefaultVideo = defaule_video
 
         try {
-            fixZOrder(mVideoView, null)
+            fixZOrder(mVideoView, mCaptureView)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -164,7 +168,32 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
             }
         })
 
+
+//        //创建开锁api
+//        mWebKeyCaseApi = WebKeyCaseApi(this)
+//        mWebKeyCaseApi!!.setOnKeyCaseListener(object : WebKeyCaseApi.onKeyCaseListener {
+//            override fun onPreUnlock() {}
+//
+//            override fun onPostUnlock(reponse: WebReponse?) {
+//                if (reponse != null && reponse.statusCode == 200) {
+//                    Toast.makeText(this@VideoCallActivity, "开锁成功", Toast.LENGTH_LONG).show()
+//                } else {
+//                    Toast.makeText(this@VideoCallActivity, "开锁失败", Toast.LENGTH_LONG).show()
+//                }
+//            }
+//
+//            override fun onPreKeyCase() {}
+//
+//            override fun onKeyCaseFinish(keyInfos: List<KeyInfo>?) {
+//
+//            }
+//
+//            override fun onPostKeyCase(reponse: WebReponse?) {
+//            }
+//        })
+//
     }
+
     public override fun onResume() {
         super.onResume()
         val lc = SipCoreManager.getLcIfManagerNotDestroyedOrNull()
@@ -185,7 +214,10 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
             SipCoreManager.getLc().currentCall.setListener(object : LinphoneCall.LinphoneCallListener {
                 override fun onNextVideoFrameDecoded(linphoneCall: LinphoneCall) {
                     surface_foreground!!.visibility = View.GONE
-                    loadingDialog?.dismiss()
+//                    loadingDialog?.dismiss()
+                    mDefaultVideo?.visibility = View.GONE
+                    mCaptureView?.visibility = View.GONE
+
                     // 第一帧视频解码成功后，可以调用下面的接口，停止本地视频的发送
                     //					SipCoreManager.getInstance().stopLocalVideo(true);
                 }
@@ -215,6 +247,7 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
     private fun isVideoEnabled(call: LinphoneCall?): Boolean {
         return call?.currentParamsCopy?.videoEnabled ?: false
     }
+
     public override fun onPause() {
 //        val lc = SipCoreManager.getLcIfManagerNotDestroyedOrNull()
 //        lc?.removeListener(mListener)
@@ -241,6 +274,7 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
         preview?.setZOrderOnTop(true)
         preview?.setZOrderMediaOverlay(true) // Needed to be able to display control layout over
     }
+
     internal fun startRing() {
         stopRing()
         mCurrentId = mSoundPool!!.play(sampleId, 1f, 1f, 1, -1, 1f)
@@ -279,9 +313,14 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
             btnCallFlag = !btnCallFlag
         } else if (v.id == R.id.btn_safe_open) {//开门
             stopRing()
-            acceptCall()
+
+//            val displayName = DataManager.sip!!.sipAddr
+//            displayName!!.substring(1)
+//            LogUtil.i("displayName " + displayName)
+//            mWebKeyCaseApi!!.openDoor("T0001", "CE6E92A0-47DE-474C-9588-0843C5BAC7EE", "15010778077", displayName)
 //            manager!!.openDoor(sessionId)
-            SipCoreManager.getLc().sendDtmf('#')
+
+            openDoor()
 //            hangUp()
 //            finish()
         } else if (v.id == R.id.btn_safe_refresh) {//refresh
@@ -291,11 +330,18 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
             finish()
         }
     }
+
+    private fun openDoor() {
+        var fid = DataManager.user.userInfo!!.fid
+        mPresenter!!.openDoor(fid!!)
+
+    }
+
     private fun hangUp() {
         val lc = SipCoreManager.getLc()
         val calls = SipCoreUtils.getLinphoneCalls(SipCoreManager.getLc())
         for (call in calls) {
-            if(call.direction== CallDirection.Incoming) {
+            if (call.direction == CallDirection.Incoming) {
                 lc.terminateCall(call)
 //                mCall = call
 //                break
@@ -318,7 +364,7 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
 
         val calls = SipCoreUtils.getLinphoneCalls(SipCoreManager.getLc())
         for (call in calls) {
-            if(call.direction== CallDirection.Incoming) {
+            if (call.direction == CallDirection.Incoming) {
                 lCore.acceptCall(call)
 //                mCall = call
 //                break
@@ -342,11 +388,11 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
 //        manager!!.hangupCall(sessionId)
         hangUp()
         super.finish()
-        started=false
+        started = false
     }
 
     override fun onDestroy() {
-        started=false
+        started = false
         LogUtil.i("onDestroy")
         super.onDestroy()
 //        manager?.apply{
@@ -384,9 +430,9 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
 
     fun updateSurface() {
 //        manager!!.updateCallWindow(sessionId, surfaceView)
-        surface_foreground.visibility=View.VISIBLE
+        surface_foreground.visibility = View.VISIBLE
 //        manager!!.updateCallWindow(sessionId, surface)
-        surface_foreground.postDelayed({surface_foreground.visibility=View.GONE},500)
+        surface_foreground.postDelayed({ surface_foreground.visibility = View.GONE }, 500)
     }
 
 //    override fun startTransPort(sessionID: String) {
@@ -421,10 +467,10 @@ class VideoCallActivity : BaseActivity(), View.OnClickListener//, SurfaceHolder.
 //    }
 
 
-    companion object{
-        const val SESSION_ID="sessionId"
+    companion object {
+        const val SESSION_ID = "sessionId"
         @Volatile
-        var started:Boolean=false
+        var started: Boolean = false
     }
 }
 

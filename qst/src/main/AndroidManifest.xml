@@ -34,17 +34,17 @@
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
 
     <application>
-        <!--<activity-->
-        <!--android:name="com.jingxi.smartlife.pad.safe.mvp.view.FullScreenLiveActivity"-->
-        <!--android:screenOrientation="landscape" />-->
+<!--        <activity-->
+<!--            android:name="com.jingxi.smartlife.pad.safe.mvp.view.FullScreenLiveActivity"-->
+<!--            android:screenOrientation="landscape" />-->
         <activity
             android:name="com.jingxi.smartlife.pad.safe.mvp.view.FullScreenActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.jingxi.smartlife.pad.safe.mvp.view.VideoCallActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.ActivityDialogStyle"
-            android:launchMode="singleTop"/>
+            android:theme="@style/Theme.ActivityDialogStyle" />
 
 
 

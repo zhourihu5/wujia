@@ -57,10 +57,11 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 
     }
 
-    @OnClick(R.id.login_btn, R.id.login_btn_confim, R.id.login_password_visibility, R.id.login_verify_code_btn)
+    @OnClick(R.id.login_btn, R.id.login_btn_confim,  R.id.login_password_visibility, R.id.login_verify_code_btn)
     fun onViewClicked(view: View) {
         when (view.id) {
             R.id.login_btn -> login()
+
             R.id.login_btn_confim -> {
                 toActivity(MainActivity::class.java)
                 finish()

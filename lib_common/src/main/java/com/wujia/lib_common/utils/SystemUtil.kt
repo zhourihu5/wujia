@@ -42,6 +42,6 @@ object SystemUtil {
         }
         return serialNum
         //        return "HS1JXY6M12D2900034";
-        //        return "GB8ZAJFKZE";
+//                return "GB8ZAJFKZE";
     }
 }

@@ -18,15 +18,13 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="match_parent">
 
-<!--            <SurfaceView-->
+            <!--            <SurfaceView-->
             <org.linphone.mediastream.video.display.GL2JNIView
                 android:id="@+id/surfaceView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                 />
+                android:layout_height="match_parent" />
 
 
             <LinearLayout
@@ -154,10 +152,10 @@
                 app:button_press="@mipmap/btn_safe_sosbig_pressed" />
 
             <com.wujia.lib.widget.WJButton
-
                 android:id="@+id/safe_btn_refresh"
                 style="@style/SafeIconBtnStyle"
                 android:text="@string/refresh"
+                android:visibility="gone"
                 app:button_mode="TOP"
                 app:button_normal="@mipmap/btn_safe_refreshbig"
                 app:button_press="@mipmap/btn_safe_refreshbig_pressed" />
@@ -166,15 +164,16 @@
                 android:id="@+id/safe_btn_mute"
                 style="@style/SafeIconBtnStyle"
                 android:text="@string/mute"
+                android:visibility="gone"
                 app:button_mode="TOP"
                 app:button_normal="@mipmap/btn_safe_mutebig"
-                app:button_press="@mipmap/btn_safe_mutebig_pressed"
-                android:visibility="gone"/>
+                app:button_press="@mipmap/btn_safe_mutebig_pressed" />
 
             <com.wujia.lib.widget.WJButton
                 android:id="@+id/safe_btn_full"
                 style="@style/SafeIconBtnStyle"
                 android:text="@string/full_screen"
+                android:visibility="gone"
                 app:button_mode="TOP"
                 app:button_normal="@mipmap/btn_safe_fullscreenbig"
                 app:button_press="@mipmap/btn_safe_fullscreenbig_pressed" />
@@ -184,86 +183,86 @@
     </LinearLayout>
 
     <!--回放记录-->
-<!--    <LinearLayout-->
-<!--        android:layout_width="@dimen/px460"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_marginLeft="@dimen/px40"-->
-<!--        android:background="@color/white"-->
-<!--        android:orientation="vertical">-->
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="@dimen/px460"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_marginLeft="@dimen/px40"-->
+    <!--        android:background="@color/white"-->
+    <!--        android:orientation="vertical">-->
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="@dimen/px40"-->
-<!--            android:layout_marginTop="@dimen/px48"-->
-<!--            android:layout_marginRight="@dimen/px40"-->
-<!--            android:gravity="center_vertical"-->
-<!--            android:orientation="horizontal">-->
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginLeft="@dimen/px40"-->
+    <!--            android:layout_marginTop="@dimen/px48"-->
+    <!--            android:layout_marginRight="@dimen/px40"-->
+    <!--            android:gravity="center_vertical"-->
+    <!--            android:orientation="horizontal">-->
 
-<!--            <TextView-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                android:text="@string/play_recond"-->
-<!--                android:textColor="@color/c3"-->
-<!--                android:textSize="@dimen/text32" />-->
+    <!--            <TextView-->
+    <!--                android:layout_width="0dp"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:text="@string/play_recond"-->
+    <!--                android:textColor="@color/c3"-->
+    <!--                android:textSize="@dimen/text32" />-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/safe_play_rec_edit_btn"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:gravity="center"-->
-<!--                android:paddingLeft="@dimen/px10"-->
-<!--                android:paddingRight="@dimen/px10"-->
-<!--                android:text="@string/edit"-->
-<!--                android:textColor="@color/colorAccentDark"-->
-<!--                android:textSize="@dimen/text24" />-->
-<!--        </LinearLayout>-->
+    <!--            <TextView-->
+    <!--                android:id="@+id/safe_play_rec_edit_btn"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="match_parent"-->
+    <!--                android:gravity="center"-->
+    <!--                android:paddingLeft="@dimen/px10"-->
+    <!--                android:paddingRight="@dimen/px10"-->
+    <!--                android:text="@string/edit"-->
+    <!--                android:textColor="@color/colorAccentDark"-->
+    <!--                android:textSize="@dimen/text24" />-->
+    <!--        </LinearLayout>-->
 
-<!--&lt;!&ndash;        <androidx.recyclerview.widget.RecyclerView&ndash;&gt;-->
-<!--&lt;!&ndash;            android:id="@+id/rv_play_back"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="0dp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_marginTop="@dimen/px35"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_weight="1"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:orientation="vertical"&ndash;&gt;-->
-<!--&lt;!&ndash;            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"&ndash;&gt;-->
-<!--&lt;!&ndash;            tools:listitem="@layout/item_safe_play_back" />&ndash;&gt;-->
+    <!--&lt;!&ndash;        <androidx.recyclerview.widget.RecyclerView&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:id="@+id/rv_play_back"&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:layout_height="0dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:layout_marginTop="@dimen/px35"&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:orientation="vertical"&ndash;&gt;-->
+    <!--&lt;!&ndash;            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"&ndash;&gt;-->
+    <!--&lt;!&ndash;            tools:listitem="@layout/item_safe_play_back" />&ndash;&gt;-->
 
-<!--        <View style="@style/ItemLineStyle" />-->
+    <!--        <View style="@style/ItemLineStyle" />-->
 
-<!--        <LinearLayout-->
-<!--            android:id="@+id/safe_rec_op_layout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="@dimen/px80"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:visibility="gone">-->
+    <!--        <LinearLayout-->
+    <!--            android:id="@+id/safe_rec_op_layout"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="@dimen/px80"-->
+    <!--            android:orientation="horizontal"-->
+    <!--            android:visibility="gone">-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/safe_rec_del_btn"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1"-->
-<!--                android:gravity="center"-->
-<!--                android:text="@string/delete"-->
-<!--                android:textColor="@color/cdd6767"-->
-<!--                android:textSize="@dimen/text24" />-->
+    <!--            <TextView-->
+    <!--                android:id="@+id/safe_rec_del_btn"-->
+    <!--                android:layout_width="0dp"-->
+    <!--                android:layout_height="match_parent"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:gravity="center"-->
+    <!--                android:text="@string/delete"-->
+    <!--                android:textColor="@color/cdd6767"-->
+    <!--                android:textSize="@dimen/text24" />-->
 
-<!--            <View-->
-<!--                android:layout_width="@dimen/px1"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:background="@color/line" />-->
+    <!--            <View-->
+    <!--                android:layout_width="@dimen/px1"-->
+    <!--                android:layout_height="match_parent"-->
+    <!--                android:background="@color/line" />-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/safe_rec_all_choose_btn"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1"-->
-<!--                android:gravity="center"-->
-<!--                android:text="@string/all_choose"-->
-<!--                android:textColor="@color/colorAccent"-->
-<!--                android:textSize="@dimen/text24" />-->
+    <!--            <TextView-->
+    <!--                android:id="@+id/safe_rec_all_choose_btn"-->
+    <!--                android:layout_width="0dp"-->
+    <!--                android:layout_height="match_parent"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:gravity="center"-->
+    <!--                android:text="@string/all_choose"-->
+    <!--                android:textColor="@color/colorAccent"-->
+    <!--                android:textSize="@dimen/text24" />-->
 
-<!--        </LinearLayout>-->
-<!--    </LinearLayout>-->
+    <!--        </LinearLayout>-->
+    <!--    </LinearLayout>-->
 </LinearLayout>

@@ -11,7 +11,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jingxi.smartlife.pad.market.R
-import com.jingxi.smartlife.pad.market.mvp.MarketHomeFragment
+import com.jingxi.smartlife.pad.market.mvp.PromoteHomeFragment
 import com.jingxi.smartlife.pad.market.mvp.adapter.OrderAdapter
 import com.jingxi.smartlife.pad.market.mvp.data.OrderItemVo
 import com.jingxi.smartlife.pad.market.mvp.data.OrderVo
@@ -106,11 +106,11 @@ class OrderFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.O
                 "2"->{//待配送
                 }
                 "3"->{//已收货
-                    (parentFragment?.parentFragment as MarketHomeFragment).switchTab(MarketHomeFragment.TAB_GROUP_BUY)
+                    (parentFragment?.parentFragment as PromoteHomeFragment).switchTab(0)
                     EventBusUtil.post(EventToGroupBuy())
                 }
                 "4"->{//已过期
-                    (parentFragment?.parentFragment as MarketHomeFragment).switchTab(MarketHomeFragment.TAB_GROUP_BUY)
+                    (parentFragment?.parentFragment as PromoteHomeFragment).switchTab(0)
                     EventBusUtil.post(EventToGroupBuy())
                 }
                 "5"->{//配送中
