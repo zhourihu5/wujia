@@ -24,7 +24,7 @@ class YellowPageAdapter(context: Context, datas: List<YellowPage>) : CommonAdapt
         tvPhoneName.setText(item.name + "电话")
         tvAddressName.setText(item.name + "地址")
         tvPhoneNum.setText(item.phone)
-        tvPhoneNum.setText(item.address)
+        tvAddress.setText(item.address)
 
     }
 }
