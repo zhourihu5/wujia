@@ -213,7 +213,7 @@ class VideoCallActivity : MvpActivity<SafePresenter>(), SafeContract.View, View.
         if (SipCoreManager.getLc().currentCall != null) {
             SipCoreManager.getLc().currentCall.setListener(object : LinphoneCall.LinphoneCallListener {
                 override fun onNextVideoFrameDecoded(linphoneCall: LinphoneCall) {
-                    surface_foreground!!.visibility = View.GONE
+                    surface_foreground?.visibility = View.GONE
 //                    loadingDialog?.dismiss()
                     mDefaultVideo?.visibility = View.GONE
                     mCaptureView?.visibility = View.GONE
