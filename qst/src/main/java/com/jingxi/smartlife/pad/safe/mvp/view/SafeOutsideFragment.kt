@@ -42,9 +42,7 @@ import java.util.concurrent.TimeUnit
  * description ：可视安防 外机
  */
 class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
-//        , SurfaceHolder.Callback, DoorAccessConversationUI, DoorAccessListUI
         , View.OnClickListener
-//        , MultiItemTypeAdapter.OnRVItemClickListener, SeekBar.OnSeekBarChangeListener, IntercomObserver.OnPlaybackListener
 {
     private var mWakeLock: PowerManager.WakeLock?=null
     private var mCall: LinphoneCall?=null
@@ -64,26 +62,10 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
     private var isMute: Boolean = false
     private var audioValue: Int = 0
 
-//    private var mDoorAccessManager: DoorAccessManager? = null
     private var mSessionId: String? = null
     private var playBackSessionId: String? = null
 
-
-    private var isEdit = true
-    private var seek: Int = 0
-    private var max: Int = 0
-    /**
-     * listener 中返回的value 单位是 微秒
-     */
-    private val unit = (1000 * 1000).toLong()
-
-    /**
-     * 是否在滑动进度条
-     */
-    private var isTouchSeek = false
     private var familyID: String? = null
-//    private var recordList: MutableList<DoorRecordBean>? = null
-//    private var recordBean: DoorRecordBean? = null
     private var loadingDialog: LoadingDialog? = null
 
 
@@ -159,6 +141,12 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                     if (state === LinphoneCall.State.StreamsRunning) {
                         videoPrepared()    // 显示视频通话界面
                     }
+                }else if(state=== LinphoneCall.State.Error){
+                    handler.postDelayed({
+                        if(isSupportVisible&&!VideoCallActivity.started){
+                            setVideo()
+                        }
+                    },1000 * 15)
                 }
             }
         }
@@ -431,15 +419,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         }
     }
     private fun videoPrepared() {
-//        if(true){
-//            LogUtil.e("videoPrepared")
-//            return
-//        }
         if(!SipService.isReady()) {
-            // 启动SipService
-//            context?.startService( Intent(android.content.Intent.ACTION_MAIN).setClass(
-//                    context, SipService::class.java))
-//            ServiceWaitThread().start()
             return
         }
         try {
@@ -463,7 +443,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                 override fun onNextVideoFrameDecoded(linphoneCall: LinphoneCall) {
 //                    loadingDialog?.dismiss()
                     // 第一帧视频解码成功后，可以调用下面的接口，停止本地视频的发送
-                    //					SipCoreManager.getInstance().stopLocalVideo(true);
+//                    					SipCoreManager.getInstance().stopLocalVideo(true);
                 }
 
                 override fun tmmbrReceived(linphoneCall: LinphoneCall, i: Int, i1: Int) {

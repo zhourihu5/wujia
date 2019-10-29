@@ -18,7 +18,7 @@ SIGN_PATH="/Users/shenbingkai/Documents/signApk";
 
 				adb uninstall com.jingxi.smartlife.pad
 
-				adb install APKNAME
+				adb install $APKNAME
 
 				echo "安装完成"
 

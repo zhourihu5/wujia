@@ -2,6 +2,7 @@
     <string name="app_name">吾家</string>
 
     <string name="error_unknown">未知错误</string>
+    <string name="error_busy">占线中</string>
     <string name="error_call_declined">对方拒接</string>
     <string name="error_user_not_found">用户未找到</string>
     <string name="error_incompatible_media">不兼容的媒体参数</string>

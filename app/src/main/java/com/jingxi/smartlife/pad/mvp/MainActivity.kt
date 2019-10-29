@@ -203,7 +203,8 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>() {
                     } else if (message != null && call!!.reason === Reason.Media) {    // 媒体不兼容，不能建立会话
                         displayCustomToast(getString(R.string.error_incompatible_media), Toast.LENGTH_SHORT)
                     } else if (message != null && state === LinphoneCall.State.Error) {    // 未知的错误
-                        displayCustomToast(getString(R.string.error_unknown) + " - " + message, Toast.LENGTH_SHORT)
+//                        displayCustomToast(getString(R.string.error_unknown) + " - " + message, Toast.LENGTH_SHORT)
+                        displayCustomToast(getString(R.string.error_busy),Toast.LENGTH_LONG)
                     }
                 }
             }
