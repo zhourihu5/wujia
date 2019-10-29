@@ -142,9 +142,11 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                         videoPrepared()    // 显示视频通话界面
                     }
                 }else if(state=== LinphoneCall.State.Error){
+                    LogUtil.e("safeOutsideFragment 收到error,15秒后重连")
                     handler.postDelayed({
                         if(isSupportVisible&&!VideoCallActivity.started){
-                            setVideo()
+                            LogUtil.e("safeOutsideFragment 15到了，开始重连")
+                            setVideo(false)
                         }
                     },1000 * 15)
                 }
@@ -308,7 +310,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                     e.printStackTrace()
                 }
             }
-            LogUtil.e("safeoutsidefragment setvideo VideoCallActivity.started=${VideoCallActivity.started}")
+            LogUtil.e("safeOutsideFragment setvideo VideoCallActivity.started=${VideoCallActivity.started}")
             var isCalling = false
             val lc = SipCoreManager.getLc()
             val calls = SipCoreUtils.getLinphoneCalls(SipCoreManager.getLc())
