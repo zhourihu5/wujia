@@ -19,6 +19,7 @@ repositories {
     flatDir {
         dirs 'libs'
     }
+    mavenCentral()
 }
 dependencies {
     testImplementation 'junit:junit:4.12'
@@ -32,4 +33,6 @@ dependencies {
 
 //    api (name:'sipcore-release', ext: 'aar')
     api fileTree(dir: 'libs')
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

@@ -19,6 +19,8 @@ dependencies {
 
     api fileTree(dir: 'libs', include: '*.jar')
     implementation project(':businesslib')
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 android {
@@ -56,4 +58,7 @@ android {
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
     }
+}
+repositories {
+    mavenCentral()
 }

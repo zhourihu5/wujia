@@ -41,7 +41,7 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
         get() = R.layout.activity_safe_full
     private var surfaceView: SurfaceView? = null
 //    private var mDoorAccessManager: DoorAccessManager? = null
-    private var mSessionId: String? = null
+//    private var mSessionId: String? = null
     private var btnVol: ImageView? = null
     private var btnPlay: ImageView? = null
     private var btnRefresh: ImageView? = null
@@ -80,7 +80,7 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
         btnRefresh!!.setOnClickListener(this)
 
 //        mDoorAccessManager = JXPadSdk.getDoorAccessManager()
-        mSessionId = intent.getStringExtra(Constants.INTENT_KEY_1)
+//        mSessionId = intent.getStringExtra(Constants.INTENT_KEY_1)
         isPlayback = intent.getBooleanExtra(Constants.INTENT_KEY_2, false)
 
         if (isPlayback) {

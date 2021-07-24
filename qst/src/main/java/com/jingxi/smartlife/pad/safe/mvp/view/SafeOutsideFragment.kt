@@ -19,11 +19,8 @@ import com.wujia.businesslib.base.DataManager
 import com.wujia.businesslib.base.MvpFragment
 import com.wujia.businesslib.dialog.LoadingDialog
 import com.wujia.businesslib.util.LoginUtil
-import com.wujia.lib.widget.util.ToastUtil
 import com.wujia.lib_common.base.BasePresenter
 import com.wujia.lib_common.base.BaseView
-import com.wujia.lib_common.base.Constants
-import com.wujia.lib_common.utils.AudioMngHelper
 import com.wujia.lib_common.utils.DoubleClickUtils
 import com.wujia.lib_common.utils.LogUtil
 import io.reactivex.Flowable
@@ -54,16 +51,16 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
     private var lockNumber: String?=null
     override val layoutId: Int
         get() =  R.layout.fragment_safe_outside
-    private var inVisibleType = 0//不可见时的状态，0是正常，10，20为全屏，全屏时不做复位操作；
-    private var isSeeeionIdValid: Boolean = false//防止多次刷新创建多个会话，sessionId未超时即有效
-    private var isPalyback: Boolean = false //true为回放，false为直播；
-    private var isPause: Boolean = false//回放的播放状态
-    private var audioHelper: AudioMngHelper? = null
-    private var isMute: Boolean = false
-    private var audioValue: Int = 0
+//    private var inVisibleType = 0//不可见时的状态，0是正常，10，20为全屏，全屏时不做复位操作；
+//    private var isSeeeionIdValid: Boolean = false//防止多次刷新创建多个会话，sessionId未超时即有效
+//    private var isPalyback: Boolean = false //true为回放，false为直播；
+//    private var isPause: Boolean = false//回放的播放状态
+//    private var audioHelper: AudioMngHelper? = null
+//    private var isMute: Boolean = false
+//    private var audioValue: Int = 0
 
-    private var mSessionId: String? = null
-    private var playBackSessionId: String? = null
+//    private var mSessionId: String? = null
+//    private var playBackSessionId: String? = null
 
     private var familyID: String? = null
     private var loadingDialog: LoadingDialog? = null
@@ -105,17 +102,17 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                         }
                     }
                     LogUtil.e("safeOutsideFragment isCalling=${isCalling},VideoCallActivity.started=${VideoCallActivity.started}")
-                    if(!isCalling ){
-                        if(!VideoCallActivity.started){
-                            handler.postDelayed({
-                                if(isSupportVisible&&!VideoCallActivity.started){
-                                    setVideo(true)//fixme 被挂断后重播就crash？这里会一直被回调，是递归调用了？
-                                }
-                            },1000)
-
-                        }
-
-                    }
+//                    if(!isCalling ){
+//                        if(!VideoCallActivity.started){
+//                            handler.postDelayed({
+//                                if(isSupportVisible&&!VideoCallActivity.started){
+//                                    setVideo(true)//fixme 被挂断后重播就crash？这里会一直被回调，是递归调用了？
+//                                }
+//                            },1000)
+//
+//                        }
+//
+//                    }
                 }
                 if (call === mCall && LinphoneCall.State.Connected === state || LinphoneCall.State.StreamsRunning === state) {
                    LogUtil.e("safeOutsideFragment mCall=="+mCall)
@@ -141,15 +138,16 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                     if (state === LinphoneCall.State.StreamsRunning) {
                         videoPrepared()    // 显示视频通话界面
                     }
-                }else if(state=== LinphoneCall.State.Error){
-                    LogUtil.e("safeOutsideFragment 收到error,15秒后重连")
-                    handler.postDelayed({
-                        if(isSupportVisible&&!VideoCallActivity.started){
-                            LogUtil.e("safeOutsideFragment 15到了，开始重连")
-                            setVideo(false)
-                        }
-                    },1000 * 15)
                 }
+//                else if(state=== LinphoneCall.State.Error){
+//                    LogUtil.e("safeOutsideFragment 收到error,15秒后重连")
+//                    handler.postDelayed({
+//                        if(isSupportVisible&&!VideoCallActivity.started){
+//                            LogUtil.e("safeOutsideFragment 15到了，开始重连")
+//                            setVideo(false)
+//                        }
+//                    },1000 * 15)
+//                }
             }
         }
 
@@ -202,8 +200,8 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
             return
         }
 
-        audioHelper = mContext?.let { AudioMngHelper(it) }
-        audioValue = audioHelper!!.currentVolumePercentage
+//        audioHelper = mContext?.let { AudioMngHelper(it) }
+//        audioValue = audioHelper!!.currentVolumePercentage
 
 
         safe_swich_live_btn!!.setOnClickListener(this)
@@ -226,9 +224,9 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    if (!isPalyback) {
+//                    if (!isPalyback) {
                         setDate(System.currentTimeMillis())
-                    }
+//                    }
                 })
 
 
@@ -252,11 +250,12 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
     protected fun setDate(timeInmillis: Long) {
         val dateFormat = SimpleDateFormat("MM.dd HH:mm")
         val time = dateFormat.format(Date(timeInmillis))
-        if (!isPalyback) {
-            safe_eq_title_tv!!.text = String.format("室外机 Live %s", time)
-        } else {
-            safe_eq_title_tv!!.text = String.format("回放 %s", time)
-        }
+        safe_eq_title_tv!!.text = String.format("室外机 Live %s", time)
+//        if (!isPalyback) {
+//            safe_eq_title_tv!!.text = String.format("室外机 Live %s", time)
+//        } else {
+//            safe_eq_title_tv!!.text = String.format("回放 %s", time)
+//        }
     }
 
     private fun hangUp() {
@@ -485,7 +484,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         handler.removeCallbacksAndMessages(null)
         videoInvisible()
     }
-    var isToFullScreen:Boolean=false
+//    var isToFullScreen:Boolean=false
     private fun videoInvisible() {
         if(!SipService.isReady()) {
             // 启动SipService
@@ -520,10 +519,10 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        if(isToFullScreen){
-            isToFullScreen=false
-            return
-        }
+//        if(isToFullScreen){
+//            isToFullScreen=false
+//            return
+//        }
         try {
             hangUp()
         } catch (e: Exception) {
@@ -535,7 +534,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         if (safe_btn_pause!!.visibility == View.VISIBLE) {
             safe_btn_pause!!.performClick()
         }
-        isSeeeionIdValid = false
+//        isSeeeionIdValid = false
     }
 
 //    override fun surfaceCreated(surfaceHolder: SurfaceHolder) {
@@ -645,21 +644,21 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         } else if (v.id == R.id.safe_btn_refresh) {    //刷新
             setVideo()
         } else if (v.id == R.id.safe_btn_mute) {   //静音 todo????问一下这里的逻辑
-            isMute = !isMute
+//            isMute = !isMute
             //            if(isPalyback){
             //                mDoorAccessManager.enableRemoteToLocalAudio(familyID,playBackSessionId,isMute);//不起作用，
             //            }else {
             //                mDoorAccessManager.enableRemoteToLocalAudio(familyID,mSessionId,isMute);
             //            }
-            if (isMute) {
-                audioHelper!!.setVoice100(0)//todo 音量键对安防sdk的视频播放器不起作用
-                ToastUtil.showShort(mContext!!, "已静音")
-                safe_btn_mute!!.setBackgroundImage(R.mipmap.btn_safe_mutebig_pressed, R.mipmap.btn_safe_mutebig_pressed)
-            } else {
+//            if (isMute) {
+//                audioHelper!!.setVoice100(0)//todo 音量键对安防sdk的视频播放器不起作用
+//                ToastUtil.showShort(mContext!!, "已静音")
+//                safe_btn_mute!!.setBackgroundImage(R.mipmap.btn_safe_mutebig_pressed, R.mipmap.btn_safe_mutebig_pressed)
+//            } else {
                 //                audioHelper.setVoice100(audioValue);
-                audioHelper!!.setVoice100(75)
-                safe_btn_mute!!.setBackgroundImage(R.mipmap.btn_safe_mutebig, R.mipmap.btn_safe_mutebig_pressed)
-            }
+//                audioHelper!!.setVoice100(75)
+//                safe_btn_mute!!.setBackgroundImage(R.mipmap.btn_safe_mutebig, R.mipmap.btn_safe_mutebig_pressed)
+//            }
         } else if (v.id == R.id.safe_btn_full) {   //全屏
 //            if (isPalyback) {//回放
 //                val playbackIntent = Intent(mActivity, FullScreenActivity::class.java)
@@ -676,13 +675,13 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 //                if (!isSeeeionIdValid) {//直播会话无效时不能全屏
 //                    return
 //                }
-                isToFullScreen=true
+//                isToFullScreen=true
 //                videoInvisible()
                 val liveIntent = Intent(mActivity, FullScreenActivity::class.java)
-                liveIntent.putExtra(Constants.INTENT_KEY_1, mSessionId)
-                liveIntent.putExtra(Constants.INTENT_KEY_2, isPalyback)
+//                liveIntent.putExtra(Constants.INTENT_KEY_1, mSessionId)
+//                liveIntent.putExtra(Constants.INTENT_KEY_2, isPalyback)
                 startActivity(liveIntent)
-                inVisibleType = REQUEST_CODE_FULL_LIVE
+//                inVisibleType = REQUEST_CODE_FULL_LIVE
 //            }
 
         } else if (v.id == R.id.safe_swich_live_btn) { //切回直播

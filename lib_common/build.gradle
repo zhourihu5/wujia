@@ -65,4 +65,9 @@ dependencies {
 
     api deps.rxpermission
     api 'com.github.ForgetAll:LoadingDialog:v1.0.4'
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
