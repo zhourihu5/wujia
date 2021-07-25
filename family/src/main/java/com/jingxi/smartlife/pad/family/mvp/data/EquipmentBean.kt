@@ -16,10 +16,6 @@ class EquipmentBean {
     var icon: Int = 0
     var menus: MutableList<Menu>? = null
 
-    constructor(type: EquipmentType) {
-        this.type = type
-    }
-
     constructor(type: EquipmentType, title: String, icon: Int) {
         this.type = type
         this.title = title

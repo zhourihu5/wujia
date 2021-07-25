@@ -17,7 +17,7 @@ abstract class TabFragment : BaseFragment() {
         outState.putInt(KEY_TAB_POSITION, currentTab)
     }
 
-    protected fun getCurrentTab(savedInstanceState: Bundle?) {
+    private fun getCurrentTab(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
             currentTab = savedInstanceState.getInt(KEY_TAB_POSITION, currentTab)
         }
@@ -45,13 +45,13 @@ abstract class TabFragment : BaseFragment() {
         currentTab = pos
         parentSwitchTab()
         if (mTabBar != null) {
-            mTabBar!!.getChildAt(pos).performClick()
+            mTabBar.getChildAt(pos).performClick()
         }
     }
 
     companion object {
 
-        protected val KEY_TAB_POSITION = "tabPosition"
+        protected const val KEY_TAB_POSITION = "tabPosition"
     }
 
 

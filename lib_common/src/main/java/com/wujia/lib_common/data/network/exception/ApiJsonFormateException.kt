@@ -6,4 +6,4 @@ package com.wujia.lib_common.data.network.exception
  * Description:
  */
 
-class ApiJsonFormateException(var originData: String, cause: String) : RuntimeException(cause)
+class ApiJsonFormateException(cause: String) : RuntimeException(cause)

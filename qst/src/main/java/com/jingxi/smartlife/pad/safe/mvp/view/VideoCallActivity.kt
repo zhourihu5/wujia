@@ -10,8 +10,8 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.Toast
-import com.jingxi.smartlife.pad.mvp.home.contract.SafeContract
-import com.jingxi.smartlife.pad.mvp.home.contract.SafePresenter
+import com.jingxi.smartlife.pad.safe.mvp.contract.SafeContract
+import com.jingxi.smartlife.pad.safe.mvp.contract.SafePresenter
 import com.jingxi.smartlife.pad.safe.R
 import com.sipphone.sdk.SipCoreManager
 import com.sipphone.sdk.SipCoreUtils
@@ -52,7 +52,7 @@ class VideoCallActivity : MvpActivity<SafePresenter>(), SafeContract.View, View.
         }
     }
 
-    override fun createPresenter(): SafePresenter? {
+    override fun createPresenter(): SafePresenter {
         return SafePresenter()
     }
 
@@ -66,8 +66,6 @@ class VideoCallActivity : MvpActivity<SafePresenter>(), SafeContract.View, View.
 
 
     private var sessionId: String? = null
-    //    private var manager: DoorAccessManager? = null
-    private var loadingDialog: LoadingDialog? = null
 
 
     private var btnCallFlag: Boolean = false
@@ -75,7 +73,6 @@ class VideoCallActivity : MvpActivity<SafePresenter>(), SafeContract.View, View.
     private var mSoundPool: SoundPool? = null
     private var sampleId: Int = 0
     private var mCurrentId: Int = 0
-    private var mWebKeyCaseApi: WebKeyCaseApi? = null
 
 
     private val eventBaseButtonClick = EventBaseButtonClick(object : IMiessageInvoke<EventBaseButtonClick> {
@@ -90,7 +87,7 @@ class VideoCallActivity : MvpActivity<SafePresenter>(), SafeContract.View, View.
         }
     })
     private var accepted = false
-    internal var ringStoped = false
+    private var ringStoped = false
 
     override fun setContentView() {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -275,7 +272,7 @@ class VideoCallActivity : MvpActivity<SafePresenter>(), SafeContract.View, View.
         preview?.setZOrderMediaOverlay(true) // Needed to be able to display control layout over
     }
 
-    internal fun startRing() {
+    private fun startRing() {
         stopRing()
         mCurrentId = mSoundPool!!.play(sampleId, 1f, 1f, 1, -1, 1f)
         LogUtil.i("mCurrentId==$mCurrentId")
@@ -290,7 +287,7 @@ class VideoCallActivity : MvpActivity<SafePresenter>(), SafeContract.View, View.
         ringStoped = true
     }
 
-    internal fun acceptCall() {
+    private fun acceptCall() {
         if (!accepted) {
             accepted = true
 //            manager!!.acceptCall(sessionId)
@@ -332,7 +329,7 @@ class VideoCallActivity : MvpActivity<SafePresenter>(), SafeContract.View, View.
     }
 
     private fun openDoor() {
-        var fid = DataManager.user.userInfo!!.fid
+        val fid = DataManager.user.userInfo!!.fid
         mPresenter!!.openDoor(fid!!)
 
     }
@@ -428,7 +425,7 @@ class VideoCallActivity : MvpActivity<SafePresenter>(), SafeContract.View, View.
 //    }
 
 
-    fun updateSurface() {
+    private fun updateSurface() {
 //        manager!!.updateCallWindow(sessionId, surfaceView)
         surface_foreground.visibility = View.VISIBLE
 //        manager!!.updateCallWindow(sessionId, surface)

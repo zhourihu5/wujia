@@ -2,7 +2,7 @@ package com.jingxi.smartlife.pad.property.mvp.view
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jingxi.smartlife.pad.market.mvp.model.YellowPageModel
+import com.jingxi.smartlife.pad.property.mvp.model.YellowPageModel
 import com.jingxi.smartlife.pad.property.R
 import com.jingxi.smartlife.pad.property.mvp.adapter.YellowPageAdapter
 import com.jingxi.smartlife.pad.property.mvp.data.YellowPage
@@ -34,7 +34,7 @@ class YellowPageFragment :  MvpFragment<BasePresenter<BaseView>>() {
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
-        addSubscribe(YellowPageModel().getYellowPageList(DataManager.communtityId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<YellowPage>>>(this@YellowPageFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(YellowPageModel().getYellowPageList(DataManager.communtityId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<YellowPage>>>(this@YellowPageFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<List<YellowPage>>) {
                 super.onResponse(response)
                 adapter= YellowPageAdapter(context!!,response.data!!)
@@ -44,9 +44,6 @@ class YellowPageFragment :  MvpFragment<BasePresenter<BaseView>>() {
 
             }
 
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
-            }
         }))
 
     }

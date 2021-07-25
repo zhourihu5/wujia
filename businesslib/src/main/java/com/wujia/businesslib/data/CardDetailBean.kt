@@ -15,22 +15,6 @@ class CardDetailBean {
 
     class ServicesBean {
 
-        /**
-         * category : 0
-         * cover : string
-         * createDate : 2019-06-19T11:02:59.856Z
-         * flag : 0
-         * id : 0
-         * isSubscribe : 0
-         * memo : string
-         * status : 0
-         * subscribeNum : 0
-         * title : string
-         * type : 0
-         * url : string
-         */
-
-        var category: Int = 0
         var cover: String? = null
         var createDate: String? = null
         var flag: Int = 0
@@ -38,7 +22,6 @@ class CardDetailBean {
         var isSubscribe: Int = 0
         var memo: String? = null
         var status: Int = 0
-        var subscribeNum: Int = 0
         var title: String? = null
         var type: Int = 0
         var url: String? = null
@@ -48,7 +31,7 @@ class CardDetailBean {
     companion object {
 
 
-        val TYPE_WEB = 2
-        val TYPE_NATIVE = 1
+        const val TYPE_WEB = 2
+        const val TYPE_NATIVE = 1
     }
 }

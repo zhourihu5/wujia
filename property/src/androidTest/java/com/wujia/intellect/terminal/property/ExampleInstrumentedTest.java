@@ -1,4 +1,4 @@
-package com.jingxi.smartlife.pad.property;
+package com.wujia.intellect.terminal.property;
 
 import android.content.Context;
 import androidx.test.InstrumentationRegistry;

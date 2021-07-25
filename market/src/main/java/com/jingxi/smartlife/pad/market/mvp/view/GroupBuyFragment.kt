@@ -54,11 +54,11 @@ class GroupBuyFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Horizon
         mAdapter.setClickLisner{
             holder, t, position->
             run {
-                var groupBuyDetailFragment:SupportFragment?
-                if("1".equals(t.isJoin)){
-                    groupBuyDetailFragment = GroupBuyDetailFragment2.newInstance()
+                val groupBuyDetailFragment:SupportFragment?
+                groupBuyDetailFragment = if("1" == t.isJoin){
+                    GroupBuyDetailFragment2.newInstance()
                 }else{
-                    groupBuyDetailFragment = GroupBuyDetailFragment.newInstance()
+                    GroupBuyDetailFragment.newInstance()
                 }
 
                 val bundle = Bundle()
@@ -84,16 +84,16 @@ class GroupBuyFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Horizon
 
     private fun getList(isShowLoadingDialog: Boolean) {
         isLoading = true
-        addSubscribe(MarketModel().getGroupBuyList( pageNo, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<GroupBuyVo>>(this@GroupBuyFragment, SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(MarketModel().getGroupBuyList( pageNo, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<GroupBuyVo>>(this@GroupBuyFragment, ActionConfig(isShowLoadingDialog, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<GroupBuyVo>) {
                 super.onResponse(response)
                 isLoading = false
                 swipeRefreshLayout!!.isRefreshing = false
 
                 if (pageNo == 1)
-                    datas!!.clear()
+                    datas.clear()
 
-                datas!!.addAll(response.data!!.content!!)
+                datas.addAll(response.data!!.content!!)
 
                 if (response.data!!.content!!.size<pageSize) {
                     mLoadMoreWrapper!!.setLoadMoreView(0)

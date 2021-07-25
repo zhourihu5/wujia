@@ -12,29 +12,12 @@ import cn.jpush.android.api.JPushInterface
 import java.util.regex.Pattern
 
 object ExampleUtil {
-    val PREFS_NAME = "JPUSH_EXAMPLE"
-    val PREFS_DAYS = "JPUSH_EXAMPLE_DAYS"
-    val PREFS_START_TIME = "PREFS_START_TIME"
-    val PREFS_END_TIME = "PREFS_END_TIME"
-    val KEY_APP_KEY = "JPUSH_APPKEY"
+    private const val KEY_APP_KEY = "JPUSH_APPKEY"
 
     /**
      * 只能以 “+” 或者 数字开头；后面的内容只能包含 “-” 和 数字。
      */
-    private val MOBILE_NUMBER_CHARS = "^[+0-9][-0-9]{1,}$"
-
-    fun isEmpty(s: String?): Boolean {
-        if (null == s)
-            return true
-        return if (s.length == 0) true else s.trim { it <= ' ' }.length == 0
-    }
-
-    fun isValidMobileNumber(s: String): Boolean {
-        if (TextUtils.isEmpty(s)) return true
-        val p = Pattern.compile(MOBILE_NUMBER_CHARS)
-        val m = p.matcher(s)
-        return m.matches()
-    }
+    private const val MOBILE_NUMBER_CHARS = "^[+0-9][-0-9]{1,}$"
 
     // 校验Tag Alias 只能是数字,英文字母和中文
     fun isValidTagAndAlias(s: String): Boolean {
@@ -43,42 +26,8 @@ object ExampleUtil {
         return m.matches()
     }
 
-    // 取得AppKey
-    fun getAppKey(context: Context): String? {
-        var metaData: Bundle? = null
-        var appKey: String? = null
-        try {
-            val ai = context.packageManager.getApplicationInfo(
-                    context.packageName, PackageManager.GET_META_DATA)
-            if (null != ai)
-                metaData = ai.metaData
-            if (null != metaData) {
-                appKey = metaData.getString(KEY_APP_KEY)
-                if (null == appKey || appKey.length != 24) {
-                    appKey = null
-                }
-            }
-        } catch (e: NameNotFoundException) {
-
-        }
-
-        return appKey
-    }
-
-    // 取得版本号
-    fun GetVersion(context: Context): String {
-        try {
-            val manager = context.packageManager.getPackageInfo(
-                    context.packageName, 0)
-            return manager.versionName
-        } catch (e: NameNotFoundException) {
-            return "Unknown"
-        }
-
-    }
-
     fun showToast(toast: String, context: Context) {
-        Thread(Runnable {
+        Thread({
             Looper.prepare()
             Toast.makeText(context, toast, Toast.LENGTH_SHORT).show()
             Looper.loop()
@@ -106,17 +55,6 @@ object ExampleUtil {
 //            imei
 //        }
 //    }
-
-    private fun isReadableASCII(string: CharSequence?): Boolean {
-        if (TextUtils.isEmpty(string)) return false
-        try {
-            val p = Pattern.compile("[\\x20-\\x7E]+")
-            return p.matcher(string).matches()
-        } catch (e: Throwable) {
-            return true
-        }
-
-    }
 
     fun getDeviceId(context: Context): String {
         return JPushInterface.getUdid(context)

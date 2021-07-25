@@ -54,11 +54,7 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
     private var layoutPlaybackl: LinearLayout? = null
     private var seek: Int = 0
     private var max: Int = 0
-    private val unit = (1000 * 1000).toLong()
 
-    //是否在滑动进度条
-    private var isTouchSeek = false
-    private var isSeeeionIdValid: Boolean = false
     private var loadingDialog: LoadingDialog? = null
     private var familyID: String? = null
 
@@ -145,8 +141,8 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
 //                    setVideo()
 //                }
                 if (call === mCall && LinphoneCall.State.Connected === state || LinphoneCall.State.StreamsRunning === state) {
-                    val remoteParams = mCall?.getRemoteParams()
-                    if (remoteParams != null && remoteParams!!.getVideoEnabled() &&
+                    val remoteParams = mCall?.remoteParams
+                    if (remoteParams != null && remoteParams.videoEnabled &&
                             SipCorePreferences.instance().shouldAutomaticallyAcceptVideoRequests()) {
 //                        SPhoneHome.instance().startVideoActivity(mCall)
 
@@ -158,7 +154,7 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
                     if (state === LinphoneCall.State.Resuming) {
                         // 检查是否为视频通话
                         if (SipCorePreferences.instance().isVideoEnabled) {
-                            if (call?.getCurrentParamsCopy()!!.videoEnabled) {
+                            if (call?.currentParamsCopy!!.videoEnabled) {
                                 videoPrepared()    // 显示视频通话界面
                             }
                         }
@@ -227,7 +223,7 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
         preview?.setZOrderOnTop(true)
         preview?.setZOrderMediaOverlay(true) // Needed to be able to display control layout over
     }
-    fun videoVisible(){
+    private fun videoVisible(){
         if(!SipService.isReady()) {
             // 启动SipService
 //            context?.startService( Intent(android.content.Intent.ACTION_MAIN).setClass(
@@ -404,7 +400,7 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
         override fun run() {
             while (!SipService.isReady()) {
                 try {
-                    Thread.sleep(30)
+                    sleep(30)
                 } catch (e: InterruptedException) {
                     throw RuntimeException("waiting thread sleep() " + "has been interrupted")
                 }
@@ -428,7 +424,7 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
         loadingDialog!!.show()
         if(!SipService.isReady()) {
             // 启动SipService
-            startService( Intent(android.content.Intent.ACTION_MAIN).setClass(
+            startService( Intent(Intent.ACTION_MAIN).setClass(
                     this, SipService::class.java))
             ServiceWaitThread().start()
             return
@@ -563,32 +559,18 @@ class FullScreenActivity : BaseActivity(), View.OnClickListener
 
         val mstr: String
         val sstr: String
-        if (m < 10) {
-            mstr = "0$m"
+        mstr = if (m < 10) {
+            "0$m"
         } else {
-            mstr = m.toString()
+            m.toString()
         }
-        if (s < 10) {
-            sstr = "0$s"
+        sstr = if (s < 10) {
+            "0$s"
         } else {
-            sstr = s.toString()
+            s.toString()
         }
 
         return "$mstr:$sstr"
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-//        if (isPlayback) {
-//            mDoorAccessManager!!.updatePlayBackWindow(mSessionId, null)
-//            mDoorAccessManager!!.pausePlayBack(mSessionId)
-//        } else {
-//            mDoorAccessManager!!.updateCallWindow(mSessionId, null)
-//            mDoorAccessManager!!.hangupCall(mSessionId)
-//        }
-//        surfaceView!!.holder.removeCallback(this)
-//        DoorAccessManager.getInstance().removeConversationUIListener(this)
-//        DoorAccessManager.getInstance().removePlayBackListener(this)
-
-    }
 }

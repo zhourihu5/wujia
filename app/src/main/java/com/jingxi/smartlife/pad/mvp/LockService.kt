@@ -219,7 +219,7 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
             return
         }
 
-        mCompositeDisposable.add(BusModel().getTop3UnReadMsg(familyId!!)!!.subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this@LockService, ActionConfig(false, SHOWERRORMESSAGE)) {
+        mCompositeDisposable.add(BusModel().getTop3UnReadMsg(familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this@LockService, ActionConfig(false, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<List<MsgDto.ContentBean>>) {
                 super.onResponse(response)
                 val notifys = response.data

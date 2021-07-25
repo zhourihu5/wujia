@@ -79,6 +79,5 @@ class ProgressDataFetcher(private val url: String, private val proListener: Prog
 
     companion object {
 
-        private val TAG = "ProgressDataFetcher"
     }
 }

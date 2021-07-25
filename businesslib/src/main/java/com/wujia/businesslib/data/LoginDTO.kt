@@ -97,27 +97,6 @@ class LoginDTO : RootResponse() {
             var fid: String? = null
         }
 
-        class AuthorityListBean : Serializable {
-            /**
-             * component : string
-             * id : 0
-             * meta : {}
-             * name : string
-             * path : string
-             * pid : 0
-             * redirect : string
-             */
-
-            var component: String? = null
-            var id: Int = 0
-            var meta: MetaBean? = null
-            var name: String? = null
-            var path: String? = null
-            var pid: Int = 0
-            var redirect: String? = null
-
-            class MetaBean
-        }
     }
 
 

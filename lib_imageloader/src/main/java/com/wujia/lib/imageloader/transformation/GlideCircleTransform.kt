@@ -7,6 +7,7 @@ import android.graphics.*
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.wujia.lib.imageloader.ImageLoaderUtils
+import kotlin.math.min
 
 class GlideCircleTransform : BitmapTransformation {
 
@@ -18,7 +19,7 @@ class GlideCircleTransform : BitmapTransformation {
     private var width = 0
     private var borderColor = 0
 
-    constructor(context: Context) : super(context) {}
+    constructor(context: Context) : super(context)
 
     constructor(context: Context, borderWidth: Float, borderColor: Int) : super(context) {
         mBorderWidth = Resources.getSystem().displayMetrics.density * borderWidth
@@ -68,13 +69,13 @@ class GlideCircleTransform : BitmapTransformation {
     private fun circleCrop(pool: BitmapPool, source: Bitmap?): Bitmap? {
         if (source == null) return null
 
-        val size = (Math.min(source.width, source.height) - mBorderWidth / 2).toInt()
+        val size = (min(source.width, source.height) - mBorderWidth / 2).toInt()
         val x = (source.width - size) / 2
         val y: Int
-        if (isTop) {
-            y = 0
+        y = if (isTop) {
+            0
         } else {
-            y = (source.height - size) / 2
+            (source.height - size) / 2
         }
         // TODO this could be acquired from the pool too
         val squared = Bitmap.createBitmap(source, x, y, size, size)
@@ -115,7 +116,7 @@ class GlideCircleTransform : BitmapTransformation {
     }
 
     //把头像保存成圆形图片
-    fun makeRoundCorner(bitmap: Bitmap, px: Int, borderColor: Int): Bitmap {
+    private fun makeRoundCorner(bitmap: Bitmap, px: Int, borderColor: Int): Bitmap {
         var bitmap = bitmap
         val output = Bitmap.createBitmap(px, px, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(output)

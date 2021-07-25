@@ -1,7 +1,6 @@
-package com.jingxi.smartlife.pad.market.mvp.model
+package com.jingxi.smartlife.pad.property.mvp.model
 
 import com.jingxi.smartlife.pad.property.mvp.data.YellowPage
-import com.jingxi.smartlife.pad.property.mvp.model.YellowPageService
 import com.wujia.businesslib.base.BaseModel
 import com.wujia.businesslib.data.ApiResponse
 import com.wujia.lib_common.data.network.RxUtil

@@ -16,7 +16,7 @@ versions.glide_transformations = "2.0.2"
 versions.rxpermission = "0.9.5"
 
 versions.kotlin_stdlib_jdk = 'kotlin-stdlib'
-versions.kotlinVersion = '1.5.10'
+versions.kotlinVersion = '1.5.21'
 versions.coroutinesVersion = "1.1.1"
 versions.navigationVersion = '2.0.0'
 
@@ -68,7 +68,7 @@ ext.deps = deps
 
 def build_versions = [:]
 build_versions.min_sdk = 23
-build_versions.target_sdk = 28
+build_versions.target_sdk = 30
 build_versions.build_tools = "28.0.3"
 ext.build_versions = build_versions
 

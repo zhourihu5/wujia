@@ -12,7 +12,6 @@ import java.lang.ref.WeakReference
 import java.util.concurrent.atomic.AtomicInteger
 
 abstract class BaseApplication : Application() {
-    internal var TAG = "wujia"
 
     override fun onCreate() {
         super.onCreate()
@@ -23,8 +22,8 @@ abstract class BaseApplication : Application() {
         SystemUtil.init()
 
 
-        registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
-            internal var mFinalCount = AtomicInteger(0)
+        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+            var mFinalCount = AtomicInteger(0)
 
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 currentActivity = WeakReference(activity)

@@ -237,7 +237,7 @@ class HomeHomeFragment : MvpFragment<HomePresenter>(), HomeContract.View {
     fun onViewClicked(view: View) {
         when (view.id) {
             R.id.home_chat_btn -> ToastUtil.showShort(mContext, getString(R.string.chat_is_developing))
-            R.id.home_member_add_btn -> memAdapter!!.datas?.let {
+            R.id.home_member_add_btn -> memAdapter!!.datas.let {
                 AddMemberDialog(mActivity, it).setListener(object : OnInputDialogListener {
                     override fun dialogSureClick(input: String) {
                         var familyId: String? = null

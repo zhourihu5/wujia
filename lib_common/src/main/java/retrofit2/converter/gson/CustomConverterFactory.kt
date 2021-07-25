@@ -22,7 +22,7 @@ class CustomConverterFactory private constructor(private val gson: Gson) : Conve
     override fun responseBodyConverter(type: Type, annotations: Array<Annotation>, retrofit: Retrofit): Converter<ResponseBody, *> {
         val adapter = gson.getAdapter(TypeToken.get(type))
         // attention here!
-        return CustomResponseConverter(gson, adapter)
+        return CustomResponseConverter(adapter)
     }
 
     override fun requestBodyConverter(type: Type, parameterAnnotations: Array<Annotation>, methodAnnotations: Array<Annotation>, retrofit: Retrofit): Converter<*, RequestBody> {
@@ -30,21 +30,18 @@ class CustomConverterFactory private constructor(private val gson: Gson) : Conve
         return GsonRequestBodyConverter(gson, adapter)
     }
 
-    internal inner class CustomResponseConverter<T>(private val gson: Gson, private val adapter: TypeAdapter<T>) : Converter<ResponseBody, T> {
+    internal inner class CustomResponseConverter<T>(private val adapter: TypeAdapter<T>) : Converter<ResponseBody, T> {
 
         @Throws(IOException::class)
         override fun convert(value: ResponseBody): T {
-            try {
+            value.use { value ->
                 val body = value.string()
                 try {
                     return adapter.fromJson(body)
                 } catch (e: JsonSyntaxException) {
                     e.printStackTrace()
-                    throw ApiJsonFormateException(body, e.message!!)
+                    throw ApiJsonFormateException(e.message!!)
                 }
-
-            } finally {
-                value.close()
             }
         }
 

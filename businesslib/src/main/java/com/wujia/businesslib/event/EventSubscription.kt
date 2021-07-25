@@ -20,7 +20,7 @@ class EventSubscription : AbsEventEntiry<EventSubscription> {
         this.type = type
     }
 
-    constructor(invoke: IMiessageInvoke<EventSubscription>) : super(invoke) {}
+    constructor(invoke: IMiessageInvoke<EventSubscription>) : super(invoke)
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     override fun onEventBus(event: EventSubscription) {
@@ -28,10 +28,10 @@ class EventSubscription : AbsEventEntiry<EventSubscription> {
     }
 
     companion object {
-        val TYPE_FIND = 1
-        val TYPE_GOV = 2
+        const val TYPE_FIND = 1
+        const val TYPE_GOV = 2
 
-        val TYPE_NOTIFY = 99
+        const val TYPE_NOTIFY = 99
 
         var PUSH_NOTIFY = 99
     }

@@ -21,36 +21,13 @@ import retrofit2.http.Url
  */
 
 interface BaseApiService {
-    @GET("{url}")
-    fun executeGet(
-            @Path("url") url: String,
-            @QueryMap maps: Map<String, String>
-    ): Flowable<JsonObject>
 
-
-    @POST("{url}")
-    fun executePost(
-            @Path("url") url: String,
-            //  @Header("") String authorization,
-            @QueryMap maps: Map<String, String>): Flowable<JsonObject>
-
-    @POST("{url}")
-    fun json(
-            @Path("url") url: String,
-            @Body jsonStr: RequestBody): Flowable<JsonObject>
 
     @Multipart
     @POST("{url}")
     fun upLoadFile(
             @Path("url") url: JsonObject,
             @Part("image\"; filename=\"image.jpg") requestBody: RequestBody): Flowable<JsonObject>
-
-    @POST("{url}")
-    fun uploadFiles(
-            @Path("url") url: String,
-            @Path("headers") headers: Map<String, String>,
-            @Part("filename") description: String,
-            @PartMap maps: Map<String, RequestBody>): Flowable<JsonObject>
 
     @Streaming
     @GET

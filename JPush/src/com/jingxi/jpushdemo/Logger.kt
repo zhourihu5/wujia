@@ -11,17 +11,11 @@ import com.wujia.lib_common.utils.LogUtil
 object Logger {
 
     //设为false关闭日志
-    private val LOG_ENABLE = true
+    private const val LOG_ENABLE = true
 
     fun i(tag: String, msg: String) {
         if (LOG_ENABLE) {
             LogUtil.info(tag, msg)
-        }
-    }
-
-    fun v(tag: String, msg: String) {
-        if (LOG_ENABLE) {
-            Log.v(tag, msg)
         }
     }
 

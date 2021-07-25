@@ -12,7 +12,7 @@ class EventOrder : AbsEventEntiry<EventOrder> {
 
     constructor()
 
-    constructor(invoke: IMiessageInvoke<EventOrder>) : super(invoke) {}
+    constructor(invoke: IMiessageInvoke<EventOrder>) : super(invoke)
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     override fun onEventBus(event: EventOrder) {

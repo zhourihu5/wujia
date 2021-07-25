@@ -6,7 +6,6 @@ package com.wujia.lib_common.data.network
 
 interface Constants {
     companion object {
-        val COMMON_REQUEST_SIGN = "sign"
     }
     //    @Deprecated
     //    String COMMON_REQUEST_APP_ID = "appid";

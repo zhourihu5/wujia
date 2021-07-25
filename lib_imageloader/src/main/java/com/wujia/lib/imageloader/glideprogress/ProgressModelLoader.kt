@@ -16,7 +16,7 @@ import java.io.InputStream
  */
 class ProgressModelLoader @JvmOverloads constructor(private val modelCache: ModelCache<String, String>?, private val proListener: ProgressUIListener? = null) : StreamModelLoader<String> {
 
-    constructor(listener: ProgressUIListener) : this(null, listener) {}
+    constructor(listener: ProgressUIListener) : this(null, listener)
 
 
     override fun getResourceFetcher(model: String, width: Int, height: Int): DataFetcher<InputStream> {
@@ -29,19 +29,6 @@ class ProgressModelLoader @JvmOverloads constructor(private val modelCache: Mode
             modelCache?.put(model, width, height, result)
         }
         return ProgressDataFetcher(result, proListener)
-    }
-
-    class Factory : ModelLoaderFactory<String, InputStream> {
-
-        private val mModelCache = ModelCache<String, String>(500)
-
-        override fun build(context: Context, factories: GenericLoaderFactory): ModelLoader<String, InputStream> {
-            return ProgressModelLoader(mModelCache)
-        }
-
-        override fun teardown() {
-
-        }
     }
 
 }

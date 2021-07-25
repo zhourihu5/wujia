@@ -1,4 +1,4 @@
-package com.jingxi.smartlife.pad.property;
+package com.wujia.intellect.terminal.property;
 
 import org.junit.Test;
 

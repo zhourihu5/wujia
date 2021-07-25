@@ -12,15 +12,11 @@ class EventMsg : AbsEventEntiry<EventMsg> {
 
     var type = 0
 
-    constructor() {
-
-    }
-
     constructor(type: Int) {
         this.type = type
     }
 
-    constructor(invoke: IMiessageInvoke<EventMsg>) : super(invoke) {}
+    constructor(invoke: IMiessageInvoke<EventMsg>) : super(invoke)
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     override fun onEventBus(event: EventMsg) {
@@ -29,7 +25,7 @@ class EventMsg : AbsEventEntiry<EventMsg> {
 
     companion object {
 
-        val TYPE_NEW_MSG = 1
-        val TYPE_READ = 2
+        const val TYPE_NEW_MSG = 1
+        const val TYPE_READ = 2
     }
 }

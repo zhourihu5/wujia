@@ -17,8 +17,8 @@ open class MultiItemTypeAdapter<T>(protected var mContext: Context, datas: List<
         protected set
 
     protected var mItemViewDelegateManager: ItemViewDelegateManager<T>
-    protected var mOnItemClickListener: OnItemClickListener? = null
-    protected var mOnRVItemClickListener: OnRVItemClickListener? = null
+    private var mOnItemClickListener: OnItemClickListener? = null
+    private var mOnRVItemClickListener: OnRVItemClickListener? = null
     protected var mOnRVItemLongClickListener: OnRVItemLongClickListener? = null
 
 
@@ -28,7 +28,8 @@ open class MultiItemTypeAdapter<T>(protected var mContext: Context, datas: List<
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (!useItemViewDelegateManager()) super.getItemViewType(position) else mItemViewDelegateManager.getItemViewType(datas!![position], position)
+        return if (!useItemViewDelegateManager()) super.getItemViewType(position) else mItemViewDelegateManager.getItemViewType(
+            datas[position], position)
     }
 
 
@@ -46,16 +47,16 @@ open class MultiItemTypeAdapter<T>(protected var mContext: Context, datas: List<
     }
 
     fun getItemData(pos: Int): T? {
-        return if (datas == null || datas!!.size == 0 || pos < 0 || pos > datas!!.size) {
+        return if (datas == null || datas.isEmpty() || pos < 0 || pos > datas.size) {
             null
-        } else datas!![pos]
+        } else datas[pos]
     }
 
     fun convert(holder: ViewHolder, t: T) {
         mItemViewDelegateManager.convert(holder, t, holder.adapterPosition)
     }
 
-    protected fun isEnabled(viewType: Int): Boolean {
+    private fun isEnabled(viewType: Int): Boolean {
         return true
     }
 
@@ -90,11 +91,11 @@ open class MultiItemTypeAdapter<T>(protected var mContext: Context, datas: List<
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.convertView.tag = this
-        convert(holder, datas!![position])
+        convert(holder, datas[position])
     }
 
     override fun getItemCount(): Int {
-        return if (datas == null) 0 else datas!!.size
+        return if (datas == null) 0 else datas.size
     }
 
     fun setmDatas(mDatas: List<T>) {
@@ -111,7 +112,7 @@ open class MultiItemTypeAdapter<T>(protected var mContext: Context, datas: List<
         return this
     }
 
-    protected fun useItemViewDelegateManager(): Boolean {
+    private fun useItemViewDelegateManager(): Boolean {
         return mItemViewDelegateManager.itemViewDelegateCount > 0
     }
 
@@ -130,7 +131,7 @@ open class MultiItemTypeAdapter<T>(protected var mContext: Context, datas: List<
         fun onItemClick(adapter: RecyclerView.Adapter<*>?, holder: RecyclerView.ViewHolder, position: Int)
     }
 
-    @Deprecated("")
+    @Deprecated("", ReplaceWith("this.mOnItemClickListener = onItemClickListener"))
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
         this.mOnItemClickListener = onItemClickListener
     }
@@ -147,6 +148,6 @@ open class MultiItemTypeAdapter<T>(protected var mContext: Context, datas: List<
     }
 
     fun isLast(pos: Int): Boolean {
-        return pos == datas!!.size - 1
+        return pos == datas.size - 1
     }
 }

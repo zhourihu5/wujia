@@ -10,13 +10,9 @@ import org.greenrobot.eventbus.ThreadMode
  */
 class EventBaseButtonClick : AbsEventEntiry<EventBaseButtonClick> {
 
-    lateinit var keyCmd: String
+    private lateinit var keyCmd: String
 
-    constructor(kButtonPickup: String) {
-        this.keyCmd = kButtonPickup
-    }
-
-    constructor(invoke: IMiessageInvoke<EventBaseButtonClick>) : super(invoke) {}
+    constructor(invoke: IMiessageInvoke<EventBaseButtonClick>) : super(invoke)
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     override fun onEventBus(event: EventBaseButtonClick) {

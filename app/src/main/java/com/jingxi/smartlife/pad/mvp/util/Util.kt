@@ -59,7 +59,7 @@ object Util {
                     val debug = File(context.filesDir.toString() + "/tombstones/debug.json")
                     debug.createNewFile()
                     writer = FileWriter(debug, false)
-                    writer.write(JSONObject(TombstoneParser.parse(logPath, emergency)).toString())
+                    writer.write(JSONObject(TombstoneParser.parse(logPath, emergency) as Map<String, String>).toString())
                 } catch (e: Exception) {
                     LogUtil.t("debug failed", e)
                 } finally {

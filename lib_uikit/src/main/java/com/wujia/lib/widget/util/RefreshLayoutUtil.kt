@@ -1,4 +1,4 @@
-//package com.abctime.lib.widget.util;
+package com.wujia.lib.widget.util//package com.abctime.lib.widget.util;
 //
 //import android.content.Context;
 //import android.support.v7.widget.RecyclerView;

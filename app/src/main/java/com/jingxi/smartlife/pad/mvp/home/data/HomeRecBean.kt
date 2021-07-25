@@ -46,8 +46,6 @@ class HomeRecBean : RootResponse() {
             this.type = type
         }
 
-        constructor() {}
-
 
         override fun hashCode(): Int {
             return Objects.hash(id)
@@ -60,19 +58,15 @@ class HomeRecBean : RootResponse() {
 
     }
 
-    class UserCards {
-    }
-
     companion object {
 
 
-        val TYPE_LINK = "WU"
-        val TYPE_APP_PAGE = "IU"
-        val TYPE_IMAGE = "IMG"
-        val TYPE_FUN = "OP"//功能型 TODO
+        const val TYPE_LINK = "WU"
+        const val TYPE_APP_PAGE = "IU"
+        const val TYPE_IMAGE = "IMG"
 
 
-        val TYPE_ADD = "add"
+        const val TYPE_ADD = "add"
     }
 
 

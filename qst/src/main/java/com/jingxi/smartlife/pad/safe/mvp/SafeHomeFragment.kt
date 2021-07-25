@@ -21,15 +21,6 @@ class SafeHomeFragment : TabFragment() {
         get() = R.layout.fragment_tab_home
     private val mFragments = arrayOfNulls<SupportFragment>(4)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    override fun interruptInject() {
-        super.interruptInject()
-
-    }
-
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
@@ -83,8 +74,6 @@ class SafeHomeFragment : TabFragment() {
     }
 
     companion object {
-
-        private val KEY_TAB = "tab"
 
         fun newInstance(currentTag: Int): SafeHomeFragment {
             val fragment = SafeHomeFragment()

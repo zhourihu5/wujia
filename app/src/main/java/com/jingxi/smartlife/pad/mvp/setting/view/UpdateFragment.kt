@@ -159,7 +159,7 @@ class UpdateFragment : TitleFragment() {
 
             val teraBytes = gigaByte / 1024
             if (teraBytes < 1) {
-                val result3 = BigDecimal(java.lang.Double.toString(gigaByte))
+                val result3 = BigDecimal(gigaByte.toString())
                 return result3.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "GB"
             }
             val result4 = BigDecimal(teraBytes)

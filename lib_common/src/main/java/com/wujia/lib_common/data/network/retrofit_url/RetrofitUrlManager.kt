@@ -29,17 +29,11 @@ class RetrofitUrlManager private constructor() {
      *
      * @param run
      */
-    var isRun = true //默认开始运行,可以随时停止运行,比如你在 App 启动后已经不需要在动态切换 baseurl 了
+    private var isRun = true //默认开始运行,可以随时停止运行,比如你在 App 启动后已经不需要在动态切换 baseurl 了
     private val mDomainNameHub = ConcurrentHashMap<String, HttpUrl>()
     private val mInterceptor: Interceptor
     private val mListeners = ArrayList<onUrlChangeListener>()
     private var mUrlParser: UrlParser? = null
-
-    /**
-     * 获取全局 BaseUrl
-     */
-    val globalDomain: HttpUrl?
-        get() = mDomainNameHub[GLOBAL_DOMAIN_NAME]
 
 
     init {
@@ -107,24 +101,6 @@ class RetrofitUrlManager private constructor() {
     }
 
     /**
-     * 全局动态替换 BaseUrl，优先级： Header中配置的url > 全局配置的url
-     * 除了作为备用的 BaseUrl ,当你项目中只有一个 BaseUrl ,但需要动态改变
-     * 这种方式不用在每个接口方法上加 Header,也是个很好的选择
-     *
-     * @param url
-     */
-    fun setGlobalDomain(url: String) {
-        mDomainNameHub[GLOBAL_DOMAIN_NAME] = Utils.checkUrl(url)
-    }
-
-    /**
-     * 移除全局 BaseUrl
-     */
-    fun removeGlobalDomain() {
-        mDomainNameHub.remove(GLOBAL_DOMAIN_NAME)
-    }
-
-    /**
      * 存放 Domain 的映射关系
      *
      * @param domainName
@@ -140,22 +116,12 @@ class RetrofitUrlManager private constructor() {
      * @param domainName
      * @return
      */
-    fun fetchDomain(domainName: String?): HttpUrl? {
+    private fun fetchDomain(domainName: String?): HttpUrl? {
         return mDomainNameHub[domainName]
-    }
-
-    fun removeDomain(domainName: String) {
-        synchronized(mDomainNameHub) {
-            mDomainNameHub.remove(domainName)
-        }
     }
 
     fun clearAllDomain() {
         mDomainNameHub.clear()
-    }
-
-    fun haveDomain(domainName: String): Boolean {
-        return mDomainNameHub.containsKey(domainName)
     }
 
     fun domainSize(): Int {
@@ -179,17 +145,6 @@ class RetrofitUrlManager private constructor() {
     fun registerUrlChangeListener(listener: onUrlChangeListener) {
         synchronized(mListeners) {
             mListeners.add(listener)
-        }
-    }
-
-    /**
-     * 注销当 Url 的 BaseUrl 被改变时会被回调的监听器
-     *
-     * @param listener
-     */
-    fun unregisterUrlChangeListener(listener: onUrlChangeListener) {
-        synchronized(mListeners) {
-            mListeners.remove(listener)
         }
     }
 
@@ -220,19 +175,17 @@ class RetrofitUrlManager private constructor() {
     }
 
     companion object {
-        private val TAG = "RetrofitUrlManager"
         private val DEPENDENCY_OKHTTP: Boolean
-        private val DOMAIN_NAME = "Domain-Name"
-        private val GLOBAL_DOMAIN_NAME = "me.jessyan.retrofiturlmanager.globalDomainName"
-        val DOMAIN_NAME_HEADER = "$DOMAIN_NAME: "
+        private const val DOMAIN_NAME = "Domain-Name"
+        private const val GLOBAL_DOMAIN_NAME = "me.jessyan.retrofiturlmanager.globalDomainName"
 
         init {
             var hasDependency: Boolean
-            try {
+            hasDependency = try {
                 Class.forName("okhttp3.OkHttpClient")
-                hasDependency = true
+                true
             } catch (e: ClassNotFoundException) {
-                hasDependency = false
+                false
             }
 
             DEPENDENCY_OKHTTP = hasDependency

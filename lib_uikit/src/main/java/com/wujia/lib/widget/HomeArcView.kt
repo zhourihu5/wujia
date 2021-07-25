@@ -20,7 +20,6 @@ class HomeArcView(context: Context, attrs: AttributeSet?) : AppCompatTextView(co
 
     private var mOutStrokeWidth: Float = 0.toFloat()
     private var mInnerStrokeWidth: Float = 0.toFloat()
-    private val mCenterY: Float = 0.toFloat()
     private var mOutArcPaint: Paint? = null
     private var mInnerArcPaint: Paint? = null
     private var mOutRectF: RectF? = null

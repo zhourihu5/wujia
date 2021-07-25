@@ -91,7 +91,7 @@ class AllFragment : BaseFragment() {
      * date ：2019-01-24 23:56
      * description ：弹出seek开关对化框
      */
-    fun showSeekbarDialog(type: EquipmentType) {
+    private fun showSeekbarDialog(type: EquipmentType) {
         val dialog = Dialog(mActivity)
         val conv = LayoutInflater.from(mActivity).inflate(R.layout.layout_seekbar_pop, null)
 
@@ -149,7 +149,7 @@ class AllFragment : BaseFragment() {
         dialog.show()
     }
 
-    fun showOtherDialog(menus: List<EquipmentBean.Menu>?) {
+    private fun showOtherDialog(menus: List<EquipmentBean.Menu>?) {
         val dialog = Dialog(mActivity)
         val conv = LayoutInflater.from(mActivity).inflate(R.layout.layout_other_switch_pop, null)
         val rv = conv.findViewById<RecyclerView>(R.id.rv_expand)
@@ -168,9 +168,9 @@ class AllFragment : BaseFragment() {
 
         //模式
         modeList.clear()
-        modeList!!.add(ModeBean("回家模式"))
-        modeList!!.add(ModeBean("离家模式"))
-        modeList!!.add(ModeBean("睡眠模式"))
+        modeList.add(ModeBean("回家模式"))
+        modeList.add(ModeBean("离家模式"))
+        modeList.add(ModeBean("睡眠模式"))
 
         //设备
         useList = ArrayList()

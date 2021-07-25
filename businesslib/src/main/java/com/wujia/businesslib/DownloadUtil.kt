@@ -19,9 +19,9 @@ import java.io.File
  */
 object DownloadUtil {
 
-    val STATE_COMPLETE = 0
-    val STATE_CANCELED = 10
-    val STATE_OTHER = 20
+    const val STATE_COMPLETE = 0
+    const val STATE_CANCELED = 10
+    const val STATE_OTHER = 20
 
     fun download(url: String, listener: DownloadListener): DownloadTask {
 

@@ -1,13 +1,10 @@
-package com.jingxi.smartlife.pad.safe
+package com.wujia.intellect.terminal.safe
 
-import android.content.Context
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
-
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.assertEquals
 
 /**
  * Instrumented test, which will execute on an Android device.

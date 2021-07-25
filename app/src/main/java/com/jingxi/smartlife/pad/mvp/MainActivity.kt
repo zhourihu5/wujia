@@ -6,7 +6,6 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.os.IBinder
 import android.os.PowerManager
 import android.text.TextUtils
@@ -35,7 +34,6 @@ import com.wujia.businesslib.base.MvpActivity
 import com.wujia.businesslib.data.ApiResponse
 import com.wujia.businesslib.event.EventBusUtil
 import com.wujia.businesslib.event.EventMsg
-import com.wujia.businesslib.event.EventWakeup
 import com.wujia.businesslib.event.IMiessageInvoke
 import com.wujia.businesslib.model.BusModel
 import com.wujia.businesslib.util.LoginUtil
@@ -130,7 +128,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>() {
             onServiceReady()
         } else {
             // 启动SipService
-            startService(Intent(android.content.Intent.ACTION_MAIN).setClass(
+            startService(Intent(Intent.ACTION_MAIN).setClass(
                     this, SipService::class.java))
             ServiceWaitThread().start()
         }
@@ -152,7 +150,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>() {
     private fun onServiceReady() {
         SipService.instance().setActivityToLaunchOnIncomingReceived(this::class.java)
         // 创建Native层状态监听器对象
-        var mListener = object : LinphoneCoreListenerBase() {
+        val mListener = object : LinphoneCoreListenerBase() {
             override fun registrationState(lc: LinphoneCore?, proxy: LinphoneProxyConfig?,
                                            state: LinphoneCore.RegistrationState?, smessage: String?) {
                 LogUtil.e("onServiceReady registrationState state = " + state!!.toString() + " message = " + smessage)
@@ -227,7 +225,7 @@ class MainActivity : MvpActivity<BasePresenter<BaseView>>() {
         override fun run() {
             while (!SipService.isReady()) {
                 try {
-                    Thread.sleep(30)
+                    sleep(30)
                 } catch (e: InterruptedException) {
                     throw RuntimeException("waiting thread sleep() " + "has been interrupted")
                 }

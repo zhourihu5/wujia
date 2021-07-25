@@ -14,28 +14,12 @@ class ServiceDto {
     var bannerList: List<BannerListBean>? = null
 
     class PageBean {
-        /**
-         * content : [{"category":0,"cover":"string","createDate":"2019-06-20T01:27:28.267Z","flag":0,"id":0,"isSubscribe":0,"memo":"string","packageName":"string","status":0,"subscribeNum":0,"title":"string","type":0,"url":"string"}]
-         * first : true
-         * last : true
-         * number : 0
-         * numberOfElements : 0
-         * pageable : {"offset":0,"pageNumber":0,"pageSize":0,"paged":true,"sort":{"sorted":true,"unsorted":true},"unpaged":true}
-         * size : 0
-         * sort : {"sorted":true,"unsorted":true}
-         * totalElements : 0
-         * totalPages : 0
-         */
-
-        var isFirst: Boolean = false
         var last: Boolean = false
-        var number: Int = 0
         var numberOfElements: Int = 0
         var pageable: PageableBean? = null
         var size: Int = 0
         var sort: SortBeanX? = null
         var totalElements: Int = 0
-        var totalPages: Int = 0
         var content: List<CardDetailBean.ServicesBean>? = null
 
         class PageableBean {
@@ -49,31 +33,14 @@ class ServiceDto {
              */
 
             var offset: Int = 0
-            var pageNumber: Int = 0
             var pageSize: Int = 0
-            var isPaged: Boolean = false
             var sort: SortBean? = null
-            var isUnpaged: Boolean = false
 
             class SortBean {
-                /**
-                 * sorted : true
-                 * unsorted : true
-                 */
-
-                var isSorted: Boolean = false
-                var isUnsorted: Boolean = false
             }
         }
 
         class SortBeanX {
-            /**
-             * sorted : true
-             * unsorted : true
-             */
-
-            var isSorted: Boolean = false
-            var isUnsorted: Boolean = false
         }
 
         //        public static class ContentBean {

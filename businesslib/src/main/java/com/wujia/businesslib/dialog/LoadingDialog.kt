@@ -22,8 +22,6 @@ class LoadingDialog : Dialog {
         init()
     }
 
-    constructor(context: Context, themeResId: Int) : super(context, themeResId) {}
-
     private fun init() {
         //        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.layout_loading_dialog)

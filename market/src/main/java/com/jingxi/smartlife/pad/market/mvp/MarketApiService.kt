@@ -42,7 +42,7 @@ interface MarketApiService {
     fun rereiveOrder(@Query("id")id: String?): Flowable<ApiResponse<Any>>
 
     @POST("/v1/order/cancelOrderPad")
-    abstract fun cancelOrder(@Query("id")id: String?): Flowable<ApiResponse<Any>>
+    fun cancelOrder(@Query("id")id: String?): Flowable<ApiResponse<Any>>
 
 
 

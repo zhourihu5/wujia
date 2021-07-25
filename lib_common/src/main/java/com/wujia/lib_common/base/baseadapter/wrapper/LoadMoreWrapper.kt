@@ -10,7 +10,7 @@ import com.wujia.lib_common.base.baseadapter.utils.WrapperUtils
 
 
 class LoadMoreWrapper(private val mInnerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var mLoadMoreView: View? = null
+    private var mLoadMoreView: View? = null
     private var mLoadMoreLayoutId: Int = 0
 
     private var mOnLoadMoreListener: OnLoadMoreListener? = null
@@ -33,10 +33,10 @@ class LoadMoreWrapper(private val mInnerAdapter: RecyclerView.Adapter<RecyclerVi
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == ITEM_TYPE_LOAD_MORE) {
             val holder: ViewHolder
-            if (mLoadMoreView != null) {
-                holder = ViewHolder.createViewHolder(parent.context, mLoadMoreView!!)
+            holder = if (mLoadMoreView != null) {
+                ViewHolder.createViewHolder(parent.context, mLoadMoreView!!)
             } else {
-                holder = ViewHolder.createViewHolder(parent.context, parent, mLoadMoreLayoutId)
+                ViewHolder.createViewHolder(parent.context, parent, mLoadMoreLayoutId)
             }
             return holder
         }
@@ -59,7 +59,7 @@ class LoadMoreWrapper(private val mInnerAdapter: RecyclerView.Adapter<RecyclerVi
                 if (isShowLoadMore(position)) {
                     return layoutManager.spanCount
                 }
-                return oldLookup?.getSpanSize(position) ?: 1
+                return oldLookup.getSpanSize(position)
             }
         })
     }
@@ -109,6 +109,6 @@ class LoadMoreWrapper(private val mInnerAdapter: RecyclerView.Adapter<RecyclerVi
     }
 
     companion object {
-        val ITEM_TYPE_LOAD_MORE = Integer.MAX_VALUE - 2
+        const val ITEM_TYPE_LOAD_MORE = Integer.MAX_VALUE - 2
     }
 }

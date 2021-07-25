@@ -20,11 +20,11 @@ class YellowPageAdapter(context: Context, datas: List<YellowPage>) : CommonAdapt
         val tvPhoneNum = holder.getView<TextView>(R.id.tvPhoneNum)
         val tvAddressName = holder.getView<TextView>(R.id.tvAddressName)
         val tvAddress = holder.getView<TextView>(R.id.tvAddress)
-        tvName.setText(item.name + "信息")
-        tvPhoneName.setText(item.name + "电话")
-        tvAddressName.setText(item.name + "地址")
-        tvPhoneNum.setText(item.phone)
-        tvAddress.setText(item.address)
+        tvName.text = item.name + "信息"
+        tvPhoneName.text = item.name + "电话"
+        tvAddressName.text = item.name + "地址"
+        tvPhoneNum.text = item.phone
+        tvAddress.text = item.address
 
     }
 }

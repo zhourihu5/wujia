@@ -8,13 +8,12 @@ package com.wujia.lib_common.utils
 
 object DoubleClickUtils {
     private var lastClickTime: Long = 0
-    private val SPACE_TIME = 500
+    private const val SPACE_TIME = 500
 
     val isDoubleClick: Boolean
         @Synchronized get() {
             val currentTime = System.currentTimeMillis()
-            val isDoubleClick: Boolean
-            isDoubleClick = currentTime - lastClickTime <= SPACE_TIME
+            val isDoubleClick: Boolean = currentTime - lastClickTime <= SPACE_TIME
             lastClickTime = currentTime
             return isDoubleClick
         }

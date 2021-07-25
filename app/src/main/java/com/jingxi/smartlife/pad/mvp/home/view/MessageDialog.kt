@@ -24,12 +24,12 @@ class MessageDialog(context: Context, message: MsgDto.ContentBean) : Dialog(cont
         setContentView(R.layout.dialog_msg_layout)//未读
 
         //未读
-        when {
-            message.type == MsgDto.TYPE_NOTIFY -> img1.setImageResource(R.mipmap.ic_msg_label_neighbour2)
-            message.type == MsgDto.TYPE_PROPERTY -> img1.setImageResource(R.mipmap.ic_msg_label_serve2)
-            message.type == MsgDto.TYPE_SYSTEM -> img1.setImageResource(R.mipmap.icon_msg_label_system)
-            message.type == MsgDto.TYPE_ORDER -> img1.setImageResource(R.mipmap.icon_msg_label_system)
-            message.type == MsgDto.TYPE_GOV -> img1.setImageResource(R.mipmap.icon_msg_label_system)
+        when (message.type) {
+            MsgDto.TYPE_NOTIFY -> img1.setImageResource(R.mipmap.ic_msg_label_neighbour2)
+            MsgDto.TYPE_PROPERTY -> img1.setImageResource(R.mipmap.ic_msg_label_serve2)
+            MsgDto.TYPE_SYSTEM -> img1.setImageResource(R.mipmap.icon_msg_label_system)
+            MsgDto.TYPE_ORDER -> img1.setImageResource(R.mipmap.icon_msg_label_system)
+            MsgDto.TYPE_GOV -> img1.setImageResource(R.mipmap.icon_msg_label_system)
         }
 
         tvType.text = MsgDto.getTypeText(message)

@@ -60,7 +60,7 @@ class OrderFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.O
 
     private fun reset() {
         pageNo = 1
-        orderList?.let {
+        orderList.let {
             orderList.clear();
             mLoadMoreWrapper?.setLoadMoreView(0)
             mLoadMoreWrapper?.notifyDataSetChanged()
@@ -88,7 +88,7 @@ class OrderFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.O
         tab_layout!!.setOnTabSelectedListener(this)
 
         orderList = ArrayList()
-        mAdapter = OrderAdapter(mActivity, orderList!!)
+        mAdapter = OrderAdapter(mActivity, orderList)
         mAdapter.btnClickLisner={holder, t, position->
             when(t.status){
                 "1"->{//待付款
@@ -126,8 +126,8 @@ class OrderFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.O
         getData(true)
         EventBusUtil.register(eventOrder)
     }
-    val handler:Handler=object:Handler(){
-        override fun handleMessage(msg: Message?) {
+    private val handler:Handler=object:Handler(){
+        override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
             mLoadMoreWrapper?.notifyDataSetChanged()
             if(isSupportVisible){
@@ -139,17 +139,17 @@ class OrderFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.O
     }
     override fun onSupportVisible() {
         super.onSupportVisible()
-        handler?.sendEmptyMessage(0)
+        handler.sendEmptyMessage(0)
     }
 
     override fun onSupportInvisible() {
         super.onSupportInvisible()
-        handler?.removeCallbacksAndMessages(null)
+        handler.removeCallbacksAndMessages(null)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        handler?.removeCallbacksAndMessages(null)
+        handler.removeCallbacksAndMessages(null)
         EventBusUtil.unregister(eventOrder)
     }
 
@@ -205,10 +205,10 @@ class OrderFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.O
                 swipeRefreshLayout!!.isRefreshing = false
                 val temp = response.data?.content
                 if (pageNo == 1) {
-                    orderList!!.clear()
+                    orderList.clear()
                 }
-                if (temp != null && temp.size > 0) {
-                    orderList!!.addAll(temp)
+                if (temp != null && temp.isNotEmpty()) {
+                    orderList.addAll(temp)
                 }
                 if (response.data?.last!!) {
                     mLoadMoreWrapper!!.setLoadMoreView(0)

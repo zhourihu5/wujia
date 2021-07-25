@@ -51,7 +51,7 @@ public class LogDetector extends Detector implements Detector.UastScanner {
 
     class LogHandler extends UElementHandler {
 
-        private JavaContext context;
+        private final JavaContext context;
 
         LogHandler(JavaContext context) {
             this.context = context;

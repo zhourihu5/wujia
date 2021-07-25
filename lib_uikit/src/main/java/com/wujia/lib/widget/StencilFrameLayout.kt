@@ -9,7 +9,7 @@ import android.widget.FrameLayout
 
 class StencilFrameLayout : FrameLayout {
     internal var mPaint: Paint?=null
-    internal var rect: Rect?=null
+    private var rect: Rect?=null
     internal var innerRect: Rect?=null
     internal fun init() {
         mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -37,66 +37,6 @@ class StencilFrameLayout : FrameLayout {
         //        layoutChildren(left, top, right, bottom, false /* no force left gravity */);
     }
 
-    internal fun layoutChildren(left: Int, top: Int, right: Int, bottom: Int, forceLeftGravity: Boolean) {
-        val count = childCount
-        if (count > 1) {
-            throw RuntimeException("can not be more than one child")
-        }
-
-        val parentLeft = paddingLeft
-        val parentRight = right - left - paddingRight
-
-        val parentTop = paddingTop
-        val parentBottom = bottom - top - paddingBottom
-
-        for (i in 0 until count) {
-            val child = getChildAt(i)
-            if (child.visibility != View.GONE) {
-                val lp = child.layoutParams as FrameLayout.LayoutParams
-
-                val width = child.measuredWidth
-                val height = child.measuredHeight
-
-                var childLeft: Int
-                val childTop: Int
-
-                var gravity = lp.gravity
-                if (gravity == -1) {
-                    gravity = DEFAULT_CHILD_GRAVITY
-                }
-
-                val layoutDirection = layoutDirection
-                val absoluteGravity = Gravity.getAbsoluteGravity(gravity, layoutDirection)
-                val verticalGravity = gravity and Gravity.VERTICAL_GRAVITY_MASK
-
-                when (absoluteGravity and Gravity.HORIZONTAL_GRAVITY_MASK) {
-                    Gravity.CENTER_HORIZONTAL -> childLeft = parentLeft + (parentRight - parentLeft - width) / 2 +
-                            lp.leftMargin - lp.rightMargin
-                    Gravity.RIGHT -> right@{
-                        if (!forceLeftGravity) {
-                            childLeft = parentRight - width - lp.rightMargin
-                            return@right
-                        }
-                        childLeft = parentLeft + lp.leftMargin
-                    }
-                    Gravity.LEFT -> childLeft = parentLeft + lp.leftMargin
-                    else -> childLeft = parentLeft + lp.leftMargin
-                }
-
-                when (verticalGravity) {
-                    Gravity.TOP -> childTop = parentTop + lp.topMargin
-                    Gravity.CENTER_VERTICAL -> childTop = parentTop + (parentBottom - parentTop - height) / 2 +
-                            lp.topMargin - lp.bottomMargin
-                    Gravity.BOTTOM -> childTop = parentBottom - height - lp.bottomMargin
-                    else -> childTop = parentTop + lp.topMargin
-                }
-
-                child.layout(childLeft, childTop, childLeft + width, childTop + height)
-                innerRect = Rect(childLeft, childTop, childLeft + width, childTop + height)
-            }
-        }
-    }
-
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
     }
@@ -111,11 +51,11 @@ class StencilFrameLayout : FrameLayout {
 
         mPaint?.color = Color.BLACK
         mPaint?.alpha = 160
-        canvas.drawRect(rect, mPaint)
+        canvas.drawRect(rect!!, mPaint!!)
         super.dispatchDraw(canvas)//放在super前是后景，相反是前景，前景会覆盖子布局
     }
 
     companion object {
-        private val DEFAULT_CHILD_GRAVITY = Gravity.TOP or Gravity.START
+        private const val DEFAULT_CHILD_GRAVITY = Gravity.TOP or Gravity.START
     }
 }

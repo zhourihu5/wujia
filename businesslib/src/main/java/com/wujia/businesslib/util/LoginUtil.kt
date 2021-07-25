@@ -19,7 +19,7 @@ object LoginUtil {
             intent.setClassName(context, "com.jingxi.smartlife.pad.mvp.login.LoginActivity")
             context.startActivity(intent)
             if (currentActivity != null) {
-                currentActivity!!.finish()
+                currentActivity.finish()
             }
         } catch (e: Exception) {
             e.printStackTrace()

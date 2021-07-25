@@ -13,7 +13,7 @@ object NetConfigWrapper {
         //        NetConfig.debug = BuildConfig.DEBUG;
         NetConfig.debug = true
         val config = NetConfig()
-        config.configInterceptors(arrayOf<Interceptor>(TokenInterceptor()))
+        config.configInterceptors(arrayOf(TokenInterceptor()))
         config.baseURL = baseUrl
         return config
     }

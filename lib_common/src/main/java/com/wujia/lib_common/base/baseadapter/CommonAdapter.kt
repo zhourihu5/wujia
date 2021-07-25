@@ -7,10 +7,9 @@ import com.wujia.lib_common.base.baseadapter.base.ItemViewDelegate
 import com.wujia.lib_common.base.baseadapter.base.ViewHolder
 
 abstract class CommonAdapter<T>(  mContext: Context, protected var mLayoutId: Int, datas: List<T>) : MultiItemTypeAdapter<T>(mContext, datas) {
-    protected var mInflater: LayoutInflater
+    private var mInflater: LayoutInflater = LayoutInflater.from(mContext)
 
     init {
-        mInflater = LayoutInflater.from(mContext)
         this.datas = datas
 
         addItemViewDelegate(object : ItemViewDelegate<T> {

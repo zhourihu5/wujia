@@ -1,7 +1,6 @@
 package com.wujia.lib_common.utils
 
 import android.view.ViewGroup
-import android.view.ViewParent
 import android.webkit.WebView
 
 object WebViewUtil {

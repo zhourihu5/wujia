@@ -20,7 +20,7 @@ import me.yokeyword.fragmentation.SupportActivity
 abstract class BaseActivity : SupportActivity() {
     private var currentName: String? = null
     protected var mContext: Activity?=null
-    protected var mUnBinder: Unbinder?=null
+    private var mUnBinder: Unbinder?=null
 
 
     protected abstract val layout: Int
@@ -79,11 +79,6 @@ abstract class BaseActivity : SupportActivity() {
     }
 
 
-    override fun onResume() {
-        super.onResume()
-        //        TCAgent.onPageStart(mContext, currentName);
-    }
-
     override fun onPause() {
         super.onPause()
         //        TCAgent.onPageEnd(mContext, currentName);
@@ -91,7 +86,7 @@ abstract class BaseActivity : SupportActivity() {
             onPreDestroy()
     }
 
-    protected fun onPreDestroy() {
+    private fun onPreDestroy() {
 
     }
 
@@ -105,21 +100,21 @@ abstract class BaseActivity : SupportActivity() {
         return super.findViewById<View>(resId) as T
     }
 
-    protected fun hideNavigationBar() {
+    private fun hideNavigationBar() {
         val flags: Int
-        val curApiVersion = android.os.Build.VERSION.SDK_INT
+        val curApiVersion = Build.VERSION.SDK_INT
         // This work only for android 4.4+
-        if (curApiVersion >= Build.VERSION_CODES.KITKAT) {
+        flags = if (curApiVersion >= Build.VERSION_CODES.KITKAT) {
             // This work only for android 4.4+
             // hide navigation bar permanently in android activity
             // touch the screen, the navigation bar will not show
-            flags = (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                     or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                     or View.SYSTEM_UI_FLAG_FULLSCREEN)
 
         } else {
             // touch the screen, the navigation bar will show
-            flags = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         }
 
         // must be executed in main thread

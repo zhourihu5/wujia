@@ -53,7 +53,7 @@ class OrderAdapter(context: Context, datas: List<OrderItemVo>) : CommonAdapter<O
 //            btnClickLisner?.invoke(holder,t,position)
 //        }
 
-        tvName.setText(t.activity.title)
+        tvName.text = t.activity.title
         ImageLoaderManager.instance.loadImage(t.activity.cover, 0, ivCover)
 
 //        tvPriceOld.setText("￥${t.commodity.price}")
@@ -64,9 +64,9 @@ class OrderAdapter(context: Context, datas: List<OrderItemVo>) : CommonAdapter<O
 //        if(priceArr.size>1){
 //            tvFloat.setText(".${priceArr[1]}")
 //        }
-        tvMoney.setText("￥${t.realPrice}")
+        tvMoney.text = "￥${t.realPrice}"
 
-        tvTimeToEnd.setText("")
+        tvTimeToEnd.text = ""
         tvOrderStatus.setTextColor(Color.parseColor("#BA9C77"))
         tvMoney.setTextColor(Color.parseColor("#C8AC88"))
         tvPriceInt.setTextColor(Color.parseColor("#C8AC88"))
@@ -79,23 +79,23 @@ class OrderAdapter(context: Context, datas: List<OrderItemVo>) : CommonAdapter<O
                 tvToPay.visibility=View.VISIBLE
                 val endDate = DateUtil.getDate(t.payEndDate)
                 setTimeRemain(endDate,tvTimeToEnd)
-                tvToptitle.setText("付款剩余时间：")
-                tvOrderStatus.setText("待付款")
+                tvToptitle.text = "付款剩余时间："
+                tvOrderStatus.text = "待付款"
             }
             "2"->{//待配送
-                tvToptitle.setText("配送小哥正在取货中…")
-                tvOrderStatus.setText("待收货")
+                tvToptitle.text = "配送小哥正在取货中…"
+                tvOrderStatus.text = "待收货"
             }
             "3"->{//已收货
                 tvGoStroll.visibility=View.VISIBLE
-                tvToptitle.setText("收货时间：${t.receiveDate}")
-                tvOrderStatus.setText("已收货")
+                tvToptitle.text = "收货时间：${t.receiveDate}"
+                tvOrderStatus.text = "已收货"
 
             }
             "4"->{//已过期
                 tvGoStroll.visibility=View.VISIBLE
-                tvToptitle.setText("过期时间：${t.payEndDate}")
-                tvOrderStatus.setText("已过期")
+                tvToptitle.text = "过期时间：${t.payEndDate}"
+                tvOrderStatus.text = "已过期"
                 tvOrderStatus.setTextColor(Color.parseColor("#888888"))
                 tvMoney.setTextColor(Color.parseColor("#888888"))
                 tvPriceInt.setTextColor(Color.parseColor("#888888"))
@@ -104,30 +104,30 @@ class OrderAdapter(context: Context, datas: List<OrderItemVo>) : CommonAdapter<O
             }
             "5"->{//配送中
                 tvAskDilivery.visibility=View.VISIBLE
-                tvToptitle.setText("送货人：${t.deliveryPerson}")
-                tvOrderStatus.setText("待收货")
-                tvAskDilivery.setText("送货人联系电话：${t.deliveryPhone}")
+                tvToptitle.text = "送货人：${t.deliveryPerson}"
+                tvOrderStatus.text = "待收货"
+                tvAskDilivery.text = "送货人联系电话：${t.deliveryPhone}"
             }
 
         }
 
     }
-    fun setTimeRemain(endDate:Date,tvTimeToEnd:TextView) {
-        var now = Date();
-        var milli = endDate!!.getTime() - now.getTime()
+    private fun setTimeRemain(endDate:Date, tvTimeToEnd:TextView) {
+        val now = Date()
+        val milli = endDate.time - now.time
         if (milli <= 0) {
-            tvTimeToEnd.setText("00： 00：00 ")
+            tvTimeToEnd.text = "00： 00：00 "
             return
         }
-        var hour = milli / 1000 / 3600
-        var minute = milli % (3600 * 1000) / (60 * 1000)
-        var second = milli % (1000 * 60) / 1000
+        val hour = milli / 1000 / 3600
+        val minute = milli % (3600 * 1000) / (60 * 1000)
+        val second = milli % (1000 * 60) / 1000
 
-        tvTimeToEnd.setText("待付款时间：${formatNumber(hour)}：${formatNumber(minute)}：${formatNumber(second)}")
+        tvTimeToEnd.text = "待付款时间：${formatNumber(hour)}：${formatNumber(minute)}：${formatNumber(second)}"
 
 
     }
-    fun formatNumber(n: Long): String {
+    private fun formatNumber(n: Long): String {
         var t = ""
         if (n < 10) {
             t = "0"

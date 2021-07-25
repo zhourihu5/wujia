@@ -13,7 +13,7 @@ import com.wujia.lib_common.base.baseadapter.base.ViewHolder
  * Email:  shenbingkai@gamil.com
  * Description:
  */
-class MessageAdapter(context: Context, datas: List<MsgDto.ContentBean>, internal var readMsgCallback: ReadMsgCallback?) : CommonAdapter<MsgDto.ContentBean>(context, R.layout.item_msg, datas) {
+class MessageAdapter(context: Context, datas: List<MsgDto.ContentBean>, private var readMsgCallback: ReadMsgCallback?) : CommonAdapter<MsgDto.ContentBean>(context, R.layout.item_msg, datas) {
     interface ReadMsgCallback {
         fun onMsgReadClick(item: MsgDto.ContentBean)
     }

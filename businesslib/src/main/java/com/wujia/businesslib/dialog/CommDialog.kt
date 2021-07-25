@@ -22,10 +22,6 @@ abstract class CommDialog : Dialog {
 
     protected abstract val layoutId: Int
 
-    constructor(context: Context) : super(context) {
-        set(context)
-    }
-
     constructor(context: Context, themeResId: Int) : super(context, themeResId) {
         set(context)
     }

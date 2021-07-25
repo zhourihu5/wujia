@@ -74,8 +74,6 @@ class DownLoadManager(private val callBack: DownloadCallBack?) {
 
     companion object {
 
-        private val TAG = "DownLoadManager"
-
         private var sInstance: DownLoadManager? = null
 
         /**

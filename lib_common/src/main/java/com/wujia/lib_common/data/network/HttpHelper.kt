@@ -22,7 +22,7 @@ class HttpHelper internal constructor(builder: Builder) {
     private val mRetrofit: Retrofit
     private val mServiceMap: ConcurrentHashMap<String, Any?>?
 
-    val okHttpClient: OkHttpClient
+    private val okHttpClient: OkHttpClient
 
     init {
         mServiceMap = ConcurrentHashMap()
@@ -32,8 +32,6 @@ class HttpHelper internal constructor(builder: Builder) {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(mBaseUrl).build()
     }
-
-    constructor(baseUrl: String) : this(Builder(baseUrl)) {}
 
 
     fun <T> create(service: Class<T>?): T? {
@@ -51,22 +49,6 @@ class HttpHelper internal constructor(builder: Builder) {
         return apiService
     }
 
-    fun createBaseApi(): BaseApiService? {
-        var baseApiService: BaseApiService? = null
-        if (mServiceMap != null) {
-            val name = BaseApiService::class.java.name
-            val key = name + mBaseUrl//通过baseservice类名+baseurl的方式区分不同模块的apisevice
-            if (mServiceMap.containsKey(key)) {
-                baseApiService = mServiceMap[key] as BaseApiService?
-            } else {
-                baseApiService = mRetrofit.create(BaseApiService::class.java)
-                mServiceMap[key] = baseApiService
-            }
-        }
-        return baseApiService
-
-    }
-
     private fun provideClient(retrofitBuilder: Builder): OkHttpClient {
         if (retrofitBuilder.okHttpClient != null) {
             return retrofitBuilder.okHttpClient!!
@@ -76,13 +58,13 @@ class HttpHelper internal constructor(builder: Builder) {
 
 
             val interceptors = retrofitBuilder.interceptors()
-            if (interceptors != null && interceptors.size > 0) {
+            if (interceptors != null && interceptors.isNotEmpty()) {
                 for (interceptor in interceptors) {
                     builder.addInterceptor(interceptor)
                 }
             }
             val networkInterceptors = retrofitBuilder.networkInterceptors()
-            if (networkInterceptors != null && networkInterceptors.size > 0) {
+            if (networkInterceptors != null && networkInterceptors.isNotEmpty()) {
                 for (interceptor in networkInterceptors) {
                     builder.addInterceptor(interceptor)
                 }
@@ -151,28 +133,13 @@ class HttpHelper internal constructor(builder: Builder) {
     //        }
     //    }
 
-    private fun getFileSavePath(url: String, saveFilePath: String): String {
-        var saveFilePath = saveFilePath
-        val lastIndex = url.lastIndexOf('/')
-        var name = url
-        if (lastIndex != -1) {
-            name = url.substring(lastIndex)
-        }
-        if (saveFilePath.endsWith("/")) {
-            saveFilePath = saveFilePath + name
-        } else {
-            saveFilePath = "$saveFilePath/$name"
-        }
-        return saveFilePath
-    }
-
 
     class Builder {
         internal var netConfig: NetConfig? = null
         internal var baseUrl: String
 
         internal var okHttpClient: OkHttpClient? = null
-        internal val interceptors: MutableList<Interceptor> = ArrayList()
+        private val interceptors: MutableList<Interceptor> = ArrayList()
         internal val networkInterceptors: MutableList<Interceptor> = ArrayList()
         internal var connectTimeout: Int = 0
         internal var readTimeout: Int = 0
@@ -193,26 +160,11 @@ class HttpHelper internal constructor(builder: Builder) {
             connectTimeout = netConfig.connectTimeoutMills.toInt()
             readTimeout = netConfig.readTimeoutMills.toInt()
             val interceptorsInner = netConfig.mInterceptors
-            if (interceptorsInner != null && interceptorsInner.size > 0) {
+            if (interceptorsInner != null && interceptorsInner.isNotEmpty()) {
                 Collections.addAll(interceptors, *interceptorsInner)
             }
         }
 
-        fun okHttpClient(okHttpClient: OkHttpClient): Builder {
-            this.okHttpClient = okHttpClient
-            return this
-        }
-
-
-        fun baseUrl(url: String): Builder {
-            baseUrl = url
-            return this
-        }
-
-        fun connectTimeout(timeout: Int): Builder {
-            connectTimeout = timeout
-            return this
-        }
 
         fun readTimeout(timeout: Int): Builder {
             readTimeout = timeout
@@ -224,16 +176,11 @@ class HttpHelper internal constructor(builder: Builder) {
             return this
         }
 
-        fun addInterceptor(interceptor: Interceptor): Builder {
-            interceptors.add(interceptor)
-            return this
-        }
-
-        fun interceptors(): List<Interceptor>? {
+        fun interceptors(): List<Interceptor> {
             return interceptors
         }
 
-        fun networkInterceptors(): List<Interceptor>? {
+        fun networkInterceptors(): List<Interceptor> {
             return networkInterceptors
         }
 

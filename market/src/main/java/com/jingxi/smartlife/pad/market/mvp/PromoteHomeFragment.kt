@@ -56,17 +56,6 @@ class PromoteHomeFragment : TabFragment() {
     }
 
 
-    @ServiceType
-    protected fun getServiceType(position: Int): String {
-        var type = AllServiceFragment.TYPE_MY
-        when (position) {
-            0 -> type = AllServiceFragment.TYPE_MY
-            2 -> type = AllServiceFragment.TYPE_GOV
-            3 -> type = AllServiceFragment.TYPE_ALL
-        }
-        return type
-    }
-
     companion object {
 
         fun newInstance(pos: Int): PromoteHomeFragment {

@@ -27,7 +27,7 @@ abstract class BaseFragment : SupportFragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         mActivity = context as BaseActivity
-        mContext = context!!
+        mContext = context
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -36,10 +36,6 @@ abstract class BaseFragment : SupportFragment() {
         interruptInject()
 
         return mView
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -54,10 +50,6 @@ abstract class BaseFragment : SupportFragment() {
         parentFragment!!.start(fragment)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         mUnBinder!!.unbind()
@@ -65,11 +57,7 @@ abstract class BaseFragment : SupportFragment() {
 
     }
 
-    override fun onDetach() {
-        super.onDetach()
-    }
-
-    protected fun initDataWithSaveInstance(saveInstanceState: Bundle?) {
+    private fun initDataWithSaveInstance(saveInstanceState: Bundle?) {
         initEventAndData()
     }
 

@@ -159,18 +159,17 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
         LogUtil.i("sn $sn")
         sn?.let {
             val mHttpServer = "39.97.233.20"
-            if (mHttpServer != null && mHttpServer.length > 0) {
+            if (mHttpServer != null && mHttpServer.isNotEmpty()) {
                 WebApiConstants.setHttpServer("http://$mHttpServer")
             }
             val mUUID = "CE6E92A0-47DE-474C-9588-0843C5BAC7EE"
-            val mUsername = phone
-            var mWebUserApi = WebUserApi(this)
+            val mWebUserApi = WebUserApi(this)
             mWebUserApi.setOnAccessTokenListener(object : WebUserApi.onAccessTokenListener{
                 override fun onPreAccessToken() {
                 }
 
                 override fun onPostAccessToken(reponse: WebReponse?) {
-                    if(reponse != null && reponse.getStatusCode() == 200) {
+                    if(reponse != null && reponse.statusCode == 200) {
                         mPresenter?.doLogin(phone, pwd, it)
                     }else{
                         ToastUtil.showShort(this@LoginActivity,"登录失败，${reponse?.reasonPhrase}")
@@ -179,7 +178,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
                 }
 
             })
-            mWebUserApi.accessToken(mUUID, mUsername)
+            mWebUserApi.accessToken(mUUID, phone)
 
         }
 

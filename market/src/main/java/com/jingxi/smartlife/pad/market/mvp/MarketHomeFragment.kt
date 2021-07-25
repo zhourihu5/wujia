@@ -72,17 +72,6 @@ class MarketHomeFragment : TabFragment() {
     }
 
 
-    @ServiceType
-    protected fun getServiceType(position: Int): String {
-        var type = AllServiceFragment.TYPE_MY
-        when (position) {
-            0 -> type = AllServiceFragment.TYPE_MY
-            2 -> type = AllServiceFragment.TYPE_GOV
-            3 -> type = AllServiceFragment.TYPE_ALL
-        }
-        return type
-    }
-
     companion object {
 
         fun newInstance(pos: Int): MarketHomeFragment {
@@ -93,7 +82,7 @@ class MarketHomeFragment : TabFragment() {
             //        fragment.setArguments(args);
             return fragment
         }
-        val TAB_GROUP_BUY:Int=4
+        const val TAB_GROUP_BUY:Int=4
     }
 
     //    @Override

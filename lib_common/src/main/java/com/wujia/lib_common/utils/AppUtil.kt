@@ -90,7 +90,7 @@ object AppUtil {
             br = BufferedReader(isr)
 //            while ((line = br.readLine()) != null) {
             while (true) {
-                br.readLine()?.let { LogUtil.i("cmd line " +it) }?:break
+                br.readLine()?.let { LogUtil.i("cmd line $it") }?:break
             }
             val exitVal = proc.waitFor()
             if (exitVal == 0) {

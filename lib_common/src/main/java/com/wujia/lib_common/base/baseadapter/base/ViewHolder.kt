@@ -18,11 +18,7 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 
 class ViewHolder(private val mContext: Context, val convertView: View) : RecyclerView.ViewHolder(convertView) {
-    private val mViews: SparseArray<View>
-
-    init {
-        mViews = SparseArray()
-    }
+    private val mViews: SparseArray<View> = SparseArray()
 
     /**
      * 通过viewId获取控件
@@ -67,12 +63,6 @@ class ViewHolder(private val mContext: Context, val convertView: View) : Recycle
         return this
     }
 
-    fun setImageBitmap(viewId: Int, bitmap: Bitmap): ViewHolder {
-        val view = getView<ImageView>(viewId)
-        view.setImageBitmap(bitmap)
-        return this
-    }
-
     fun setImageDrawable(viewId: Int, drawable: Drawable): ViewHolder {
         val view = getView<ImageView>(viewId)
         view.setImageDrawable(drawable)
@@ -94,12 +84,6 @@ class ViewHolder(private val mContext: Context, val convertView: View) : Recycle
     fun setTextColor(viewId: Int, textColor: Int): ViewHolder {
         val view = getView<TextView>(viewId)
         view.setTextColor(textColor)
-        return this
-    }
-
-    fun setTextColorRes(viewId: Int, textColorRes: Int): ViewHolder {
-        val view = getView<TextView>(viewId)
-        view.setTextColor(mContext.resources.getColor(textColorRes))
         return this
     }
 
@@ -138,38 +122,6 @@ class ViewHolder(private val mContext: Context, val convertView: View) : Recycle
         return this
     }
 
-    fun setProgress(viewId: Int, progress: Int): ViewHolder {
-        val view = getView<ProgressBar>(viewId)
-        view.progress = progress
-        return this
-    }
-
-    fun setProgress(viewId: Int, progress: Int, max: Int): ViewHolder {
-        val view = getView<ProgressBar>(viewId)
-        view.max = max
-        view.progress = progress
-        return this
-    }
-
-    fun setMax(viewId: Int, max: Int): ViewHolder {
-        val view = getView<ProgressBar>(viewId)
-        view.max = max
-        return this
-    }
-
-    fun setRating(viewId: Int, rating: Float): ViewHolder {
-        val view = getView<RatingBar>(viewId)
-        view.rating = rating
-        return this
-    }
-
-    fun setRating(viewId: Int, rating: Float, max: Int): ViewHolder {
-        val view = getView<RatingBar>(viewId)
-        view.max = max
-        view.rating = rating
-        return this
-    }
-
     fun setTag(viewId: Int, tag: Any): ViewHolder {
         val view = getView<View>(viewId)
         view.tag = tag
@@ -184,7 +136,7 @@ class ViewHolder(private val mContext: Context, val convertView: View) : Recycle
 
     fun setChecked(viewId: Int, checked: Boolean): ViewHolder {
         val view = getView<CheckBox>(viewId)
-        view.setChecked(checked)
+        view.isChecked = checked
         return this
     }
 

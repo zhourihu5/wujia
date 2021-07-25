@@ -12,10 +12,10 @@ class NetConfig {
     var mCookieJar: CookieJar?=null
     var connectTimeoutMills: Long = 0
     var readTimeoutMills: Long = 0
-    var isHasLog: Boolean = false
-    var isUseRx = true
+    private var isHasLog: Boolean = false
+    private var isUseRx = true
     var baseURL = ""
-    var isUseMultiBaseURL = true
+    private var isUseMultiBaseURL = true
 
     /**
      * add okhttp Interceptors
@@ -30,11 +30,6 @@ class NetConfig {
 
     fun configisUseMultiBaseURL(isUseMultiBaseURL: Boolean): NetConfig {
         this.isUseMultiBaseURL = isUseMultiBaseURL
-        return this
-    }
-
-    fun configBaseURL(baseURL: String): NetConfig {
-        this.baseURL = baseURL
         return this
     }
 
@@ -57,16 +52,6 @@ class NetConfig {
 
     fun configReadTimeoutMills(readTimeoutMills: Long): NetConfig {
         this.readTimeoutMills = readTimeoutMills
-        return this
-    }
-
-    fun configLogEnable(isHasLog: Boolean): NetConfig {
-        this.isHasLog = isHasLog
-        return this
-    }
-
-    fun configIsUseRx(isUseRx: Boolean): NetConfig {
-        this.isUseRx = isUseRx
         return this
     }
 

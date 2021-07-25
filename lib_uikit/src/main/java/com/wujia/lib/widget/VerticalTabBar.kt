@@ -14,7 +14,7 @@ import com.wujia.lib_common.utils.ScreenUtil
  */
 class VerticalTabBar(context: Context, attrs: AttributeSet?) : LinearLayout(context, attrs) {
 
-    private var mTabParams: LinearLayout.LayoutParams? = null
+    private var mTabParams: LayoutParams? = null
     private var mOnTabSelectedListener: ((position: Int, prePosition: Int)->Unit)? = null
     private var mCurrentPos: Int = 0
 
@@ -24,15 +24,15 @@ class VerticalTabBar(context: Context, attrs: AttributeSet?) : LinearLayout(cont
     }
 
     private fun init(context: Context, attrs: AttributeSet?) {
-        orientation = LinearLayout.VERTICAL
+        orientation = VERTICAL
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.VerticalTabBar)
         val style = typedArray.getInt(R.styleable.VerticalTabBar_tab_height, 0)
         typedArray.recycle()
         if (style == 0) {
-            mTabParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0)
+            mTabParams = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0)
             mTabParams!!.weight = 1f
         } else {
-            mTabParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtil.dip2px(style.toFloat()))
+            mTabParams = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtil.dip2px(style.toFloat()))
         }
     }
 
@@ -57,10 +57,6 @@ class VerticalTabBar(context: Context, attrs: AttributeSet?) : LinearLayout(cont
         return this
     }
 
-
-    fun setCurrentItem(position: Int) {
-        post { getChildAt(position).performClick() }
-    }
 
     fun setOnTabSelectedListener(mOnTabSelectedListener: ((position: Int, prePosition: Int)->Unit)?) {
         this.mOnTabSelectedListener = mOnTabSelectedListener

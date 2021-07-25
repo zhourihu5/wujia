@@ -49,7 +49,7 @@ class MessageHomeFragment : TabFragment() {
     }
 
     @MsgType
-    protected fun getType(position: Int): String {
+    private fun getType(position: Int): String {
         var type = AllMsgFragment.MSG_TYPE_ALL
         when (position) {
             1 -> type = AllMsgFragment.MSG_TYPE_PROPERTY

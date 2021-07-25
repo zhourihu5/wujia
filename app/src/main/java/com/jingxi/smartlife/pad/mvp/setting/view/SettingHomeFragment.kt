@@ -92,7 +92,9 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
             R.id.item_wifi_connection -> startAdbWifi()
             R.id.item_check_update ->{
                 LoginUtil.toLoginActivity()
-                context?.stopService(Intent(Intent.ACTION_MAIN).setClassName(context,"com.sipphone.sdk.SipService"))
+                context?.apply {
+                    stopService(Intent(Intent.ACTION_MAIN).setClassName(context!!,"com.sipphone.sdk.SipService"))
+                }
             }
             R.id.item_clear_cache -> setBrightMode()
         }
@@ -145,7 +147,7 @@ class SettingHomeFragment : MvpFragment<SettingPresenter>(), SettingContract.Vie
     override fun onDataLoadSucc(requestCode: Int, `object`: Any) {
         hideLoadingDialog()
         val bean = `object` as VersionBean
-        bean?.data?.let { if (MyReceiver.isUpdate(it)) {
+        bean.data?.let { if (MyReceiver.isUpdate(it)) {
             start(UpdateFragment.newInstance(it, it.desc))
         } else {
             ToastUtil.showShort(mContext, "已是最新版本")

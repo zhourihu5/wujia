@@ -9,9 +9,9 @@ open class RootResponse : BaseResponse(), Serializable {
     var code: String?=null
 
     //    public String errcode;
-    override var responseCode: String? = null
+    override val responseCode: String?
         get() = code
-    override var errorMsg: String? = null
+    override val errorMsg: String?
         get() = msg
     var message: String? = null
 

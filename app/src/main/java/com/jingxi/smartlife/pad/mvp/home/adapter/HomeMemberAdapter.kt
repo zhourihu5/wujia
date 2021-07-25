@@ -28,7 +28,7 @@ class HomeMemberAdapter(context: Context, datas: List<HomeUserInfoBean.DataBean.
 
     override fun getItemCount(): Int {
 
-        return if (datas == null) 0 else min(4, datas!!.size)
+        return if (datas == null) 0 else min(4, datas.size)
     }
 
 }

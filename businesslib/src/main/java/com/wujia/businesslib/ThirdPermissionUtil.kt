@@ -22,12 +22,10 @@ object ThirdPermissionUtil {
      * PackageManager.FLAG_PERMISSION_SYSTEM_FIXED
      * PackageManager.FLAG_PERMISSION_GRANTED_BY_DEFAULT
      */
-    val FLAG_PERMISSION_USER_SET = 1 shl 0
-    val FLAG_PERMISSION_USER_FIXED = 1 shl 1
-    val FLAG_PERMISSION_POLICY_FIXED = 1 shl 2
-    val FLAG_PERMISSION_REVOKE_ON_UPGRADE = 1 shl 3
-    val FLAG_PERMISSION_SYSTEM_FIXED = 1 shl 4
-    val FLAG_PERMISSION_GRANTED_BY_DEFAULT = 1 shl 5
+    private const val FLAG_PERMISSION_USER_SET = 1 shl 0
+    private const val FLAG_PERMISSION_USER_FIXED = 1 shl 1
+    const val FLAG_PERMISSION_REVOKE_ON_UPGRADE = 1 shl 3
+    const val FLAG_PERMISSION_GRANTED_BY_DEFAULT = 1 shl 5
 
     private val grantPermissions = arrayOf(Manifest.permission.CHANGE_WIFI_MULTICAST_STATE
             , Manifest.permission.ACCESS_NETWORK_STATE
@@ -48,7 +46,7 @@ object ThirdPermissionUtil {
             , Manifest.permission.BROADCAST_STICKY
             , Manifest.permission.CHANGE_WIFI_STATE
             , Manifest.permission.ACCESS_WIFI_STATE)
-    private val grantList = Arrays.asList(*grantPermissions)
+    private val grantList = listOf(*grantPermissions)
 
     @JvmOverloads
     fun requestDefaultPermissions(packageName: String, needGrant: Boolean = false) {

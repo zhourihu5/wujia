@@ -1,15 +1,14 @@
 package com.wujia.lib.widget
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.Path
 import android.os.Build
-import androidx.appcompat.widget.AppCompatImageView
 import android.util.AttributeSet
 import android.view.View
-
+import androidx.appcompat.widget.AppCompatImageView
 import com.wujia.lib.uikit.R
+import kotlin.math.max
 
 /**
  * author ：shenbingkai@163.com
@@ -74,11 +73,11 @@ class RadiusImageView(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
 
     override fun onDraw(canvas: Canvas) {
         //这里做下判断，只有图片的宽高大于设置的圆角距离的时候才进行裁剪
-        val maxLeft = Math.max(leftTopRadius, leftBottomRadius)
-        val maxRight = Math.max(rightTopRadius, rightBottomRadius)
+        val maxLeft = max(leftTopRadius, leftBottomRadius)
+        val maxRight = max(rightTopRadius, rightBottomRadius)
         val minWidth = maxLeft + maxRight
-        val maxTop = Math.max(leftTopRadius, rightTopRadius)
-        val maxBottom = Math.max(leftBottomRadius, rightBottomRadius)
+        val maxTop = max(leftTopRadius, rightTopRadius)
+        val maxBottom = max(leftBottomRadius, rightBottomRadius)
         val minHeight = maxTop + maxBottom
         if (width >= minWidth && height > minHeight) {
             val path = Path()

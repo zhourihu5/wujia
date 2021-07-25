@@ -5,9 +5,9 @@ import android.util.Log
 object LogUtil {
 
 
-    private val TAG = "--NoTAG--"
+    private const val TAG = "--NoTAG--"
     //    private static boolean logSwitch = BuildConfig.DEBUG;
-    private val logSwitch = true
+    private const val logSwitch = true
 
 
     fun i(message: Any) {

@@ -18,10 +18,6 @@ class SslContextFactory {
     internal var sslContext: SSLContext? = null
 
     companion object {
-        private val CLIENT_TRUST_PASSWORD = ""//信任证书密码，该证书默认密码是
-        private val CLIENT_AGREEMENT = "TLS"//使用协议
-        private val CLIENT_TRUST_MANAGER = "X509"
-        private val CLIENT_TRUST_KEYSTORE = "BKS"
 
         //    public SSLContext getSslSocket() {
         //        try {
@@ -47,7 +43,7 @@ class SslContextFactory {
         //        return sslContext;
         //    }
 
-        fun createTrustManager(): X509TrustManager {
+        private fun createTrustManager(): X509TrustManager {
 
             return object : X509TrustManager {
                 @Throws(CertificateException::class)

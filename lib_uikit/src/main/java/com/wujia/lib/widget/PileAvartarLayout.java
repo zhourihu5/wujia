@@ -15,7 +15,7 @@ import java.util.List;
 
 public class PileAvartarLayout extends ViewGroup {
 
-    private Context context;
+    private final Context context;
 
 
     private boolean flag = false;//false表示右边增加，true表示左边增加
@@ -88,11 +88,11 @@ public class PileAvartarLayout extends ViewGroup {
     /**
      * 存储所有的View
      */
-    private List<List<View>> mAllViews = new ArrayList<List<View>>();
+    private final List<List<View>> mAllViews = new ArrayList<>();
     /**
      * 每一行的高度
      */
-    private List<Integer> mLineHeight = new ArrayList<Integer>();
+    private final List<Integer> mLineHeight = new ArrayList<>();
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
@@ -103,7 +103,7 @@ public class PileAvartarLayout extends ViewGroup {
         int width = getWidth();
         int lineWidth = 0;
         int lineHeight = 0;
-        List<View> lineViews = new ArrayList<View>();
+        List<View> lineViews = new ArrayList<>();
         int cCount = getChildCount();
 
         for (int i = 0; i < cCount; i++) {

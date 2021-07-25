@@ -14,7 +14,7 @@ open class RxPresenter< T : BaseView> : BasePresenter<T> {
     protected var mView: T? = null
     protected var mCompositeDisposable: CompositeDisposable? = null
 
-    protected fun unSubscribe() {
+    private fun unSubscribe() {
         if (mCompositeDisposable != null) {
             mCompositeDisposable!!.clear()
             mCompositeDisposable = null

@@ -41,12 +41,12 @@ import java.util.*
  */
 class GroupBuyDetailFragment2 : TitleFragment() {
     override val layoutId: Int
-        get() =  com.jingxi.smartlife.pad.market.R.layout.fragment_group_buy_detail2
+        get() =  R.layout.fragment_group_buy_detail2
     override val title: Int
-        get() = com.jingxi.smartlife.pad.market.R.string.group_buy_detail
+        get() = R.string.group_buy_detail
 
     var endDate:String?= null
-     var handler:Handler?= null
+     private var handler:Handler?= null
 
     private val eventGroupBuy = EventToGroupBuy(object : IMiessageInvoke<EventToGroupBuy> {
         override fun eventBus(event: EventToGroupBuy) {
@@ -56,28 +56,28 @@ class GroupBuyDetailFragment2 : TitleFragment() {
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
         val id= arguments?.getString(BUNDLE_KEY_ID,"")
-        addSubscribe(MarketModel().getGroupBuyDetail(id).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<GroupBuyDetailVo>>(this@GroupBuyDetailFragment2, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(MarketModel().getGroupBuyDetail(id).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<GroupBuyDetailVo>>(this@GroupBuyDetailFragment2, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<GroupBuyDetailVo>) {
                 super.onResponse(response)
                 val ac=response.data!!.activity
-                tvName.setText(ac.title)
+                tvName.text = ac.title
                 ImageLoaderManager.instance.loadImage(ac.cover, 0, ivCover)
 
                 endDate=ac.endDate
                 initTimer()
                 llAvatar.visibility=View.GONE
-                response!!.data!!.userInfoList?.let {
+                response.data!!.userInfoList?.let {
                     avatarContainer.setFlag(true)
                     avatarContainer.setSpWidth(dp2px(context!!,27f))
                     avatarContainer.setAdapter(object : PileAvartarLayout.Adapter {
                         override fun getCount(): Int {
-                            return response!!.data!!.userInfoList!!.size
+                            return response.data!!.userInfoList!!.size
                         }
                         override fun getView( position: Int): View? {
                             if(position<10){
                                 val imageView=LayoutInflater.from(context).inflate(R.layout.item_goods_avatar2,avatarContainer,false)
 
-                                 response!!.data!!.userInfoList?.get(position)?.wxCover?.let {
+                                 response.data!!.userInfoList?.get(position)?.wxCover?.let {
                                      ImageLoaderManager.instance.loadCircleImage(it,0,imageView as ImageView)
                                      return imageView
                                  }
@@ -87,38 +87,35 @@ class GroupBuyDetailFragment2 : TitleFragment() {
                         }
                     })
 
-                    tvUserNum.setText("…等${ac.commodity.salesNum}名用户已参与")
-                    if(response!!.data!!.userInfoList!!.size>0){
+                    tvUserNum.text = "…等${ac.commodity.salesNum}名用户已参与"
+                    if(response.data!!.userInfoList!!.isNotEmpty()){
                         llAvatar.visibility=View.VISIBLE
                     }
                 }
 
                 val priceArr=ac.price.split('.')
-                tvPriceInt.setText(priceArr[0])
+                tvPriceInt.text = priceArr[0]
                 if(priceArr.size>1){
-                    tvFloat.setText(".${priceArr[1]}")
+                    tvFloat.text = ".${priceArr[1]}"
                 }
-                tvPriceOld.setText("￥"+ac.commodity.price)
+                tvPriceOld.text = "￥"+ac.commodity.price
                 tvPriceOld.paint.flags= Paint.STRIKE_THRU_TEXT_FLAG
 
             }
 
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
-            }
         }))
-        addSubscribe(MarketModel().getGroupBuyOtherList().subscribeWith(object : SimpleRequestSubscriber<ApiResponse<GroupBuyVo>>(this@GroupBuyDetailFragment2, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(MarketModel().getGroupBuyOtherList().subscribeWith(object : SimpleRequestSubscriber<ApiResponse<GroupBuyVo>>(this@GroupBuyDetailFragment2, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<GroupBuyVo>) {
                 super.onResponse(response)
                 val mAdapter = GroupBuyAdapter(context!!, response.data!!.content!!)
                 mAdapter.setClickLisner{
                     holder, t, position->
                     run {
-                        var groupBuyDetailFragment: SupportFragment?
-                        if("1".equals(t.isJoin)){
-                            groupBuyDetailFragment = GroupBuyDetailFragment2.newInstance()
+                        val groupBuyDetailFragment: SupportFragment?
+                        groupBuyDetailFragment = if("1" == t.isJoin){
+                            newInstance()
                         }else{
-                            groupBuyDetailFragment = GroupBuyDetailFragment.newInstance()
+                            GroupBuyDetailFragment.newInstance()
                         }
 
                         val bundle = Bundle()
@@ -145,7 +142,7 @@ class GroupBuyDetailFragment2 : TitleFragment() {
 
     fun initTimer(){
         handler=object :Handler(){
-            override fun handleMessage(msg: Message?) {
+            override fun handleMessage(msg: Message) {
                 super.handleMessage(msg)
                 setTimeRemain()
             }
@@ -157,26 +154,26 @@ class GroupBuyDetailFragment2 : TitleFragment() {
             handler?.removeCallbacksAndMessages(null)
             return
         }
-        var endDate=DateUtil.getDate(endDate!!)
-        var now = Date();
-        var milli = endDate.getTime() - now.getTime()
+        val endDate=DateUtil.getDate(endDate!!)
+        val now = Date()
+        val milli = endDate.time - now.time
         if (milli <= 0) {
-            tvHour.setText("00")
-            tvMinute.setText("00")
-            tvSecond.setText("00")
+            tvHour.text = "00"
+            tvMinute.text = "00"
+            tvSecond.text = "00"
             handler?.removeCallbacksAndMessages(null)
             return
         }
-        var hour = milli / 1000 / 3600
-        var minute =milli % (3600 * 1000) / (60 * 1000)
-        var second = milli % (1000 * 60) / 1000
-        tvHour.setText("${formatNumber(hour)}")
-        tvMinute.setText("${formatNumber(minute)}")
-        tvSecond.setText("${formatNumber(second)}")
+        val hour = milli / 1000 / 3600
+        val minute =milli % (3600 * 1000) / (60 * 1000)
+        val second = milli % (1000 * 60) / 1000
+        tvHour.text = formatNumber(hour)
+        tvMinute.text = formatNumber(minute)
+        tvSecond.text = formatNumber(second)
 
         handler?.sendEmptyMessageDelayed(0,1000)
     }
-    fun formatNumber(n: Long):String{
+    private fun formatNumber(n: Long):String{
         var t=""
         if(n<10){
             t="0"
@@ -191,7 +188,7 @@ class GroupBuyDetailFragment2 : TitleFragment() {
     }
 
     companion object {
-        val BUNDLE_KEY_ID="id"
+        const val BUNDLE_KEY_ID="id"
 
         fun newInstance(): GroupBuyDetailFragment2 {
             val fragment = GroupBuyDetailFragment2()
@@ -201,7 +198,7 @@ class GroupBuyDetailFragment2 : TitleFragment() {
         }
     }
 
-    class BannerAdapter(protected var mContext: Context, protected var datas: List<AttaInfosItem>) :PagerAdapter(){
+    class BannerAdapter(private var mContext: Context, private var datas: List<AttaInfosItem>) :PagerAdapter(){
         override fun isViewFromObject(view: View, `object`: Any): Boolean {
             return view === `object`
         }

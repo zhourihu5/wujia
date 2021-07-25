@@ -16,7 +16,7 @@ import com.wujia.lib_common.base.baseadapter.base.ViewHolder
  */
 class FindServiceChildAdapter : CommonAdapter<CardDetailBean.ServicesBean> {
 
-    internal var subsribeClickCallback: SubsribeClickCallback? = null
+    private var subsribeClickCallback: SubsribeClickCallback? = null
 
     //    private int mType;
 
@@ -26,12 +26,7 @@ class FindServiceChildAdapter : CommonAdapter<CardDetailBean.ServicesBean> {
         fun unsubscibe(item: CardDetailBean.ServicesBean, pos: Int)
     }
 
-    constructor(context: Context, datas: List<CardDetailBean.ServicesBean>, subsribeClickCallback: SubsribeClickCallback) : super(context, R.layout.item_service_find_child, datas) {
-        //        this.mType = type;
-        this.subsribeClickCallback = subsribeClickCallback
-    }
-
-    constructor(context: Context, datas: List<CardDetailBean.ServicesBean>) : super(context, R.layout.item_service_find_child, datas) {}
+    constructor(context: Context, datas: List<CardDetailBean.ServicesBean>) : super(context, R.layout.item_service_find_child, datas)
 
     fun setSubsribeClickCallback(subsribeClickCallback: SubsribeClickCallback) {
         this.subsribeClickCallback = subsribeClickCallback

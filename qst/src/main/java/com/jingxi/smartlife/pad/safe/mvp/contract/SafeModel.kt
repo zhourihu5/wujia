@@ -1,4 +1,4 @@
-package com.jingxi.smartlife.pad.mvp.home.contract
+package com.jingxi.smartlife.pad.safe.mvp.contract
 
 import com.jingxi.smartlife.pad.safe.mvp.SafeApiService
 import com.wujia.businesslib.base.BaseModel

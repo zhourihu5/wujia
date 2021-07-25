@@ -10,11 +10,9 @@ import org.greenrobot.eventbus.ThreadMode
  */
 class EventCardChange : AbsEventEntiry<EventCardChange> {
 
-    constructor() {
+    constructor()
 
-    }
-
-    constructor(invoke: IMiessageInvoke<EventCardChange>) : super(invoke) {}
+    constructor(invoke: IMiessageInvoke<EventCardChange>) : super(invoke)
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     override fun onEventBus(event: EventCardChange) {

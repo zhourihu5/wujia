@@ -1,4 +1,4 @@
-package com.jingxi.smartlife.pad.mvp.home.contract
+package com.jingxi.smartlife.pad.safe.mvp.contract
 
 import com.wujia.lib_common.base.BasePresenter
 import com.wujia.lib_common.base.CommonDataLoadView

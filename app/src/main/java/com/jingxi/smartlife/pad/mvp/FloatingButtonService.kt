@@ -120,7 +120,7 @@ class FloatingButtonService : Service() {
     private inner class FloatingOnTouchListener : View.OnTouchListener {
         private var x: Int = 0
         private var y: Int = 0
-        internal var gestureDetector = GestureDetector(this@FloatingButtonService, object : GestureDetector.OnGestureListener {
+        var gestureDetector = GestureDetector(this@FloatingButtonService, object : GestureDetector.OnGestureListener {
             override fun onDown(e: MotionEvent): Boolean {
                 LogUtil.i("onDown")
                 return false

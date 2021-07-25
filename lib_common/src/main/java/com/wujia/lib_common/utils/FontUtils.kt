@@ -27,10 +27,10 @@ class FontUtils {
         const val Font_TYPE_EXTRA_LIGHT = "extra_light"
 
         private fun getFontAssetPath(@FontType fontType: String): String {
-            when (fontType) {
-                Font_TYPE_EXTRA_LIGHT -> return "fonts/$fontType.ttf"
+            return when (fontType) {
+                Font_TYPE_EXTRA_LIGHT -> "fonts/$fontType.ttf"
 
-                else -> return ""
+                else -> ""
             }
         }
 

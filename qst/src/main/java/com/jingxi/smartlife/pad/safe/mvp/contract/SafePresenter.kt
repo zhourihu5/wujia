@@ -1,4 +1,4 @@
-package com.jingxi.smartlife.pad.mvp.home.contract
+package com.jingxi.smartlife.pad.safe.mvp.contract
 
 import com.wujia.businesslib.base.RxPresenter
 import com.wujia.lib_common.base.RootResponse

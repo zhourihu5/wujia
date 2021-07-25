@@ -52,7 +52,7 @@ android {
         variant ->
             variant.outputs.all {
 //                outputFileName = rootProject.getName()+"_" + productFlavors[0].name + "_" + buildType.name + "_v" + defaultConfig.versionName + "-${releaseTime()}.apk"
-                if (buildType.name.equals("release")) {
+                if (buildType.name == "release") {
                     outputFileName = "wujia_" + buildType.name+ "_c" + defaultConfig.versionCode + "_v" + defaultConfig.versionName + "-${releaseTime()}.apk"
                 }
             }
@@ -62,7 +62,7 @@ androidExtensions {
     experimental = true
 }
 
-def releaseTime() {
+static def releaseTime() {
     new Date().format("yyyyMMdd_HHmm")
 }
 

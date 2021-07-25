@@ -70,7 +70,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
     override fun createPresenter(): BasePresenter<BaseView>? {
         return null
     }
-    val handler:Handler= Handler(Looper.getMainLooper())
+    private val handler:Handler= Handler(Looper.getMainLooper())
     override fun interruptInject() {
         super.interruptInject()
         mListener = object : LinphoneCoreListenerBase() {
@@ -115,9 +115,9 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 //                    }
                 }
                 if (call === mCall && LinphoneCall.State.Connected === state || LinphoneCall.State.StreamsRunning === state) {
-                   LogUtil.e("safeOutsideFragment mCall=="+mCall)
-                    val remoteParams = mCall?.getRemoteParams()
-                    if (remoteParams != null && remoteParams!!.getVideoEnabled() &&
+                   LogUtil.e("safeOutsideFragment mCall==$mCall")
+                    val remoteParams = mCall?.remoteParams
+                    if (remoteParams != null && remoteParams.videoEnabled &&
                             SipCorePreferences.instance().shouldAutomaticallyAcceptVideoRequests()) {
 //                        SPhoneHome.instance().startVideoActivity(mCall)
 
@@ -129,7 +129,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
                     if (state === LinphoneCall.State.Resuming) {
                         // 检查是否为视频通话
                         if (SipCorePreferences.instance().isVideoEnabled) {
-                            if (call?.getCurrentParamsCopy()!!.videoEnabled) {
+                            if (call?.currentParamsCopy!!.videoEnabled) {
                                 videoPrepared()    // 显示视频通话界面
                             }
                         }
@@ -247,7 +247,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         preview?.setZOrderOnTop(true)
         preview?.setZOrderMediaOverlay(true) // Needed to be able to display control layout over
     }
-    protected fun setDate(timeInmillis: Long) {
+    private fun setDate(timeInmillis: Long) {
         val dateFormat = SimpleDateFormat("MM.dd HH:mm")
         val time = dateFormat.format(Date(timeInmillis))
         safe_eq_title_tv!!.text = String.format("室外机 Live %s", time)
@@ -294,8 +294,8 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 
             if(!SipService.isReady()) {
                 // 启动SipService
-                context?.startService( Intent(android.content.Intent.ACTION_MAIN).setClass(
-                        context, SipService::class.java))
+                context?.startService( Intent(Intent.ACTION_MAIN).setClass(
+                    context!!, SipService::class.java))
                 ServiceWaitThread().start()
                 return
             }
@@ -347,7 +347,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
     @SuppressLint("InvalidWakeLockTag")
     override fun onSupportVisible() {
         super.onSupportVisible()
-        var pManager = context!!.getSystemService(POWER_SERVICE) as PowerManager
+        val pManager = context!!.getSystemService(POWER_SERVICE) as PowerManager
         mWakeLock = pManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK
                 or PowerManager.ON_AFTER_RELEASE, javaClass.name)
         mWakeLock?.acquire()
@@ -366,7 +366,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 //            }
 //        }
     }
-    fun videoVisible(){
+    private fun videoVisible(){
         if(!SipService.isReady()) {
             // 启动SipService
 //            context?.startService( Intent(android.content.Intent.ACTION_MAIN).setClass(
@@ -406,7 +406,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         override fun run() {
             while (!SipService.isReady()) {
                 try {
-                    Thread.sleep(30)
+                    sleep(30)
                 } catch (e: InterruptedException) {
                     throw RuntimeException("waiting thread sleep() " + "has been interrupted")
                 }
@@ -530,7 +530,7 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
         }
     }
 
-    protected fun pausePlay() {
+    private fun pausePlay() {
         if (safe_btn_pause!!.visibility == View.VISIBLE) {
             safe_btn_pause!!.performClick()
         }
@@ -874,9 +874,6 @@ class SafeOutsideFragment : MvpFragment<BasePresenter<BaseView>>()
 //    }
 
     companion object {
-
-        private val REQUEST_CODE_FULL_LIVE = 10
-        private val REQUEST_CODE_FULL_HISTORY = 20
 
         fun newInstance(): SafeOutsideFragment {
             val fragment = SafeOutsideFragment()
