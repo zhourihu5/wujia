@@ -1,9 +1,6 @@
 package com.wujia.businesslib.util
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
-
 import com.wujia.businesslib.base.BaseApplication
 import com.wujia.lib_common.utils.AppContext
 
@@ -22,13 +19,10 @@ object LoginUtil {
             intent.setClassName(context, "com.jingxi.smartlife.pad.mvp.login.LoginActivity")
             context.startActivity(intent)
             if (currentActivity != null) {
-                currentActivity!!.finish()
+                currentActivity.finish()
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
-
-
 }

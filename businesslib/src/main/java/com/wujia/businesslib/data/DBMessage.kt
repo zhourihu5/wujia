@@ -20,7 +20,6 @@ class DBMessage {
     var _type: String? = null
 
     var title: String? = null
-    var pureText: String? = null
     var type: String? = null
     var id: String? = null
     var communityId: String? = null
@@ -30,9 +29,7 @@ class DBMessage {
 
 
     var info_nickName: String? = null
-    var info_headImage: String? = null
     var info_mobile: String? = null
-    var info_accid: String? = null
     var info_communityName: String? = null
     var info_communityId: String? = null
 
@@ -42,7 +39,6 @@ class DBMessage {
 
     companion object {
 
-        val TYPE_PROPERTY = "propertyMessage"
-        val TYPE_NOTIFY = "noticeMessage"
+        const val TYPE_NOTIFY = "noticeMessage"
     }
 }

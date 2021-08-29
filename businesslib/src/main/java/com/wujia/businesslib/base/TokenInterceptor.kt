@@ -1,22 +1,15 @@
 package com.wujia.businesslib.base
 
 import android.text.TextUtils
-
 import com.wujia.businesslib.util.LoginUtil
 import com.wujia.lib_common.base.RootResponse
 import com.wujia.lib_common.data.network.exception.TokenException
 import com.wujia.lib_common.utils.GsonUtil
-
-import java.io.IOException
-import java.nio.charset.Charset
-
 import okhttp3.Interceptor
-import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.Response
-import okhttp3.ResponseBody
-import okio.Buffer
-import okio.BufferedSource
+import java.io.IOException
+import java.nio.charset.Charset
 
 /**
  * Author: created by shenbingkai on 2019/3/28 13 42

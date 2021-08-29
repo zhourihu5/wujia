@@ -23,19 +23,7 @@ abstract class PermissionsResultAction {
     /**
      * Default Constructor
      */
-    constructor() {}
-
-    /**
-     * Alternate Constructor. Pass the looper you wish the PermissionsResultAction
-     * callbacks to be executed on if it is not the current Looper. For instance,
-     * if you are making a permissions request from a background thread but wish the
-     * callback to be on the UI thread, use this constructor to specify the UI Looper.
-     *
-     * @param looper the looper that the callbacks will be called using.
-     */
-    constructor(looper: Looper) {
-        mLooper = looper
-    }
+    constructor()
 
     /**
      * This method is called when ALL permissions that have been

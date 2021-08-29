@@ -33,20 +33,4 @@ object RxUtil {
     }
 
 
-    /**
-     * 生成Flowable
-     *
-     * @param <T>
-     * @return
-    </T> */
-    fun <T> createData(t: T): Flowable<T> {
-        return Flowable.create({ emitter ->
-            try {
-                emitter.onNext(t)
-                emitter.onComplete()
-            } catch (e: Exception) {
-                emitter.onError(e)
-            }
-        }, BackpressureStrategy.BUFFER)
-    }
 }

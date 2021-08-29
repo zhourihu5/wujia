@@ -2,14 +2,9 @@ package com.wujia.lib_common.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.net.NetworkInfo
-import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
-
 import java.net.Inet4Address
-import java.net.InetAddress
 import java.net.NetworkInterface
-import java.util.Enumeration
 
 /**
  * @title: NetworkUtil.java
@@ -17,11 +12,11 @@ import java.util.Enumeration
  * @date 2015-3-4 上午9:47:30
  */
 object NetworkUtil {
-    val NONE = -1
-    val WIFI = 1
-    val MOBILE = 0
+    private const val NONE = -1
+    private const val WIFI = 1
+    private const val MOBILE = 0
 
-    var netStatus = NONE
+    private var netStatus = NONE
 
     /**
      * @param context
@@ -46,60 +41,12 @@ object NetworkUtil {
     private fun getNetWorkInfoType(context: Context): Int {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val netinfo = cm.activeNetworkInfo
-        if (null == netinfo) {
-            netStatus = NONE
+        netStatus = if (null == netinfo) {
+            NONE
         } else {
-            netStatus = netinfo.type
+            netinfo.type
         }
         return netStatus
-    }
-
-    /**
-     * 获取本机IP
-     *
-     * @param context
-     * @return
-     */
-    fun getLocalIpAddress(context: Context): String {
-
-        val type = getNetWorkInfoType(context)
-        when (type) {
-            NetworkUtil.MOBILE -> {
-                try {
-                    val en = NetworkInterface
-                            .getNetworkInterfaces()
-                    while (en.hasMoreElements()) {
-                        val intf = en.nextElement()
-                        val enumIpAddr = intf
-                                .inetAddresses
-                        while (enumIpAddr.hasMoreElements()) {
-                            val inetAddress = enumIpAddr.nextElement()
-                            if (!inetAddress.isLoopbackAddress && inetAddress is Inet4Address) {
-                                // if (!inetAddress.isLoopbackAddress() && inetAddress
-                                // instanceof Inet6Address) {
-                                return inetAddress.getHostAddress()
-                            }
-                        }
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-
-                return ""
-            }
-            NetworkUtil.WIFI -> {
-                val wifiManager = context.getSystemService(Context.WIFI_SERVICE) as WifiManager
-                val wifiInfo = wifiManager.connectionInfo
-                // 获取32位整型IP地址
-                val ipAddress = wifiInfo.ipAddress
-
-                //返回整型地址转换成“*.*.*.*”地址
-                return String.format("%d.%d.%d.%d",
-                        ipAddress and 0xff, ipAddress shr 8 and 0xff,
-                        ipAddress shr 16 and 0xff, ipAddress shr 24 and 0xff)
-            }
-        }
-        return ""
     }
 
     fun isNetAvailable(context: Context): Boolean {

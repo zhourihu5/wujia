@@ -67,11 +67,7 @@ open class SimpleRequestSubscriber<T> : RequestSubscriber<T> {
      * 为以后扩展需要
      */
     class ActionConfigBuilder {
-        internal var actionConfig: ActionConfig
-
-        init {
-            actionConfig = ActionConfig()
-        }
+        internal var actionConfig: ActionConfig = ActionConfig()
 
         fun showLoading(showLoading: Boolean): ActionConfigBuilder {
             actionConfig.isShowLoading = showLoading
@@ -101,7 +97,7 @@ open class SimpleRequestSubscriber<T> : RequestSubscriber<T> {
             this.errorAction = errorAction
         }
 
-        constructor() {}
+        constructor()
 
         constructor(actionConfig: ActionConfig) {
             this.isShowLoading = actionConfig.isShowLoading
@@ -110,9 +106,9 @@ open class SimpleRequestSubscriber<T> : RequestSubscriber<T> {
     }
 
     companion object {
-        val SHOWERRORMESSAGE = 1
-        val SHOWERRORVIEW = 2
-        val ERROR_NONE = 3
+        const val SHOWERRORMESSAGE = 1
+        const val SHOWERRORVIEW = 2
+        const val ERROR_NONE = 3
     }
 
 }

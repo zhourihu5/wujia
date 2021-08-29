@@ -29,6 +29,8 @@ android {
     buildTypes {
 
         debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
 
@@ -50,7 +52,7 @@ android {
         variant ->
             variant.outputs.all {
 //                outputFileName = rootProject.getName()+"_" + productFlavors[0].name + "_" + buildType.name + "_v" + defaultConfig.versionName + "-${releaseTime()}.apk"
-                if (buildType.name.equals("release")) {
+                if (buildType.name == "release") {
                     outputFileName = "wujia_" + buildType.name+ "_c" + defaultConfig.versionCode + "_v" + defaultConfig.versionName + "-${releaseTime()}.apk"
                 }
             }
@@ -60,7 +62,7 @@ androidExtensions {
     experimental = true
 }
 
-def releaseTime() {
+static def releaseTime() {
     new Date().format("yyyyMMdd_HHmm")
 }
 
@@ -88,7 +90,9 @@ dependencies {
     kapt deps.butterknife.compiler
     implementation project(':family')
     implementation project(':property')
-    implementation project(':safe')
+//    implementation project(':safe')
+    api project(':qst')
+//    api project(':newsafe')
     implementation project(':market')
     implementation project(':message')
 //    implementation project(':neighbor')
@@ -107,5 +111,10 @@ dependencies {
 
 
     lintChecks project(":lint_library")
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+}
+repositories {
+    mavenCentral()
 }

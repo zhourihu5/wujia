@@ -165,7 +165,7 @@ class CardManagerFragment : MvpFragment<HomePresenter>(), HomeContract.View {
                 if (cards.data != null && cards.data!!.size > 0) {
                     val toAddList = ArrayList<HomeRecBean.Card>()
                     for (card in cards.data!!) {
-                        if ("NO" == card.userCards!![0].isShow) {
+                        if ("NO" == card.isShow) {
                             toAddList.add(card)
                         }
                     }

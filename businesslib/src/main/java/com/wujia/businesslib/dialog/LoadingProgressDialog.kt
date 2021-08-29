@@ -16,8 +16,6 @@ class LoadingProgressDialog : Dialog {
         init()
     }
 
-    constructor(context: Context, themeResId: Int) : super(context, themeResId) {}
-
     private fun init() {
         setContentView(R.layout.layout_loading_dialog)
         setCanceledOnTouchOutside(false)

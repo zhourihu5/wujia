@@ -14,6 +14,9 @@ import com.jingxi.smartlife.pad.R
 import com.jingxi.smartlife.pad.mvp.MainActivity
 import com.jingxi.smartlife.pad.mvp.login.contract.LoginContract
 import com.jingxi.smartlife.pad.mvp.login.presenter.LoginPresenter
+import com.sipphone.sdk.access.WebApiConstants
+import com.sipphone.sdk.access.WebReponse
+import com.sipphone.sdk.access.WebUserApi
 import com.wujia.businesslib.HookUtil
 import com.wujia.businesslib.base.DataManager
 import com.wujia.businesslib.base.MvpActivity
@@ -36,6 +39,7 @@ import java.util.*
  * description ： 登录
  */
 class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
+
     override val layout: Int
         get() = R.layout.activity_login
     private var codeCountDownTimer: CountDownTimer? = null
@@ -53,10 +57,11 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 
     }
 
-    @OnClick(R.id.login_btn, R.id.login_btn_confim, R.id.login_password_visibility, R.id.login_verify_code_btn)
+    @OnClick(R.id.login_btn, R.id.login_btn_confim,  R.id.login_password_visibility, R.id.login_verify_code_btn)
     fun onViewClicked(view: View) {
         when (view.id) {
             R.id.login_btn -> login()
+
             R.id.login_btn_confim -> {
                 toActivity(MainActivity::class.java)
                 finish()
@@ -152,7 +157,30 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 
         val sn = SystemUtil.getSerialNum()
         LogUtil.i("sn $sn")
-        sn?.let { mPresenter?.doLogin(phone, pwd, it) }
+        sn?.let {
+            val mHttpServer = "39.97.233.20"
+            if (mHttpServer != null && mHttpServer.isNotEmpty()) {
+                WebApiConstants.setHttpServer("http://$mHttpServer")
+            }
+            val mUUID = "CE6E92A0-47DE-474C-9588-0843C5BAC7EE"
+            val mWebUserApi = WebUserApi(this)
+            mWebUserApi.setOnAccessTokenListener(object : WebUserApi.onAccessTokenListener{
+                override fun onPreAccessToken() {
+                }
+
+                override fun onPostAccessToken(reponse: WebReponse?) {
+                    if(reponse != null && reponse.statusCode == 200) {
+                        mPresenter?.doLogin(phone, pwd, it)
+                    }else{
+                        ToastUtil.showShort(this@LoginActivity,"登录失败，${reponse?.reasonPhrase}")
+                    }
+
+                }
+
+            })
+            mWebUserApi.accessToken(mUUID, phone)
+
+        }
 
     }
 

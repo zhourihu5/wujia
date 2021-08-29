@@ -21,8 +21,6 @@ object ToastUtil {
 
     private fun show(context: Context, msg: String, @DrawableRes iconId: Int, duration: Int) {
         //        Toast toast=null;
-        val title: TextView
-        val icon: ImageView
         val appContext = context.applicationContext
         if (toast == null) {
             toast = Toast(appContext)
@@ -32,10 +30,10 @@ object ToastUtil {
             toast!!.setGravity(Gravity.CENTER, 0, 0)
 
         }
-        title = toast!!.view.findViewById(R.id.toast_msg)
+        val title: TextView = toast!!.view!!.findViewById(R.id.toast_msg)
         title.text = msg
         toast!!.duration = duration
-        icon = toast!!.view.findViewById(R.id.toast_icon)
+        val icon: ImageView = toast!!.view!!.findViewById(R.id.toast_icon)
         if (iconId != 0) {
             icon.setImageResource(iconId)
             icon.visibility = View.VISIBLE
@@ -55,11 +53,4 @@ object ToastUtil {
         show(context, context.getString(strId), 0, Toast.LENGTH_SHORT)
     }
 
-    fun showLong(context: Context, msg: String) {
-        show(context, msg, 0, Toast.LENGTH_LONG)
-    }
-
-    fun showShortWithIcon(context: Context, msg: String, iconId: Int) {
-        show(context, msg, iconId, Toast.LENGTH_LONG)
-    }
 }

@@ -10,8 +10,8 @@ import androidx.annotation.Nullable;
 public class TestLintSample extends Activity {
     private static final String TAG = "aa";
     // In a comment, mentioning "lint" has no effect" +
-                            private static String s1 = "Ignore non-word usages: linting";
-                                private static String s2 = "Let's say it: lint";
+                            private static final String s1 = "Ignore non-word usages: linting";
+                                private static final String s2 = "Let's say it: lint";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

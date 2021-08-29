@@ -6,7 +6,7 @@ package com.jingxi.smartlife.pad.market.mvp.view
  * description ：
  */
 class MyServiceFragment : AllServiceFragment() {
-    override var type: String = AllServiceFragment.TYPE_MY
+    override var type: String = TYPE_MY
 
 
 }

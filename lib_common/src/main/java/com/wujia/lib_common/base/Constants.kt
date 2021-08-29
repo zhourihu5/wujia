@@ -9,27 +9,29 @@ import com.wujia.lib_common.BuildConfig
 object Constants {
     val BASE_URL: String
 
-    val HTTP_SUCESS = "200"
+    const val HTTP_SUCESS = "200"
 
-    val COMMON_REQUEST_TOKEN = "accessToken"
+    const val COMMON_REQUEST_TOKEN = "accessToken"
 
 
     //    Intent key
-    val ARG_PARAM_1 = "ARG_PARAM_1"
-    val INTENT_KEY_1 = "INTENT_KEY_1"
-    val INTENT_KEY_2 = "INTENT_KEY_2"
-    val INTENT_KEY_3 = "INTENT_KEY_3"
-    val INTENT_KEY_4 = "INTENT_KEY_4"
-    val INTENT_KEY_5 = "INTENT_KEY_5"
-    val SP_KEY_USER = "SP_KEY_USER"
+    const val ARG_PARAM_1 = "ARG_PARAM_1"
+    const val INTENT_KEY_1 = "INTENT_KEY_1"
+    const val INTENT_KEY_2 = "INTENT_KEY_2"
+    const val INTENT_KEY_3 = "INTENT_KEY_3"
+    const val INTENT_KEY_4 = "INTENT_KEY_4"
+    const val INTENT_KEY_5 = "INTENT_KEY_5"
+    const val SP_KEY_USER = "SP_KEY_USER"
 
     init {
-        if (BuildConfig.DEBUG) {
-//            BASE_URL = "https://api.home-guard.cn"
-//            BASE_URL = "http://192.168.250.16:8181"
-            BASE_URL = "http://testapi.home-guard.cn"
+        BASE_URL = if (BuildConfig.DEBUG) {
+            "https://api.home-guard.cn"
+    //            BASE_URL = "http://192.168.250.6:8081"
+    //            BASE_URL = "http://192.168.250.16:8181"
+    //            BASE_URL = "http://testapi.home-guard.cn"
         } else {
-            BASE_URL = "https://api.home-guard.cn"
+            "https://api.home-guard.cn"
+    //            BASE_URL = "http://192.168.250.8:8081"
         }
     }
 }

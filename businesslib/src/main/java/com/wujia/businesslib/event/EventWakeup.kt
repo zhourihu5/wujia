@@ -11,11 +11,9 @@ import org.greenrobot.eventbus.ThreadMode
 class EventWakeup : AbsEventEntiry<EventWakeup> {
 
 
-    constructor() {
+    constructor()
 
-    }
-
-    constructor(invoke: IMiessageInvoke<EventWakeup>) : super(invoke) {}
+    constructor(invoke: IMiessageInvoke<EventWakeup>) : super(invoke)
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     override fun onEventBus(event: EventWakeup) {

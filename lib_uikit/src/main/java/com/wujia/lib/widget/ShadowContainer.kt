@@ -13,6 +13,7 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.core.content.ContextCompat
 import com.wujia.lib.uikit.R
+import kotlin.math.max
 
 
 class ShadowContainer @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : ViewGroup(context, attrs, defStyleAttr) {
@@ -37,10 +38,6 @@ class ShadowContainer @JvmOverloads constructor(context: Context, attrs: Attribu
         mShadowPaint.isAntiAlias = true
         mShadowPaint.color = shadowColor
         mShadowPaint.setShadowLayer(shadowRadius, dx, dy, shadowColor)
-    }
-
-    override fun onFinishInflate() {
-        super.onFinishInflate()
     }
 
     override fun dispatchDraw(canvas: Canvas) {
@@ -72,14 +69,6 @@ class ShadowContainer @JvmOverloads constructor(context: Context, attrs: Attribu
         super.dispatchDraw(canvas)
     }
 
-    fun setDrawShadow(drawShadow: Boolean) {
-        if (this.drawShadow == drawShadow) {
-            return
-        }
-        this.drawShadow = drawShadow
-        postInvalidate()
-    }
-
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         if (childCount != 1) {
@@ -87,59 +76,59 @@ class ShadowContainer @JvmOverloads constructor(context: Context, attrs: Attribu
         }
         val measuredWidth = measuredWidth
         val measuredHeight = measuredHeight
-        val widthMode = View.MeasureSpec.getMode(widthMeasureSpec)
-        val heightMode = View.MeasureSpec.getMode(heightMeasureSpec)
+        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
+        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val child = getChildAt(0)
         val layoutParams = child.layoutParams as LayoutParams
-        val childBottomMargin = (Math.max(deltaLength, layoutParams.bottomMargin.toFloat()) + 1).toInt()
-        val childLeftMargin = (Math.max(deltaLength, layoutParams.leftMargin.toFloat()) + 1).toInt()
-        val childRightMargin = (Math.max(deltaLength, layoutParams.rightMargin.toFloat()) + 1).toInt()
-        val childTopMargin = (Math.max(deltaLength, layoutParams.topMargin.toFloat()) + 1).toInt()
+        val childBottomMargin = (max(deltaLength, layoutParams.bottomMargin.toFloat()) + 1).toInt()
+        val childLeftMargin = (max(deltaLength, layoutParams.leftMargin.toFloat()) + 1).toInt()
+        val childRightMargin = (max(deltaLength, layoutParams.rightMargin.toFloat()) + 1).toInt()
+        val childTopMargin = (max(deltaLength, layoutParams.topMargin.toFloat()) + 1).toInt()
         val widthMeasureSpecMode: Int
         val widthMeasureSpecSize: Int
         val heightMeasureSpecMode: Int
         val heightMeasureSpecSize: Int
-        if (widthMode == View.MeasureSpec.UNSPECIFIED) {
-            widthMeasureSpecMode = View.MeasureSpec.UNSPECIFIED
-            widthMeasureSpecSize = View.MeasureSpec.getSize(widthMeasureSpec)
+        if (widthMode == MeasureSpec.UNSPECIFIED) {
+            widthMeasureSpecMode = MeasureSpec.UNSPECIFIED
+            widthMeasureSpecSize = MeasureSpec.getSize(widthMeasureSpec)
         } else {
             if (layoutParams.width == MATCH_PARENT) {
-                widthMeasureSpecMode = View.MeasureSpec.EXACTLY
+                widthMeasureSpecMode = MeasureSpec.EXACTLY
                 widthMeasureSpecSize = measuredWidth - childLeftMargin - childRightMargin
             } else if (WRAP_CONTENT == layoutParams.width) {
-                widthMeasureSpecMode = View.MeasureSpec.AT_MOST
+                widthMeasureSpecMode = MeasureSpec.AT_MOST
                 widthMeasureSpecSize = measuredWidth - childLeftMargin - childRightMargin
             } else {
-                widthMeasureSpecMode = View.MeasureSpec.EXACTLY
+                widthMeasureSpecMode = MeasureSpec.EXACTLY
                 widthMeasureSpecSize = layoutParams.width
             }
         }
-        if (heightMode == View.MeasureSpec.UNSPECIFIED) {
-            heightMeasureSpecMode = View.MeasureSpec.UNSPECIFIED
-            heightMeasureSpecSize = View.MeasureSpec.getSize(heightMeasureSpec)
+        if (heightMode == MeasureSpec.UNSPECIFIED) {
+            heightMeasureSpecMode = MeasureSpec.UNSPECIFIED
+            heightMeasureSpecSize = MeasureSpec.getSize(heightMeasureSpec)
         } else {
             if (layoutParams.height == MATCH_PARENT) {
-                heightMeasureSpecMode = View.MeasureSpec.EXACTLY
+                heightMeasureSpecMode = MeasureSpec.EXACTLY
                 heightMeasureSpecSize = measuredHeight - childBottomMargin - childTopMargin
             } else if (WRAP_CONTENT == layoutParams.height) {
-                heightMeasureSpecMode = View.MeasureSpec.AT_MOST
+                heightMeasureSpecMode = MeasureSpec.AT_MOST
                 heightMeasureSpecSize = measuredHeight - childBottomMargin - childTopMargin
             } else {
-                heightMeasureSpecMode = View.MeasureSpec.EXACTLY
+                heightMeasureSpecMode = MeasureSpec.EXACTLY
                 heightMeasureSpecSize = layoutParams.height
             }
         }
-        measureChild(child, View.MeasureSpec.makeMeasureSpec(widthMeasureSpecSize, widthMeasureSpecMode), View.MeasureSpec.makeMeasureSpec(heightMeasureSpecSize, heightMeasureSpecMode))
-        val parentWidthMeasureSpec = View.MeasureSpec.getMode(widthMeasureSpec)
-        val parentHeightMeasureSpec = View.MeasureSpec.getMode(heightMeasureSpec)
+        measureChild(child, MeasureSpec.makeMeasureSpec(widthMeasureSpecSize, widthMeasureSpecMode), MeasureSpec.makeMeasureSpec(heightMeasureSpecSize, heightMeasureSpecMode))
+        val parentWidthMeasureSpec = MeasureSpec.getMode(widthMeasureSpec)
+        val parentHeightMeasureSpec = MeasureSpec.getMode(heightMeasureSpec)
         var height = measuredHeight
         var width = measuredWidth
         val childHeight = child.measuredHeight
         val childWidth = child.measuredWidth
-        if (parentHeightMeasureSpec == View.MeasureSpec.AT_MOST) {
+        if (parentHeightMeasureSpec == MeasureSpec.AT_MOST) {
             height = childHeight + childTopMargin + childBottomMargin
         }
-        if (parentWidthMeasureSpec == View.MeasureSpec.AT_MOST) {
+        if (parentWidthMeasureSpec == MeasureSpec.AT_MOST) {
             width = childWidth + childRightMargin + childLeftMargin
         }
         if (width < childWidth + 2 * deltaLength) {
@@ -153,15 +142,15 @@ class ShadowContainer @JvmOverloads constructor(context: Context, attrs: Attribu
         }
     }
 
-    internal class LayoutParams : ViewGroup.MarginLayoutParams {
+    internal class LayoutParams : MarginLayoutParams {
 
-        constructor(c: Context, attrs: AttributeSet) : super(c, attrs) {}
+        constructor(c: Context, attrs: AttributeSet) : super(c, attrs)
 
-        constructor(width: Int, height: Int) : super(width, height) {}
+        constructor(width: Int, height: Int) : super(width, height)
 
-        constructor(source: ViewGroup.MarginLayoutParams) : super(source) {}
+        constructor(source: MarginLayoutParams) : super(source)
 
-        constructor(source: ViewGroup.LayoutParams) : super(source) {}
+        constructor(source: ViewGroup.LayoutParams) : super(source)
     }
 
     override fun generateDefaultLayoutParams(): ViewGroup.LayoutParams {

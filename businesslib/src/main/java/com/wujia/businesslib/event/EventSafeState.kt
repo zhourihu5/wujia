@@ -12,15 +12,7 @@ class EventSafeState : AbsEventEntiry<EventSafeState> {
 
     var online: Boolean = false
 
-    constructor() {
-
-    }
-
-    constructor(online: Boolean) {
-        this.online = online
-    }
-
-    constructor(invoke: IMiessageInvoke<EventSafeState>) : super(invoke) {}
+    constructor(invoke: IMiessageInvoke<EventSafeState>) : super(invoke)
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     override fun onEventBus(event: EventSafeState) {

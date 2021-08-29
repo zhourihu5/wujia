@@ -5,7 +5,6 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 
-import com.jingxi.smartlife.pad.sdk.JXPadSdk
 import com.wujia.lib_common.utils.AppContext
 import com.wujia.lib_common.utils.SystemUtil
 
@@ -13,7 +12,6 @@ import java.lang.ref.WeakReference
 import java.util.concurrent.atomic.AtomicInteger
 
 abstract class BaseApplication : Application() {
-    internal var TAG = "wujia"
 
     override fun onCreate() {
         super.onCreate()
@@ -24,8 +22,8 @@ abstract class BaseApplication : Application() {
         SystemUtil.init()
 
 
-        registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
-            internal var mFinalCount = AtomicInteger(0)
+        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+            var mFinalCount = AtomicInteger(0)
 
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 currentActivity = WeakReference(activity)
@@ -73,8 +71,8 @@ abstract class BaseApplication : Application() {
     //    }
 
     private fun initSDKManager() {
-        JXPadSdk.init(instance)
-        JXPadSdk.initDoorAccess()
+//        JXPadSdk.init(instance)
+//        JXPadSdk.initDoorAccess()
         //        JXPadSdk.initPushManager();//todo replace it by our push，原来的push APPkey等信息是写在manifest里的，
 
 

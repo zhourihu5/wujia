@@ -33,8 +33,8 @@ class MarketHomeFragment : TabFragment() {
                 .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_find_default, R.mipmap.icon_market_leftnav_find_highlight, R.string.find_service))
                 .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_government_default, R.mipmap.icon_market_leftnav_government_highlight, R.string.gov_service))
                 .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_all_default, R.mipmap.icon_market_leftnav_all_highlight, R.string.all_service))
-                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_find_default, R.mipmap.icon_market_leftnav_find_highlight, R.string.group_buy_service))
-                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_find_default, R.mipmap.icon_market_leftnav_find_highlight, R.string.order_service))
+                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_groupbuy_default, R.mipmap.icon_market_leftnav_groupbuy_highlight, R.string.group_buy_service))
+                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_market_leftnav_my_order_default, R.mipmap.icon_market_leftnav_my_order_highlight, R.string.order_service))
         if (currentTab >= mTabBar.childCount) {
             currentTab = 0
         }
@@ -72,17 +72,6 @@ class MarketHomeFragment : TabFragment() {
     }
 
 
-    @ServiceType
-    protected fun getServiceType(position: Int): String {
-        var type = AllServiceFragment.TYPE_MY
-        when (position) {
-            0 -> type = AllServiceFragment.TYPE_MY
-            2 -> type = AllServiceFragment.TYPE_GOV
-            3 -> type = AllServiceFragment.TYPE_ALL
-        }
-        return type
-    }
-
     companion object {
 
         fun newInstance(pos: Int): MarketHomeFragment {
@@ -93,7 +82,7 @@ class MarketHomeFragment : TabFragment() {
             //        fragment.setArguments(args);
             return fragment
         }
-        val TAB_GROUP_BUY:Int=4
+        const val TAB_GROUP_BUY:Int=4
     }
 
     //    @Override

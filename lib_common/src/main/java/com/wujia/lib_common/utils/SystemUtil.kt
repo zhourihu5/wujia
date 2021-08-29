@@ -18,7 +18,7 @@ object SystemUtil {
 
     fun init() {
         //        serialNum = android.os.Build.SERIAL;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        serialNum = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (ActivityCompat.checkSelfPermission(AppContext.get(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
@@ -29,9 +29,9 @@ object SystemUtil {
                 // for ActivityCompat#requestPermissions for more details.
                 return
             }
-            serialNum = Build.getSerial()
+            Build.getSerial()
         } else {
-            serialNum = android.os.Build.SERIAL//todo 有时获取不到，结果就是"unknown"
+            Build.SERIAL//todo 有时获取不到，结果就是"unknown"
         }
 
     }
@@ -42,6 +42,6 @@ object SystemUtil {
         }
         return serialNum
         //        return "HS1JXY6M12D2900034";
-        //        return "GB8ZAJFKZE";
+//                return "GB8ZAJFKZE";
     }
 }

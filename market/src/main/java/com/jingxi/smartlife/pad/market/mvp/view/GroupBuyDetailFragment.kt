@@ -9,6 +9,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
@@ -40,12 +41,12 @@ import java.util.*
  */
 class GroupBuyDetailFragment : TitleFragment() {
     override val layoutId: Int
-        get() =  com.jingxi.smartlife.pad.market.R.layout.fragment_group_buy_detail
+        get() =  R.layout.fragment_group_buy_detail
     override val title: Int
-        get() = com.jingxi.smartlife.pad.market.R.string.group_buy_detail
+        get() = R.string.group_buy_detail
 
     var endDate:String?= null
-     var handler:Handler?= null
+     private var handler:Handler?= null
 
     private val eventGroupBuy = EventToGroupBuy(object : IMiessageInvoke<EventToGroupBuy> {
         override fun eventBus(event: EventToGroupBuy) {
@@ -55,11 +56,11 @@ class GroupBuyDetailFragment : TitleFragment() {
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
         val id= arguments?.getString(BUNDLE_KEY_ID,"")
-        addSubscribe(MarketModel().getGroupBuyDetail(id).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<GroupBuyDetailVo>>(this@GroupBuyDetailFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(MarketModel().getGroupBuyDetail(id).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<GroupBuyDetailVo>>(this@GroupBuyDetailFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<GroupBuyDetailVo>) {
                 super.onResponse(response)
                 val ac=response.data!!.activity
-                tvGoodsTitle.setText(ac.title)
+                tvGoodsTitle.text = ac.title
                 ImageLoaderManager.instance.loadImage(ac.cover, 0, ivCover)
                 val bannerAdapter=BannerAdapter(context!!,ac.commodity.attaInfos!!)
                 viewPager.adapter=bannerAdapter
@@ -70,23 +71,23 @@ class GroupBuyDetailFragment : TitleFragment() {
                     flowlayout.adapter= object : TagAdapter<String>(lables.split('|')) {
                         override fun getView(parent: FlowLayout?, position: Int, t: String?): View {
                             val tvLabel= LayoutInflater.from(mContext).inflate(R.layout.item_label,parent,false) as TextView
-                            tvLabel.setText(t)
+                            tvLabel.text = t
                             return tvLabel
                         }
                     }
                 }
                 llAvatar.visibility=View.GONE
-                response!!.data!!.userInfoList?.let {
+                response.data!!.userInfoList?.let {
                     avatarContainer.setFlag(true)
                     avatarContainer.setSpWidth(dp2px(context!!,15f))
                     avatarContainer.setAdapter(object : PileAvartarLayout.Adapter {
                         override fun getCount(): Int {
-                            return response!!.data!!.userInfoList!!.size
+                            return response.data!!.userInfoList!!.size
                         }
                         override fun getView( position: Int): View? {
                             if(position<10){
                                 val imageView=LayoutInflater.from(context).inflate(R.layout.item_goods_avatar,avatarContainer,false)
-                                 response!!.data!!.userInfoList?.get(position)?.wxCover?.let {
+                                 response.data!!.userInfoList?.get(position)?.wxCover?.let {
                                      ImageLoaderManager.instance.loadCircleImage(it,0,imageView as ImageView)
                                      return imageView
                                  }
@@ -96,16 +97,16 @@ class GroupBuyDetailFragment : TitleFragment() {
                         }
                     })
 
-                    tvUserNum.setText("…等${ac.commodity.salesNum}名用户已参与")
-                    if(response!!.data!!.userInfoList!!.size>0){
+                    tvUserNum.text = "…等${ac.commodity.salesNum}名用户已参与"
+                    if(response.data!!.userInfoList!!.isNotEmpty()){
                         llAvatar.visibility=View.VISIBLE
                     }
                 }
 
                 if(!TextUtils.isEmpty(ac.saleTip)){
                     val saleTipArr=  ac.saleTip.split(',')
-                    tvRejoinNum.setText(saleTipArr[0])
-                    tvRejoinMoney.setText(saleTipArr[1])
+                    tvRejoinNum.text = saleTipArr[0]
+                    tvRejoinMoney.text = saleTipArr[1]
                     llRejoinNum.visibility=View.VISIBLE
                 }else{
                     llRejoinNum.visibility=View.GONE
@@ -117,22 +118,22 @@ class GroupBuyDetailFragment : TitleFragment() {
 
 
                 val priceArr=ac.price.split('.')
-                tvPriceInt.setText(priceArr[0])
+                tvPriceInt.text = priceArr[0]
                 if(priceArr.size>1){
-                    tvFloat.setText(".${priceArr[1]}")
+                    tvFloat.text = ".${priceArr[1]}"
                 }
-                tvPriceOld.setText("￥"+ac.commodity.price)
+                tvPriceOld.text = "￥"+ac.commodity.price
                 tvPriceOld.paint.flags= Paint.STRIKE_THRU_TEXT_FLAG
-                tvSaleNum.setText("已抢购${ac.commodity.salesNum}件")
-                tvDiscount.setText(ac.largeMoney)
+                tvSaleNum.text = "已抢购${ac.commodity.salesNum}件"
+                tvDiscount.text = ac.largeMoney
 
                 val goodsFmt= arrayOf("产地","规格", "重量", "包装", "保质期", "贮存方式")
                 val goodsFmtDes=ac.commodity.formatVals!!
                 llGoodsFormat.removeAllViews()
                 for( i in goodsFmt.indices){
                     val item=LayoutInflater.from(context).inflate(R.layout.item_goods_format,llGoodsFormat,false)
-                    item.findViewById<TextView>(R.id.tvFormatName).setText(goodsFmt[i])
-                    item.findViewById<TextView>(R.id.tvFormatDes).setText(goodsFmtDes[i])
+                    item.findViewById<TextView>(R.id.tvFormatName).text = goodsFmt[i]
+                    item.findViewById<TextView>(R.id.tvFormatDes).text = goodsFmtDes[i]
                     if(i==0){
                         item.setBackgroundResource(R.drawable.table_cell_top)
                     }else{
@@ -141,13 +142,10 @@ class GroupBuyDetailFragment : TitleFragment() {
                     llGoodsFormat.addView(item)
                 }
 
+                webView.settings.layoutAlgorithm= WebSettings.LayoutAlgorithm.SINGLE_COLUMN
                 webView.loadData(response.data!!.activity.commodity.infos, "text/html; charset=UTF-8", null)
-
             }
 
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
-            }
         }))
         EventBusUtil.register(eventGroupBuy)
     }
@@ -156,7 +154,7 @@ class GroupBuyDetailFragment : TitleFragment() {
 
     fun initTimer(){
         handler=object :Handler(){
-            override fun handleMessage(msg: Message?) {
+            override fun handleMessage(msg: Message) {
                 super.handleMessage(msg)
                 setTimeRemain()
             }
@@ -168,24 +166,24 @@ class GroupBuyDetailFragment : TitleFragment() {
             handler?.removeCallbacksAndMessages(null)
             return
         }
-        var endDate=DateUtil.getDate(endDate!!)
-        var now = Date();
-        var milli = endDate.getTime() - now.getTime()
+        val endDate=DateUtil.getDate(endDate!!)
+        val now = Date()
+        val milli = endDate.time - now.time
         if (milli <= 0) {
-            tvTimeToEnd.setText("距结束截止仅剩：00时 00分 ")
-            tvTimeToEndSeconde.setText("00秒")
+            tvTimeToEnd.text = "距结束截止仅剩：00时 00分 "
+            tvTimeToEndSeconde.text = "00秒"
             handler?.removeCallbacksAndMessages(null)
             return
         }
-        var hour = milli / 1000 / 3600
-        var minute =milli % (3600 * 1000) / (60 * 1000)
-        var second = milli % (1000 * 60) / 1000
-        tvTimeToEnd.setText("距结束截止仅剩：${formatNumber(hour)}时 ${formatNumber(minute)}分 ")
-        tvTimeToEndSeconde.setText("${formatNumber(second)}秒")
+        val hour = milli / 1000 / 3600
+        val minute =milli % (3600 * 1000) / (60 * 1000)
+        val second = milli % (1000 * 60) / 1000
+        tvTimeToEnd.text = "距结束截止仅剩：${formatNumber(hour)}时 ${formatNumber(minute)}分 "
+        tvTimeToEndSeconde.text = "${formatNumber(second)}秒"
 
         handler?.sendEmptyMessageDelayed(0,1000)
     }
-    fun formatNumber(n: Long):String{
+    private fun formatNumber(n: Long):String{
         var t=""
         if(n<10){
             t="0"
@@ -200,7 +198,7 @@ class GroupBuyDetailFragment : TitleFragment() {
     }
 
     companion object {
-        val BUNDLE_KEY_ID="id"
+        const val BUNDLE_KEY_ID="id"
 
         fun newInstance(): GroupBuyDetailFragment {
             val fragment = GroupBuyDetailFragment()
@@ -210,7 +208,7 @@ class GroupBuyDetailFragment : TitleFragment() {
         }
     }
 
-    class BannerAdapter(protected var mContext: Context, protected var datas: List<AttaInfosItem>) :PagerAdapter(){
+    class BannerAdapter(private var mContext: Context, private var datas: List<AttaInfosItem>) :PagerAdapter(){
         override fun isViewFromObject(view: View, `object`: Any): Boolean {
             return view === `object`
         }

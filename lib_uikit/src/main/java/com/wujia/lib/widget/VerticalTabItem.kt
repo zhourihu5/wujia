@@ -50,7 +50,7 @@ class VerticalTabItem(context: Context, @param:DrawableRes private val mIconDefa
 
         mIcon = ImageView(context)
         //        int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
-        val iconParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+        val iconParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
         iconParams.gravity = Gravity.CENTER
         mIcon!!.setImageResource(mIconDefault)
         //        mIcon.setColorFilter(ContextCompat.getColor(context, R.color.c9));
@@ -60,7 +60,7 @@ class VerticalTabItem(context: Context, @param:DrawableRes private val mIconDefa
         mTxt = TextView(context)
         //        int top = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, getResources().getDisplayMetrics());
 
-        val txtParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+        val txtParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
         mTxt!!.gravity = Gravity.CENTER
         mTxt!!.setText(txt)
         //        mTxt.setPadding(0, top, 0, 0);
@@ -70,7 +70,7 @@ class VerticalTabItem(context: Context, @param:DrawableRes private val mIconDefa
 
         mPoint = ImageView(context)
         //        int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
-        val poingParams = FrameLayout.LayoutParams(16, 16)
+        val poingParams = LayoutParams(16, 16)
         poingParams.gravity = Gravity.RIGHT
         poingParams.topMargin = 30
         poingParams.rightMargin = 30
@@ -82,7 +82,7 @@ class VerticalTabItem(context: Context, @param:DrawableRes private val mIconDefa
     }
 
     fun setPoint(state: Boolean) {
-        mPoint!!.setVisibility(if (state) View.VISIBLE else View.INVISIBLE)
+        mPoint!!.visibility = if (state) View.VISIBLE else View.INVISIBLE
     }
 
     override fun setSelected(selected: Boolean) {

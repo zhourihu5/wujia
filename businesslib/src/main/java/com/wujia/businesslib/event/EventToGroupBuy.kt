@@ -12,7 +12,7 @@ class EventToGroupBuy : AbsEventEntiry<EventToGroupBuy> {
 
     constructor()
 
-    constructor(invoke: IMiessageInvoke<EventToGroupBuy>) : super(invoke) {}
+    constructor(invoke: IMiessageInvoke<EventToGroupBuy>) : super(invoke)
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     override fun onEventBus(event: EventToGroupBuy) {

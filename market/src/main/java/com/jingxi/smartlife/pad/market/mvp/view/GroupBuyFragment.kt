@@ -9,6 +9,9 @@ import com.jingxi.smartlife.pad.market.mvp.data.ContentItem
 import com.jingxi.smartlife.pad.market.mvp.data.GroupBuyVo
 import com.jingxi.smartlife.pad.market.mvp.model.MarketModel
 import com.wujia.businesslib.data.ApiResponse
+import com.wujia.businesslib.event.EventBusUtil
+import com.wujia.businesslib.event.EventGroupBuy
+import com.wujia.businesslib.event.IMiessageInvoke
 import com.wujia.lib.widget.HorizontalTabBar
 import com.wujia.lib_common.base.BasePresenter
 import com.wujia.lib_common.base.BaseView
@@ -17,6 +20,7 @@ import com.wujia.lib_common.base.baseadapter.wrapper.LoadMoreWrapper
 import com.wujia.lib_common.data.network.SimpleRequestSubscriber
 import com.wujia.lib_common.data.network.exception.ApiException
 import kotlinx.android.synthetic.main.fragment_group_buy.*
+import me.yokeyword.fragmentation.SupportFragment
 import java.util.*
 
 /**
@@ -33,6 +37,11 @@ class GroupBuyFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Horizon
     private lateinit var  datas: ArrayList<ContentItem>
     private var mLoadMoreWrapper: LoadMoreWrapper? = null
 
+    private val eventGroupBuy = EventGroupBuy(object : IMiessageInvoke<EventGroupBuy> {
+        override fun eventBus(event: EventGroupBuy) {
+            getList(true)
+        }
+    })
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
@@ -45,7 +54,13 @@ class GroupBuyFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Horizon
         mAdapter.setClickLisner{
             holder, t, position->
             run {
-                val groupBuyDetailFragment = GroupBuyDetailFragment.newInstance();
+                val groupBuyDetailFragment:SupportFragment?
+                groupBuyDetailFragment = if("1" == t.isJoin){
+                    GroupBuyDetailFragment2.newInstance()
+                }else{
+                    GroupBuyDetailFragment.newInstance()
+                }
+
                 val bundle = Bundle()
                 bundle.putString(GroupBuyDetailFragment.BUNDLE_KEY_ID, t.id)
                 groupBuyDetailFragment.arguments = bundle
@@ -59,25 +74,26 @@ class GroupBuyFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Horizon
         swipeRefreshLayout!!.setOnRefreshListener(this)
 
         getList(true)
+        EventBusUtil.register(eventGroupBuy)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-//        EventBusUtil.unregister(event)
+        EventBusUtil.unregister(eventGroupBuy)
     }
 
     private fun getList(isShowLoadingDialog: Boolean) {
         isLoading = true
-        addSubscribe(MarketModel().getGroupBuyList( pageNo, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<GroupBuyVo>>(this@GroupBuyFragment, SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(MarketModel().getGroupBuyList( pageNo, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<GroupBuyVo>>(this@GroupBuyFragment, ActionConfig(isShowLoadingDialog, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<GroupBuyVo>) {
                 super.onResponse(response)
                 isLoading = false
                 swipeRefreshLayout!!.isRefreshing = false
 
                 if (pageNo == 1)
-                    datas!!.clear()
+                    datas.clear()
 
-                datas!!.addAll(response.data!!.content!!)
+                datas.addAll(response.data!!.content!!)
 
                 if (response.data!!.content!!.size<pageSize) {
                     mLoadMoreWrapper!!.setLoadMoreView(0)

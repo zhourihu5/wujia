@@ -128,7 +128,7 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
             return
         }
 
-        addSubscribe(BusModel().getMsg(familyId!!, type, status, page, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<MsgDto>>(this@AllMsgFragment, SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(BusModel().getMsg(familyId!!, type, status, page, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<MsgDto>>(this@AllMsgFragment, ActionConfig(isShowLoadingDialog, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<MsgDto>) {
                 super.onResponse(response)
 
@@ -136,7 +136,7 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
                 if (page == 1) {
                     msgList!!.clear()
                 }
-                if (temp != null && temp.size > 0) {
+                if (temp != null && temp.isNotEmpty()) {
                     msgList!!.addAll(temp)
                 }
                 if (response.data?.last!!) {
@@ -169,7 +169,7 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
     }
 
     override fun onMsgReadClick(item: MsgDto.ContentBean) {//todo
-        addSubscribe(BusModel().readMsg(item.id.toString() + "").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@AllMsgFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(BusModel().readMsg(item.id.toString() + "").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@AllMsgFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<Any>) {
                 super.onResponse(response)
                 item.isRead = MsgDto.STATUS_READ
@@ -187,7 +187,9 @@ class AllMsgFragment : MvpFragment<BasePresenter<BaseView>>(), HorizontalTabBar.
         const val MSG_TYPE_PROPERTY: String="1"
         const val MSG_TYPE_COMMUNITY: String="2"
         const val  MSG_TYPE_SYSTEM: String = "0"
-        private val KEY_TYPE = "type"
+        const val  MSG_TYPE_ORDER: String = "4"
+        const val  MSG_TYPE_GOV: String = "3"
+        private const val KEY_TYPE = "type"
 
         fun newInstance(): AllMsgFragment {
             val fragment = AllMsgFragment()

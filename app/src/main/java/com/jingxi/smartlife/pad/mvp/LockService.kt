@@ -27,6 +27,7 @@ import com.wujia.lib_common.data.network.SimpleRequestSubscriber
 import com.wujia.lib_common.data.network.exception.ApiException
 import com.wujia.lib_common.utils.DateUtil
 import com.wujia.lib_common.utils.FontUtils
+import com.wujia.lib_common.utils.LogUtil
 import com.wujia.lib_common.utils.StringUtil
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -69,6 +70,7 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
     })
     private val eventWakeup = EventWakeup(object : IMiessageInvoke<EventWakeup> {
         override fun eventBus(event: EventWakeup) {
+            LogUtil.i("wakeUp")
             wakeUp()
         }
     })
@@ -217,7 +219,7 @@ class LockService : DreamService(), HomeContract.View ,LayoutContainer{
             return
         }
 
-        mCompositeDisposable.add(BusModel().getTop3UnReadMsg(familyId!!)!!.subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this@LockService, ActionConfig(false, SHOWERRORMESSAGE)) {
+        mCompositeDisposable.add(BusModel().getTop3UnReadMsg(familyId!!).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<List<MsgDto.ContentBean>>>(this@LockService, ActionConfig(false, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<List<MsgDto.ContentBean>>) {
                 super.onResponse(response)
                 val notifys = response.data

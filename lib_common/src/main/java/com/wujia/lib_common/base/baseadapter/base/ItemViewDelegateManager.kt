@@ -29,27 +29,6 @@ class ItemViewDelegateManager<T> {
         return this
     }
 
-    fun removeDelegate(delegate: ItemViewDelegate<T>?): ItemViewDelegateManager<T> {
-        if (delegate == null) {
-            throw NullPointerException("ItemViewDelegate is null")
-        }
-        val indexToRemove = delegates.indexOfValue(delegate)
-
-        if (indexToRemove >= 0) {
-            delegates.removeAt(indexToRemove)
-        }
-        return this
-    }
-
-    fun removeDelegate(itemType: Int): ItemViewDelegateManager<T> {
-        val indexToRemove = delegates.indexOfKey(itemType)
-
-        if (indexToRemove >= 0) {
-            delegates.removeAt(indexToRemove)
-        }
-        return this
-    }
-
     fun getItemViewType(item: T, position: Int): Int {
         val delegatesCount = delegates.size()
         for (i in delegatesCount - 1 downTo 0) {
@@ -81,11 +60,4 @@ class ItemViewDelegateManager<T> {
         return delegates.get(viewType)
     }
 
-    fun getItemViewLayoutId(viewType: Int): Int {
-        return getItemViewDelegate(viewType)!!.itemViewLayoutId
-    }
-
-    fun getItemViewType(itemViewDelegate: ItemViewDelegate<T>): Int {
-        return delegates.indexOfValue(itemViewDelegate)
-    }
 }

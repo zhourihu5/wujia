@@ -13,7 +13,7 @@ import java.io.IOException
  */
 object FileUtil {
 
-    private val APK = "apk"
+    private const val APK = "apk"
 
 
     fun getDowndloadApkPath(context: Context): String {
@@ -23,33 +23,6 @@ object FileUtil {
         } else {
             context.filesDir.absolutePath + "/Download/" + APK
         }
-    }
-
-    fun getDowndloadFilePath(context: Context): String {
-        val file = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
-        return if (file != null) {
-            file.absolutePath
-        } else {
-            context.filesDir.absolutePath + "/Download"
-        }
-    }
-
-    fun getPicDirectory(context: Context): String {
-        val picFile = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return if (picFile != null) {
-            picFile.absolutePath
-        } else {
-            context.filesDir.absolutePath + "/Pictures"
-        }
-    }
-
-    fun isExists(path: String): Boolean {
-        val file = File(path)
-        return file.exists()
-    }
-
-    fun createMkdirs(mkdirs: File): Boolean {
-        return mkdirs.mkdirs()
     }
 
     fun createFile(file: File): Boolean {

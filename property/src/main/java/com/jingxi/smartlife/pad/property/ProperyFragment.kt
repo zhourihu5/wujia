@@ -1,7 +1,6 @@
 package com.jingxi.smartlife.pad.property
 
 import android.os.Bundle
-
 import com.jingxi.smartlife.pad.property.mvp.ProperyHomeFragment
 import com.wujia.lib_common.base.BaseMainFragment
 import com.wujia.lib_common.utils.LogUtil
@@ -12,21 +11,21 @@ import com.wujia.lib_common.utils.LogUtil
  * description ：物业服务 home
  */
 class ProperyFragment : BaseMainFragment() {
-    override val layoutId: Int
+        override val layoutId: Int
         get() = R.layout.fragment_frame_layout
 
 
-    override fun initEventAndData() {
+        override fun initEventAndData() {
 
-    }
-
-    override fun onLazyInitView(savedInstanceState: Bundle?) {
-        super.onLazyInitView(savedInstanceState)
-        if (findChildFragment(ProperyHomeFragment::class.java) == null) {
-            loadRootFragment(R.id.fl_first_container, ProperyHomeFragment.newInstance(currentTab))
         }
 
-    }
+        override fun onLazyInitView(savedInstanceState: Bundle?) {
+            super.onLazyInitView(savedInstanceState)
+            if (findChildFragment(ProperyHomeFragment::class.java) == null) {
+                loadRootFragment(R.id.fl_first_container, ProperyHomeFragment.newInstance(currentTab))
+            }
+
+        }
 
     override fun onSupportVisible() {
         super.onSupportVisible()

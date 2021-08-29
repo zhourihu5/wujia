@@ -6,7 +6,7 @@ package com.jingxi.smartlife.pad.market.mvp.view
  * description ：
  */
 class GovServiceFragment : AllServiceFragment() {
-    override var type: String = AllServiceFragment.TYPE_GOV
+    override var type: String = TYPE_GOV
 
 
 }

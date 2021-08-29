@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.jingxi.smartlife.pad.market.R
-import com.jingxi.smartlife.pad.market.mvp.MarketHomeFragment
+import com.jingxi.smartlife.pad.market.mvp.PromoteHomeFragment
 import com.jingxi.smartlife.pad.market.mvp.data.OrderDetailVo
 import com.jingxi.smartlife.pad.market.mvp.model.MarketModel
 import com.wujia.businesslib.TitleFragment
@@ -35,22 +35,22 @@ import java.util.*
  */
 class OrderDetailFragment : TitleFragment() {
     override val layoutId: Int
-        get() = com.jingxi.smartlife.pad.market.R.layout.fragment_order_detail
+        get() = R.layout.fragment_order_detail
     override val title: Int
-        get() = com.jingxi.smartlife.pad.market.R.string.order_detail
+        get() = R.string.order_detail
 
     var endDate: Date? = null
-    var handler: Handler? = null
+    private var handler: Handler? = null
     var status: String? = null
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
         val id = arguments?.getString(BUNDLE_KEY_ID, "")
-        addSubscribe(MarketModel().getOrderDetail(id).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<OrderDetailVo>>(this@OrderDetailFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(MarketModel().getOrderDetail(id).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<OrderDetailVo>>(this@OrderDetailFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<OrderDetailVo>) {
                 super.onResponse(response)
                 val apiData = response.data!!
 
-                tvMoneyToPay.setText("付款 ${apiData.realPrice}")
+                tvMoneyToPay.text = "付款 ${apiData.realPrice}"
                 tvMoneyToPay.setOnClickListener {
                     addSubscribe(
                             MarketModel().generateOrderDetailQrCode(apiData.id)
@@ -66,7 +66,7 @@ class OrderDetailFragment : TitleFragment() {
 
                 }
                 tvCancelOrder.setOnClickListener {
-                    addSubscribe(MarketModel().cancelOrder(id).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@OrderDetailFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                    addSubscribe(MarketModel().cancelOrder(id).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@OrderDetailFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
                         override fun onResponse(response: ApiResponse<Any>) {
                             ToastUtil.showShort(context, "订单已取消")
                             EventBusUtil.post(EventOrder())
@@ -75,12 +75,12 @@ class OrderDetailFragment : TitleFragment() {
                     }))
                 }
                 tvGoStroll.setOnClickListener {
-                    (parentFragment?.parentFragment as MarketHomeFragment).switchTab(MarketHomeFragment.TAB_GROUP_BUY)
+                    (parentFragment?.parentFragment as PromoteHomeFragment).switchTab(0)
                     EventBusUtil.post(EventToGroupBuy())
                     pop()
                 }
                 tvConfirmReceive.setOnClickListener {
-                    addSubscribe(MarketModel().rereiveOrder(id).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@OrderDetailFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                    addSubscribe(MarketModel().rereiveOrder(id).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@OrderDetailFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
                         override fun onResponse(response: ApiResponse<Any>) {
                             ToastUtil.showShort(context, "确认成功")
                             EventBusUtil.post(EventOrder())
@@ -92,7 +92,7 @@ class OrderDetailFragment : TitleFragment() {
 
                 val ac = response.data!!.activity
                 ImageLoaderManager.instance.loadImage(ac.cover, 0, ivCover)
-                tvGoodsTitle.setText(ac.title)
+                tvGoodsTitle.text = ac.title
                 status = apiData.status
 
 
@@ -102,42 +102,42 @@ class OrderDetailFragment : TitleFragment() {
                 tvCancelOrder.visibility = View.GONE
                 llDilivery.visibility = View.GONE
 
-                apiData.deliveryPerson?.let {
+                apiData.deliveryPerson.let {
                     tvDeliveryPerson.setText("送货员：${it}")
                     llDilivery.visibility = View.VISIBLE
                 }
-                apiData.deliveryPhone?.let {
+                apiData.deliveryPhone.let {
                     tvLinkPhone.setText("送货员联系方式：${it}")
                 }
-                apiData.deliveryHour?.let {
+                apiData.deliveryHour.let {
                     tvdeliveryHour.setText("送货周期：${it}h")
                 }
-                apiData.receiveDate?.let {
+                apiData.receiveDate.let {
                     tvdeliveryHour.setText("收货时间：${it}")
                 }
 
                 when (status) {
                     "1" -> {//待付款
-                        tvOrderStatus.setText("待付款")
+                        tvOrderStatus.text = "待付款"
 
                         tvMoneyToPay.visibility = View.VISIBLE
                         tvCancelOrder.visibility = View.VISIBLE
 
                     }
                     "2" -> {//待配送
-                        tvOrderStatus.setText("待收货")
+                        tvOrderStatus.text = "待收货"
                         tvConfirmReceive.visibility = View.VISIBLE
                     }
                     "3" -> {//已收货
-                        tvOrderStatus.setText("已收货")
-                        tvTimeToEnd.setText("您的商品已收到～")
+                        tvOrderStatus.text = "已收货"
+                        tvTimeToEnd.text = "您的商品已收到～"
 
 
                         tvGoStroll.visibility = View.VISIBLE
                     }
                     "4" -> {//已过期
-                        tvOrderStatus.setText("已过期")
-                        tvTimeToEnd.setText("您的商品已过期～")
+                        tvOrderStatus.text = "已过期"
+                        tvTimeToEnd.text = "您的商品已过期～"
 
                         tvTimeToEnd.setTextColor(resources.getColor(R.color.tv_status_expired))
                         tvOrderStatus.setTextColor(resources.getColor(R.color.tv_status_expired))
@@ -147,7 +147,7 @@ class OrderDetailFragment : TitleFragment() {
 
                     }
                     "5" -> {//配送中
-                        tvOrderStatus.setText("待收货")
+                        tvOrderStatus.text = "待收货"
                         tvConfirmReceive.visibility = View.VISIBLE
 
                     }
@@ -163,24 +163,21 @@ class OrderDetailFragment : TitleFragment() {
 
 
                 val priceArr = ac.price.split('.')
-                tvPriceInt.setText(priceArr[0])
+                tvPriceInt.text = priceArr[0]
                 if (priceArr.size > 1) {
-                    tvFloat.setText(".${priceArr[1]}")
+                    tvFloat.text = ".${priceArr[1]}"
                 }
-                tvPriceOld.setText("￥" + apiData.commodity.price)
+                tvPriceOld.text = "￥" + apiData.commodity.price
                 tvPriceOld.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
 
 
-                tvOrderMoney.setText("订单金额：￥${apiData.realPrice}")
-                tvCreateTime.setText("创建时间：${apiData.createDate}")
-                tvOrderCode.setText("订单编号：${apiData.code}")
-                tvAddr.setText("收货地址：${apiData.deliveryAddress}")
+                tvOrderMoney.text = "订单金额：￥${apiData.realPrice}"
+                tvCreateTime.text = "创建时间：${apiData.createDate}"
+                tvOrderCode.text = "订单编号：${apiData.code}"
+                tvAddr.text = "收货地址：${apiData.deliveryAddress}"
 
             }
 
-            override fun onFailed(apiException: ApiException) {
-                super.onFailed(apiException)
-            }
         }))
 
     }
@@ -201,7 +198,7 @@ class OrderDetailFragment : TitleFragment() {
 
     fun initTimer() {
         handler = object : Handler() {
-            override fun handleMessage(msg: Message?) {
+            override fun handleMessage(msg: Message) {
                 super.handleMessage(msg)
                 setTimeRemain()
             }
@@ -214,31 +211,31 @@ class OrderDetailFragment : TitleFragment() {
             handler?.removeCallbacksAndMessages(null)
             return
         }
-        var now = Date();
-        var milli = endDate!!.getTime() - now.getTime()
+        val now = Date()
+        val milli = endDate!!.time - now.time
         if (milli <= 0) {
             when (status) {
                 "1" -> {
-                    tvTimeToEnd.setText("待付款时间：00： 00：00 ")
+                    tvTimeToEnd.text = "待付款时间：00： 00：00 "
                 }
                 "2", "5" -> {//待收货
-                    tvTimeToEnd.setText("剩余系统默认收货时间：00： 00：00 ")
+                    tvTimeToEnd.text = "剩余系统默认收货时间：00： 00：00 "
                 }
             }
 
             handler?.removeCallbacksAndMessages(null)
             return
         }
-        var hour = milli / 1000 / 3600
-        var minute = milli % (3600 * 1000) / (60 * 1000)
-        var second = milli % (1000 * 60) / 1000
+        val hour = milli / 1000 / 3600
+        val minute = milli % (3600 * 1000) / (60 * 1000)
+        val second = milli % (1000 * 60) / 1000
 
         when (status) {
             "1" -> {
-                tvTimeToEnd.setText("待付款时间：${formatNumber(hour)}：${formatNumber(minute)}：${formatNumber(second)}")
+                tvTimeToEnd.text = "待付款时间：${formatNumber(hour)}：${formatNumber(minute)}：${formatNumber(second)}"
             }
             "2", "5" -> {//待收货
-                tvTimeToEnd.setText("剩余系统默认收货时间：${formatNumber(hour)}：${formatNumber(minute)}：${formatNumber(second)} ")
+                tvTimeToEnd.text = "剩余系统默认收货时间：${formatNumber(hour)}：${formatNumber(minute)}：${formatNumber(second)} "
             }
         }
 
@@ -246,7 +243,7 @@ class OrderDetailFragment : TitleFragment() {
         handler?.sendEmptyMessageDelayed(0, 1000)
     }
 
-    fun formatNumber(n: Long): String {
+    private fun formatNumber(n: Long): String {
         var t = ""
         if (n < 10) {
             t = "0"
@@ -260,7 +257,7 @@ class OrderDetailFragment : TitleFragment() {
     }
 
     companion object {
-        val BUNDLE_KEY_ID = "id"
+        const val BUNDLE_KEY_ID = "id"
 
         fun newInstance(id: String): OrderDetailFragment {
             val fragment = OrderDetailFragment()

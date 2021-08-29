@@ -23,13 +23,10 @@ class UserBean : RootResponse() {
 
     class User : Serializable {
         var familyId: String? = null//todo sdk 家庭ID
-        var nickName: String? = null
         var openId: String? = null//原来接口获取卡片接口需要的参数
         var headImage: String? = null
         var communityId: String? = null//todo SDK 社区id
         var accid: String? = null//todo sdk需要的padAccid  字段
         var dockkey: String? = null//todo sdk安防相关
-        var docksn: String? = null
-        var buttonkey: String? = null//todo sdk安防相关 锁
     }
 }

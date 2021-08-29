@@ -39,6 +39,7 @@ class LoginDTO : RootResponse() {
         //        private List<AuthorityListBean> authorityList;
 
         var device: DeviceBean? = null
+        var sip: SipDTO? = null
         var token: String? = null
         var userInfo: UserInfoBean? = null
 
@@ -59,6 +60,16 @@ class LoginDTO : RootResponse() {
             var buttonKey: String? = null
             var deviceKey: String? = null
         }
+        class SipDTO : Serializable {
+            /**
+             * buttonKey : string
+             * deviceKey : string
+             */
+
+            var sipAddr: String? = null
+            var sipDisplayname: String? = null
+        }
+
 
         class UserInfoBean : Serializable {
 
@@ -86,27 +97,6 @@ class LoginDTO : RootResponse() {
             var fid: String? = null
         }
 
-        class AuthorityListBean : Serializable {
-            /**
-             * component : string
-             * id : 0
-             * meta : {}
-             * name : string
-             * path : string
-             * pid : 0
-             * redirect : string
-             */
-
-            var component: String? = null
-            var id: Int = 0
-            var meta: MetaBean? = null
-            var name: String? = null
-            var path: String? = null
-            var pid: Int = 0
-            var redirect: String? = null
-
-            class MetaBean
-        }
     }
 
 

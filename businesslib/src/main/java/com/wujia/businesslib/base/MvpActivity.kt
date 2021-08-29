@@ -30,7 +30,7 @@ abstract class MvpActivity<T : BasePresenter<BaseView>> : BaseActivity(), BaseVi
         }
     }
 
-    protected fun unSubscribe() {
+    private fun unSubscribe() {
         if (mCompositeDisposable != null) {
             mCompositeDisposable!!.clear()
             mCompositeDisposable = null

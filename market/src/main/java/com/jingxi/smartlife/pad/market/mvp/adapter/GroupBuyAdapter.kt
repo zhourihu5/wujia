@@ -21,16 +21,16 @@ import com.zhy.view.flowlayout.TagAdapter
  */
 class GroupBuyAdapter(context: Context, datas: List<ContentItem>) : CommonAdapter<ContentItem>(context, R.layout.item_group_buy, datas) {
 
-    var toDetailClickLisner:((holder: ViewHolder, t: ContentItem, position: Int)->Unit)?=null
+    private var toDetailClickLisner:((holder: ViewHolder, t: ContentItem, position: Int)->Unit)?=null
     override fun convert(holder: ViewHolder, t: ContentItem, position: Int) {
        var labelArr:List<String>?=null
-        t.commodity.labelsName?.let { labelArr=it.split('|') }
+        t.commodity.labelsName.let { labelArr=it.split('|') }
         val flowLayout=holder.getView<com.zhy.view.flowlayout.TagFlowLayout>(R.id.flowlayout)
 
         flowLayout.adapter= object : TagAdapter<String>(labelArr) {
             override fun getView(parent: FlowLayout?, position: Int, t: String?): View {
                 val tvLabel=LayoutInflater.from(mContext).inflate(R.layout.item_label,parent,false) as TextView
-                tvLabel.setText(t)
+                tvLabel.text = t
                 return tvLabel
             }
         }
@@ -42,7 +42,7 @@ class GroupBuyAdapter(context: Context, datas: List<ContentItem>) : CommonAdapte
         if(priceArr.size>1){
             holder.setText(R.id.tvFloat,".${priceArr[1]}")
         }
-        holder.setText(R.id.tvPriceOld,"${t.commodity.price}")
+        holder.setText(R.id.tvPriceOld, t.commodity.price)
         holder.getView<TextView>(R.id.tvPriceOld).paint.flags=STRIKE_THRU_TEXT_FLAG
         holder.setText(R.id.tvSaleNum,"已抢购${t.commodity.salesNum}件")
         holder.getView<View>(R.id.btGo).setOnClickListener {

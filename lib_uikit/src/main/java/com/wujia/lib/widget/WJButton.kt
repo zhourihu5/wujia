@@ -1,10 +1,8 @@
 package com.wujia.lib.widget
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.graphics.drawable.StateListDrawable
 import android.util.AttributeSet
-
 import com.wujia.lib.uikit.R
 
 /**
@@ -52,10 +50,10 @@ class WJButton(context: Context, attrs: AttributeSet) : androidx.appcompat.widge
 
     companion object {
 
-        private val BACKGROUND = 0
-        private val TOP = 1
-        private val RIGHT = 2
-        private val BOTTOM = 3
-        private val LEFT = 4
+        private const val BACKGROUND = 0
+        private const val TOP = 1
+        private const val RIGHT = 2
+        private const val BOTTOM = 3
+        private const val LEFT = 4
     }
 }

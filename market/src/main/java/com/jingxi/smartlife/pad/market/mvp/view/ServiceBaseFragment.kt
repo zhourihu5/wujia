@@ -33,42 +33,36 @@ import io.reactivex.schedulers.Schedulers
  * description ：
  */
 abstract class ServiceBaseFragment<T : BasePresenter<*>> : MvpFragment<BasePresenter<BaseView>>() {
-    internal var mTask: DownloadTask? = null
+    private var mTask: DownloadTask? = null
 
     protected fun getAdapter(datas: List<CardDetailBean.ServicesBean>): FindServiceChildAdapter {
         val busModel = BusModel()
         val mAdapter = mContext?.let { FindServiceChildAdapter(it, datas) }
         mAdapter?.setSubsribeClickCallback(object : FindServiceChildAdapter.SubsribeClickCallback {
             override fun subscibe(item: CardDetailBean.ServicesBean) {
-                addSubscribe(busModel.subscribe(item.id.toString() + "", "1").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@ServiceBaseFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                addSubscribe(busModel.subscribe(item.id.toString() + "", "1").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@ServiceBaseFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
                     override fun onResponse(response: ApiResponse<Any>) {
                         super.onResponse(response)
                         item.isSubscribe = 1
-                        mAdapter?.notifyDataSetChanged()
+                        mAdapter.notifyDataSetChanged()
                         EventBusUtil.post(EventSubscription(item.type))
                     }
 
-                    override fun onFailed(apiException: ApiException) {
-                        super.onFailed(apiException)
-                    }
                 }))
             }
 
             override fun unsubscibe(item: CardDetailBean.ServicesBean, pos: Int) {
-                addSubscribe(busModel.subscribe(item.id.toString() + "", "0").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@ServiceBaseFragment, SimpleRequestSubscriber.ActionConfig(true, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                addSubscribe(busModel.subscribe(item.id.toString() + "", "0").subscribeWith(object : SimpleRequestSubscriber<ApiResponse<Any>>(this@ServiceBaseFragment, ActionConfig(true, SHOWERRORMESSAGE)) {
                     override fun onResponse(response: ApiResponse<Any>) {
                         super.onResponse(response)
                         item.isSubscribe = 0
-                        mAdapter?.notifyDataSetChanged()
+                        mAdapter.notifyDataSetChanged()
                         EventBusUtil.post(EventSubscription(item.type))
                         if (item.flag == CardDetailBean.TYPE_NATIVE) {
                             uninstall(item)
                         }
                     }
 
-                    override fun onFailed(apiException: ApiException) {
-                        super.onFailed(apiException)
-                    }
                 }))
             }
         })
@@ -124,7 +118,7 @@ abstract class ServiceBaseFragment<T : BasePresenter<*>> : MvpFragment<BasePrese
         }
     }
 
-    fun downloadAndInstall(item: CardDetailBean.ServicesBean) {
+    private fun downloadAndInstall(item: CardDetailBean.ServicesBean) {
         LogUtil.i("downloadAndInstall")
 
         if (item.flag == CardDetailBean.TYPE_NATIVE) {
@@ -167,7 +161,8 @@ abstract class ServiceBaseFragment<T : BasePresenter<*>> : MvpFragment<BasePrese
                                             } else {
                                                 mContext?.let { it1 -> ToastUtil.showShort(it1, "安装失败") }
                                             }
-                                            item.packageName?.let { if (!AppUtil.startAPPByPackageName(it)) {
+                                            item.packageName?.let { it ->
+                                                if (!AppUtil.startAPPByPackageName(it)) {
                                                 mContext?.let { it1 -> ToastUtil.showShort(it1, "应用打开失败") }
                                             } }
 

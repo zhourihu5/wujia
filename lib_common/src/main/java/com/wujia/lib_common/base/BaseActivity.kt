@@ -1,7 +1,6 @@
 package com.wujia.lib_common.base
 
 import android.app.Activity
-import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -10,7 +9,6 @@ import android.os.PowerManager
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-
 import butterknife.ButterKnife
 import butterknife.Unbinder
 import me.yokeyword.fragmentation.SupportActivity
@@ -22,7 +20,7 @@ import me.yokeyword.fragmentation.SupportActivity
 abstract class BaseActivity : SupportActivity() {
     private var currentName: String? = null
     protected var mContext: Activity?=null
-    protected var mUnBinder: Unbinder?=null
+    private var mUnBinder: Unbinder?=null
 
 
     protected abstract val layout: Int
@@ -37,7 +35,7 @@ abstract class BaseActivity : SupportActivity() {
         super.onCreate(savedInstanceState)
         currentName = javaClass.simpleName
         if (intent != null) {
-            onPrepareIntent(intent)
+//            onPrepareIntent(intent)
         }
 
         setContentView()
@@ -55,7 +53,7 @@ abstract class BaseActivity : SupportActivity() {
     }
 
 
-    protected fun onPrepareIntent(intent: Intent) {}
+//    protected fun onPrepareIntent(intent: Intent) {}
 
     protected open fun onViewCreated() {
 
@@ -81,11 +79,6 @@ abstract class BaseActivity : SupportActivity() {
     }
 
 
-    override fun onResume() {
-        super.onResume()
-        //        TCAgent.onPageStart(mContext, currentName);
-    }
-
     override fun onPause() {
         super.onPause()
         //        TCAgent.onPageEnd(mContext, currentName);
@@ -93,35 +86,35 @@ abstract class BaseActivity : SupportActivity() {
             onPreDestroy()
     }
 
-    protected fun onPreDestroy() {
+    private fun onPreDestroy() {
 
     }
 
-    protected fun isActivityTop(cls: Class<*>, context: Context): Boolean {
-        val manager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        val name = manager.getRunningTasks(1)[0].topActivity.className
-        return name == cls.name
-    }
+//    protected fun isActivityTop(cls: Class<*>, context: Context): Boolean {
+//        val manager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+//        val name = manager.getRunningTasks(1)[0].topActivity.className
+//        return name == cls.name
+//    }
 
     protected fun <T : View> `$`(resId: Int): T {
         return super.findViewById<View>(resId) as T
     }
 
-    protected fun hideNavigationBar() {
+    private fun hideNavigationBar() {
         val flags: Int
-        val curApiVersion = android.os.Build.VERSION.SDK_INT
+        val curApiVersion = Build.VERSION.SDK_INT
         // This work only for android 4.4+
-        if (curApiVersion >= Build.VERSION_CODES.KITKAT) {
+        flags = if (curApiVersion >= Build.VERSION_CODES.KITKAT) {
             // This work only for android 4.4+
             // hide navigation bar permanently in android activity
             // touch the screen, the navigation bar will not show
-            flags = (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                     or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                     or View.SYSTEM_UI_FLAG_FULLSCREEN)
 
         } else {
             // touch the screen, the navigation bar will show
-            flags = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         }
 
         // must be executed in main thread

@@ -1,6 +1,5 @@
-package com.jingxi.smartlife.pad
+package com.wujia.intellect.terminal
 
-import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import android.os.Looper

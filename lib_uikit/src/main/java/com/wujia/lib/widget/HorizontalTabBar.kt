@@ -2,7 +2,7 @@ package com.wujia.lib.widget
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.LinearLayout
 
@@ -13,7 +13,7 @@ import android.widget.LinearLayout
  */
 class HorizontalTabBar(context: Context, attrs: AttributeSet?) : LinearLayout(context, attrs) {
 
-    private var mTabParams: LinearLayout.LayoutParams? = null
+    private var mTabParams: LayoutParams? = null
     private var mOnTabSelectedListener: OnTabSelectedListener? = null
     private var mCurrentPos: Int = 0
 
@@ -23,8 +23,8 @@ class HorizontalTabBar(context: Context, attrs: AttributeSet?) : LinearLayout(co
     }
 
     private fun init(context: Context, attrs: AttributeSet?) {
-        orientation = LinearLayout.HORIZONTAL
-        mTabParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        orientation = HORIZONTAL
+        mTabParams = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
     fun addItem(item: HorizontalTabItem?): HorizontalTabBar {
@@ -48,10 +48,6 @@ class HorizontalTabBar(context: Context, attrs: AttributeSet?) : LinearLayout(co
         return this
     }
 
-
-    fun setCurrentItem(position: Int) {
-        post { getChildAt(position).performClick() }
-    }
 
     fun setOnTabSelectedListener(mOnTabSelectedListener: OnTabSelectedListener) {
         this.mOnTabSelectedListener = mOnTabSelectedListener

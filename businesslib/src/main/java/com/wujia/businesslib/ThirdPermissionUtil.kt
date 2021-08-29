@@ -2,17 +2,12 @@ package com.wujia.businesslib
 
 import android.Manifest
 import android.content.pm.ApplicationInfo
-import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.UserHandle
 import android.text.TextUtils
-
 import com.wujia.lib_common.utils.AppContext
 import com.wujia.lib_common.utils.LogUtil
-
-import java.lang.reflect.Constructor
-import java.lang.reflect.Method
-import java.util.Arrays
+import java.util.*
 
 /**
  * Created by Administrator on 2018/3/7.
@@ -27,15 +22,31 @@ object ThirdPermissionUtil {
      * PackageManager.FLAG_PERMISSION_SYSTEM_FIXED
      * PackageManager.FLAG_PERMISSION_GRANTED_BY_DEFAULT
      */
-    val FLAG_PERMISSION_USER_SET = 1 shl 0
-    val FLAG_PERMISSION_USER_FIXED = 1 shl 1
-    val FLAG_PERMISSION_POLICY_FIXED = 1 shl 2
-    val FLAG_PERMISSION_REVOKE_ON_UPGRADE = 1 shl 3
-    val FLAG_PERMISSION_SYSTEM_FIXED = 1 shl 4
-    val FLAG_PERMISSION_GRANTED_BY_DEFAULT = 1 shl 5
+    private const val FLAG_PERMISSION_USER_SET = 1 shl 0
+    private const val FLAG_PERMISSION_USER_FIXED = 1 shl 1
+    const val FLAG_PERMISSION_REVOKE_ON_UPGRADE = 1 shl 3
+    const val FLAG_PERMISSION_GRANTED_BY_DEFAULT = 1 shl 5
 
-    private val grantPermissions = arrayOf(Manifest.permission.CHANGE_WIFI_MULTICAST_STATE, Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.GET_TASKS, Manifest.permission.INTERNET, Manifest.permission.MODIFY_AUDIO_SETTINGS, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_PHONE_STATE, Manifest.permission.VIBRATE, Manifest.permission.WAKE_LOCK, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_SETTINGS, Manifest.permission.BLUETOOTH, Manifest.permission.BROADCAST_STICKY, Manifest.permission.CHANGE_WIFI_STATE, Manifest.permission.ACCESS_WIFI_STATE)
-    private val grantList = Arrays.asList(*grantPermissions)
+    private val grantPermissions = arrayOf(Manifest.permission.CHANGE_WIFI_MULTICAST_STATE
+            , Manifest.permission.ACCESS_NETWORK_STATE
+            , Manifest.permission.ACCESS_COARSE_LOCATION
+            , Manifest.permission.ACCESS_FINE_LOCATION
+            , Manifest.permission.CAMERA
+            , Manifest.permission.GET_TASKS
+            , Manifest.permission.INTERNET
+            , Manifest.permission.MODIFY_AUDIO_SETTINGS
+            , Manifest.permission.RECORD_AUDIO
+            , Manifest.permission.READ_PHONE_STATE
+            , Manifest.permission.VIBRATE
+            , Manifest.permission.WAKE_LOCK
+            , Manifest.permission.WRITE_EXTERNAL_STORAGE
+            , Manifest.permission.READ_EXTERNAL_STORAGE
+            , Manifest.permission.WRITE_SETTINGS
+            , Manifest.permission.BLUETOOTH
+            , Manifest.permission.BROADCAST_STICKY
+            , Manifest.permission.CHANGE_WIFI_STATE
+            , Manifest.permission.ACCESS_WIFI_STATE)
+    private val grantList = listOf(*grantPermissions)
 
     @JvmOverloads
     fun requestDefaultPermissions(packageName: String, needGrant: Boolean = false) {

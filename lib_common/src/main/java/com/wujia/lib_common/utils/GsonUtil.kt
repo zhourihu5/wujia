@@ -82,37 +82,4 @@ object GsonUtil {
         return any
     }
 
-    /**
-     * 转成list中有map的
-     *
-     * @param gsonString
-     * @return
-     */
-    fun <T> GsonToListMaps(gsonString: String): List<Map<String, T>>? {
-        var list: List<Map<String, T>>? = null
-        if (gson != null) {
-            list = gson!!.fromJson<List<Map<String, T>>>(gsonString,
-                    object : TypeToken<ArrayList<LinkedHashMap<String, T>>>() {
-
-                    }.type)
-        }
-        return list
-    }
-
-    /**
-     * 转成map的
-     *
-     * @param gsonString
-     * @return
-     */
-    fun <T> GsonToMaps(gsonString: String): Map<String, T>? {
-        var map: Map<String, T>? = null
-        if (gson != null) {
-            map = gson!!.fromJson<Map<String, T>>(gsonString, object : TypeToken<LinkedHashMap<String, T>>() {
-
-            }.type)
-        }
-        return map
-    }
-
 }

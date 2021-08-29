@@ -1,6 +1,5 @@
 package com.wujia.businesslib.base
 
-import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -8,7 +7,6 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.ProgressBar
 import android.widget.TextView
-
 import com.wujia.businesslib.R
 import com.wujia.businesslib.TitleFragment
 import com.wujia.lib_common.base.Constants
@@ -30,16 +28,12 @@ class WebViewFragment : TitleFragment(), View.OnClickListener {
     override val title: Int
         get() = R.string._empty
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
 
     override fun initEventAndData() {
         super.initEventAndData()
 
-        mWebView = `$`<WebView>(R.id.webview)
-        progressBar = `$`<ProgressBar>(R.id.web_progress)
+        mWebView = `$`(R.id.webview)
+        progressBar = `$`(R.id.web_progress)
         val layoutBackBtn = `$`<TextView>(R.id.layout_back_btn)
         val layoutRightBtn = `$`<TextView>(R.id.layout_right_btn)
 
@@ -47,9 +41,9 @@ class WebViewFragment : TitleFragment(), View.OnClickListener {
         if (TextUtils.isEmpty(url))
             return
 
-        layoutRightBtn.setText("关闭")
+        layoutRightBtn.text = "关闭"
         layoutRightBtn.visibility = View.VISIBLE
-        mWebView!!.loadUrl(url)
+        url?.let { mWebView!!.loadUrl(it) }
 
         //        mWebView.setBackgroundColor(0);
         //        mWebView.getBackground().setAlpha(0);

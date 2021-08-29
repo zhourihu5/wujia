@@ -14,13 +14,11 @@ class MessageBean : RootResponse() {
 
     class Message {
 
-        var propertyInformation: PropertyInfo? = null
         var propertyMessage: PropertyMessage? = null
     }
 
     class PropertyInfo {
 
-        var nickName: String? = null
         var headImage: String? = null
         var mobile: String? = null
         var accid: String? = null
@@ -31,7 +29,6 @@ class MessageBean : RootResponse() {
     class PropertyMessage {
 
         var title: String? = null
-        var pureText: String? = null
         var type: String? = null
         var id: String? = null
         var communityId: String? = null

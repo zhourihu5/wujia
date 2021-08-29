@@ -18,19 +18,19 @@ import java.net.SocketTimeoutException
 object ExceptionEngine {
 
     //对应HTTP的状态码
-    private val UNAUTHORIZED = 401
-    private val FORBIDDEN = 403
-    private val NOT_FOUND = 404
-    private val REQUEST_TIMEOUT = 408
-    private val INTERNAL_SERVER_ERROR = 500
-    private val BAD_GATEWAY = 502
-    private val SERVICE_UNAVAILABLE = 503
-    private val GATEWAY_TIMEOUT = 504
+    private const val UNAUTHORIZED = 401
+    private const val FORBIDDEN = 403
+    private const val NOT_FOUND = 404
+    private const val REQUEST_TIMEOUT = 408
+    private const val INTERNAL_SERVER_ERROR = 500
+    private const val BAD_GATEWAY = 502
+    private const val SERVICE_UNAVAILABLE = 503
+    private const val GATEWAY_TIMEOUT = 504
 
     fun handleException(e: Throwable): ApiException {
 
 
-        var ex: ApiException
+        val ex: ApiException
         if (e is HttpException) {             //HTTP错误
             var msg: String? = "系统开小差，请稍后再试"
             try {
@@ -41,9 +41,9 @@ object ExceptionEngine {
                 e1.printStackTrace()
             }
 
-            when (e.code()) {
-                UNAUTHORIZED, FORBIDDEN, NOT_FOUND, REQUEST_TIMEOUT, GATEWAY_TIMEOUT, INTERNAL_SERVER_ERROR, BAD_GATEWAY, SERVICE_UNAVAILABLE -> ex = ApiException(e, ERROR.HTTP_ERROR, msg)
-                else -> ex = ApiException(e, ERROR.HTTP_ERROR, msg)
+            ex = when (e.code()) {
+                UNAUTHORIZED, FORBIDDEN, NOT_FOUND, REQUEST_TIMEOUT, GATEWAY_TIMEOUT, INTERNAL_SERVER_ERROR, BAD_GATEWAY, SERVICE_UNAVAILABLE -> ApiException(e, ERROR.HTTP_ERROR, msg)
+                else -> ApiException(e, ERROR.HTTP_ERROR, msg)
             }
             return ex
         } else if (e is ApiJsonFormateException) {

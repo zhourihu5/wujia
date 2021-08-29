@@ -36,16 +36,16 @@ class OrderConfirmFragment : TitleFragment() {
         super.onLazyInitView(savedInstanceState)
 
         val ac = groupBuyDetailVo!!.activity
-        tvGoodsTitle.setText(ac.title)
+        tvGoodsTitle.text = ac.title
         ImageLoaderManager.instance.loadImage(ac.cover, 0, ivCover)
 
 
         val priceArr = ac.price.split('.')
-        tvPriceInt.setText(priceArr[0])
+        tvPriceInt.text = priceArr[0]
         if (priceArr.size > 1) {
-            tvFloat.setText(".${priceArr[1]}")
+            tvFloat.text = ".${priceArr[1]}"
         }
-        tvPriceOld.setText(ac.commodity.price)
+        tvPriceOld.text = ac.commodity.price
         tvPriceOld.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
         addSubscribe(
                 MarketModel().generateOrderConfirmQrCode(groupBuyDetailVo!!.activity.id)

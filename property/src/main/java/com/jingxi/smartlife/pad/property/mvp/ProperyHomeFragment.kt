@@ -3,7 +3,7 @@ package com.jingxi.smartlife.pad.property.mvp
 import android.os.Bundle
 import com.jingxi.smartlife.pad.property.R
 import com.jingxi.smartlife.pad.property.mvp.view.SimpleFixFragment
-import com.jingxi.smartlife.pad.property.mvp.view.SimpleTelFragment
+import com.jingxi.smartlife.pad.property.mvp.view.YellowPageFragment
 import com.wujia.businesslib.TabFragment
 import com.wujia.lib.widget.VerticalTabItem
 import me.yokeyword.fragmentation.SupportFragment
@@ -22,19 +22,19 @@ class ProperyHomeFragment : TabFragment() {
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
         mTabBar = `$`(R.id.tab_home_tab_bar)
-        mTabBar.addItem(VerticalTabItem(mActivity, R.mipmap.icon_serve_leftnav_service_default, R.mipmap.icon_serve_leftnav_service_selected, R.string.propery_report_fix))
-                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_serve_leftnav_phone_default, R.mipmap.icon_serve_leftnav_phone_highlight, R.string.tel_select))
+        mTabBar.addItem(VerticalTabItem(mActivity, R.mipmap.yellow_page, R.mipmap.yellow_page, R.string.community_yellow_page))
+//                .addItem(VerticalTabItem(mActivity, R.mipmap.icon_serve_leftnav_phone_default, R.mipmap.icon_serve_leftnav_phone_highlight, R.string.tel_select))
 
         if (currentTab >= mFragments.size) {
             currentTab = 0
         }
 
         mFragments[0] = findChildFragment(SimpleFixFragment::class.java)
-        mFragments[1] = findChildFragment(SimpleTelFragment::class.java)
+//        mFragments[1] = findChildFragment(SimpleTelFragment::class.java)
         if (mFragments[0] == null) {
-            mFragments[0] = SimpleFixFragment.newInstance()
-            mFragments[1] = SimpleTelFragment.newInstance()
-            loadMultipleRootFragment(R.id.tab_content_container, currentTab, mFragments[0], mFragments[1])
+            mFragments[0] = YellowPageFragment.newInstance()
+//            mFragments[1] = SimpleTelFragment.newInstance()
+            loadMultipleRootFragment(R.id.tab_content_container, currentTab, mFragments[0])
         }
 
         mTabBar.setOnTabSelectedListener { position, prePosition ->

@@ -22,6 +22,9 @@ class MarketModel : BaseModel() {
     fun getGroupBuyList( pageIndex: Int, pageSize: Int): Flowable<ApiResponse<GroupBuyVo>> {
         return mHttpHelper.create(MarketApiService::class.java)!!.getGroupBuyList( pageIndex, pageSize,DataManager.communtityId!!).compose(RxUtil.rxSchedulerHelper())
     }
+    fun getGroupBuyOtherList( ): Flowable<ApiResponse<GroupBuyVo>> {
+        return mHttpHelper.create(MarketApiService::class.java)!!.getGroupBuyOtherList( DataManager.communtityId!!).compose(RxUtil.rxSchedulerHelper())
+    }
 
     fun getGroupBuyDetail(id: String?): Flowable<ApiResponse<GroupBuyDetailVo>> {
         return mHttpHelper.create(MarketApiService::class.java)!!.getGroupBuyDetail( id).compose(RxUtil.rxSchedulerHelper())

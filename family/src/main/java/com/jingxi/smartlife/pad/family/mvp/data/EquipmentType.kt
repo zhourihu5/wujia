@@ -5,7 +5,7 @@ package com.jingxi.smartlife.pad.family.mvp.data
  * date ：2019-01-25
  * description ：
  */
-enum class EquipmentType private constructor(private val type: Int) {
+enum class EquipmentType(private val type: Int) {
 
     //灯
     LINGHT(1),

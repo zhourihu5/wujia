@@ -25,7 +25,7 @@ object DataManager {
     val familyId: String?
         @Throws(Exception::class)
         get() = user.userInfo!!.fid
-    val communtityId: Int?
+    val communtityId: Int
         @Throws(Exception::class)
         get() = user.userInfo!!.communtityId
 
@@ -47,18 +47,18 @@ object DataManager {
             throw Exception("no dock key,please relogin to get dockkey")
         }
 
-    val buttonKey: String?
+    val sip: LoginDTO.DataBean.SipDTO?
         @Throws(Exception::class)
         get() {
             val user = user
             if (null != user) {
-                return user.device!!.buttonKey
+                return user.sip
             }
             throw Exception("no dock key,please relogin to get dockkey")
         }
 
     val token: String
-        get() = SPHelper.get(AppContext.get(), Constants.COMMON_REQUEST_TOKEN, "") as String
+        get() = SPHelper[AppContext.get(), Constants.COMMON_REQUEST_TOKEN, ""] as String
 
     fun saveToken(token: String) {
         SPHelper.put(AppContext.get(), Constants.COMMON_REQUEST_TOKEN, token)

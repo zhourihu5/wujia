@@ -6,12 +6,13 @@ import android.text.TextUtils
 import java.io.*
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
+import java.util.*
 
 object SPHelper {
     /**
      * 保存在手机里面的文件名
      */
-    val FILE_NAME = "wj_user_data"
+    private const val FILE_NAME = "wj_user_data"
 
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
@@ -114,18 +115,6 @@ object SPHelper {
     }
 
     /**
-     * 返回所有的键值对
-     *
-     * @param context
-     * @return
-     */
-    fun getAll(context: Context): Map<String, *> {
-        val sp = context.getSharedPreferences(FILE_NAME,
-                Context.MODE_PRIVATE)
-        return sp.all
-    }
-
-    /**
      * 创建一个解决SharedPreferencesCompat.apply方法的一个兼容类
      *
      * @author zhy
@@ -204,11 +193,11 @@ object SPHelper {
      * @param bArray
      * @return modified:
      */
-    fun bytesToHexString(bArray: ByteArray?): String? {
+    private fun bytesToHexString(bArray: ByteArray?): String? {
         if (bArray == null) {
             return null
         }
-        if (bArray.size == 0) {
+        if (bArray.isEmpty()) {
             return ""
         }
         val sb = StringBuffer(bArray.size)
@@ -217,7 +206,7 @@ object SPHelper {
             sTemp = Integer.toHexString(0xFF and bArray[i].toInt())
             if (sTemp.length < 2)
                 sb.append(0)
-            sb.append(sTemp.toUpperCase())
+            sb.append(sTemp.uppercase(Locale.getDefault()))
         }
         return sb.toString()
     }
@@ -234,15 +223,15 @@ object SPHelper {
             val sharedata = context.getSharedPreferences(FILE_NAME, 0)
             if (sharedata.contains(key)) {
                 val string = sharedata.getString(key, "")
-                if (TextUtils.isEmpty(string)) {
-                    return null
+                return if (TextUtils.isEmpty(string)) {
+                    null
                 } else {
                     //将16进制的数据转为数组，准备反序列化
                     val stringToBytes = StringToBytes(string!!)
                     val bis = ByteArrayInputStream(stringToBytes)
                     val `is` = ObjectInputStream(bis)
                     //返回反序列化得到的对象
-                    return `is`.readObject()
+                    `is`.readObject()
                 }
             }
         } catch (e: Exception) {
@@ -262,8 +251,8 @@ object SPHelper {
      * @param data
      * @return modified:
      */
-    fun StringToBytes(data: String): ByteArray? {
-        val hexString = data.toUpperCase().trim { it <= ' ' }
+    private fun StringToBytes(data: String): ByteArray? {
+        val hexString = data.uppercase(Locale.getDefault()).trim { it <= ' ' }
         if (hexString.length % 2 != 0) {
             return null
         }
@@ -273,19 +262,19 @@ object SPHelper {
             val int_ch: Int  // 两位16进制数转化后的10进制数
             val hex_char1 = hexString[i] ////两位16进制数中的第一位(高位*16)
             val int_ch1: Int
-            if (hex_char1 >= '0' && hex_char1 <= '9')
-                int_ch1 = (hex_char1.toInt() - 48) * 16   //// 0 的Ascll - 48
+            int_ch1 = if (hex_char1 >= '0' && hex_char1 <= '9')
+                (hex_char1.code - 48) * 16   //// 0 的Ascll - 48
             else if (hex_char1 >= 'A' && hex_char1 <= 'F')
-                int_ch1 = (hex_char1.toInt() - 55) * 16 //// A 的Ascll - 65
+                (hex_char1.code - 55) * 16 //// A 的Ascll - 65
             else
                 return null
             i++
             val hex_char2 = hexString[i] ///两位16进制数中的第二位(低位)
             val int_ch2: Int
-            if (hex_char2 >= '0' && hex_char2 <= '9')
-                int_ch2 = hex_char2.toInt() - 48 //// 0 的Ascll - 48
+            int_ch2 = if (hex_char2 >= '0' && hex_char2 <= '9')
+                hex_char2.code - 48 //// 0 的Ascll - 48
             else if (hex_char2 >= 'A' && hex_char2 <= 'F')
-                int_ch2 = hex_char2.toInt() - 55 //// A 的Ascll - 65
+                hex_char2.code - 55 //// A 的Ascll - 65
             else
                 return null
             int_ch = int_ch1 + int_ch2

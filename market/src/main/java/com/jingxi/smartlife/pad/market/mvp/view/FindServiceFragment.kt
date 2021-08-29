@@ -59,7 +59,7 @@ class FindServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Hori
         }
     })
 
-    internal lateinit var marketModel: MarketModel
+    private lateinit var marketModel: MarketModel
 
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
@@ -92,7 +92,7 @@ class FindServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Hori
 
     private fun getList(isShowLoadingDialog: Boolean) {
         isLoading = true
-        addSubscribe(marketModel.getServiceList("2", pageNo, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<ServiceDto>>(this@FindServiceFragment, SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+        addSubscribe(marketModel.getServiceList("2", pageNo, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<ServiceDto>>(this@FindServiceFragment, ActionConfig(isShowLoadingDialog, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<ServiceDto>) {
                 super.onResponse(response)
                 isLoading = false
@@ -103,9 +103,9 @@ class FindServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Hori
                 }
 
                 if (pageNo == 1)
-                    datas!!.clear()
+                    datas.clear()
 
-                datas!!.addAll(response.data?.page!!.content!!)
+                datas.addAll(response.data?.page!!.content!!)
 
                 if (response.data?.page!!.last) {
                     mLoadMoreWrapper!!.setLoadMoreView(0)
@@ -128,7 +128,7 @@ class FindServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Hori
         }))
     }
 
-    protected fun setBanner(response: ApiResponse<ServiceDto>) {
+    private fun setBanner(response: ApiResponse<ServiceDto>) {
         val list = response.data?.bannerList
         if (null == list || list.isEmpty()) {
             return
@@ -159,7 +159,7 @@ class FindServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), Hori
     }
 
     override fun onItemClick(adapter: RecyclerView.Adapter<*>?, holder: RecyclerView.ViewHolder, position: Int) {
-        toTarget(datas!![position])
+        toTarget(datas[position])
     }
 
     override fun createPresenter(): BasePresenter<BaseView>? {

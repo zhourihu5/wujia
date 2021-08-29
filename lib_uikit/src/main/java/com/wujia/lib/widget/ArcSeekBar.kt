@@ -14,6 +14,10 @@ import android.view.MotionEvent.*
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.wujia.lib.uikit.R
+import kotlin.math.abs
+import kotlin.math.atan2
+import kotlin.math.min
+import kotlin.math.sqrt
 
 /**
  * 作用: 圆弧形 SeekBar
@@ -131,7 +135,6 @@ class ArcSeekBar @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mRotateAngle = ta.getFloat(R.styleable.ArcSeekBar_arc_rotate_angle, DEFAULT_ROTATE_ANGLE)
         mMaxValue = ta.getInt(R.styleable.ArcSeekBar_arc_max, DEFAULT_MAX_VALUE)
         var progress = ta.getInt(R.styleable.ArcSeekBar_arc_progress, 0)
-        progress = progress
         mBorderWidth = ta.getDimensionPixelSize(R.styleable.ArcSeekBar_arc_border_width, dp2px(DEFAULT_BORDER_WIDTH))
         mBorderColor = ta.getColor(R.styleable.ArcSeekBar_arc_border_color, DEFAULT_BORDER_COLOR)
 
@@ -203,16 +206,20 @@ class ArcSeekBar @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mThumbPaint!!.color = mThumbColor
         mThumbPaint!!.strokeWidth = mThumbWidth
         mThumbPaint!!.strokeCap = Paint.Cap.ROUND
-        if (mThumbMode == THUMB_MODE_FILL) {
-            mThumbPaint!!.style = Paint.Style.FILL_AND_STROKE
-        } else if (mThumbMode == THUMB_MODE_FILL_STROKE) {
-            mThumbPaint!!.style = Paint.Style.FILL_AND_STROKE
-        } else {
-            mThumbPaint!!.style = Paint.Style.STROKE
+        when (mThumbMode) {
+            THUMB_MODE_FILL -> {
+                mThumbPaint!!.style = Paint.Style.FILL_AND_STROKE
+            }
+            THUMB_MODE_FILL_STROKE -> {
+                mThumbPaint!!.style = Paint.Style.FILL_AND_STROKE
+            }
+            else -> {
+                mThumbPaint!!.style = Paint.Style.STROKE
+            }
         }
         mThumbPaint!!.textSize = 56f
 
-        setLayerType(View.LAYER_TYPE_SOFTWARE, null)//对单独的View在运行时阶段禁用硬件加速
+        setLayerType(LAYER_TYPE_SOFTWARE, null)//对单独的View在运行时阶段禁用硬件加速
         mThumbPaint!!.setShadowLayer(5f, 0f, 0f, ContextCompat.getColor(context, R.color.c75))
 
 
@@ -233,7 +240,7 @@ class ArcSeekBar @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
     //--- 状态存储 ---------------------------------------------------------------------------------
 
-    override fun onSaveInstanceState(): Parcelable? {
+    override fun onSaveInstanceState(): Parcelable {
         val bundle = Bundle()
         bundle.putParcelable("superState", super.onSaveInstanceState())
         bundle.putFloat(KEY_PROGRESS_PRESENT, mProgressPresent)
@@ -253,26 +260,26 @@ class ArcSeekBar @JvmOverloads constructor(context: Context, attrs: AttributeSet
     //--- 状态存储结束 -----------------------------------------------------------------------------
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        var ws = View.MeasureSpec.getSize(widthMeasureSpec)     //取出宽度的确切数值
-        var wm = View.MeasureSpec.getMode(widthMeasureSpec)     //取出宽度的测量模式
-        var hs = View.MeasureSpec.getSize(heightMeasureSpec)    //取出高度的确切数值
-        var hm = View.MeasureSpec.getMode(heightMeasureSpec)    //取出高度的测量模
+        var ws = MeasureSpec.getSize(widthMeasureSpec)     //取出宽度的确切数值
+        var wm = MeasureSpec.getMode(widthMeasureSpec)     //取出宽度的测量模式
+        var hs = MeasureSpec.getSize(heightMeasureSpec)    //取出高度的确切数值
+        var hm = MeasureSpec.getMode(heightMeasureSpec)    //取出高度的测量模
 
-        if (wm == View.MeasureSpec.UNSPECIFIED) {
-            wm = View.MeasureSpec.EXACTLY
+        if (wm == MeasureSpec.UNSPECIFIED) {
+            wm = MeasureSpec.EXACTLY
             ws = dp2px(DEFAULT_EDGE_LENGTH)
-        } else if (wm == View.MeasureSpec.AT_MOST) {
-            wm = View.MeasureSpec.EXACTLY
-            ws = Math.min(dp2px(DEFAULT_EDGE_LENGTH), ws)
+        } else if (wm == MeasureSpec.AT_MOST) {
+            wm = MeasureSpec.EXACTLY
+            ws = min(dp2px(DEFAULT_EDGE_LENGTH), ws)
         }
-        if (hm == View.MeasureSpec.UNSPECIFIED) {
-            hm = View.MeasureSpec.EXACTLY
+        if (hm == MeasureSpec.UNSPECIFIED) {
+            hm = MeasureSpec.EXACTLY
             hs = dp2px(DEFAULT_EDGE_LENGTH)
-        } else if (hm == View.MeasureSpec.AT_MOST) {
-            hm = View.MeasureSpec.EXACTLY
-            hs = Math.min(dp2px(DEFAULT_EDGE_LENGTH), hs)
+        } else if (hm == MeasureSpec.AT_MOST) {
+            hm = MeasureSpec.EXACTLY
+            hs = min(dp2px(DEFAULT_EDGE_LENGTH), hs)
         }
-        setMeasuredDimension(View.MeasureSpec.makeMeasureSpec(ws, wm), View.MeasureSpec.makeMeasureSpec(hs, hm))
+        setMeasuredDimension(MeasureSpec.makeMeasureSpec(ws, wm), MeasureSpec.makeMeasureSpec(hs, hm))
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -303,7 +310,7 @@ class ArcSeekBar @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
         // 得到路径
         mSeekBgPath!!.reset()
-        mSeekBgPath!!.addArc(content, mOpenAngle / 2, CIRCLE_ANGLE - mOpenAngle)
+        mSeekBgPath!!.addArc(content!!, mOpenAngle / 2, CIRCLE_ANGLE - mOpenAngle)
         mSeekPathMeasure!!.setPath(mSeekBgPath, false)
         computeThumbPos(mProgressPresent)
 
@@ -324,11 +331,11 @@ class ArcSeekBar @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
         mArcBgPaint!!.getFillPath(mSeekBgPath, mBorderPath)
         mBorderPath!!.close()
-        mArcRegion!!.setPath(mBorderPath, Region(0, 0, w, h))
+        mArcRegion!!.setPath(mBorderPath!!, Region(0, 0, w, h))
 
         //背影轨迹
         mSeekPath!!.reset()
-        mSeekPath!!.addArc(content, mOpenAngle / 2, (CIRCLE_ANGLE - mOpenAngle) * mProgressPresent)
+        mSeekPath!!.addArc(content!!, mOpenAngle / 2, (CIRCLE_ANGLE - mOpenAngle) * mProgressPresent)
 
     }
 
@@ -349,8 +356,7 @@ class ArcSeekBar @JvmOverloads constructor(context: Context, attrs: AttributeSet
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         super.onTouchEvent(event)
-        val action = event.actionMasked
-        when (action) {
+        when (event.actionMasked) {
             ACTION_DOWN -> {
                 moved = false
                 judgeCanDrag(event)
@@ -358,31 +364,38 @@ class ArcSeekBar @JvmOverloads constructor(context: Context, attrs: AttributeSet
                     mOnProgressChangeListener!!.onStartTrackingTouch(this)
                 }
             }
-            ACTION_MOVE -> move@{
+            ACTION_MOVE ->// move@
+            {
+                var flag:Boolean=true
                 if (!mCanDrag) {
-                    return@move
+//                    return@move
+                    flag=false
                 }
                 val tempProgressPresent = getCurrentProgress(event.x, event.y)
                 if (!mAllowTouchSkip) {
                     // 不允许突变
-                    if (Math.abs(tempProgressPresent - mProgressPresent) > 0.5f) {
-                        return@move
+                    if (abs(tempProgressPresent - mProgressPresent) > 0.5f) {
+//                        return@move
+                        flag=false
                     }
                 }
-                // 允许突变 或者非突变
-                mProgressPresent = tempProgressPresent
-                computeThumbPos(mProgressPresent)
-                // 事件回调
-                if (null != mOnProgressChangeListener && progress != lastProgress) {
-                    mOnProgressChangeListener!!.onProgressChanged(this, progress, true)
-                    lastProgress = progress
+                if(flag){
+                    // 允许突变 或者非突变
+                    mProgressPresent = tempProgressPresent
+                    computeThumbPos(mProgressPresent)
+                    // 事件回调
+                    if (null != mOnProgressChangeListener && progress != lastProgress) {
+                        mOnProgressChangeListener!!.onProgressChanged(this, progress, true)
+                        lastProgress = progress
+                    }
+
+                    //背影轨迹
+                    mSeekPath!!.reset()
+                    mSeekPath!!.addArc(content!!, mOpenAngle / 2, (CIRCLE_ANGLE - mOpenAngle) * mProgressPresent)
+
+                    moved = true
                 }
 
-                //背影轨迹
-                mSeekPath!!.reset()
-                mSeekPath!!.addArc(content, mOpenAngle / 2, (CIRCLE_ANGLE - mOpenAngle) * mProgressPresent)
-
-                moved = true
             }
             ACTION_UP, ACTION_CANCEL -> if (null != mOnProgressChangeListener && moved) {
                 mOnProgressChangeListener!!.onStopTrackingTouch(this)
@@ -440,13 +453,13 @@ class ArcSeekBar @JvmOverloads constructor(context: Context, attrs: AttributeSet
         if (diffAngle < 0) {
             diffAngle = (diffAngle + CIRCLE_ANGLE) % CIRCLE_ANGLE
         }
-        diffAngle = diffAngle - mOpenAngle / 2
+        diffAngle -= mOpenAngle / 2
         return diffAngle
     }
 
     // 计算指定位置与内容区域中心点的夹角
     private fun getAngle(px: Float, py: Float): Float {
-        var angle = (Math.atan2((py - mCenterY).toDouble(), (px - mCenterX).toDouble()) * 180 / 3.14f).toFloat()
+        var angle = (atan2((py - mCenterY).toDouble(), (px - mCenterX).toDouble()) * 180 / 3.14f).toFloat()
         if (angle < 0) {
             angle += 360f
         }
@@ -455,7 +468,7 @@ class ArcSeekBar @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
     // 计算指定位置与上次位置的距离
     private fun getDistance(px: Float, py: Float): Float {
-        return Math.sqrt(((px - mThumbX) * (px - mThumbX) + (py - mThumbY) * (py - mThumbY)).toDouble()).toFloat()
+        return sqrt(((px - mThumbX) * (px - mThumbX) + (py - mThumbY) * (py - mThumbY)).toDouble()).toFloat()
     }
 
     private fun dp2px(dp: Int): Int {
@@ -503,25 +516,25 @@ class ArcSeekBar @JvmOverloads constructor(context: Context, attrs: AttributeSet
     }
 
     companion object {
-        private val DEFAULT_EDGE_LENGTH = 260              // 默认宽高
+        private const val DEFAULT_EDGE_LENGTH = 260              // 默认宽高
 
-        private val CIRCLE_ANGLE = 360f                  // 圆周角
-        private val DEFAULT_ARC_WIDTH = 40                // 默认宽度 dp
-        private val DEFAULT_OPEN_ANGLE = 120f            // 开口角度
-        private val DEFAULT_ROTATE_ANGLE = 90f           // 旋转角度
-        private val DEFAULT_BORDER_WIDTH = 0              // 默认描边宽度
-        private val DEFAULT_BORDER_COLOR = -0x1     // 默认描边颜色
+        private const val CIRCLE_ANGLE = 360f                  // 圆周角
+        private const val DEFAULT_ARC_WIDTH = 40                // 默认宽度 dp
+        private const val DEFAULT_OPEN_ANGLE = 120f            // 开口角度
+        private const val DEFAULT_ROTATE_ANGLE = 90f           // 旋转角度
+        private const val DEFAULT_BORDER_WIDTH = 0              // 默认描边宽度
+        private const val DEFAULT_BORDER_COLOR = -0x1     // 默认描边颜色
 
-        private val DEFAULT_THUMB_COLOR = -0x1      // 拖动按钮颜色
-        private val DEFAULT_THUMB_WIDTH = 2               // 拖动按钮描边宽度 dp
-        private val DEFAULT_THUMB_RADIUS = 15             // 拖动按钮半径 dp
+        private const val DEFAULT_THUMB_COLOR = -0x1      // 拖动按钮颜色
+        private const val DEFAULT_THUMB_WIDTH = 2               // 拖动按钮描边宽度 dp
+        private const val DEFAULT_THUMB_RADIUS = 15             // 拖动按钮半径 dp
 
-        private val THUMB_MODE_STROKE = 0                 // 拖动按钮模式 - 描边
-        private val THUMB_MODE_FILL = 1                   // 拖动按钮模式 - 填充
-        private val THUMB_MODE_FILL_STROKE = 2            // 拖动按钮模式 - 填充+描边
+        private const val THUMB_MODE_STROKE = 0                 // 拖动按钮模式 - 描边
+        private const val THUMB_MODE_FILL = 1                   // 拖动按钮模式 - 填充
+        private const val THUMB_MODE_FILL_STROKE = 2            // 拖动按钮模式 - 填充+描边
 
-        private val DEFAULT_MAX_VALUE = 100               // 默认最大数值
+        private const val DEFAULT_MAX_VALUE = 100               // 默认最大数值
 
-        private val KEY_PROGRESS_PRESENT = "PRESENT"   // 用于存储和获取当前百分比
+        private const val KEY_PROGRESS_PRESENT = "PRESENT"   // 用于存储和获取当前百分比
     }
 }

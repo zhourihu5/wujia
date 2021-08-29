@@ -4,18 +4,11 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.ContextWrapper
-import android.os.Build
-import android.os.Bundle
-import android.os.IBinder
-import android.os.Looper
-import android.os.MessageQueue
+import android.os.*
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
-
 import com.wujia.lib_common.utils.LogUtil
-
-import java.lang.reflect.Constructor
 import java.lang.reflect.Field
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
@@ -41,10 +34,10 @@ object HookUtil {
                 return
             }
             val getProviderClassMethod: Method
-            if (sdkInt > 22) {
-                getProviderClassMethod = factoryClass.getDeclaredMethod("getProviderClass")
+            getProviderClassMethod = if (sdkInt > 22) {
+                factoryClass.getDeclaredMethod("getProviderClass")
             } else if (sdkInt == 22) {
-                getProviderClassMethod = factoryClass.getDeclaredMethod("getFactoryClass")
+                factoryClass.getDeclaredMethod("getFactoryClass")
             } else {
                 LogUtil.i("Don't need to Hook WebView")
                 return
@@ -66,84 +59,6 @@ object HookUtil {
             e.printStackTrace()
         }
 
-    }
-
-    /**
-     * Fix for https://code.google.com/p/android/issues/detail?id=171190 .
-     *
-     *
-     * When a view that has focus gets detached, we wait for the main thread to be idle and then
-     * check if the InputMethodManager is leaking a view. If yes, we tell it that the decor view got
-     * focus, which is what happens if you press home and come back from recent apps. This replaces
-     * the reference to the detached view with a reference to the decor view.
-     *
-     *
-     * Should be called from [Activity.onCreate] )}.
-     */
-    fun fixFocusedViewLeak(application: Application) {
-
-        // Don't know about other versions yet.
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 || Build.VERSION.SDK_INT > 23) {
-            return
-        }
-
-        val inputMethodManager = application.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
-        val mServedViewField: Field
-        val mHField: Field
-        val finishInputLockedMethod: Method
-        val focusInMethod: Method
-        try {
-            mServedViewField = InputMethodManager::class.java.getDeclaredField("mServedView")
-            mServedViewField.isAccessible = true
-            mHField = InputMethodManager::class.java.getDeclaredField("mServedView")
-            mHField.isAccessible = true
-            finishInputLockedMethod = InputMethodManager::class.java.getDeclaredMethod("finishInputLocked")
-            finishInputLockedMethod.isAccessible = true
-            focusInMethod = InputMethodManager::class.java.getDeclaredMethod("focusIn", View::class.java)
-            focusInMethod.isAccessible = true
-        } catch (unexpected: NoSuchMethodException) {
-            LogUtil.tr("IMMLeaks", "Unexpected reflection exception", unexpected)
-            return
-        } catch (unexpected: NoSuchFieldException) {
-            LogUtil.tr("IMMLeaks", "Unexpected reflection exception", unexpected)
-            return
-        }
-
-        application.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
-            override fun onActivityDestroyed(activity: Activity) {
-
-            }
-
-
-            override fun onActivityStarted(activity: Activity) {
-
-            }
-
-            override fun onActivityResumed(activity: Activity) {
-
-            }
-
-            override fun onActivityPaused(activity: Activity) {
-
-            }
-
-            override fun onActivityStopped(activity: Activity) {
-
-            }
-
-            override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle) {
-
-            }
-
-            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle) {
-                val cleaner = ReferenceCleaner(inputMethodManager, mHField, mServedViewField,
-                        finishInputLockedMethod)
-                val rootView = activity.window.decorView.rootView
-                val viewTreeObserver = rootView.viewTreeObserver
-                viewTreeObserver.addOnGlobalFocusChangeListener(cleaner)
-            }
-        })
     }
 
     internal class ReferenceCleaner(private val inputMethodManager: InputMethodManager, private val mHField: Field, private val mServedViewField: Field,
@@ -241,7 +156,6 @@ object HookUtil {
         }
 
         val imm = destContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                ?: return
         try {
             InputMethodManager::class.java.getDeclaredMethod("windowDismissed", IBinder::class.java).invoke(imm,
                     (destContext as Activity).window.decorView.windowToken)
@@ -256,7 +170,7 @@ object HookUtil {
             val param = arr[i]
             try {
                 f = imm.javaClass.getDeclaredField(param)
-                if (f!!.isAccessible == false) {
+                if (!f!!.isAccessible) {
                     f.isAccessible = true
                 } // author: sodino mail:sodino@qq.com
                 obj_get = f.get(imm)

@@ -12,14 +12,6 @@ abstract class BaseMainFragment : BaseFragment() {
 
     protected var _mBackToFirstListener: OnBackToFirstListener? = null
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(KEY_TAB_POSITION, currentTab)
@@ -58,6 +50,6 @@ abstract class BaseMainFragment : BaseFragment() {
 
     companion object {
 
-        private val KEY_TAB_POSITION = "tabPosition"
+        private const val KEY_TAB_POSITION = "tabPosition"
     }
 }

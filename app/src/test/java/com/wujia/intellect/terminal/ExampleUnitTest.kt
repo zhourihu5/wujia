@@ -1,4 +1,4 @@
-package com.jingxi.smartlife.pad
+package com.wujia.intellect.terminal
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

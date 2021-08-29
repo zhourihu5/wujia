@@ -50,7 +50,7 @@ class TagAliasOperatorHelper private constructor() {
         }
     }
 
-    fun init(context: Context?) {
+    private fun init(context: Context?) {
         if (context != null) {
             this.context = context.applicationContext
         }
@@ -60,11 +60,7 @@ class TagAliasOperatorHelper private constructor() {
         return setActionCache.get(sequence)
     }
 
-    fun remove(sequence: Int): Any {
-        return setActionCache.get(sequence)
-    }
-
-    fun put(sequence: Int, tagAliasBean: Any) {
+    private fun put(sequence: Int, tagAliasBean: Any) {
         setActionCache.put(sequence, tagAliasBean)
     }
 
@@ -182,8 +178,6 @@ class TagAliasOperatorHelper private constructor() {
         init(context)
         //根据sequence从之前操作缓存中获取缓存记录
         val tagAliasBean = setActionCache.get(sequence) as TagAliasBean
-                ?: //            ExampleUtil.showToast("获取缓存记录失败", context);
-                return
         if (jPushMessage.errorCode == 0) {
             Logger.i(TAG, "action - modify tag Success,sequence:$sequence")
             setActionCache.remove(sequence)
@@ -210,8 +204,6 @@ class TagAliasOperatorHelper private constructor() {
         init(context)
         //根据sequence从之前操作缓存中获取缓存记录
         val tagAliasBean = setActionCache.get(sequence) as TagAliasBean
-                ?: //            ExampleUtil.showToast("获取缓存记录失败", context);
-                return
         if (jPushMessage.errorCode == 0) {
             Logger.i(TAG, "tagBean:$tagAliasBean")
             setActionCache.remove(sequence)
@@ -233,8 +225,6 @@ class TagAliasOperatorHelper private constructor() {
         init(context)
         //根据sequence从之前操作缓存中获取缓存记录
         val tagAliasBean = setActionCache.get(sequence) as TagAliasBean
-                ?: //            ExampleUtil.showToast("获取缓存记录失败", context);
-                return
         if (jPushMessage.errorCode == 0) {
             Logger.i(TAG, "action - modify alias Success,sequence:$sequence")
             setActionCache.remove(sequence)
@@ -284,34 +274,34 @@ class TagAliasOperatorHelper private constructor() {
     }
 
     companion object {
-        private val TAG = "JIGUANG-TagAliasHelper"
+        private const val TAG = "JIGUANG-TagAliasHelper"
         var sequence = 1
         /**
          * 增加
          */
-        val ACTION_ADD = 1
+        const val ACTION_ADD = 1
         /**
          * 覆盖
          */
-        val ACTION_SET = 2
+        const val ACTION_SET = 2
         /**
          * 删除部分
          */
-        val ACTION_DELETE = 3
+        const val ACTION_DELETE = 3
         /**
          * 删除所有
          */
-        val ACTION_CLEAN = 4
+        const val ACTION_CLEAN = 4
         /**
          * 查询
          */
-        val ACTION_GET = 5
+        const val ACTION_GET = 5
 
-        val ACTION_CHECK = 6
+        const val ACTION_CHECK = 6
 
-        val DELAY_SEND_ACTION = 1
+        const val DELAY_SEND_ACTION = 1
 
-        val DELAY_SET_MOBILE_NUMBER_ACTION = 2
+        const val DELAY_SET_MOBILE_NUMBER_ACTION = 2
 
         private var mInstance: TagAliasOperatorHelper? = null
 

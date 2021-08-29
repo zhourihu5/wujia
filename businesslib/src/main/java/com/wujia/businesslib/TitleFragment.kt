@@ -12,7 +12,7 @@ import com.wujia.lib_common.base.BaseView
  * description ：
  */
 abstract class TitleFragment : MvpFragment<BasePresenter<BaseView>>() {
-    protected var showBack = true
+    private var showBack = true
 
 
     @get:StringRes
@@ -32,7 +32,7 @@ abstract class TitleFragment : MvpFragment<BasePresenter<BaseView>>() {
         }
     }
 
-    fun showBack() {
+    private fun showBack() {
         layout_back_btn?.apply{
             visibility = View.VISIBLE
             setOnClickListener{this@TitleFragment.pop()}

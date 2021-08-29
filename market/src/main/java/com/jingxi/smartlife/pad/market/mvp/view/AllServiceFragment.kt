@@ -69,8 +69,8 @@ open class AllServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
         if (savedInstanceState != null) {
-            type = savedInstanceState.getString(KEY_TYPE)
-            LogUtil.i("Allservice from savedInstanceState type=" + type!!)
+            type = savedInstanceState.getString(KEY_TYPE)!!
+            LogUtil.i("Allservice from savedInstanceState type=" + type)
         }
 
         mSwipeRefreshLayout = `$`(R.id.swipe_container)
@@ -111,7 +111,7 @@ open class AllServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), 
     private fun getList(isShowLoadingDialog: Boolean) {
         isLoading = true
         addSubscribe(MarketModel().getServiceList(type, pageNo, pageSize).subscribeWith(object : SimpleRequestSubscriber<ApiResponse<ServiceDto>>(this@AllServiceFragment,
-                SimpleRequestSubscriber.ActionConfig(isShowLoadingDialog, SimpleRequestSubscriber.SHOWERRORMESSAGE)) {
+                ActionConfig(isShowLoadingDialog, SHOWERRORMESSAGE)) {
             override fun onResponse(response: ApiResponse<ServiceDto>) {
                 super.onResponse(response)
                 if (mSwipeRefreshLayout!!.isRefreshing)
@@ -176,7 +176,7 @@ open class AllServiceFragment : ServiceBaseFragment<BasePresenter<BaseView>>(), 
        const val TYPE_MY = "1"
        const val TYPE_GOV = "3"
 
-        private val KEY_TYPE = "type"
+        private const val KEY_TYPE = "type"
 
     }
 

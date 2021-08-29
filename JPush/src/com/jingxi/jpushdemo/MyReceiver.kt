@@ -85,9 +85,8 @@ class MyReceiver : BroadcastReceiver() {
     private fun processCustomMessage(context: Context, bundle: Bundle) {
         val message = bundle.getString(JPushInterface.EXTRA_MESSAGE)
         val extras = bundle.getString(JPushInterface.EXTRA_EXTRA)
-        val type = bundle.getString(JPushInterface.EXTRA_CONTENT_TYPE)
 
-        when (type) {
+        when (bundle.getString(JPushInterface.EXTRA_CONTENT_TYPE)) {
             TYPE_MARKET//todo 服务
             -> {
                 var marketType = EventSubscription.TYPE_NOTIFY
@@ -107,7 +106,7 @@ class MyReceiver : BroadcastReceiver() {
                 if (currentActivity != null && currentActivity.javaClass.name == "com.jingxi.smartlife.pad.safe.mvp.view.VideoCallActivity") {
                     return
                 }
-                val advert = GsonUtil.GsonToBean(message, Advert::class.java)
+                val advert = message?.let { GsonUtil.GsonToBean(it, Advert::class.java) }
                 val intent = Intent()
                 intent.setClassName(context, "com.jingxi.smartlife.pad.mvp.login.AdvertActivity")
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -118,7 +117,7 @@ class MyReceiver : BroadcastReceiver() {
             TYPE_CARD -> EventBusUtil.post(EventCardChange())
             TYPE_MSG -> EventBusUtil.post(EventMsg(EventMsg.TYPE_NEW_MSG))
             TYPE_SYS -> {
-                val bean = GsonUtil.GsonToBean(message, VersionBean.Version::class.java)
+                val bean = message?.let { GsonUtil.GsonToBean(it, VersionBean.Version::class.java) }
 
                 val update = isUpdate(bean!!)
                 if (update) {
@@ -152,18 +151,22 @@ class MyReceiver : BroadcastReceiver() {
                     }
                 }
             }
+            TYPE_GRB->{//团购
+                EventBusUtil.post(EventGroupBuy())
+            }
         }
     }
 
     companion object {
 
-        val TYPE_MSG = "MSG"
-        val TYPE_CARD = "CARD"
-        val TYPE_ADV = "ADV"
-        val TYPE_SYS = "SYS"
-        val TYPE_MARKET = "MARKET"//TODO 服务
+        const val TYPE_MSG = "MSG"
+        const val TYPE_CARD = "CARD"
+        const val TYPE_ADV = "ADV"
+        const val TYPE_SYS = "SYS"
+        const val TYPE_MARKET = "MARKET"//TODO 服务
+        const val TYPE_GRB="GRB"//团购
 
-        private val TAG = "JIGUANG-Example"
+        private const val TAG = "JIGUANG-Example"
 
         // 打印所有的 intent extra 数据
         private fun printBundle(bundle: Bundle): String {

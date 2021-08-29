@@ -18,6 +18,9 @@ interface MarketApiService {
     @GET("/v1/activity/findAll")
     fun getGroupBuyList(@Query("pageNum") pageIndex: Int, @Query("pageSize") pageSize: Int,@Query("communityId")communityId:Int):Flowable<ApiResponse<GroupBuyVo>>
 
+    @GET("/v1/activity/findOtherList")
+    fun getGroupBuyOtherList( communtityId: Int): Flowable<ApiResponse<GroupBuyVo>>
+
     @GET("/v1/activity/findByActivityId")
     fun getGroupBuyDetail(@Query("activityId")id: String?): Flowable<ApiResponse<GroupBuyDetailVo>>
 
@@ -39,6 +42,8 @@ interface MarketApiService {
     fun rereiveOrder(@Query("id")id: String?): Flowable<ApiResponse<Any>>
 
     @POST("/v1/order/cancelOrderPad")
-    abstract fun cancelOrder(@Query("id")id: String?): Flowable<ApiResponse<Any>>
+    fun cancelOrder(@Query("id")id: String?): Flowable<ApiResponse<Any>>
+
+
 
 }

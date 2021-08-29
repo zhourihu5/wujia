@@ -172,7 +172,7 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy {
     override fun clearImageDiskCache(context: Context) {
         try {
             if (Looper.myLooper() == Looper.getMainLooper()) {
-                Thread(Runnable { Glide.get(context.applicationContext).clearDiskCache() }).start()
+                Thread({ Glide.get(context.applicationContext).clearDiskCache() }).start()
             } else {
                 Glide.get(context.applicationContext).clearDiskCache()
             }

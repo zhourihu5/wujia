@@ -35,7 +35,7 @@ abstract class MvpFragment<T : BasePresenter<BaseView>> : BaseFragment(), BaseVi
 
     protected abstract fun createPresenter(): T?
 
-    protected fun unSubscribe() {
+    private fun unSubscribe() {
         if (mCompositeDisposable != null) {
             mCompositeDisposable!!.clear()
             mCompositeDisposable = null

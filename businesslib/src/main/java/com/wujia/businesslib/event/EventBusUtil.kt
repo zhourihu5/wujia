@@ -19,15 +19,6 @@ object EventBusUtil {
     }
 
     /**
-     * 粘性事件通知方法
-     *
-     * @param body 消息
-     */
-    fun postSticky(body: AbsEventEntiry<*>) {
-        EventBus.getDefault().postSticky(body)
-    }
-
-    /**
      * 注册事件监听类
      *
      * @param o 被监听对象

@@ -66,18 +66,6 @@ class ImageLoaderManager {
         mStrategy!!.loadCircleImage(url, imageView)
     }
 
-    fun loadCircleBorderImage(url: String, placeholder: Int, imageView: ImageView, borderWidth: Float, borderColor: Int) {
-        mStrategy!!.loadCircleBorderImage(url, placeholder, imageView, borderWidth, borderColor)
-    }
-
-    fun loadCircleBorderTopImage(url: String, placeholder: Int, imageView: ImageView, borderWidth: Float, borderColor: Int) {
-        mStrategy!!.loadCircleBorderTopImage(url, placeholder, imageView, borderWidth, borderColor)
-    }
-
-    fun loadCircleBorderImage(url: String, placeholder: Int, imageView: ImageView, borderWidth: Float, borderColor: Int, heightPX: Int, widthPX: Int) {
-        mStrategy!!.loadCircleBorderImage(url, placeholder, imageView, borderWidth, borderColor, heightPX, widthPX)
-    }
-
     fun loadImage(url: String?, imageView: ImageView?) {
         url?.let { imageView?.let { it1 -> mStrategy!!.loadImage(it, 0, it1) } }
     }
@@ -90,33 +78,8 @@ class ImageLoaderManager {
         mStrategy!!.loadImageWithProgress(url, imageView, listener)
     }
 
-    fun loadGifWithPrepareCall(url: String, imageView: ImageView, listener: SourceReadyListener) {
-        mStrategy!!.loadGifWithPrepareCall(url, imageView, listener)
-    }
-
     fun loadImageWithPrepareCall(url: String, imageView: ImageView, placeholder: Int, listener: SourceReadyListener) {
         mStrategy!!.loadImageWithPrepareCall(url, imageView, placeholder, listener)
-    }
-
-    fun loadBlurImage(url: String, imageView: ImageView) {
-        mStrategy!!.loadBlurImage(url, imageView)
-    }
-
-    fun loadBlurImage(url: String, placeHolder: Int, imageView: ImageView) {
-        mStrategy!!.loadBlurImage(url, placeHolder, imageView)
-    }
-
-    fun loadBlurImage(resId: Int, imageView: ImageView) {
-        mStrategy!!.loadBlurImage(resId, imageView)
-    }
-
-    /**
-     * 策略模式的注入操作
-     *
-     * @param strategy
-     */
-    fun setLoadImgStrategy(strategy: BaseImageLoaderStrategy) {
-        mStrategy = strategy
     }
 
     /**
@@ -134,18 +97,8 @@ class ImageLoaderManager {
     /**
      * 清除图片内存缓存
      */
-    fun clearImageMemoryCache(context: Context) {
+    private fun clearImageMemoryCache(context: Context) {
         mStrategy!!.clearImageMemoryCache(context)
-    }
-
-    /**
-     * 根据不同的内存状态，来响应不同的内存释放策略
-     *
-     * @param context
-     * @param level
-     */
-    fun trimMemory(context: Context, level: Int) {
-        mStrategy!!.trimMemory(context, level)
     }
 
     /**
@@ -156,15 +109,6 @@ class ImageLoaderManager {
         clearImageMemoryCache(context.applicationContext)
     }
 
-    /**
-     * 获取缓存大小
-     *
-     * @return CacheSize
-     */
-    fun getCacheSize(context: Context): String {
-        return mStrategy!!.getCacheSize(context)
-    }
-
     fun saveImage(context: Context, url: String, savePath: String, saveFileName: String, listener: ImageSaveListener) {
         mStrategy!!.saveImage(context, url, savePath, saveFileName, listener)
     }
@@ -172,10 +116,10 @@ class ImageLoaderManager {
     companion object {
 
         //图片默认加载类型 以后有可能有多种类型
-        val PIC_DEFAULT_TYPE = 0
+        const val PIC_DEFAULT_TYPE = 0
 
         //图片默认加载策略 以后有可能有多种图片加载策略
-        val LOAD_STRATEGY_DEFAULT = 0
+        const val LOAD_STRATEGY_DEFAULT = 0
 
         @Volatile
         private var mInstance: ImageLoaderManager? = null

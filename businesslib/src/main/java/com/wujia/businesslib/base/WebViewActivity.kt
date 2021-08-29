@@ -40,7 +40,9 @@ class WebViewActivity : BaseActivity(), View.OnClickListener {
         layoutRightBtn.text = "关闭"
         layoutBackBtn.visibility = View.VISIBLE
         layoutRightBtn.visibility = View.VISIBLE
-        mWebView!!.loadUrl(url)
+        if (url != null) {
+            mWebView!!.loadUrl(url)
+        }
 
         val settings = mWebView!!.settings
         settings.allowUniversalAccessFromFileURLs = true

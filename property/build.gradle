@@ -10,8 +10,6 @@ android {
     defaultConfig {
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
-        versionCode app_version.versionCode
-        versionName app_version.versionName
     }
 
 }
@@ -24,4 +22,9 @@ dependencies {
 
     implementation project(':businesslib')
     annotationProcessor deps.butterknife.compiler
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
